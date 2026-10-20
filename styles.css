@@ -535,3 +535,19 @@ main.content,
     padding: 2px 4px !important;
   }
 }
+
+/* ---------- AJUSTE DAS LOGOS DE APOIO NO CELULAR ---------- */
+@media (max-width: 768px) {
+  .parceiros {
+    gap: 16px !important;            /* Espaçamento menor entre as logos */
+    padding: 15px 10px !important;
+  }
+
+  .parceiros img {
+    max-height: 45px !important;     /* Altura máxima uniforme para mobile */
+    max-width: 120px !important;     /* Largura máxima uniforme */
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;  /* Mantém a proporção sem distorcer */
+  }
+}
