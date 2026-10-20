@@ -77,7 +77,7 @@ grade <- function(df, fn) {
   div(class = "grade", lapply(seq_len(nrow(df)), function(i) fn(df[i, ], i)))
 }
 
-# ---------- FAIXA DO TOPO DA HOME (estilo Bertha) ----------
+# ---------- FAIXA DO TOPO DA HOME  ----------
 # Se houver fotos em data/galeria.csv: mostra as fotos lado a lado (rolagem horizontal).
 # Se não houver: mostra o bloco verde com a sigla, o nome do grupo e a LENTE DA LUPA.
 # A classe "lupa-area" liga a lente que segue o mouse (veja lupa.html).
@@ -102,38 +102,56 @@ faixa_galeria <- function() {
 # ---------- BLOCO "SOBRE" DA HOME: logo à esquerda, texto à direita ----------
 bloco_intro <- function() {
   div(class = "intro reveal",
-    tags$img(src = "img/logo_gpensc.png", alt = "Logo do GPENSC", class = "intro-logo"),
-    div(class = "intro-texto",
-      p(cfg$resumo),
-      tags$a(class = "btn btn-secondary", href = "sobre.html", "Sobre nós")))
+      tags$img(
+        src = "img/equipe/equipe.jpg",
+        alt = "Foto da Equipe GPENSC",
+        style = "width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: 10px;"      ),
+      div(class = "intro-texto",
+          p(cfg$resumo),
+          tags$a(class = "btn btn-secondary", href = "sobre.html", "Sobre nós")
+      )
+  )
 }
 
-# ---------- CARTÕES "PESQUISAS" (foto tingida com cor + título) ----------
-# card_pesq("Título", "pagina.html", "arquivo.jpg", "cor-1")
-# Se a foto existir em img/pesquisas/, ela aparece por baixo da tinta colorida.
-card_pesq <- function(titulo, href, arquivo, classe) {
+# ---------- CARTÕES "PESQUISAS" ----------
+card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
   caminho <- file.path("img", "pesquisas", arquivo)
-  estilo <- if (file.exists(caminho)) paste0("background-image:url(", caminho, ");") else NULL
-  tags$a(class = paste("pq", classe), href = href, style = estilo,
-         div(class = "pq-tinta"),
-         span(class = "pq-titulo", titulo))
+  estilo <- if (!is.null(arquivo) && file.exists(caminho)) paste0("background-image:url(", caminho, ");") else NULL
+  
+  tags$a(
+    class = paste("pq", classe), 
+    href = href, 
+    style = estilo,
+    div(class = "pq-tinta"),
+    div(
+      class = "pq-conteudo",
+      if (!is.null(icone)) tags$i(class = paste("bi", icone, "pq-icone")),
+      span(class = "pq-titulo", titulo)
+    )
+  )
 }
 
 # ---------- NOTÍCIAS ----------
-# Cartão no estilo Bertha: imagem no alto, selo de categoria, logo redonda sobreposta,
-# título, "LEIA MAIS »" e data no rodapé do cartão.
 cartao_noticia <- function(n, i) {
-  img_estilo <- if (tem(n$imagem)) paste0("background-image:url(img/noticias/", n$imagem, ");") else NULL
+  # Se a notícia tiver foto no CSV, usa ela. Senão, usa 'noticia_padrao.jpg'
+  img_nome <- if (tem(n$imagem)) n$imagem else "noticia_padrao.jpg"
+  img_estilo <- paste0("background-image: url('img/noticias/", img_nome, "');")
+  
   div(class = paste("nt reveal", cor_de(i)),
-    div(class = "nt-img", style = img_estilo,
-      span(class = "nt-cat", n$categoria),
-      tags$img(class = "nt-avatar", src = "img/logo_gpensc.png", alt = "")),
-    div(class = "nt-corpo",
-      h4(n$titulo),
-      if (tem(n$url)) tags$a(class = "nt-mais", href = n$url, target = "_blank", "LEIA MAIS »")),
-    div(class = "nt-data", format(n$data, "%d/%m/%Y")))
+      div(class = "nt-img", style = img_estilo,
+          span(
+            class = "nt-cat", 
+            style = "background-color: rgba(0, 0, 0, 0.75); color: #ffffff !important; padding: 4px 10px; border-radius: 6px; margin: 8px; display: inline-block; font-weight: bold; font-size: 0.8rem;",
+            n$categoria
+          )
+      ),
+      div(class = "nt-corpo",
+          h4(n$titulo),
+          if (tem(n$url)) tags$a(class = "nt-mais", href = n$url, target = "_blank", "LEIA MAIS »")
+      ),
+      div(class = "nt-data", format(n$data, "%d/%m/%Y"))
+  )
 }
-
 # ---------- LOGOS DE APOIO ----------
 faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
   div(class = "parceiros reveal",
