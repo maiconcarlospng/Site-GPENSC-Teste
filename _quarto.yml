@@ -19,9 +19,11 @@ website:
   search: true                  # Lupa de busca no menu
 
   navbar:
-    logo: img/logo_gpensc.png   # Logo posicionada corretamente dentro de navbar
+    logo: img/logo_gpensc.png   # Logo posicionada corretamente dentro da navbar
     background: light           # Barra branca
-    right:                      # Alinha os links do menu à DIREITA
+    
+    # LINKS DE NAVEGAÇÃO DO MENU (DIREITA)
+    right:
       - href: sobre.qmd
         text: Quem somos
       - href: linhas.qmd
@@ -56,13 +58,7 @@ website:
         text: Agenda
       - href: contato.qmd
         text: Contato
-# BANDEIRAS DIRETAS
-      - text: "🇧🇷"
-        href: index.html
-      - text: "🇬🇧"
-        href: index-en.html
-      - text: "🇪🇸"
-        href: index-es.html
+
   # Rodapé em 3 colunas
   page-footer:
     left: |
@@ -77,7 +73,7 @@ format:
   html:
     theme: [default, custom.scss]
     css: styles.css
-    page-layout: full          # <--- LIBERA A LARGURA TOTAL EM TODAS AS ABAS
+    page-layout: full          # LIBERA A LARGURA TOTAL EM TODAS AS ABAS
     include-after-body: lupa.html
     toc: false
     smooth-scroll: true

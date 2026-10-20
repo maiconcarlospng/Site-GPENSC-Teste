@@ -198,18 +198,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./contato.html"> 
 <span class="menu-text">Contato</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">🇧🇷</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./index-en.html"> 
-<span class="menu-text">🇬🇧</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./index-es.html"> 
-<span class="menu-text">🇪🇸</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -249,8 +237,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="projetos">Projetos</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-0123aacf2659b3c6a991" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0123aacf2659b3c6a991">{"x":{"filter":"none","vertical":false,"data":[["[EXEMPLO] Projeto de extensão 1"],["Em andamento"],["[Nome]"],[2025]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Título<\/th>\n      <th>Situação<\/th>\n      <th>Coordenação<\/th>\n      <th>Início<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"language":{"url":"https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"},"columnDefs":[{"className":"dt-right","targets":3},{"name":"Título","targets":0},{"name":"Situação","targets":1},{"name":"Coordenação","targets":2},{"name":"Início","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2ee81d529e292c8a4ebf" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2ee81d529e292c8a4ebf">{"x":{"filter":"none","vertical":false,"data":[["[EXEMPLO] Projeto de extensão 1"],["Em andamento"],["[Nome]"],[2025]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Título<\/th>\n      <th>Situação<\/th>\n      <th>Coordenação<\/th>\n      <th>Início<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"language":{"url":"https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"},"columnDefs":[{"className":"dt-right","targets":3},{"name":"Título","targets":0},{"name":"Situação","targets":1},{"name":"Coordenação","targets":2},{"name":"Início","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -262,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 </main> <!-- /main -->
-<!-- MOTOR DE TRADUÇÃO AUTOMÁTICA E INJEÇÃO DAS BANDEIRAS -->
+<!-- MOTOR DE TRADUÇÃO AUTOMÁTICA E BANDEIRAS OTIMIZADAS PARA MOBILE -->
 
 <div id="google_translate_element" style="position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none;"></div>
 
@@ -314,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-  // Inserção na ordem exata: [Ícone Logo] -> [Texto GPENSC] -> [Bandeiras]
+  // Injeção com eventos otimizados para touch no celular
 
   document.addEventListener("DOMContentLoaded", function() {
 
@@ -330,15 +318,13 @@ ul.task-list li input[type="checkbox"] {
 
       container.innerHTML = `
 
-        <img src="https://flagcdn.com/w40/br.png" class="bandeira-idioma" onclick="traduzirPagina('pt')" alt="Português" title="Português">
+        <img src="https://flagcdn.com/w40/br.png" class="bandeira-idioma" onclick="traduzirPagina('pt')" ontouchstart="traduzirPagina('pt')" alt="Português" title="Português">
 
-        <img src="https://flagcdn.com/w40/us.png" class="bandeira-idioma" onclick="traduzirPagina('en')" alt="English" title="English">
+        <img src="https://flagcdn.com/w40/us.png" class="bandeira-idioma" onclick="traduzirPagina('en')" ontouchstart="traduzirPagina('en')" alt="English" title="English">
 
-        <img src="https://flagcdn.com/w40/es.png" class="bandeira-idioma" onclick="traduzirPagina('es')" alt="Español" title="Español">
+        <img src="https://flagcdn.com/w40/es.png" class="bandeira-idioma" onclick="traduzirPagina('es')" ontouchstart="traduzirPagina('es')" alt="Español" title="Español">
 
       `;
-
-      // Insere a div de bandeiras LOGO APÓS o texto "GPENSC"
 
       navbarTitle.after(container);
 
@@ -356,7 +342,7 @@ ul.task-list li input[type="checkbox"] {
 
 <style>
 
-  /* Esconde avisos e barras padrão do Google Translate */
+  /* Esconde popups e barras nativas do Google */
 
   body { top: 0 !important; }
 
@@ -366,7 +352,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-  /* Estilização e alinhamento das bandeiras */
+  /* Ajustes de alinhamento e sensibilidade ao toque (Touch) */
 
   .bandeiras-container {
 
@@ -374,9 +360,17 @@ ul.task-list li input[type="checkbox"] {
 
     align-items: center !important;
 
-    gap: 0.4rem !important;
+    gap: 0.35rem !important;
 
-    margin-left: 0.6rem !important;
+    margin-left: 0.4rem !important;
+
+    margin-right: 0.2rem !important;
+
+    z-index: 1050 !important; /* Garante prioridade na camada de clique/toque no celular */
+
+    position: relative !important;
+
+    pointer-events: auto !important;
 
   }
 
@@ -396,15 +390,21 @@ ul.task-list li input[type="checkbox"] {
 
     box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
 
-    transition: transform 0.2s ease, opacity 0.2s ease !important;
+    touch-action: manipulation !important; /* Remove atrasos de clique em navegadores mobile */
+
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+
+    padding: 2px !important; /* Expande a área clicável sem alterar o tamanho visual */
 
   }
 
 
 
+  .bandeira-idioma:active,
+
   .bandeira-idioma:hover {
 
-    transform: scale(1.18) !important;
+    transform: scale(1.15) !important;
 
     opacity: 0.85;
 
