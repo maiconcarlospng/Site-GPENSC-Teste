@@ -513,3 +513,25 @@ main.content,
   opacity: 1;
   transform: scale(1.08); /* Leve zoom ao passar o mouse */
 }
+
+/* ---------- AJUSTE DAS BANDEIRAS EM TELAS MENORES (CELULAR) ---------- */
+@media (max-width: 768px) {
+  /* Reduz ligeiramente o tamanho das bandeiras */
+  .gtrans img, 
+  .flags img, 
+  .idiomas img, 
+  .lang-switcher img {
+    max-width: 20px !important;
+    height: auto !important;
+  }
+
+  /* Reduz o espaçamento entre os ícones e o texto de tradução */
+  .gtrans, 
+  .flags, 
+  .idiomas, 
+  .lang-switcher {
+    gap: 4px !important;
+    font-size: 0.8rem !important;
+    padding: 2px 4px !important;
+  }
+}
