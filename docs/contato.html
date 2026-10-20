@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -178,6 +178,18 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./contato.html" aria-current="page"> 
 <span class="menu-text">Contato</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">🇧🇷</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index-en.html"> 
+<span class="menu-text">🇬🇧</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index-es.html"> 
+<span class="menu-text">🇪🇸</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -186,12 +198,12 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -200,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -220,167 +232,155 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
-<!-- =====================================================================
+<!-- MOTOR DE TRADUÇÃO AUTOMÁTICA E INJEÇÃO DAS BANDEIRAS -->
 
-     lupa.html – JAVASCRIPT GERAL (include-after-body)
-
-     Contém:
-
-     1) Animação de entrada ao rolar a página (Scroll Reveal)
-
-     2) Sistema de Troca de Idiomas (PT / EN / ES)
-
-     ===================================================================== -->
+<div id="google_translate_element" style="position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none;"></div>
 
 
 
-<script>
+<script type="text/javascript">
 
-document.addEventListener("DOMContentLoaded", function () {
+  function googleTranslateElementInit() {
 
+    new google.translate.TranslateElement({
 
+      pageLanguage: 'pt',
 
-  // 1) REVELAR AO ROLAR (Scroll Reveal):
+      includedLanguages: 'pt,en,es',
 
-  // Elementos com a classe "reveal" aparecem suavemente ao entrar na viewport.
+      autoDisplay: false
 
-  var alvos = document.querySelectorAll(".reveal");
-
-  if ("IntersectionObserver" in window) {
-
-    var obs = new IntersectionObserver(function (entries) {
-
-      entries.forEach(function (e) {
-
-        if (e.isIntersecting) { 
-
-          e.target.classList.add("visivel"); 
-
-          obs.unobserve(e.target); 
-
-        }
-
-      });
-
-    }, { threshold: 0.12 });
-
-    alvos.forEach(function (el) { obs.observe(el); });
-
-  } else {
-
-    // Fallback para navegadores antigos
-
-    alvos.forEach(function (el) { el.classList.add("visivel"); });
+    }, 'google_translate_element');
 
   }
 
 
 
-});
+  function traduzirPagina(langCode) {
+
+    var langPair = '/pt/' + langCode;
+
+    document.cookie = 'googtrans=' + langPair + '; path=/;';
+
+    document.cookie = 'googtrans=' + langPair + '; path=/; domain=' + window.location.hostname;
 
 
 
-// 2) SISTEMA DE TROCA DE IDIOMAS (PT / EN / ES)
+    var select = document.querySelector('.goog-te-combo');
 
-const i18nDict = {
+    if (select) {
 
-  pt: {
+      select.value = langCode;
 
-    "nav-sobre": "Quem somos",
+      select.dispatchEvent(new Event('change'));
 
-    "nav-linhas": "Linhas de pesquisa",
+    } else {
 
-    "nav-pesquisa": "Pesquisa",
+      window.location.reload();
 
-    "nav-projetos": "Projetos",
-
-    "nav-publicacoes": "Publicações",
-
-    "nav-extensao": "Extensão",
-
-    "nav-disciplinas": "Disciplinas",
-
-    "nav-noticias": "Notícias",
-
-    "nav-contato": "Contato"
-
-  },
-
-  en: {
-
-    "nav-sobre": "About Us",
-
-    "nav-linhas": "Research Lines",
-
-    "nav-pesquisa": "Research",
-
-    "nav-projetos": "Projects",
-
-    "nav-publicacoes": "Publications",
-
-    "nav-extensao": "Extension",
-
-    "nav-disciplinas": "Courses",
-
-    "nav-noticias": "News",
-
-    "nav-contato": "Contact"
-
-  },
-
-  es: {
-
-    "nav-sobre": "Quiénes somos",
-
-    "nav-linhas": "Líneas de investigación",
-
-    "nav-pesquisa": "Investigación",
-
-    "nav-projetos": "Proyectos",
-
-    "nav-publicacoes": "Publicaciones",
-
-    "nav-extensao": "Extensión",
-
-    "nav-disciplinas": "Asignaturas",
-
-    "nav-noticias": "Noticias",
-
-    "nav-contato": "Contacto"
+    }
 
   }
 
-};
 
 
+  // Inserção na ordem exata: [Ícone Logo] -> [Texto GPENSC] -> [Bandeiras]
 
-function changeLang(lang) {
+  document.addEventListener("DOMContentLoaded", function() {
 
-  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+    var navbarTitle = document.querySelector(".navbar-brand .navbar-title") || document.querySelector(".navbar-brand");
 
+    
 
+    if (navbarTitle && !document.querySelector(".bandeiras-container")) {
 
-  var elements = document.querySelectorAll('[data-i18n]');
+      var container = document.createElement("div");
 
-  elements.forEach(function(el) {
+      container.className = "bandeiras-container";
 
-    var key = el.getAttribute('data-i18n');
+      container.innerHTML = `
 
-    if (i18nDict[lang] && i18nDict[lang][key]) {
+        <img src="https://flagcdn.com/w40/br.png" class="bandeira-idioma" onclick="traduzirPagina('pt')" alt="Português" title="Português">
 
-      el.textContent = i18nDict[lang][key];
+        <img src="https://flagcdn.com/w40/us.png" class="bandeira-idioma" onclick="traduzirPagina('en')" alt="English" title="English">
+
+        <img src="https://flagcdn.com/w40/es.png" class="bandeira-idioma" onclick="traduzirPagina('es')" alt="Español" title="Español">
+
+      `;
+
+      // Insere a div de bandeiras LOGO APÓS o texto "GPENSC"
+
+      navbarTitle.after(container);
 
     }
 
   });
 
-
-
-  console.log("Idioma alterado para: " + lang.toUpperCase());
-
-}
-
 </script>
+
+
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+<style>
+
+  /* Esconde avisos e barras padrão do Google Translate */
+
+  body { top: 0 !important; }
+
+  .goog-te-banner-frame, .skiptranslate, #goog-gt-tt, .goog-te-spinner-pos { display: none !important; }
+
+  font { background-color: transparent !important; box-shadow: none !important; }
+
+
+
+  /* Estilização e alinhamento das bandeiras */
+
+  .bandeiras-container {
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    gap: 0.4rem !important;
+
+    margin-left: 0.6rem !important;
+
+  }
+
+
+
+  .bandeira-idioma {
+
+    width: 22px !important;
+
+    height: 15px !important;
+
+    object-fit: cover !important;
+
+    border-radius: 2px !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+
+  }
+
+
+
+  .bandeira-idioma:hover {
+
+    transform: scale(1.18) !important;
+
+    opacity: 0.85;
+
+  }
+
+</style>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

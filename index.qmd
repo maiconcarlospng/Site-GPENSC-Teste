@@ -1,5 +1,6 @@
 ---
-pagetitle: "GPENSC – UFOP"
+pagetitle: "GPENSC – Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
+title-prefix: ""
 page-layout: custom
 title-block-banner: false
 ---
