@@ -1,0 +1,17 @@
+---
+title: "Livros"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+```{r}
+# Um cartão por livro (data/livros.csv), do mais recente ao mais antigo.
+cartoes(arrange(livros, desc(ano)), function(l, i)
+  div(class = paste("cartao reveal", cor_de(i)),
+    span(class = "cartao-data", l$ano),
+    h4(l$titulo),
+    p(class = "kw", paste0(l$autores, ". ", l$editora)),
+    if (tem(l$url)) tags$a("Acessar »", href = l$url, target = "_blank")))
+```

@@ -1,0 +1,24 @@
+---
+title: "Disciplinas"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+Disciplinas ministradas pelos integrantes do grupo na graduação e na pós-graduação.
+
+```{r}
+# Uma seção por nível (coluna "nivel" de data/disciplinas.csv).
+tagList(lapply(unique(disciplinas$nivel), function(nv) {
+  tagList(
+    h2(nv),
+    cartoes(filter(disciplinas, nivel == nv), function(d, i)
+      div(class = paste("cartao reveal", cor_de(i)),
+        span(class = "cartao-num", d$codigo),
+        h4(d$nome),
+        p(class = "kw", paste0(d$docente, " · ", d$periodo)),
+        p(d$ementa)))
+  )
+}))
+```

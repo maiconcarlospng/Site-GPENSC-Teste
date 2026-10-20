@@ -1,0 +1,23 @@
+---
+title: "Projetos de extensão"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+O GPENSC articula ensino, pesquisa e extensão: aulas abertas, workshops, cursos gratuitos e ações de divulgação científica em datas como o Dia Nacional da Saúde e Nutrição, o Dia Mundial da Atividade Física e o Dia do Nutricionista.
+
+## Projetos
+
+```{r}
+# Projetos da tabela "projetos" cujo tipo é Extensão (data/projetos.csv).
+projetos |>
+  filter(tipo == "Extensão") |>
+  transmute(Título = titulo, Situação = situacao, Coordenação = coordenador, Início = inicio) |>
+  datatable(rownames = FALSE, options = list(pageLength = 10, language = DT_PT))
+```
+
+## Divulgação científica
+
+[GPENSC no Ar: conheça a série em formato de podcast »](noar.qmd){.btn .btn-secondary}

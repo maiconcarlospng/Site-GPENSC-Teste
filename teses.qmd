@@ -1,0 +1,22 @@
+---
+title: "Teses e dissertações"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+Defesas e qualificações de mestrado e doutorado orientadas por integrantes do grupo.
+
+```{r}
+# Monta a coluna "Acesso" com um link HTML quando houver url no CSV.
+# escape = FALSE permite que o link HTML apareça como link (e não como texto).
+defesas |>
+  arrange(desc(data)) |>
+  mutate(Acesso = ifelse(is.na(url) | url == "", "",
+                         paste0('<a href="', url, '" target="_blank">Acessar</a>'))) |>
+  transmute(Data = format(data, "%d/%m/%Y"), Nível = nivel, Etapa = etapa,
+            Autor = autor, Título = titulo, Orientação = orientador, Acesso) |>
+  datatable(rownames = FALSE, filter = "top", escape = FALSE,
+            options = list(pageLength = 10, language = DT_PT))
+```

@@ -1,0 +1,17 @@
+---
+title: "Vídeos"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+```{r}
+# Um cartão por vídeo (data/videos.csv). Cole o link do YouTube/Instagram na coluna "url".
+cartoes(arrange(videos, desc(data)), function(v, i)
+  div(class = paste("cartao reveal", cor_de(i)),
+    span(class = "cartao-data", format(v$data, "%d/%m/%Y")),
+    h4(v$titulo),
+    p(v$descricao),
+    if (tem(v$url)) tags$a("Assistir »", href = v$url, target = "_blank")))
+```

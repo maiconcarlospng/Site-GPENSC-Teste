@@ -1,0 +1,22 @@
+---
+title: "Agenda"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+Aulas abertas, workshops, cursos, bancas e outros eventos do grupo.
+
+```{r}
+# Linha do tempo de eventos (data/eventos.csv), do mais recente ao mais antigo.
+ev <- eventos |> arrange(desc(data))
+div(class = "tl",
+  lapply(seq_len(nrow(ev)), function(i)
+    div(class = "tl-bloco reveal",
+      div(class = "tl-ano", format(ev$data[i], "%d/%m/%Y")),
+      div(class = "tl-item",
+        span(class = "selo", ev$tipo[i]), " ", ev$titulo[i],
+        if (tem(ev$local[i])) tags$em(paste0(" — ", ev$local[i])),
+        if (tem(ev$url[i])) tags$span(" ", tags$a("Mais informações", href = ev$url[i], target = "_blank"))))))
+```

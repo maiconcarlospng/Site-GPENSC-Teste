@@ -1,0 +1,15 @@
+{
+  "hash": "23b87623e243d975e1766f84fcaae3ea",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Notícias\"\n---\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n\n```{=html}\n<h2>Notícia</h2>\n<div class=\"cartoes\">\n<div class=\"nt reveal cor-1\">\n<div class=\"nt-img\">\n<span class=\"nt-cat\">Notícia</span>\n<img class=\"nt-avatar\" src=\"img/logo_gpensc.png\" alt=\"\"/>\n</div>\n<div class=\"nt-corpo\">\n<h4>[EXEMPLO] Notícia 1</h4>\n</div>\n<div class=\"nt-data\">01/09/2025</div>\n</div>\n</div>\n<h2>Defesa</h2>\n<div class=\"cartoes\">\n<div class=\"nt reveal cor-1\">\n<div class=\"nt-img\">\n<span class=\"nt-cat\">Defesa</span>\n<img class=\"nt-avatar\" src=\"img/logo_gpensc.png\" alt=\"\"/>\n</div>\n<div class=\"nt-corpo\">\n<h4>[EXEMPLO] Defesa de mestrado</h4>\n</div>\n<div class=\"nt-data\">01/08/2025</div>\n</div>\n</div>\n<h2>GPENSC no Ar</h2>\n<div class=\"cartoes\">\n<div class=\"nt reveal cor-1\">\n<div class=\"nt-img\">\n<span class=\"nt-cat\">GPENSC no Ar</span>\n<img class=\"nt-avatar\" src=\"img/logo_gpensc.png\" alt=\"\"/>\n</div>\n<div class=\"nt-corpo\">\n<h4>[EXEMPLO] Novo episódio</h4>\n</div>\n<div class=\"nt-data\">01/07/2025</div>\n</div>\n</div>\n```\n\n:::\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

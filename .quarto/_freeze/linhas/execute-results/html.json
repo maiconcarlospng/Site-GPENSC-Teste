@@ -1,0 +1,15 @@
+{
+  "hash": "47d9d8b93d60bed8ae30beb38cf953a6",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Linhas de pesquisa\"\n---\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n\n```{=html}\n<div class=\"cartoes\">\n<div class=\"cartao reveal cor-1\">\n<span class=\"cartao-num\">L1</span>\n<h4>[EXEMPLO] Linha de pesquisa 1</h4>\n<p>[Descrição da linha – preencher]</p>\n<p class=\"kw\">\n<strong>Palavras-chave: </strong>\npalavra 1; palavra 2\n</p>\n</div>\n<div class=\"cartao reveal cor-2\">\n<span class=\"cartao-num\">L2</span>\n<h4>[EXEMPLO] Linha de pesquisa 2</h4>\n<p>[Descrição da linha – preencher]</p>\n<p class=\"kw\">\n<strong>Palavras-chave: </strong>\npalavra 1; palavra 2\n</p>\n</div>\n<div class=\"cartao reveal cor-3\">\n<span class=\"cartao-num\">L3</span>\n<h4>[EXEMPLO] Linha de pesquisa 3</h4>\n<p>[Descrição da linha – preencher]</p>\n<p class=\"kw\">\n<strong>Palavras-chave: </strong>\npalavra 1; palavra 2\n</p>\n</div>\n</div>\n```\n\n:::\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

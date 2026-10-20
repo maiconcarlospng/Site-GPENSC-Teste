@@ -1,0 +1,15 @@
+{
+  "hash": "9321294998512bc1121b1ab4d1f4da56",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Agenda\"\n---\n\n\n::: {.cell}\n\n:::\n\n\nAulas abertas, workshops, cursos, bancas e outros eventos do grupo.\n\n\n::: {.cell}\n::: {.cell-output-display}\n\n```{=html}\n<div class=\"tl\">\n<div class=\"tl-bloco reveal\">\n<div class=\"tl-ano\">01/12/2025</div>\n<div class=\"tl-item\">\n<span class=\"selo\">Defesa</span>\n \n[EXEMPLO] Defesa de doutorado\n<em> — [Local ou link]</em>\n</div>\n</div>\n<div class=\"tl-bloco reveal\">\n<div class=\"tl-ano\">05/11/2025</div>\n<div class=\"tl-item\">\n<span class=\"selo\">Curso</span>\n \n[EXEMPLO] Curso gratuito (ex.: Introdução ao software R)\n<em> — [Local ou link]</em>\n</div>\n</div>\n<div class=\"tl-bloco reveal\">\n<div class=\"tl-ano\">25/10/2025</div>\n<div class=\"tl-item\">\n<span class=\"selo\">Workshop</span>\n \n[EXEMPLO] Workshop\n<em> — [Local ou link]</em>\n</div>\n</div>\n<div class=\"tl-bloco reveal\">\n<div class=\"tl-ano\">10/10/2025</div>\n<div class=\"tl-item\">\n<span class=\"selo\">Aula aberta</span>\n \n[EXEMPLO] Aula aberta com convidado(a)\n<em> — [Local ou link]</em>\n</div>\n</div>\n</div>\n```\n\n:::\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

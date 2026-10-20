@@ -1,0 +1,5 @@
+data,nivel,etapa,autor,titulo,orientador,url
+2025-06-15,Mestrado,Defesa,[Nome do(a) mestrando(a)],[EXEMPLO] Título da dissertação,[Orientador(a)],
+2025-07-10,Mestrado,Qualificação,[Nome do(a) mestrando(a)],[EXEMPLO] Título do projeto,[Orientador(a)],
+2025-08-20,Doutorado,Qualificação,[Nome do(a) doutorando(a)],[EXEMPLO] Título do projeto,[Orientador(a)],
+2025-09-30,Doutorado,Defesa,[Nome do(a) doutorando(a)],[EXEMPLO] Título da tese,[Orientador(a)],

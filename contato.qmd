@@ -1,0 +1,11 @@
+---
+title: "Contato"
+---
+
+{{< var endereco >}}
+
+**E-mail:** [{{< var email >}}](mailto:{{< var email >}})
+
+**Instagram:** [@gpenscufop]({{< var instagram >}})
+
+**Diretório do CNPq:** [Página do grupo]({{< var link_dgp >}})

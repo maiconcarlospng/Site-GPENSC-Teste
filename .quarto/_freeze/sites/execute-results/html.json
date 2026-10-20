@@ -1,0 +1,15 @@
+{
+  "hash": "17188ef9ad46d4fd20775bf79dd7a39e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Sites recomendados\"\n---\n\n\n::: {.cell}\n\n:::\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n\n```{=html}\n<div class=\"cartoes\">\n<div class=\"cartao reveal cor-1\">\n<h4>Programa de Pós-Graduação em Saúde e Nutrição (PPGSN)</h4>\n<p>Programa ao qual o grupo está vinculado</p>\n<a href=\"https://ppgsn.ufop.br\" target=\"_blank\">Visitar »</a>\n</div>\n<div class=\"cartao reveal cor-2\">\n<h4>[EXEMPLO] Outro site útil</h4>\n<p>[Descrição curta – preencher]</p>\n</div>\n</div>\n```\n\n:::\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

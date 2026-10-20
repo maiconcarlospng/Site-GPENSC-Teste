@@ -1,0 +1,81 @@
+# =====================================================================
+# _quarto.yml  –  CONFIGURAÇÃO GERAL DO SITE
+# =====================================================================
+
+project:
+  type: website
+  output-dir: docs             # pasta onde o site pronto é gerado (GitHub Pages lê daqui)
+  render:
+    - "*.qmd"                  # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
+  resources:
+    - img/**                   # copia TODAS as imagens para o site (inclui fotos usadas só no CSS)
+
+lang: pt-BR
+
+website:
+  title: "GPENSC"
+  description: "Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
+  favicon: img/logo_gpensc.png
+  search: true                  # Lupa de busca no menu
+
+  navbar:
+    logo: img/logo_gpensc.png   # Logo posicionada corretamente dentro de navbar
+    background: light           # Barra branca
+    right:                      # Alinha os links do menu à DIREITA
+      - href: sobre.qmd
+        text: Quem somos
+      - href: linhas.qmd
+        text: Linhas de pesquisa
+      - text: Pesquisa
+        menu:
+          - href: projetos.qmd
+            text: Projetos
+          - href: publicacoes.qmd
+            text: Publicações
+      - text: Extensão
+        menu:
+          - href: extensao.qmd
+            text: Projetos de extensão
+          - href: noar.qmd
+            text: GPENSC no Ar
+      - href: disciplinas.qmd
+        text: Disciplinas
+      - text: Biblioteca virtual
+        menu:
+          - href: teses.qmd
+            text: Teses e dissertações
+          - href: livros.qmd
+            text: Livros
+          - href: videos.qmd
+            text: Vídeos
+          - href: sites.qmd
+            text: Sites recomendados
+      - href: noticias.qmd
+        text: Notícias
+      - href: agenda.qmd
+        text: Agenda
+      - href: contato.qmd
+        text: Contato
+
+  # Rodapé em 3 colunas
+  page-footer:
+    left: |
+      [Quem somos](sobre.qmd) · [Notícias](noticias.qmd) · [Agenda](agenda.qmd) · [Contato](contato.qmd)
+    center: |
+      © GPENSC · Universidade Federal de Ouro Preto
+    right: |
+      [<i class="bi bi-instagram"></i>](https://instagram.com/gpenscufop){aria-label="Instagram" title="Instagram"}
+      [<i class="bi bi-envelope"></i>](mailto:gpensc@ufop.edu.br){aria-label="E-mail" title="E-mail"}
+
+format:
+  html:
+    theme: [default, custom.scss]
+    css: styles.css
+    include-after-body: lupa.html
+    toc: false
+    smooth-scroll: true
+
+execute:
+  echo: false      # esconde o código R nas páginas
+  warning: false
+  message: false

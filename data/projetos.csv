@@ -1,0 +1,4 @@
+titulo,tipo,situacao,coordenador,inicio,fim,linha_id,financiamento
+[EXEMPLO] Projeto de pesquisa 1,Pesquisa,Em andamento,[Nome],2024,,L1,[Agência/Edital]
+[EXEMPLO] Projeto de extensão 1,Extensão,Em andamento,[Nome],2025,,L2,[Agência/Edital]
+[EXEMPLO] Projeto de pesquisa 2,Pesquisa,Concluído,[Nome],2021,2023,L3,[Agência/Edital]

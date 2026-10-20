@@ -1,0 +1,16 @@
+---
+title: "Sites recomendados"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+```{r}
+# Um cartão por site (data/sites.csv).
+cartoes(sites, function(s, i)
+  div(class = paste("cartao reveal", cor_de(i)),
+    h4(s$nome),
+    p(s$descricao),
+    if (tem(s$url)) tags$a("Visitar »", href = s$url, target = "_blank")))
+```

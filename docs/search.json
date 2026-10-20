@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "videos.html",
+    "href": "videos.html",
+    "title": "Vídeos",
+    "section": "",
+    "text": "01/05/2025\n[EXEMPLO] Título do vídeo\n[Descrição curta – preencher]"
+  },
+  {
+    "objectID": "sobre.html",
+    "href": "sobre.html",
+    "title": "Quem somos",
+    "section": "",
+    "text": "Fundado na Escola de Nutrição da UFOP, o GPENSC articula docentes, pesquisadores e estudantes na produção de conhecimento científico rigoroso e aplicado às demandas de saúde pública da comunidade.\nMissão. Gerar e disseminar conhecimento científico em nutrição e saúde coletiva, formando profissionais capacitados e promovendo intervenções de impacto social na saúde pública.\nObjetivos.\n\nInvestigar determinantes sociais, epidemiológicos e nutricionais de saúde em diferentes ciclos de vida e populações.\nFortalecer a integração entre ensino de graduação, pós-graduação e projetos de extensão comunitária.\n\nPágina do grupo no Diretório do CNPq\n\n\n\n\n\nLG\nV\nD\nM\n\n\n\n\n\n\n\n\nInstituições"
+  },
+  {
+    "objectID": "sobre.html#coordenação",
+    "href": "sobre.html#coordenação",
+    "title": "Quem somos",
+    "section": "Coordenação",
+    "text": "Coordenação\n\n\n\n\nLG\n\n[EXEMPLO] Líder do grupo\n[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]\n\n\n\nV\n\n[EXEMPLO] Vice-líder\n[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]"
+  },
+  {
+    "objectID": "sobre.html#pesquisadores",
+    "href": "sobre.html#pesquisadores",
+    "title": "Quem somos",
+    "section": "Pesquisadores",
+    "text": "Pesquisadores\n\n\nDoutorando(a)\n\n\nD\n[EXEMPLO] Doutorando(a)\n\n\nMestrando(a)\n\n\nM\n[EXEMPLO] Mestrando(a)\n\n\nGraduando(a)\n\n\nG\n[EXEMPLO] Graduando(a)\n\n\nEgresso(a)\n\n\nE\n[EXEMPLO] Egresso(a)"
+  },
+  {
+    "objectID": "publicacoes.html#linha-do-tempo",
+    "href": "publicacoes.html#linha-do-tempo",
+    "title": "Publicações",
+    "section": "Linha do tempo",
+    "text": "Linha do tempo\n\n\n\n\n2025\n\nDissertação/TCC\n[SOBRENOME, N.]. [EXEMPLO] Título do trabalho. [Instituição], 2025.\n \n\n\n\n2024\n\nArtigo\n[SOBRENOME, N.; SOBRENOME, N.]. [EXEMPLO] Título do artigo. [Periódico], 2024.\n \n\n\nResumo em evento\n[SOBRENOME, N.]. [EXEMPLO] Título do trabalho. [Evento], 2024.\n \n\n\n\n2023\n\nArtigo\n[SOBRENOME, N.; SOBRENOME, N.]. [EXEMPLO] Título do artigo. [Periódico], 2023."
+  },
+  {
+    "objectID": "publicacoes.html#tabela-completa",
+    "href": "publicacoes.html#tabela-completa",
+    "title": "Publicações",
+    "section": "Tabela completa",
+    "text": "Tabela completa"
+  },
+  {
+    "objectID": "noticias.html",
+    "href": "noticias.html",
+    "title": "Notícias",
+    "section": "",
+    "text": "Notícia\n\n\n\nNotícia\n\n\n\n[EXEMPLO] Notícia 1\n\n01/09/2025\n\n\nDefesa\n\n\n\nDefesa\n\n\n\n[EXEMPLO] Defesa de mestrado\n\n01/08/2025\n\n\nGPENSC no Ar\n\n\n\nGPENSC no Ar\n\n\n\n[EXEMPLO] Novo episódio\n\n01/07/2025"
+  },
+  {
+    "objectID": "livros.html",
+    "href": "livros.html",
+    "title": "Livros",
+    "section": "",
+    "text": "2024\n[EXEMPLO] Título do livro ou capítulo\n[SOBRENOME, N.]. [Editora]"
+  },
+  {
+    "objectID": "index.html#pesquisas",
+    "href": "index.html#pesquisas",
+    "title": "GPENSC",
+    "section": "Pesquisas",
+    "text": "Pesquisas\n\n\n\n\n\nProjetos em andamento\n\n\n\nTeses, dissertações e TCCs\n\n\n\nPublicações\n\n\n\n\n\nVeja todas as pesquisas"
+  },
+  {
+    "objectID": "index.html#últimas-notícias",
+    "href": "index.html#últimas-notícias",
+    "title": "GPENSC",
+    "section": "Últimas notícias",
+    "text": "Últimas notícias\n\n\n\n\n\nNotícia\n\n\n\n[EXEMPLO] Notícia 1\n\n01/09/2025\n\n\n\nDefesa\n\n\n\n[EXEMPLO] Defesa de mestrado\n\n01/08/2025\n\n\n\nGPENSC no Ar\n\n\n\n[EXEMPLO] Novo episódio\n\n01/07/2025\n\n\n\n\n\nTodas as notícias"
+  },
+  {
+    "objectID": "index.html#confira-nossa-agenda-completa-de-aulas-abertas-workshops-e-participações",
+    "href": "index.html#confira-nossa-agenda-completa-de-aulas-abertas-workshops-e-participações",
+    "title": "GPENSC",
+    "section": "Confira nossa agenda completa de aulas abertas, workshops e participações",
+    "text": "Confira nossa agenda completa de aulas abertas, workshops e participações\nClique aqui"
+  },
+  {
+    "objectID": "disciplinas.html",
+    "href": "disciplinas.html",
+    "title": "Disciplinas",
+    "section": "",
+    "text": "Disciplinas ministradas pelos integrantes do grupo na graduação e na pós-graduação.\n\n\nPós-graduação\n\n\n[Código]\n[EXEMPLO] Disciplina do PPGSN\n[Docente] · [Semestre]\n[Ementa resumida – preencher]\n\n\nGraduação\n\n\n[Código]\n[EXEMPLO] Disciplina do curso de Nutrição\n[Docente] · [Semestre]\n[Ementa resumida – preencher]"
+  },
+  {
+    "objectID": "agenda.html",
+    "href": "agenda.html",
+    "title": "Agenda",
+    "section": "",
+    "text": "Aulas abertas, workshops, cursos, bancas e outros eventos do grupo.\n\n\n\n\n01/12/2025\n\nDefesa\n \n[EXEMPLO] Defesa de doutorado\n — [Local ou link]\n\n\n\n05/11/2025\n\nCurso\n \n[EXEMPLO] Curso gratuito (ex.: Introdução ao software R)\n — [Local ou link]\n\n\n\n25/10/2025\n\nWorkshop\n \n[EXEMPLO] Workshop\n — [Local ou link]\n\n\n\n10/10/2025\n\nAula aberta\n \n[EXEMPLO] Aula aberta com convidado(a)\n — [Local ou link]"
+  },
+  {
+    "objectID": "contato.html",
+    "href": "contato.html",
+    "title": "Contato",
+    "section": "",
+    "text": "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro\nE-mail: gpensc@ufop.edu.br\nInstagram: @gpenscufop\nDiretório do CNPq: Página do grupo"
+  },
+  {
+    "objectID": "extensao.html",
+    "href": "extensao.html",
+    "title": "Projetos de extensão",
+    "section": "",
+    "text": "O GPENSC articula ensino, pesquisa e extensão: aulas abertas, workshops, cursos gratuitos e ações de divulgação científica em datas como o Dia Nacional da Saúde e Nutrição, o Dia Mundial da Atividade Física e o Dia do Nutricionista."
+  },
+  {
+    "objectID": "extensao.html#projetos",
+    "href": "extensao.html#projetos",
+    "title": "Projetos de extensão",
+    "section": "Projetos",
+    "text": "Projetos"
+  },
+  {
+    "objectID": "extensao.html#divulgação-científica",
+    "href": "extensao.html#divulgação-científica",
+    "title": "Projetos de extensão",
+    "section": "Divulgação científica",
+    "text": "Divulgação científica\nGPENSC no Ar: conheça a série em formato de podcast »"
+  },
+  {
+    "objectID": "linhas.html",
+    "href": "linhas.html",
+    "title": "Linhas de pesquisa",
+    "section": "",
+    "text": "L1\n[EXEMPLO] Linha de pesquisa 1\n[Descrição da linha – preencher]\n\nPalavras-chave: \npalavra 1; palavra 2\n\n\n\nL2\n[EXEMPLO] Linha de pesquisa 2\n[Descrição da linha – preencher]\n\nPalavras-chave: \npalavra 1; palavra 2\n\n\n\nL3\n[EXEMPLO] Linha de pesquisa 3\n[Descrição da linha – preencher]\n\nPalavras-chave: \npalavra 1; palavra 2"
+  },
+  {
+    "objectID": "noar.html",
+    "href": "noar.html",
+    "title": "GPENSC no Ar",
+    "section": "",
+    "text": "Série do GPENSC em formato de podcast/videocast: convidados conversam sobre nutrição, sono, exercício físico e saúde, em linguagem acessível. Os episódios são divulgados no Instagram do grupo.\n\n\n\n\nEp. 1\nPolifenóis e a associação com o risco de doenças cardiovasculares\n[convidado(a) – preencher]\n\n\nEp. 2\nA motivação por trás das nossas escolhas alimentares\n[convidado(a) – preencher]\n\n\nEp. 3\nImpacto ambiental da dieta\n[convidado(a) – preencher]\n\n\nEp. 4\nO que são Comfort Foods?\n[convidado(a) – preencher]\n\n\nEp. 5\nQualidade do sono e consumo de Comfort Foods\n[convidado(a) – preencher]\n\n\nEp. 6\nSono + risco cardiovascular + consumo alimentar\n[convidado(a) – preencher]\n\n\nEp. 7\nMitos e verdades sobre exercício físico e perda de peso\n[convidado(a) – preencher]\n\n\nEp. 8\nComo criar hábitos de movimento no dia a dia\n[convidado(a) – preencher]\n\n\nEp. 9\nFake news em alimentação e nutrição\n[convidado(a) – preencher]"
+  },
+  {
+    "objectID": "projetos.html",
+    "href": "projetos.html",
+    "title": "Projetos",
+    "section": "",
+    "text": "Projetos de pesquisa e extensão do grupo. Use os campos acima de cada coluna para filtrar."
+  },
+  {
+    "objectID": "sites.html",
+    "href": "sites.html",
+    "title": "Sites recomendados",
+    "section": "",
+    "text": "Programa de Pós-Graduação em Saúde e Nutrição (PPGSN)\nPrograma ao qual o grupo está vinculado\nVisitar »\n\n\n[EXEMPLO] Outro site útil\n[Descrição curta – preencher]"
+  },
+  {
+    "objectID": "teses.html",
+    "href": "teses.html",
+    "title": "Teses e dissertações",
+    "section": "",
+    "text": "Defesas e qualificações de mestrado e doutorado orientadas por integrantes do grupo."
+  }
+]

@@ -1,0 +1,3 @@
+Fotos dos 3 cartões "Pesquisas" da página inicial. Use EXATAMENTE estes nomes:
+  projetos.jpg   publicacoes.jpg   teses.jpg
+Sem foto, o cartão aparece só com a cor (verde, laranja ou vermelho).

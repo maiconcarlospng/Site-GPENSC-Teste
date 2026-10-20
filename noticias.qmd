@@ -1,0 +1,17 @@
+---
+title: "Notícias"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+```{r}
+# Uma seção por categoria (coluna "categoria" de data/noticias.csv).
+# Categorias novas aparecem sozinhas: basta usar um nome novo no CSV.
+cats <- unique(noticias$categoria)
+tagList(lapply(cats, function(cat) {
+  d <- noticias |> filter(categoria == cat) |> arrange(desc(data))
+  tagList(h2(cat), cartoes(d, cartao_noticia))
+}))
+```

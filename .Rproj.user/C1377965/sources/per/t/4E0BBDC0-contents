@@ -1,0 +1,52 @@
+# =====================================================================
+# _variables.yml  –  TEXTOS CURTOS E VARIÁVEIS REUTILIZADAS NO SITE
+# Nas páginas (.qmd) aparecem como: {{< var nome_da_variavel >}}
+# No R (R/helpers.R) são lidas via: cfg$nome_da_variavel
+# =====================================================================
+
+# --- 1. IDENTIDADE E BRANDING ---
+sigla: "GPENSC"
+nome_completo: "Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva"
+instituicao: "Universidade Federal de Ouro Preto (UFOP)"
+unidade: "Escola de Nutrição (ENUT)"
+departamento: "Departamento de Nutrição Clínica e Social (DECNS)"
+
+# --- 2. TEXTOS INSTITUCIONAIS ---
+resumo: "Desenvolvimento de pesquisas científicas, atividades de ensino e ações de extensão voltadas para a epidemiologia nutricional, políticas públicas de alimentação e promoção da saúde coletiva."
+historico: "Fundado na Escola de Nutrição da UFOP, o GPENSC articula docentes, pesquisadores e estudantes na produção de conhecimento científico rigoroso e aplicado às demandas de saúde pública da comunidade."
+missao: "Gerar e disseminar conhecimento científico em nutrição e saúde coletiva, formando profissionais capacitados e promovendo intervenções de impacto social na saúde pública."
+visao: "Ser referência acadêmica e científica na investigação dos determinantes sociais da nutrição e no fortalecimento das políticas públicas de saúde."
+
+# --- 3. OBJETIVOS ESTRATÉGICOS ---
+objetivo1: "Investigar determinantes sociais, epidemiológicos e nutricionais de saúde em diferentes ciclos de vida e populações."
+objetivo2: "Fortalecer a integração entre ensino de graduação, pós-graduação e projetos de extensão comunitária."
+objetivo3: "Promover a divulgação científica e o debate público sobre nutrição, alimentação adequada e saúde coletiva."
+objetivo4: "Capacitar estudantes e pesquisadores na produção e análise de dados em saúde com rigor metodológico."
+
+# --- 4. PROJETOS DE EXTENSÃO E MÍDIA ---
+podcast_nome: "GPENSC no Ar"
+podcast_descricao: "Conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
+link_podcast: "https://open.spotify.com/show/SEU_ID_AQUI"
+
+# --- 5. LINKS INSTITUCIONAIS E PARCERIAS ---
+link_ppgsn: "https://ppgsn.ufop.br"
+link_escola: "https://enut.ufop.br"
+link_ufop: "https://ufop.br"
+link_dgp: "http://dgp.cnpq.br/dgp/espelhogrupo/[ID-DO-GRUPO]"
+
+# --- 6. REDES SOCIAIS E CONTATO ---
+email: "gpensc@ufop.edu.br"
+telefone: "(31) 3559-1800"
+instagram: "https://instagram.com/gpenscufop"
+instagram_user: "@gpenscufop"
+youtube: "https://youtube.com/@gpenscufop"
+spotify: "https://open.spotify.com/show/SEU_ID_AQUI"
+
+# --- 7. ENDEREÇO E LOCALIZAÇÃO ---
+endereco: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro"
+cidade_uf: "Ouro Preto – MG"
+cep: "CEP 35400-000"
+endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Ouro Preto, MG – CEP 35400-000"
+
+# --- 8. RODAPÉ E DIREITOS ---
+copyright: "© GPENSC – Universidade Federal de Ouro Preto. Todos os direitos reservados."

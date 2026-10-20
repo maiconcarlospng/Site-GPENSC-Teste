@@ -1,0 +1,85 @@
+---
+pagetitle: "Quem somos – GPENSC"
+page-layout: full
+title-block-banner: false
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+<!-- Layout do site Espaço e Poder: texto à esquerda, colagem de fotos redondas à direita,
+     faixa colorida com a coordenação e grade de pesquisadores.
+     Os textos vêm do _variables.yml. Para escrever direto aqui, apague o atalho e digite. -->
+
+::: {.secao}
+
+# Quem somos {.titulo-pagina}
+
+::: {.quem}
+
+::: {.quem-texto}
+{{< var historico >}}
+
+**Missão.** {{< var missao >}}
+
+**Objetivos.**
+
+- {{< var objetivo1 >}}
+- {{< var objetivo2 >}}
+
+[Página do grupo no Diretório do CNPq]({{< var link_dgp >}})
+:::
+
+::: {.quem-colagem}
+```{r}
+# Colagem de fotos redondas: usa as 4 primeiras pessoas de data/equipe.csv
+# (coordenação primeiro). Sem foto, aparecem as iniciais.
+topo <- head(arrange(equipe, papel != "Coordenação"), 4)
+div(class = "colagem",
+  lapply(seq_len(nrow(topo)), function(i) foto_pessoa(topo$nome[i], topo$foto[i])))
+```
+:::
+
+:::
+
+```{r}
+faixa_apoio(titulo = "Instituições")
+```
+
+:::
+
+::: {.coords-band}
+::: {.secao}
+
+## Coordenação
+
+```{r}
+# Foto grande à esquerda + mini-bio + "SAIBA MAIS" (papel = "Coordenação" em data/equipe.csv).
+coord <- filter(equipe, papel == "Coordenação")
+div(class = "coords", lapply(seq_len(nrow(coord)), function(i) cartao_coord(coord[i, ], i)))
+```
+
+:::
+:::
+
+::: {.secao}
+
+## Pesquisadores
+
+```{r}
+# Os demais integrantes, agrupados por vínculo, em grade de 5 colunas.
+# ORDEM DAS SEÇÕES: edite o vetor "ordem". Papéis fora da lista aparecem no fim.
+resto <- filter(equipe, papel != "Coordenação")
+ordem <- c("Docente", "Doutorando(a)", "Mestrando(a)", "Graduando(a)", "Egresso(a)")
+papeis <- c(intersect(ordem, unique(resto$papel)), setdiff(unique(resto$papel), ordem))
+
+tagList(lapply(papeis, function(vinculo) {
+  tagList(
+    h3(vinculo),
+    grade(filter(resto, papel == vinculo), cartao_pesq)
+  )
+}))
+```
+
+:::

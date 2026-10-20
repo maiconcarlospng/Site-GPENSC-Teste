@@ -1,0 +1,20 @@
+---
+title: "GPENSC no Ar"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+Série do GPENSC em formato de podcast/videocast: convidados conversam sobre nutrição, sono, exercício físico e saúde, em linguagem acessível. Os episódios são divulgados no [Instagram do grupo]({{< var instagram >}}).
+
+```{r}
+# Um cartão por episódio (data/noar.csv). Para adicionar um episódio, acrescente uma linha ao CSV.
+# A coluna "obs" é só uma anotação sua: ela NÃO aparece no site.
+cartoes(noar, function(e, i)
+  div(class = paste("cartao reveal", cor_de(i)),
+    span(class = "cartao-num", paste("Ep.", e$episodio)),
+    h4(e$titulo),
+    p(class = "kw", e$convidado),
+    if (tem(e$link)) tags$a("Assistir/ouvir »", href = e$link, target = "_blank")))
+```

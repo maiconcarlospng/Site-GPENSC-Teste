@@ -1,0 +1,19 @@
+---
+title: "Linhas de pesquisa"
+---
+
+```{r}
+source("R/helpers.R")
+```
+
+```{r}
+# Um cartão por linha de pesquisa (data/linhas.csv).
+# if (tem(...)) só mostra as palavras-chave se o campo estiver preenchido.
+cartoes(linhas, function(l, i)
+  div(class = paste("cartao reveal", cor_de(i)),
+    span(class = "cartao-num", l$id),
+    h4(l$nome),
+    p(l$descricao),
+    if (tem(l$palavras_chave))
+      p(class = "kw", tags$strong("Palavras-chave: "), l$palavras_chave)))
+```

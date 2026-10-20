@@ -1,0 +1,5 @@
+ano,tipo,autores,titulo,veiculo,doi,url,linha_id
+2023,Artigo,"[SOBRENOME, N.; SOBRENOME, N.]",[EXEMPLO] Título do artigo,[Periódico],,,L1
+2024,Artigo,"[SOBRENOME, N.; SOBRENOME, N.]",[EXEMPLO] Título do artigo,[Periódico],,,L2
+2024,Resumo em evento,"[SOBRENOME, N.]",[EXEMPLO] Título do trabalho,[Evento],,,L1
+2025,Dissertação/TCC,"[SOBRENOME, N.]",[EXEMPLO] Título do trabalho,[Instituição],,,L3
