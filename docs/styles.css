@@ -469,3 +469,47 @@ main.content,
   color: #4a5568;
   margin-bottom: 0.5rem;
 }
+
+/* ---------- FAIXA DE APOIO E PARCEIROS ---------- */
+.parceiros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; /* Espaçamento entre cada logo */
+  padding: 20px 0;
+}
+
+.parceiros small {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666666;
+  margin-bottom: 15px;
+}
+
+.parceiros a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parceiros img {
+  max-height: 70px;       /* Limita a altura máxima de todas as logos */
+  max-width: 180px;       /* Limita a largura máxima */
+  width: auto;
+  height: auto;
+  object-fit: contain;    /* Preserva a proporção original sem esticar */
+  filter: grayscale(20%);  /* Suaviza as cores para um visual uniforme */
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.parceiros img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.08); /* Leve zoom ao passar o mouse */
+}

@@ -154,11 +154,30 @@ cartao_noticia <- function(n, i) {
 }
 # ---------- LOGOS DE APOIO ----------
 faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
+  if (file.exists("data/apoio.csv")) {
+    # Lê o CSV e converte caracteres acentuados para UTF-8
+    apoio <- read.csv("data/apoio.csv", stringsAsFactors = FALSE, encoding = "latin1")
+    apoio[] <- lapply(apoio, function(x) if (is.character(x)) enc2utf8(iconv(x, from = "latin1", to = "UTF-8")) else x)
+  }
+  
   div(class = "parceiros reveal",
-    tags$small(titulo),
-    lapply(seq_len(nrow(apoio)), function(i)
-      tags$a(href = apoio$url[i], target = "_blank", title = apoio$nome[i],
-             tags$img(src = file.path("img", apoio$logo[i]), alt = paste("Logo:", apoio$nome[i])))))
+      tags$small(titulo),
+      lapply(seq_len(nrow(apoio)), function(i) {
+        logo_path <- apoio$logo[i]
+        src_path <- if (grepl("^img/", logo_path)) logo_path else file.path("img", logo_path)
+        
+        tags$a(
+          href = apoio$url[i], 
+          target = "_blank", 
+          title = apoio$nome[i],
+          tags$img(
+            src = src_path, 
+            alt = paste("Logo:", apoio$nome[i]),
+            style = "max-height: 70px; max-width: 180px; object-fit: contain;"
+          )
+        )
+      })
+  )
 }
 
 # ---------- PESSOAS ----------
