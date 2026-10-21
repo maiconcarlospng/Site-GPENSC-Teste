@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerenciador de Conteúdo</title>
-</head>
-<body>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Administração - GPENSC</title>
+    <link rel="icon" href="/img/favicon.png" />
+
+    <!-- Estilos de personalização visual -->
+    <style>
+      /* Alterar a cor de fundo do ecrã de entrada */
+      body {
+        background-color: #f8f9fa !important;
+      }
+
+      /* Personalizar a caixa de login e botões */
+      button {
+        border-radius: 8px !important;
+      }
+
+      /* Opcional: Ocultar ou substituir a imagem do logótipo por CSS */
+      img[src*="sveltia"], svg {
+        /* Permite ajustar dimensões ou aplicar filtros visuais */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Script principal do Sveltia CMS -->
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  </body>
 </html>
