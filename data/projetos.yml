@@ -1,0 +1,25 @@
+itens:
+- titulo: '[EXEMPLO] Projeto de pesquisa 1'
+  tipo: Pesquisa
+  situacao: Em andamento
+  coordenador: '[Nome]'
+  inicio: '2024'
+  fim: ''
+  linha_id: L1
+  financiamento: '[Agência/Edital]'
+- titulo: '[EXEMPLO] Projeto de extensão 1'
+  tipo: Extensão
+  situacao: Em andamento
+  coordenador: '[Nome]'
+  inicio: '2025'
+  fim: ''
+  linha_id: L2
+  financiamento: '[Agência/Edital]'
+- titulo: '[EXEMPLO] Projeto de pesquisa 2'
+  tipo: Pesquisa
+  situacao: Concluído
+  coordenador: '[Nome]'
+  inicio: '2021'
+  fim: '2023'
+  linha_id: L3
+  financiamento: '[Agência/Edital]'

@@ -1,0 +1,33 @@
+itens:
+- ano: '2023'
+  tipo: Artigo
+  autores: '[SOBRENOME, N.; SOBRENOME, N.]'
+  titulo: '[EXEMPLO] Título do artigo'
+  veiculo: '[Periódico]'
+  doi: ''
+  url: ''
+  linha_id: L1
+- ano: '2024'
+  tipo: Artigo
+  autores: '[SOBRENOME, N.; SOBRENOME, N.]'
+  titulo: '[EXEMPLO] Título do artigo'
+  veiculo: '[Periódico]'
+  doi: ''
+  url: ''
+  linha_id: L2
+- ano: '2024'
+  tipo: Resumo em evento
+  autores: '[SOBRENOME, N.]'
+  titulo: '[EXEMPLO] Título do trabalho'
+  veiculo: '[Evento]'
+  doi: ''
+  url: ''
+  linha_id: L1
+- ano: '2025'
+  tipo: Dissertação/TCC
+  autores: '[SOBRENOME, N.]'
+  titulo: '[EXEMPLO] Título do trabalho'
+  veiculo: '[Instituição]'
+  doi: ''
+  url: ''
+  linha_id: L3

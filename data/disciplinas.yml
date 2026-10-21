@@ -1,0 +1,13 @@
+itens:
+- nivel: Pós-graduação
+  codigo: '[Código]'
+  nome: '[EXEMPLO] Disciplina do PPGSN'
+  docente: '[Docente]'
+  periodo: '[Semestre]'
+  ementa: '[Ementa resumida – preencher]'
+- nivel: Graduação
+  codigo: '[Código]'
+  nome: '[EXEMPLO] Disciplina do curso de Nutrição'
+  docente: '[Docente]'
+  periodo: '[Semestre]'
+  ementa: '[Ementa resumida – preencher]'

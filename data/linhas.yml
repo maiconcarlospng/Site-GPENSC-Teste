@@ -1,0 +1,13 @@
+itens:
+- id: L1
+  nome: '[EXEMPLO] Linha de pesquisa 1'
+  descricao: '[Descrição da linha – preencher]'
+  palavras_chave: palavra 1; palavra 2
+- id: L2
+  nome: '[EXEMPLO] Linha de pesquisa 2'
+  descricao: '[Descrição da linha – preencher]'
+  palavras_chave: palavra 1; palavra 2
+- id: L3
+  nome: '[EXEMPLO] Linha de pesquisa 3'
+  descricao: '[Descrição da linha – preencher]'
+  palavras_chave: palavra 1; palavra 2

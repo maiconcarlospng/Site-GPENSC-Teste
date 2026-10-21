@@ -3,50 +3,226 @@ local_backend: true
 backend:
   name: git-gateway
   branch: main
-  identity_url: https://sitegpensc.netlify.app/.netlify/identity
-  gateway_url: https://sitegpensc.netlify.app/.netlify/git
 
-locale: 'pt'
+locale: "pt"
 
 media_folder: "img"
 public_folder: "img"
-# ... (restante das coleções se mantém igual)
 
 collections:
-  - name: "secao_noticias"
-    label: "Notícias e Eventos"
+  - name: "conteudo"
+    label: "Conteúdo do site"
     files:
-      - label: "Tabela de Notícias"
+
+      - label: "Notícias"
         name: "noticias"
-        file: "data/noticias.csv"
+        file: "data/noticias.yml"
         fields:
-          - { label: "Título", name: "titulo", widget: "string" }
-          - { label: "Categoria", name: "categoria", widget: "string" }
-          - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
-          - { label: "Resumo", name: "resumo", widget: "text" }
-          - { label: "Link de Acesso", name: "link", widget: "string", required: false }
-          - { label: "Imagem", name: "imagem", widget: "image", required: false }
+          - label: "Notícias"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.data}} - {{fields.titulo}}"
+            fields:
+              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+              - { label: "Categoria", name: "categoria", widget: "string", required: false }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Resumo", name: "resumo", widget: "text", required: false }
+              - { label: "Link", name: "url", widget: "string", required: false }
+              - { label: "Imagem", name: "imagem", widget: "image", required: false }
 
-  - name: "secao_equipe"
-    label: "Membros da Equipe"
-    files:
-      - label: "Tabela de Equipe"
+      - label: "Eventos"
+        name: "eventos"
+        file: "data/eventos.yml"
+        fields:
+          - label: "Eventos"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.data}} - {{fields.titulo}}"
+            fields:
+              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+              - { label: "Tipo", name: "tipo", widget: "string", required: false }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Local", name: "local", widget: "string", required: false }
+              - { label: "Link", name: "url", widget: "string", required: false }
+
+      - label: "Equipe"
         name: "equipe"
-        file: "data/equipe.csv"
+        file: "data/equipe.yml"
         fields:
-          - { label: "Nome Completo", name: "nome", widget: "string" }
-          - { label: "Papel / Categoria", name: "categoria", widget: "string" }
-          - { label: "Link Lattes", name: "lattes", widget: "string", required: false }
-          - { label: "Foto", name: "foto", widget: "image", required: false }
-          - { label: "Biografia Curta", name: "bio", widget: "text", required: false }
+          - label: "Membros"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Papel", name: "papel", widget: "string", required: false }
+              - { label: "Formação", name: "formacao", widget: "string", required: false }
+              - { label: "Foto", name: "foto", widget: "image", required: false }
+              - { label: "Lattes", name: "lattes", widget: "string", required: false }
+              - { label: "ORCID", name: "orcid", widget: "string", required: false }
 
-  - name: "secao_apoio"
-    label: "Logos de Apoio e Parceiros"
-    files:
-      - label: "Tabela de Apoio"
-        name: "apoio"
-        file: "data/apoio.csv"
+      - label: "Linhas de pesquisa"
+        name: "linhas"
+        file: "data/linhas.yml"
         fields:
-          - { label: "Nome da Instituição", name: "nome", widget: "string" }
-          - { label: "URL do Site", name: "url", widget: "string" }
-          - { label: "Arquivo da Logo", name: "logo", widget: "image" }
+          - label: "Linhas"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "Código curto, usado em Projetos e Publicações. Não mude depois de criado." }
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Descrição", name: "descricao", widget: "text", required: false }
+              - { label: "Palavras-chave", name: "palavras_chave", widget: "string", required: false }
+
+      - label: "Projetos"
+        name: "projetos"
+        file: "data/projetos.yml"
+        fields:
+          - label: "Projetos"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Tipo", name: "tipo", widget: "string", required: false }
+              - { label: "Situação", name: "situacao", widget: "string", required: false }
+              - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
+              - { label: "Início", name: "inicio", widget: "string", required: false }
+              - { label: "Fim", name: "fim", widget: "string", required: false }
+              - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+              - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
+
+      - label: "Publicações"
+        name: "publicacoes"
+        file: "data/publicacoes.yml"
+        fields:
+          - label: "Publicações"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.ano}} - {{fields.titulo}}"
+            fields:
+              - { label: "Ano", name: "ano", widget: "string" }
+              - { label: "Tipo", name: "tipo", widget: "string", required: false }
+              - { label: "Autores", name: "autores", widget: "string", required: false }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Veículo", name: "veiculo", widget: "string", required: false }
+              - { label: "DOI", name: "doi", widget: "string", required: false }
+              - { label: "Link", name: "url", widget: "string", required: false }
+              - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+
+      - label: "Livros"
+        name: "livros"
+        file: "data/livros.yml"
+        fields:
+          - label: "Livros"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.ano}} - {{fields.titulo}}"
+            fields:
+              - { label: "Ano", name: "ano", widget: "string" }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Autores", name: "autores", widget: "string", required: false }
+              - { label: "Editora", name: "editora", widget: "string", required: false }
+              - { label: "Link", name: "url", widget: "string", required: false }
+
+      - label: "Defesas"
+        name: "defesas"
+        file: "data/defesas.yml"
+        fields:
+          - label: "Defesas"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.autor}} - {{fields.titulo}}"
+            fields:
+              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+              - { label: "Nível", name: "nivel", widget: "string", required: false }
+              - { label: "Etapa", name: "etapa", widget: "string", required: false }
+              - { label: "Autor", name: "autor", widget: "string" }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Orientador", name: "orientador", widget: "string", required: false }
+              - { label: "Link", name: "url", widget: "string", required: false }
+
+      - label: "Disciplinas"
+        name: "disciplinas"
+        file: "data/disciplinas.yml"
+        fields:
+          - label: "Disciplinas"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.codigo}} - {{fields.nome}}"
+            fields:
+              - { label: "Nível", name: "nivel", widget: "string", required: false }
+              - { label: "Código", name: "codigo", widget: "string", required: false }
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Docente", name: "docente", widget: "string", required: false }
+              - { label: "Período", name: "periodo", widget: "string", required: false }
+              - { label: "Ementa", name: "ementa", widget: "text", required: false }
+
+      - label: "NOAR (episódios)"
+        name: "noar"
+        file: "data/noar.yml"
+        fields:
+          - label: "Episódios"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.episodio}} - {{fields.titulo}}"
+            fields:
+              - { label: "Episódio", name: "episodio", widget: "string" }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Convidado", name: "convidado", widget: "string", required: false }
+              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
+              - { label: "Link", name: "link", widget: "string", required: false }
+              - { label: "Observação", name: "obs", widget: "text", required: false }
+
+      - label: "Vídeos"
+        name: "videos"
+        file: "data/videos.yml"
+        fields:
+          - label: "Vídeos"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Descrição", name: "descricao", widget: "text", required: false }
+              - { label: "Link", name: "url", widget: "string" }
+
+      - label: "Sites úteis"
+        name: "sites"
+        file: "data/sites.yml"
+        fields:
+          - label: "Sites"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Descrição", name: "descricao", widget: "text", required: false }
+              - { label: "Link", name: "url", widget: "string" }
+
+      - label: "Apoio e parceiros"
+        name: "apoio"
+        file: "data/apoio.yml"
+        fields:
+          - label: "Instituições"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "Link", name: "url", widget: "string", required: false }
+
+      - label: "Galeria"
+        name: "galeria"
+        file: "data/galeria.yml"
+        fields:
+          - label: "Fotos"
+            name: "itens"
+            widget: "list"
+            summary: "{{fields.legenda}}"
+            fields:
+              - { label: "Arquivo", name: "arquivo", widget: "image" }
+              - { label: "Legenda", name: "legenda", widget: "string", required: false }

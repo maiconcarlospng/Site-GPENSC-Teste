@@ -1,0 +1,37 @@
+itens:
+- nome: '[EXEMPLO] Líder do grupo'
+  papel: Coordenação
+  formacao: '[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]'
+  foto: ''
+  lattes: ''
+  orcid: ''
+- nome: '[EXEMPLO] Vice-líder'
+  papel: Coordenação
+  formacao: '[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]'
+  foto: ''
+  lattes: ''
+  orcid: ''
+- nome: '[EXEMPLO] Doutorando(a)'
+  papel: Doutorando(a)
+  formacao: '[Programa]'
+  foto: ''
+  lattes: ''
+  orcid: ''
+- nome: '[EXEMPLO] Mestrando(a)'
+  papel: Mestrando(a)
+  formacao: '[Programa]'
+  foto: ''
+  lattes: ''
+  orcid: ''
+- nome: '[EXEMPLO] Graduando(a)'
+  papel: Graduando(a)
+  formacao: Graduação em Nutrição – UFOP
+  foto: ''
+  lattes: ''
+  orcid: ''
+- nome: '[EXEMPLO] Egresso(a)'
+  papel: Egresso(a)
+  formacao: '[Onde atua hoje]'
+  foto: ''
+  lattes: ''
+  orcid: ''
