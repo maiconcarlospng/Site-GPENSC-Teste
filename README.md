@@ -21,7 +21,7 @@ O projeto é um site responsivo construído com **Quarto, R, HTML, CSS/SCSS e YA
 5. [Publicação e workflows](#publicação-e-workflows)
 6. [Executar localmente](#executar-localmente)
 7. [Alterar código e dados com segurança](#alterar-código-e-dados-com-segurança)
-8. [Transferir o projeto para o GitHub do GPENSC](#transferir-o-projeto-para-o-github-do-gpენსc)
+8. [Transferir o projeto para o GitHub do GPENSC](#transferir-o-projeto-para-o-github-do-gpensc)
 9. [Configurar novamente o painel Sveltia CMS](#configurar-novamente-o-painel-sveltia-cms)
 10. [Antes de transformar o protótipo em site oficial](#antes-de-transformar-o-protótipo-em-site-oficial)
 11. [Problemas frequentes](#problemas-frequentes)
