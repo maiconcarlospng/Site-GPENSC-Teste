@@ -9,7 +9,7 @@ project:
     - "*.qmd"                  # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
   resources:
     - img/**                   # copia TODAS as imagens para o site (inclui fotos usadas só no CSS)
-    - "admin/*"                # <--- ADICIONADO: Copia a pasta do painel Decap CMS para o build final
+    - "admin/**"                # <--- ADICIONADO: Copia a pasta do painel Decap CMS para o build final
 
 lang: pt-BR
 
