@@ -1,8 +1,11 @@
 name: Publicar site Quarto
 
+# Publica apenas quando muda código, conteúdo ou recursos usados pelo site.
+# A documentação de uso e migração está no README.md.
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - "**.qmd"
       - "R/**"
@@ -12,33 +15,36 @@ on:
       - "styles.css"
       - "custom.scss"
       - "lupa.html"
+      - "topo.html"
       - "_quarto.yml"
       - "_variables.yml"
       - "_extensions/**"
       - ".github/workflows/publish.yml"
   workflow_dispatch:
 
+# Permissões mínimas necessárias para compilar e publicar no GitHub Pages.
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Evita duas publicações concorrentes. Se uma edição nova chegar, prioriza a mais recente.
 concurrency:
   group: pages
-  cancel-in-progress: true   # se você salvar duas vezes seguidas, só a última compila
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Compilar site (Quarto + R)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Baixar o repositório e o histórico necessário
+        uses: actions/checkout@v4
         with:
-          # O passo de invalidação compara o SHA anterior do push com o atual.
-          # É necessário trazer o histórico para que ambos os commits existam localmente.
           fetch-depth: 0
 
-      # Cache do Quarto: alterações em apenas CSS, imagens ou painel podem reaproveitar R.
-      - name: Restaurar cache das execuções do Quarto
+      # Reaproveita resultados congelados do Quarto quando a chave de cache é compatível.
+      - name: Restaurar cache do Quarto
         uses: actions/cache@v4
         with:
           path: _freeze
@@ -46,25 +52,28 @@ jobs:
           restore-keys: |
             quarto-freeze-${{ runner.os }}-
 
-      # Os documentos dependem dos YAML e de helpers.R; não use resultados antigos nesses casos.
-      - name: Invalidar resultados congelados quando mudarem dados ou código R
+      # Conteúdo e funções R podem afetar resultados computados; não reutilizar freeze antigo nesses casos.
+      - name: Invalidar resultados congelados se mudarem dados ou código R
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
             changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
             if printf '%s\n' "$changed_files" | grep -Eq '^(R/|data/|_variables\.yml$|_quarto\.yml$)'; then
-              echo "Dados/código compartilhado alterados: removendo cache antigo do Quarto."
+              echo "Dados ou código compartilhado mudaram; removendo _freeze antigo."
               rm -rf _freeze
             fi
           fi
 
-      - uses: quarto-dev/quarto-actions/setup@v2
+      - name: Instalar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
 
-      - uses: r-lib/actions/setup-r@v2
+      - name: Preparar R e usar pacotes binários quando disponíveis
+        uses: r-lib/actions/setup-r@v2
         with:
-          use-public-rspm: true   # baixa pacotes já compilados (bem mais rápido)
+          use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2   # guarda os pacotes em cache
+      - name: Instalar dependências R declaradas pelo projeto
+        uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: |
             any::readr
@@ -80,19 +89,22 @@ jobs:
             any::stringr
             any::lubridate
 
-      - name: Renderizar o site
+      - name: Renderizar páginas e recursos para _site/
         run: quarto render
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Empacotar o site gerado para o GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
   deploy:
+    name: Publicar no GitHub Pages
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Implantar artefato compilado
+        id: deployment
         uses: actions/deploy-pages@v4
