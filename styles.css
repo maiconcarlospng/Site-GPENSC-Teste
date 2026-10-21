@@ -341,6 +341,59 @@ a.btn-warning:hover,
   border-radius: 999px;
 }
 
+/* Controles acessíveis do carrossel automático da galeria. */
+.galeria-controle {
+  position: absolute;
+  z-index: 5;
+  top: calc(50% - 0.35rem);
+  display: grid !important;
+  place-items: center !important;
+  width: 44px;
+  height: 44px;
+  padding: 0 !important;
+  border: 2px solid #fff !important;
+  border-radius: 50% !important;
+  background: rgba(31, 77, 43, 0.9) !important;
+  color: #fff !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.galeria-controle:hover {
+  background: var(--gp-laranja-esc) !important;
+  color: #fff !important;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.galeria-controle:focus-visible {
+  outline: 3px solid var(--gp-laranja);
+  outline-offset: 3px;
+}
+
+.galeria-controle--anterior { left: 0.35rem; }
+.galeria-controle--proximo { right: 0.35rem; }
+
+@media (max-width: 767.98px) {
+  .galeria-controle {
+    width: 36px;
+    height: 36px;
+    font-size: 1.65rem !important;
+  }
+
+  .galeria-controle--anterior { left: 0.2rem; }
+  .galeria-controle--proximo { right: 0.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria-faixa { scroll-behavior: auto; }
+  .galeria-controle { transition: none; }
+}
+
 /* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
 .pq-blocos {
   display: grid;
