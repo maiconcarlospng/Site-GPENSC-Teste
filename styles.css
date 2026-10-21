@@ -1,21 +1,19 @@
 /* =====================================================================
    styles.css – VISUAL DO SITE GPENSC
-   Tipografia: Inter (Geométrica, Neutra, Sem Arredondados)
+   Tipografia: Inter
+   Organização:
+     1. Fonte e variáveis      6. Faixas (agenda, coordenação)
+     2. Menu (navbar)          7. Estrutura e largura da tela
+     3. Títulos e botões       8. Abas, equipe e apoio
+     4. Hero (faixa da home)   9. Celular e tablet
+     5. Cartões e notícias    10. Acessibilidade
    ===================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
-/* ---------- 1. APLICAÇÃO GLOBAL DA FONTE INTER ---------- */
-*, *::before, *::after,
-html, body, p, span, a, div, li, td, th,
-h1, h2, h3, h4, h5, h6,
-.title, .subtitle, .quarto-title, .quarto-secondary-nav, 
-.sidebar, .toc, .breadcrumb, input, button, select, textarea {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-}
-
+/* ---------- 1. FONTE E VARIÁVEIS ---------- */
 :root {
+  --gp-fonte: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --gp-verde: #1F4D2B;       /* verde-floresta */
   --gp-folha: #5F9A3E;       /* verde-folha */
   --gp-laranja: #D9731F;     /* laranja: botões */
@@ -25,9 +23,37 @@ h1, h2, h3, h4, h5, h6,
   --gp-menta: #DCEBD3;       /* faixa da coordenação */
 }
 
-html, body { 
-  scroll-behavior: smooth; 
-  overflow-x: hidden !important; 
+/* A fonte é aplicada nos elementos de texto, e NÃO em "*" / "::before".
+   Regra anterior (* + ::before com !important) sobrescrevia a fonte dos ÍCONES
+   e transformava os símbolos em quadradinhos (ex.: ícone de âncora nos títulos). */
+html, body, p, span, a, div, li, td, th, label,
+h1, h2, h3, h4, h5, h6,
+.title, .subtitle, .quarto-title, .quarto-secondary-nav,
+.sidebar, .toc, .breadcrumb, input, button, select, textarea {
+  font-family: var(--gp-fonte) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Garante que os ícones (Bootstrap Icons) mantenham a própria fonte */
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  font-family: "bootstrap-icons" !important;
+}
+
+/* Ícone de âncora ao lado dos títulos: não é necessário neste site */
+a.anchor-link,
+.anchor-link {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;   /* evita zoom automático de fonte no iPhone */
+}
+
+html, body {
+  overflow-x: hidden;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -36,30 +62,42 @@ html, body {
 body {
   color: #2b2b2b;
   background-color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Mídia nunca ultrapassa a largura da tela */
+img, video, iframe, svg {
+  max-width: 100%;
+}
+img { height: auto; }
+
+/* Textos longos (links, e-mails, títulos) quebram em vez de estourar a tela */
+main p, main li, main h1, main h2, main h3, main h4, main h5, main td, .nt-corpo {
+  overflow-wrap: anywhere;
 }
 
 /* ---------- 2. MENU E LOGO (NAVBAR) ---------- */
-.faixa-topo, 
-div.faixa-topo { 
-  display: none !important; 
+.faixa-topo,
+div.faixa-topo {
+  display: none !important;
 }
 
-.navbar { 
-  background: #fff !important; 
-  border-bottom: 0; 
-  box-shadow: 0 1px 6px rgba(0,0,0,.08); 
-  position: relative; 
-  padding: 0.8rem 2rem !important; 
+.navbar {
+  background: #fff !important;
+  border-bottom: 0;
+  box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  position: relative;
+  padding: 0.8rem 2rem !important;
 }
 
-.navbar::after { 
-  content: ""; 
-  position: absolute; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--gp-folha) 0 33%, var(--gp-laranja) 33% 66%, var(--gp-vermelho) 66%); 
+  background: linear-gradient(90deg, var(--gp-folha) 0 33%, var(--gp-laranja) 33% 66%, var(--gp-vermelho) 66%);
 }
 
 .navbar-brand,
@@ -82,65 +120,65 @@ div.faixa-topo {
   object-fit: contain;
 }
 
-.navbar .navbar-nav { 
-  margin-left: auto !important; 
-  margin-right: 0 !important; 
+.navbar .navbar-nav {
+  margin-left: auto !important;
+  margin-right: 0 !important;
   gap: 0.2rem;
 }
 
-.navbar .nav-link { 
-  color: var(--gp-verde) !important; 
-  font-weight: 600 !important; 
+.navbar .nav-link {
+  color: var(--gp-verde) !important;
+  font-weight: 600 !important;
   font-size: 0.9rem !important;
   padding: 0.5rem 0.8rem !important;
 }
 
-.navbar .nav-link:hover, 
-.navbar .nav-link.active { 
-  color: var(--gp-laranja) !important; 
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--gp-laranja) !important;
 }
 
-.navbar .dropdown-menu { 
-  border-top: 3px solid var(--gp-laranja); 
+.navbar .dropdown-menu {
+  border-top: 3px solid var(--gp-laranja);
 }
 
 /* ---------- 3. TÍTULOS E BOTÕES ---------- */
 h1, h2, h3, h4, h5, h6,
 main h1, main h2, main h3, main h4, main h5, main h6,
-.h1, .h2, .h3, .h4, .h5, .h6 { 
+.h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: 700 !important;
-  color: var(--gp-verde); 
+  color: var(--gp-verde);
   letter-spacing: -0.03em !important;
 }
 
-main h2 { 
-  text-align: center; 
-  margin: 3rem 0 1.5rem; 
-  padding-bottom: .9rem; 
-  border-bottom: 1px solid #d9d5cb; 
+main h2 {
+  text-align: center;
+  margin: 3rem 0 1.5rem;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid #d9d5cb;
 }
 
-main h2::before { 
-  content: ""; 
-  display: inline-block; 
-  width: 1.1em; 
-  height: 1.1em; 
+main h2::before {
+  content: "";
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
   margin-right: .45em;
-  vertical-align: -.15em; 
-  background: url("img/logo_gpensc.png") center / contain no-repeat; 
+  vertical-align: -.15em;
+  background: url("img/logo_gpensc.png") center / contain no-repeat;
 }
 
 main h3 { text-align: center; margin: 2rem 0 1rem; }
 .titulo-pagina { text-align: center; }
 .centro { text-align: center; margin: 1.5rem 0; }
 
-.btn { 
-  text-transform: uppercase; 
-  letter-spacing: .06em !important; 
-  font-size: .75rem !important; 
+.btn {
+  text-transform: uppercase;
+  letter-spacing: .06em !important;
+  font-size: .75rem !important;
   font-weight: 700 !important;
-  border-radius: .25rem; 
-  padding: .75rem 1.5rem; 
+  border-radius: .25rem;
+  padding: .75rem 1.5rem;
 }
 
 .btn-secondary { background: var(--gp-laranja); border-color: var(--gp-laranja); color: #fff; }
@@ -150,34 +188,34 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 .btn-sm { padding: .45rem 1rem; font-size: .7rem; }
 
 /* ---------- 4. HERO (FAIXA VERDE DA HOME) ---------- */
-.hero { 
-  position: relative; 
-  overflow: hidden; 
-  background: var(--gp-verde); 
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--gp-verde);
   color: #fff;
-  display: flex !important; 
+  display: flex !important;
   align-items: center !important;
-  justify-content: center !important; 
-  gap: 2.2rem !important; 
-  padding: 4.5rem 2rem 3.5rem !important; /* Aumentado o espaço superior para 4.5rem */
-  margin-top: 0.5rem !important;           /* Desloca a faixa verde para baixo do menu */
+  justify-content: center !important;
+  gap: 2.2rem !important;
+  padding: 4.5rem 2rem 3.5rem !important;
+  margin-top: 0.5rem !important;
   text-align: left !important;
 }
 
-.hero-texto { 
+.hero-texto {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  max-width: 650px; 
+  max-width: 650px;
   margin: 0 !important;
 }
 
-.hero-logo { 
-  height: 140px; 
-  width: 140px; 
-  background: #ffffff; 
-  border-radius: 50%; 
-  padding: .75rem; 
+.hero-logo {
+  height: 140px;
+  width: 140px;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: .75rem;
   object-fit: contain;
   order: -1;
   flex-shrink: 0;
@@ -185,100 +223,141 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
   margin: 0 !important;
 }
 
-.hero-sigla { 
-  font-size: 3rem !important; 
-  font-weight: 800 !important; 
-  letter-spacing: -0.03em !important; 
-  display: block; 
-  line-height: 1 !important; 
-  margin-bottom: 0.3rem !important; 
+.hero-sigla {
+  font-size: clamp(2.2rem, 6vw, 3rem) !important;   /* cresce e diminui conforme a tela */
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  display: block;
+  line-height: 1 !important;
+  margin-bottom: 0.3rem !important;
 }
 
-.hero-titulo { 
+.hero-titulo {
   font-weight: 700 !important;
-  font-size: 1.35rem !important; 
-  max-width: 34rem; 
-  line-height: 1.25 !important; 
+  font-size: clamp(1.1rem, 3.5vw, 1.35rem) !important;
+  max-width: 34rem;
+  line-height: 1.25 !important;
   letter-spacing: -0.02em !important;
   margin-top: 0 !important;
   margin-bottom: 0.3rem !important;
 }
 
-.hero-inst { 
-  opacity: .85; 
-  margin-top: 0 !important; 
-  font-size: .9rem !important; 
+.hero-inst {
+  opacity: .85;
+  margin-top: 0 !important;
+  font-size: .9rem !important;
   line-height: 1.2 !important;
 }
 
 .hero-resumo { margin-top: .6rem !important; font-size: .95rem; opacity: .95; line-height: 1.4; }
 .hero-botoes { margin-top: 1.2rem !important; display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* ---------- 5. CARTÕES DE PESQUISA & NOTÍCIAS ---------- */
-.pq-blocos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0 1rem; }
-.pq { 
+/* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
+.pq-blocos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));  /* min(): nunca passa da tela */
+  gap: 1.25rem;
+  margin: 2rem 0 1rem;
+}
+.pq {
   position: relative; display: flex; align-items: flex-end; min-height: 280px; border-radius: .4rem; overflow: hidden;
   background-size: cover; background-position: center; box-shadow: 0 4px 14px rgba(0,0,0,.2);
-  text-decoration: none !important; transition: transform .2s; 
+  text-decoration: none !important; transition: transform .2s;
 }
 .pq:hover { transform: translateY(-4px); }
 .pq-tinta { position: absolute; inset: 0; opacity: .78; }
 .pq.cor-1 .pq-tinta { background: var(--gp-verde); }
 .pq.cor-2 .pq-tinta { background: var(--gp-laranja); }
 .pq.cor-3 .pq-tinta { background: var(--gp-vermelho); }
-.pq-titulo { 
-  position: relative; z-index: 1; color: #fff; 
-  font-size: 1.5rem !important; font-weight: 700 !important; line-height: 1.15; padding: 1.25rem; 
+.pq-titulo {
+  position: relative; z-index: 1; color: #fff;
+  font-size: clamp(1.25rem, 4vw, 1.5rem) !important; font-weight: 700 !important; line-height: 1.15; padding: 1.25rem;
   letter-spacing: -0.02em !important;
 }
 
-.cartoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
-.nt { background: #fff; border-radius: .35rem; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.14); display: flex; flex-direction: column; }
+.cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));  /* 1 coluna em telas estreitas */
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* --- Cartão de notícia --- */
+.nt {
+  position: relative;                 /* necessário para o link cobrir o cartão inteiro */
+  background: #fff; border-radius: .35rem; overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.14);
+  display: flex; flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
 .nt-img { position: relative; height: 190px; background-size: cover; background-position: center; background-color: var(--gp-verde); }
 .nt.cor-2 .nt-img { background-color: var(--gp-laranja); }
 .nt.cor-3 .nt-img { background-color: var(--gp-vermelho); }
-.nt-corpo { padding: 2rem 1.25rem 1rem; flex: 1; }
-.nt-corpo h4 { 
+.nt-corpo { padding: 1.5rem 1.25rem 1rem; flex: 1; }
+.nt-corpo h4 {
   font-weight: 700 !important;
-  color: var(--gp-laranja-esc); 
-  font-size: 1.1rem !important; line-height: 1.35; margin: 0 0 .8rem; 
+  color: var(--gp-laranja-esc);
+  font-size: 1.1rem !important; line-height: 1.35; margin: 0 0 .6rem;
   letter-spacing: -0.01em !important;
 }
+.nt-resumo { font-size: .95rem; color: #4a4a4a; margin: 0 0 .8rem; }
 .nt-data { background: #f6f4ef; color: #8a867c; font-size: .8rem; padding: .7rem 1.25rem; }
 
-/* ---------- 6. FAIXAS (AGENDA, COORDENAÇÃO) ---------- */
-.faixa-agenda { 
-  background: var(--gp-areia); 
-  text-align: center; 
-  padding: 3.5rem 2rem !important; 
-  margin-top: 3rem; 
+.nt-mais {
+  display: inline-block;
+  color: var(--gp-laranja-esc);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+}
+.nt-mais:hover { color: var(--gp-laranja); text-decoration: underline; }
+
+/* O link "LEIA MAIS" se estende sobre o cartão inteiro: clicar em qualquer parte abre a notícia */
+.nt-mais::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.nt:has(.nt-mais):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.2);
 }
 
-.faixa-agenda h2 { 
+/* ---------- 6. FAIXAS (AGENDA, COORDENAÇÃO) ---------- */
+.faixa-agenda {
+  background: var(--gp-areia);
+  text-align: center;
+  padding: 3.5rem 2rem !important;
+  margin-top: 3rem;
+}
+
+.faixa-agenda h2 {
   font-weight: 700 !important;
-  font-size: 1.6rem !important;
+  font-size: clamp(1.25rem, 4vw, 1.6rem) !important;
   letter-spacing: -0.03em !important;
-  border: 0 !important; 
-  margin: 0 auto 1.5rem !important; 
-  max-width: 850px; 
+  border: 0 !important;
+  margin: 0 auto 1.5rem !important;
+  max-width: 850px;
   line-height: 1.3;
 }
 
 .faixa-agenda h2::before { display: none !important; }
 
-.faixa { 
-  background: #fff; 
-  border: 1px solid #e6dfd0; 
-  border-left: 6px solid var(--gp-laranja); 
-  border-radius: .4rem; 
-  padding: 1rem 1.25rem; 
-  margin: 1.5rem 0; 
+.faixa {
+  background: #fff;
+  border: 1px solid #e6dfd0;
+  border-left: 6px solid var(--gp-laranja);
+  border-radius: .4rem;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
 }
 
-.coords-band { 
-  background: var(--gp-menta); 
-  padding: 2.5rem 2rem !important; 
-  margin: 2.5rem 0; 
+.coords-band {
+  background: var(--gp-menta);
+  padding: 2.5rem 2rem !important;
+  margin: 2.5rem 0;
 }
 
 .cartao { background: #fff; border: 1px solid #e6dfd0; border-top: 5px solid var(--gp-verde); border-radius: .4rem; padding: 1.25rem; }
@@ -291,22 +370,18 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 .tl-ano { font-size: 1.4rem !important; font-weight: 800 !important; color: var(--gp-verde); }
 
 /* ---------- 7. ESTRUTURA GLOBAL E LARGURA DE TELA ---------- */
-
-/* Reset estrutural */
-html, body, 
-#quarto-content, 
-.page-columns, 
-main.content, 
+#quarto-content,
+.page-columns,
+main.content,
 #quarto-document-content,
 .quarto-container {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
-  overflow-x: hidden !important;
 }
 
-/* COMPUTADOR (DESKTOP): Expande a área de conteúdo para 1400px aproveitando melhor o PC */
+/* COMPUTADOR: área de conteúdo de até 1400px, centralizada */
 @media (min-width: 992px) {
   body:not(.page-index) main.content,
   body:not(.page-index) .secao,
@@ -324,68 +399,29 @@ main.content,
   }
 }
 
-/* Faixas de tela cheia na Home */
-.hero, 
-.faixa-agenda, 
-.coords-band, 
+/* Faixas de tela cheia (ocupam a largura toda mesmo dentro do conteúdo centralizado) */
+.hero,
+.faixa-agenda,
+.coords-band,
 .column-screen {
   width: 100vw !important;
   position: relative !important;
   left: 50% !important;
-  right: 50% !important;
   margin-left: -50vw !important;
-  margin-right: -50vw !important;
   box-sizing: border-box !important;
 }
 
 /* Rodapé */
-.nav-footer { 
-  background: var(--gp-areia); 
-  border-top: 0 !important; 
-  padding: 2rem 1.5rem !important; 
-  font-size: .9rem; 
+.nav-footer {
+  background: var(--gp-areia);
+  border-top: 0 !important;
+  padding: 2rem 1.5rem !important;
+  font-size: .9rem;
   text-align: center;
 }
 .nav-footer a { color: var(--gp-verde); }
 
-/* ---------- 8. REGRA EXCLUSIVA PARA CELULARES (MOBILE <= 768px) ---------- */
-@media (max-width: 768px) {
-  body:not(.page-index) main.content,
-  body:not(.page-index) #quarto-document-content,
-  #quarto-content,
-  main.content {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    padding-top: 1rem !important;
-    max-width: 100% !important;
-  }
-
-  .navbar { padding: 0.6rem 1rem !important; }
-  .navbar-brand { font-size: 1.1rem !important; }
-
-  .hero {
-    flex-direction: column !important;
-    text-align: center !important;
-    padding: 2.5rem 1rem !important;
-  }
-  .hero-sigla { font-size: 2.2rem !important; }
-  .hero-logo { margin-bottom: 0.5rem !important; order: 0; }
-  .hero-botoes { justify-content: center; }
-
-  /* Tabelas roláveis no celular */
-  table, .dataframe, .dataTables_wrapper, .table-responsive {
-    display: block !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  h1, .h1 { font-size: 1.6rem !important; }
-  h2, .h2 { font-size: 1.3rem !important; }
-  h3, .h3 { font-size: 1.1rem !important; }
-}
-
-/* ---------- 9. ABAS E CARDS DA EQUIPE (QUEM SOMOS) ---------- */
+/* ---------- 8. ABAS, EQUIPE E APOIO ---------- */
 .panel-tabset .nav-tabs {
   display: flex !important;
   flex-direction: row !important;
@@ -418,9 +454,10 @@ main.content,
 .logos-institucionais p {
   display: flex !important;
   flex-direction: row !important;
+  flex-wrap: wrap !important;          /* logos quebram de linha no celular */
   align-items: center !important;
   justify-content: center !important;
-  gap: 2rem !important;
+  gap: 1.25rem 2rem !important;
   margin: 1.5rem 0 !important;
   width: 100% !important;
 }
@@ -448,12 +485,7 @@ main.content,
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.membro-nome {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--gp-verde);
-  margin-bottom: 0.25rem;
-}
+.membro-nome { font-size: 1.1rem; font-weight: 700; color: var(--gp-verde); margin-bottom: 0.25rem; }
 
 .membro-cargo {
   font-size: 0.85rem;
@@ -464,19 +496,15 @@ main.content,
   margin-bottom: 0.5rem;
 }
 
-.membro-bio {
-  font-size: 0.9rem;
-  color: #4a5568;
-  margin-bottom: 0.5rem;
-}
+.membro-bio { font-size: 0.9rem; color: #4a5568; margin-bottom: 0.5rem; }
 
-/* ---------- FAIXA DE APOIO E PARCEIROS ---------- */
+/* --- Faixa de apoio e parceiros --- */
 .parceiros {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 30px; /* Espaçamento entre cada logo */
+  gap: 30px;
   padding: 20px 0;
 }
 
@@ -490,64 +518,174 @@ main.content,
   margin-bottom: 15px;
 }
 
-.parceiros a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
+.parceiros a { display: inline-flex; align-items: center; justify-content: center; }
 
 .parceiros img {
-  max-height: 70px;       /* Limita a altura máxima de todas as logos */
-  max-width: 180px;       /* Limita a largura máxima */
+  max-height: 70px;
+  max-width: 180px;
   width: auto;
   height: auto;
-  object-fit: contain;    /* Preserva a proporção original sem esticar */
-  filter: grayscale(20%);  /* Suaviza as cores para um visual uniforme */
+  object-fit: contain;
+  filter: grayscale(20%);
   opacity: 0.85;
   transition: all 0.3s ease;
 }
 
-/* Efeito ao passar o mouse */
 .parceiros img:hover {
   filter: grayscale(0%);
   opacity: 1;
-  transform: scale(1.08); /* Leve zoom ao passar o mouse */
+  transform: scale(1.08);
 }
 
-/* ---------- AJUSTE DAS BANDEIRAS EM TELAS MENORES (CELULAR) ---------- */
-@media (max-width: 768px) {
-  /* Reduz ligeiramente o tamanho das bandeiras */
-  .gtrans img, 
-  .flags img, 
-  .idiomas img, 
-  .lang-switcher img {
-    max-width: 20px !important;
-    height: auto !important;
-  }
+/* ---------- 9. TABLET E CELULAR ---------- */
 
-  /* Reduz o espaçamento entre os ícones e o texto de tradução */
-  .gtrans, 
-  .flags, 
-  .idiomas, 
-  .lang-switcher {
-    gap: 4px !important;
-    font-size: 0.8rem !important;
-    padding: 2px 4px !important;
+/* Tablet e abaixo (até 991px): menu recolhido (hambúrguer) */
+@media (max-width: 991px) {
+  .navbar { padding: 0.7rem 1.25rem !important; }
+
+  .navbar .navbar-collapse {
+    background: #fff;
+    padding: .5rem 0 1rem;
   }
+  .navbar .navbar-nav { gap: 0; margin-left: 0 !important; }
+  .navbar .nav-link {
+    padding: 0.75rem 0.5rem !important;   /* área de toque maior (mín. ~44px) */
+    font-size: 1rem !important;
+  }
+  .navbar .dropdown-menu { border-top: 0; border-left: 3px solid var(--gp-laranja); }
 }
 
-/* ---------- AJUSTE DAS LOGOS DE APOIO NO CELULAR ---------- */
+/* Celular (até 768px) */
 @media (max-width: 768px) {
-  .parceiros {
-    gap: 16px !important;            /* Espaçamento menor entre as logos */
-    padding: 15px 10px !important;
+  body:not(.page-index) main.content,
+  body:not(.page-index) #quarto-document-content,
+  #quarto-content,
+  main.content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1rem !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  .parceiros img {
-    max-height: 45px !important;     /* Altura máxima uniforme para mobile */
-    max-width: 120px !important;     /* Largura máxima uniforme */
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;  /* Mantém a proporção sem distorcer */
+  .navbar { padding: 0.6rem 1rem !important; }
+  .navbar-brand,
+  .navbar-title,
+  .navbar-brand span { font-size: 1.1rem !important; }
+  .navbar-brand img { max-height: 32px !important; }
+
+  /* Hero em coluna, centralizado */
+  .hero {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 2.5rem 1rem !important;
+    gap: 1.25rem !important;
+  }
+  .hero-logo { height: 96px; width: 96px; margin-bottom: 0 !important; order: -1; }  /* logo em cima, texto embaixo */
+  .hero-texto { align-items: center; }
+
+  /* Bloco "Sobre" da home: respiro entre a foto e o texto */
+  .intro-texto { margin-top: 1rem; }
+  .intro-texto p { margin-top: 0; }
+
+  /* Caixa "GPENSC no Ar": o botão vai para uma linha própria, sem encostar no texto */
+  .faixa { padding: 1rem; }
+  .faixa .btn {
+    display: block;
+    width: 100%;
+    margin: 1rem 0 0 !important;
+    text-align: center;
+  }
+  .hero-botoes { justify-content: center; }
+
+  /* Faixas com menos respiro lateral */
+  .faixa-agenda { padding: 2.5rem 1rem !important; margin-top: 2rem; }
+  .coords-band { padding: 1.75rem 1rem !important; margin: 1.75rem 0; }
+
+  /* Títulos de seção menores e logo do título reduzido */
+  main h2 { margin: 2rem 0 1rem; padding-bottom: .6rem; }
+  h1, .h1 { font-size: 1.6rem !important; }
+  h2, .h2 { font-size: 1.3rem !important; }
+  h3, .h3 { font-size: 1.1rem !important; }
+
+  /* Cartões: imagem de notícia um pouco mais baixa; blocos de pesquisa mais compactos */
+  .nt-img { height: 160px; }
+  .pq { min-height: 200px; }
+  .cartoes { gap: 1rem; }
+
+  /* Botões com boa área de toque */
+  .btn { padding: .8rem 1.25rem; }
+
+  /* Tabelas roláveis na horizontal (sem esticar a página) */
+  main table,
+  .dataframe,
+  .dataTables_wrapper,
+  .table-responsive {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Abas da equipe mais compactas */
+  .panel-tabset .nav-tabs .nav-link { padding: 0.35rem 0.9rem !important; font-size: 0.85rem !important; }
+
+  /* Logos institucionais e de apoio menores */
+  .logos-institucionais,
+  .logos-institucionais p { gap: 1rem 1.25rem !important; }
+  .logos-institucionais img,
+  .logos-institucionais p img { max-height: 55px !important; }
+
+  .parceiros { gap: 16px; padding: 15px 10px; }
+  .parceiros img { max-height: 45px; max-width: 120px; }
+
+  /* Bandeiras de idioma menores */
+  .gtrans img,
+  .flags img,
+  .idiomas img,
+  .lang-switcher img { max-width: 20px !important; height: auto !important; }
+  .gtrans,
+  .flags,
+  .idiomas,
+  .lang-switcher { gap: 4px !important; font-size: 0.8rem !important; padding: 2px 4px !important; }
+
+  /* No toque não há "hover": desliga o zoom/elevação que ficaria "preso" depois do clique */
+  .parceiros img:hover { transform: none; }
+  .pq:hover,
+  .membro-card:hover,
+  .nt:has(.nt-mais):hover { transform: none; }
+}
+
+/* Celulares muito pequenos (até 380px) */
+@media (max-width: 380px) {
+  .navbar-brand,
+  .navbar-title,
+  .navbar-brand span { font-size: 1rem !important; gap: .4rem; }
+  .hero-logo { height: 84px; width: 84px; }
+  .nt-corpo { padding: 1.25rem 1rem .75rem; }
+  .nt-data { padding: .6rem 1rem; }
+}
+
+/* ---------- 10. ACESSIBILIDADE ---------- */
+
+/* Contorno visível ao navegar pelo teclado */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.navbar .nav-link:focus-visible {
+  outline: 3px solid var(--gp-laranja);
+  outline-offset: 2px;
+}
+.nt-mais:focus-visible::after {
+  outline: 3px solid var(--gp-laranja);
+  outline-offset: -3px;
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
   }
 }
