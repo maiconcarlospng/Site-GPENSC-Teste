@@ -4,21 +4,40 @@ title: "Disciplinas"
 
 ```{r}
 source("R/helpers.R")
-```
+disciplinas_publicadas <- registros_reais(disciplinas, "nome")
 
-Disciplinas ministradas pelos integrantes do grupo na graduação e na pós-graduação.
-
-```{r}
-# Uma seção por nível (coluna "nivel" de data/disciplinas.csv).
-tagList(lapply(unique(disciplinas$nivel), function(nv) {
-  tagList(
-    h2(nv),
-    cartoes(filter(disciplinas, nivel == nv), function(d, i)
-      div(class = paste("cartao reveal", cor_de(i)),
-        span(class = "cartao-num", d$codigo),
-        h4(d$nome),
-        p(class = "kw", paste0(d$docente, " · ", d$periodo)),
-        p(d$ementa)))
+if (nrow(disciplinas_publicadas) == 0) {
+  estado_vazio(
+    "Disciplinas em atualização",
+    "As disciplinas da graduação e da pós-graduação serão apresentadas aqui quando os nomes, docentes e informações acadêmicas estiverem cadastrados.",
+    "Conheça o grupo",
+    "sobre.html"
   )
-}))
+} else {
+  niveis <- unique(disciplinas_publicadas$nivel)
+  tagList(lapply(niveis, function(nivel_atual) {
+    dados_nivel <- filter(disciplinas_publicadas, nivel == nivel_atual)
+    nivel_texto <- valor_publico(nivel_atual)
+    if (is.null(nivel_texto)) nivel_texto <- "Disciplinas"
+
+    tagList(
+      h2(nivel_texto),
+      cartoes(dados_nivel, function(d, i) {
+        docente <- valor_publico(d$docente)
+        periodo <- valor_publico(d$periodo)
+        ementa <- valor_publico(d$ementa)
+        codigo <- valor_publico(d$codigo)
+        meta <- Filter(Negate(is.null), list(docente, periodo))
+
+        div(
+          class = paste("cartao reveal", cor_de(i)),
+          if (!is.null(codigo)) span(class = "cartao-num", codigo),
+          h4(d$nome),
+          if (length(meta) > 0) p(class = "kw", paste(meta, collapse = " · ")),
+          if (!is.null(ementa)) p(ementa)
+        )
+      })
+    )
+  }))
+}
 ```

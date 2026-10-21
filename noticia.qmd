@@ -7,14 +7,14 @@ title-block-banner: false
 
 ```{r}
 source("R/helpers.R")
-```
+noticias_publicadas <- registros_reais(noticias, "titulo")
 
-```{r}
-if (nrow(noticias) == 0) {
+if (nrow(noticias_publicadas) == 0) {
   div(
+    id = "noticia-detalhe-vazio",
     class = "noticia-detalhe-vazio",
-    h1("Nenhuma notícia cadastrada"),
-    p("Quando houver notícias publicadas, elas aparecerão aqui."),
+    h1("Nenhuma notícia publicada"),
+    p("Quando houver notícias reais cadastradas, o detalhamento será exibido aqui."),
     tags$a(class = "btn btn-secondary", href = "noticias.html", "Voltar às notícias")
   )
 } else {
@@ -26,41 +26,40 @@ if (nrow(noticias) == 0) {
       p("Selecione uma notícia pela página inicial ou pela lista de notícias."),
       tags$a(class = "btn btn-secondary", href = "noticias.html", "Ver todas as notícias")
     ),
-    lapply(seq_len(nrow(noticias)), function(i) {
-      n <- noticias[i, , drop = FALSE]
+    lapply(seq_len(nrow(noticias_publicadas)), function(i) {
+      n <- noticias_publicadas[i, , drop = FALSE]
       titulo <- as.character(n$titulo[1])
-      conteudo <- if (tem(n$conteudo)) {
-        as.character(n$conteudo[1])
-      } else if (tem(n$resumo)) {
-        as.character(n$resumo[1])
-      } else {
-        "O detalhamento desta notícia ainda não foi preenchido."
-      }
+      conteudo <- valor_publico(n$conteudo)
+      if (is.null(conteudo)) conteudo <- valor_publico(n$resumo)
+      if (is.null(conteudo)) conteudo <- "O detalhamento desta notícia ainda não foi preenchido."
 
+      categoria <- valor_publico(n$categoria)
       data_texto <- if (!is.na(n$data[1])) format(n$data[1], "%d/%m/%Y") else ""
+      imagem <- valor_publico(n$imagem)
+      fonte <- valor_publico(n$url)
 
       div(
         id = id_noticia(titulo),
         class = "noticia-detalhe-item",
         style = "display: none;",
-        if (tem(n$categoria)) span(class = "noticia-detalhe-categoria", n$categoria),
+        if (!is.null(categoria)) span(class = "noticia-detalhe-categoria", categoria),
         h1(titulo),
         if (nzchar(data_texto)) p(class = "noticia-detalhe-data", data_texto),
-        if (tem(n$imagem)) tags$img(
+        if (!is.null(imagem)) tags$img(
           class = "noticia-detalhe-imagem",
-          src = caminho_img(n$imagem, "noticias"),
+          src = caminho_img(imagem, "noticias"),
           alt = titulo
         ),
         div(class = "noticia-detalhe-texto", p(conteudo)),
-        if (!tem(n$conteudo)) p(
+        if (is.null(valor_publico(n$conteudo))) p(
           class = "noticia-detalhe-aviso",
-          "Este registro ainda não possui conteúdo completo. A equipe pode acrescentá-lo no painel administrativo, no campo “Conteúdo completo”."
+          "Este registro ainda não tem conteúdo completo. O campo “Conteúdo completo” pode ser preenchido no painel administrativo."
         ),
-        if (tem(n$url)) tags$a(
+        if (!is.null(fonte)) tags$a(
           class = "btn btn-secondary",
-          href = as.character(n$url[1]),
+          href = fonte,
           target = "_blank",
-          rel = "noopener",
+          rel = "noopener noreferrer",
           "Acessar a fonte original"
         ),
         tags$a(

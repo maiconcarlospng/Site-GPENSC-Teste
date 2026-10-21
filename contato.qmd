@@ -2,10 +2,61 @@
 title: "Contato"
 ---
 
-{{< var endereco >}}
+```{r}
+source("R/helpers.R")
 
-**E-mail:** [{{< var email >}}](mailto:{{< var email >}})
+endereco <- as.character(cfg$endereco_completo)
+mapa_url <- paste0(
+  "https://www.google.com/maps/search/?api=1&query=",
+  utils::URLencode(endereco, reserved = TRUE)
+)
+telefone <- as.character(cfg$telefone)
+telefone_url <- paste0("tel:", gsub("[^0-9+]", "", telefone))
+dgp_url <- as.character(cfg$link_dgp)
+if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case = TRUE)) {
+  dgp_url <- "https://dgp.cnpq.br"
+}
 
-**Instagram:** [@gpenscufop]({{< var instagram >}})
-
-**Diretório do CNPq:** [Página do grupo]({{< var link_dgp >}})
+div(
+  class = "pagina-contato",
+  p(class = "contato-intro", "Entre em contato com o GPENSC para informações sobre pesquisa, ensino, extensão, parcerias e atividades do grupo."),
+  div(
+    class = "contato-grade",
+    div(
+      class = "contato-card",
+      div(class = "contato-card-icone", tags$i(class = "bi bi-envelope", `aria-hidden` = "true")),
+      h3("E-mail"),
+      p(cfg$email),
+      tags$a(class = "btn btn-secondary", href = paste0("mailto:", cfg$email), "Enviar e-mail")
+    ),
+    div(
+      class = "contato-card",
+      div(class = "contato-card-icone", tags$i(class = "bi bi-instagram", `aria-hidden` = "true")),
+      h3("Instagram"),
+      p(cfg$instagram_user),
+      tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", "Acompanhar o grupo")
+    ),
+    div(
+      class = "contato-card",
+      div(class = "contato-card-icone", tags$i(class = "bi bi-geo-alt", `aria-hidden` = "true")),
+      h3("Localização"),
+      p(endereco),
+      p(paste(cfg$cidade_uf, cfg$cep, sep = " · ")),
+      tags$a(class = "btn btn-secondary", href = mapa_url, target = "_blank", rel = "noopener noreferrer", "Abrir no mapa")
+    ),
+    div(
+      class = "contato-card",
+      div(class = "contato-card-icone", tags$i(class = "bi bi-telephone", `aria-hidden` = "true")),
+      h3("Telefone institucional"),
+      p(telefone),
+      tags$a(class = "btn btn-secondary", href = telefone_url, "Ligar")
+    )
+  ),
+  div(
+    class = "contato-assinatura",
+    p(paste(cfg$unidade, cfg$departamento, sep = " · ")),
+    tags$a(class = "link-acao", href = dgp_url, target = "_blank", rel = "noopener noreferrer",
+           "Diretório dos Grupos de Pesquisa do CNPq")
+  )
+)
+```

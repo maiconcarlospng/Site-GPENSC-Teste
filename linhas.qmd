@@ -4,16 +4,28 @@ title: "Linhas de pesquisa"
 
 ```{r}
 source("R/helpers.R")
-```
 
-```{r}
-# Um cartão por linha de pesquisa (data/linhas.csv).
-# if (tem(...)) só mostra as palavras-chave se o campo estiver preenchido.
-cartoes(linhas, function(l, i)
-  div(class = paste("cartao reveal", cor_de(i)),
-    span(class = "cartao-num", l$id),
-    h4(l$nome),
-    p(l$descricao),
-    if (tem(l$palavras_chave))
-      p(class = "kw", tags$strong("Palavras-chave: "), l$palavras_chave)))
+linhas_publicadas <- registros_reais(linhas, "nome")
+
+if (nrow(linhas_publicadas) > 0) {
+  cartoes(linhas_publicadas, function(l, i) {
+    descricao <- valor_publico(l$descricao)
+    palavras <- valor_publico(l$palavras_chave)
+
+    div(
+      class = paste("cartao reveal", cor_de(i)),
+      if (tem(l$id)) span(class = "cartao-num", l$id),
+      h4(l$nome),
+      if (!is.null(descricao)) p(descricao),
+      if (!is.null(palavras)) p(class = "kw", tags$strong("Palavras-chave: "), palavras)
+    )
+  })
+} else {
+  estado_vazio(
+    "Linhas de pesquisa em atualização",
+    "As linhas serão apresentadas aqui quando os títulos e as descrições forem cadastrados. Os itens de demonstração continuam disponíveis para edição no painel.",
+    "Fale com o grupo",
+    "contato.html"
+  )
+}
 ```

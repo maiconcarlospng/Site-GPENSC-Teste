@@ -42,6 +42,24 @@ COLUNAS <- list(
   galeria     = c("arquivo", "legenda")
 )
 
+# Aceita datas atuais em ISO e formatos legados comuns no painel.
+# A saída é sempre Date; entradas inválidas ficam como NA sem interromper o site.
+parse_data_site <- function(x) {
+  valores <- substr(trimws(as.character(x)), 1, 10)
+  resultado <- as.Date(rep(NA_character_, length(valores)))
+
+  for (formato in c("%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y")) {
+    pendentes <- which(is.na(resultado) & !is.na(valores) & nzchar(valores))
+    if (length(pendentes)) {
+      resultado[pendentes] <- suppressWarnings(
+        as.Date(valores[pendentes], format = formato)
+      )
+    }
+  }
+
+  resultado
+}
+
 # ler("noticias.csv") ou ler("noticias") -> lê data/noticias.yml
 # (aceito o nome com .csv só para as páginas antigas continuarem funcionando)
 ler <- function(arq) {
@@ -74,7 +92,7 @@ ler <- function(arq) {
   }
 
   # Ajustes de tipo: data vira Date, ano vira número.
-  if ("data" %in% names(df)) df$data <- as.Date(substr(df$data, 1, 10), format = "%Y-%m-%d")
+  if ("data" %in% names(df)) df$data <- parse_data_site(df$data)
   if ("ano"  %in% names(df)) df$ano  <- suppressWarnings(as.integer(df$ano))
 
   message("[ler] ", nome, ": ", nrow(df), " registro(s)")
@@ -106,6 +124,63 @@ pubs <- pubs |>
 
 # tem(x): TRUE se o campo está preenchido (não vazio e não NA).
 tem <- function(x) length(x) > 0 && !is.na(x[1]) && nzchar(trimws(as.character(x[1])))
+
+# Remove registros de demonstração da exibição pública sem apagar os dados do CMS.
+# As linhas continuam editáveis no painel; ao trocar o título por um real, aparecem no site.
+registros_reais <- function(df, campo = "titulo") {
+  if (is.null(df) || nrow(df) == 0 || !campo %in% names(df)) return(df)
+
+  texto <- trimws(as.character(df[[campo]]))
+  valido <- !is.na(texto) & nzchar(texto)
+  demonstracao <- grepl(
+    "^(\\[EXEMPLO\\]|TESTE\\b|___)",
+    texto,
+    ignore.case = TRUE,
+    perl = TRUE
+  )
+
+  df[valido & !demonstracao, , drop = FALSE]
+}
+
+# Devolve NULL para campos vazios ou com marcadores de preenchimento.
+valor_publico <- function(x) {
+  if (length(x) == 0 || is.null(x) || is.na(x[1])) return(NULL)
+  valor <- trimws(as.character(x[1]))
+  if (!nzchar(valor) || grepl("^(\\[.*\\]|TESTE\\b|___)", valor, ignore.case = TRUE, perl = TRUE)) {
+    return(NULL)
+  }
+  valor
+}
+
+# Cartão neutro de estado vazio, reutilizado nas páginas que ainda não têm conteúdo real.
+estado_vazio <- function(titulo, descricao, link_texto = NULL, link_href = NULL) {
+  link <- NULL
+  if (tem(link_texto) && tem(link_href)) {
+    href <- as.character(link_href[1])
+    if (grepl("^https?://", href, ignore.case = TRUE)) {
+      link <- tags$a(
+        class = "btn btn-secondary",
+        href = href,
+        target = "_blank",
+        rel = "noopener noreferrer",
+        link_texto
+      )
+    } else {
+      link <- tags$a(class = "btn btn-secondary", href = href, link_texto)
+    }
+  }
+
+  div(
+    class = "estado-vazio",
+    div(class = "estado-vazio-icone", tags$i(class = "bi bi-info-circle", `aria-hidden` = "true")),
+    div(
+      class = "estado-vazio-texto",
+      h3(titulo),
+      p(descricao),
+      link
+    )
+  )
+}
 
 # caminho_img(valor, pasta): devolve o caminho certo de uma imagem.
 # Aceita caminho salvo pelo CMS como "img/foto.jpg", caminho relativo como

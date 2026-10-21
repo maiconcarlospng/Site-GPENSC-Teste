@@ -4,14 +4,27 @@ title: "Vídeos"
 
 ```{r}
 source("R/helpers.R")
-```
+videos_publicados <- registros_reais(videos, "titulo")
 
-```{r}
-# Um cartão por vídeo (data/videos.csv). Cole o link do YouTube/Instagram na coluna "url".
-cartoes(arrange(videos, desc(data)), function(v, i)
-  div(class = paste("cartao reveal", cor_de(i)),
-    span(class = "cartao-data", format(v$data, "%d/%m/%Y")),
-    h4(v$titulo),
-    p(v$descricao),
-    if (tem(v$url)) tags$a("Assistir »", href = v$url, target = "_blank")))
+if (nrow(videos_publicados) == 0) {
+  estado_vazio(
+    "Vídeos em atualização",
+    "Vídeos e materiais audiovisuais serão listados aqui quando os títulos, descrições e links forem cadastrados.",
+    "Acompanhe o Instagram",
+    cfg$instagram
+  )
+} else {
+  cartoes(arrange(videos_publicados, desc(data)), function(v, i) {
+    descricao <- valor_publico(v$descricao)
+    url <- valor_publico(v$url)
+
+    div(
+      class = paste("cartao reveal", cor_de(i)),
+      if (!is.na(v$data)) span(class = "cartao-data", format(v$data, "%d/%m/%Y")),
+      h4(v$titulo),
+      if (!is.null(descricao)) p(descricao),
+      if (!is.null(url)) tags$a("Assistir »", href = url, target = "_blank", rel = "noopener noreferrer")
+    )
+  })
+}
 ```

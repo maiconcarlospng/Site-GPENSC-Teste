@@ -4,17 +4,44 @@ title: "GPENSC no Ar"
 
 ```{r}
 source("R/helpers.R")
-```
+episodios_publicados <- registros_reais(noar, "titulo")
 
-Série do GPENSC em formato de podcast/videocast: convidados conversam sobre nutrição, sono, exercício físico e saúde, em linguagem acessível. Os episódios são divulgados no [Instagram do grupo]({{< var instagram >}}).
+div(
+  class = "pagina-noar",
+  p(
+    class = "contato-intro",
+    "GPENSC no Ar é uma série em formato de podcast/videocast com conversas sobre nutrição, sono, exercício físico e saúde coletiva em linguagem acessível. Acompanhe os canais do grupo para novidades e novos episódios."
+  ),
+  if (nrow(episodios_publicados) > 0) {
+    cartoes(episodios_publicados, function(e, i) {
+      convidado <- valor_publico(e$convidado)
+      link <- valor_publico(e$link)
+      numero <- valor_publico(e$episodio)
 
-```{r}
-# Um cartão por episódio (data/noar.csv). Para adicionar um episódio, acrescente uma linha ao CSV.
-# A coluna "obs" é só uma anotação sua: ela NÃO aparece no site.
-cartoes(noar, function(e, i)
-  div(class = paste("cartao reveal", cor_de(i)),
-    span(class = "cartao-num", paste("Ep.", e$episodio)),
-    h4(e$titulo),
-    p(class = "kw", e$convidado),
-    if (tem(e$link)) tags$a("Assistir/ouvir »", href = e$link, target = "_blank")))
+      div(
+        class = paste("cartao reveal", cor_de(i)),
+        if (!is.null(numero)) span(class = "cartao-num", paste("Episódio", numero)),
+        h4(e$titulo),
+        if (!is.null(convidado)) p(class = "kw", convidado),
+        if (!is.null(link)) {
+          tags$a("Assistir ou ouvir »", href = link, target = "_blank", rel = "noopener noreferrer")
+        } else {
+          p(class = "texto-secundario", "O link deste episódio ainda não foi cadastrado.")
+        }
+      )
+    })
+  } else {
+    estado_vazio(
+      "Episódios em atualização",
+      "Os episódios cadastrados aparecerão aqui quando houver títulos publicados.",
+      "Acompanhe o Instagram",
+      cfg$instagram
+    )
+  },
+  div(
+    class = "sobre-cta",
+    p("Siga o perfil do GPENSC para acompanhar a divulgação de novos episódios."),
+    tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", "Instagram do GPENSC")
+  )
+)
 ```

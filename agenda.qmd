@@ -4,19 +4,62 @@ title: "Agenda"
 
 ```{r}
 source("R/helpers.R")
-```
 
-Aulas abertas, workshops, cursos, bancas e outros eventos do grupo.
+eventos_publicados <- registros_reais(eventos, "titulo")
+eventos_futuros <- eventos_publicados[!is.na(eventos_publicados$data) & eventos_publicados$data >= Sys.Date(), , drop = FALSE] |>
+  arrange(data)
+eventos_passados <- eventos_publicados[!is.na(eventos_publicados$data) & eventos_publicados$data < Sys.Date(), , drop = FALSE] |>
+  arrange(desc(data))
+eventos_sem_data <- eventos_publicados[is.na(eventos_publicados$data), , drop = FALSE]
 
-```{r}
-# Linha do tempo de eventos (data/eventos.csv), do mais recente ao mais antigo.
-ev <- eventos |> arrange(desc(data))
-div(class = "tl",
-  lapply(seq_len(nrow(ev)), function(i)
-    div(class = "tl-bloco reveal",
-      div(class = "tl-ano", format(ev$data[i], "%d/%m/%Y")),
-      div(class = "tl-item",
-        span(class = "selo", ev$tipo[i]), " ", ev$titulo[i],
-        if (tem(ev$local[i])) tags$em(paste0(" — ", ev$local[i])),
-        if (tem(ev$url[i])) tags$span(" ", tags$a("Mais informações", href = ev$url[i], target = "_blank"))))))
+renderizar_eventos <- function(dados) {
+  div(
+    class = "tl",
+    lapply(seq_len(nrow(dados)), function(i) {
+      e <- dados[i, , drop = FALSE]
+      tipo <- valor_publico(e$tipo)
+      local <- valor_publico(e$local)
+      url <- valor_publico(e$url)
+      data_texto <- if (!is.na(e$data[1])) format(e$data[1], "%d/%m/%Y") else "Data a confirmar"
+
+      div(
+        class = "tl-bloco reveal",
+        div(class = "tl-ano", data_texto),
+        div(
+          class = "tl-item",
+          if (!is.null(tipo)) span(class = "selo", tipo),
+          h3(e$titulo),
+          if (!is.null(local)) p(local),
+          if (!is.null(url)) tags$a("Mais informações", href = url, target = "_blank", rel = "noopener noreferrer")
+        )
+      )
+    })
+  )
+}
+
+div(
+  class = "pagina-agenda",
+  p(class = "contato-intro", "Acompanhe aulas abertas, workshops, cursos, bancas e outras atividades do grupo."),
+  h2("Próximos eventos"),
+  if (nrow(eventos_futuros) > 0) {
+    renderizar_eventos(eventos_futuros)
+  } else {
+    estado_vazio(
+      "Nenhum evento futuro cadastrado",
+      "Quando novas atividades forem incluídas no painel administrativo, elas aparecerão nesta página.",
+      "Acompanhe o Instagram",
+      cfg$instagram
+    )
+  },
+  if (nrow(eventos_sem_data) > 0) {
+    tagList(h2("Data a confirmar"), renderizar_eventos(eventos_sem_data))
+  },
+  if (nrow(eventos_passados) > 0) {
+    tags$details(
+      class = "eventos-anteriores",
+      tags$summary("Consultar eventos anteriores"),
+      renderizar_eventos(eventos_passados)
+    )
+  }
+)
 ```

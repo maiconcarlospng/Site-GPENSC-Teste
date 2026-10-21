@@ -4,46 +4,67 @@ title: "Publicações"
 
 ```{r}
 source("R/helpers.R")
-```
+publicacoes_publicadas <- registros_reais(pubs, "titulo")
 
-## Produção por ano
+if (nrow(publicacoes_publicadas) == 0) {
+  estado_vazio(
+    "Publicações em atualização",
+    "A produção científica será exibida aqui quando os títulos, autores e referências forem cadastrados com dados reais.",
+    "Consultar teses e dissertações",
+    "teses.html"
+  )
+} else {
+  tagList(
+    h2("Produção por ano"),
+    publicacoes_publicadas |>
+      count(ano) |>
+      plot_ly(x = ~ano, y = ~n, type = "bar", marker = list(color = "#5F9A3E")) |>
+      layout(
+        xaxis = list(title = "Ano", dtick = 1),
+        yaxis = list(title = "Publicações"),
+        paper_bgcolor = "rgba(0,0,0,0)",
+        plot_bgcolor = "rgba(0,0,0,0)"
+      ) |>
+      config(displayModeBar = FALSE),
 
-```{r}
-# count(ano) conta quantas publicações há em cada ano; plot_ly desenha o gráfico de barras.
-# A cor das barras (#5F9A3E) é o verde-folha da logo.
-pubs |>
-  count(ano) |>
-  plot_ly(x = ~ano, y = ~n, type = "bar", marker = list(color = "#5F9A3E")) |>
-  layout(xaxis = list(title = "Ano", dtick = 1), yaxis = list(title = "Publicações"),
-         paper_bgcolor = "rgba(0,0,0,0)", plot_bgcolor = "rgba(0,0,0,0)") |>
-  config(displayModeBar = FALSE)
-```
+    h2("Linha do tempo"),
+    {
+      anos <- sort(unique(publicacoes_publicadas$ano), decreasing = TRUE)
+      div(
+        class = "tl",
+        lapply(anos, function(a) {
+          d <- filter(publicacoes_publicadas, ano == a)
+          div(
+            class = "tl-bloco reveal",
+            div(class = "tl-ano", a),
+            lapply(seq_len(nrow(d)), function(i) {
+              div(
+                class = "tl-item",
+                if (tem(d$tipo[i])) span(class = "selo", d$tipo[i]),
+                p(d$referencia[i]),
+                link_pub(d$doi[i], d$url[i])
+              )
+            })
+          )
+        })
+      )
+    },
 
-## Linha do tempo
-
-```{r}
-# Um bloco por ano (do mais recente ao mais antigo), com as referências do ano dentro.
-anos <- sort(unique(pubs$ano), decreasing = TRUE)
-div(class = "tl",
-  lapply(anos, function(a) {
-    d <- filter(pubs, ano == a)
-    div(class = "tl-bloco reveal",
-      div(class = "tl-ano", a),
-      lapply(seq_len(nrow(d)), function(i)
-        div(class = "tl-item",
-          span(class = "selo", d$tipo[i]),
-          d$referencia[i], " ",
-          link_pub(d$doi[i], d$url[i]))))
-  }))
-```
-
-## Tabela completa
-
-```{r}
-# Tabela com busca, filtros e botão "Baixar CSV".
-pubs |>
-  transmute(Ano = ano, Tipo = tipo, Referência = referencia, Linha = linha_id) |>
-  datatable(rownames = FALSE, filter = "top", extensions = "Buttons",
-            options = list(pageLength = 10, language = DT_PT,
-                           dom = "Bfrtip", buttons = list(list(extend = "csv", text = "Baixar CSV"))))
+    h2("Tabela completa"),
+    publicacoes_publicadas |>
+      transmute(Ano = ano, Tipo = tipo, Referência = referencia, Linha = linha_id) |>
+      datatable(
+        rownames = FALSE,
+        filter = "top",
+        extensions = "Buttons",
+        options = list(
+          pageLength = 10,
+          language = DT_PT,
+          scrollX = TRUE,
+          dom = "Bfrtip",
+          buttons = list(list(extend = "csv", text = "Baixar CSV"))
+        )
+      )
+  )
+}
 ```

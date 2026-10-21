@@ -4,15 +4,35 @@ title: "Projetos"
 
 ```{r}
 source("R/helpers.R")
-```
+projetos_publicados <- registros_reais(projetos, "titulo")
 
-Projetos de pesquisa e extensão do grupo. Use os campos acima de cada coluna para filtrar.
-
-```{r}
-# rename(NomeNovo = nome_da_coluna_no_CSV): só muda o título que aparece na tabela.
-# datatable(): tabela com busca/filtro. filter = "top" põe filtros acima das colunas.
-projetos |>
-  rename(Título = titulo, Tipo = tipo, Situação = situacao, Coordenação = coordenador,
-         Início = inicio, Fim = fim, Linha = linha_id, Financiamento = financiamento) |>
-  datatable(rownames = FALSE, filter = "top", options = list(pageLength = 10, language = DT_PT))
+div(
+  class = "pagina-projetos",
+  p(class = "contato-intro", "Projetos de pesquisa e extensão desenvolvidos pelo grupo, com informações sobre situação, coordenação, período e financiamento."),
+  if (nrow(projetos_publicados) > 0) {
+    projetos_publicados |>
+      rename(
+        Título = titulo,
+        Tipo = tipo,
+        Situação = situacao,
+        Coordenação = coordenador,
+        Início = inicio,
+        Fim = fim,
+        Linha = linha_id,
+        Financiamento = financiamento
+      ) |>
+      datatable(
+        rownames = FALSE,
+        filter = "top",
+        options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
+      )
+  } else {
+    estado_vazio(
+      "Projetos em atualização",
+      "Os projetos serão listados aqui quando os registros estiverem preenchidos com informações confirmadas. Os modelos de demonstração continuam disponíveis para edição no painel.",
+      "Entrar em contato",
+      "contato.html"
+    )
+  }
+)
 ```

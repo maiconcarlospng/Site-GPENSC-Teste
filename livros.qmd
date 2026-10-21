@@ -4,14 +4,29 @@ title: "Livros"
 
 ```{r}
 source("R/helpers.R")
-```
+livros_publicados <- registros_reais(livros, "titulo")
 
-```{r}
-# Um cartão por livro (data/livros.csv), do mais recente ao mais antigo.
-cartoes(arrange(livros, desc(ano)), function(l, i)
-  div(class = paste("cartao reveal", cor_de(i)),
-    span(class = "cartao-data", l$ano),
-    h4(l$titulo),
-    p(class = "kw", paste0(l$autores, ". ", l$editora)),
-    if (tem(l$url)) tags$a("Acessar »", href = l$url, target = "_blank")))
+if (nrow(livros_publicados) == 0) {
+  estado_vazio(
+    "Livros e capítulos em atualização",
+    "Livros e capítulos de autoria ou organização de integrantes do grupo serão exibidos aqui quando os registros forem cadastrados.",
+    "Ver publicações",
+    "publicacoes.html"
+  )
+} else {
+  cartoes(arrange(livros_publicados, desc(ano)), function(l, i) {
+    autores <- valor_publico(l$autores)
+    editora <- valor_publico(l$editora)
+    url <- valor_publico(l$url)
+    meta <- Filter(Negate(is.null), list(autores, editora))
+
+    div(
+      class = paste("cartao reveal", cor_de(i)),
+      if (!is.na(l$ano)) span(class = "cartao-data", l$ano),
+      h4(l$titulo),
+      if (length(meta) > 0) p(class = "kw", paste(meta, collapse = " · ")),
+      if (!is.null(url)) tags$a("Acessar »", href = url, target = "_blank", rel = "noopener noreferrer")
+    )
+  })
+}
 ```

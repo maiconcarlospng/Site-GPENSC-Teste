@@ -6,34 +6,24 @@ title-block-banner: false
 ---
 
 ```{=html}
-<!-- Atenção: nunca escreva as chaves duplas do atalho "var" dentro de comentários:
-     o Quarto executa o atalho mesmo assim e dá erro.
-     Esta página segue a ordem da home do site do Grupo Bertha:
-     faixa de fotos > apresentação > Pesquisas > Últimas notícias > Agenda > apoio. -->
+<!-- Página inicial: identidade institucional, galeria, apresentação, pesquisa, notícias e apoio. -->
 ```
 
 ```{r}
-# Carrega as ferramentas e os dados (veja R/helpers.R)
 source("R/helpers.R")
-```
-
-```{r}
-# 1) Faixa verde institucional e carrossel das fotos cadastradas no painel.
 faixa_galeria()
 ```
 
 ::::: secao
 ```{r}
-# 2) Apresentação: logo à esquerda, texto (cfg$resumo, do _variables.yml) e botão "Sobre nós".
 bloco_intro()
 ```
 
 ## Pesquisas
 
 ```{r}
-# 3) Três cartões de foto tingida. card_pesq(título, página, foto, cor).
-#    Fotos opcionais em img/pesquisas/ (projetos.jpg, teses.jpg, publicacoes.jpg).
-div(class = "pq-blocos reveal",
+div(
+  class = "pq-blocos reveal",
   card_pesq("Projetos em andamento", "projetos.html", "projetos.png", "cor-1", icone = "bi-diagram-3"),
   card_pesq("Teses, dissertações e TCCs", "teses.html", "teses.png", "cor-2", icone = "bi-mortarboard"),
   card_pesq("Publicações", "publicacoes.html", "publicacoes.png", "cor-3", icone = "bi-journal-text")
@@ -47,9 +37,20 @@ div(class = "pq-blocos reveal",
 ## Últimas notícias
 
 ```{r}
-# 4) As 6 notícias mais recentes (arrange(desc(data)) = da mais nova para a mais antiga).
-n <- noticias |> arrange(desc(data)) |> head(6)
-cartoes(n, cartao_noticia)
+noticias_recentes <- registros_reais(noticias, "titulo") |>
+  arrange(desc(data)) |>
+  head(6)
+
+if (nrow(noticias_recentes) > 0) {
+  cartoes(noticias_recentes, cartao_noticia)
+} else {
+  estado_vazio(
+    "Novidades em breve",
+    "As notícias do grupo serão exibidas aqui quando houver publicações cadastradas.",
+    "Acompanhe o Instagram",
+    cfg$instagram
+  )
+}
 ```
 
 ::: centro
@@ -58,7 +59,7 @@ cartoes(n, cartao_noticia)
 :::::
 
 ::: faixa-agenda
-## Confira nossa agenda completa de aulas abertas, workshops e participações
+## Confira nossa agenda de aulas abertas, workshops e participações
 
 [Clique aqui](agenda.qmd){.btn .btn-secondary}
 :::
@@ -70,7 +71,7 @@ div(
   p(
     class = "faixa-texto",
     strong("GPENSC no Ar"),
-    ": conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde."
+    ": conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
   ),
   tags$a(
     class = "btn btn-secondary faixa-botao",
@@ -78,10 +79,6 @@ div(
     "Ver episódios"
   )
 )
-```
-
-```{r}
-# Faixa de logos de apoio (lê data/apoio.csv)
 faixa_apoio()
 ```
 ::::

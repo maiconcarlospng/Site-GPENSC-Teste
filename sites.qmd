@@ -4,13 +4,26 @@ title: "Sites recomendados"
 
 ```{r}
 source("R/helpers.R")
-```
+sites_publicados <- registros_reais(sites, "nome")
 
-```{r}
-# Um cartão por site (data/sites.csv).
-cartoes(sites, function(s, i)
-  div(class = paste("cartao reveal", cor_de(i)),
-    h4(s$nome),
-    p(s$descricao),
-    if (tem(s$url)) tags$a("Visitar »", href = s$url, target = "_blank")))
+if (nrow(sites_publicados) == 0) {
+  estado_vazio(
+    "Sites recomendados em atualização",
+    "Os links institucionais e recursos recomendados serão apresentados aqui quando forem cadastrados.",
+    "Entrar em contato",
+    "contato.html"
+  )
+} else {
+  cartoes(sites_publicados, function(s, i) {
+    descricao <- valor_publico(s$descricao)
+    url <- valor_publico(s$url)
+
+    div(
+      class = paste("cartao reveal", cor_de(i)),
+      h4(s$nome),
+      if (!is.null(descricao)) p(descricao),
+      if (!is.null(url)) tags$a("Visitar site »", href = url, target = "_blank", rel = "noopener noreferrer")
+    )
+  })
+}
 ```

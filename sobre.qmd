@@ -2,77 +2,102 @@
 title: "Quem somos"
 ---
 
-Fundado na Escola de Nutrição da UFOP, o GPENSC articula docentes, pesquisadores e estudantes na produção de conhecimento científico rigoroso e aplicado às demandas de saúde pública da comunidade.
+```{r}
+source("R/helpers.R")
 
-**Missão:** Gerar e disseminar conhecimento científico em nutrição e saúde coletiva, forming profissionais capacitados e promovendo intervenções de impacto social na saúde pública.
+objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
+integrantes <- registros_reais(equipe, "nome")
 
-**Objetivos:**
-- Investigar determinantes sociais, epidemiológicos e nutricionais de saúde em diferentes ciclos de vida e populações.
-- Fortalecer a integração entre ensino de graduação, pós-graduação e projetos de extensão comunitária.
+dgp_url <- as.character(cfg$link_dgp)
+if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case = TRUE)) {
+  dgp_url <- "https://dgp.cnpq.br"
+}
 
-<div class="text-center my-3">
-  <a href="https://dgp.cnpq.br" target="_blank" class="btn btn-outline-success btn-sm">Página do grupo no Diretório do CNPq</a>
-</div>
+div(
+  class = "pagina-institucional pagina-sobre",
+  div(
+    class = "sobre-abertura",
+    p(cfg$historico)
+  ),
 
-::: {.logos-institucionais}
-![](img/logo_ppgsn.png){alt="PPGSN UFOP"}
-![](img/logo_nutricao.png){alt="Escola de Nutrição UFOP"}
-:::
+  div(
+    class = "sobre-cards",
+    div(
+      class = "sobre-card",
+      div(class = "sobre-card-icone", tags$i(class = "bi bi-bullseye", `aria-hidden` = "true")),
+      h2("Nossa missão"),
+      p(cfg$missao)
+    ),
+    div(
+      class = "sobre-card",
+      div(class = "sobre-card-icone", tags$i(class = "bi bi-compass", `aria-hidden` = "true")),
+      h2("Nossa visão"),
+      p(cfg$visao)
+    )
+  ),
 
----
+  h2("Objetivos"),
+  div(
+    class = "objetivos-grid",
+    lapply(seq_along(objetivos), function(i) {
+      div(
+        class = "objetivo-item",
+        span(class = "objetivo-numero", sprintf("%02d", i)),
+        p(objetivos[i])
+      )
+    })
+  ),
 
-## 🔍 Coordenação
+  h2("Vínculos institucionais"),
+  div(
+    class = "logos-institucionais",
+    tags$a(
+      href = cfg$link_ppgsn, target = "_blank", rel = "noopener noreferrer",
+      tags$img(src = "img/logo_ppgsn.png", alt = "Logo do Programa de Pós-Graduação em Saúde e Nutrição"),
+      span("PPGSN – UFOP")
+    ),
+    tags$a(
+      href = cfg$link_escola, target = "_blank", rel = "noopener noreferrer",
+      tags$img(src = "img/logo_nutricao.png", alt = "Logo da Escola de Nutrição"),
+      span("Escola de Nutrição – UFOP")
+    ),
+    tags$a(
+      href = cfg$link_ufop, target = "_blank", rel = "noopener noreferrer",
+      tags$img(src = "img/ufop-logo.jpg", alt = "Logo da Universidade Federal de Ouro Preto"),
+      span("Universidade Federal de Ouro Preto")
+    )
+  ),
 
-::: {.row .row-cols-1 .row-cols-md-2 .g-4 .mb-4}
-::: {.col}
-<div class="membro-card">
-  <div class="membro-cargo">Líder do grupo</div>
-  <div class="membro-nome">[Nome do Líder]</div>
-  <div class="membro-bio">[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]</div>
-</div>
-:::
+  h2("Equipe"),
+  if (nrow(integrantes) > 0) {
+    div(
+      class = "equipe-grid",
+      lapply(seq_len(nrow(integrantes)), function(i) {
+        e <- integrantes[i, , drop = FALSE]
+        papel <- valor_publico(e$papel)
+        formacao <- valor_publico(e$formacao)
+        lattes <- valor_publico(e$lattes)
+        div(
+          class = "membro-card",
+          if (!is.null(papel)) div(class = "membro-cargo", papel),
+          div(class = "membro-nome", e$nome),
+          if (!is.null(formacao)) p(class = "membro-bio", formacao),
+          if (!is.null(lattes)) tags$a("Currículo Lattes", href = lattes, target = "_blank", rel = "noopener noreferrer")
+        )
+      })
+    )
+  } else {
+    estado_vazio(
+      "Perfis da equipe em atualização",
+      "Os perfis individuais serão exibidos aqui quando os nomes e as informações profissionais forem cadastrados no painel administrativo."
+    )
+  },
 
-::: {.col}
-<div class="membro-card">
-  <div class="membro-cargo">Vice-líder</div>
-  <div class="membro-nome">[Nome do Vice-líder]</div>
-  <div class="membro-bio">[Titulação, instituição e área de atuação: mini-bio de 2 a 3 linhas]</div>
-</div>
-:::
-:::
-
----
-
-## 🔬 Pesquisadores e Membros
-
-::: {.panel-tabset}
-
-### Doutorandos
-
-<div class="membro-card">
-  <div class="membro-nome">[Nome do Doutorando]</div>
-  <div class="membro-bio">Projeto de pesquisa e linha de atuação.</div>
-</div>
-
-### Mestrandos
-
-<div class="membro-card">
-  <div class="membro-nome">[Nome do Mestrando]</div>
-  <div class="membro-bio">Projeto de pesquisa e linha de atuação.</div>
-</div>
-
-### Graduandos
-
-<div class="membro-card">
-  <div class="membro-nome">[Nome do Graduando]</div>
-  <div class="membro-bio">Projeto de Iniciação Científica ou Extensão.</div>
-</div>
-
-### Egressos
-
-<div class="membro-card">
-  <div class="membro-nome">[Nome do Egresso]</div>
-  <div class="membro-bio">Atuação atual / Ano de conclusão.</div>
-</div>
-
-:::
+  div(
+    class = "sobre-cta",
+    p("Saiba mais sobre a produção científica e as atividades do grupo."),
+    tags$a(class = "btn btn-secondary", href = dgp_url, target = "_blank", rel = "noopener noreferrer",
+           "Consultar Diretório dos Grupos de Pesquisa do CNPq")
+  )
+)
+```

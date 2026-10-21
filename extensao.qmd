@@ -4,20 +4,36 @@ title: "Projetos de extensão"
 
 ```{r}
 source("R/helpers.R")
+
+projetos_extensao <- registros_reais(projetos, "titulo") |>
+  filter(tipo == "Extensão")
+
+div(
+  class = "pagina-extensao",
+  p(class = "contato-intro", "A extensão aproxima a produção acadêmica da comunidade por meio de atividades educativas, troca de conhecimentos e divulgação científica em nutrição e saúde coletiva."),
+  h2("Projetos"),
+  if (nrow(projetos_extensao) > 0) {
+    projetos_extensao |>
+      transmute(
+        Título = titulo,
+        Situação = situacao,
+        Coordenação = coordenador,
+        Início = inicio
+      ) |>
+      datatable(
+        rownames = FALSE,
+        options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
+      )
+  } else {
+    estado_vazio(
+      "Projetos de extensão em atualização",
+      "Os projetos serão apresentados aqui quando seus registros estiverem preenchidos com informações confirmadas.",
+      "Conheça o GPENSC no Ar",
+      "noar.html"
+    )
+  },
+  h2("Divulgação científica"),
+  p("O GPENSC também divulga conversas e conteúdos de interesse público por meio de suas iniciativas de comunicação."),
+  tags$a(class = "btn btn-secondary", href = "noar.html", "Conheça o GPENSC no Ar")
+)
 ```
-
-O GPENSC articula ensino, pesquisa e extensão: aulas abertas, workshops, cursos gratuitos e ações de divulgação científica em datas como o Dia Nacional da Saúde e Nutrição, o Dia Mundial da Atividade Física e o Dia do Nutricionista.
-
-## Projetos
-
-```{r}
-# Projetos da tabela "projetos" cujo tipo é Extensão (data/projetos.csv).
-projetos |>
-  filter(tipo == "Extensão") |>
-  transmute(Título = titulo, Situação = situacao, Coordenação = coordenador, Início = inicio) |>
-  datatable(rownames = FALSE, options = list(pageLength = 10, language = DT_PT))
-```
-
-## Divulgação científica
-
-[GPENSC no Ar: conheça a série em formato de podcast »](noar.qmd){.btn .btn-secondary}

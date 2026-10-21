@@ -4,14 +4,27 @@ title: "Notícias"
 
 ```{r}
 source("R/helpers.R")
-```
 
-```{r}
-# Uma seção por categoria (coluna "categoria" de data/noticias.csv).
-# Categorias novas aparecem sozinhas: basta usar um nome novo no CSV.
-cats <- unique(noticias$categoria)
-tagList(lapply(cats, function(cat) {
-  d <- noticias |> filter(categoria == cat) |> arrange(desc(data))
-  tagList(h2(cat), cartoes(d, cartao_noticia))
-}))
+noticias_publicadas <- registros_reais(noticias, "titulo")
+
+if (nrow(noticias_publicadas) == 0) {
+  estado_vazio(
+    "Nenhuma notícia publicada no momento",
+    "As notícias aparecerão aqui quando houver registros reais cadastrados no painel. Itens de demonstração e testes não são exibidos publicamente.",
+    "Acompanhe o Instagram",
+    cfg$instagram
+  )
+} else {
+  categorias <- ifelse(
+    is.na(noticias_publicadas$categoria) | !nzchar(trimws(noticias_publicadas$categoria)),
+    "Notícias",
+    noticias_publicadas$categoria
+  )
+
+  tagList(lapply(unique(categorias), function(categoria) {
+    itens <- noticias_publicadas[categorias == categoria, , drop = FALSE] |>
+      arrange(desc(data))
+    tagList(h2(categoria), cartoes(itens, cartao_noticia))
+  }))
+}
 ```
