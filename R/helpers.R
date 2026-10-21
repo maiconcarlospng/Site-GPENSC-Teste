@@ -152,8 +152,25 @@ faixa_galeria <- function() {
     , drop = FALSE
   ]
 
-  if (nrow(fotos) > 0) {
+  # A faixa verde institucional permanece na página inicial mesmo quando
+  # a galeria contém fotos; a sequência de imagens fica logo abaixo dela.
+  hero <- div(
+    class = "hero lupa-area",
     div(
+      class = "hero-texto",
+      span(class = "hero-sigla", cfg$sigla),
+      div(class = "hero-titulo", cfg$nome_completo),
+      div(class = "hero-inst", cfg$instituicao)
+    ),
+    tags$img(
+      src = "img/logo_gpensc.png",
+      class = "hero-logo",
+      alt = "Logo do GPENSC"
+    )
+  )
+
+  if (nrow(fotos) > 0) {
+    faixa_fotos <- div(
       class = "galeria lupa-area",
       div(
         class = "galeria-faixa",
@@ -170,22 +187,24 @@ faixa_galeria <- function() {
         })
       )
     )
+
+    htmltools::tagList(hero, faixa_fotos)
   } else {
-    div(
-      class = "hero lupa-area",
-      div(
-        class = "hero-texto",
-        span(class = "hero-sigla", cfg$sigla),
-        div(class = "hero-titulo", cfg$nome_completo),
-        div(class = "hero-inst", cfg$instituicao)
-      ),
-      tags$img(
-        src = "img/logo_gpensc.png",
-        class = "hero-logo",
-        alt = "Logo do GPENSC"
-      )
-    )
+    hero
   }
+}
+
+bloco_intro <- function() {
+  # O texto de apresentação e o botão continuam, mas a foto grande da equipe
+  # foi removida daqui; as fotos ficam na faixa/carrossel acima.
+  div(
+    class = "intro reveal",
+    div(
+      class = "intro-texto",
+      p(cfg$resumo),
+      tags$a(class = "btn btn-secondary", href = "sobre.html", "Sobre nós")
+    )
+  )
 }
 
 # ---------- BLOCO "SOBRE" DA HOME: foto à esquerda, texto à direita ----------
