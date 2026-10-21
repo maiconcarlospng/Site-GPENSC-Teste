@@ -2,11 +2,11 @@
    styles.css – VISUAL DO SITE GPENSC
    Tipografia: Inter
    Organização:
-     1. Fonte e variáveis      6. Faixas (agenda, coordenação)
-     2. Menu (navbar)          7. Estrutura e largura da tela
-     3. Títulos e botões       8. Abas, equipe e apoio
-     4. Hero (faixa da home)   9. Celular e tablet
-     5. Cartões e notícias    10. Acessibilidade
+     1. Fonte e variáveis       6. Faixas (agenda, coordenação)
+     2. Menu (navbar)           7. Estrutura e largura da tela
+     3. Títulos e botões        8. Abas, equipe e apoio
+     4. Hero (faixa da home)    9. Celular e tablet
+     5. Cartões e notícias     10. Acessibilidade
    ===================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
@@ -23,9 +23,6 @@
   --gp-menta: #DCEBD3;       /* faixa da coordenação */
 }
 
-/* A fonte é aplicada nos elementos de texto, e NÃO em "*" / "::before".
-   Regra anterior (* + ::before com !important) sobrescrevia a fonte dos ÍCONES
-   e transformava os símbolos em quadradinhos (ex.: ícone de âncora nos títulos). */
 html, body, p, span, a, div, li, td, th, label,
 h1, h2, h3, h4, h5, h6,
 .title, .subtitle, .quarto-title, .quarto-secondary-nav,
@@ -41,7 +38,6 @@ h1, h2, h3, h4, h5, h6,
   font-family: "bootstrap-icons" !important;
 }
 
-/* Ícone de âncora ao lado dos títulos: não é necessário neste site */
 a.anchor-link,
 .anchor-link {
   display: none !important;
@@ -49,7 +45,7 @@ a.anchor-link,
 
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;   /* evita zoom automático de fonte no iPhone */
+  -webkit-text-size-adjust: 100%;
 }
 
 html, body {
@@ -65,13 +61,11 @@ body {
   line-height: 1.6;
 }
 
-/* Mídia nunca ultrapassa a largura da tela */
 img, video, iframe, svg {
   max-width: 100%;
 }
 img { height: auto; }
 
-/* Textos longos (links, e-mails, títulos) quebram em vez de estourar a tela */
 main p, main li, main h1, main h2, main h3, main h4, main h5, main td, .nt-corpo {
   overflow-wrap: anywhere;
 }
@@ -172,20 +166,54 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 .titulo-pagina { text-align: center; }
 .centro { text-align: center; margin: 1.5rem 0; }
 
-.btn {
+/* Padronização de todos os Botões Laranjas */
+.btn, 
+.btn-secondary, 
+.btn-orange, 
+a.btn-warning, 
+.btn-primary, 
+a[href*="sobre"], 
+a[href*="agenda"], 
+a[href*="noar"], 
+a[href*="noticias"] {
   text-transform: uppercase;
-  letter-spacing: .06em !important;
-  font-size: .75rem !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.8rem !important;
   font-weight: 700 !important;
-  border-radius: .25rem;
-  padding: .75rem 1.5rem;
+  border-radius: 6px !important;
+  padding: 0.65rem 1.4rem !important;
+  background: var(--gp-laranja) !important;
+  border: none !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  text-decoration: none !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
-.btn-secondary { background: var(--gp-laranja); border-color: var(--gp-laranja); color: #fff; }
-.btn-secondary:hover { background: var(--gp-laranja-esc); border-color: var(--gp-laranja-esc); color: #fff; }
-.btn-outline-light { border-color: rgba(255,255,255,0.8); color: #fff; }
-.btn-outline-light:hover { background: rgba(255,255,255,0.15); color: #fff; }
-.btn-sm { padding: .45rem 1rem; font-size: .7rem; }
+.btn:hover, 
+.btn-secondary:hover, 
+.btn-orange:hover, 
+a.btn-warning:hover, 
+.btn-primary:hover {
+  background: var(--gp-laranja-esc) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(217, 119, 36, 0.3);
+}
+
+.btn-outline-light {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.8) !important;
+  color: #fff !important;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+}
+
+.btn-sm { padding: .45rem 1rem !important; font-size: .72rem !important; }
 
 /* ---------- 4. HERO (FAIXA VERDE DA HOME) ---------- */
 .hero {
@@ -197,7 +225,7 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
   align-items: center !important;
   justify-content: center !important;
   gap: 2.2rem !important;
-  padding: 4.5rem 2rem 3.5rem !important;
+  padding: 4rem 2rem 3.5rem !important;
   margin-top: 0.5rem !important;
   text-align: left !important;
 }
@@ -211,8 +239,9 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 }
 
 .hero-logo {
-  height: 140px;
-  width: 140px;
+  height: 120px;
+  width: 120px;
+  max-width: 120px;
   background: #ffffff;
   border-radius: 50%;
   padding: .75rem;
@@ -224,7 +253,7 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 }
 
 .hero-sigla {
-  font-size: clamp(2.2rem, 6vw, 3rem) !important;   /* cresce e diminui conforme a tela */
+  font-size: clamp(2.2rem, 6vw, 3rem) !important;
   font-weight: 800 !important;
   letter-spacing: -0.03em !important;
   display: block;
@@ -255,52 +284,86 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 /* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
 .pq-blocos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));  /* min(): nunca passa da tela */
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 1.25rem;
   margin: 2rem 0 1rem;
 }
+
 .pq {
-  position: relative; display: flex; align-items: flex-end; min-height: 280px; border-radius: .4rem; overflow: hidden;
-  background-size: cover; background-position: center; box-shadow: 0 4px 14px rgba(0,0,0,.2);
-  text-decoration: none !important; transition: transform .2s;
+  position: relative; 
+  display: flex; 
+  align-items: flex-end; 
+  min-height: 280px; 
+  border-radius: 8px; 
+  overflow: hidden;
+  background-size: cover; 
+  background-position: center; 
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+  text-decoration: none !important; 
+  transition: transform .2s ease;
 }
+
 .pq:hover { transform: translateY(-4px); }
 .pq-tinta { position: absolute; inset: 0; opacity: .78; }
 .pq.cor-1 .pq-tinta { background: var(--gp-verde); }
 .pq.cor-2 .pq-tinta { background: var(--gp-laranja); }
 .pq.cor-3 .pq-tinta { background: var(--gp-vermelho); }
 .pq-titulo {
-  position: relative; z-index: 1; color: #fff;
-  font-size: clamp(1.25rem, 4vw, 1.5rem) !important; font-weight: 700 !important; line-height: 1.15; padding: 1.25rem;
+  position: relative; 
+  z-index: 1; 
+  color: #fff;
+  font-size: clamp(1.25rem, 4vw, 1.5rem) !important; 
+  font-weight: 700 !important; 
+  line-height: 1.15; 
+  padding: 1.25rem;
   letter-spacing: -0.02em !important;
 }
 
 .cartoes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));  /* 1 coluna em telas estreitas */
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
   margin: 1.5rem 0;
 }
 
-/* --- Cartão de notícia --- */
+/* --- Cartão de notícia e imagens equalizadas --- */
 .nt {
-  position: relative;                 /* necessário para o link cobrir o cartão inteiro */
-  background: #fff; border-radius: .35rem; overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,.14);
-  display: flex; flex-direction: column;
+  position: relative;
+  background: #fff; 
+  border-radius: 8px; 
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  display: flex; 
+  flex-direction: column;
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.nt-img { position: relative; height: 190px; background-size: cover; background-position: center; background-color: var(--gp-verde); }
-.nt.cor-2 .nt-img { background-color: var(--gp-laranja); }
-.nt.cor-3 .nt-img { background-color: var(--gp-vermelho); }
-.nt-corpo { padding: 1.5rem 1.25rem 1rem; flex: 1; }
+
+.nt-img, 
+.card-img-top, 
+.cartoes .card img, 
+.nt img {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important; /* Recorta a foto perfeitamente sem achatar */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: var(--gp-verde);
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.nt-corpo { padding: 1.25rem 1.25rem 1rem; flex: 1; }
 .nt-corpo h4 {
   font-weight: 700 !important;
   color: var(--gp-laranja-esc);
-  font-size: 1.1rem !important; line-height: 1.35; margin: 0 0 .6rem;
+  font-size: 1.1rem !important; 
+  line-height: 1.35; 
+  margin: 0 0 .6rem;
   letter-spacing: -0.01em !important;
 }
-.nt-resumo { font-size: .95rem; color: #4a4a4a; margin: 0 0 .8rem; }
+
+.nt-resumo { font-size: .92rem; color: #4a4a4a; margin: 0 0 .8rem; }
 .nt-data { background: #f6f4ef; color: #8a867c; font-size: .8rem; padding: .7rem 1.25rem; }
 
 .nt-mais {
@@ -313,19 +376,19 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 }
 .nt-mais:hover { color: var(--gp-laranja); text-decoration: underline; }
 
-/* O link "LEIA MAIS" se estende sobre o cartão inteiro: clicar em qualquer parte abre a notícia */
 .nt-mais::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
 }
+
 .nt:has(.nt-mais):hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.2);
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
 }
 
-/* ---------- 6. FAIXAS (AGENDA, COORDENAÇÃO) ---------- */
+/* ---------- 6. FAIXAS (AGENDA, PODCAST, COORDENAÇÃO) ---------- */
 .faixa-agenda {
   background: var(--gp-areia);
   text-align: center;
@@ -345,13 +408,20 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 
 .faixa-agenda h2::before { display: none !important; }
 
-.faixa {
+/* Bloco do Podcast "GPENSC no Ar" */
+.faixa, 
+.podcast-card {
   background: #fff;
   border: 1px solid #e6dfd0;
-  border-left: 6px solid var(--gp-laranja);
-  border-radius: .4rem;
-  padding: 1rem 1.25rem;
+  border-left: 6px solid var(--gp-laranja) !important;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
   margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .coords-band {
@@ -381,7 +451,6 @@ main.content,
   max-width: 100% !important;
 }
 
-/* COMPUTADOR: área de conteúdo de até 1400px, centralizada */
 @media (min-width: 992px) {
   body:not(.page-index) main.content,
   body:not(.page-index) .secao,
@@ -399,7 +468,6 @@ main.content,
   }
 }
 
-/* Faixas de tela cheia (ocupam a largura toda mesmo dentro do conteúdo centralizado) */
 .hero,
 .faixa-agenda,
 .coords-band,
@@ -411,7 +479,6 @@ main.content,
   box-sizing: border-box !important;
 }
 
-/* Rodapé */
 .nav-footer {
   background: var(--gp-areia);
   border-top: 0 !important;
@@ -421,7 +488,7 @@ main.content,
 }
 .nav-footer a { color: var(--gp-verde); }
 
-/* ---------- 8. ABAS, EQUIPE E APOIO ---------- */
+/* ---------- 8. ABAS, EQUIPE E APOIO INSTITUCIONAL ---------- */
 .panel-tabset .nav-tabs {
   display: flex !important;
   flex-direction: row !important;
@@ -450,25 +517,6 @@ main.content,
   border-color: var(--gp-verde) !important;
 }
 
-.logos-institucionais,
-.logos-institucionais p {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;          /* logos quebram de linha no celular */
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 1.25rem 2rem !important;
-  margin: 1.5rem 0 !important;
-  width: 100% !important;
-}
-
-.logos-institucionais img,
-.logos-institucionais p img {
-  max-height: 80px !important;
-  width: auto !important;
-  object-fit: contain !important;
-}
-
 .membro-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -486,7 +534,6 @@ main.content,
 }
 
 .membro-nome { font-size: 1.1rem; font-weight: 700; color: var(--gp-verde); margin-bottom: 0.25rem; }
-
 .membro-cargo {
   font-size: 0.85rem;
   font-weight: 600;
@@ -495,17 +542,41 @@ main.content,
   letter-spacing: 0.03em;
   margin-bottom: 0.5rem;
 }
-
 .membro-bio { font-size: 0.9rem; color: #4a5568; margin-bottom: 0.5rem; }
 
-/* --- Faixa de apoio e parceiros --- */
+/* --- Faixa de apoio e logos institucionais --- */
+.logos-institucionais,
+.logos-institucionais p,
 .parceiros {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  padding: 20px 0;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.5rem 2.5rem !important;
+  margin: 1.5rem 0 !important;
+  width: 100% !important;
+  padding: 10px 0;
+}
+
+.logos-institucionais img,
+.logos-institucionais p img,
+.parceiros img {
+  max-height: 65px !important;
+  max-width: 160px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: grayscale(15%);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.logos-institucionais img:hover,
+.parceiros img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.06);
 }
 
 .parceiros small {
@@ -515,31 +586,11 @@ main.content,
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #666666;
-  margin-bottom: 15px;
-}
-
-.parceiros a { display: inline-flex; align-items: center; justify-content: center; }
-
-.parceiros img {
-  max-height: 70px;
-  max-width: 180px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: grayscale(20%);
-  opacity: 0.85;
-  transition: all 0.3s ease;
-}
-
-.parceiros img:hover {
-  filter: grayscale(0%);
-  opacity: 1;
-  transform: scale(1.08);
+  margin-bottom: 10px;
 }
 
 /* ---------- 9. TABLET E CELULAR ---------- */
 
-/* Tablet e abaixo (até 991px): menu recolhido (hambúrguer) */
 @media (max-width: 991px) {
   .navbar { padding: 0.7rem 1.25rem !important; }
 
@@ -549,13 +600,12 @@ main.content,
   }
   .navbar .navbar-nav { gap: 0; margin-left: 0 !important; }
   .navbar .nav-link {
-    padding: 0.75rem 0.5rem !important;   /* área de toque maior (mín. ~44px) */
+    padding: 0.75rem 0.5rem !important;
     font-size: 1rem !important;
   }
   .navbar .dropdown-menu { border-top: 0; border-left: 3px solid var(--gp-laranja); }
 }
 
-/* Celular (até 768px) */
 @media (max-width: 768px) {
   body:not(.page-index) main.content,
   body:not(.page-index) #quarto-document-content,
@@ -574,49 +624,65 @@ main.content,
   .navbar-brand span { font-size: 1.1rem !important; }
   .navbar-brand img { max-height: 32px !important; }
 
-  /* Hero em coluna, centralizado */
+  /* Hero em coluna e logo com tamanho controlado no celular */
   .hero {
     flex-direction: column !important;
     text-align: center !important;
-    padding: 2.5rem 1rem !important;
-    gap: 1.25rem !important;
+    padding: 2.2rem 1rem !important;
+    gap: 1rem !important;
   }
-  .hero-logo { height: 96px; width: 96px; margin-bottom: 0 !important; order: -1; }  /* logo em cima, texto embaixo */
+  
+  .hero-logo { 
+    height: 85px !important; 
+    width: 85px !important; 
+    max-width: 85px !important;
+    margin-bottom: 0 !important; 
+    order: -1; 
+  }
   .hero-texto { align-items: center; }
 
-  /* Bloco "Sobre" da home: respiro entre a foto e o texto */
   .intro-texto { margin-top: 1rem; }
   .intro-texto p { margin-top: 0; }
 
-  /* Caixa "GPENSC no Ar": o botão vai para uma linha própria, sem encostar no texto */
-  .faixa { padding: 1rem; }
-  .faixa .btn {
-    display: block;
-    width: 100%;
-    margin: 1rem 0 0 !important;
+  /* "GPENSC no Ar" no celular: empilha texto e botão de forma limpa */
+  .faixa, 
+  .podcast-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 1.25rem 1rem !important;
+  }
+  
+  .faixa .btn, 
+  .podcast-card .btn,
+  div[style*="border-left"] .btn {
+    display: block !important;
+    width: 100% !important;
+    margin: 0.75rem 0 0 !important;
     text-align: center;
   }
+  
   .hero-botoes { justify-content: center; }
 
-  /* Faixas com menos respiro lateral */
   .faixa-agenda { padding: 2.5rem 1rem !important; margin-top: 2rem; }
   .coords-band { padding: 1.75rem 1rem !important; margin: 1.75rem 0; }
 
-  /* Títulos de seção menores e logo do título reduzido */
   main h2 { margin: 2rem 0 1rem; padding-bottom: .6rem; }
   h1, .h1 { font-size: 1.6rem !important; }
   h2, .h2 { font-size: 1.3rem !important; }
   h3, .h3 { font-size: 1.1rem !important; }
 
-  /* Cartões: imagem de notícia um pouco mais baixa; blocos de pesquisa mais compactos */
-  .nt-img { height: 160px; }
+  /* Sincronização de altura das imagens dos cards no celular */
+  .nt-img, 
+  .card-img-top, 
+  .cartoes .card img, 
+  .nt img { 
+    height: 160px !important; 
+  }
+  
   .pq { min-height: 200px; }
   .cartoes { gap: 1rem; }
 
-  /* Botões com boa área de toque */
-  .btn { padding: .8rem 1.25rem; }
-
-  /* Tabelas roláveis na horizontal (sem esticar a página) */
+  /* Tabelas com rolagem horizontal no mobile */
   main table,
   .dataframe,
   .dataTables_wrapper,
@@ -627,19 +693,20 @@ main.content,
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Abas da equipe mais compactas */
   .panel-tabset .nav-tabs .nav-link { padding: 0.35rem 0.9rem !important; font-size: 0.85rem !important; }
 
-  /* Logos institucionais e de apoio menores */
+  /* Sincronização de tamanho das logos no celular */
   .logos-institucionais,
-  .logos-institucionais p { gap: 1rem 1.25rem !important; }
+  .logos-institucionais p,
+  .parceiros { gap: 1rem 1.5rem !important; }
+  
   .logos-institucionais img,
-  .logos-institucionais p img { max-height: 55px !important; }
+  .logos-institucionais p img,
+  .parceiros img { 
+    max-height: 48px !important; 
+    max-width: 130px !important;
+  }
 
-  .parceiros { gap: 16px; padding: 15px 10px; }
-  .parceiros img { max-height: 45px; max-width: 120px; }
-
-  /* Bandeiras de idioma menores */
   .gtrans img,
   .flags img,
   .idiomas img,
@@ -649,26 +716,25 @@ main.content,
   .idiomas,
   .lang-switcher { gap: 4px !important; font-size: 0.8rem !important; padding: 2px 4px !important; }
 
-  /* No toque não há "hover": desliga o zoom/elevação que ficaria "preso" depois do clique */
-  .parceiros img:hover { transform: none; }
+  /* Desativa animação de hover no toque */
+  .parceiros img:hover,
+  .logos-institucionais img:hover { transform: none; }
   .pq:hover,
   .membro-card:hover,
   .nt:has(.nt-mais):hover { transform: none; }
 }
 
-/* Celulares muito pequenos (até 380px) */
 @media (max-width: 380px) {
   .navbar-brand,
   .navbar-title,
   .navbar-brand span { font-size: 1rem !important; gap: .4rem; }
-  .hero-logo { height: 84px; width: 84px; }
+  .hero-logo { height: 75px !important; width: 75px !important; }
   .nt-corpo { padding: 1.25rem 1rem .75rem; }
   .nt-data { padding: .6rem 1rem; }
 }
 
 /* ---------- 10. ACESSIBILIDADE ---------- */
 
-/* Contorno visível ao navegar pelo teclado */
 a:focus-visible,
 button:focus-visible,
 .btn:focus-visible,
@@ -676,12 +742,12 @@ button:focus-visible,
   outline: 3px solid var(--gp-laranja);
   outline-offset: 2px;
 }
+
 .nt-mais:focus-visible::after {
   outline: 3px solid var(--gp-laranja);
   outline-offset: -3px;
 }
 
-/* Respeita quem prefere menos animação */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
