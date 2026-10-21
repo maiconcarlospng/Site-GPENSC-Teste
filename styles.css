@@ -2,8 +2,8 @@
    styles.css – VISUAL DO SITE GPENSC
    Tipografia: Inter
    Organização:
-     1. Fonte e variáveis       6. Faixas (agenda, coordenação)
-     2. Menu (navbar)           7. Estrutura e largura da tela
+     1. Fonte e variáveis       6. Faixas (agenda, podcast, coordenação)
+     2. Menu (navbar)           7. Estrutura e largura da tela / Rodapé
      3. Títulos e botões        8. Abas, equipe e apoio
      4. Hero (faixa da home)    9. Celular e tablet
      5. Cartões e notícias     10. Acessibilidade
@@ -120,16 +120,23 @@ div.faixa-topo {
   gap: 0.2rem;
 }
 
+/* Restaura o menu superior como texto simples (sem botões laranjas) */
 .navbar .nav-link {
   color: var(--gp-verde) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   font-weight: 600 !important;
   font-size: 0.9rem !important;
   padding: 0.5rem 0.8rem !important;
+  text-transform: none !important;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
   color: var(--gp-laranja) !important;
+  background: transparent !important;
 }
 
 .navbar .dropdown-menu {
@@ -166,16 +173,12 @@ main h3 { text-align: center; margin: 2rem 0 1rem; }
 .titulo-pagina { text-align: center; }
 .centro { text-align: center; margin: 1.5rem 0; }
 
-/* Padronização de todos os Botões Laranjas */
+/* Botões de Ação (Apenas elementos de botão reais) */
 .btn, 
 .btn-secondary, 
 .btn-orange, 
 a.btn-warning, 
-.btn-primary, 
-a[href*="sobre"], 
-a[href*="agenda"], 
-a[href*="noar"], 
-a[href*="noticias"] {
+.btn-primary {
   text-transform: uppercase;
   letter-spacing: 0.05em !important;
   font-size: 0.8rem !important;
@@ -326,7 +329,7 @@ a.btn-warning:hover,
   margin: 1.5rem 0;
 }
 
-/* --- Cartão de notícia e imagens equalizadas --- */
+/* Imagens dos cards de notícias com recorte equalizado */
 .nt {
   position: relative;
   background: #fff; 
@@ -344,7 +347,7 @@ a.btn-warning:hover,
 .nt img {
   width: 100% !important;
   height: 180px !important;
-  object-fit: cover !important; /* Recorta a foto perfeitamente sem achatar */
+  object-fit: cover !important;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background-color: var(--gp-verde);
@@ -408,7 +411,6 @@ a.btn-warning:hover,
 
 .faixa-agenda h2::before { display: none !important; }
 
-/* Bloco do Podcast "GPENSC no Ar" */
 .faixa, 
 .podcast-card {
   background: #fff;
@@ -439,7 +441,7 @@ a.btn-warning:hover,
 .avatar { display: grid; place-items: center; background: var(--gp-verde); color: #fff; font-size: 1.8rem; font-weight: 800 !important; }
 .tl-ano { font-size: 1.4rem !important; font-weight: 800 !important; color: var(--gp-verde); }
 
-/* ---------- 7. ESTRUTURA GLOBAL E LARGURA DE TELA ---------- */
+/* ---------- 7. ESTRUTURA GLOBAL E RODAPÉ ---------- */
 #quarto-content,
 .page-columns,
 main.content,
@@ -479,6 +481,7 @@ main.content,
   box-sizing: border-box !important;
 }
 
+/* Estilo do Rodapé */
 .nav-footer {
   background: var(--gp-areia);
   border-top: 0 !important;
@@ -486,7 +489,15 @@ main.content,
   font-size: .9rem;
   text-align: center;
 }
+
 .nav-footer a { color: var(--gp-verde); }
+
+/* Esconde especificamente os links indesejados no rodapé */
+.nav-footer a[href*="sobre"],
+.nav-footer a[href*="noticias"],
+.nav-footer a[href*="agenda"] {
+  display: none !important;
+}
 
 /* ---------- 8. ABAS, EQUIPE E APOIO INSTITUCIONAL ---------- */
 .panel-tabset .nav-tabs {
@@ -544,7 +555,7 @@ main.content,
 }
 .membro-bio { font-size: 0.9rem; color: #4a5568; margin-bottom: 0.5rem; }
 
-/* --- Faixa de apoio e logos institucionais --- */
+/* Logos institucionais */
 .logos-institucionais,
 .logos-institucionais p,
 .parceiros {
@@ -624,7 +635,7 @@ main.content,
   .navbar-brand span { font-size: 1.1rem !important; }
   .navbar-brand img { max-height: 32px !important; }
 
-  /* Hero em coluna e logo com tamanho controlado no celular */
+  /* Hero em coluna no celular */
   .hero {
     flex-direction: column !important;
     text-align: center !important;
@@ -644,7 +655,7 @@ main.content,
   .intro-texto { margin-top: 1rem; }
   .intro-texto p { margin-top: 0; }
 
-  /* "GPENSC no Ar" no celular: empilha texto e botão de forma limpa */
+  /* Podcast no celular */
   .faixa, 
   .podcast-card {
     flex-direction: column !important;
@@ -671,7 +682,7 @@ main.content,
   h2, .h2 { font-size: 1.3rem !important; }
   h3, .h3 { font-size: 1.1rem !important; }
 
-  /* Sincronização de altura das imagens dos cards no celular */
+  /* Imagens dos cards no mobile */
   .nt-img, 
   .card-img-top, 
   .cartoes .card img, 
@@ -682,7 +693,7 @@ main.content,
   .pq { min-height: 200px; }
   .cartoes { gap: 1rem; }
 
-  /* Tabelas com rolagem horizontal no mobile */
+  /* Tabelas roláveis */
   main table,
   .dataframe,
   .dataTables_wrapper,
@@ -695,7 +706,7 @@ main.content,
 
   .panel-tabset .nav-tabs .nav-link { padding: 0.35rem 0.9rem !important; font-size: 0.85rem !important; }
 
-  /* Sincronização de tamanho das logos no celular */
+  /* Logos institucionais no celular */
   .logos-institucionais,
   .logos-institucionais p,
   .parceiros { gap: 1rem 1.5rem !important; }
@@ -716,7 +727,7 @@ main.content,
   .idiomas,
   .lang-switcher { gap: 4px !important; font-size: 0.8rem !important; padding: 2px 4px !important; }
 
-  /* Desativa animação de hover no toque */
+  /* Desativa hover no toque */
   .parceiros img:hover,
   .logos-institucionais img:hover { transform: none; }
   .pq:hover,
