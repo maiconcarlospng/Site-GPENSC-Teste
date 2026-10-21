@@ -11,9 +11,9 @@ itens:
     resumo: '[Resumo – preencher]'
     url: ''
     imagem: ''
-  - data: 2026-21-10
-    categoria: Defesa
+  - data: 2026/10/21
+    categoria: teste
     titulo: TESTE 01
-    resumo: Resumo- preencher
+    resumo: ___
     url: ''
-    imagem: https://picsum.photos/id/885/1920/1280.webp
+    imagem: https://picsum.photos/id/563/1920/1280.webp
