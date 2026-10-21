@@ -17,3 +17,9 @@ itens:
     resumo: ___
     url: ''
     imagem: https://picsum.photos/id/563/1920/1280.webp
+  - data: 21/10/2026
+    categoria: teste2
+    titulo: TESTE 02
+    resumo: ''
+    url: ''
+    imagem: https://picsum.photos/id/517/1920/1280.webp
