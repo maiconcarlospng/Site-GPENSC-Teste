@@ -3,9 +3,6 @@ backend:
   repo: maiconcarlospng/Site-GPENSC-Teste
   branch: main
 
-media_folder: "img"
-public_folder: "/img"
-
 locale: "pt"
 
 media_folder: "img"
@@ -15,7 +12,6 @@ collections:
   - name: "conteudo"
     label: "Conteúdo do site"
     files:
-
       - label: "Notícias"
         name: "noticias"
         file: "data/noticias.yml"
