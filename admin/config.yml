@@ -19,6 +19,7 @@ collections:
           - label: "Notícias"
             name: "itens"
             widget: "list"
+            label_singular: "notícia"
             summary: "{{fields.data}} - {{fields.titulo}}"
             fields:
               - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
@@ -35,6 +36,7 @@ collections:
           - label: "Eventos"
             name: "itens"
             widget: "list"
+            label_singular: "evento"
             summary: "{{fields.data}} - {{fields.titulo}}"
             fields:
               - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
@@ -50,6 +52,7 @@ collections:
           - label: "Membros"
             name: "itens"
             widget: "list"
+            label_singular: "membro"
             summary: "{{fields.nome}}"
             fields:
               - { label: "Nome", name: "nome", widget: "string" }
@@ -66,6 +69,7 @@ collections:
           - label: "Linhas"
             name: "itens"
             widget: "list"
+            label_singular: "linha de pesquisa"
             summary: "{{fields.nome}}"
             fields:
               - { label: "ID", name: "id", widget: "string", hint: "Código curto, usado em Projetos e Publicações. Não mude depois de criado." }
@@ -80,6 +84,7 @@ collections:
           - label: "Projetos"
             name: "itens"
             widget: "list"
+            label_singular: "projeto"
             summary: "{{fields.titulo}}"
             fields:
               - { label: "Título", name: "titulo", widget: "string" }
@@ -98,6 +103,7 @@ collections:
           - label: "Publicações"
             name: "itens"
             widget: "list"
+            label_singular: "publicação"
             summary: "{{fields.ano}} - {{fields.titulo}}"
             fields:
               - { label: "Ano", name: "ano", widget: "string" }
@@ -116,6 +122,7 @@ collections:
           - label: "Livros"
             name: "itens"
             widget: "list"
+            label_singular: "livro"
             summary: "{{fields.ano}} - {{fields.titulo}}"
             fields:
               - { label: "Ano", name: "ano", widget: "string" }
@@ -131,6 +138,7 @@ collections:
           - label: "Defesas"
             name: "itens"
             widget: "list"
+            label_singular: "defesa"
             summary: "{{fields.autor}} - {{fields.titulo}}"
             fields:
               - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
@@ -148,6 +156,7 @@ collections:
           - label: "Disciplinas"
             name: "itens"
             widget: "list"
+            label_singular: "disciplina"
             summary: "{{fields.codigo}} - {{fields.nome}}"
             fields:
               - { label: "Nível", name: "nivel", widget: "string", required: false }
@@ -164,6 +173,7 @@ collections:
           - label: "Episódios"
             name: "itens"
             widget: "list"
+            label_singular: "episódio"
             summary: "{{fields.episodio}} - {{fields.titulo}}"
             fields:
               - { label: "Episódio", name: "episodio", widget: "string" }
@@ -180,6 +190,7 @@ collections:
           - label: "Vídeos"
             name: "itens"
             widget: "list"
+            label_singular: "vídeo"
             summary: "{{fields.titulo}}"
             fields:
               - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
@@ -194,6 +205,7 @@ collections:
           - label: "Sites"
             name: "itens"
             widget: "list"
+            label_singular: "site"
             summary: "{{fields.nome}}"
             fields:
               - { label: "Nome", name: "nome", widget: "string" }
@@ -207,6 +219,7 @@ collections:
           - label: "Instituições"
             name: "itens"
             widget: "list"
+            label_singular: "instituição"
             summary: "{{fields.nome}}"
             fields:
               - { label: "Nome", name: "nome", widget: "string" }
@@ -220,6 +233,8 @@ collections:
           - label: "Fotos"
             name: "itens"
             widget: "list"
+            label_singular: "foto"
+            hint: "Adicione todas as fotos desejadas nesta lista. Você pode reorganizar a ordem e salvar as alterações uma única vez."
             summary: "{{fields.legenda}}"
             fields:
               - { label: "Arquivo", name: "arquivo", widget: "image" }
