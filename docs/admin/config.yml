@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main # Altere para 'master' se for a sua branch principal
+
+locale: 'pt'
+
+media_folder: "img"
+public_folder: "img"
+
+collections:
+  - name: "noticias"
+    label: "Notícias e Eventos"
+    file: "data/noticias.csv"
+    format: "csv"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string" }
+      - { label: "Categoria", name: "categoria", widget: "string" }
+      - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+      - { label: "Resumo", name: "resumo", widget: "text" }
+      - { label: "Link de Acesso", name: "link", widget: "string", required: false }
+      - { label: "Imagem", name: "imagem", widget: "image", required: false }
+
+  - name: "equipe"
+    label: "Membros da Equipe"
+    file: "data/equipe.csv"
+    format: "csv"
+    fields:
+      - { label: "Nome Completo", name: "nome", widget: "string" }
+      - { label: "Papel / Categoria", name: "categoria", widget: "string" }
+      - { label: "Link Lattes", name: "lattes", widget: "string", required: false }
+      - { label: "Foto", name: "foto", widget: "image", required: false }
+      - { label: "Biografia Curta", name: "bio", widget: "text", required: false }
+
+  - name: "apoio"
+    label: "Logos de Apoio e Parceiros"
+    file: "data/apoio.csv"
+    format: "csv"
+    fields:
+      - { label: "Nome da Instituição", name: "nome", widget: "string" }
+      - { label: "URL do Site", name: "url", widget: "string" }
+      - { label: "Arquivo da Logo", name: "logo", widget: "image" }

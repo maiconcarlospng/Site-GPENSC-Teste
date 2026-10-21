@@ -4,11 +4,12 @@
 
 project:
   type: website
-  output-dir: docs              # pasta onde o site pronto é gerado (GitHub Pages lê daqui)
+  output-dir: docs               # pasta onde o site pronto é gerado (GitHub Pages lê daqui)
   render:
     - "*.qmd"                  # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
   resources:
     - img/**                   # copia TODAS as imagens para o site (inclui fotos usadas só no CSS)
+    - "admin/*"                # <--- ADICIONADO: Copia a pasta do painel Decap CMS para o build final
 
 lang: pt-BR
 
@@ -16,7 +17,7 @@ website:
   title: "GPENSC"
   description: "Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
   favicon: img/logo_gpensc.png
-  search: true                  # Lupa de busca no menu
+  search: true                   # Lupa de busca no menu
 
   navbar:
     logo: img/logo_gpensc.png   # Logo posicionada corretamente dentro da navbar
@@ -64,7 +65,7 @@ website:
     left: |
       [Quem somos](sobre.qmd) · [Notícias](noticias.qmd) · [Agenda](agenda.qmd) · [Contato](contato.qmd)
     center: |
-      © GPENSC · Universidade Federal de Ouro Preto
+      © GPENSC · Universidade Federal de Ouro Preto · <a href="/admin/" style="opacity: 0.4; text-decoration: none; font-size: 0.85em;">admin</a>
     right: |
       [<i class="bi bi-instagram"></i>](https://instagram.com/gpenscufop){aria-label="Instagram" title="Instagram"}
       [<i class="bi bi-envelope"></i>](mailto:gpensc@ufop.edu.br){aria-label="E-mail" title="E-mail"}
