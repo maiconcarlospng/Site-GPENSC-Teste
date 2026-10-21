@@ -4,34 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Administração - Decap CMS</title>
-  
-  <!-- Meta tag oficial do Netlify Identity -->
-  <meta name="netlify-site-url" content="https://sitegpensc.netlify.app" />
-  
-  <!-- Script do Netlify Identity -->
+  <!-- 1. Carrega o widget do Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script>
-    // Sobrescreve a memoria do navegador (localStorage) para remover a URL antiga do GitHub
-    localStorage.setItem("netlifySiteURL", "https://sitegpensc.netlify.app");
-
+    // 2. INTERCEPTADOR: Impede o Decap CMS de resetar a APIUrl do Netlify
     if (window.netlifyIdentity) {
-      window.netlifyIdentity.init({
-        APIUrl: "https://sitegpensc.netlify.app/.netlify/identity"
-      });
+      const originalInit = window.netlifyIdentity.init.bind(window.netlifyIdentity);
+      
+      // Sobrescreve a função init para que QUALQUER chamada force o uso da APIUrl do Netlify
+      window.netlifyIdentity.init = function(opts) {
+        opts = opts || {};
+        opts.APIUrl = "https://sitegpensc.netlify.app/.netlify/identity";
+        return originalInit(opts);
+      };
 
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.reload();
-          });
-        }
+      // Inicializa o widget com a URL fixa
+      window.netlifyIdentity.init();
+
+      // Recarrega a página ao concluir o login
+      window.netlifyIdentity.on("login", () => {
+        document.location.reload();
       });
     }
   </script>
 
-  <!-- Decap CMS -->
+  <!-- 3. Carrega o Decap CMS DEPOIS do interceptador estar pronto -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
