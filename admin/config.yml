@@ -230,7 +230,7 @@ collections:
         name: "galeria"
         file: "data/galeria.yml"
         fields:
-          - label: "Fotos"
+          - label: "Fotos (seleção múltipla)"
             name: "itens"
-            widget: "galeria-multipla"
+            widget: "galeria-multipla-v2"
             hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
