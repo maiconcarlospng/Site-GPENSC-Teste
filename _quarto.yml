@@ -4,7 +4,6 @@
 
 project:
   type: website
-  output-dir: docs               # pasta onde o site pronto é gerado (GitHub Pages lê daqui)
   render:
     - "*.qmd"                  # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
   resources:
