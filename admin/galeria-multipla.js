@@ -111,7 +111,7 @@
                     <button type="button" disabled=${indice === fotos.length - 1} onClick=${() => moverFoto(indice, 1)} title="Mover para baixo">↓ Descer</button>
                     <button type="button" onClick=${() => removerFoto(indice)}>Remover</button>
                   </div>
-                  <span class="gpen-sc-galeria__count">${caminho}</span>
+                  <span class="gpen-sc-galeria__arquivo">${caminho.startsWith("blob:") ? "Imagem nova — será enviada ao salvar" : (caminho.split(/[\\/]/).pop() || "Imagem selecionada")}</span>
                 </div>
               </article>
             `;
@@ -121,5 +121,32 @@
     `;
   };
 
-  CMS.registerWidget("galeria-multipla-v2", GaleriaMultiplaControl);
+  const GaleriaMultiplaPreview = ({ value, getAsset }) => {
+    const fotos = comoLista(value).filter((foto) => foto && typeof foto.arquivo === "string" && foto.arquivo);
+
+    if (!fotos.length) {
+      return html`<p class="gpen-sc-galeria__preview-vazia">Nenhuma foto cadastrada na galeria.</p>`;
+    }
+
+    return html`
+      <div class="gpen-sc-galeria__preview">
+        ${fotos.map((foto, indice) => {
+          const caminho = foto.arquivo;
+          const asset = typeof getAsset === "function" ? getAsset(caminho) : undefined;
+          const src = asset && asset.url
+            ? asset.url
+            : (/^(blob:|data:|https?:\\/\\/|\\/)/i.test(caminho) ? caminho : "/" + caminho);
+
+          return html`
+            <figure key=${caminho + "-preview-" + indice}>
+              ${src && html`<img src=${src} alt=${foto.legenda || "Foto " + (indice + 1)} loading="lazy" />`}
+              <figcaption>${foto.legenda || "Foto " + (indice + 1)}</figcaption>
+            </figure>
+          `;
+        })}
+      </div>
+    `;
+  };
+
+  CMS.registerWidget("galeria-multipla-v2", GaleriaMultiplaControl, GaleriaMultiplaPreview);
 })();
