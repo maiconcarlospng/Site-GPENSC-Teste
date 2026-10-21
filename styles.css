@@ -284,6 +284,52 @@ a.btn-warning:hover,
 .hero-resumo { margin-top: .6rem !important; font-size: .95rem; opacity: .95; line-height: 1.4; }
 .hero-botoes { margin-top: 1.2rem !important; display: flex; gap: 1rem; flex-wrap: wrap; }
 
+/* Galeria/carrossel de fotos da página inicial (faixa_galeria) */
+.faixa-galeria,
+.galeria-topo,
+.galeria-fotos,
+.carrossel-fotos,
+.carousel-fotos,
+.slideshow-fotos {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.faixa-galeria img,
+.galeria-topo img,
+.galeria-fotos img,
+.carrossel-fotos img,
+.carousel-fotos img,
+.slideshow-fotos img {
+  display: block;
+  width: 100%;
+  height: clamp(240px, 48vw, 520px);
+  object-fit: cover;
+  object-position: center;
+}
+
+.faixa-galeria .carousel-item,
+.galeria-topo .carousel-item,
+.galeria-fotos .carousel-item,
+.carrossel-fotos .carousel-item,
+.carousel-fotos .carousel-item,
+.slideshow-fotos .carousel-item {
+  height: clamp(240px, 48vw, 520px);
+  overflow: hidden;
+}
+
+.faixa-galeria .carousel-item img,
+.galeria-topo .carousel-item img,
+.galeria-fotos .carousel-item img,
+.carrossel-fotos .carousel-item img,
+.carousel-fotos .carousel-item img,
+.slideshow-fotos .carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
 .pq-blocos {
   display: grid;
@@ -481,22 +527,62 @@ main.content,
   box-sizing: border-box !important;
 }
 
-/* Estilo do Rodapé */
+/* Rodapé: visual, links, marcadores e redes sociais */
 .nav-footer {
   background: var(--gp-areia);
   border-top: 0 !important;
-  padding: 2rem 1.5rem !important;
+  padding: 1.5rem 1.5rem !important;
   font-size: .9rem;
   text-align: center;
 }
 
-.nav-footer a { color: var(--gp-verde); }
+.nav-footer a {
+  color: var(--gp-verde);
+  text-decoration: none !important;
+}
 
-/* Esconde especificamente os links indesejados no rodapé */
+/* Esconde links repetidos/indesejados no rodapé */
 .nav-footer a[href*="sobre"],
 .nav-footer a[href*="noticias"],
 .nav-footer a[href*="agenda"] {
   display: none !important;
+}
+
+/* Remove pontinhos e marcadores ao lado de Contato */
+.nav-footer-left,
+.nav-footer-left ul,
+.nav-footer-left li {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.nav-footer-left li::before,
+.nav-footer-left ::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Ícones do Instagram e do e-mail */
+.nav-footer-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: .85rem !important;
+}
+
+.nav-footer-right a,
+.nav-footer-right i,
+.nav-footer-right .bi,
+.nav-footer-right svg {
+  font-size: 1.4rem !important;
+  line-height: 1 !important;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.nav-footer-right a:hover {
+  color: var(--gp-laranja) !important;
+  transform: scale(1.15);
 }
 
 /* ---------- 8. ABAS, EQUIPE E APOIO INSTITUCIONAL ---------- */
@@ -689,6 +775,22 @@ main.content,
   .nt img { 
     height: 160px !important; 
   }
+
+  /* Galeria/carrossel de fotos no tablet e celular */
+  .faixa-galeria img,
+  .galeria-topo img,
+  .galeria-fotos img,
+  .carrossel-fotos img,
+  .carousel-fotos img,
+  .slideshow-fotos img,
+  .faixa-galeria .carousel-item,
+  .galeria-topo .carousel-item,
+  .galeria-fotos .carousel-item,
+  .carrossel-fotos .carousel-item,
+  .carousel-fotos .carousel-item,
+  .slideshow-fotos .carousel-item {
+    height: clamp(210px, 62vw, 340px);
+  }
   
   .pq { min-height: 200px; }
   .cartoes { gap: 1rem; }
@@ -742,6 +844,21 @@ main.content,
   .hero-logo { height: 75px !important; width: 75px !important; }
   .nt-corpo { padding: 1.25rem 1rem .75rem; }
   .nt-data { padding: .6rem 1rem; }
+
+  .faixa-galeria img,
+  .galeria-topo img,
+  .galeria-fotos img,
+  .carrossel-fotos img,
+  .carousel-fotos img,
+  .slideshow-fotos img,
+  .faixa-galeria .carousel-item,
+  .galeria-topo .carousel-item,
+  .galeria-fotos .carousel-item,
+  .carrossel-fotos .carousel-item,
+  .carousel-fotos .carousel-item,
+  .slideshow-fotos .carousel-item {
+    height: 220px;
+  }
 }
 
 /* ---------- 10. ACESSIBILIDADE ---------- */
@@ -765,62 +882,4 @@ button:focus-visible,
     transition: none !important;
     animation: none !important;
   }
-}
-
-/* ---------- 7. RODAPÉ (NAV-FOOTER) ---------- */
-.nav-footer {
-  background: var(--gp-areia);
-  border-top: 0 !important;
-  padding: 1.5rem 1.5rem !important;
-  font-size: .9rem;
-  text-align: center;
-}
-
-.nav-footer a { 
-  color: var(--gp-verde); 
-  text-decoration: none !important;
-}
-
-/* Esconde links indesejados */
-.nav-footer a[href*="sobre"],
-.nav-footer a[href*="noticias"],
-.nav-footer a[href*="agenda"] {
-  display: none !important;
-}
-
-/* Remove os pontinhos (...) e marcadores ao lado de Contato */
-.nav-footer-left,
-.nav-footer-left ul,
-.nav-footer-left li {
-  list-style: none !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-}
-
-.nav-footer-left li::before,
-.nav-footer-left ::before {
-  content: "" !important;
-  display: none !important;
-}
-
-/* Aumenta os ícones do Instagram e do E-mail */
-.nav-footer-right {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  gap: 0.85rem !important;
-}
-
-.nav-footer-right a,
-.nav-footer-right i,
-.nav-footer-right .bi,
-.nav-footer-right svg {
-  font-size: 1.4rem !important; /* Aumenta o tamanho visual dos ícones */
-  line-height: 1 !important;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.nav-footer-right a:hover {
-  color: var(--gp-laranja) !important;
-  transform: scale(1.15); /* Efeito suave ao passar o mouse */
 }
