@@ -3,6 +3,8 @@ local_backend: true
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://sitegpensc.netlify.app/.netlify/identity
+  gateway_url: https://sitegpensc.netlify.app/.netlify/git
 
 locale: "pt"
 
