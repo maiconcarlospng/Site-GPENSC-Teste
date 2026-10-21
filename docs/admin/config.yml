@@ -2,8 +2,7 @@ backend:
   name: github
   repo: maiconcarlospng/Site-GPENSC-Teste
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  site_domain: sitegpensc.netlify.app
 
 locale: 'pt'
 
