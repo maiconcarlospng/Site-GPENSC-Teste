@@ -483,6 +483,23 @@ a.btn-warning:hover,
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
+/* Mantém o texto e o botão da faixa do podcast alinhados no desktop. */
+.faixa .faixa-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 !important;
+  line-height: 1.5;
+}
+
+.faixa .faixa-botao {
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 0 !important;
+  vertical-align: middle;
+  line-height: 1.25 !important;
+  white-space: nowrap;
+}
+
 .coords-band {
   background: var(--gp-menta);
   padding: 2.5rem 2rem !important;
@@ -591,8 +608,23 @@ main.content,
   transition: transform .2s ease, color .2s ease;
 }
 
+.nav-footer-right a[href*="instagram.com"] {
+  color: #C13584 !important;
+}
+
+.nav-footer-right a[href^="mailto:"] {
+  color: #D44638 !important;
+}
+
+.nav-footer-right a[href*="instagram.com"]:hover {
+  color: #E1306C !important;
+}
+
+.nav-footer-right a[href^="mailto:"]:hover {
+  color: var(--gp-laranja-esc) !important;
+}
+
 .nav-footer-right a:hover {
-  color: var(--gp-laranja) !important;
   transform: scale(1.15);
 }
 
