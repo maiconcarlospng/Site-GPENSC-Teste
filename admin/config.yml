@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: maiconcarlospng/Site-GPENSC-Teste
+  name: git-gateway
   branch: main
   site_domain: sitegpensc.netlify.app
 
