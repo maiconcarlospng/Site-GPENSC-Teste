@@ -11,6 +11,25 @@
     return [];
   };
 
+  // Resolve public repository paths and temporary upload URLs for previews.
+  const srcDaImagem = (caminho, getAsset) => {
+    if (typeof caminho !== "string" || !caminho) return "";
+    if (typeof getAsset === "function") {
+      const asset = getAsset(caminho);
+      if (asset && asset.url) return asset.url;
+    }
+    if (
+      caminho.startsWith("blob:") ||
+      caminho.startsWith("data:") ||
+      caminho.startsWith("http://") ||
+      caminho.startsWith("https://") ||
+      caminho.startsWith("/")
+    ) {
+      return caminho;
+    }
+    return "/" + caminho.replace(/^\/+/, "");
+  };
+
   const GaleriaMultiplaControl = ({ forID, value, onChange, pickFile, getAsset }) => {
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState("");
@@ -24,7 +43,7 @@
           kind: "image",
           accept: "image/*",
           multiple: true,
-          allowURL: false
+          allowURL: false,
         });
 
         if (!selecionadas) return;
@@ -34,9 +53,7 @@
           .filter((item) => item && typeof item.value === "string" && item.value)
           .map((item) => ({ arquivo: item.value, legenda: "" }));
 
-        if (novas.length) {
-          onChange([...fotos, ...novas]);
-        }
+        if (novas.length) onChange([...fotos, ...novas]);
       } catch (error) {
         setErro(error && error.message ? error.message : "Não foi possível adicionar as fotos.");
       } finally {
@@ -45,7 +62,7 @@
     };
 
     const alterarLegenda = (indice, legenda) => {
-      onChange(fotos.map((foto, i) => i === indice ? { ...foto, legenda } : foto));
+      onChange(fotos.map((foto, i) => (i === indice ? { ...foto, legenda } : foto)));
     };
 
     const moverFoto = (indice, deslocamento) => {
@@ -77,17 +94,17 @@
 
         ${fotos.length === 0 && html`
           <div class="gpen-sc-galeria__vazia">
-            Nenhuma foto adicionada. Clique em “Selecionar várias fotos” para escolher uma ou mais imagens.
+            Nenhuma foto adicionada. Clique em “Selecionar várias fotos” para escolher imagens.
           </div>
         `}
 
         <div class="gpen-sc-galeria__grid">
           ${fotos.map((foto, indice) => {
             const caminho = typeof foto.arquivo === "string" ? foto.arquivo : "";
-            const asset = caminho && typeof getAsset === "function" ? getAsset(caminho) : undefined;
-            const src = asset && asset.url
-              ? asset.url
-              : (/^(blob:|data:|https?:\/\/|\/)/i.test(caminho) ? caminho : (caminho ? "/" + caminho : ""));
+            const src = srcDaImagem(caminho, getAsset);
+            const nomeArquivo = caminho.startsWith("blob:")
+              ? "Imagem nova — será enviada ao salvar"
+              : caminho.split("/").pop() || "Imagem selecionada";
 
             return html`
               <article class="gpen-sc-galeria__item" key=${caminho + "-" + indice}>
@@ -107,11 +124,11 @@
                     onChange=${(event) => alterarLegenda(indice, event.target.value)}
                   />
                   <div class="gpen-sc-galeria__acoes">
-                    <button type="button" disabled=${indice === 0} onClick=${() => moverFoto(indice, -1)} title="Mover para cima">↑ Subir</button>
-                    <button type="button" disabled=${indice === fotos.length - 1} onClick=${() => moverFoto(indice, 1)} title="Mover para baixo">↓ Descer</button>
+                    <button type="button" disabled=${indice === 0} onClick=${() => moverFoto(indice, -1)}>↑ Subir</button>
+                    <button type="button" disabled=${indice === fotos.length - 1} onClick=${() => moverFoto(indice, 1)}>↓ Descer</button>
                     <button type="button" onClick=${() => removerFoto(indice)}>Remover</button>
                   </div>
-                  <span class="gpen-sc-galeria__arquivo">${caminho.startsWith("blob:") ? "Imagem nova — será enviada ao salvar" : (caminho.split(/[\\/]/).pop() || "Imagem selecionada")}</span>
+                  <span class="gpen-sc-galeria__arquivo">${nomeArquivo}</span>
                 </div>
               </article>
             `;
@@ -122,7 +139,9 @@
   };
 
   const GaleriaMultiplaPreview = ({ value, getAsset }) => {
-    const fotos = comoLista(value).filter((foto) => foto && typeof foto.arquivo === "string" && foto.arquivo);
+    const fotos = comoLista(value).filter(
+      (foto) => foto && typeof foto.arquivo === "string" && foto.arquivo,
+    );
 
     if (!fotos.length) {
       return html`<p class="gpen-sc-galeria__preview-vazia">Nenhuma foto cadastrada na galeria.</p>`;
@@ -131,14 +150,9 @@
     return html`
       <div class="gpen-sc-galeria__preview">
         ${fotos.map((foto, indice) => {
-          const caminho = foto.arquivo;
-          const asset = typeof getAsset === "function" ? getAsset(caminho) : undefined;
-          const src = asset && asset.url
-            ? asset.url
-            : (/^(blob:|data:|https?:\\/\\/|\\/)/i.test(caminho) ? caminho : "/" + caminho);
-
+          const src = srcDaImagem(foto.arquivo, getAsset);
           return html`
-            <figure key=${caminho + "-preview-" + indice}>
+            <figure key=${foto.arquivo + "-preview-" + indice}>
               ${src && html`<img src=${src} alt=${foto.legenda || "Foto " + (indice + 1)} loading="lazy" />`}
               <figcaption>${foto.legenda || "Foto " + (indice + 1)}</figcaption>
             </figure>
@@ -148,5 +162,6 @@
     `;
   };
 
-  CMS.registerWidget("galeria-multipla-v2", GaleriaMultiplaControl, GaleriaMultiplaPreview);
+  // Use the current Sveltia API name for the custom field type.
+  CMS.registerFieldType("galeria-multipla-v2", GaleriaMultiplaControl, GaleriaMultiplaPreview);
 })();
