@@ -79,10 +79,23 @@ div(
         lattes <- valor_publico(e$lattes)
         div(
           class = "membro-card",
-          if (!is.null(papel)) div(class = "membro-cargo", papel),
-          div(class = "membro-nome", e$nome),
+          div(
+            class = "membro-identidade",
+            foto_pessoa(e$nome, e$foto),
+            div(
+              class = "membro-identidade-texto",
+              if (!is.null(papel)) div(class = "membro-cargo", papel),
+              div(class = "membro-nome", e$nome)
+            )
+          ),
           if (!is.null(formacao)) p(class = "membro-bio", formacao),
-          if (!is.null(lattes)) tags$a("Currículo Lattes", href = lattes, target = "_blank", rel = "noopener noreferrer")
+          if (!is.null(lattes)) tags$a(
+            class = "membro-link",
+            href = lattes,
+            target = "_blank",
+            rel = "noopener noreferrer",
+            "Currículo Lattes"
+          )
         )
       })
     )

@@ -871,7 +871,75 @@ main.content,
   letter-spacing: 0.03em;
   margin-bottom: 0.5rem;
 }
+
 .membro-bio { font-size: 0.9rem; color: #4a5568; margin-bottom: 0.5rem; }
+
+/* Cartões da equipe: foto real quando disponível; caso contrário, iniciais. */
+.membro-identidade {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .9rem;
+  min-width: 0;
+}
+
+.membro-identidade-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.membro-card .foto {
+  display: block;
+  flex: 0 0 84px;
+  width: 84px !important;
+  min-width: 84px;
+  height: 84px !important;
+  max-width: 84px !important;
+  object-fit: cover !important;
+  object-position: center;
+  border: 3px solid #e7efe3;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(31, 77, 43, .12);
+}
+
+.membro-card .foto.avatar {
+  display: grid !important;
+  flex: 0 0 84px;
+  width: 84px !important;
+  min-width: 84px;
+  height: 84px !important;
+  max-width: 84px !important;
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  box-sizing: border-box;
+  border: 3px solid #e7efe3;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, var(--gp-verde), #347448) !important;
+  color: #fff !important;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  letter-spacing: .06em;
+  line-height: 1 !important;
+  box-shadow: 0 2px 8px rgba(31, 77, 43, .12);
+}
+
+.membro-nome {
+  overflow-wrap: anywhere;
+}
+
+.membro-link {
+  display: inline-block;
+  margin-top: .25rem;
+  color: var(--gp-laranja-esc) !important;
+  font-size: .88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.membro-link:hover {
+  color: var(--gp-verde) !important;
+  text-decoration: underline;
+}
 
 /* Logos institucionais */
 .logos-institucionais,
@@ -1284,6 +1352,16 @@ button:focus-visible,
 .texto-secundario { color: #6b736d; font-size: .9rem; }
 
 @media (max-width: 680px) {
+  .membro-card .foto,
+  .membro-card .foto.avatar {
+    flex-basis: 68px;
+    width: 68px !important;
+    min-width: 68px;
+    height: 68px !important;
+    max-width: 68px !important;
+  }
+
+  .membro-card .foto.avatar { font-size: 1.25rem !important; }
   .sobre-cards, .objetivos-grid, .contato-grade { grid-template-columns: 1fr; }
   .estado-vazio { align-items: flex-start; padding: 1.1rem; gap: .8rem; }
   .estado-vazio-icone { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.25rem; }
