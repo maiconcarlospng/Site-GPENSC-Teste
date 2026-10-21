@@ -32,6 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # O passo de invalidação compara o SHA anterior do push com o atual.
+          # É necessário trazer o histórico para que ambos os commits existam localmente.
+          fetch-depth: 0
 
       # Cache do Quarto: alterações em apenas CSS, imagens ou painel podem reaproveitar R.
       - name: Restaurar cache das execuções do Quarto
