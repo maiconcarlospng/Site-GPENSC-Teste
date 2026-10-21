@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # Altere para 'master' se a sua branch principal for 'master'
+  branch: main # Altere para 'master' se a sua branch principal for master
 
 locale: 'pt'
 
@@ -14,7 +14,6 @@ collections:
       - label: "Tabela de Notícias"
         name: "noticias"
         file: "data/noticias.csv"
-        format: "csv"
         fields:
           - { label: "Título", name: "titulo", widget: "string" }
           - { label: "Categoria", name: "categoria", widget: "string" }
@@ -29,7 +28,6 @@ collections:
       - label: "Tabela de Equipe"
         name: "equipe"
         file: "data/equipe.csv"
-        format: "csv"
         fields:
           - { label: "Nome Completo", name: "nome", widget: "string" }
           - { label: "Papel / Categoria", name: "categoria", widget: "string" }
@@ -43,7 +41,6 @@ collections:
       - label: "Tabela de Apoio"
         name: "apoio"
         file: "data/apoio.csv"
-        format: "csv"
         fields:
           - { label: "Nome da Instituição", name: "nome", widget: "string" }
           - { label: "URL do Site", name: "url", widget: "string" }
