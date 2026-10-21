@@ -4,16 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Administração - Decap CMS</title>
-  <!-- Widget do Netlify Identity -->
+  <!-- 1. Carrega o widget do Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
   <script>
-    // Redireciona a autenticação do GitHub Pages diretamente para a API do Netlify
+    // 2. Configura a URL da API do Netlify PRIMEIRO
     if (window.netlifyIdentity) {
+      window.netlifyIdentity.init({
+        APIUrl: "https://sitegpensc.netlify.app/.netlify/identity"
+      });
+
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
@@ -21,11 +22,10 @@
           });
         }
       });
-
-      window.netlifyIdentity.init({
-        APIUrl: "https://sitegpensc.netlify.app/.netlify/identity"
-      });
     }
   </script>
+
+  <!-- 3. Carrega o Decap CMS DEPOIS que o Identity já está configurado -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
