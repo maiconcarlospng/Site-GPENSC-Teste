@@ -121,5 +121,5 @@
     `;
   };
 
-  CMS.registerFieldType("galeria-multipla", GaleriaMultiplaControl);
+  CMS.registerWidget("galeria-multipla-v2", GaleriaMultiplaControl);
 })();
