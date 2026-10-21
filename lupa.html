@@ -79,3 +79,180 @@
     opacity: 0.85;
   }
 </style>
+
+<!-- Carrossel automático da galeria da página inicial. -->
+<script>
+(() => {
+  const inicializarCarrosseis = () => {
+    document.querySelectorAll(".galeria-faixa").forEach((faixa, numero) => {
+      if (faixa.dataset.carrosselInicializado === "true") return;
+
+      const imagensOriginais = Array.from(faixa.querySelectorAll(":scope > img"));
+      if (imagensOriginais.length < 2) return;
+
+      const total = imagensOriginais.length;
+      const container = faixa.closest(".galeria") || faixa.parentElement;
+      if (!container) return;
+
+      faixa.dataset.carrosselInicializado = "true";
+      faixa.id = faixa.id || "galeria-faixa-" + (numero + 1);
+      faixa.setAttribute("role", "region");
+      faixa.setAttribute("aria-label", "Galeria de fotos do GPENSC");
+      faixa.setAttribute("tabindex", "0");
+
+      // Clonar o início da sequência permite um retorno sem salto visível.
+      imagensOriginais.slice(0, Math.min(3, total)).forEach((imagem) => {
+        const clone = imagem.cloneNode(true);
+        clone.dataset.carrosselClone = "true";
+        clone.alt = "";
+        clone.setAttribute("aria-hidden", "true");
+        clone.loading = "eager";
+        faixa.appendChild(clone);
+      });
+
+      const anterior = document.createElement("button");
+      anterior.type = "button";
+      anterior.className = "galeria-controle galeria-controle--anterior";
+      anterior.setAttribute("aria-label", "Mostrar foto anterior");
+      anterior.setAttribute("aria-controls", faixa.id);
+      anterior.title = "Foto anterior";
+      anterior.textContent = "‹";
+
+      const proximo = document.createElement("button");
+      proximo.type = "button";
+      proximo.className = "galeria-controle galeria-controle--proximo";
+      proximo.setAttribute("aria-label", "Mostrar próxima foto");
+      proximo.setAttribute("aria-controls", faixa.id);
+      proximo.title = "Próxima foto";
+      proximo.textContent = "›";
+
+      container.append(anterior, proximo);
+
+      let indiceAtual = 0;
+      let intervalo = null;
+      let retomada = null;
+      let fimDaRolagem = null;
+
+      const passo = () => {
+        const imagem = imagensOriginais[0];
+        const estilo = window.getComputedStyle(faixa);
+        const intervaloEntreFotos =
+          parseFloat(estilo.columnGap) || parseFloat(estilo.gap) || 0;
+        return imagem.getBoundingClientRect().width + intervaloEntreFotos;
+      };
+
+      const parar = () => {
+        if (intervalo !== null) window.clearInterval(intervalo);
+        intervalo = null;
+      };
+
+      const iniciar = () => {
+        parar();
+        if (
+          document.hidden ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+            container.matches(":hover")) ||
+          container.contains(document.activeElement)
+        ) return;
+
+        intervalo = window.setInterval(() => irPara(indiceAtual + 1, false), 5000);
+      };
+
+      const pausarEAgendarRetomada = () => {
+        parar();
+        if (retomada !== null) window.clearTimeout(retomada);
+        retomada = window.setTimeout(iniciar, 6000);
+      };
+
+      const irPara = (novoIndice, interacaoManual) => {
+        if (interacaoManual) pausarEAgendarRetomada();
+
+        const larguraPasso = passo();
+        if (novoIndice < 0) {
+          if (indiceAtual === 0) {
+            // O final clonado é visualmente igual ao início; use-o para voltar um item.
+            faixa.scrollTo({ left: total * larguraPasso, behavior: "auto" });
+            indiceAtual = total - 1;
+            window.requestAnimationFrame(() => {
+              faixa.scrollTo({ left: indiceAtual * passo(), behavior: "smooth" });
+            });
+          } else {
+            indiceAtual = (indiceAtual - 1 + total) % total;
+            faixa.scrollTo({ left: indiceAtual * larguraPasso, behavior: "smooth" });
+          }
+          return;
+        }
+
+        if (novoIndice >= total) {
+          // Vá até as cópias do início e depois reinicie sem animação.
+          faixa.scrollTo({ left: total * larguraPasso, behavior: "smooth" });
+          indiceAtual = 0;
+          return;
+        }
+
+        indiceAtual = novoIndice;
+        faixa.scrollTo({ left: indiceAtual * larguraPasso, behavior: "smooth" });
+      };
+
+      const sincronizarIndiceManual = () => {
+        const larguraPasso = passo();
+        if (!larguraPasso) return;
+        const posicao = Math.round(faixa.scrollLeft / larguraPasso);
+
+        if (posicao >= total) {
+          indiceAtual = 0;
+          faixa.scrollTo({ left: 0, behavior: "auto" });
+        } else {
+          indiceAtual = Math.max(0, Math.min(total - 1, posicao));
+        }
+      };
+
+      faixa.addEventListener("scroll", () => {
+        if (fimDaRolagem !== null) window.clearTimeout(fimDaRolagem);
+        fimDaRolagem = window.setTimeout(sincronizarIndiceManual, 180);
+      }, { passive: true });
+
+      anterior.addEventListener("click", () => {
+        irPara(indiceAtual - 1, true);
+        anterior.blur();
+      });
+
+      proximo.addEventListener("click", () => {
+        irPara(indiceAtual + 1, true);
+        proximo.blur();
+      });
+
+      container.addEventListener("mouseenter", parar);
+      container.addEventListener("mouseleave", iniciar);
+      container.addEventListener("focusin", parar);
+      container.addEventListener("focusout", () => {
+        window.setTimeout(() => {
+          if (!container.contains(document.activeElement)) iniciar();
+        }, 0);
+      });
+
+      faixa.addEventListener("pointerdown", pausarEAgendarRetomada, { passive: true });
+      anterior.addEventListener("pointerdown", pausarEAgendarRetomada, { passive: true });
+      proximo.addEventListener("pointerdown", pausarEAgendarRetomada, { passive: true });
+
+      window.addEventListener("resize", () => {
+        faixa.scrollTo({ left: indiceAtual * passo(), behavior: "auto" });
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) parar();
+        else iniciar();
+      });
+
+      iniciar();
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", inicializarCarrosseis, { once: true });
+  } else {
+    inicializarCarrosseis();
+  }
+})();
+</script>
