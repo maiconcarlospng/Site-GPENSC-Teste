@@ -1,19 +1,19 @@
 itens:
-- data: '2025-09-01'
-  categoria: Notícia
-  titulo: '[EXEMPLO] Notícia 1'
-  resumo: '[Resumo da notícia – preencher]'
-  url: ''
-  imagem: ''
-- data: '2025-08-01'
-  categoria: Defesa
-  titulo: '[EXEMPLO] Defesa de mestrado'
-  resumo: '[Resumo – preencher]'
-  url: ''
-  imagem: ''
-- data: '2025-07-01'
-  categoria: GPENSC no Ar
-  titulo: '[EXEMPLO] Novo episódio'
-  resumo: '[Resumo – preencher]'
-  url: ''
-  imagem: ''
+  - data: 2025-09-01
+    categoria: Notícia
+    titulo: '[EXEMPLO] Notícia 1'
+    resumo: '[Resumo da notícia – preencher]'
+    url: ''
+    imagem: ''
+  - data: 2025-08-01
+    categoria: Defesa
+    titulo: '[EXEMPLO] Defesa de mestrado'
+    resumo: '[Resumo – preencher]'
+    url: ''
+    imagem: ''
+  - data: 2026/10/21
+    categoria: teste
+    titulo: TESTE 01
+    resumo: ___
+    url: ''
+    imagem: https://picsum.photos/id/563/1920/1280.webp
