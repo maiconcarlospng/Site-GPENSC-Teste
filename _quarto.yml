@@ -81,4 +81,4 @@ execute:
   echo: false
   warning: false
   message: false
-  freeze: false               # <--- NOVO: Força o Quarto a recalcular as notícias a cada publicação
+  freeze: auto                # Reaproveita resultados R; o workflow invalida o cache se os dados mudarem.
