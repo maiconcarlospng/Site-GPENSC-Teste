@@ -5,16 +5,21 @@ title: "Notícias"
 ```{r}
 source("R/helpers.R")
 
-noticias_publicadas <- registros_reais(noticias, "titulo")
+noticias_publicadas <- noticias
 
 if (nrow(noticias_publicadas) == 0) {
   estado_vazio(
     "Nenhuma notícia publicada no momento",
-    "As notícias aparecerão aqui quando houver registros reais cadastrados no painel. Itens de demonstração e testes não são exibidos publicamente.",
+    "As notícias cadastradas no painel serão listadas aqui. Os registros atuais são exemplos para demonstrar o formato da página.",
     "Acompanhe o Instagram",
     cfg$instagram
   )
 } else {
+  div(class = "aviso-demonstracao",
+      tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
+      strong("Conteúdo demonstrativo. "),
+      "As notícias abaixo são exemplos de apresentação e devem ser substituídas por publicações reais antes do lançamento oficial.")
+
   categorias <- ifelse(
     is.na(noticias_publicadas$categoria) | !nzchar(trimws(noticias_publicadas$categoria)),
     "Notícias",

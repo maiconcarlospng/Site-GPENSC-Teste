@@ -6,7 +6,7 @@ title: "Quem somos"
 source("R/helpers.R")
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
-integrantes <- registros_reais(equipe, "nome")
+integrantes <- equipe
 
 dgp_url <- as.character(cfg$link_dgp)
 if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case = TRUE)) {
@@ -75,6 +75,10 @@ div(
   ),
 
   h2("Equipe"),
+  div(class = "aviso-demonstracao",
+      tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
+      strong("Conteúdo demonstrativo. "),
+      "Os perfis abaixo mostram como a equipe será apresentada. Substitua os exemplos pelos dados autorizados dos integrantes."),
   if (nrow(integrantes) > 0) {
     div(
       class = "equipe-grid",

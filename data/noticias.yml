@@ -1,25 +1,22 @@
 itens:
-  - data: 2025-09-01
-    categoria: Notícia
-    titulo: '[EXEMPLO] Notícia 1'
-    resumo: '[Resumo da notícia – preencher]'
-    url: ''
-    imagem: ''
-  - data: 2025-08-01
-    categoria: Defesa
-    titulo: '[EXEMPLO] Defesa de mestrado'
-    resumo: '[Resumo – preencher]'
-    url: ''
-    imagem: ''
-  - data: 2026/10/20
-    categoria: teste
-    titulo: TESTE 01
-    resumo: ___
-    url: ''
-    imagem: https://picsum.photos/id/563/1920/1280.webp
-  - data: 21/10/2026
-    categoria: teste2
-    titulo: TESTE 02
-    resumo: ''
-    url: ''
-    imagem: https://picsum.photos/id/517/1920/1280.webp
+  - data: 2026-10-15
+    categoria: "Demonstração"
+    titulo: "Exemplo: atividade de pesquisa do grupo"
+    resumo: "Este cartão ilustra como será apresentada uma notícia sobre atividades de pesquisa, com resumo, data e imagem."
+    conteudo: "Este é um texto demonstrativo para visualizar o detalhamento de uma notícia. Na versão oficial, inclua aqui uma descrição da atividade, seus objetivos e os principais resultados ou encaminhamentos."
+    url: ""
+    imagem: ""
+  - data: 2026-09-20
+    categoria: "Demonstração"
+    titulo: "Exemplo: defesa ou apresentação acadêmica"
+    resumo: "Modelo de notícia para divulgar defesas, apresentações de trabalhos e outras atividades acadêmicas."
+    conteudo: "Este exemplo mostra como uma notícia acadêmica poderá aparecer. Substitua o texto por informações confirmadas, como título do trabalho, autoria, orientação e data da atividade."
+    url: ""
+    imagem: ""
+  - data: 2026-08-05
+    categoria: "Demonstração"
+    titulo: "Exemplo: ação de extensão"
+    resumo: "Modelo de publicação para divulgar oficinas, eventos e ações de extensão promovidas ou apoiadas pelo grupo."
+    conteudo: "Este conteúdo é ilustrativo. Na publicação oficial, descreva a ação, o público participante, os parceiros envolvidos e os resultados, quando essas informações puderem ser divulgadas."
+    url: ""
+    imagem: ""
