@@ -232,10 +232,5 @@ collections:
         fields:
           - label: "Fotos"
             name: "itens"
-            widget: "list"
-            label_singular: "foto"
-            hint: "Adicione todas as fotos desejadas nesta lista. Você pode reorganizar a ordem e salvar as alterações uma única vez."
-            summary: "{{fields.legenda}}"
-            fields:
-              - { label: "Arquivo", name: "arquivo", widget: "image" }
-              - { label: "Legenda", name: "legenda", widget: "string", required: false }
+            widget: "galeria-multipla"
+            hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
