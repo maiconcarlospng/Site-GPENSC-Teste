@@ -5,10 +5,11 @@
 project:
   type: website
   render:
-    - "*.qmd"                  # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
+    - "*.qmd"                 # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
   resources:
-    - img/**                   # copia TODAS as imagens para o site (inclui fotos usadas só no CSS)
-    - "admin/**"                # <--- ADICIONADO: Copia a pasta do painel Decap CMS para o build final
+    - img/**                  # copia TODAS as imagens para o site
+    - "admin/**"              # copia a pasta do painel Sveltia CMS
+    - "data/**"               # <--- NOVO: Copia os dados do CMS (noticias.yml) para o site final
 
 lang: pt-BR
 
@@ -16,13 +17,12 @@ website:
   title: "GPENSC"
   description: "Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
   favicon: img/logo_gpensc.png
-  search: true                   # Lupa de busca no menu
+  search: true                # Lupa de busca no menu
 
   navbar:
-    logo: img/logo_gpensc.png   # Logo posicionada corretamente dentro da navbar
-    background: light           # Barra branca
+    logo: img/logo_gpensc.png
+    background: light
     
-    # LINKS DE NAVEGAÇÃO DO MENU (DIREITA)
     right:
       - href: sobre.qmd
         text: Quem somos
@@ -59,7 +59,6 @@ website:
       - href: contato.qmd
         text: Contato
 
-  # Rodapé em 3 colunas
   page-footer:
     left: |
       [Quem somos](sobre.qmd) · [Notícias](noticias.qmd) · [Agenda](agenda.qmd) · [Contato](contato.qmd)
@@ -73,12 +72,13 @@ format:
   html:
     theme: [default, custom.scss]
     css: styles.css
-    page-layout: full          # LIBERA A LARGURA TOTAL EM TODAS AS ABAS
+    page-layout: full
     include-after-body: lupa.html
     toc: false
     smooth-scroll: true
 
 execute:
-  echo: false      # esconde o código R nas páginas
+  echo: false
   warning: false
   message: false
+  freeze: false               # <--- NOVO: Força o Quarto a recalcular as notícias a cada publicação
