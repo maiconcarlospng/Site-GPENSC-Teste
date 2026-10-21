@@ -488,32 +488,83 @@ a.btn-warning:hover,
 }
 
 .pq {
-  position: relative; 
-  display: flex; 
-  align-items: flex-end; 
-  min-height: 280px; 
-  border-radius: 8px; 
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 280px;
+  border-radius: 12px;
   overflow: hidden;
-  background-size: cover; 
-  background-position: center; 
-  box-shadow: 0 4px 14px rgba(0,0,0,.15);
-  text-decoration: none !important; 
-  transition: transform .2s ease;
+  background-color: var(--gp-verde);
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+  text-decoration: none !important;
+  transition: transform .22s ease, box-shadow .22s ease;
 }
 
-.pq:hover { transform: translateY(-4px); }
-.pq-tinta { position: absolute; inset: 0; opacity: .78; }
-.pq.cor-1 .pq-tinta { background: var(--gp-verde); }
-.pq.cor-2 .pq-tinta { background: var(--gp-laranja); }
-.pq.cor-3 .pq-tinta { background: var(--gp-vermelho); }
+.pq.cor-1 {
+  background: linear-gradient(135deg, #356d49 0%, #1f4d2b 58%, #4c8058 100%);
+}
+
+.pq.cor-2 {
+  background: linear-gradient(135deg, #f39a3d 0%, #d9731f 58%, #f5ad62 100%);
+}
+
+.pq.cor-3 {
+  background: linear-gradient(135deg, #e66b61 0%, #c94239 58%, #ee8a7f 100%);
+}
+
+.pq:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.19);
+}
+
+.pq-tinta {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 52%);
+}
+
+.pq-conteudo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 280px;
+  padding: 1.4rem 1.25rem 1.1rem;
+}
+
+.pq-icone {
+  display: block;
+  margin-top: .35rem;
+  color: rgba(255,255,255,.96) !important;
+  font-size: clamp(5.25rem, 9vw, 7.5rem) !important;
+  line-height: 1 !important;
+  text-shadow: 0 3px 12px rgba(0,0,0,.12);
+  transition: transform .22s ease;
+}
+
+.pq:hover .pq-icone {
+  transform: translateY(-3px) scale(1.04);
+}
+
 .pq-titulo {
-  position: relative; 
-  z-index: 1; 
-  color: #fff;
-  font-size: clamp(1.25rem, 4vw, 1.5rem) !important; 
-  font-weight: 700 !important; 
-  line-height: 1.15; 
-  padding: 1.25rem;
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  color: #fff !important;
+  font-size: clamp(1.05rem, 2vw, 1.35rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  padding: .55rem .25rem 0;
+  text-align: center;
   letter-spacing: -0.02em !important;
 }
 

@@ -210,17 +210,19 @@ bloco_intro <- function() {
 
 # ---------- CARTÕES "PESQUISAS" ----------
 card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
-  caminho <- file.path("img", "pesquisas", arquivo)
-  estilo <- if (!is.null(arquivo) && file.exists(caminho)) paste0("background-image:url(", caminho, ");") else NULL
-
+  # Os cartões usam ícones Bootstrap em vez de imagens de fundo.
+  # O argumento 'arquivo' é mantido para preservar as chamadas existentes.
   tags$a(
     class = paste("pq", classe),
     href = href,
-    style = estilo,
-    div(class = "pq-tinta"),
+    `aria-label` = titulo,
+    div(class = "pq-tinta", `aria-hidden` = "true"),
     div(
       class = "pq-conteudo",
-      if (!is.null(icone)) tags$i(class = paste("bi", icone, "pq-icone")),
+      if (!is.null(icone)) tags$i(
+        class = paste("bi", icone, "pq-icone"),
+        `aria-hidden` = "true"
+      ),
       span(class = "pq-titulo", titulo)
     )
   )
