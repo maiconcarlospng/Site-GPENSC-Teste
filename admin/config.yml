@@ -1,12 +1,16 @@
+local_backend: true
+
 backend:
   name: git-gateway
   branch: main
-  site_domain: sitegpensc.netlify.app
+  identity_url: https://sitegpensc.netlify.app/.netlify/identity
+  gateway_url: https://sitegpensc.netlify.app/.netlify/git
 
 locale: 'pt'
 
 media_folder: "img"
 public_folder: "img"
+# ... (restante das coleções se mantém igual)
 
 collections:
   - name: "secao_noticias"
