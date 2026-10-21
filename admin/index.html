@@ -1,31 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Administração - GPENSC</title>
     <link rel="icon" href="/img/favicon.png" />
 
-    <!-- Estilos de personalização visual -->
     <style>
-      /* Alterar a cor de fundo do ecrã de entrada */
       body {
         background-color: #f8f9fa !important;
       }
 
-      /* Personalizar a caixa de login e botões */
       button {
         border-radius: 8px !important;
       }
 
-      /* Opcional: Ocultar ou substituir a imagem do logótipo por CSS */
-      img[src*="sveltia"], svg {
-        /* Permite ajustar dimensões ou aplicar filtros visuais */
+      .gpen-sc-galeria {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .gpen-sc-galeria__toolbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .gpen-sc-galeria__count {
+        color: #5b6470;
+        font-size: 0.9rem;
+      }
+
+      .gpen-sc-galeria__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .gpen-sc-galeria__item {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid #d9dee5;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      .gpen-sc-galeria__imagem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        background: #eef1f4;
+      }
+
+      .gpen-sc-galeria__imagem img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gpen-sc-galeria__sem-imagem {
+        padding: 12px;
+        color: #5b6470;
+        font-size: 0.85rem;
+        overflow-wrap: anywhere;
+      }
+
+      .gpen-sc-galeria__corpo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .gpen-sc-galeria__corpo label {
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .gpen-sc-galeria__legenda {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 38px;
+        padding: 8px 10px;
+        border: 1px solid #cbd2da;
+        border-radius: 6px;
+        font: inherit;
+      }
+
+      .gpen-sc-galeria__acoes {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .gpen-sc-galeria__acoes button {
+        padding: 6px 10px;
+        border: 1px solid #cbd2da;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .gpen-sc-galeria__acoes button:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+      }
+
+      .gpen-sc-galeria__erro {
+        color: #b42318;
+        margin: 0;
+      }
+
+      .gpen-sc-galeria__vazia {
+        padding: 18px;
+        border: 1px dashed #bdc5cf;
+        border-radius: 8px;
+        color: #5b6470;
       }
     </style>
   </head>
   <body>
-    <!-- Script principal do Sveltia CMS -->
+    <!-- Registra o widget personalizado antes de iniciar o CMS. -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script src="/admin/galeria-multipla.js"></script>
+    <script>CMS.init();</script>
   </body>
 </html>
