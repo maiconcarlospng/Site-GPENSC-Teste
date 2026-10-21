@@ -111,9 +111,10 @@ tem <- function(x) !is.na(x) && nzchar(x)
 # O painel salva "img/foto.jpg"; planilhas antigas tinham só "foto.jpg".
 # Os dois funcionam: se já começa com "img/", usa como está;
 # senão procura dentro de img/<pasta>/.
-caminho_img <- function(valor, pasta) {
+caminho_img <- function(valor, pasta = "") {
   if (grepl("^/?img/|^https?://", valor)) sub("^/", "", valor)
-  else file.path("img", pasta, valor)
+  else if (nzchar(pasta)) file.path("img", pasta, valor)
+  else file.path("img", valor)
 }
 
 # link_pub(): "DOI" se houver DOI; senão "Acessar" se houver URL.
@@ -227,7 +228,7 @@ faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
           target = "_blank",
           title = apoio$nome[i],
           tags$img(
-            src = caminho_img(apoio$logo[i], "apoio"),
+            src = caminho_img(apoio$logo[i]),
             alt = paste("Logo:", apoio$nome[i]),
             style = "max-height: 70px; max-width: 180px; object-fit: contain;"
           )
