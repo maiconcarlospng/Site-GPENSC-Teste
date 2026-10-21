@@ -197,6 +197,9 @@ card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
 }
 
 # ---------- NOTÍCIAS ----------
+# O link "LEIA MAIS" só aparece se a notícia tiver o campo Link preenchido.
+# No styles.css, a regra .nt-mais::after estende esse link sobre o cartão
+# inteiro, então clicar em qualquer parte do cartão abre a notícia.
 cartao_noticia <- function(n, i) {
   # Se a notícia tiver foto, usa ela. Senão, usa 'noticia_padrao.jpg'
   img_src <- if (tem(n$imagem)) caminho_img(n$imagem, "noticias") else "img/noticias/noticia_padrao.jpg"
@@ -212,7 +215,9 @@ cartao_noticia <- function(n, i) {
       ),
       div(class = "nt-corpo",
           h4(n$titulo),
-          if (tem(n$url)) tags$a(class = "nt-mais", href = n$url, target = "_blank", "LEIA MAIS »")
+          if (tem(n$resumo)) p(class = "nt-resumo", n$resumo),
+          if (tem(n$url)) tags$a(class = "nt-mais", href = n$url, target = "_blank",
+                                 rel = "noopener", "LEIA MAIS »")
       ),
       div(class = "nt-data", if (!is.na(n$data)) format(n$data, "%d/%m/%Y"))
   )
