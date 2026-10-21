@@ -3,9 +3,20 @@ name: Publicar site Quarto
 on:
   push:
     branches: [main]
+    paths:
+      - "**.qmd"
+      - "R/**"
+      - "data/**"
+      - "img/**"
+      - "admin/**"
+      - "styles.css"
+      - "custom.scss"
+      - "lupa.html"
+      - "_quarto.yml"
+      - "_variables.yml"
+      - "_extensions/**"
+      - ".github/workflows/publish.yml"
   workflow_dispatch:
-  schedule:
-    - cron: "0 9 * * *"
 
 permissions:
   contents: read
@@ -21,6 +32,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Cache do Quarto: alterações em apenas CSS, imagens ou painel podem reaproveitar R.
+      - name: Restaurar cache das execuções do Quarto
+        uses: actions/cache@v4
+        with:
+          path: _freeze
+          key: quarto-freeze-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', '_variables.yml', '_quarto.yml') }}
+          restore-keys: |
+            quarto-freeze-${{ runner.os }}-
+
+      # Os documentos dependem dos YAML e de helpers.R; não use resultados antigos nesses casos.
+      - name: Invalidar resultados congelados quando mudarem dados ou código R
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+            if printf '%s\n' "$changed_files" | grep -Eq '^(R/|data/|_variables\.yml$|_quarto\.yml$)'; then
+              echo "Dados/código compartilhado alterados: removendo cache antigo do Quarto."
+              rm -rf _freeze
+            fi
+          fi
 
       - uses: quarto-dev/quarto-actions/setup@v2
 
