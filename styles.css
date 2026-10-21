@@ -284,50 +284,61 @@ a.btn-warning:hover,
 .hero-resumo { margin-top: .6rem !important; font-size: .95rem; opacity: .95; line-height: 1.4; }
 .hero-botoes { margin-top: 1.2rem !important; display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* Galeria/carrossel de fotos da página inicial (faixa_galeria) */
-.faixa-galeria,
-.galeria-topo,
-.galeria-fotos,
-.carrossel-fotos,
-.carousel-fotos,
-.slideshow-fotos {
+/* Galeria de fotos da faixa do topo (gerada por faixa_galeria() em R/helpers.R) */
+.galeria {
   position: relative;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
 }
 
-.faixa-galeria img,
-.galeria-topo img,
-.galeria-fotos img,
-.carrossel-fotos img,
-.carousel-fotos img,
-.slideshow-fotos img {
-  display: block;
+/* Faixa horizontal: a pessoa pode deslizar para ver todas as fotos. */
+.galeria-faixa {
+  display: flex;
+  align-items: stretch;
+  gap: 0.85rem;
   width: 100%;
-  height: clamp(240px, 48vw, 520px);
+  max-width: 100%;
+  padding: 0 1rem 0.85rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gp-folha) #f0eee8;
+}
+
+.galeria-faixa img {
+  display: block;
+  flex: 0 0 calc(33.333% - 0.6rem);
+  width: calc(33.333% - 0.6rem);
+  min-width: 0;
+  height: clamp(230px, 28vw, 360px);
   object-fit: cover;
   object-position: center;
+  border-radius: 8px;
+  scroll-snap-align: start;
+  background: #f3f0e8;
 }
 
-.faixa-galeria .carousel-item,
-.galeria-topo .carousel-item,
-.galeria-fotos .carousel-item,
-.carrossel-fotos .carousel-item,
-.carousel-fotos .carousel-item,
-.slideshow-fotos .carousel-item {
-  height: clamp(240px, 48vw, 520px);
-  overflow: hidden;
+.galeria-faixa img:only-child {
+  flex-basis: 100%;
+  width: 100%;
 }
 
-.faixa-galeria .carousel-item img,
-.galeria-topo .carousel-item img,
-.galeria-fotos .carousel-item img,
-.carrossel-fotos .carousel-item img,
-.carousel-fotos .carousel-item img,
-.slideshow-fotos .carousel-item img {
-  height: 100%;
-  object-fit: cover;
+.galeria-faixa::-webkit-scrollbar {
+  height: 8px;
+}
+
+.galeria-faixa::-webkit-scrollbar-track {
+  background: #f0eee8;
+  border-radius: 999px;
+}
+
+.galeria-faixa::-webkit-scrollbar-thumb {
+  background: var(--gp-folha);
+  border-radius: 999px;
 }
 
 /* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
@@ -776,20 +787,16 @@ main.content,
     height: 160px !important; 
   }
 
-  /* Galeria/carrossel de fotos no tablet e celular */
-  .faixa-galeria img,
-  .galeria-topo img,
-  .galeria-fotos img,
-  .carrossel-fotos img,
-  .carousel-fotos img,
-  .slideshow-fotos img,
-  .faixa-galeria .carousel-item,
-  .galeria-topo .carousel-item,
-  .galeria-fotos .carousel-item,
-  .carrossel-fotos .carousel-item,
-  .carousel-fotos .carousel-item,
-  .slideshow-fotos .carousel-item {
-    height: clamp(210px, 62vw, 340px);
+  /* Galeria de fotos no tablet e celular */
+  .galeria-faixa {
+    gap: 0.65rem;
+    padding: 0 0.75rem 0.75rem;
+  }
+
+  .galeria-faixa img {
+    flex-basis: 72%;
+    width: 72%;
+    height: clamp(210px, 52vw, 340px);
   }
   
   .pq { min-height: 200px; }
@@ -845,18 +852,9 @@ main.content,
   .nt-corpo { padding: 1.25rem 1rem .75rem; }
   .nt-data { padding: .6rem 1rem; }
 
-  .faixa-galeria img,
-  .galeria-topo img,
-  .galeria-fotos img,
-  .carrossel-fotos img,
-  .carousel-fotos img,
-  .slideshow-fotos img,
-  .faixa-galeria .carousel-item,
-  .galeria-topo .carousel-item,
-  .galeria-fotos .carousel-item,
-  .carrossel-fotos .carousel-item,
-  .carousel-fotos .carousel-item,
-  .slideshow-fotos .carousel-item {
+  .galeria-faixa img {
+    flex-basis: 88%;
+    width: 88%;
     height: 220px;
   }
 }
