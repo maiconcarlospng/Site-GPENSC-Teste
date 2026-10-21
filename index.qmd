@@ -42,11 +42,13 @@ noticias_recentes <- noticias |>
   head(6)
 
 if (nrow(noticias_recentes) > 0) {
-  div(class = "aviso-demonstracao",
-      tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
-      strong("Notícias de demonstração. "),
-      "Estes cartões ilustram como as publicações aparecerão no site.")
-  cartoes(noticias_recentes, cartao_noticia)
+  tagList(
+    div(class = "aviso-demonstracao",
+        tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
+        strong("Notícias de demonstração. "),
+        "Estes cartões ilustram como as publicações aparecerão no site."),
+    cartoes(noticias_recentes, cartao_noticia)
+  )
 } else {
   estado_vazio(
     "Novidades em breve",
