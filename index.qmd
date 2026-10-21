@@ -18,7 +18,7 @@ source("R/helpers.R")
 ```
 
 ```{r}
-# 1) Faixa do topo: fotos do grupo (data/galeria.csv) ou bloco verde com a lupa.
+# 1) Faixa verde institucional e carrossel das fotos cadastradas no painel.
 faixa_galeria()
 ```
 

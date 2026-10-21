@@ -25,7 +25,7 @@ cfg <- yaml::read_yaml("_variables.yml")
 # COLUNAS: lista de campos de cada tabela. Tem que bater com os campos do
 # painel (admin/config.yml). Se você criar um campo novo lá, acrescente aqui.
 COLUNAS <- list(
-  noticias    = c("data", "categoria", "titulo", "resumo", "url", "imagem"),
+  noticias    = c("data", "categoria", "titulo", "resumo", "conteudo", "url", "imagem"),
   eventos     = c("data", "tipo", "titulo", "local", "url"),
   equipe      = c("nome", "papel", "formacao", "foto", "lattes", "orcid"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
@@ -207,22 +207,6 @@ bloco_intro <- function() {
   )
 }
 
-# ---------- BLOCO "SOBRE" DA HOME: foto à esquerda, texto à direita ----------
-bloco_intro <- function() {
-  div(
-    class = "intro reveal",
-    tags$img(
-      src = "img/equipe/equipe.jpg",
-      alt = "Foto da Equipe GPENSC",
-      style = "width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: 10px;"
-    ),
-    div(
-      class = "intro-texto",
-      p(cfg$resumo),
-      tags$a(class = "btn btn-secondary", href = "sobre.html", "Sobre nós")
-    )
-  )
-}
 
 # ---------- CARTÕES "PESQUISAS" ----------
 card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
@@ -244,9 +228,24 @@ card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
 
 # ---------- NOTÍCIAS ----------
 # O link "LEIA MAIS" só aparece se a notícia tiver o campo Link preenchido.
+id_noticia <- function(titulo) {
+  valor <- as.character(titulo[1])
+  if (is.na(valor) || !nzchar(trimws(valor))) valor <- "noticia"
+
+  valor_ascii <- iconv(valor, from = "", to = "ASCII//TRANSLIT")
+  if (is.na(valor_ascii) || !nzchar(trimws(valor_ascii))) valor_ascii <- valor
+
+  slug <- tolower(gsub("[^a-z0-9]+", "-", valor_ascii))
+  slug <- gsub("(^-+|-+$)", "", slug)
+  if (!nzchar(slug)) slug <- "noticia"
+
+  paste0("noticia-", slug)
+}
+
 cartao_noticia <- function(n, i) {
   img_src <- if (tem(n$imagem)) caminho_img(n$imagem, "noticias") else "img/noticias/noticia_padrao.jpg"
   img_estilo <- paste0("background-image: url('", img_src, "');")
+  detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo))
 
   div(
     class = paste("nt reveal", cor_de(i)),
@@ -261,11 +260,12 @@ cartao_noticia <- function(n, i) {
     ),
     div(
       class = "nt-corpo",
-      h4(n$titulo),
+      h4(tags$a(class = "nt-titulo-link", href = detalhe_href, n$titulo)),
       if (tem(n$resumo)) p(class = "nt-resumo", n$resumo),
-      if (tem(n$url)) tags$a(
-        class = "nt-mais", href = n$url, target = "_blank",
-        rel = "noopener", "LEIA MAIS »"
+      tags$a(
+        class = "nt-mais",
+        href = detalhe_href,
+        "VER DETALHAMENTO »"
       )
     ),
     div(class = "nt-data", if (!is.na(n$data)) format(n$data, "%d/%m/%Y"))

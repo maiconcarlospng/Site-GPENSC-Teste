@@ -26,7 +26,8 @@ collections:
               - { label: "Categoria", name: "categoria", widget: "string", required: false }
               - { label: "Título", name: "titulo", widget: "string" }
               - { label: "Resumo", name: "resumo", widget: "text", required: false }
-              - { label: "Link", name: "url", widget: "string", required: false }
+              - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
+              - { label: "Link da fonte original", name: "url", widget: "string", required: false }
               - { label: "Imagem", name: "imagem", widget: "image", required: false }
 
       - label: "Eventos"
