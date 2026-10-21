@@ -14,25 +14,39 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: true   # se você salvar duas vezes seguidas, só a última compila
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: quarto-dev/quarto-actions/setup@v2
+
       - uses: r-lib/actions/setup-r@v2
         with:
-          use-public-rspm: true
-      - name: Instalar pacotes R
-        run: |
-          Rscript -e 'install.packages(c("readr","dplyr","purrr","stringr","lubridate","htmltools","DT","plotly","yaml","knitr","rmarkdown","here"))'
+          use-public-rspm: true   # baixa pacotes já compilados (bem mais rápido)
+
+      - uses: r-lib/actions/setup-r-dependencies@v2   # guarda os pacotes em cache
+        with:
+          packages: |
+            any::readr
+            any::dplyr
+            any::htmltools
+            any::DT
+            any::plotly
+            any::yaml
+            any::knitr
+            any::rmarkdown
+            any::here
+            any::purrr
+            any::stringr
+            any::lubridate
+
       - name: Renderizar o site
-        run: |
-          rm -rf .quarto _freeze
-          quarto render
-      - uses: actions/configure-pages@v5
+        run: quarto render
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
