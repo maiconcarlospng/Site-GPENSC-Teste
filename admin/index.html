@@ -4,12 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Administração - Decap CMS</title>
-  <!-- 1. Carrega o widget do Netlify Identity -->
+  
+  <!-- Meta tag oficial do Netlify Identity -->
+  <meta name="netlify-site-url" content="https://sitegpensc.netlify.app" />
+  
+  <!-- Script do Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script>
-    // 2. FORÇA a API a apontar para o Netlify ANTES do CMS carregar
+    // Sobrescreve a memoria do navegador (localStorage) para remover a URL antiga do GitHub
+    localStorage.setItem("netlifySiteURL", "https://sitegpensc.netlify.app");
+
     if (window.netlifyIdentity) {
       window.netlifyIdentity.init({
         APIUrl: "https://sitegpensc.netlify.app/.netlify/identity"
@@ -25,7 +31,7 @@
     }
   </script>
 
-  <!-- 3. Carrega o Decap CMS -->
+  <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
