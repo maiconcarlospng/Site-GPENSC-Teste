@@ -64,9 +64,21 @@ cartoes(n, cartao_noticia)
 :::
 
 :::: secao
-::: {.faixa .reveal}
-**GPENSC no Ar**: conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde. [Ver episódios](noar.qmd){.btn .btn-secondary}
-:::
+```{r}
+div(
+  class = "faixa reveal",
+  p(
+    class = "faixa-texto",
+    strong("GPENSC no Ar"),
+    ": conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde."
+  ),
+  tags$a(
+    class = "btn btn-secondary faixa-botao",
+    href = "noar.html",
+    "Ver episódios"
+  )
+)
+```
 
 ```{r}
 # Faixa de logos de apoio (lê data/apoio.csv)
