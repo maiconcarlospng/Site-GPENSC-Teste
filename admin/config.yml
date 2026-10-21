@@ -2,6 +2,7 @@ backend:
   name: github
   repo: maiconcarlospng/Site-GPENSC-Teste
   branch: main
+  base_url: https://gpensc-auth.maicon-carlos.workers.dev/
 
 locale: "pt"
 
