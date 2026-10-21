@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
-  branch: main
-  site_domain: sitegpensc.netlify.app # <--- LINHA CHAVE: aponta para o seu projeto no Netlify
+  branch: main # Altere para 'master' se a sua branch principal for master
+  site_domain: sitegpensc.netlify.app
 
 locale: 'pt'
 
