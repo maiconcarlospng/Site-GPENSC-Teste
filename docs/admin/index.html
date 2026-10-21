@@ -9,7 +9,7 @@
 </head>
 <body>
   <script>
-    // 2. Configura a URL da API do Netlify PRIMEIRO
+    // 2. FORÇA a API a apontar para o Netlify ANTES do CMS carregar
     if (window.netlifyIdentity) {
       window.netlifyIdentity.init({
         APIUrl: "https://sitegpensc.netlify.app/.netlify/identity"
@@ -25,7 +25,7 @@
     }
   </script>
 
-  <!-- 3. Carrega o Decap CMS DEPOIS que o Identity já está configurado -->
+  <!-- 3. Carrega o Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
