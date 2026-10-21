@@ -38,8 +38,31 @@ h1, h2, h3, h4, h5, h6,
   font-family: "bootstrap-icons" !important;
 }
 
+/* Oculta o ícone de âncora do Quarto que aparecia como um quadrado ao passar o mouse. */
 a.anchor-link,
-.anchor-link {
+.anchor-link,
+a.anchorjs-link,
+.anchorjs-link,
+a.header-anchor,
+.quarto-anchor-anchor,
+h1 > a.anchorjs-link,
+h2 > a.anchorjs-link,
+h3 > a.anchorjs-link,
+h4 > a.anchorjs-link,
+h5 > a.anchorjs-link,
+h6 > a.anchorjs-link {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+a.anchor-link::before,
+a.anchor-link::after,
+a.anchorjs-link::before,
+a.anchorjs-link::after,
+a.header-anchor::before,
+a.header-anchor::after {
+  content: none !important;
   display: none !important;
 }
 
@@ -1268,22 +1291,83 @@ button:focus-visible,
 
 .objetivo-item p { margin: .2rem 0 0; }
 
-.logos-institucionais a,
-.logos-institucionais .instituicao-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  min-width: 150px;
+/* Vínculos institucionais: caixas de logo iguais e legenda alinhada. */
+.logos-institucionais > a,
+.logos-institucionais > .instituicao-link {
+  display: flex !important;
+  flex: 0 1 230px;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: .7rem !important;
+  width: 230px;
+  min-width: 170px;
+  max-width: 100%;
+  min-height: 150px;
+  padding: .75rem .8rem;
+  box-sizing: border-box;
+  border-radius: 10px;
   color: var(--gp-verde) !important;
-  font-size: .88rem;
+  font-size: .92rem;
   font-weight: 600;
-  text-decoration: none;
+  line-height: 1.35;
+  text-align: center !important;
+  text-decoration: none !important;
+  transition: background-color .2s ease, color .2s ease;
 }
 
-.logos-institucionais a:hover { color: var(--gp-laranja-esc) !important; }
-.logos-institucionais img { max-height: 78px !important; }
+.vinculo-logo-imagem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  max-width: 100%;
+  height: 92px;
+  flex: 0 0 92px;
+}
+
+.vinculo-logo-imagem img,
+.logos-institucionais .vinculo-logo-imagem img {
+  display: block;
+  width: 160px !important;
+  max-width: 100% !important;
+  height: 82px !important;
+  max-height: 82px !important;
+  object-fit: contain !important;
+  object-position: center;
+  filter: none !important;
+  opacity: 1 !important;
+  transition: transform .2s ease;
+}
+
+.vinculo-logo-nome {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.7em;
+  color: inherit !important;
+  text-align: center !important;
+  overflow-wrap: anywhere;
+}
+
+.logos-institucionais > a:hover {
+  color: var(--gp-laranja-esc) !important;
+  background: #f8f5ee;
+}
+
+.logos-institucionais > a:hover .vinculo-logo-imagem img {
+  transform: translateY(-2px);
+}
+
+.logos-institucionais > a:focus-visible {
+  outline: 3px solid var(--gp-laranja) !important;
+  outline-offset: 3px;
+}
+
+.logos-institucionais > a:focus:not(:focus-visible) {
+  outline: none !important;
+}
 
 .equipe-grid {
   display: grid;
@@ -1366,5 +1450,28 @@ button:focus-visible,
   .estado-vazio { align-items: flex-start; padding: 1.1rem; gap: .8rem; }
   .estado-vazio-icone { flex-basis: 42px; width: 42px; height: 42px; font-size: 1.25rem; }
   .objetivo-item { padding: .9rem; }
-  .logos-institucionais a { min-width: 120px; }
+  .logos-institucionais > a,
+  .logos-institucionais > .instituicao-link {
+    flex-basis: 145px;
+    width: 145px;
+    min-width: 125px;
+    min-height: 135px;
+    padding: .6rem;
+    font-size: .82rem;
+  }
+
+  .vinculo-logo-imagem {
+    width: 135px;
+    height: 78px;
+    flex-basis: 78px;
+  }
+
+  .vinculo-logo-imagem img,
+  .logos-institucionais .vinculo-logo-imagem img {
+    width: 125px !important;
+    height: 70px !important;
+    max-height: 70px !important;
+  }
+
+  .vinculo-logo-nome { min-height: 2.7em; }
 }
