@@ -63,10 +63,12 @@ Pessoa autorizada edita o conteúdo no /admin/
 ## Editar o conteúdo pelo painel
 
 1. Abra o [painel administrativo](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/).
-2. Entre com uma conta GitHub autorizada no repositório.
-3. Abra a seção desejada, crie ou edite registros e salve.
-4. Acesse **Actions** no GitHub e abra a execução iniciada pelo commit.
+2. **Atenção: o login OAuth pelo GitHub ainda não está configurado como fluxo próprio do projeto.** Se o painel pedir token, não cole nem compartilhe um token em documentos, mensagens ou arquivos do site. Use somente uma credencial individual, se já tiver sido orientado a isso pelo responsável técnico.
+3. O backend atual aponta para `maiconcarlospng/Site-GPENSC-Teste), branch `main`. Salvar no painel pode gravar diretamente nessa branch; ainda não há um fluxo editorial de aprovação configurado.
+4. Depois de uma edição autorizada, confira a execução correspondente em **Actions**.
 5. Aguarde o status **Success** e recarregue o site. Se necessário, use `Ctrl + F5`.
+
+**Não considere o painel pronto para uso amplo pelo grupo enquanto o login individual e as permissões não forem configurados e testados.**
 
 ### Seções e arquivos de dados
 
@@ -304,17 +306,25 @@ backend:
 
 Esse trecho é um exemplo: substitua pelo nome real do repositório de destino. Não mude o restante da configuração sem necessidade, pois as coleções precisam continuar apontando para os arquivos existentes em `data/`.
 
-### Autenticação e permissões
+### Autenticação do GitHub: estado atual e próximo passo
 
-Alterar `repo` não é, por si só, uma configuração completa de autenticação. O Sveltia precisa conseguir autenticar o usuário e receber permissão para ler e gravar no repositório. Após a migração:
+O arquivo `admin/config.yml` usa o backend `github` e aponta para o repositório e a branch configurados. Isso informa ao CMS onde ler e gravar conteúdo, mas **não instala por si só um servidor OAuth nem configura uma tela de login segura para todas as pessoas**.
 
-1. Confirme a documentação e o método de autenticação adotado pela versão do Sveltia CMS usada no projeto.
-2. Configure ou atualize a integração OAuth/GitHub App ou o serviço de autenticação que o projeto efetivamente utiliza, conforme necessário.
-3. Autorize o novo repositório e dê acesso apenas às pessoas responsáveis.
-4. Teste login, leitura das coleções, upload de imagem e gravação de um registro.
-5. Confirme que o commit feito pelo painel aciona o workflow de publicação.
+No protótipo atual, o login OAuth individual não deve ser considerado concluído. Se a interface solicitar um token, não compartilhe tokens pessoais entre integrantes nem os salve em arquivos do repositório. Um token é uma credencial de acesso; quem o possui pode agir dentro das permissões concedidas a ele.
 
-**Não coloque tokens pessoais, client secrets ou chaves privadas em arquivos públicos do site.** Se a integração exigir segredo, ele deve ficar em um serviço de autenticação apropriado ou em secrets protegidos, nunca em JavaScript entregue ao navegador.
+#### Como implementar o login individual
+
+1. Escolher e configurar um provedor/serviço de autenticação compatível com a versão atual do Sveltia CMS e com o backend GitHub.
+2. Registrar a aplicação OAuth no GitHub e configurar os endereços de retorno (*callback*) exigidos pelo provedor.
+3. Manter o segredo OAuth exclusivamente no serviço de autenticação, como variável secreta do ambiente; nunca no JavaScript público, em `admin/config.yml`, no README ou em arquivos versionados.
+4. Autorizar somente as contas necessárias e conceder apenas as permissões de repositório exigidas pelo método escolhido.
+5. Testar com contas separadas: login, leitura, gravação de conteúdo, upload de imagens, revogação do acesso e falha para usuário não autorizado.
+
+GitHub Pages serve arquivos estáticos e não executa código de servidor para guardar segredos. Portanto, **o OAuth completo não pode ser resolvido apenas adicionando uma opção ao YAML**: é necessário um serviço de autenticação externo ou outra solução compatível que possa guardar o segredo com segurança. A configuração exata depende do provedor escolhido e deve seguir a documentação atual do Sveltia CMS.
+
+#### Revisão antes da publicação
+
+O backend atual grava na branch `main`. Não há, nesta configuração, garantia de que cada alteração passe por aprovação editorial. A proteção de branch pode bloquear atualizações diretas, mas não cria automaticamente um fluxo de edição e Pull Request no CMS. Antes de oferecer o painel a todo o grupo, é preciso escolher e testar um fluxo compatível com o CMS para propor alterações, revisá-las e só então publicar.
 
 ### URL do painel
 
