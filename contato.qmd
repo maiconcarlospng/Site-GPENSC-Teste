@@ -6,6 +6,7 @@ title: "Contato"
 source("R/helpers.R")
 
 endereco <- as.character(cfg$endereco_completo)
+topicos_endereco <- cfg$topicos_endereco
 mapa_url <- paste0(
   "https://www.google.com/maps/search/?api=1&query=",
   utils::URLencode(endereco, reserved = TRUE)
@@ -49,6 +50,21 @@ div(
         `aria-label` = "Ver endereço do GPENSC no Google Maps",
         endereco
       ),
+      if (length(topicos_endereco) > 0) {
+        div(
+          class = "contato-info-adicionais",
+          lapply(topicos_endereco, function(item) {
+            titulo_topico <- valor_publico(item$titulo)
+            valor_topico <- valor_publico(item$valor)
+            if (is.null(titulo_topico) || is.null(valor_topico)) return(NULL)
+            div(
+              class = "contato-info-adicional",
+              strong(titulo_topico),
+              span(valor_topico)
+            )
+          })
+        )
+      },
       tags$a(
         class = "btn btn-secondary contato-mapa-btn",
         href = mapa_url,
