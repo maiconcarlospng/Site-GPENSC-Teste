@@ -271,10 +271,6 @@ collections:
           - { label: "CEP", name: "cep", widget: "string" }
           - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
           - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
-          - { label: "Mostrar pesquisas na página inicial", name: "mostrar_home_pesquisas", widget: "boolean", default: true }
-          - { label: "Mostrar notícias na página inicial", name: "mostrar_home_noticias", widget: "boolean", default: true }
-          - { label: "Mostrar chamada da agenda na página inicial", name: "mostrar_home_agenda", widget: "boolean", default: true }
-          - { label: "Mostrar chamada GPENSC no Ar na página inicial", name: "mostrar_home_noar", widget: "boolean", default: true }
           - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
           - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
           - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
@@ -320,3 +316,7 @@ collections:
           - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
           - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
           - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
+
+
+
+
