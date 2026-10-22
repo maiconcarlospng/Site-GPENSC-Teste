@@ -378,3 +378,12 @@ O protótipo pode conter textos, notícias, links, fotos e outros dados demonstr
 ## Licença e uso
 
 Este repositório é um protótipo acadêmico/institucional. Antes de definir uma licença pública ou permitir reutilização, combine com o grupo quem detém os direitos do conteúdo, das fotos, dos logos e do código. A publicação pública do código não significa que todas as imagens e marcas possam ser reutilizadas livremente.
+
+
+## Configurações do painel administrativo
+
+O painel inclui a coleção **Configurações e textos do site**, que permite editar a identidade institucional, textos de apresentação, títulos e rótulos selecionados, links de contato e controles para ativar ou desativar o conteúdo de páginas. As opções de visibilidade começam ativadas para preservar a aparência atual.
+
+Quando um conteúdo de página é desativado, a página mostra um aviso de seção temporariamente indisponível; o item de navegação continua no menu. Para esconder também um item do menu, é necessário ajustar a navegação em `_quarto.yml` e publicar novamente. Os controles da página inicial e o menu devem ser verificados antes de qualquer uso institucional.
+
+As alterações feitas no painel gravam no repositório e disparam a publicação automática. Após salvar, confira **Actions** e valide o site publicado.
