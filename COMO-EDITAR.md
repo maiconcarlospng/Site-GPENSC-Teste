@@ -11,9 +11,10 @@ Na maior parte do tempo você só usa o **painel** e, de vez em quando, o `_vari
 ## 1. Editar pelo painel (o jeito do dia a dia)
 
 1. Abra: **https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/**
-2. Entre com a conta do GitHub que tem acesso ao repositório.
-3. Escolha a seção (Notícias, Eventos, Equipe...), edite ou adicione um item e salve.
-4. Espere de **2 a 5 minutos**. O site é recompilado sozinho.
+2. **Aviso:** o login OAuth individual pelo GitHub ainda precisa ser configurado. Se o painel pedir token, não compartilhe tokens entre pessoas nem os coloque em arquivos ou mensagens.
+3. O painel está apontado para o repositório do protótipo e para a branch `main`; salvar pode gravar diretamente nessa branch.
+4. Só faça alterações se tiver autorização do responsável pelo repositório. O fluxo de aprovação editorial ainda não está implementado.
+5. Após uma edição autorizada, espere de **2 a 5 minutos**. O site é recompilado automaticamente quando a publicação é acionada.
 5. Para conferir: no GitHub, aba **Actions**. Círculo amarelo = compilando; ✅ verde = no ar. Abra o site em **janela anônima** para não ver a versão guardada no navegador.
 
 > O site só muda depois do ✅ verde. Se aparecer ❌, veja a seção 8.
