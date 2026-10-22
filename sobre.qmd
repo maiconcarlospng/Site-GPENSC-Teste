@@ -25,18 +25,18 @@ div(
     div(
       class = "sobre-card",
       div(class = "sobre-card-icone", tags$i(class = "bi bi-bullseye", `aria-hidden` = "true")),
-      h2("Nossa missão"),
+      h2(cfg$titulo_missao),
       p(cfg$missao)
     ),
     div(
       class = "sobre-card",
       div(class = "sobre-card-icone", tags$i(class = "bi bi-compass", `aria-hidden` = "true")),
-      h2("Nossa visão"),
+      h2(cfg$titulo_visao),
       p(cfg$visao)
     )
   ),
 
-  h2("Objetivos"),
+  h2(cfg$titulo_objetivos),
   div(
     class = "objetivos-grid",
     lapply(seq_along(objetivos), function(i) {
@@ -48,7 +48,7 @@ div(
     })
   ),
 
-  h2("Vínculos institucionais"),
+  h2(cfg$titulo_vinculos),
   div(
     class = "logos-institucionais",
     tags$a(
@@ -74,11 +74,11 @@ div(
     )
   ),
 
-  h2("Equipe"),
+  h2(cfg$titulo_equipe),
   div(class = "aviso-demonstracao",
       tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
-      strong("Conteúdo demonstrativo. "),
-      "Os perfis abaixo mostram como a equipe será apresentada. Substitua os exemplos pelos dados autorizados dos integrantes."),
+      strong(cfg$texto_aviso_equipe_titulo),
+      cfg$texto_aviso_equipe),
   if (nrow(integrantes) > 0) {
     div(
       class = "equipe-grid",
@@ -118,9 +118,9 @@ div(
 
   div(
     class = "sobre-cta",
-    p("Saiba mais sobre a produção científica e as atividades do grupo."),
+    p(cfg$texto_cta_sobre),
     tags$a(class = "btn btn-secondary", href = dgp_url, target = "_blank", rel = "noopener noreferrer",
-           "Consultar Diretório dos Grupos de Pesquisa do CNPq")
+           cfg$botao_dgp)
   )
 )
 ```
