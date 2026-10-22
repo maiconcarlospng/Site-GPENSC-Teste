@@ -45,8 +45,8 @@ if (nrow(noticias_recentes) > 0) {
   tagList(
     div(class = "aviso-demonstracao",
         tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
-        strong("Notícias de demonstração. "),
-        "Estes cartões ilustram como as publicações aparecerão no site."),
+        strong(cfg$texto_aviso_noticias_home_titulo),
+        cfg$texto_aviso_noticias_home),
     cartoes(noticias_recentes, cartao_noticia)
   )
 } else {
