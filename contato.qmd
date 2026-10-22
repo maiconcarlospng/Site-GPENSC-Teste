@@ -17,6 +17,7 @@ if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case =
   dgp_url <- "https://dgp.cnpq.br"
 }
 
+if (secao_ativa("mostrar_contato")) {
 div(
   class = "pagina-contato",
   p(class = "contato-intro", cfg$intro_contato),
@@ -73,4 +74,8 @@ div(
            "Diretório dos Grupos de Pesquisa do CNPq")
   )
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
