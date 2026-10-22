@@ -222,6 +222,12 @@ Criar formulários próprios que gravem diretamente no GitHub enquanto “usam S
 
 Não é recomendável alterar arquivos internos do pacote do Sveltia sem uma estratégia para manter essas mudanças ao atualizar a dependência.
 
+### Criar e apagar tópicos adicionais de localização
+
+A coleção **Configurações do site** contém a lista **Tópicos adicionais do endereço**. Dentro dela, o editor pode adicionar itens com **Nome do tópico** e **Informação**, ou excluir individualmente os itens existentes. Eles aparecem abaixo do endereço no cartão de localização da página Contato. O endereço completo continua sendo a origem única do link do Google Maps.
+
+Esse mecanismo permite criar e remover *itens de conteúdo* sem alterar o código. Ele não cria uma nova propriedade fixa do CMS: campos estruturais novos em outros formulários ainda exigem alteração em `admin/config.yml` e, quando o site precisa exibi-los, no código correspondente.
+
 ## 8. Transferência para GitHub institucional do GPENSC
 
 Planeje a migração para não interromper a publicação. Recomenda-se que pelo menos duas pessoas de confiança tenham acesso administrativo à estrutura institucional.
