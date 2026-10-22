@@ -6,6 +6,7 @@ title: "Teses e dissertações"
 source("R/helpers.R")
 defesas_publicadas <- registros_reais(defesas, "titulo")
 
+if (secao_ativa("mostrar_teses")) {
 div(
   class = "pagina-defesas",
   p(class = "contato-intro", "Defesas e qualificações de mestrado e doutorado orientadas por integrantes do grupo."),
@@ -47,4 +48,8 @@ div(
     )
   }
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
