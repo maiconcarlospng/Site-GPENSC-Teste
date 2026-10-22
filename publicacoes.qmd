@@ -6,6 +6,7 @@ title: "Publicações"
 source("R/helpers.R")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")
 
+if (secao_ativa("mostrar_publicacoes")) {
 if (nrow(publicacoes_publicadas) == 0) {
   estado_vazio(
     "Publicações em atualização",
@@ -67,4 +68,8 @@ if (nrow(publicacoes_publicadas) == 0) {
       )
   )
 }
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
