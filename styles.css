@@ -1590,3 +1590,78 @@ button:focus-visible,
     content: "E-mail" !important;
   }
 }
+
+
+/* Página Contato: destaque visual próprio para e-mail e Instagram */
+.contato-card:has(.bi-envelope) .contato-card-icone {
+  color: #A8322A !important;
+  background: #FFF0EE !important;
+  border: 1px solid #F0C8C3;
+}
+
+.contato-card:has(.bi-envelope) .contato-card-icone i {
+  font-size: 1.55rem !important;
+}
+
+.contato-card:has(.bi-instagram) .contato-card-icone {
+  color: #fff !important;
+  background: linear-gradient(135deg, #833AB4 0%, #C13584 45%, #E1306C 72%, #F77737 100%) !important;
+  border: 1px solid rgba(193, 53, 132, .35);
+  box-shadow: 0 4px 12px rgba(193, 53, 132, .2);
+}
+
+.contato-card:has(.bi-instagram) .contato-card-icone i {
+  font-size: 1.6rem !important;
+}
+
+.contato-card:has(.bi-instagram) {
+  border-color: #E8C9DC;
+}
+
+.contato-card:has(.bi-envelope),
+.contato-card:has(.bi-instagram) {
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.contato-card:has(.bi-envelope):hover,
+.contato-card:has(.bi-instagram):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(30, 50, 35, .09);
+}
+
+@media (max-width: 680px) {
+  .contato-card {
+    padding: 1.15rem !important;
+    gap: .7rem !important;
+  }
+
+  .contato-card-icone {
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 15px !important;
+    font-size: 1.55rem !important;
+  }
+
+  .contato-card:has(.bi-envelope) .contato-card-icone,
+  .contato-card:has(.bi-instagram) .contato-card-icone {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .contato-card .btn {
+    min-height: 46px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: .75rem 1rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contato-card:has(.bi-envelope),
+  .contato-card:has(.bi-instagram) {
+    transition: none !important;
+  }
+}
