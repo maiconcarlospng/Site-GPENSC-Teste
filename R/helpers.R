@@ -21,6 +21,12 @@ suppressPackageStartupMessages({
 # Lê _variables.yml. Uso: cfg$email, cfg$instagram ...
 cfg <- yaml::read_yaml("_variables.yml")
 
+# Controles do painel: uma chave ausente mantém a seção visível por compatibilidade.
+secao_ativa <- function(chave) {
+  valor <- cfg[[chave]]
+  is.null(valor) || isTRUE(valor)
+}
+
 # ---- 2) LEITURA DOS DADOS ---------------------------------------------
 # COLUNAS: lista de campos de cada tabela. Tem que bater com os campos do
 # painel (admin/config.yml). Se você criar um campo novo lá, acrescente aqui.
