@@ -44,8 +44,6 @@ spotify: "https://open.spotify.com/show/SEU_ID_AQUI"
 
 # --- 7. ENDEREÇO E LOCALIZAÇÃO ---
 endereco: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro"
-cidade_uf: "Ouro Preto – MG"
-cep: "CEP 35400-000"
 endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Ouro Preto, MG – CEP 35400-000"
 
 # --- 8. RODAPÉ E DIREITOS ---
