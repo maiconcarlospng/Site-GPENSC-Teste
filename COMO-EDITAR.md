@@ -11,7 +11,7 @@ Na maior parte do tempo você só usa o **painel** e, de vez em quando, o `_vari
 ## 1. Editar pelo painel (o jeito do dia a dia)
 
 1. Abra: **https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/**
-2. **Aviso:** o login OAuth individual pelo GitHub ainda não está ativado. O backend GitHub não configura o OAuth sozinho. Consulte a seção “Login com GitHub” no README antes de tentar habilitar o fluxo. Se o painel pedir token, use apenas uma credencial individual autorizada; não compartilhe tokens nem os coloque em arquivos ou mensagens.
+2. **Estado do protótipo:** o login OAuth individual ainda não está configurado nem testado. Se o site for aprovado para uso, siga o passo a passo “Login com GitHub” no README para configurar autenticação, permissões e testes antes de liberar o painel. Se o painel pedir token, não compartilhe tokens nem os coloque em arquivos ou mensagens.
 3. O painel está apontado para o repositório do protótipo e para a branch `main`; salvar pode gravar diretamente nessa branch.
 4. Só faça alterações se tiver autorização do responsável pelo repositório. O fluxo de aprovação editorial ainda não está implementado.
 5. Após uma edição autorizada, espere de **2 a 5 minutos**. O site é recompilado automaticamente quando a publicação é acionada.
