@@ -6,6 +6,7 @@ title: "GPENSC no Ar"
 source("R/helpers.R")
 episodios_publicados <- registros_reais(noar, "titulo")
 
+if (secao_ativa("mostrar_noar")) {
 div(
   class = "pagina-noar",
   p(
@@ -44,4 +45,8 @@ div(
     tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", "Instagram do GPENSC")
   )
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
