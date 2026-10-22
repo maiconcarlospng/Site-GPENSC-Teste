@@ -63,8 +63,8 @@ Pessoa autorizada edita o conteúdo no /admin/
 ## Editar o conteúdo pelo painel
 
 1. Abra o [painel administrativo](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/).
-2. **Atenção: o login OAuth pelo GitHub ainda não está configurado como fluxo próprio do projeto.** Se o painel pedir token, não cole nem compartilhe um token em documentos, mensagens ou arquivos do site. Use somente uma credencial individual, se já tiver sido orientado a isso pelo responsável técnico.
-3. O backend atual aponta para `maiconcarlospng/Site-GPENSC-Teste), branch `main`. Salvar no painel pode gravar diretamente nessa branch; ainda não há um fluxo editorial de aprovação configurado.
+2. O painel usa autenticação OAuth pelo GitHub através do Cloudflare Worker `https://sveltia-cms-auth.maicon-carlos.workers.dev`, com callback `/callback`. Se a autenticação apresentar erro de configuração, confira as variáveis de produção em **Cloudflare Worker → Settings → Variables and Secrets → Runtime variables and secrets → Production**. O Client Secret deve permanecer apenas como segredo no Worker; nunca o coloque neste repositório.
+3. O backend aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `main`. Salvar no painel grava commits diretamente nessa branch; não há aprovação editorial por Pull Request configurada no fluxo atual.
 4. Depois de uma edição autorizada, confira a execução correspondente em **Actions**.
 5. Aguarde o status **Success** e recarregue o site. Se necessário, use `Ctrl + F5`.
 
@@ -101,7 +101,7 @@ Pessoa autorizada edita o conteúdo no /admin/
 
 ### Observação importante sobre a galeria
 
-A configuração atual do painel contém o tipo personalizado `galeria-multipla-v2`. O Sveltia CMS exibiu a mensagem **“Tipo de campo não suportado”** quando esse tipo não estava registrado/carregado. Isso significa que a seleção múltipla não deve ser considerada funcional apenas por estar declarada em `admin/config.yml`. Antes da entrega oficial, é necessário implementar e carregar o widget personalizado corretamente ou voltar temporariamente a um campo de lista compatível com o CMS. Não apague nem converta manualmente `data/galeria.yml` sem preservar a estrutura `itens: - arquivo: ... - legenda: ...`.
+A galeria usa o campo personalizado `galeria-multipla-v2`, implementado em `admin/galeria-multipla.js` e registrado em `admin/index.html` antes de `CMS.init()`. Ele permite selecionar várias imagens, editar legendas, reordenar e remover fotos. Após alterações no painel, teste a seleção, a pré-visualização, o envio e o salvamento das imagens. Preserve a estrutura `data/galeria.yml`: `itens`, com `arquivo` e `legenda` por item.
 
 ## Mapa do repositório
 
@@ -308,9 +308,9 @@ Esse trecho é um exemplo: substitua pelo nome real do repositório de destino. 
 
 ### Login com GitHub — procedimento para depois da aprovação do site
 
-**Situação atual:** a OAuth App do GitHub já foi criada pelo responsável, mas o login OAuth do painel ainda não foi configurado nem testado. Como o site ainda é um protótipo, não é necessário ativar esse serviço agora. Faça isso somente se o site for aprovado para uso institucional.
+**Situação atual:** o fluxo OAuth via Cloudflare Worker foi configurado e o funcionamento do login já foi confirmado em teste anterior. Ao migrar o site para outro repositório, domínio ou organização, revise as URLs da OAuth App, o callback e as variáveis de produção do Worker e teste novamente o fluxo.
 
-O Sveltia CMS é servido como arquivo estático pelo GitHub Pages. O fluxo OAuth precisa seguir a documentação da versão do CMS e de um provedor compatível. Não presuma que basta acrescentar o Client ID ao YAML: primeiro confirme o método de autenticação suportado pela versão publicada.
+O Sveltia CMS é servido como arquivo estático pelo GitHub Pages; o Cloudflare Worker executa o fluxo OAuth. A URL atual de callback é `https://sveltia-cms-auth.maicon-carlos.workers.dev/callback`. O backend está configurado em `admin/config.yml`. Não publique o Client Secret: ele deve ficar apenas no campo de segredo das variáveis de runtime do Worker.
 
 Referências oficiais:
 - [Documentação do Sveltia CMS](https://sveltiacms.app/en/docs/)
@@ -321,7 +321,7 @@ Referências oficiais:
 #### Passo a passo quando o site for aprovado
 
 1. **Confirmar o repositório definitivo.** Se o projeto for transferido para a organização do GPENSC, atualize primeiro o campo `repo` em `admin/config.yml` para `ORGANIZACAO/NOME-DO-REPOSITORIO`. Confirme também a branch usada para publicar.
-2. **Escolher um serviço de autenticação compatível.** Avalie uma opção com plano gratuito, por exemplo Cloudflare Workers, e confirme que a implementação atende ao fluxo OAuth exigido pelo Sveltia CMS. O plano gratuito, os limites e a compatibilidade devem ser verificados na documentação vigente antes da adoção.
+2. **Revisar o serviço de autenticação existente.** O projeto já usa Cloudflare Workers para OAuth. Antes de migrar ou substituir o serviço, confirme o fluxo aceito pela versão vigente do Sveltia CMS e atualize as URLs e permissões necessárias.
 3. **Configurar o serviço.** Siga o procedimento oficial do provedor para criar o serviço e configurar o endereço de callback. Não invente o callback: copie exatamente a URL indicada pela implementação escolhida.
 4. **Revisar a OAuth App já criada no GitHub.** Em *Settings → Developer settings → OAuth Apps*, abra a aplicação existente. Atualize a *Homepage URL* e a *Authorization callback URL* conforme os endereços definitivos do site e do serviço OAuth. Salve as alterações. Não crie outra aplicação sem necessidade.
 5. **Guardar segredos com segurança.** Se o método escolhido usar Client Secret, cadastre-o somente nas variáveis secretas do serviço de autenticação. Nunca o coloque em `admin/config.yml`, JavaScript público, README, commits ou mensagens. O Client ID não é um segredo, mas só deve ser colocado nos campos exigidos pela configuração oficial.
@@ -333,9 +333,10 @@ Referências oficiais:
 #### Segurança e estado atual
 
 - O backend do protótipo aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `main`.
-- O login OAuth ainda não está configurado nem validado.
-- Se o painel oferecer autenticação por token pessoal (PAT), cada pessoa deve usar uma credencial individual autorizada; nunca compartilhe tokens.
-- Não libere o painel para uso amplo antes de validar autenticação, permissões, uploads e publicação.
+- O login OAuth via Cloudflare Worker já foi configurado e testado anteriormente; teste novamente após qualquer migração de domínio ou repositório.
+- O Worker deve manter `GITHUB_CLIENT_ID` e `ALLOWED_DOMAINS` como variáveis de runtime em Production e `GITHUB_CLIENT_SECRET` como segredo de runtime em Production.
+- O painel grava na branch `main`, portanto as permissões de acesso ao repositório determinam quem pode editar e publicar.
+- Antes de liberar o painel para uso amplo, valide login, permissões, upload de imagens e publicação.
 - A aprovação editorial não está garantida na configuração atual.
 
 ### URL do painel
@@ -344,7 +345,7 @@ Com GitHub Pages, o caminho depende do endereço final do site. Para um projeto 
 
 ### Atenção à galeria com seleção múltipla
 
-O tipo `galeria-multipla-v2` é um widget personalizado, não um widget nativo garantido pelo Sveltia CMS. A mensagem “Tipo de campo não suportado” indica que o widget não foi registrado/carregado naquela versão publicada do painel. Antes de entregar o site, implemente e teste esse widget no destino ou use temporariamente uma configuração compatível com widgets nativos. Preserve o formato de dados esperado por `R/helpers.R`: lista `itens`, cada item com `arquivo` e `legenda`.
+O campo `galeria-multipla-v2` é um widget personalizado que precisa ser carregado em `admin/index.html` antes da inicialização do CMS. O script atual registra o widget em `admin/galeria-multipla.js`; se surgir “Tipo de campo não suportado”, confira a ordem dos scripts e o carregamento do arquivo. Preserve a estrutura `itens` com `arquivo` e `legenda` em `data/galeria.yml`.
 
 ## Antes de transformar o protótipo em site oficial
 
@@ -366,7 +367,7 @@ O protótipo pode conter textos, notícias, links, fotos e outros dados demonstr
 | O site não mudou depois de salvar | A execução mais recente em Actions, o resultado do build e o cache do navegador. |
 | Actions falhou | Abra o job `build` e leia o primeiro passo com erro; o passo de renderização costuma mostrar erros de Quarto/R. |
 | O painel informa que a configuração não pode ser recuperada | Confirme se `admin/config.yml` está acessível no endereço publicado e se o caminho/branch estão corretos. |
-| O painel diz “Tipo de campo não suportado” | Um widget personalizado está declarado, mas não está registrado/carregado. |
+| O painel diz “Tipo de campo não suportado” | Confira se `admin/galeria-multipla.js` carregou antes de `CMS.init()` e se o nome em `admin/config.yml` é `galeria-multipla-v2`. |
 | Uma foto não aparece | Confira o caminho, o nome e a existência do arquivo no repositório; maiúsculas e minúsculas importam. |
 | Campo do painel não aparece no site | Confira o nome no YAML, em `COLUNAS` no `R/helpers.R` e no componente que exibe o conteúdo. |
 | Uma página não aparece no menu | Confira a navegação em `_quarto.yml`. |
