@@ -194,7 +194,23 @@ https://maiconcarlospng.github.io/Site-GPENSC-Teste/o-grupo.html
 **Importante:**
 - Renomear o arquivo pode quebrar links antigos que outras pessoas já salvaram ou compartilharam. Se a página já estiver publicada, atualize também os links internos e avise quem usa o endereço antigo.
 - Alterar apenas o texto `text:` no menu muda o nome exibido, não a URL. É o `href:`/nome do arquivo que determina o destino.
-- Se você quer um endereço sem `.html` ou um domínio próprio, como `https://gpen sc.ufop.br` (exemplo ilustrativo), isso é uma configuração diferente; não basta renomear o arquivo. Domínio próprio exige acesso às configurações de domínio e DNS.
+### Usar um domínio institucional próprio (por exemplo, `www.gpensc.ufop.br`)
+
+Se, no futuro, o grupo quiser acessar o site diretamente por **`https://www.gpensc.ufop.br`**, sem aparecer `github.io` no endereço, será necessário configurar um **domínio personalizado no GitHub Pages** e solicitar uma alteração no DNS institucional da UFOP. Isso não é feito pelo painel de edição de conteúdo.
+
+**Passos gerais para quando a UFOP autorizar o endereço:**
+
+1. **Confirmar com a equipe de TI responsável pelos domínios da UFOP** que `www.gpensc.ufop.br` pode ser destinado ao site do GPENSC e pedir a criação do registro DNS indicado pela documentação do GitHub Pages. Para um subdomínio `www`, normalmente é usado um registro **CNAME** apontando para `maiconcarlospng.github.io`; a equipe de TI deve confirmar e aplicar o registro correto conforme as regras institucionais.
+2. No GitHub, abrir o repositório `maiconcarlospng/Site-GPENSC-Teste` e ir a **Settings → Pages → Custom domain**. Informar `www.gpensc.ufop.br` e salvar. É necessário ter permissão administrativa no repositório.
+3. Garantir que a publicação do Quarto preserve o arquivo `CNAME` com o domínio na raiz do site publicado. Como este projeto publica por GitHub Actions, conferir o workflow de publicação e a documentação atual do Quarto/GitHub Pages antes de alterar arquivos; não basta criar o arquivo em uma pasta que não seja publicada.
+4. Aguardar a propagação do DNS e a validação do domínio no GitHub Pages. Quando a opção estiver disponível, ativar **Enforce HTTPS** nas configurações de Pages.
+5. Testar `https://www.gpensc.ufop.br`, conferir se todas as páginas, imagens e links funcionam e verificar se o HTTPS está válido.
+
+**Atenção:**
+- O domínio pertence à estrutura institucional da UFOP; não presuma que podemos configurar o DNS por conta própria. A autorização e a alteração do DNS dependem da equipe responsável.
+- Não remova nem substitua o endereço atual do GitHub Pages antes de o domínio novo funcionar e ser testado.
+- Se a intenção for usar também `gpensc.ufop.br` sem `www`, esse é outro nome DNS e precisa ser tratado separadamente com a TI. Redirecionamento entre as duas versões também deve ser planejado.
+- O endereço personalizado muda o endereço principal do site, não os nomes das páginas. As URLs internas e a configuração do Quarto precisam continuar coerentes com o domínio novo.
 - Não altere o nome de um arquivo de página sem conferir e atualizar as referências no `_quarto.yml` e nos links do restante do site.
 
 ### Criar um campo novo numa seção que já existe
