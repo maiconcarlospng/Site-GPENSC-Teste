@@ -139,7 +139,7 @@ registros_reais <- function(df, campo = "titulo") {
   texto <- trimws(as.character(df[[campo]]))
   valido <- !is.na(texto) & nzchar(texto)
   demonstracao <- grepl(
-    "^(\\[EXEMPLO\\]|TESTE\\b|___)",
+    "^(\\[EXEMPLO\\]|EXEMPLO\\s*:|TESTE\\b|___)",
     texto,
     ignore.case = TRUE,
     perl = TRUE
