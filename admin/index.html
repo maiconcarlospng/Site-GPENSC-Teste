@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Administração - GPENSC</title>
     <link rel="icon" href="../img/favicon.png" />
-    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=galeria-multipla-v4" />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=gpen-layout-20261022-2" />
 
     <style>
       body {
@@ -439,6 +439,131 @@
         .gpen-admin-area { min-height: unset; }
       }
 
+    
+      /* Ajustes de layout da área interna do Sveltia. Mantém o CMS como motor de edição. */
+      body.gpen-cms-active {
+        background: #f4f7f2 !important;
+        --sui-primary-accent-color: #286442;
+        --sui-primary-accent-color-inverted: #ffffff;
+        --field-editor-padding: 20px;
+      }
+      body.gpen-cms-active .sui.toolbar {
+        background: #ffffff !important;
+        border-bottom: 1px solid #dfe8dc !important;
+        box-shadow: 0 3px 14px rgba(31, 72, 48, .06) !important;
+      }
+      body.gpen-cms-active .primary-sidebar {
+        background: #f8fbf6 !important;
+        border-right: 1px solid #e0e8dd !important;
+      }
+      body.gpen-cms-active #page-container {
+        background: #f4f7f2 !important;
+      }
+      body.gpen-cms-active #page-container .content {
+        padding: 20px clamp(14px, 3vw, 38px) !important;
+        background: #f4f7f2 !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] {
+        box-sizing: border-box;
+        margin: 0 0 14px !important;
+        padding: 20px !important;
+        border: 1px solid #e0e8dd !important;
+        border-radius: 14px !important;
+        background: #ffffff !important;
+        box-shadow: 0 3px 12px rgba(32, 68, 43, .035) !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path]:not(:last-child)::after {
+        display: none !important;
+        content: none !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] > header {
+        min-height: 28px;
+        margin: 0 0 12px !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] > header h4 {
+        color: #28583b !important;
+        font-size: .94rem !important;
+        font-weight: 750 !important;
+        letter-spacing: -.01em;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] .hint {
+        margin: 9px 0 0 !important;
+        color: #68776a !important;
+        font-size: .84rem !important;
+        line-height: 1.55 !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] textarea,
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] select {
+        border-color: #ccd9ca !important;
+        border-radius: 9px !important;
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+      }
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] input:focus,
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] textarea:focus,
+      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] select:focus {
+        border-color: #4b865d !important;
+        box-shadow: 0 0 0 3px rgba(75, 134, 93, .15) !important;
+        outline: none !important;
+      }
+      body.gpen-cms-active .sui.search-bar {
+        --sui-textbox-background-color: #f0f5ee;
+        border-radius: 10px !important;
+      }
+      body.gpen-cms-active #gpen-admin-site-link {
+        position: fixed;
+        z-index: 2147483000;
+        right: 20px;
+        bottom: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid #d9e6d6;
+        border-radius: 999px;
+        background: #214e35;
+        color: #ffffff !important;
+        box-shadow: 0 8px 24px rgba(24, 65, 42, .22);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: .84rem;
+        font-weight: 750;
+        text-decoration: none !important;
+        transition: transform .16s ease, background-color .16s ease;
+      }
+      body.gpen-cms-active #gpen-admin-site-link:hover {
+        background: #173d29;
+        transform: translateY(-2px);
+      }
+      body.gpen-cms-active #gpen-admin-site-link:focus-visible {
+        outline: 3px solid #9acb96;
+        outline-offset: 3px;
+      }
+      body.gpen-cms-active #gpen-admin-site-link svg {
+        display: block;
+        width: 17px;
+        height: 17px;
+        flex: none;
+      }
+      @media (max-width: 640px) {
+        body.gpen-cms-active #page-container .content {
+          padding: 12px !important;
+        }
+        body.gpen-cms-active #page-container section.field[role="group"][data-key-path] {
+          padding: 15px !important;
+          margin-bottom: 10px !important;
+          border-radius: 12px !important;
+        }
+        body.gpen-cms-active #gpen-admin-site-link {
+          right: 12px;
+          bottom: 74px;
+          min-height: 42px;
+          padding: 0 13px;
+        }
+      }
+
     </style>
   </head>
   <body>
@@ -532,6 +657,11 @@
         </footer>
       </div>
     </main>
+    <a id="gpen-admin-site-link" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir o site público do GPENSC em uma nova aba" title="Abrir o site público em uma nova aba">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ver site público
+    </a>
+
 
     <!-- Registra o widget personalizado antes de iniciar o CMS. -->
     <script>window.CMS_MANUAL_INIT = true;</script>
@@ -540,6 +670,7 @@
     <script>
       document.getElementById("gpen-admin-entrar").addEventListener("click", function () {
         document.getElementById("gpen-admin-boas-vindas").hidden = true;
+        document.body.classList.add("gpen-cms-active");
         document.title = "Painel Administrativo GPENSC";
         CMS.init();
       });
