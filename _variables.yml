@@ -50,3 +50,55 @@ endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Our
 
 # --- 8. RODAPÉ E DIREITOS ---
 copyright: "© GPENSC – Universidade Federal de Ouro Preto. Todos os direitos reservados."
+# --- 9. CONTROLES DE VISIBILIDADE (true mantém a seção atual visível) ---
+mostrar_home_pesquisas: true
+mostrar_home_noticias: true
+mostrar_home_agenda: true
+mostrar_home_noar: true
+mostrar_agenda: true
+mostrar_linhas: true
+mostrar_projetos: true
+mostrar_publicacoes: true
+mostrar_extensao: true
+mostrar_noar: true
+mostrar_noticias: true
+mostrar_contato: true
+mostrar_disciplinas: true
+mostrar_teses: true
+mostrar_livros: true
+mostrar_videos: true
+mostrar_sites: true
+
+# --- 10. TEXTOS EDITÁVEIS DA INTERFACE ---
+titulo_home_pesquisas: "Pesquisas"
+titulo_home_noticias: "Últimas notícias"
+texto_aviso_noticias_home_titulo: "Notícias de demonstração. "
+texto_aviso_noticias_home: "Estes cartões ilustram como as publicações aparecerão no site."
+titulo_home_agenda: "Confira nossa agenda de aulas abertas, workshops e participações"
+titulo_home_noar: "GPENSC no Ar"
+texto_home_noar: "conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
+botao_sobre: "Sobre nós"
+titulo_missao: "Nossa missão"
+titulo_visao: "Nossa visão"
+titulo_objetivos: "Objetivos"
+titulo_vinculos: "Vínculos institucionais"
+titulo_equipe: "Equipe"
+texto_aviso_equipe_titulo: "Conteúdo demonstrativo. "
+texto_aviso_equipe: "Os perfis abaixo mostram como a equipe será apresentada. Substitua os exemplos pelos dados autorizados dos integrantes."
+texto_cta_sobre: "Saiba mais sobre a produção científica e as atividades do grupo."
+botao_dgp: "Consultar Diretório dos Grupos de Pesquisa do CNPq"
+intro_agenda: "Acompanhe aulas abertas, workshops, cursos, bancas e outras atividades do grupo."
+titulo_proximos_eventos: "Próximos eventos"
+titulo_eventos_sem_data: "Data a confirmar"
+botao_eventos_anteriores: "Consultar eventos anteriores"
+intro_projetos: "Projetos de pesquisa e extensão desenvolvidos pelo grupo, com informações sobre situação, coordenação, período e financiamento."
+intro_extensao: "A extensão aproxima a produção acadêmica da comunidade por meio de atividades educativas, troca de conhecimentos e divulgação científica em nutrição e saúde coletiva."
+intro_noar: "GPENSC no Ar é uma série em formato de podcast/videocast com conversas sobre nutrição, sono, exercício físico e saúde coletiva em linguagem acessível. Acompanhe os canais do grupo para novidades e novos episódios."
+intro_contato: "Entre em contato com o GPENSC para informações sobre pesquisa, ensino, extensão, parcerias e atividades do grupo."
+titulo_email: "E-mail"
+titulo_instagram: "Instagram"
+titulo_localizacao: "Localização"
+titulo_telefone: "Telefone institucional"
+botao_enviar_email: "Enviar e-mail"
+botao_instagram: "Acompanhar o grupo"
+botao_mapa: "Ver no Google Maps"
