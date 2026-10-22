@@ -233,3 +233,12 @@ Configuração feita uma vez só: em **Settings → Pages → Source**, a opçã
 - Markdown no Quarto: https://quarto.org/docs/authoring/markdown-basics.html
 - Tabelas interativas (DT): https://rstudio.github.io/DT
 - Temas e cores: https://quarto.org/docs/output-formats/html-themes.html
+
+
+## Configurações gerais, textos e seções
+
+No painel, abra **Configurações e textos do site** para editar os dados institucionais, missão, visão, objetivos, contatos, links, alguns títulos, textos introdutórios e rótulos de botões. Os valores iniciais foram mantidos iguais aos textos atuais para evitar mudanças visuais inesperadas.
+
+Os controles **Ativar conteúdo da página ...** permitem mostrar o conteúdo ou substituí-lo por um aviso de seção temporariamente indisponível. Eles não apagam registros e não removem automaticamente o item correspondente do menu. Para alterar o menu, é necessário editar `_quarto.yml`.
+
+Antes de desativar uma seção, salve e publique, depois confira o site e a aba **Actions**. Todos os controles de visibilidade começam ativados.
