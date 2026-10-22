@@ -35,6 +35,10 @@ Esses valores correspondem à estrutura de testes existente em outubro de 2026. 
 
 ## 3. Configuração do Sveltia CMS
 
+A configuração também define `site_url` com o endereço público do site. Esse campo permite que o atalho do Sveltia para abrir o site publicado use a URL correta, especialmente no GitHub Pages quando o site fica em um subcaminho do domínio.
+
+Valor atual: `https://maiconcarlospng.github.io/Site-GPENSC-Teste/`.
+
 O arquivo `admin/config.yml` contém a configuração atual do backend:
 
 ```yaml
@@ -183,6 +187,10 @@ O OAuth não concede edição a qualquer usuário automaticamente. Acesso ao rep
 ## 7. Personalização visual do painel administrativo
 
 É possível melhorar a experiência de edição mantendo o Sveltia CMS como motor. A opção mais segura é personalizar e organizar a interface que ele já fornece, sem substituir seu fluxo central de autenticação e gravação no GitHub.
+
+Na versão atual, `admin/index.html` inclui um botão fixo **Ver site público**, que abre o site em uma nova aba para não descartar acidentalmente uma edição em andamento. A configuração `site_url` também foi adicionada ao `admin/config.yml` para corrigir o destino do atalho interno do Sveltia. O CSS do portal foi ampliado para personalizar a barra superior, a navegação lateral, os campos em cartões, o espaço entre os controles e os estados de foco.
+
+Essas regras visuais usam seletores da interface atual do CMS. Como não fazem parte de uma API formal de temas, devem ser conferidas sempre que o Sveltia for atualizado. A busca interna do CMS continua sendo o recurso nativo do Sveltia; não é substituída por uma implementação paralela.
 
 ### O que pode ser melhorado
 
