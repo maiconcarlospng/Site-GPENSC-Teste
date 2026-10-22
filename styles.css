@@ -803,41 +803,90 @@ main.content,
   display: none !important;
 }
 
-/* Ícones do Instagram e do e-mail */
+/* Redes sociais e contato no rodapé: botões mais visíveis e acessíveis */
 .nav-footer-right {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
-  gap: .85rem !important;
+  flex-wrap: wrap !important;
+  gap: .65rem !important;
 }
 
-.nav-footer-right a,
-.nav-footer-right i,
-.nav-footer-right .bi,
-.nav-footer-right svg {
-  font-size: 1.4rem !important;
+.nav-footer-right a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .55rem !important;
+  min-height: 42px;
+  padding: .62rem .95rem !important;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: .9rem !important;
+  font-weight: 700;
   line-height: 1 !important;
-  transition: transform .2s ease, color .2s ease;
+  text-decoration: none !important;
+  box-shadow: 0 3px 10px rgba(30, 50, 35, .10);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
+.nav-footer-right a i,
+.nav-footer-right a .bi,
+.nav-footer-right a svg {
+  font-size: 1.25rem !important;
+  line-height: 1 !important;
+}
+
+/* O Instagram permanece destacado mesmo sem passar o mouse. */
 .nav-footer-right a[href*="instagram.com"] {
-  color: #C13584 !important;
+  color: #fff !important;
+  background: linear-gradient(115deg, #833AB4 0%, #C13584 48%, #E1306C 75%, #F77737 100%) !important;
+  border-color: rgba(193, 53, 132, .25);
+}
+
+.nav-footer-right a[href*="instagram.com"]::after {
+  content: "Instagram";
 }
 
 .nav-footer-right a[href^="mailto:"] {
-  color: #D44638 !important;
+  color: #A8322A !important;
+  background: #fff !important;
+  border-color: #E8C7C2;
+}
+
+.nav-footer-right a[href^="mailto:"]::after {
+  content: "E-mail";
 }
 
 .nav-footer-right a[href*="instagram.com"]:hover {
-  color: #E1306C !important;
+  color: #fff !important;
+  box-shadow: 0 5px 15px rgba(193, 53, 132, .28);
 }
 
 .nav-footer-right a[href^="mailto:"]:hover {
-  color: var(--gp-laranja-esc) !important;
+  color: #8F241E !important;
+  background: #FFF7F5 !important;
+  border-color: #DFA9A2;
 }
 
 .nav-footer-right a:hover {
-  transform: scale(1.15);
+  transform: translateY(-2px);
+}
+
+.nav-footer-right a:focus-visible {
+  outline: 3px solid var(--gp-verde);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .nav-footer-right {
+    justify-content: center !important;
+    margin-top: .5rem;
+  }
+
+  .nav-footer-right a {
+    min-height: 44px;
+    padding: .7rem 1rem !important;
+  }
 }
 
 /* ---------- 8. ABAS, EQUIPE E APOIO INSTITUCIONAL ---------- */
