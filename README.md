@@ -306,25 +306,34 @@ backend:
 
 Esse trecho é um exemplo: substitua pelo nome real do repositório de destino. Não mude o restante da configuração sem necessidade, pois as coleções precisam continuar apontando para os arquivos existentes em `data/`.
 
-### Autenticação do GitHub: estado atual e próximo passo
+### Login com GitHub: opção gratuita e configuração pendente
 
-O arquivo `admin/config.yml` usa o backend `github` e aponta para o repositório e a branch configurados. Isso informa ao CMS onde ler e gravar conteúdo, mas **não instala por si só um servidor OAuth nem configura uma tela de login segura para todas as pessoas**.
+A autenticação precisa ser configurada antes de liberar o painel para o grupo. O backend `github` sozinho não cria usuários nem configura o OAuth.
 
-No protótipo atual, o login OAuth individual não deve ser considerado concluído. Se a interface solicitar um token, não compartilhe tokens pessoais entre integrantes nem os salve em arquivos do repositório. Um token é uma credencial de acesso; quem o possui pode agir dentro das permissões concedidas a ele.
+**Opção sem custo de hospedagem para o protótipo:** usar o fluxo OAuth do Sveltia CMS com um serviço OAuth compatível hospedado em um plano gratuito. O código público do site não pode guardar o segredo OAuth. O serviço precisa trocar o código de autorização por um token e devolver o resultado ao CMS no formato esperado pelo Sveltia.
 
-#### Como implementar o login individual
+Referências oficiais:
+- [Documentação do Sveltia CMS — backends e autenticação](https://sveltiacms.app/en/docs/backends)
+- [Código-fonte oficial do backend GitHub](https://github.com/sveltia/sveltia-cms/tree/main/src/lib/services/backends/git/github)
+- [GitHub Docs — criar uma OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
 
-1. Escolher e configurar um provedor/serviço de autenticação compatível com a versão atual do Sveltia CMS e com o backend GitHub.
-2. Registrar a aplicação OAuth no GitHub e configurar os endereços de retorno (*callback*) exigidos pelo provedor.
-3. Manter o segredo OAuth exclusivamente no serviço de autenticação, como variável secreta do ambiente; nunca no JavaScript público, em `admin/config.yml`, no README ou em arquivos versionados.
-4. Autorizar somente as contas necessárias e conceder apenas as permissões de repositório exigidas pelo método escolhido.
-5. Testar com contas separadas: login, leitura, gravação de conteúdo, upload de imagens, revogação do acesso e falha para usuário não autorizado.
+**Importante:** ainda não está ativado o login OAuth no protótipo. Não altere `auth_methods`, `app_id`, `base_url` ou `auth_endpoint` para valores de exemplo: sem o cadastro e a configuração do serviço, isso pode deixar o painel sem uma forma de entrar.
 
-GitHub Pages serve arquivos estáticos e não executa código de servidor para guardar segredos. Portanto, **o OAuth completo não pode ser resolvido apenas adicionando uma opção ao YAML**: é necessário um serviço de autenticação externo ou outra solução compatível que possa guardar o segredo com segurança. A configuração exata depende do provedor escolhido e deve seguir a documentação atual do Sveltia CMS.
+#### O que é necessário para ativar
 
-#### Revisão antes da publicação
+1. Escolher o serviço OAuth gratuito e criar uma conta nele. O GitHub Pages não executa código de servidor.
+2. Registrar uma OAuth App no GitHub. A URL inicial será o endereço do painel publicado; a URL de callback deverá ser exatamente a fornecida pela documentação do serviço OAuth escolhido.
+3. Configurar o Client ID no `admin/config.yml` e guardar o Client Secret **somente** como segredo no serviço OAuth, nunca no repositório.
+4. Configurar o CMS para oferecer OAuth e testar com uma conta autorizada, incluindo leitura, gravação e upload de imagens.
+5. Confirmar como o serviço restringe quem pode entrar. OAuth autentica a conta, mas não garante, sozinho, que a pessoa tenha permissão no repositório nem implementa aprovação editorial.
 
-O backend atual grava na branch `main`. Não há, nesta configuração, garantia de que cada alteração passe por aprovação editorial. A proteção de branch pode bloquear atualizações diretas, mas não cria automaticamente um fluxo de edição e Pull Request no CMS. Antes de oferecer o painel a todo o grupo, é preciso escolher e testar um fluxo compatível com o CMS para propor alterações, revisá-las e só então publicar.
+#### Estado atual e segurança
+
+- O backend aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `main`.
+- O CMS pode oferecer autenticação por token pessoal (PAT). Token é uma credencial individual; nunca compartilhe tokens entre integrantes, não os coloque no README e não os salve em arquivos versionados.
+- O login OAuth individual não está concluído nem testado neste protótipo.
+- As alterações ainda podem ser gravadas diretamente em `main`; aprovação editorial obrigatória não está configurada.
+- Antes de liberar o painel para várias pessoas, teste o processo completo e defina quem tem acesso de escrita ao repositório.
 
 ### URL do painel
 
