@@ -276,8 +276,6 @@ collections:
             - { label: "YouTube", name: "youtube", widget: "string", required: false }
             - { label: "Spotify", name: "spotify", widget: "string", required: false }
             - { label: "Endereço", name: "endereco", widget: "string" }
-            - { label: "Cidade/UF", name: "cidade_uf", widget: "string" }
-            - { label: "CEP", name: "cep", widget: "string" }
             - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
             - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
