@@ -235,3 +235,88 @@ collections:
             name: "itens"
             widget: "galeria-multipla-v2"
             hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
+
+      - label: "Configurações e textos do site"
+        name: "configuracoes_site"
+        file: "_variables.yml"
+        fields:
+          - { label: "Sigla", name: "sigla", widget: "string" }
+          - { label: "Nome completo do grupo", name: "nome_completo", widget: "string" }
+          - { label: "Instituição", name: "instituicao", widget: "string" }
+          - { label: "Unidade", name: "unidade", widget: "string" }
+          - { label: "Departamento", name: "departamento", widget: "string" }
+          - { label: "Resumo da página inicial", name: "resumo", widget: "text" }
+          - { label: "Histórico", name: "historico", widget: "text" }
+          - { label: "Missão", name: "missao", widget: "text" }
+          - { label: "Visão", name: "visao", widget: "text" }
+          - { label: "Objetivo 1", name: "objetivo1", widget: "text" }
+          - { label: "Objetivo 2", name: "objetivo2", widget: "text" }
+          - { label: "Objetivo 3", name: "objetivo3", widget: "text" }
+          - { label: "Objetivo 4", name: "objetivo4", widget: "text" }
+          - { label: "Nome do podcast", name: "podcast_nome", widget: "string" }
+          - { label: "Descrição do podcast", name: "podcast_descricao", widget: "text" }
+          - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false }
+          - { label: "Link PPGSN", name: "link_ppgsn", widget: "string" }
+          - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string" }
+          - { label: "Link UFOP", name: "link_ufop", widget: "string" }
+          - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string" }
+          - { label: "E-mail", name: "email", widget: "string" }
+          - { label: "Telefone", name: "telefone", widget: "string" }
+          - { label: "Instagram (URL)", name: "instagram", widget: "string" }
+          - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
+          - { label: "YouTube", name: "youtube", widget: "string", required: false }
+          - { label: "Spotify", name: "spotify", widget: "string", required: false }
+          - { label: "Endereço", name: "endereco", widget: "string" }
+          - { label: "Cidade/UF", name: "cidade_uf", widget: "string" }
+          - { label: "CEP", name: "cep", widget: "string" }
+          - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
+          - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+          - { label: "Mostrar pesquisas na página inicial", name: "mostrar_home_pesquisas", widget: "boolean", default: true }
+          - { label: "Mostrar notícias na página inicial", name: "mostrar_home_noticias", widget: "boolean", default: true }
+          - { label: "Mostrar chamada da agenda na página inicial", name: "mostrar_home_agenda", widget: "boolean", default: true }
+          - { label: "Mostrar chamada GPENSC no Ar na página inicial", name: "mostrar_home_noar", widget: "boolean", default: true }
+          - { label: "Mostrar página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+          - { label: "Mostrar página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+          - { label: "Mostrar página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+          - { label: "Mostrar página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+          - { label: "Mostrar página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+          - { label: "Mostrar página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
+          - { label: "Mostrar página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+          - { label: "Mostrar página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+          - { label: "Mostrar página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+          - { label: "Mostrar página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+          - { label: "Mostrar página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+          - { label: "Mostrar página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+          - { label: "Mostrar página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+          - { label: "Título: pesquisas na página inicial", name: "titulo_home_pesquisas", widget: "string" }
+          - { label: "Título: notícias na página inicial", name: "titulo_home_noticias", widget: "string" }
+          - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
+          - { label: "Aviso: texto das notícias de demonstração", name: "texto_aviso_noticias_home", widget: "text" }
+          - { label: "Chamada da agenda na página inicial", name: "titulo_home_agenda", widget: "string" }
+          - { label: "Título GPENSC no Ar na página inicial", name: "titulo_home_noar", widget: "string" }
+          - { label: "Descrição GPENSC no Ar na página inicial", name: "texto_home_noar", widget: "text" }
+          - { label: "Texto do botão Sobre nós", name: "botao_sobre", widget: "string" }
+          - { label: "Título da missão", name: "titulo_missao", widget: "string" }
+          - { label: "Título da visão", name: "titulo_visao", widget: "string" }
+          - { label: "Título dos objetivos", name: "titulo_objetivos", widget: "string" }
+          - { label: "Título dos vínculos", name: "titulo_vinculos", widget: "string" }
+          - { label: "Título da equipe", name: "titulo_equipe", widget: "string" }
+          - { label: "Aviso: título da equipe", name: "texto_aviso_equipe_titulo", widget: "string" }
+          - { label: "Aviso: texto da equipe", name: "texto_aviso_equipe", widget: "text" }
+          - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
+          - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
+          - { label: "Introdução da Agenda", name: "intro_agenda", widget: "text" }
+          - { label: "Título Próximos eventos", name: "titulo_proximos_eventos", widget: "string" }
+          - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
+          - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
+          - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
+          - { label: "Introdução da página Extensão", name: "intro_extensao", widget: "text" }
+          - { label: "Introdução GPENSC no Ar", name: "intro_noar", widget: "text" }
+          - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
+          - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
+          - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
+          - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
+          - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
+          - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
+          - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
+          - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
