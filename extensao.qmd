@@ -11,7 +11,7 @@ projetos_extensao <- registros_reais(projetos, "titulo") |>
 if (secao_ativa("mostrar_extensao")) {
 div(
   class = "pagina-extensao",
-  p(class = "contato-intro", "A extensão aproxima a produção acadêmica da comunidade por meio de atividades educativas, troca de conhecimentos e divulgação científica em nutrição e saúde coletiva."),
+  p(class = "contato-intro", cfg$intro_extensao),
   h2("Projetos"),
   if (nrow(projetos_extensao) > 0) {
     projetos_extensao |>
