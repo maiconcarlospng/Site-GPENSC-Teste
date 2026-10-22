@@ -7,6 +7,7 @@ source("R/helpers.R")
 
 noticias_publicadas <- noticias
 
+if (secao_ativa("mostrar_noticias")) {
 if (nrow(noticias_publicadas) == 0) {
   estado_vazio(
     "Nenhuma notícia publicada no momento",
@@ -32,4 +33,8 @@ if (nrow(noticias_publicadas) == 0) {
     tagList(h2(categoria), cartoes(itens, cartao_noticia))
   }))
 }
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
