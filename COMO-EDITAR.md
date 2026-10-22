@@ -213,6 +213,21 @@ Se, no futuro, o grupo quiser acessar o site diretamente por **`https://www.gpen
 - O endereço personalizado muda o endereço principal do site, não os nomes das páginas. As URLs internas e a configuração do Quarto precisam continuar coerentes com o domínio novo.
 - Não altere o nome de um arquivo de página sem conferir e atualizar as referências no `_quarto.yml` e nos links do restante do site.
 
+### Opção gratuita ou domínio próprio pago (com hospedagem no GitHub)
+
+Como o site continuará hospedado no **GitHub Pages**, há duas possibilidades diferentes:
+
+| Opção | Exemplo de endereço | Custo do endereço | O que muda |
+|---|---|---|---|
+| **Gratuita** | `maiconcarlospng.github.io/Site-GPENSC-Teste/` | Gratuito | Mantém o endereço fornecido pelo GitHub, incluindo o nome de usuário e do repositório. |
+| **Paga: domínio próprio** | `www.gpensc.com.br` | Pagamento e renovação do domínio | O público acessa um endereço curto e próprio, mas os arquivos continuam publicados pelo GitHub Pages. |
+
+**Importante:** o GitHub Pages não oferece, normalmente, um endereço gratuito personalizado como `www.gpensc.com.br`. Para usar um domínio curto e próprio, é preciso registrar e renovar esse domínio. O que pode continuar gratuito é a hospedagem do site no GitHub Pages, desde que o projeto e o uso atendam às condições do serviço.
+
+Se quiserem gastar **zero**, mantenham o endereço atual do GitHub Pages. Vocês podem usar um link curto de redirecionamento de terceiros, se encontrarem um serviço confiável, mas isso não transforma o endereço principal em um domínio próprio e o serviço pode ter limitações ou deixar de funcionar.
+
+Se quiserem um endereço como `www.gpensc.com.br`, sigam os passos da seção abaixo. Antes de escolher, consultem a disponibilidade e o preço atual no [Registro.br](https://registro.br/) para domínios `.br`; para outras extensões, consultem o registrador correspondente. O custo exato pode mudar, então não fixem um valor no planejamento sem conferir o preço vigente.
+
 ### Usar um domínio independente da UFOP (por exemplo, `www.gpensc.com.br`)
 
 Se o grupo preferir um endereço que não dependa do domínio institucional da Universidade, pode registrar um domínio próprio, como **`gpensc.com.br`** ou **`gpensc.org.br`**, caso estejam disponíveis e o grupo cumpra os requisitos de registro. Esses são apenas exemplos: a disponibilidade precisa ser consultada antes de escolher.
