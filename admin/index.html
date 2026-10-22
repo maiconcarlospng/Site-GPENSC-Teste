@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Administração - GPENSC</title>
     <link rel="icon" href="../img/favicon.png" />
-    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=endereco-mapa-20261022-1" />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=topicos-endereco-20261022-1" />
 
     <style>
       body {
@@ -1021,15 +1021,17 @@
           --sui-hover-background-color: #edf4e9;
         }
 
-        body.gpen-cms-active .sui.toolbar,
-        body.gpen-cms-active .sui.toolbar *,
-        body.gpen-cms-active .primary-sidebar,
-        body.gpen-cms-active .primary-sidebar *,
+        /* Não forçar cor em todos os descendentes: os botões preservam o contraste
+           próprio de cada variante (por exemplo, Salvar com fundo verde). */
+        body.gpen-cms-active .sui.toolbar {
+          color: #203b2b;
+        }
+        body.gpen-cms-active .primary-sidebar {
+          color: #294734;
+        }
         body.gpen-cms-active #collection-container,
-        body.gpen-cms-active #collection-container *,
-        body.gpen-cms-active .content-editor,
-        body.gpen-cms-active .content-editor * {
-          color: inherit;
+        body.gpen-cms-active .content-editor {
+          color: #263e2e;
         }
 
         body.gpen-cms-active .sui.toolbar,
@@ -1039,15 +1041,6 @@
         body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar {
           background-color: #ffffff !important;
           color: #203b2b !important;
-        }
-
-        body.gpen-cms-active .primary-sidebar,
-        body.gpen-cms-active .primary-sidebar *,
-        body.gpen-cms-active #collection-container,
-        body.gpen-cms-active #collection-container *,
-        body.gpen-cms-active .content-editor,
-        body.gpen-cms-active .content-editor * {
-          color: #294734;
         }
 
         body.gpen-cms-active .primary-sidebar [role="listbox"] button {
