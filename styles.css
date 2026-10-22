@@ -1524,3 +1524,69 @@ button:focus-visible,
 
   .vinculo-logo-nome { min-height: 2.7em; }
 }
+
+
+/* Rodapé mobile: contatos destacados de forma permanente */
+@media (max-width: 767px) {
+  footer.footer .nav-footer .nav-footer-right {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: .75rem .5rem 1rem !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right p {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: .8rem !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"],
+  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .55rem !important;
+    min-width: 145px !important;
+    min-height: 48px !important;
+    padding: .8rem 1.15rem !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+    font-size: 1rem !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 12px rgba(30, 50, 35, .16) !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"] {
+    color: #fff !important;
+    background: linear-gradient(115deg, #833AB4 0%, #C13584 48%, #E1306C 75%, #F77737 100%) !important;
+    border: 1px solid #C13584 !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"] {
+    color: #8F241E !important;
+    background: #fff !important;
+    border: 2px solid #DFA9A2 !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a i,
+  footer.footer .nav-footer .nav-footer-right a .bi {
+    display: inline-block !important;
+    font-size: 1.4rem !important;
+    line-height: 1 !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"]::after {
+    content: "Instagram" !important;
+  }
+
+  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"]::after {
+    content: "E-mail" !important;
+  }
+}
