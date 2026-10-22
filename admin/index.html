@@ -292,18 +292,245 @@
         padding: 12px;
         color: #aeb7c2 !important;
       }
+    
+      /* Identidade visual do portal administrativo do GPENSC */
+      body { margin: 0; background: #f4f7f2 !important; color: #203629; }
+      #gpen-admin-boas-vindas {
+        box-sizing: border-box;
+        display: block;
+        min-height: 100vh;
+        padding: clamp(18px, 4vw, 44px) clamp(16px, 4vw, 48px);
+        background:
+          radial-gradient(ellipse at 90% 8%, rgba(195, 222, 194, .34), transparent 34%),
+          #f4f7f2;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .gpen-admin-layout { width: min(100%, 1160px); margin: 0 auto; }
+      .gpen-admin-topbar {
+        display: flex; align-items: center; justify-content: space-between; gap: 18px;
+        margin: 0 0 26px;
+      }
+      .gpen-admin-identidade { display: flex; align-items: center; gap: 14px; min-width: 0; }
+      .gpen-admin-logo {
+        display: block; width: 64px; height: 64px; max-height: 64px; object-fit: contain;
+        margin: 0; padding: 5px; border-radius: 15px; background: #fff;
+        border: 1px solid #e1e9df; box-shadow: 0 4px 14px rgba(24, 65, 42, .06);
+      }
+      .gpen-admin-marca { margin: 0; color: #244833; font-size: 1.12rem; line-height: 1.25; font-weight: 800; letter-spacing: -.025em; }
+      .gpen-admin-submarca { margin: 4px 0 0 !important; color: #66776b !important; font-size: .82rem !important; line-height: 1.45 !important; }
+      .gpen-admin-status {
+        display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+        border: 1px solid #dbe7d9; border-radius: 999px; background: rgba(255,255,255,.76);
+        color: #45644c; font-size: .78rem; font-weight: 700; white-space: nowrap;
+      }
+      .gpen-admin-status::before { content: ""; width: 7px; height: 7px; border-radius: 99px; background: #4e9360; box-shadow: 0 0 0 3px #e6f2e5; }
+      .gpen-admin-hero {
+        position: relative; isolation: isolate; overflow: hidden;
+        display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(290px, .8fr);
+        gap: clamp(24px, 4vw, 54px); align-items: center;
+        min-height: 315px; padding: clamp(28px, 5vw, 58px);
+        border-radius: 26px; background: #1e4933;
+        box-shadow: 0 20px 48px rgba(30, 73, 51, .16);
+      }
+      .gpen-admin-hero::after {
+        content: ""; position: absolute; z-index: -1; width: 430px; height: 430px; right: -130px; top: -230px;
+        border: 1px solid rgba(255,255,255,.13); border-radius: 50%;
+        box-shadow: 0 0 0 36px rgba(255,255,255,.035), 0 0 0 78px rgba(255,255,255,.025);
+      }
+      .gpen-admin-eyebrow {
+        margin: 0 0 16px !important; color: #c4dfc4 !important; font-size: .76rem !important;
+        font-weight: 800 !important; letter-spacing: .14em !important; text-transform: uppercase;
+      }
+      .gpen-admin-hero h1 {
+        max-width: 600px; margin: 0 0 16px; color: #fff; font-size: clamp(2rem, 4.4vw, 3.55rem);
+        line-height: 1.04; letter-spacing: -.055em; font-weight: 780;
+      }
+      .gpen-admin-hero h1 span { color: #c4dfae; }
+      .gpen-admin-hero-copy { max-width: 530px; margin: 0 0 27px !important; color: #e1ebe2 !important; font-size: 1rem !important; line-height: 1.75 !important; }
+      .gpen-admin-botoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+      .gpen-admin-entrar {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        min-height: 49px; padding: 0 20px; border: 1px solid #e7f0df;
+        border-radius: 10px !important; background: #f2f7ed; color: #214a33;
+        font: inherit; font-size: .92rem; font-weight: 800; cursor: pointer;
+        transition: transform .16s ease, background-color .16s ease, box-shadow .16s ease;
+      }
+      .gpen-admin-entrar:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0,0,0,.13); }
+      .gpen-admin-entrar:focus-visible, .gpen-admin-link:focus-visible { outline: 3px solid #a7d8a3; outline-offset: 4px; }
+      .gpen-admin-entrar svg { width: 17px; height: 17px; }
+      .gpen-admin-link {
+        display: inline-flex; align-items: center; gap: 7px; min-height: 45px;
+        padding: 0 10px; color: #f0f5ee !important; font-size: .9rem; font-weight: 700;
+        text-decoration: none; border-radius: 8px;
+      }
+      .gpen-admin-link:hover { background: rgba(255,255,255,.09); color: #fff !important; }
+      .gpen-admin-resumo {
+        padding: 23px; border: 1px solid rgba(255,255,255,.17);
+        border-radius: 18px; background: rgba(255,255,255,.085); backdrop-filter: blur(8px);
+      }
+      .gpen-admin-resumo-label { margin: 0 0 15px !important; color: #d4e4d5 !important; font-size: .72rem !important; text-transform: uppercase; letter-spacing: .12em; font-weight: 800 !important; }
+      .gpen-admin-resumo h2 { margin: 0 0 18px; color: #fff; font-size: 1.12rem; letter-spacing: -.02em; }
+      .gpen-admin-fluxo { display: grid; gap: 13px; }
+      .gpen-admin-fluxo-item { display: flex; align-items: center; gap: 12px; color: #f5f7f2; font-size: .89rem; line-height: 1.45; }
+      .gpen-admin-fluxo-icone {
+        flex: 0 0 35px; display: grid; place-items: center; width: 35px; height: 35px;
+        border: 1px solid rgba(255,255,255,.15); border-radius: 10px;
+        background: rgba(255,255,255,.09); color: #cfe5c9; font-size: 1rem;
+      }
+      .gpen-admin-secao { padding: 37px 0 0; }
+      .gpen-admin-secao-topo { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+      .gpen-admin-secao-kicker { margin: 0 0 7px !important; color: #588064 !important; font-size: .72rem !important; text-transform: uppercase; letter-spacing: .14em; font-weight: 800 !important; }
+      .gpen-admin-secao h2 { margin: 0 0 7px; color: #213f2d; font-size: clamp(1.35rem, 2.4vw, 1.8rem); font-weight: 800; letter-spacing: -.035em; }
+      .gpen-admin-secao-intro { margin: 0 !important; max-width: 640px; color: #6a776d !important; font-size: .92rem !important; line-height: 1.65 !important; }
+      .gpen-admin-grade { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px; }
+      .gpen-admin-area {
+        min-width: 0; min-height: 156px; box-sizing: border-box; padding: 19px 17px;
+        border: 1px solid #e0e8dd; border-radius: 15px; background: rgba(255,255,255,.82);
+        box-shadow: 0 4px 14px rgba(30, 73, 51, .035);
+      }
+      .gpen-admin-area-icone {
+        display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 15px;
+        border-radius: 11px; background: #eaf3e8; color: #2d6944; font-size: 1.03rem; font-weight: 800;
+      }
+      .gpen-admin-area h3 { margin: 0 0 7px; color: #2b4735; font-size: .94rem; font-weight: 800; line-height: 1.35; }
+      .gpen-admin-area p { margin: 0 !important; color: #6a776d !important; font-size: .8rem !important; line-height: 1.55 !important; }
+      .gpen-admin-nota {
+        display: flex; align-items: start; gap: 13px; margin-top: 20px; padding: 17px 19px;
+        border: 1px solid #e0e9dc; border-radius: 14px; background: #edf4e9;
+      }
+      .gpen-admin-nota-icone { flex: 0 0 28px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #d8e9d3; color: #2d6944; font-weight: 900; }
+      .gpen-admin-nota strong { display: block; margin-bottom: 3px; color: #2f5239; font-size: .88rem; }
+      .gpen-admin-nota p { margin: 0 !important; color: #5c705f !important; font-size: .83rem !important; line-height: 1.6 !important; }
+      .gpen-admin-rodape {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+        gap: 12px; padding: 25px 0 5px; color: #7a867b; font-size: .79rem;
+      }
+      .gpen-admin-rodape a { color: #356548; font-weight: 700; text-decoration: none; }
+      .gpen-admin-rodape a:hover { text-decoration: underline; }
+      @media (max-width: 980px) {
+        .gpen-admin-hero { grid-template-columns: minmax(0, 1fr); }
+        .gpen-admin-resumo { max-width: none; }
+        .gpen-admin-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        #gpen-admin-boas-vindas { padding: 16px 13px 24px; }
+        .gpen-admin-topbar { align-items: start; }
+        .gpen-admin-logo { width: 49px; height: 49px; padding: 4px; }
+        .gpen-admin-status { display: none; }
+        .gpen-admin-marca { font-size: 1rem; }
+        .gpen-admin-submarca { font-size: .74rem !important; }
+        .gpen-admin-hero { gap: 25px; padding: 26px 21px; border-radius: 19px; }
+        .gpen-admin-hero h1 { font-size: clamp(2.05rem, 10vw, 3rem); }
+        .gpen-admin-hero-copy { font-size: .93rem !important; }
+        .gpen-admin-botoes { align-items: stretch; flex-direction: column; }
+        .gpen-admin-entrar, .gpen-admin-link { width: 100%; box-sizing: border-box; }
+        .gpen-admin-link { justify-content: center; }
+        .gpen-admin-resumo { padding: 18px; }
+        .gpen-admin-secao { padding-top: 29px; }
+        .gpen-admin-secao-topo { display: block; }
+        .gpen-admin-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .gpen-admin-area { min-height: 165px; padding: 15px 13px; }
+        .gpen-admin-area h3 { font-size: .87rem; }
+        .gpen-admin-area p { font-size: .76rem !important; }
+      }
+      @media (max-width: 375px) {
+        .gpen-admin-identidade { gap: 9px; }
+        .gpen-admin-grade { grid-template-columns: minmax(0, 1fr); }
+        .gpen-admin-area { min-height: unset; }
+      }
+
     </style>
   </head>
   <body>
     <main class="gpen-admin-boas-vindas" id="gpen-admin-boas-vindas">
-      <section class="gpen-admin-cartao" aria-labelledby="gpen-admin-titulo">
-        <img class="gpen-admin-logo" src="../img/logo_gpensc.png" alt="Logo do GPENSC" />
-        <h1 id="gpen-admin-titulo">Painel Administrativo</h1>
-        <p>Bem-vindo(a) ao espaço de atualização do site do Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva.</p>
-        <button class="gpen-admin-entrar" id="gpen-admin-entrar" type="button">Acessar painel</button>
-        <br />
-        <a class="gpen-admin-voltar" href="../">Voltar ao site do GPENSC</a>
-      </section>
+      <div class="gpen-admin-layout">
+        <header class="gpen-admin-topbar">
+          <div class="gpen-admin-identidade">
+            <img class="gpen-admin-logo" src="../img/logo_gpensc.png" alt="Logo do GPENSC" />
+            <div>
+              <p class="gpen-admin-marca">GPENSC <span style="font-weight:500;color:#6b7d70;">· UFOP</span></p>
+              <p class="gpen-admin-submarca">Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva</p>
+            </div>
+          </div>
+          <span class="gpen-admin-status">Área de gestão do site</span>
+        </header>
+
+        <section class="gpen-admin-hero" aria-labelledby="gpen-admin-titulo">
+          <div>
+            <p class="gpen-admin-eyebrow">Portal do editor</p>
+            <h1 id="gpen-admin-titulo">O conhecimento do grupo, <span>sempre atualizado.</span></h1>
+            <p class="gpen-admin-hero-copy">Um espaço para organizar notícias, pesquisas, projetos, equipe e materiais do GPENSC. Entre no editor para atualizar o conteúdo que aparece no site institucional.</p>
+            <div class="gpen-admin-botoes">
+              <button class="gpen-admin-entrar" id="gpen-admin-entrar" type="button">
+                Entrar no painel de edição
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a class="gpen-admin-link" href="../">Voltar ao site público <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <aside class="gpen-admin-resumo" aria-label="Como funciona a edição">
+            <p class="gpen-admin-resumo-label">Fluxo de edição</p>
+            <h2>Da atualização à publicação</h2>
+            <div class="gpen-admin-fluxo">
+              <div class="gpen-admin-fluxo-item"><span class="gpen-admin-fluxo-icone" aria-hidden="true">01</span><span><strong>Entre com o GitHub</strong><br />Use sua própria conta autorizada.</span></div>
+              <div class="gpen-admin-fluxo-item"><span class="gpen-admin-fluxo-icone" aria-hidden="true">02</span><span><strong>Edite o conteúdo</strong><br />Escolha a coleção e preencha os campos.</span></div>
+              <div class="gpen-admin-fluxo-item"><span class="gpen-admin-fluxo-icone" aria-hidden="true">03</span><span><strong>Salve as alterações</strong><br />O CMS registra as mudanças no repositório.</span></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="gpen-admin-secao" aria-labelledby="gpen-admin-areas-titulo">
+          <div class="gpen-admin-secao-topo">
+            <div>
+              <p class="gpen-admin-secao-kicker">Organização do conteúdo</p>
+              <h2 id="gpen-admin-areas-titulo">O que você pode atualizar</h2>
+              <p class="gpen-admin-secao-intro">O editor agrupa as informações por área. Depois de entrar, escolha a seção correspondente ao que precisa mudar.</p>
+            </div>
+          </div>
+
+          <div class="gpen-admin-grade">
+            <article class="gpen-admin-area">
+              <div class="gpen-admin-area-icone" aria-hidden="true">✳</div>
+              <h3>Conteúdo e comunicação</h3>
+              <p>Notícias, eventos, vídeos e sites úteis.</p>
+            </article>
+            <article class="gpen-admin-area">
+              <div class="gpen-admin-area-icone" aria-hidden="true">⌕</div>
+              <h3>Pesquisa e produção científica</h3>
+              <p>Linhas de pesquisa, projetos, publicações, livros e defesas.</p>
+            </article>
+            <article class="gpen-admin-area">
+              <div class="gpen-admin-area-icone" aria-hidden="true">◎</div>
+              <h3>Ensino e equipe</h3>
+              <p>Membros do grupo e informações sobre disciplinas.</p>
+            </article>
+            <article class="gpen-admin-area">
+              <div class="gpen-admin-area-icone" aria-hidden="true">▧</div>
+              <h3>Mídia, galeria e parcerias</h3>
+              <p>Episódios do GPENSC no Ar, fotos, legendas e instituições parceiras.</p>
+            </article>
+            <article class="gpen-admin-area">
+              <div class="gpen-admin-area-icone" aria-hidden="true">⚙</div>
+              <h3>Configurações do site</h3>
+              <p>Textos institucionais, links, contatos e opções de exibição.</p>
+            </article>
+          </div>
+
+          <div class="gpen-admin-nota">
+            <span class="gpen-admin-nota-icone" aria-hidden="true">i</span>
+            <div>
+              <strong>Uma dica antes de editar</strong>
+              <p>Use sua própria conta GitHub e altere apenas o que for necessário. Confira datas, links e imagens antes de salvar. A edição depende da permissão concedida ao seu usuário no repositório.</p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="gpen-admin-rodape">
+          <span>GPENSC · Universidade Federal de Ouro Preto</span>
+          <span><a href="https://github.com/maiconcarlospng/Site-GPENSC-Teste/blob/main/docs/MANUAL_ADMINISTRACAO_GPENSC.md" target="_blank" rel="noopener noreferrer">Guia de administração</a> · Área de acesso restrito a editores autorizados</span>
+        </footer>
+      </div>
     </main>
 
     <!-- Registra o widget personalizado antes de iniciar o CMS. -->
