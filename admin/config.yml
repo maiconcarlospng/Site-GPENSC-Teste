@@ -1,3 +1,7 @@
+app_title: "Painel Administrativo GPENSC"
+logo:
+  src: "../img/logo_gpensc.png"
+
 backend:
   name: github
   repo: maiconcarlospng/Site-GPENSC-Teste
