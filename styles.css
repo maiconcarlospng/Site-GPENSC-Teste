@@ -1665,3 +1665,41 @@ button:focus-visible,
     transition: none !important;
   }
 }
+
+
+/* Localização: endereço único e link direto para o Google Maps */
+.contato-card .contato-endereco-mapa {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--gp-verde) !important;
+  font-weight: 600;
+  line-height: 1.55;
+  text-decoration: underline;
+  text-decoration-color: #A8C39B;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.contato-card .contato-endereco-mapa:hover {
+  color: var(--gp-laranja-esc) !important;
+  text-decoration-color: currentColor;
+}
+
+.contato-card .contato-mapa-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+}
+
+@media (max-width: 680px) {
+  .contato-card .contato-endereco-mapa {
+    line-height: 1.6;
+  }
+
+  .contato-card .contato-mapa-btn {
+    min-height: 46px;
+  }
+}
