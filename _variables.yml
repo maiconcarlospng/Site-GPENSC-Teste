@@ -51,10 +51,6 @@ endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Our
 # --- 8. RODAPÉ E DIREITOS ---
 copyright: "© GPENSC – Universidade Federal de Ouro Preto. Todos os direitos reservados."
 # --- 9. CONTROLES DE VISIBILIDADE (true mantém a seção atual visível) ---
-mostrar_home_pesquisas: true
-mostrar_home_noticias: true
-mostrar_home_agenda: true
-mostrar_home_noar: true
 mostrar_agenda: true
 mostrar_linhas: true
 mostrar_projetos: true
@@ -102,3 +98,7 @@ titulo_telefone: "Telefone institucional"
 botao_enviar_email: "Enviar e-mail"
 botao_instagram: "Acompanhar o grupo"
 botao_mapa: "Ver no Google Maps"
+
+
+
+
