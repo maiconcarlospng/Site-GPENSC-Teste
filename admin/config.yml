@@ -275,19 +275,19 @@ collections:
           - { label: "Mostrar notícias na página inicial", name: "mostrar_home_noticias", widget: "boolean", default: true }
           - { label: "Mostrar chamada da agenda na página inicial", name: "mostrar_home_agenda", widget: "boolean", default: true }
           - { label: "Mostrar chamada GPENSC no Ar na página inicial", name: "mostrar_home_noar", widget: "boolean", default: true }
-          - { label: "Mostrar página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
-          - { label: "Mostrar página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
-          - { label: "Mostrar página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
-          - { label: "Mostrar página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
-          - { label: "Mostrar página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
-          - { label: "Mostrar página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
-          - { label: "Mostrar página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
-          - { label: "Mostrar página Contato", name: "mostrar_contato", widget: "boolean", default: true }
-          - { label: "Mostrar página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
-          - { label: "Mostrar página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
-          - { label: "Mostrar página Livros", name: "mostrar_livros", widget: "boolean", default: true }
-          - { label: "Mostrar página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
-          - { label: "Mostrar página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+          - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
           - { label: "Título: pesquisas na página inicial", name: "titulo_home_pesquisas", widget: "string" }
           - { label: "Título: notícias na página inicial", name: "titulo_home_noticias", widget: "string" }
           - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
