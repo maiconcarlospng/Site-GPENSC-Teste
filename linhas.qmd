@@ -7,6 +7,7 @@ source("R/helpers.R")
 
 linhas_publicadas <- registros_reais(linhas, "nome")
 
+if (secao_ativa("mostrar_linhas")) {
 if (nrow(linhas_publicadas) > 0) {
   cartoes(linhas_publicadas, function(l, i) {
     descricao <- valor_publico(l$descricao)
@@ -28,4 +29,8 @@ if (nrow(linhas_publicadas) > 0) {
     "contato.html"
   )
 }
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
