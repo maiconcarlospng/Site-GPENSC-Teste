@@ -691,6 +691,22 @@
         }
       }
 
+
+      body.gpen-cms-active .container > .inner > h1::after {
+        display: block;
+        max-width: 310px;
+        margin: 11px auto 0;
+        color: #78877a;
+        content: "Acesso à área de gestão do site do GPENSC";
+        font-size: .88rem;
+        font-weight: 450;
+        letter-spacing: 0;
+        line-height: 1.55;
+      }
+      body.gpen-login-active #gpen-admin-site-link {
+        display: none !important;
+      }
+
 </style>
   </head>
   <body class="gpen-cms-active">
@@ -709,6 +725,16 @@
       // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
       // O widget personalizado já foi registrado no script anterior.
       document.title = "Painel Administrativo GPENSC";
+
+      // O link para o site público fica disponível na área de edição, não na tela de login.
+      const syncEntranceState = () => {
+        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
+        document.body.classList.toggle("gpen-login-active", loginVisible);
+      };
+      const entranceObserver = new MutationObserver(syncEntranceState);
+      entranceObserver.observe(document.body, { childList: true, subtree: true });
+      syncEntranceState();
+
       CMS.init();
     </script>
   </body>
