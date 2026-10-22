@@ -194,59 +194,67 @@ https://maiconcarlospng.github.io/Site-GPENSC-Teste/o-grupo.html
 **Importante:**
 - Renomear o arquivo pode quebrar links antigos que outras pessoas já salvaram ou compartilharam. Se a página já estiver publicada, atualize também os links internos e avise quem usa o endereço antigo.
 - Alterar apenas o texto `text:` no menu muda o nome exibido, não a URL. É o `href:`/nome do arquivo que determina o destino.
-### Usar um domínio institucional próprio (por exemplo, `www.gpensc.ufop.br`)
+### Opção 1 — Personalizar o endereço gratuitamente com GitHub Pages
 
-Se, no futuro, o grupo quiser acessar o site diretamente por **`https://www.gpensc.ufop.br`**, sem aparecer `github.io` no endereço, será necessário configurar um **domínio personalizado no GitHub Pages** e solicitar uma alteração no DNS institucional da UFOP. Isso não é feito pelo painel de edição de conteúdo.
+Esta opção mantém a hospedagem gratuita e não depende da UFOP. O endereço fica vinculado ao nome de usuário ou da organização no GitHub.
 
-**Passos gerais para quando a UFOP autorizar o endereço:**
+Há duas possibilidades:
 
-1. **Confirmar com a equipe de TI responsável pelos domínios da UFOP** que `www.gpensc.ufop.br` pode ser destinado ao site do GPENSC e pedir a criação do registro DNS indicado pela documentação do GitHub Pages. Para um subdomínio `www`, normalmente é usado um registro **CNAME** apontando para `maiconcarlospng.github.io`; a equipe de TI deve confirmar e aplicar o registro correto conforme as regras institucionais.
-2. No GitHub, abrir o repositório `maiconcarlospng/Site-GPENSC-Teste` e ir a **Settings → Pages → Custom domain**. Informar `www.gpensc.ufop.br` e salvar. É necessário ter permissão administrativa no repositório.
-3. Garantir que a publicação do Quarto preserve o arquivo `CNAME` com o domínio na raiz do site publicado. Como este projeto publica por GitHub Actions, conferir o workflow de publicação e a documentação atual do Quarto/GitHub Pages antes de alterar arquivos; não basta criar o arquivo em uma pasta que não seja publicada.
-4. Aguardar a propagação do DNS e a validação do domínio no GitHub Pages. Quando a opção estiver disponível, ativar **Enforce HTTPS** nas configurações de Pages.
-5. Testar `https://www.gpensc.ufop.br`, conferir se todas as páginas, imagens e links funcionam e verificar se o HTTPS está válido.
+| Tipo | Exemplo | Como funciona |
+|---|---|---|
+| Site de projeto | `https://gpensc.github.io/site/` | O nome do repositório aparece no final do endereço. |
+| Site principal | `https://gpensc.github.io/` | O endereço fica mais curto; o repositório precisa se chamar exatamente `gpensc.github.io`. |
 
-**Atenção:**
-- O domínio pertence à estrutura institucional da UFOP; não presuma que podemos configurar o DNS por conta própria. A autorização e a alteração do DNS dependem da equipe responsável.
-- Não remova nem substitua o endereço atual do GitHub Pages antes de o domínio novo funcionar e ser testado.
-- Se a intenção for usar também `gpensc.ufop.br` sem `www`, esse é outro nome DNS e precisa ser tratado separadamente com a TI. Redirecionamento entre as duas versões também deve ser planejado.
-- O endereço personalizado muda o endereço principal do site, não os nomes das páginas. As URLs internas e a configuração do Quarto precisam continuar coerentes com o domínio novo.
-- Não altere o nome de um arquivo de página sem conferir e atualizar as referências no `_quarto.yml` e nos links do restante do site.
+Os exemplos pressupõem que o nome de usuário ou da organização `gpensc` esteja disponível no GitHub. A disponibilidade deve ser verificada antes de decidir.
 
-### Opção gratuita ou domínio próprio pago (com hospedagem no GitHub)
+#### Tutorial A — Criar uma organização do GPENSC
 
-Como o site continuará hospedado no **GitHub Pages**, há duas possibilidades diferentes:
+1. Entre no GitHub e abra https://github.com/organizations/plan. Escolha a opção gratuita disponível para criar uma organização, se ela atender às necessidades do grupo.
+2. Escolha um nome para a organização, por exemplo `gpensc`, se estiver disponível. Use um e-mail institucional ou um e-mail de grupo que possa ser recuperado no futuro, quando possível.
+3. Adicione pelo menos duas pessoas de confiança como administradoras/proprietárias, para que o projeto não dependa de uma única pessoa. Conceda acesso somente a quem precisa.
+4. Crie o repositório do site na organização ou transfira o repositório existente por **Settings → General → Danger Zone → Transfer**. Antes de transferir, confirme quem tem acesso e registre as configurações atuais.
+5. Se quiser o endereço `https://gpensc.github.io/`, o repositório do site precisa ter o nome exato `gpensc.github.io`. Se preferir manter um repositório chamado `site`, o endereço será parecido com `https://gpensc.github.io/site/`.
+6. No repositório, abra **Settings → Pages** e confira se a fonte de publicação é **GitHub Actions**. O workflow deste projeto deve estar habilitado e concluir com ✅ verde.
+7. Atualize as referências ao endereço antigo nos arquivos do projeto, incluindo o link de acesso ao painel em `admin/`, a documentação e quaisquer links absolutos. Confira também a configuração do Quarto para o novo caminho-base.
+8. Abra o site novo e teste a página inicial, todas as páginas internas, imagens, menu, links e o painel. Confira a aba **Actions** antes de divulgar o endereço.
 
-| Opção | Exemplo de endereço | Custo do endereço | O que muda |
-|---|---|---|---|
-| **Gratuita** | `maiconcarlospng.github.io/Site-GPENSC-Teste/` | Gratuito | Mantém o endereço fornecido pelo GitHub, incluindo o nome de usuário e do repositório. |
-| **Paga: domínio próprio** | `www.gpensc.com.br` | Pagamento e renovação do domínio | O público acessa um endereço curto e próprio, mas os arquivos continuam publicados pelo GitHub Pages. |
+**Importante:** transferir o repositório ou trocar o nome da conta não garante que tudo funcione automaticamente. O endereço-base do Quarto, os caminhos dos arquivos, o CMS Sveltia e as permissões precisam ser conferidos. Não apague o repositório antigo até o novo site ter sido testado.
 
-**Importante:** o GitHub Pages não oferece, normalmente, um endereço gratuito personalizado como `www.gpensc.com.br`. Para usar um domínio curto e próprio, é preciso registrar e renovar esse domínio. O que pode continuar gratuito é a hospedagem do site no GitHub Pages, desde que o projeto e o uso atendam às condições do serviço.
+#### Tutorial B — Manter o repositório atual e só melhorar os caminhos das páginas
 
-Se quiserem gastar **zero**, mantenham o endereço atual do GitHub Pages. Vocês podem usar um link curto de redirecionamento de terceiros, se encontrarem um serviço confiável, mas isso não transforma o endereço principal em um domínio próprio e o serviço pode ter limitações ou deixar de funcionar.
+Se não quiser criar uma organização agora, você pode manter a conta atual e organizar as URLs das páginas:
 
-Se quiserem um endereço como `www.gpensc.com.br`, sigam os passos da seção abaixo. Antes de escolher, consultem a disponibilidade e o preço atual no [Registro.br](https://registro.br/) para domínios `.br`; para outras extensões, consultem o registrador correspondente. O custo exato pode mudar, então não fixem um valor no planejamento sem conferir o preço vigente.
+1. Use nomes curtos nos arquivos `.qmd`, em minúsculas e sem acentos, espaços ou caracteres especiais (por exemplo, `equipe.qmd`).
+2. Atualize os itens correspondentes em `_quarto.yml` e os links internos.
+3. Para a página inicial, mantenha `index.qmd`: ela costuma abrir automaticamente quando alguém acessa a raiz do site, sem precisar escrever `index.html`.
+4. Publique e aguarde o GitHub Actions concluir com ✅ verde. Teste os endereços em uma janela anônima.
 
-### Usar um domínio independente da UFOP (por exemplo, `www.gpensc.com.br`)
+Isso melhora os caminhos das páginas, mas **não remove o nome do repositório da URL** enquanto o site continuar sendo um projeto hospedado em um subcaminho.
 
-Se o grupo preferir um endereço que não dependa do domínio institucional da Universidade, pode registrar um domínio próprio, como **`gpensc.com.br`** ou **`gpensc.org.br`**, caso estejam disponíveis e o grupo cumpra os requisitos de registro. Esses são apenas exemplos: a disponibilidade precisa ser consultada antes de escolher.
+### Opção 2 — Usar um domínio próprio independente da UFOP
 
-**Como funciona:**
+Se o grupo quiser um endereço como `www.gpensc.com.br` ou `gpensc.org.br`, pode registrar um domínio independente, caso esteja disponível e o grupo cumpra os requisitos de registro. O site pode continuar hospedado no GitHub Pages; o custo normalmente é o registro e a renovação do domínio, não uma hospedagem separada.
 
-1. **Escolher e consultar o domínio.** Para endereços brasileiros terminados em `.br`, consulte o [Registro.br](https://registro.br/). Verifique a disponibilidade, as regras para a extensão escolhida e o custo vigente.
-2. **Definir quem será o titular.** O ideal é que o domínio fique registrado em nome de uma pessoa ou entidade responsável e que os dados de acesso e renovação sejam guardados de forma segura pelo grupo. O domínio normalmente exige pagamento e renovação periódica.
-3. **Configurar o DNS.** No serviço em que o domínio for administrado, criar os registros exigidos pelo GitHub Pages. Para o endereço `www.gpensc.com.br`, normalmente se configura um registro **CNAME** apontando para `maiconcarlospng.github.io`. Para o endereço sem `www` (`gpensc.com.br`), são necessários registros DNS diferentes. Siga a documentação atual do GitHub Pages e as instruções do provedor.
-4. **Configurar o GitHub Pages.** No repositório, abra **Settings → Pages → Custom domain**, informe o domínio escolhido e salve.
-5. **Conferir a publicação do Quarto.** Garanta que o arquivo `CNAME` com o domínio seja incluído na raiz do site publicado pelo workflow do GitHub Actions.
-6. **Validar o endereço e o HTTPS.** Aguarde a propagação do DNS, confirme a validação no GitHub Pages, habilite **Enforce HTTPS** quando estiver disponível e teste páginas, imagens e links.
+#### Tutorial — Do registro do domínio à publicação
 
-**Vantagens e cuidados:**
-- O endereço fica independente de `ufop.br`, mas o site ainda pode continuar hospedado gratuitamente no GitHub Pages. Registrar o domínio não exige contratar outra hospedagem.
-- O domínio próprio tem custo e precisa ser renovado; o valor depende da extensão e das regras vigentes.
-- Antes de divulgar, decidam quem será responsável pela titularidade, pagamentos, renovação e recuperação da conta.
-- Não cancele nem altere o endereço atual até que o domínio novo esteja configurado e testado.
-- Ter um domínio independente não significa que o nome está automaticamente disponível ou que o grupo tem direito a qualquer nome; verifique a disponibilidade e as condições de registro.
+1. **Escolha o nome e confira a disponibilidade.** Para domínios terminados em `.br`, consulte o [Registro.br](https://registro.br/). Para outras extensões, consulte um registrador correspondente. Confira o preço vigente e as regras antes de comprar.
+2. **Defina quem será o titular e responsável pela renovação.** Guarde os dados de acesso com segurança e evite que o domínio dependa de uma pessoa que possa sair do grupo sem transferir a responsabilidade.
+3. **Configure o DNS no serviço onde registrou o domínio.** Para um endereço como `www.gpensc.com.br`, normalmente é necessário criar um registro **CNAME** apontando para o domínio GitHub Pages usado pelo projeto (por exemplo, `gpensc.github.io`, depois de criada a conta/organização). Para o domínio sem `www`, os registros são diferentes; siga as instruções atuais do GitHub Pages e do registrador.
+4. **Configure o domínio no GitHub.** Abra o repositório do site e acesse **Settings → Pages → Custom domain**. Informe o domínio escolhido e salve. É necessário ter permissão administrativa.
+5. **Garanta que o arquivo `CNAME` seja publicado.** Como este projeto usa GitHub Actions e Quarto, confira o workflow para garantir que o arquivo com o domínio seja incluído na raiz do site publicado. Não basta criar o arquivo em uma pasta que não é enviada para publicação.
+6. **Aguarde a validação.** A propagação de DNS pode levar algum tempo. Quando o GitHub disponibilizar a opção, habilite **Enforce HTTPS**.
+7. **Teste antes de divulgar.** Confira a página inicial, páginas internas, imagens, menu, links e painel administrativo. Se mudar a conta ou o repositório ao mesmo tempo, revise também os caminhos-base do Quarto e a configuração do Sveltia CMS.
+8. **Mantenha o endereço antigo até concluir os testes.** Só depois de verificar que o domínio novo funciona corretamente, divulgue-o como endereço principal.
+
+#### Comparação rápida
+
+| Opção | Exemplo de endereço | Custo | Vantagem | Limitação |
+|---|---|---|---|---|
+| GitHub Pages gratuito, conta atual | `maiconcarlospng.github.io/Site-GPENSC-Teste/` | Gratuito | Não exige comprar domínio | O nome do repositório aparece no endereço |
+| GitHub Pages gratuito, organização do grupo | `gpensc.github.io/` | Gratuito | Endereço mais curto e identidade do grupo | Exige que o nome esteja disponível e que o repositório principal seja configurado corretamente |
+| Domínio próprio | `www.gpensc.com.br` | Pago, com renovação | Endereço próprio, independente da UFOP | É necessário registrar o domínio e configurar o DNS |
+
+**Recomendação:** se o objetivo é não pagar nada e ter um endereço mais limpo, tente primeiro a organização do GPENSC e o endereço `gpensc.github.io`. Se o grupo quiser um domínio próprio, poderá fazer isso depois sem contratar outra hospedagem, mantendo o GitHub Pages, desde que a configuração seja ajustada.
 
 ### Criar um campo novo numa seção que já existe
 1. Acrescente o campo em `admin/config.yml`.
