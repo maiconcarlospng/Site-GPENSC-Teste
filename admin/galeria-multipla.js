@@ -11,7 +11,8 @@
     return [];
   };
 
-  // Resolve public repository paths and temporary upload URLs for previews.
+  // Resolve repository paths relative to /admin/ so previews also work on GitHub
+  // Pages project sites, whose URLs contain /<repository>/ rather than the host root.
   const srcDaImagem = (caminho, getAsset) => {
     if (typeof caminho !== "string" || !caminho) return "";
     if (typeof getAsset === "function") {
@@ -22,12 +23,12 @@
       caminho.startsWith("blob:") ||
       caminho.startsWith("data:") ||
       caminho.startsWith("http://") ||
-      caminho.startsWith("https://") ||
-      caminho.startsWith("/")
+      caminho.startsWith("https://")
     ) {
       return caminho;
     }
-    return "/" + caminho.replace(/^\/+/, "");
+    const relativo = caminho.replace(/^\\/+/, "");
+    return "../" + relativo;
   };
 
   const GaleriaMultiplaControl = ({ forID, value, onChange, pickFile, getAsset }) => {
