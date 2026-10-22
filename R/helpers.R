@@ -283,7 +283,7 @@ bloco_intro <- function() {
     div(
       class = "intro-texto",
       p(cfg$resumo),
-      tags$a(class = "btn btn-secondary", href = "sobre.html", "Sobre nós")
+      tags$a(class = "btn btn-secondary", href = "sobre.html", cfg$botao_sobre)
     )
   )
 }
