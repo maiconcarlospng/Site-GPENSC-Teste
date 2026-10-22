@@ -6,6 +6,7 @@ title: "Vídeos"
 source("R/helpers.R")
 videos_publicados <- registros_reais(videos, "titulo")
 
+if (secao_ativa("mostrar_videos")) {
 if (nrow(videos_publicados) == 0) {
   estado_vazio(
     "Vídeos em atualização",
@@ -27,4 +28,8 @@ if (nrow(videos_publicados) == 0) {
     )
   })
 }
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
