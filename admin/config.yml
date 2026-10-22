@@ -275,8 +275,7 @@ collections:
             - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
             - { label: "YouTube", name: "youtube", widget: "string", required: false }
             - { label: "Spotify", name: "spotify", widget: "string", required: false }
-            - { label: "Endereço", name: "endereco", widget: "string" }
-            - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
+            - { label: "Endereço completo (exibido no site e usado no mapa)", name: "endereco_completo", widget: "string", hint: "Concentre aqui o endereço inteiro, incluindo cidade/UF e CEP quando necessário." }
             - label: "Tópicos adicionais do endereço"
               name: "topicos_endereco"
               widget: "list"
