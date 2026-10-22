@@ -39,8 +39,8 @@ renderizar_eventos <- function(dados) {
 
 div(
   class = "pagina-agenda",
-  p(class = "contato-intro", "Acompanhe aulas abertas, workshops, cursos, bancas e outras atividades do grupo."),
-  h2("Próximos eventos"),
+  p(class = "contato-intro", cfg$intro_agenda),
+  h2(cfg$titulo_proximos_eventos),
   if (nrow(eventos_futuros) > 0) {
     renderizar_eventos(eventos_futuros)
   } else {
@@ -52,12 +52,12 @@ div(
     )
   },
   if (nrow(eventos_sem_data) > 0) {
-    tagList(h2("Data a confirmar"), renderizar_eventos(eventos_sem_data))
+    tagList(h2(cfg$titulo_eventos_sem_data), renderizar_eventos(eventos_sem_data))
   },
   if (nrow(eventos_passados) > 0) {
     tags$details(
       class = "eventos-anteriores",
-      tags$summary("Consultar eventos anteriores"),
+      tags$summary(cfg$botao_eventos_anteriores),
       renderizar_eventos(eventos_passados)
     )
   }
