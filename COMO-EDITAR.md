@@ -170,6 +170,33 @@ cartoes(minha, function(x, i)
 
 Ou como tabela com busca: `datatable(minha, rownames = FALSE, filter = "top")`.
 
+### Escolher uma URL personalizada para uma página
+
+A URL de uma página normalmente acompanha o nome do arquivo `.qmd`. Por exemplo, `equipe.qmd` gera uma página acessada como `equipe.html`. Para escolher um endereço mais claro, você pode definir o nome do arquivo antes de publicar.
+
+**Exemplo: criar uma página chamada “O grupo” com endereço `o-grupo.html`:**
+
+1. Dê à página o nome `o-grupo.qmd` (use letras minúsculas, sem acentos, espaços ou caracteres especiais; separe palavras com hífen).
+2. No arquivo `_quarto.yml`, atualize o item do menu para apontar ao novo nome:
+   ```yaml
+         - href: o-grupo.qmd
+           text: O grupo
+   ```
+3. Procure no projeto links internos que apontem para o nome antigo e atualize-os também.
+4. Salve e envie as alterações. Aguarde o GitHub Actions terminar com ✅ verde e teste o endereço publicado.
+
+Neste projeto, o site está em um subcaminho do GitHub Pages. Assim, o endereço completo terá este formato:
+
+```text
+https://maiconcarlospng.github.io/Site-GPENSC-Teste/o-grupo.html
+```
+
+**Importante:**
+- Renomear o arquivo pode quebrar links antigos que outras pessoas já salvaram ou compartilharam. Se a página já estiver publicada, atualize também os links internos e avise quem usa o endereço antigo.
+- Alterar apenas o texto `text:` no menu muda o nome exibido, não a URL. É o `href:`/nome do arquivo que determina o destino.
+- Se você quer um endereço sem `.html` ou um domínio próprio, como `https://gpen sc.ufop.br` (exemplo ilustrativo), isso é uma configuração diferente; não basta renomear o arquivo. Domínio próprio exige acesso às configurações de domínio e DNS.
+- Não altere o nome de um arquivo de página sem conferir e atualizar as referências no `_quarto.yml` e nos links do restante do site.
+
 ### Criar um campo novo numa seção que já existe
 1. Acrescente o campo em `admin/config.yml`.
 2. Acrescente o nome dele na lista `COLUNAS` do `R/helpers.R`.
