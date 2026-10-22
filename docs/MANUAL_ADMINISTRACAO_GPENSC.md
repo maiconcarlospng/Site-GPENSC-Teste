@@ -188,7 +188,7 @@ O OAuth não concede edição a qualquer usuário automaticamente. Acesso ao rep
 
 É possível melhorar a experiência de edição mantendo o Sveltia CMS como motor. A opção mais segura é personalizar e organizar a interface que ele já fornece, sem substituir seu fluxo central de autenticação e gravação no GitHub.
 
-Na versão atual, `admin/index.html` inclui um botão fixo **Ver site público**, que abre o site em uma nova aba para não descartar acidentalmente uma edição em andamento. A configuração `site_url` também foi adicionada ao `admin/config.yml` para corrigir o destino do atalho interno do Sveltia. O CSS do portal foi ampliado para personalizar a barra superior, a navegação lateral, os campos em cartões, o espaço entre os controles e os estados de foco.
+Na versão atual, o arquivo `admin/index.html` inicia o Sveltia diretamente ao abrir `/admin/`, sem tela de apresentação intermediária. O tema personalizado é aplicado à interface interna do CMS: barra superior, navegação lateral, campos em cartões, espaçamento e estados de foco. O botão fixo **Ver site público** abre o site em uma nova aba para não descartar uma edição em andamento. Em `admin/config.yml`, `site_url` e `display_url` apontam explicitamente para `https://maiconcarlospng.github.io/Site-GPENSC-Teste/`, para que o atalho interno de visita ao site tenha o destino correto.
 
 Essas regras visuais usam seletores da interface atual do CMS. Como não fazem parte de uma API formal de temas, devem ser conferidas sempre que o Sveltia for atualizado. A busca interna do CMS continua sendo o recurso nativo do Sveltia; não é substituída por uma implementação paralela.
 
@@ -216,7 +216,7 @@ Criar formulários próprios que gravem diretamente no GitHub enquanto “usam S
 1. Começar pela organização das coleções e dos campos em `admin/config.yml`.
 2. Definir tarefas usuais dos editores (por exemplo: editar integrantes, publicar notícias ou atualizar projetos) e desenhar os formulários para essas tarefas.
 3. Configurar marca e pré-visualizações permitidas pelo CMS.
-4. Criar uma página de orientação visual em `admin/`, caso seja útil, com atalhos para o painel e explicações para os editores.
+4. Se necessário, acrescentar instruções curtas dentro dos próprios formulários de edição, sem inserir uma tela intermediária antes do login.
 5. Testar qualquer CSS adicional em ambiente de teste e após atualizações do Sveltia.
 6. Somente se isso não atender às necessidades, avaliar uma interface externa ou fork próprio.
 
