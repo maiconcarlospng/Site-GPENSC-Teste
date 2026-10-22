@@ -13,314 +13,312 @@ media_folder: "img"
 public_folder: "img"
 
 collections:
-  - name: "conteudo"
-    label: "Conteúdo do site"
+  - name: "comunicacao"
+    label: "Conteúdo e comunicação"
     files:
-      - label: "Notícias"
-        name: "noticias"
-        file: "data/noticias.yml"
-        fields:
-          - label: "Notícias"
-            name: "itens"
-            widget: "list"
-            label_singular: "notícia"
-            summary: "{{fields.data}} - {{fields.titulo}}"
-            fields:
-              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
-              - { label: "Categoria", name: "categoria", widget: "string", required: false }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Resumo", name: "resumo", widget: "text", required: false }
-              - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
-              - { label: "Link da fonte original", name: "url", widget: "string", required: false }
-              - { label: "Imagem", name: "imagem", widget: "image", required: false }
+        - label: "Notícias"
+          name: "noticias"
+          file: "data/noticias.yml"
+          fields:
+            - label: "Notícias"
+              name: "itens"
+              widget: "list"
+              label_singular: "notícia"
+              summary: "{{fields.data}} - {{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Categoria", name: "categoria", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Resumo", name: "resumo", widget: "text", required: false }
+                - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
+                - { label: "Link da fonte original", name: "url", widget: "string", required: false }
+                - { label: "Imagem", name: "imagem", widget: "image", required: false }
+        - label: "Eventos"
+          name: "eventos"
+          file: "data/eventos.yml"
+          fields:
+            - label: "Eventos"
+              name: "itens"
+              widget: "list"
+              label_singular: "evento"
+              summary: "{{fields.data}} - {{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Tipo", name: "tipo", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Local", name: "local", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false }
+        - label: "Vídeos"
+          name: "videos"
+          file: "data/videos.yml"
+          fields:
+            - label: "Vídeos"
+              name: "itens"
+              widget: "list"
+              label_singular: "vídeo"
+              summary: "{{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Link", name: "url", widget: "string" }
+        - label: "Sites úteis"
+          name: "sites"
+          file: "data/sites.yml"
+          fields:
+            - label: "Sites"
+              name: "itens"
+              widget: "list"
+              label_singular: "site"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Link", name: "url", widget: "string" }
 
-      - label: "Eventos"
-        name: "eventos"
-        file: "data/eventos.yml"
-        fields:
-          - label: "Eventos"
-            name: "itens"
-            widget: "list"
-            label_singular: "evento"
-            summary: "{{fields.data}} - {{fields.titulo}}"
-            fields:
-              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
-              - { label: "Tipo", name: "tipo", widget: "string", required: false }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Local", name: "local", widget: "string", required: false }
-              - { label: "Link", name: "url", widget: "string", required: false }
+  - name: "pesquisa"
+    label: "Pesquisa e produção científica"
+    files:
+        - label: "Linhas de pesquisa"
+          name: "linhas"
+          file: "data/linhas.yml"
+          fields:
+            - label: "Linhas"
+              name: "itens"
+              widget: "list"
+              label_singular: "linha de pesquisa"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "ID", name: "id", widget: "string", hint: "Código curto, usado em Projetos e Publicações. Não mude depois de criado." }
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Palavras-chave", name: "palavras_chave", widget: "string", required: false }
+        - label: "Projetos"
+          name: "projetos"
+          file: "data/projetos.yml"
+          fields:
+            - label: "Projetos"
+              name: "itens"
+              widget: "list"
+              label_singular: "projeto"
+              summary: "{{fields.titulo}}"
+              fields:
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Tipo", name: "tipo", widget: "string", required: false }
+                - { label: "Situação", name: "situacao", widget: "string", required: false }
+                - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
+                - { label: "Início", name: "inicio", widget: "string", required: false }
+                - { label: "Fim", name: "fim", widget: "string", required: false }
+                - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+                - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
+        - label: "Publicações"
+          name: "publicacoes"
+          file: "data/publicacoes.yml"
+          fields:
+            - label: "Publicações"
+              name: "itens"
+              widget: "list"
+              label_singular: "publicação"
+              summary: "{{fields.ano}} - {{fields.titulo}}"
+              fields:
+                - { label: "Ano", name: "ano", widget: "string" }
+                - { label: "Tipo", name: "tipo", widget: "string", required: false }
+                - { label: "Autores", name: "autores", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Veículo", name: "veiculo", widget: "string", required: false }
+                - { label: "DOI", name: "doi", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+        - label: "Livros"
+          name: "livros"
+          file: "data/livros.yml"
+          fields:
+            - label: "Livros"
+              name: "itens"
+              widget: "list"
+              label_singular: "livro"
+              summary: "{{fields.ano}} - {{fields.titulo}}"
+              fields:
+                - { label: "Ano", name: "ano", widget: "string" }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Autores", name: "autores", widget: "string", required: false }
+                - { label: "Editora", name: "editora", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false }
+        - label: "Defesas"
+          name: "defesas"
+          file: "data/defesas.yml"
+          fields:
+            - label: "Defesas"
+              name: "itens"
+              widget: "list"
+              label_singular: "defesa"
+              summary: "{{fields.autor}} - {{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Nível", name: "nivel", widget: "string", required: false }
+                - { label: "Etapa", name: "etapa", widget: "string", required: false }
+                - { label: "Autor", name: "autor", widget: "string" }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Orientador", name: "orientador", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false }
 
-      - label: "Equipe"
-        name: "equipe"
-        file: "data/equipe.yml"
-        fields:
-          - label: "Membros"
-            name: "itens"
-            widget: "list"
-            label_singular: "membro"
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Papel", name: "papel", widget: "string", required: false }
-              - { label: "Formação", name: "formacao", widget: "string", required: false }
-              - { label: "Foto", name: "foto", widget: "image", required: false }
-              - { label: "Lattes", name: "lattes", widget: "string", required: false }
-              - { label: "ORCID", name: "orcid", widget: "string", required: false }
+  - name: "ensino_equipe"
+    label: "Ensino e equipe"
+    files:
+        - label: "Equipe"
+          name: "equipe"
+          file: "data/equipe.yml"
+          fields:
+            - label: "Membros"
+              name: "itens"
+              widget: "list"
+              label_singular: "membro"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Papel", name: "papel", widget: "string", required: false }
+                - { label: "Formação", name: "formacao", widget: "string", required: false }
+                - { label: "Foto", name: "foto", widget: "image", required: false }
+                - { label: "Lattes", name: "lattes", widget: "string", required: false }
+                - { label: "ORCID", name: "orcid", widget: "string", required: false }
+        - label: "Disciplinas"
+          name: "disciplinas"
+          file: "data/disciplinas.yml"
+          fields:
+            - label: "Disciplinas"
+              name: "itens"
+              widget: "list"
+              label_singular: "disciplina"
+              summary: "{{fields.codigo}} - {{fields.nome}}"
+              fields:
+                - { label: "Nível", name: "nivel", widget: "string", required: false }
+                - { label: "Código", name: "codigo", widget: "string", required: false }
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Docente", name: "docente", widget: "string", required: false }
+                - { label: "Período", name: "periodo", widget: "string", required: false }
+                - { label: "Ementa", name: "ementa", widget: "text", required: false }
 
-      - label: "Linhas de pesquisa"
-        name: "linhas"
-        file: "data/linhas.yml"
-        fields:
-          - label: "Linhas"
-            name: "itens"
-            widget: "list"
-            label_singular: "linha de pesquisa"
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "ID", name: "id", widget: "string", hint: "Código curto, usado em Projetos e Publicações. Não mude depois de criado." }
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Descrição", name: "descricao", widget: "text", required: false }
-              - { label: "Palavras-chave", name: "palavras_chave", widget: "string", required: false }
+  - name: "midia_parcerias"
+    label: "Mídia, galeria e parcerias"
+    files:
+        - label: "NOAR (episódios)"
+          name: "noar"
+          file: "data/noar.yml"
+          fields:
+            - label: "Episódios"
+              name: "itens"
+              widget: "list"
+              label_singular: "episódio"
+              summary: "{{fields.episodio}} - {{fields.titulo}}"
+              fields:
+                - { label: "Episódio", name: "episodio", widget: "string" }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Convidado", name: "convidado", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
+                - { label: "Link", name: "link", widget: "string", required: false }
+                - { label: "Observação", name: "obs", widget: "text", required: false }
+        - label: "Galeria"
+          name: "galeria"
+          file: "data/galeria.yml"
+          fields:
+            - label: "Fotos (seleção múltipla)"
+              name: "itens"
+              widget: "galeria-multipla-v2"
+              hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
+        - label: "Apoio e parceiros"
+          name: "apoio"
+          file: "data/apoio.yml"
+          fields:
+            - label: "Instituições"
+              name: "itens"
+              widget: "list"
+              label_singular: "instituição"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Logo", name: "logo", widget: "image" }
+                - { label: "Link", name: "url", widget: "string", required: false }
 
-      - label: "Projetos"
-        name: "projetos"
-        file: "data/projetos.yml"
-        fields:
-          - label: "Projetos"
-            name: "itens"
-            widget: "list"
-            label_singular: "projeto"
-            summary: "{{fields.titulo}}"
-            fields:
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Tipo", name: "tipo", widget: "string", required: false }
-              - { label: "Situação", name: "situacao", widget: "string", required: false }
-              - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
-              - { label: "Início", name: "inicio", widget: "string", required: false }
-              - { label: "Fim", name: "fim", widget: "string", required: false }
-              - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
-              - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
-
-      - label: "Publicações"
-        name: "publicacoes"
-        file: "data/publicacoes.yml"
-        fields:
-          - label: "Publicações"
-            name: "itens"
-            widget: "list"
-            label_singular: "publicação"
-            summary: "{{fields.ano}} - {{fields.titulo}}"
-            fields:
-              - { label: "Ano", name: "ano", widget: "string" }
-              - { label: "Tipo", name: "tipo", widget: "string", required: false }
-              - { label: "Autores", name: "autores", widget: "string", required: false }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Veículo", name: "veiculo", widget: "string", required: false }
-              - { label: "DOI", name: "doi", widget: "string", required: false }
-              - { label: "Link", name: "url", widget: "string", required: false }
-              - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
-
-      - label: "Livros"
-        name: "livros"
-        file: "data/livros.yml"
-        fields:
-          - label: "Livros"
-            name: "itens"
-            widget: "list"
-            label_singular: "livro"
-            summary: "{{fields.ano}} - {{fields.titulo}}"
-            fields:
-              - { label: "Ano", name: "ano", widget: "string" }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Autores", name: "autores", widget: "string", required: false }
-              - { label: "Editora", name: "editora", widget: "string", required: false }
-              - { label: "Link", name: "url", widget: "string", required: false }
-
-      - label: "Defesas"
-        name: "defesas"
-        file: "data/defesas.yml"
-        fields:
-          - label: "Defesas"
-            name: "itens"
-            widget: "list"
-            label_singular: "defesa"
-            summary: "{{fields.autor}} - {{fields.titulo}}"
-            fields:
-              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
-              - { label: "Nível", name: "nivel", widget: "string", required: false }
-              - { label: "Etapa", name: "etapa", widget: "string", required: false }
-              - { label: "Autor", name: "autor", widget: "string" }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Orientador", name: "orientador", widget: "string", required: false }
-              - { label: "Link", name: "url", widget: "string", required: false }
-
-      - label: "Disciplinas"
-        name: "disciplinas"
-        file: "data/disciplinas.yml"
-        fields:
-          - label: "Disciplinas"
-            name: "itens"
-            widget: "list"
-            label_singular: "disciplina"
-            summary: "{{fields.codigo}} - {{fields.nome}}"
-            fields:
-              - { label: "Nível", name: "nivel", widget: "string", required: false }
-              - { label: "Código", name: "codigo", widget: "string", required: false }
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Docente", name: "docente", widget: "string", required: false }
-              - { label: "Período", name: "periodo", widget: "string", required: false }
-              - { label: "Ementa", name: "ementa", widget: "text", required: false }
-
-      - label: "NOAR (episódios)"
-        name: "noar"
-        file: "data/noar.yml"
-        fields:
-          - label: "Episódios"
-            name: "itens"
-            widget: "list"
-            label_singular: "episódio"
-            summary: "{{fields.episodio}} - {{fields.titulo}}"
-            fields:
-              - { label: "Episódio", name: "episodio", widget: "string" }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Convidado", name: "convidado", widget: "string", required: false }
-              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
-              - { label: "Link", name: "link", widget: "string", required: false }
-              - { label: "Observação", name: "obs", widget: "text", required: false }
-
-      - label: "Vídeos"
-        name: "videos"
-        file: "data/videos.yml"
-        fields:
-          - label: "Vídeos"
-            name: "itens"
-            widget: "list"
-            label_singular: "vídeo"
-            summary: "{{fields.titulo}}"
-            fields:
-              - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Descrição", name: "descricao", widget: "text", required: false }
-              - { label: "Link", name: "url", widget: "string" }
-
-      - label: "Sites úteis"
-        name: "sites"
-        file: "data/sites.yml"
-        fields:
-          - label: "Sites"
-            name: "itens"
-            widget: "list"
-            label_singular: "site"
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Descrição", name: "descricao", widget: "text", required: false }
-              - { label: "Link", name: "url", widget: "string" }
-
-      - label: "Apoio e parceiros"
-        name: "apoio"
-        file: "data/apoio.yml"
-        fields:
-          - label: "Instituições"
-            name: "itens"
-            widget: "list"
-            label_singular: "instituição"
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Logo", name: "logo", widget: "image" }
-              - { label: "Link", name: "url", widget: "string", required: false }
-
-      - label: "Galeria"
-        name: "galeria"
-        file: "data/galeria.yml"
-        fields:
-          - label: "Fotos (seleção múltipla)"
-            name: "itens"
-            widget: "galeria-multipla-v2"
-            hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
-
-      - label: "Configurações e textos do site"
-        name: "configuracoes_site"
-        file: "_variables.yml"
-        fields:
-          - { label: "Sigla", name: "sigla", widget: "string" }
-          - { label: "Nome completo do grupo", name: "nome_completo", widget: "string" }
-          - { label: "Instituição", name: "instituicao", widget: "string" }
-          - { label: "Unidade", name: "unidade", widget: "string" }
-          - { label: "Departamento", name: "departamento", widget: "string" }
-          - { label: "Resumo da página inicial", name: "resumo", widget: "text" }
-          - { label: "Histórico", name: "historico", widget: "text" }
-          - { label: "Missão", name: "missao", widget: "text" }
-          - { label: "Visão", name: "visao", widget: "text" }
-          - { label: "Objetivo 1", name: "objetivo1", widget: "text" }
-          - { label: "Objetivo 2", name: "objetivo2", widget: "text" }
-          - { label: "Objetivo 3", name: "objetivo3", widget: "text" }
-          - { label: "Objetivo 4", name: "objetivo4", widget: "text" }
-          - { label: "Nome do podcast", name: "podcast_nome", widget: "string" }
-          - { label: "Descrição do podcast", name: "podcast_descricao", widget: "text" }
-          - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false }
-          - { label: "Link PPGSN", name: "link_ppgsn", widget: "string" }
-          - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string" }
-          - { label: "Link UFOP", name: "link_ufop", widget: "string" }
-          - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string" }
-          - { label: "E-mail", name: "email", widget: "string" }
-          - { label: "Telefone", name: "telefone", widget: "string" }
-          - { label: "Instagram (URL)", name: "instagram", widget: "string" }
-          - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
-          - { label: "YouTube", name: "youtube", widget: "string", required: false }
-          - { label: "Spotify", name: "spotify", widget: "string", required: false }
-          - { label: "Endereço", name: "endereco", widget: "string" }
-          - { label: "Cidade/UF", name: "cidade_uf", widget: "string" }
-          - { label: "CEP", name: "cep", widget: "string" }
-          - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
-          - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
-          - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
-          - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
-          - { label: "Título: pesquisas na página inicial", name: "titulo_home_pesquisas", widget: "string" }
-          - { label: "Título: notícias na página inicial", name: "titulo_home_noticias", widget: "string" }
-          - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
-          - { label: "Aviso: texto das notícias de demonstração", name: "texto_aviso_noticias_home", widget: "text" }
-          - { label: "Chamada da agenda na página inicial", name: "titulo_home_agenda", widget: "string" }
-          - { label: "Título GPENSC no Ar na página inicial", name: "titulo_home_noar", widget: "string" }
-          - { label: "Descrição GPENSC no Ar na página inicial", name: "texto_home_noar", widget: "text" }
-          - { label: "Texto do botão Sobre nós", name: "botao_sobre", widget: "string" }
-          - { label: "Título da missão", name: "titulo_missao", widget: "string" }
-          - { label: "Título da visão", name: "titulo_visao", widget: "string" }
-          - { label: "Título dos objetivos", name: "titulo_objetivos", widget: "string" }
-          - { label: "Título dos vínculos", name: "titulo_vinculos", widget: "string" }
-          - { label: "Título da equipe", name: "titulo_equipe", widget: "string" }
-          - { label: "Aviso: título da equipe", name: "texto_aviso_equipe_titulo", widget: "string" }
-          - { label: "Aviso: texto da equipe", name: "texto_aviso_equipe", widget: "text" }
-          - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
-          - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
-          - { label: "Introdução da Agenda", name: "intro_agenda", widget: "text" }
-          - { label: "Título Próximos eventos", name: "titulo_proximos_eventos", widget: "string" }
-          - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
-          - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
-          - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
-          - { label: "Introdução da página Extensão", name: "intro_extensao", widget: "text" }
-          - { label: "Introdução GPENSC no Ar", name: "intro_noar", widget: "text" }
-          - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
-          - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
-          - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
-          - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
-          - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
-          - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
-          - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
-          - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
-
-
-
-
+  - name: "configuracoes"
+    label: "Configurações do site"
+    files:
+        - label: "Configurações e textos do site"
+          name: "configuracoes_site"
+          file: "_variables.yml"
+          fields:
+            - { label: "Sigla", name: "sigla", widget: "string" }
+            - { label: "Nome completo do grupo", name: "nome_completo", widget: "string" }
+            - { label: "Instituição", name: "instituicao", widget: "string" }
+            - { label: "Unidade", name: "unidade", widget: "string" }
+            - { label: "Departamento", name: "departamento", widget: "string" }
+            - { label: "Resumo da página inicial", name: "resumo", widget: "text" }
+            - { label: "Histórico", name: "historico", widget: "text" }
+            - { label: "Missão", name: "missao", widget: "text" }
+            - { label: "Visão", name: "visao", widget: "text" }
+            - { label: "Objetivo 1", name: "objetivo1", widget: "text" }
+            - { label: "Objetivo 2", name: "objetivo2", widget: "text" }
+            - { label: "Objetivo 3", name: "objetivo3", widget: "text" }
+            - { label: "Objetivo 4", name: "objetivo4", widget: "text" }
+            - { label: "Nome do podcast", name: "podcast_nome", widget: "string" }
+            - { label: "Descrição do podcast", name: "podcast_descricao", widget: "text" }
+            - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false }
+            - { label: "Link PPGSN", name: "link_ppgsn", widget: "string" }
+            - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string" }
+            - { label: "Link UFOP", name: "link_ufop", widget: "string" }
+            - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string" }
+            - { label: "E-mail", name: "email", widget: "string" }
+            - { label: "Telefone", name: "telefone", widget: "string" }
+            - { label: "Instagram (URL)", name: "instagram", widget: "string" }
+            - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
+            - { label: "YouTube", name: "youtube", widget: "string", required: false }
+            - { label: "Spotify", name: "spotify", widget: "string", required: false }
+            - { label: "Endereço", name: "endereco", widget: "string" }
+            - { label: "Cidade/UF", name: "cidade_uf", widget: "string" }
+            - { label: "CEP", name: "cep", widget: "string" }
+            - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
+            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+            - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+            - { label: "Título: pesquisas na página inicial", name: "titulo_home_pesquisas", widget: "string" }
+            - { label: "Título: notícias na página inicial", name: "titulo_home_noticias", widget: "string" }
+            - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
+            - { label: "Aviso: texto das notícias de demonstração", name: "texto_aviso_noticias_home", widget: "text" }
+            - { label: "Chamada da agenda na página inicial", name: "titulo_home_agenda", widget: "string" }
+            - { label: "Título GPENSC no Ar na página inicial", name: "titulo_home_noar", widget: "string" }
+            - { label: "Descrição GPENSC no Ar na página inicial", name: "texto_home_noar", widget: "text" }
+            - { label: "Texto do botão Sobre nós", name: "botao_sobre", widget: "string" }
+            - { label: "Título da missão", name: "titulo_missao", widget: "string" }
+            - { label: "Título da visão", name: "titulo_visao", widget: "string" }
+            - { label: "Título dos objetivos", name: "titulo_objetivos", widget: "string" }
+            - { label: "Título dos vínculos", name: "titulo_vinculos", widget: "string" }
+            - { label: "Título da equipe", name: "titulo_equipe", widget: "string" }
+            - { label: "Aviso: título da equipe", name: "texto_aviso_equipe_titulo", widget: "string" }
+            - { label: "Aviso: texto da equipe", name: "texto_aviso_equipe", widget: "text" }
+            - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
+            - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
+            - { label: "Introdução da Agenda", name: "intro_agenda", widget: "text" }
+            - { label: "Título Próximos eventos", name: "titulo_proximos_eventos", widget: "string" }
+            - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
+            - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
+            - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
+            - { label: "Introdução da página Extensão", name: "intro_extensao", widget: "text" }
+            - { label: "Introdução GPENSC no Ar", name: "intro_noar", widget: "text" }
+            - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
+            - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
+            - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
+            - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
+            - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
+            - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
+            - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
+            - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
