@@ -27,7 +27,7 @@
     ) {
       return caminho;
     }
-    const relativo = caminho.replace(/^\\/+/, "");
+    const relativo = caminho.replace(/^\/+/, "");
     return "../" + relativo;
   };
 
