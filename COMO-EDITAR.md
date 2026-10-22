@@ -213,6 +213,26 @@ Se, no futuro, o grupo quiser acessar o site diretamente por **`https://www.gpen
 - O endereço personalizado muda o endereço principal do site, não os nomes das páginas. As URLs internas e a configuração do Quarto precisam continuar coerentes com o domínio novo.
 - Não altere o nome de um arquivo de página sem conferir e atualizar as referências no `_quarto.yml` e nos links do restante do site.
 
+### Usar um domínio independente da UFOP (por exemplo, `www.gpensc.com.br`)
+
+Se o grupo preferir um endereço que não dependa do domínio institucional da Universidade, pode registrar um domínio próprio, como **`gpensc.com.br`** ou **`gpensc.org.br`**, caso estejam disponíveis e o grupo cumpra os requisitos de registro. Esses são apenas exemplos: a disponibilidade precisa ser consultada antes de escolher.
+
+**Como funciona:**
+
+1. **Escolher e consultar o domínio.** Para endereços brasileiros terminados em `.br`, consulte o [Registro.br](https://registro.br/). Verifique a disponibilidade, as regras para a extensão escolhida e o custo vigente.
+2. **Definir quem será o titular.** O ideal é que o domínio fique registrado em nome de uma pessoa ou entidade responsável e que os dados de acesso e renovação sejam guardados de forma segura pelo grupo. O domínio normalmente exige pagamento e renovação periódica.
+3. **Configurar o DNS.** No serviço em que o domínio for administrado, criar os registros exigidos pelo GitHub Pages. Para o endereço `www.gpensc.com.br`, normalmente se configura um registro **CNAME** apontando para `maiconcarlospng.github.io`. Para o endereço sem `www` (`gpensc.com.br`), são necessários registros DNS diferentes. Siga a documentação atual do GitHub Pages e as instruções do provedor.
+4. **Configurar o GitHub Pages.** No repositório, abra **Settings → Pages → Custom domain**, informe o domínio escolhido e salve.
+5. **Conferir a publicação do Quarto.** Garanta que o arquivo `CNAME` com o domínio seja incluído na raiz do site publicado pelo workflow do GitHub Actions.
+6. **Validar o endereço e o HTTPS.** Aguarde a propagação do DNS, confirme a validação no GitHub Pages, habilite **Enforce HTTPS** quando estiver disponível e teste páginas, imagens e links.
+
+**Vantagens e cuidados:**
+- O endereço fica independente de `ufop.br`, mas o site ainda pode continuar hospedado gratuitamente no GitHub Pages. Registrar o domínio não exige contratar outra hospedagem.
+- O domínio próprio tem custo e precisa ser renovado; o valor depende da extensão e das regras vigentes.
+- Antes de divulgar, decidam quem será responsável pela titularidade, pagamentos, renovação e recuperação da conta.
+- Não cancele nem altere o endereço atual até que o domínio novo esteja configurado e testado.
+- Ter um domínio independente não significa que o nome está automaticamente disponível ou que o grupo tem direito a qualquer nome; verifique a disponibilidade e as condições de registro.
+
 ### Criar um campo novo numa seção que já existe
 1. Acrescente o campo em `admin/config.yml`.
 2. Acrescente o nome dele na lista `COLUNAS` do `R/helpers.R`.
