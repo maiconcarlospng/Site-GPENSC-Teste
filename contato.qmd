@@ -19,27 +19,27 @@ if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case =
 
 div(
   class = "pagina-contato",
-  p(class = "contato-intro", "Entre em contato com o GPENSC para informações sobre pesquisa, ensino, extensão, parcerias e atividades do grupo."),
+  p(class = "contato-intro", cfg$intro_contato),
   div(
     class = "contato-grade",
     div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-envelope", `aria-hidden` = "true")),
-      h3("E-mail"),
+      h3(cfg$titulo_email),
       p(cfg$email),
-      tags$a(class = "btn btn-secondary", href = paste0("mailto:", cfg$email), "Enviar e-mail")
+      tags$a(class = "btn btn-secondary", href = paste0("mailto:", cfg$email), cfg$botao_enviar_email)
     ),
     div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-instagram", `aria-hidden` = "true")),
-      h3("Instagram"),
+      h3(cfg$titulo_instagram),
       p(cfg$instagram_user),
-      tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", "Acompanhar o grupo")
+      tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", cfg$botao_instagram)
     ),
     div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-geo-alt", `aria-hidden` = "true")),
-      h3("Localização"),
+      h3(cfg$titulo_localizacao),
       tags$a(
         class = "contato-endereco-mapa",
         href = mapa_url,
@@ -55,13 +55,13 @@ div(
         target = "_blank",
         rel = "noopener noreferrer",
         tags$i(class = "bi bi-geo-alt", `aria-hidden` = "true"),
-        " Ver no Google Maps"
+        paste0(" ", cfg$botao_mapa)
       )
     ),
     div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-telephone", `aria-hidden` = "true")),
-      h3("Telefone institucional"),
+      h3(cfg$titulo_telefone),
       p(telefone),
       tags$a(class = "btn btn-secondary", href = telefone_url, "Ligar")
     )
