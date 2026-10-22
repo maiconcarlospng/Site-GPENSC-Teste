@@ -37,6 +37,7 @@ renderizar_eventos <- function(dados) {
   )
 }
 
+if (secao_ativa("mostrar_agenda")) {
 div(
   class = "pagina-agenda",
   p(class = "contato-intro", cfg$intro_agenda),
@@ -62,4 +63,7 @@ div(
     )
   }
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
 ```
