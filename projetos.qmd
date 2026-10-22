@@ -9,7 +9,7 @@ projetos_publicados <- registros_reais(projetos, "titulo")
 if (secao_ativa("mostrar_projetos")) {
 div(
   class = "pagina-projetos",
-  p(class = "contato-intro", "Projetos de pesquisa e extensão desenvolvidos pelo grupo, com informações sobre situação, coordenação, período e financiamento."),
+  p(class = "contato-intro", cfg$intro_projetos),
   if (nrow(projetos_publicados) > 0) {
     projetos_publicados |>
       rename(
