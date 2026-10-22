@@ -387,4 +387,8 @@ O painel inclui a coleção **Configurações e textos do site**, que permite ed
 
 Quando um conteúdo de página é desativado, a página mostra um aviso de seção temporariamente indisponível; o item de navegação continua no menu. Para esconder também um item do menu, é necessário ajustar a navegação em `_quarto.yml` e publicar novamente. Os controles da página inicial e o menu devem ser verificados antes de qualquer uso institucional.
 
+### Criar e apagar tópicos adicionais de localização
+
+Em **Configurações do site → Tópicos adicionais do endereço**, use o botão de adicionar do Sveltia para criar um tópico e preencha **Nome do tópico** e **Informação**. Cada item pode ser removido individualmente pelo controle de exclusão da própria lista. Esses tópicos aparecem abaixo do endereço no cartão de localização da página Contato; o endereço completo continua sendo a única origem para abrir o mapa. Isso permite acrescentar informações como sala, horário de atendimento ou ponto de referência sem alterar o código. Para criar um novo tipo de campo fixo em outra parte do painel, ainda é preciso modificar `admin/config.yml` e, quando necessário, o código que exibe o conteúdo.
+
 As alterações feitas no painel gravam no repositório e disparam a publicação automática. Após salvar, confira **Actions** e valide o site publicado.
