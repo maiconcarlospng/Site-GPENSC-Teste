@@ -6,6 +6,7 @@ title: "Sites recomendados"
 source("R/helpers.R")
 sites_publicados <- registros_reais(sites, "nome")
 
+if (secao_ativa("mostrar_sites")) {
 if (nrow(sites_publicados) == 0) {
   estado_vazio(
     "Sites recomendados em atualização",
@@ -26,4 +27,8 @@ if (nrow(sites_publicados) == 0) {
     )
   })
 }
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
