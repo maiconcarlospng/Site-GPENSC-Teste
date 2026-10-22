@@ -8,6 +8,7 @@ source("R/helpers.R")
 projetos_extensao <- registros_reais(projetos, "titulo") |>
   filter(tipo == "Extensão")
 
+if (secao_ativa("mostrar_extensao")) {
 div(
   class = "pagina-extensao",
   p(class = "contato-intro", "A extensão aproxima a produção acadêmica da comunidade por meio de atividades educativas, troca de conhecimentos e divulgação científica em nutrição e saúde coletiva."),
@@ -36,4 +37,8 @@ div(
   p("O GPENSC também divulga conversas e conteúdos de interesse público por meio de suas iniciativas de comunicação."),
   tags$a(class = "btn btn-secondary", href = "noar.html", "Conheça o GPENSC no Ar")
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
