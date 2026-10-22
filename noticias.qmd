@@ -11,7 +11,7 @@ if (secao_ativa("mostrar_noticias")) {
 if (nrow(noticias_publicadas) == 0) {
   estado_vazio(
     "Nenhuma notícia publicada no momento",
-    "As notícias cadastradas no painel serão listadas aqui. Os registros atuais são exemplos para demonstrar o formato da página.",
+    "Quando novas notícias forem cadastradas no painel administrativo, elas aparecerão nesta página.",
     "Acompanhe o Instagram",
     cfg$instagram
   )
