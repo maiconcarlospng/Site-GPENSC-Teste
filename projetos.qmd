@@ -6,6 +6,7 @@ title: "Projetos"
 source("R/helpers.R")
 projetos_publicados <- registros_reais(projetos, "titulo")
 
+if (secao_ativa("mostrar_projetos")) {
 div(
   class = "pagina-projetos",
   p(class = "contato-intro", "Projetos de pesquisa e extensão desenvolvidos pelo grupo, com informações sobre situação, coordenação, período e financiamento."),
@@ -35,4 +36,8 @@ div(
     )
   }
 )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+
 ```
