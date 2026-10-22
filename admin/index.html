@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Administração - GPENSC</title>
     <link rel="icon" href="../img/favicon.png" />
-    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=gpen-layout-20261022-2" />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=login-gpensc-20261022-1" />
 
     <style>
       body {
@@ -564,7 +564,134 @@
         }
       }
 
-    </style>
+    
+      /* Tela de autenticação do Sveltia: cartão institucional sóbrio e responsivo. */
+      body.gpen-cms-active .container {
+        box-sizing: border-box;
+        padding: 24px !important;
+        background:
+          radial-gradient(ellipse at 10% 0%, rgba(213, 232, 207, .68), transparent 38%),
+          linear-gradient(145deg, #f7faf5 0%, #edf3eb 100%) !important;
+      }
+      body.gpen-cms-active .container > .inner {
+        position: relative;
+        box-sizing: border-box;
+        width: min(100%, 450px) !important;
+        min-width: 0 !important;
+        max-width: 450px !important;
+        min-height: 0 !important;
+        gap: 19px !important;
+        padding: 42px clamp(24px, 5vw, 44px) 36px !important;
+        overflow: hidden;
+        border: 1px solid #dfe8dc;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 18px 48px rgba(30, 73, 51, .11), 0 2px 8px rgba(30, 73, 51, .035);
+      }
+      body.gpen-cms-active .container > .inner::before {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 5px;
+        background: #286442;
+        content: "";
+      }
+      body.gpen-cms-active .container > .inner > .logo {
+        width: auto !important;
+        height: 72px !important;
+        max-width: min(100%, 220px);
+        object-fit: contain;
+        margin: 0 0 2px !important;
+      }
+      body.gpen-cms-active .container > .inner > h1 {
+        margin: 0 !important;
+        color: #214a33 !important;
+        font-size: clamp(1.55rem, 4vw, 1.9rem) !important;
+        font-weight: 780 !important;
+        letter-spacing: -.04em;
+        line-height: 1.2;
+        text-align: center;
+      }
+      body.gpen-cms-active .container > .inner .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 11px;
+        margin-top: 4px;
+      }
+      body.gpen-cms-active .container > .inner .buttons button {
+        box-sizing: border-box;
+        width: 100% !important;
+        min-height: 47px;
+        padding: 11px 16px !important;
+        border-radius: 10px !important;
+        font-size: .92rem !important;
+        font-weight: 700 !important;
+        transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      }
+      body.gpen-cms-active .container > .inner .buttons button:first-child {
+        border-color: #286442 !important;
+        background: #286442 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(40, 100, 66, .12);
+      }
+      body.gpen-cms-active .container > .inner .buttons button:first-child:hover:not(:disabled) {
+        background: #1e5033 !important;
+        border-color: #1e5033 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 15px rgba(40, 100, 66, .2);
+      }
+      body.gpen-cms-active .container > .inner .buttons button:not(:first-child) {
+        border: 1px solid #d4e1d1 !important;
+        background: #f7faf5 !important;
+        color: #315641 !important;
+      }
+      body.gpen-cms-active .container > .inner .buttons button:not(:first-child):hover:not(:disabled) {
+        background: #edf4ea !important;
+        border-color: #b9d0b4 !important;
+      }
+      body.gpen-cms-active .container > .inner .buttons button:focus-visible {
+        outline: 3px solid #a7d5a0 !important;
+        outline-offset: 3px;
+      }
+      body.gpen-cms-active .container > .inner .message,
+      body.gpen-cms-active .container > .inner [role="alert"] {
+        max-width: 100%;
+        color: #5e6d61;
+        font-size: .88rem !important;
+        line-height: 1.55;
+      }
+      body.gpen-cms-active .container > .inner .error {
+        overflow-wrap: anywhere;
+        border-radius: 9px;
+      }
+      body.gpen-cms-active .powered-by {
+        color: #768679 !important;
+        font-size: .76rem !important;
+      }
+      body.gpen-cms-active .powered-by a {
+        color: #456c50 !important;
+      }
+      @media (max-width: 520px) {
+        body.gpen-cms-active .container {
+          align-items: center;
+          padding: 16px !important;
+        }
+        body.gpen-cms-active .container > .inner {
+          width: 100% !important;
+          padding: 34px 22px 28px !important;
+          gap: 17px !important;
+          border-radius: 16px;
+        }
+        body.gpen-cms-active .container > .inner > .logo {
+          height: 62px !important;
+        }
+        body.gpen-cms-active .powered-by {
+          inset: auto 12px 10px !important;
+        }
+      }
+
+</style>
   </head>
   <body class="gpen-cms-active">
     
