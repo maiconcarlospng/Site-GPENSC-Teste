@@ -13,22 +13,22 @@
 
   // Resolve repository paths relative to /admin/ so previews also work on GitHub
   // Pages project sites, whose URLs contain /<repository>/ rather than the host root.
+  const urlRelativaAoPainel = (valor) => {
+    if (typeof valor !== "string" || !valor) return "";
+    if (/^(blob:|data:|https?:\/\/)/i.test(valor)) return valor;
+    if (valor.startsWith("../") || valor.startsWith("./")) return valor;
+    return "../" + valor.replace(/^\/+/, "");
+  };
+
   const srcDaImagem = (caminho, getAsset) => {
     if (typeof caminho !== "string" || !caminho) return "";
     if (typeof getAsset === "function") {
       const asset = getAsset(caminho);
-      if (asset && asset.url) return asset.url;
+      if (asset && typeof asset.url === "string" && asset.url) {
+        return urlRelativaAoPainel(asset.url);
+      }
     }
-    if (
-      caminho.startsWith("blob:") ||
-      caminho.startsWith("data:") ||
-      caminho.startsWith("http://") ||
-      caminho.startsWith("https://")
-    ) {
-      return caminho;
-    }
-    const relativo = caminho.replace(/^\/+/, "");
-    return "../" + relativo;
+    return urlRelativaAoPainel(caminho);
   };
 
   const GaleriaMultiplaControl = ({ forID, value, onChange, pickFile, getAsset }) => {
