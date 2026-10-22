@@ -37,18 +37,12 @@ div(
 ## {{< var titulo_home_noticias >}}
 
 ```{r}
-noticias_recentes <- noticias |>
+noticias_recentes <- registros_reais(noticias, "titulo") |>
   arrange(desc(data)) |>
   head(6)
 
 if (nrow(noticias_recentes) > 0) {
-  tagList(
-    div(class = "aviso-demonstracao",
-        tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
-        strong(cfg$texto_aviso_noticias_home_titulo),
-        cfg$texto_aviso_noticias_home),
-    cartoes(noticias_recentes, cartao_noticia)
-  )
+  cartoes(noticias_recentes, cartao_noticia)
 } else {
   estado_vazio(
     "Novidades em breve",
