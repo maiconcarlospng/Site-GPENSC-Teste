@@ -11,7 +11,7 @@ div(
   class = "pagina-noar",
   p(
     class = "contato-intro",
-    "GPENSC no Ar é uma série em formato de podcast/videocast com conversas sobre nutrição, sono, exercício físico e saúde coletiva em linguagem acessível. Acompanhe os canais do grupo para novidades e novos episódios."
+    cfg$intro_noar
   ),
   if (nrow(episodios_publicados) > 0) {
     cartoes(episodios_publicados, function(e, i) {
