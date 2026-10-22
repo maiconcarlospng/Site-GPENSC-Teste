@@ -40,9 +40,23 @@ div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-geo-alt", `aria-hidden` = "true")),
       h3("Localização"),
-      p(endereco),
+      tags$a(
+        class = "contato-endereco-mapa",
+        href = mapa_url,
+        target = "_blank",
+        rel = "noopener noreferrer",
+        `aria-label` = "Ver endereço do GPENSC no Google Maps",
+        endereco
+      ),
       p(paste(cfg$cidade_uf, cfg$cep, sep = " · ")),
-      tags$a(class = "btn btn-secondary", href = mapa_url, target = "_blank", rel = "noopener noreferrer", "Abrir no mapa")
+      tags$a(
+        class = "btn btn-secondary contato-mapa-btn",
+        href = mapa_url,
+        target = "_blank",
+        rel = "noopener noreferrer",
+        tags$i(class = "bi bi-geo-alt", `aria-hidden` = "true"),
+        " Ver no Google Maps"
+      )
     ),
     div(
       class = "contato-card",
