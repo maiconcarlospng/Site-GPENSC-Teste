@@ -277,6 +277,16 @@ collections:
             - { label: "Spotify", name: "spotify", widget: "string", required: false }
             - { label: "Endereço", name: "endereco", widget: "string" }
             - { label: "Endereço completo para o mapa", name: "endereco_completo", widget: "string" }
+            - label: "Tópicos adicionais do endereço"
+              name: "topicos_endereco"
+              widget: "list"
+              required: false
+              label_singular: "tópico"
+              summary: "{{fields.titulo}}"
+              hint: "Use para adicionar informações extras, como sala, horário de atendimento ou referência. Cada tópico pode ser removido individualmente."
+              fields:
+                - { label: "Nome do tópico", name: "titulo", widget: "string" }
+                - { label: "Informação", name: "valor", widget: "string" }
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
             - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
