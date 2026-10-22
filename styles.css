@@ -1703,3 +1703,30 @@ button:focus-visible,
     min-height: 46px;
   }
 }
+
+
+/* Informações adicionais configuráveis no cartão de localização. */
+.contato-info-adicionais {
+  display: grid;
+  gap: .5rem;
+  margin: .8rem 0 .2rem;
+  padding-top: .8rem;
+  border-top: 1px solid #e5eae4;
+}
+.contato-info-adicional {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .35rem .65rem;
+  color: #47584b;
+  font-size: .9rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.contato-info-adicional strong {
+  color: #294b35;
+  font-weight: 750;
+}
+.contato-info-adicional span {
+  color: #536257;
+}
