@@ -19,7 +19,7 @@ faixa_galeria()
 bloco_intro()
 ```
 
-## Pesquisas
+## {{< var titulo_home_pesquisas >}}
 
 ```{r}
 div(
@@ -34,7 +34,7 @@ div(
 [Veja todas as pesquisas](projetos.qmd){.btn .btn-secondary}
 :::
 
-## Últimas notícias
+## {{< var titulo_home_noticias >}}
 
 ```{r}
 noticias_recentes <- noticias |>
@@ -65,7 +65,7 @@ if (nrow(noticias_recentes) > 0) {
 :::::
 
 ::: faixa-agenda
-## Confira nossa agenda de aulas abertas, workshops e participações
+## {{< var titulo_home_agenda >}}
 
 [Clique aqui](agenda.qmd){.btn .btn-secondary}
 :::
@@ -76,8 +76,8 @@ div(
   class = "faixa reveal",
   p(
     class = "faixa-texto",
-    strong("GPENSC no Ar"),
-    ": conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
+    strong(cfg$titulo_home_noar),
+    ": ", cfg$texto_home_noar
   ),
   tags$a(
     class = "btn btn-secondary faixa-botao",
