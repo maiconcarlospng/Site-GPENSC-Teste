@@ -929,27 +929,24 @@
       }
 
     
-      /* Tema escuro legível: segue o atributo de tema definido pelo Sveltia. */
+      /* Tema escuro neutro e legível.
+         O Sveltia controla html[data-theme]; estas regras só atuam quando dark está ativo. */
       html[data-theme="dark"] body.gpen-cms-active,
-      body.gpen-cms-active[data-theme="dark"],
-      html.dark body.gpen-cms-active,
-      body.dark.gpen-cms-active,
-      html[data-color-scheme="dark"] body.gpen-cms-active,
-      body.gpen-cms-active[data-color-scheme="dark"] {
+      body.gpen-cms-active[data-theme="dark"] {
         color-scheme: dark !important;
-        background: #111813 !important;
-        color: #e6eee8 !important;
-        --sui-primary-background-color: #18221b !important;
-        --sui-secondary-background-color: #202c23 !important;
-        --sui-tertiary-background-color: #29382d !important;
-        --sui-primary-foreground-color: #edf4ef !important;
-        --sui-secondary-foreground-color: #d0ddd3 !important;
-        --sui-tertiary-foreground-color: #b2c2b5 !important;
-        --sui-primary-border-color: #3b4d40 !important;
-        --sui-secondary-border-color: #314235 !important;
-        --sui-hover-background-color: #2b3b30 !important;
-        --sui-primary-accent-color: #91c99c !important;
-        --sui-primary-accent-color-inverted: #132017 !important;
+        background: #111318 !important;
+        color: #e5e7eb !important;
+        --sui-primary-background-color: #191b21 !important;
+        --sui-secondary-background-color: #20232a !important;
+        --sui-tertiary-background-color: #292d35 !important;
+        --sui-primary-foreground-color: #f3f4f6 !important;
+        --sui-secondary-foreground-color: #d1d5db !important;
+        --sui-tertiary-foreground-color: #aeb4bf !important;
+        --sui-primary-border-color: #3b404a !important;
+        --sui-secondary-border-color: #30353e !important;
+        --sui-hover-background-color: #2b3039 !important;
+        --sui-primary-accent-color: #86c99a !important;
+        --sui-primary-accent-color-inverted: #15221a !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active #page-container,
@@ -961,115 +958,132 @@
       html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar,
       body.gpen-cms-active[data-theme="dark"] #page-container,
       body.gpen-cms-active[data-theme="dark"] #collection-container,
-      body.gpen-cms-active[data-theme="dark"] .primary-sidebar {
-        background: #141d17 !important;
-        color: #e6eee8 !important;
-        border-color: #35473a !important;
+      body.gpen-cms-active[data-theme="dark"] .primary-sidebar,
+      body.gpen-cms-active[data-theme="dark"] .content-editor {
+        background: #181a20 !important;
+        color: #e5e7eb !important;
+        border-color: #373c46 !important;
       }
 
+      /* Barra superior e cabeçalho da coleção — especificidade acima dos estilos claros antigos. */
       html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
       html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
-        background: #1b281f !important;
-        color: #edf4ef !important;
-        border-color: #35473a !important;
+        background: #20232a !important;
+        color: #e5e7eb !important;
+        border-color: #393e48 !important;
         box-shadow: none !important;
       }
 
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary h2,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary h2,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor h1,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor h2,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor h3,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor h4,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor h5,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h1,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h3,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h4,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h5 {
+        color: #f3f4f6 !important;
+      }
+
+      /* Cards, listas e campos repetidos (ex.: cada linha de pesquisa). */
       html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
       html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
       html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view,
       html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
-        background: #202d24 !important;
-        color: #e6eee8 !important;
-        border-color: #3b4e40 !important;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, .12) !important;
+        background: #252830 !important;
+        color: #e5e7eb !important;
+        border-color: #3b404a !important;
+        box-shadow: none !important;
       }
 
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row .title .label,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .description,
       html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4,
       html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .description {
-        color: #d0ddd3 !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__legenda {
-        background: #101812 !important;
-        color: #f0f5f1 !important;
-        border-color: #4b6250 !important;
-        caret-color: #f0f5f1 !important;
-        color-scheme: dark;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active input::placeholder,
-      html[data-theme="dark"] body.gpen-cms-active textarea::placeholder {
-        color: #a9b9ad !important;
-        opacity: 1 !important;
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar {
+        color: #d1d5db !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button {
-        color: #d0ddd3 !important;
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field button {
+        color: #d1d5db !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
       html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button:hover,
       html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:hover {
-        background: #2b3d30 !important;
-        color: #f3f8f4 !important;
-        border-color: #5c7a62 !important;
+        background: #303540 !important;
+        color: #ffffff !important;
+        border-color: #5a626f !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
       html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
       html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-pressed="true"],
       html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-selected="true"] {
-        background: #294a33 !important;
-        color: #f1f8f2 !important;
-        border-color: #4a6b50 !important;
+        background: #2e4a38 !important;
+        color: #f0fff4 !important;
+        border-color: #4f7a5a !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .sui.search-bar {
-        background: #101812 !important;
-        color: #e6eee8 !important;
-        border-color: #35473a !important;
+      /* Campos de edição, pesquisa e seletores com contraste claro no fundo escuro. */
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
+      html[data-theme="dark"] body.gpen-cms-active .sui.search-bar,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__legenda {
+        background: #15171c !important;
+        color: #f3f4f6 !important;
+        border-color: #555c68 !important;
+        caret-color: #f3f4f6 !important;
+        color-scheme: dark;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active input::placeholder,
+      html[data-theme="dark"] body.gpen-cms-active textarea::placeholder {
+        color: #aeb4bf !important;
+        opacity: 1 !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figure {
-        background: #1b281f !important;
-        color: #dce9df !important;
-        border-color: #35473a !important;
+        background: #20232a !important;
+        color: #e5e7eb !important;
+        border-color: #3b404a !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__imagem,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview {
-        background: #101812 !important;
+        background: #15171c !important;
       }
 
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__corpo label,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__arquivo,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figcaption {
-        color: #c4d4c8 !important;
+        color: #cbd5e1 !important;
       }
 
       @media (prefers-color-scheme: dark) {
-        html:not([data-theme="light"]):not([data-theme="dark"]) body.gpen-cms-active {
+        html[data-auto-theming="true"][data-theme="dark"] body.gpen-cms-active {
           color-scheme: dark;
         }
       }
