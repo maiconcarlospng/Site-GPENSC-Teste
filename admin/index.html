@@ -957,6 +957,19 @@
       entranceObserver.observe(document.body, { childList: true, subtree: true });
       syncEntranceState();
 
+      // Mantém o painel administrativo em tema claro, mesmo quando o navegador/sistema está em modo escuro.
+      // O Sveltia atualiza html[data-theme] de acordo com a preferência salva ou com o tema do sistema.
+      const aplicarTemaClaro = () => {
+        const raiz = document.documentElement;
+        if (raiz.dataset.theme !== "light") raiz.dataset.theme = "light";
+      };
+      const observadorTema = new MutationObserver(aplicarTemaClaro);
+      observadorTema.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      aplicarTemaClaro();
+
       CMS.init();
     </script>
   </body>
