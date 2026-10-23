@@ -40,7 +40,7 @@ jobs:
     name: Identificar o tipo de alteração
     runs-on: ubuntu-latest
     outputs:
-      site_build: \${{ steps.filter.outputs.site_build }}
+      site_build: ${{ steps.filter.outputs.site_build }}
     steps:
       - name: Baixar o histórico para comparar arquivos
         uses: actions/checkout@v4
@@ -50,12 +50,12 @@ jobs:
         id: filter
         shell: bash
         run: |
-          if [[ "\${{ github.event_name }}" != "push" ]]; then
+          if [[ "${{ github.event_name }}" != "push" ]]; then
             echo "site_build=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          changed_files="$(git diff --name-only "\${{ github.event.before }}" "\${{ github.sha }}")"
+          changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
           if [[ -z "$changed_files" ]]; then
             echo "site_build=true" >> "$GITHUB_OUTPUT"
             exit 0
@@ -110,7 +110,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-\${{ runner.os }}-\${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       # Reaproveita resultados congelados do Quarto quando a chave de cache é compatível.
       - name: Restaurar cache do Quarto
@@ -185,12 +185,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-\${{ runner.os }}-\${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       - name: Conferir o cache antes de publicar
         shell: bash
         run: |
-          if [[ "\${{ steps.site-cache.outputs.cache-hit }}" != "true" ]]; then
+          if [[ "${{ steps.site-cache.outputs.cache-hit }}" != "true" ]]; then
             echo "::error::Ainda não existe cache do site compilado. Execute uma publicação completa antes de atualizar somente o painel."
             exit 1
           fi
