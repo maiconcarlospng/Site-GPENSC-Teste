@@ -210,10 +210,44 @@
     
       /* Ajustes de layout da área interna do Sveltia. Mantém o CMS como motor de edição. */
       body.gpen-cms-active {
+        color-scheme: light !important;
         background: #f4f7f2 !important;
+        color: #263e2e !important;
+        --sui-primary-background-color: #ffffff;
+        --sui-secondary-background-color: #f7faf5;
+        --sui-tertiary-background-color: #edf4e9;
+        --sui-primary-foreground-color: #203b2b;
+        --sui-secondary-foreground-color: #385443;
+        --sui-tertiary-foreground-color: #53685a;
+        --sui-primary-border-color: #dce7d9;
+        --sui-secondary-border-color: #e3ebe0;
+        --sui-hover-background-color: #edf4e9;
         --sui-primary-accent-color: #286442;
         --sui-primary-accent-color-inverted: #ffffff;
         --field-editor-padding: 20px;
+      }
+      /* Impede que o tema escuro do sistema deixe listas e subcampos pretos. */
+      body.gpen-cms-active #page-container,
+      body.gpen-cms-active #collection-container,
+      body.gpen-cms-active .content-editor,
+      body.gpen-cms-active .content-editor .body,
+      body.gpen-cms-active .content-editor .content-area,
+      body.gpen-cms-active .content-editor .pane-wrapper > .pane,
+      body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div {
+        color-scheme: light !important;
+      }
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
+        background: #ffffff !important;
+        color: #263e2e !important;
+      }
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input,
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select {
+        background: #ffffff !important;
+        color: #203b2b !important;
+        caret-color: #203b2b !important;
       }
       body.gpen-cms-active .sui.toolbar {
         background: #ffffff !important;
