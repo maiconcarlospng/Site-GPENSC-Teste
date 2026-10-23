@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editor de conteúdo · GPENSC</title>
     <link rel="icon" href="../img/favicon.png" />
-    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-organizacao-20261023-2" />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-tematico-20261023-1" />
 
     <style>
       body {
@@ -1429,7 +1429,7 @@
       // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
       const markConfigCollection = () => {
         document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
-          if ((button.innerText || '').includes('Configurações do site')) {
+          if ((button.innerText || '').includes('Configurações avançadas') || (button.innerText || '').includes('Configurações do site')) {
             button.classList.add('gpen-config-collection');
           }
         });
