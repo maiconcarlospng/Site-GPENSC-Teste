@@ -11,6 +11,7 @@ on:
       - "R/**"
       - "data/**"
       - "img/**"
+      - "docs/**"
       - "admin/**"
       - "styles.css"
       - "custom.scss"
@@ -34,6 +35,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Distingue mudanças exclusivas do painel de alterações que exigem nova renderização Quarto/R.
+  detect_changes:
+    name: Identificar o tipo de alteração
+    runs-on: ubuntu-latest
+    outputs:
+      site_build: \${{ steps.filter.outputs.site_build }}
+    steps:
+      - name: Baixar o histórico para comparar arquivos
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Decidir se é necessário recompilar o site público
+        id: filter
+        shell: bash
+        run: |
+          if [[ "\${{ github.event_name }}" != "push" ]]; then
+            echo "site_build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed_files="$(git diff --name-only "\${{ github.event.before }}" "\${{ github.sha }}")"
+          if [[ -z "$changed_files" ]]; then
+            echo "site_build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          site_build=false
+          while IFS= read -r path; do
+            [[ -z "$path" ]] && continue
+            if [[ "$path" != admin/* ]]; then
+              site_build=true
+              break
+            fi
+          done <<< "$changed_files"
+
+          echo "site_build=$site_build" >> "$GITHUB_OUTPUT"
+          echo "Recompilar site público: $site_build"
+
   validate-panel:
     name: Validar painel e conteúdo
     runs-on: ubuntu-latest
@@ -57,13 +96,21 @@ jobs:
 
   build:
     name: Compilar site (Quarto + R)
-    needs: validate-panel
+    needs: [validate-panel, detect_changes]
+    if: needs.detect_changes.outputs.site_build == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Baixar o repositório e o histórico necessário
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Cache permanente do resultado público: mudanças apenas em admin/ podem reutilizá-lo.
+      - name: Preparar cache do site público renderizado
+        uses: actions/cache@v4
+        with:
+          path: _site
+          key: quarto-site-\${{ runner.os }}-\${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       # Reaproveita resultados congelados do Quarto quando a chave de cache é compatível.
       - name: Restaurar cache do Quarto
@@ -112,16 +159,62 @@ jobs:
             any::lubridate
 
       - name: Renderizar páginas e recursos para _site/
-        run: quarto render
+        run: |
+          # Evita páginas removidas sobreviverem por causa de um cache anterior.
+          rm -rf _site
+          quarto render
+          # O validador roda no CI, mas não precisa ser publicado como página pública.
+          rm -f _site/admin/validar-painel.py
 
       - name: Empacotar o site gerado para o GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
+  admin_fast_path:
+    name: Atualizar somente o painel (sem R/Quarto)
+    needs: [validate-panel, detect_changes]
+    if: needs.detect_changes.outputs.site_build == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+
+      - name: Restaurar a última versão compilada do site público
+        id: site-cache
+        uses: actions/cache@v4
+        with:
+          path: _site
+          key: quarto-site-\${{ runner.os }}-\${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+
+      - name: Conferir o cache antes de publicar
+        shell: bash
+        run: |
+          if [[ "\${{ steps.site-cache.outputs.cache-hit }}" != "true" ]]; then
+            echo "::error::Ainda não existe cache do site compilado. Execute uma publicação completa antes de atualizar somente o painel."
+            exit 1
+          fi
+          test -f _site/index.html || { echo "::error::O cache não contém index.html."; exit 1; }
+          test -f _site/admin/cms.html || { echo "::error::O cache não contém o editor Sveltia."; exit 1; }
+
+      - name: Substituir somente os arquivos do painel
+        shell: bash
+        run: |
+          rsync -a --delete admin/ _site/admin/
+          rm -f _site/admin/validar-painel.py
+          test -f _site/admin/cms.html
+          test -f _site/admin/painel.css
+          test -f _site/admin/config.yml
+
+      - name: Empacotar o site existente com o painel atualizado
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
   deploy:
     name: Publicar no GitHub Pages
-    needs: build
+    needs: [build, admin_fast_path]
+    if: always() && (needs.build.result == 'success' || needs.admin_fast_path.result == 'success')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
