@@ -1968,7 +1968,7 @@ button:focus-visible,
 /* ---------- RESPONSIVIDADE DA NAVBAR EM TELAS INTERMEDIÁRIAS ---------- */
 /* Colapsa o menu antes de ele começar a quebrar os rótulos em várias linhas.
    O breakpoint antecipado também atende notebooks com zoom do navegador. */
-@media (max-width: 1199.98px) {
+@media (max-width: 1450px) {
   .navbar.navbar-expand-lg .navbar-container {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -2114,6 +2114,46 @@ button:focus-visible,
 
   .hero-texto {
     align-items: center !important;
+  }
+}
+
+
+/* Refinamento para notebooks comuns (1366×768) e janelas com zoom do navegador.
+   O menu abre em painel vertical antes que os links fiquem comprimidos. */
+@media (min-width: 1200px) and (max-width: 1450px) {
+  .navbar {
+    padding: .65rem 1.1rem 1rem !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-container {
+    padding-left: .15rem;
+    padding-right: .15rem;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand-container {
+    margin-left: 0 !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand img {
+    max-height: 32px !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand,
+  .navbar.navbar-expand-lg .navbar-title {
+    font-size: 1.15rem !important;
+  }
+}
+
+@media (max-height: 800px) and (min-width: 901px) {
+  .hero {
+    padding-top: 2.6rem !important;
+    padding-bottom: 2.6rem !important;
+  }
+
+  .hero-logo {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
   }
 }
 
