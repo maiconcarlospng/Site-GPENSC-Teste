@@ -34,8 +34,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate-panel:
+    name: Validar painel e conteúdo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Instalar validador YAML
+        run: python -m pip install --disable-pip-version-check PyYAML
+      - name: Validar configuração, arquivos, YAML e CSS
+        run: python admin/validar-painel.py
+      - name: Validar sintaxe do widget de galeria
+        run: node --check admin/galeria-multipla.js
+
   build:
     name: Compilar site (Quarto + R)
+    needs: validate-panel
     runs-on: ubuntu-latest
     steps:
       - name: Baixar o repositório e o histórico necessário
