@@ -1,7 +1,4 @@
 itens:
-- nome: Programa de Pós-Graduação em Saúde e Nutrição (PPGSN)
-  descricao: Programa ao qual o grupo está vinculado
-  url: https://ppgsn.ufop.br
-- nome: '[EXEMPLO] Outro site útil'
-  descricao: '[Descrição curta – preencher]'
-  url: ''
+  - nome: Programa de Pós-Graduação em Saúde e Nutrição (PPGSN)
+    descricao: Programa ao qual o grupo está vinculado
+    url: https://posnutricao.ufop.br/
