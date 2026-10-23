@@ -587,6 +587,17 @@
         color: var(--gpen-editor-ink);
       }
 
+      /* Separa visualmente as configurações avançadas das áreas de uso diário. */
+      body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
+        margin-top: 20px !important;
+        padding-top: 14px !important;
+        border-top: 1px solid #d4dfd1 !important;
+        border-radius: 0 0 9px 9px !important;
+      }
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
+        border-top-color: #414650 !important;
+      }
+
       /* Biblioteca de conteúdos e navegação. */
       body.gpen-cms-active .primary-sidebar {
         box-sizing: border-box;
@@ -1358,10 +1369,20 @@
       // O widget personalizado já foi registrado no script anterior.
       document.title = "Painel Administrativo GPENSC";
 
+      // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
+      const markConfigCollection = () => {
+        document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
+          if ((button.innerText || '').includes('Configurações do site')) {
+            button.classList.add('gpen-config-collection');
+          }
+        });
+      };
+
       // O link para o site público fica disponível na área de edição, não na tela de login.
       const syncEntranceState = () => {
         const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
         document.body.classList.toggle("gpen-login-active", loginVisible);
+        markConfigCollection();
       };
       const entranceObserver = new MutationObserver(syncEntranceState);
       entranceObserver.observe(document.body, { childList: true, subtree: true });
