@@ -432,7 +432,8 @@ a.btn-warning:hover,
   flex: 0 0 calc(33.333% - 0.6rem);
   width: calc(33.333% - 0.6rem);
   min-width: 0;
-  height: clamp(230px, 28vw, 360px);
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center;
   border-radius: 8px;
@@ -2154,6 +2155,148 @@ button:focus-visible,
     width: 100px;
     height: 100px;
     max-width: 100px;
+  }
+}
+
+
+/* Refinamento de layout para notebooks 1366×768 e janelas com zoom. */
+@media (min-width: 992px) and (max-width: 1450px) {
+  .navbar.navbar-expand-lg {
+    padding: .55rem 1rem .75rem !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: .3rem .55rem;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand-container {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand-logo img {
+    max-height: 30px !important;
+    width: auto !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand .navbar-title {
+    font-size: 1.05rem !important;
+  }
+
+  .navbar.navbar-expand-lg #quarto-search {
+    flex: 0 0 auto;
+    margin-left: auto !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-toggler {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 42px;
+    min-height: 40px;
+    margin-left: .2rem;
+    border: 1px solid #cbd8c9 !important;
+    border-radius: 9px !important;
+    background: #fff !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-toggler-icon {
+    filter: brightness(.25);
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse:not(.show):not(.collapsing) {
+    display: none !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse.collapsing,
+  .navbar.navbar-expand-lg .navbar-collapse.show {
+    display: block !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse.show {
+    margin-top: .35rem;
+    padding: .35rem .4rem .6rem;
+    border-top: 1px solid #e2e9df;
+    background: #fff !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100%;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav .nav-item,
+  .navbar.navbar-expand-lg .navbar-nav .nav-link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav .nav-link {
+    min-height: 42px;
+    padding: .65rem .75rem !important;
+    font-size: .98rem !important;
+    line-height: 1.35 !important;
+    white-space: normal;
+  }
+
+  .hero {
+    gap: 1.25rem !important;
+    padding: 1.65rem 1.25rem !important;
+  }
+
+  .hero-logo {
+    width: 88px !important;
+    height: 88px !important;
+    max-width: 88px !important;
+  }
+
+  .hero-sigla {
+    font-size: clamp(2rem, 3vw, 2.65rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1rem, 1.5vw, 1.2rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  .galeria-faixa img {
+    flex-basis: calc(33.333% - .6rem);
+    width: calc(33.333% - .6rem);
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-height: 800px) and (min-width: 901px) {
+  .hero {
+    padding-top: 1.6rem !important;
+    padding-bottom: 1.6rem !important;
+  }
+
+  .hero-logo {
+    width: 88px !important;
+    height: 88px !important;
+    max-width: 88px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .galeria-faixa img {
+    flex-basis: 86%;
+    width: 86%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
