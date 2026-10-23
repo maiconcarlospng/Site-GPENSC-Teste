@@ -179,6 +179,7 @@ collections:
               summary: "{{fields.nome}}"
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Coordenação", "Docentes e pesquisadores", "Pós-graduandos", "Graduandos", "Colaboradores e egressos", "Outros integrantes"], required: false, hint: "Usada para agrupar os perfis na página pública." }
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
                 - { label: "Foto", name: "foto", widget: "image", required: false }
