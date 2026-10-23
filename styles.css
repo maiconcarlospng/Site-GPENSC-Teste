@@ -403,6 +403,13 @@ a.btn-warning:hover,
 }
 
 /* Faixa horizontal: a pessoa pode deslizar para ver todas as fotos. */
+/* O wrapper do Quarto em torno do chunk que gera hero + galeria cria a barra cinza.
+   Recorta apenas esse wrapper; a rolagem horizontal continua na .galeria-faixa. */
+.cell-output-display:has(> .galeria) {
+  overflow: clip !important;
+  max-width: 100%;
+}
+
 .galeria-faixa {
   display: flex;
   align-items: stretch;
@@ -410,9 +417,7 @@ a.btn-warning:hover,
   gap: 0.85rem;
   width: 100%;
   max-width: 100%;
-  /* O espaço inferior leva a barra nativa para fora da área visível do pai. */
-  padding: 0 1rem 18px;
-  margin-bottom: -18px;
+  padding: 0 1rem;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -1158,8 +1163,7 @@ main.content,
   /* Galeria de fotos no tablet e celular */
   .galeria-faixa {
     gap: 0.65rem;
-    padding: 0 0.75rem 18px;
-    margin-bottom: -18px;
+    padding: 0 0.75rem;
   }
 
   .galeria-faixa img {
