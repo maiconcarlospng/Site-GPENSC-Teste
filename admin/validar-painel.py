@@ -145,6 +145,62 @@ class InlineScriptParser(html.parser.HTMLParser):
             self.current = None
 
 
+
+def validate_data_against_fields(data, fields, context: str) -> None:
+    """Garante que o editor não deixe de oferecer campos já existentes nos YAML."""
+    if not isinstance(data, dict):
+        fail(f"O conteúdo de {context} deve ser um objeto YAML.")
+    schema = {field["name"]: field for field in fields or []}
+    unknown = sorted(set(data) - set(schema))
+    if unknown:
+        fail(
+            f"Há campos presentes em {context} que não estão configurados no painel: "
+            + ", ".join(unknown)
+            + ". Ajuste a configuração antes de editar esse arquivo."
+        )
+
+    for name, field in schema.items():
+        if name not in data:
+            continue
+        value = data[name]
+        widget = field.get("widget")
+        pattern = field.get("pattern")
+        if pattern and value not in ("", None):
+            value_text = value.isoformat() if hasattr(value, "isoformat") else str(value)
+            try:
+                matches = re.fullmatch(pattern[0], value_text) is not None
+            except TypeError as exc:
+                fail(f"Regex inválida no campo '{name}' ({context}): {exc}")
+            if not matches:
+                fail(
+                    f"Valor atual não corresponde ao formato do campo '{name}' em {context}: "
+                    f"{value_text!r}. Corrija o dado ou ajuste a regra de validação."
+                )
+
+        if widget == "list" and value is not None:
+            if not isinstance(value, list):
+                fail(f"O campo de lista '{name}' não contém uma lista em {context}.")
+            child_fields = field.get("fields")
+            if child_fields:
+                for index, item in enumerate(value, start=1):
+                    validate_data_against_fields(item, child_fields, f"{context}.{name}[{index}]")
+        elif widget == "object" and value is not None:
+            validate_data_against_fields(value, field.get("fields", []), f"{context}.{name}")
+        elif widget == "galeria-multipla-v2" and value is not None:
+            if not isinstance(value, list):
+                fail(f"A galeria em {context}.{name} não contém uma lista.")
+            allowed = {"arquivo", "legenda", "foco_x", "foco_y", "zoom"}
+            for index, photo in enumerate(value, start=1):
+                if not isinstance(photo, dict):
+                    fail(f"Foto {index} em {context}.{name} não é um objeto YAML.")
+                extra = sorted(set(photo) - allowed)
+                if extra:
+                    fail(
+                        f"Foto {index} em {context}.{name} contém propriedades não suportadas: "
+                        + ", ".join(extra)
+                    )
+
+
 def main() -> None:
     for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js"):
         if not file_path.is_file():
@@ -153,6 +209,20 @@ def main() -> None:
     config = load_yaml(CONFIG_PATH)
     if not isinstance(config, dict):
         fail("admin/config.yml precisa conter um objeto YAML.")
+    logo = config.get("logo", {}).get("src")
+    if logo:
+        logo_path = (ADMIN / logo).resolve()
+        ensure_inside_root(logo_path, "logo do painel")
+        if not logo_path.is_file():
+            fail(f"Logo do painel não encontrado: {logo}")
+    for folder_key in ("media_folder", "public_folder"):
+        folder_value = config.get(folder_key)
+        if folder_value:
+            folder_path = (ROOT / folder_value).resolve()
+            ensure_inside_root(folder_path, folder_key)
+            if not folder_path.is_dir():
+                fail(f"Pasta configurada em '{folder_key}' não encontrada: {folder_value}")
+
     backend = config.get("backend", {})
     if backend.get("name") != "github" or not backend.get("repo") or not backend.get("branch"):
         fail("Backend do painel incompleto: confira nome, repositório e branch.")
@@ -187,6 +257,9 @@ def main() -> None:
             if not isinstance(data, dict):
                 fail(f"O arquivo de conteúdo {relative} precisa ter um objeto YAML na raiz.")
             inspect_fields(entry.get("fields"), f"{collection_name}.{entry.get('name', relative)}")
+            validate_data_against_fields(
+                data, entry.get("fields", []), f"{relative}"
+            )
 
     # Detecta erros de sintaxe em todos os YAML de conteúdo consumidos pelo site.
     yaml_paths = {ROOT / "_variables.yml"}
