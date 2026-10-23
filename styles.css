@@ -1964,3 +1964,156 @@ button:focus-visible,
   }
 }
 
+
+/* ---------- RESPONSIVIDADE DA NAVBAR EM TELAS INTERMEDIÁRIAS ---------- */
+/* Colapsa o menu antes de ele começar a quebrar os rótulos em várias linhas.
+   O breakpoint antecipado também atende notebooks com zoom do navegador. */
+@media (max-width: 1199.98px) {
+  .navbar.navbar-expand-lg .navbar-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: .25rem .5rem;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand-container {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    min-width: 0;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand,
+  .navbar.navbar-expand-lg .navbar-brand span {
+    margin-right: 0 !important;
+  }
+
+  .navbar.navbar-expand-lg #quarto-search {
+    flex: 0 0 auto;
+    margin-left: auto !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-toggler {
+    display: block !important;
+    flex: 0 0 auto;
+    margin-left: .25rem;
+    border: 1px solid #cbd8c9 !important;
+    padding: .35rem .55rem !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-toggler-icon {
+    filter: brightness(.25);
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse:not(.show):not(.collapsing) {
+    display: none !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse.collapsing {
+    display: block !important;
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .navbar.navbar-expand-lg .navbar-collapse.show {
+    display: block !important;
+    flex-basis: 100%;
+    width: 100%;
+    margin-top: .5rem;
+    padding: .5rem .25rem .75rem;
+    background: #ffffff !important;
+    border-top: 1px solid #e3e9e0;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100%;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav .nav-item,
+  .navbar.navbar-expand-lg .navbar-nav .nav-link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav .nav-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: .7rem .75rem !important;
+    font-size: .98rem !important;
+    line-height: 1.35 !important;
+    white-space: normal;
+  }
+
+  .navbar.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: static !important;
+    float: none !important;
+    width: auto;
+    margin: 0 .5rem .5rem !important;
+    border-left: 3px solid var(--gp-laranja) !important;
+    border-top: 0 !important;
+    box-shadow: none;
+  }
+}
+
+/* Em tablets e janelas estreitas, alinhar o cabeçalho da página sem comprimir o texto. */
+@media (max-width: 900px) {
+  .hero {
+    gap: 1.25rem !important;
+    padding: 2.75rem 1.25rem !important;
+  }
+
+  .hero-logo {
+    width: 96px;
+    height: 96px;
+    max-width: 96px;
+  }
+
+  .hero-texto {
+    min-width: 0;
+  }
+
+  .hero-sigla {
+    font-size: clamp(2rem, 5vw, 2.6rem) !important;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1rem, 2.4vw, 1.25rem) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .navbar {
+    padding: .55rem .75rem !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand img {
+    max-height: 30px !important;
+  }
+
+  .navbar.navbar-expand-lg .navbar-brand,
+  .navbar.navbar-expand-lg .navbar-brand span {
+    font-size: 1.05rem !important;
+  }
+
+  .hero {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 1.8rem 1rem !important;
+  }
+
+  .hero-logo {
+    width: 78px !important;
+    height: 78px !important;
+    max-width: 78px !important;
+  }
+
+  .hero-texto {
+    align-items: center !important;
+  }
+}
+
