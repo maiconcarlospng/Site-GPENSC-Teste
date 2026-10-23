@@ -228,7 +228,7 @@ collections:
             - label: "Fotos (seleção múltipla)"
               name: "itens"
               widget: "galeria-multipla-v2"
-              hint: "Selecione várias fotos de uma vez. Edite as legendas e ajuste a ordem antes de salvar."
+              hint: "Selecione várias fotos, abra Ajustar recorte em cada foto para mudar o foco/zoom e confira a prévia antes de salvar."
         - label: "Apoio e parceiros"
           name: "apoio"
           file: "data/apoio.yml"
