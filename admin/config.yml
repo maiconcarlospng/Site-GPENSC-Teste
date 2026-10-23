@@ -256,7 +256,7 @@ collections:
                 - { label: "Logo", name: "logo", widget: "image" }
                 - { label: "Link", name: "url", widget: "string", required: false }
   - name: "configuracoes"
-    label: "05 · Configurações do site"
+    label: "⚙️ Configurações do site · Avançado"
     files:
         - label: "Textos, links e controles do site"
           name: "configuracoes_site"
