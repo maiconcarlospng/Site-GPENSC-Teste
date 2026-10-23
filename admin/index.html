@@ -1,1394 +1,169 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel de Administração - GPENSC</title>
-    <link rel="icon" href="../img/favicon.png" />
-    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-organizacao-20261023-2" />
-
-    <style>
-      body {
-        background-color: #f8f9fa !important;
-      }
-
-      [hidden] { display: none !important; }
-
-      button {
-        border-radius: 8px !important;
-      }
-
-      .gpen-sc-galeria {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        width: 100%;
-      }
-
-      .gpen-sc-galeria__toolbar {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .gpen-sc-galeria__count {
-        color: #5b6470;
-        font-size: 0.9rem;
-      }
-
-      .gpen-sc-galeria__grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 14px;
-      }
-
-      .gpen-sc-galeria__item {
-        min-width: 0;
-        overflow: hidden;
-        border: 1px solid #d9dee5;
-        border-radius: 10px;
-        background: #fff;
-      }
-
-      .gpen-sc-galeria__imagem {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        overflow: hidden;
-        background: #e9eee9;
-      }
-
-      .gpen-sc-galeria__preview-label {
-        display: block;
-        padding: 8px 12px 0;
-        color: #526457;
-        font-size: .76rem;
-        font-weight: 700;
-        letter-spacing: .02em;
-        text-transform: uppercase;
-      }
-
-      .gpen-sc-galeria__imagem img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .gpen-sc-galeria__sem-imagem {
-        padding: 12px;
-        color: #5b6470;
-        font-size: 0.85rem;
-        overflow-wrap: anywhere;
-      }
-
-      .gpen-sc-galeria__corpo {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px;
-      }
-
-      .gpen-sc-galeria__corpo label {
-        font-size: 0.85rem;
-        font-weight: 600;
-      }
-
-      .gpen-sc-galeria__legenda {
-        box-sizing: border-box;
-        width: 100%;
-        min-height: 38px;
-        padding: 8px 10px;
-        border: 1px solid #cbd2da;
-        border-radius: 6px;
-        font: inherit;
-      }
-
-      .gpen-sc-galeria__acoes {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
-
-      .gpen-sc-galeria__acoes button {
-        padding: 6px 10px;
-        border: 1px solid #cbd2da;
-        background: #fff;
-        cursor: pointer;
-      }
-
-      .gpen-sc-galeria__acoes button:disabled {
-        cursor: not-allowed;
-        opacity: 0.4;
-      }
-
-      .gpen-sc-galeria__erro {
-        color: #b42318;
-        margin: 0;
-      }
-
-      .gpen-sc-galeria__vazia {
-        padding: 18px;
-        border: 1px dashed #bdc5cf;
-        border-radius: 8px;
-        color: #5b6470 !important;
-      }
-
-      /* O CMS tem tema escuro; os cartões da galeria usam controles claros próprios. */
-      .gpen-sc-galeria__corpo label {
-        color: #4b5563 !important;
-      }
-
-      .gpen-sc-galeria__legenda {
-        background-color: #ffffff !important;
-        color: #1f2937 !important;
-      }
-
-      .gpen-sc-galeria__legenda::placeholder {
-        color: #6b7280 !important;
-        opacity: 1;
-      }
-
-      .gpen-sc-galeria__acoes button {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: 34px;
-        padding: 7px 10px !important;
-        color: #263238 !important;
-        background-color: #f7f8fa !important;
-        border: 1px solid #cbd2da !important;
-        font-size: 0.82rem !important;
-        font-weight: 600 !important;
-        line-height: 1.3 !important;
-        white-space: nowrap;
-      }
-
-      .gpen-sc-galeria__acoes button:hover:not(:disabled) {
-        background-color: #e9edf2 !important;
-        border-color: #9ca3af !important;
-      }
-
-      .gpen-sc-galeria__acoes button:disabled {
-        color: #9ca3af !important;
-        background-color: #f3f4f6 !important;
-      }
-
-      .gpen-sc-galeria__arquivo {
-        overflow-wrap: anywhere;
-        color: #6b7280 !important;
-        font-size: 0.76rem !important;
-      }
-
-      .gpen-sc-galeria__preview {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-        gap: 12px;
-        padding: 12px 0;
-      }
-
-      .gpen-sc-galeria__preview figure {
-        min-width: 0;
-        margin: 0;
-        overflow: hidden;
-        border: 1px solid #d9dee5;
-        border-radius: 8px;
-        background: #ffffff;
-      }
-
-      .gpen-sc-galeria__preview img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-        object-position: center;
-      }
-
-      .gpen-sc-galeria__preview figcaption {
-        padding: 8px;
-        color: #374151 !important;
-        font-size: 0.82rem !important;
-        overflow-wrap: anywhere;
-      }
-
-      .gpen-sc-galeria__preview-vazia {
-        padding: 12px;
-        color: #aeb7c2 !important;
-      }
-      .gpen-sc-galeria__recorte {
-        margin-top: 2px;
-        padding: 10px 12px;
-        border: 1px solid #d8e2d5;
-        border-radius: 9px;
-        background: #f7faf5;
-      }
-
-      .gpen-sc-galeria__recorte > summary {
-        color: #2f5038;
-        font-size: .86rem;
-        font-weight: 700;
-        cursor: pointer;
-      }
-
-      .gpen-sc-galeria__recorte-ajuda {
-        margin: 8px 0 12px;
-        color: #5f6e62;
-        font-size: .78rem;
-        line-height: 1.5;
-      }
-
-      .gpen-sc-galeria__controle-recorte {
-        margin: 10px 0;
-      }
-
-      .gpen-sc-galeria__controle-recorte-cabecalho {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 4px;
-      }
-
-      .gpen-sc-galeria__controle-recorte-cabecalho label {
-        color: #344b39 !important;
-        font-size: .78rem;
-        font-weight: 650;
-      }
-
-      .gpen-sc-galeria__controle-recorte-cabecalho output {
-        color: #526457;
-        font-size: .78rem;
-        font-variant-numeric: tabular-nums;
-        font-weight: 700;
-      }
-
-      .gpen-sc-galeria__slider {
-        display: block;
-        width: 100%;
-        margin: 0;
-        accent-color: #286442;
-        cursor: pointer;
-      }
-
-      .gpen-sc-galeria__resetar-recorte {
-        margin-top: 7px;
-        padding: 7px 10px !important;
-        border: 1px solid #cbd9c7 !important;
-        background: #ffffff !important;
-        color: #315640 !important;
-        font-size: .78rem !important;
-        font-weight: 650 !important;
-      }
-
-      .gpen-sc-galeria__resetar-recorte:hover {
-        background: #edf4e9 !important;
-      }
-    
-      /* Ajustes de layout da área interna do Sveltia. Mantém o CMS como motor de edição. */
-      body.gpen-cms-active {
-        background: #f4f7f2 !important;
-        color: #263e2e !important;
-        --sui-primary-background-color: #ffffff;
-        --sui-secondary-background-color: #f7faf5;
-        --sui-tertiary-background-color: #edf4e9;
-        --sui-primary-foreground-color: #203b2b;
-        --sui-secondary-foreground-color: #385443;
-        --sui-tertiary-foreground-color: #53685a;
-        --sui-primary-border-color: #dce7d9;
-        --sui-secondary-border-color: #e3ebe0;
-        --sui-hover-background-color: #edf4e9;
-        --sui-primary-accent-color: #286442;
-        --sui-primary-accent-color-inverted: #ffffff;
-        --field-editor-padding: 20px;
-      }
-      /* O tema visual é controlado pelo próprio Sveltia via html[data-theme]. */
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
-        background: #ffffff !important;
-        color: #263e2e !important;
-      }
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select {
-        background: #ffffff !important;
-        color: #203b2b !important;
-        caret-color: #203b2b !important;
-      }
-      body.gpen-cms-active .sui.toolbar {
-        background: #ffffff !important;
-        border-bottom: 1px solid #dfe8dc !important;
-        box-shadow: 0 3px 14px rgba(31, 72, 48, .06) !important;
-      }
-      body.gpen-cms-active .primary-sidebar {
-        background: #f8fbf6 !important;
-        border-right: 1px solid #e0e8dd !important;
-      }
-      body.gpen-cms-active #page-container {
-        background: #f4f7f2 !important;
-      }
-      body.gpen-cms-active #page-container .content {
-        padding: 20px clamp(14px, 3vw, 38px) !important;
-        background: #f4f7f2 !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] {
-        box-sizing: border-box;
-        margin: 0 0 14px !important;
-        padding: 20px !important;
-        border: 1px solid #e0e8dd !important;
-        border-radius: 14px !important;
-        background: #ffffff !important;
-        box-shadow: 0 3px 12px rgba(32, 68, 43, .035) !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path]:not(:last-child)::after {
-        display: none !important;
-        content: none !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] > header {
-        min-height: 28px;
-        margin: 0 0 12px !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] > header h4 {
-        color: #28583b !important;
-        font-size: .94rem !important;
-        font-weight: 750 !important;
-        letter-spacing: -.01em;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] .hint {
-        margin: 9px 0 0 !important;
-        color: #68776a !important;
-        font-size: .84rem !important;
-        line-height: 1.55 !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] textarea,
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] select {
-        border-color: #ccd9ca !important;
-        border-radius: 9px !important;
-        background-color: #ffffff !important;
-        box-shadow: none !important;
-      }
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] input:focus,
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] textarea:focus,
-      body.gpen-cms-active #page-container section.field[role="group"][data-key-path] select:focus {
-        border-color: #4b865d !important;
-        box-shadow: 0 0 0 3px rgba(75, 134, 93, .15) !important;
-        outline: none !important;
-      }
-      body.gpen-cms-active .sui.search-bar {
-        --sui-textbox-background-color: #f0f5ee;
-        border-radius: 10px !important;
-      }
-      body.gpen-cms-active #gpen-admin-site-link {
-        position: fixed;
-        z-index: 2147483000;
-        right: 20px;
-        bottom: 20px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        min-height: 44px;
-        padding: 0 16px;
-        border: 1px solid #d9e6d6;
-        border-radius: 999px;
-        background: #214e35;
-        color: #ffffff !important;
-        box-shadow: 0 8px 24px rgba(24, 65, 42, .22);
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-        font-size: .84rem;
-        font-weight: 750;
-        text-decoration: none !important;
-        transition: transform .16s ease, background-color .16s ease;
-      }
-      body.gpen-cms-active #gpen-admin-site-link:hover {
-        background: #173d29;
-        transform: translateY(-2px);
-      }
-      body.gpen-cms-active #gpen-admin-site-link:focus-visible {
-        outline: 3px solid #9acb96;
-        outline-offset: 3px;
-      }
-      body.gpen-cms-active #gpen-admin-site-link svg {
-        display: block;
-        width: 17px;
-        height: 17px;
-        flex: none;
-      }
-      @media (max-width: 640px) {
-        body.gpen-cms-active #page-container .content {
-          padding: 12px !important;
-        }
-        body.gpen-cms-active #page-container section.field[role="group"][data-key-path] {
-          padding: 15px !important;
-          margin-bottom: 10px !important;
-          border-radius: 12px !important;
-        }
-        body.gpen-cms-active #gpen-admin-site-link {
-          right: 12px;
-          bottom: 74px;
-          min-height: 42px;
-          padding: 0 13px;
-        }
-      }
-
-    
-      /* Tela de autenticação do Sveltia: cartão institucional sóbrio e responsivo. */
-      body.gpen-cms-active .container {
-        box-sizing: border-box;
-        padding: 24px !important;
-        background:
-          radial-gradient(ellipse at 10% 0%, rgba(213, 232, 207, .68), transparent 38%),
-          linear-gradient(145deg, #f7faf5 0%, #edf3eb 100%) !important;
-      }
-      body.gpen-cms-active .container > .inner {
-        position: relative;
-        box-sizing: border-box;
-        width: min(100%, 450px) !important;
-        min-width: 0 !important;
-        max-width: 450px !important;
-        min-height: 0 !important;
-        gap: 19px !important;
-        padding: 42px clamp(24px, 5vw, 44px) 36px !important;
-        overflow: hidden;
-        border: 1px solid #dfe8dc;
-        border-radius: 20px;
-        background: #ffffff;
-        box-shadow: 0 18px 48px rgba(30, 73, 51, .11), 0 2px 8px rgba(30, 73, 51, .035);
-      }
-      body.gpen-cms-active .container > .inner::before {
-        position: absolute;
-        inset: 0 0 auto;
-        height: 5px;
-        background: #286442;
-        content: "";
-      }
-      body.gpen-cms-active .container > .inner > .logo {
-        width: auto !important;
-        height: 72px !important;
-        max-width: min(100%, 220px);
-        object-fit: contain;
-        margin: 0 0 2px !important;
-      }
-      body.gpen-cms-active .container > .inner > h1 {
-        margin: 0 !important;
-        color: #214a33 !important;
-        font-size: clamp(1.55rem, 4vw, 1.9rem) !important;
-        font-weight: 780 !important;
-        letter-spacing: -.04em;
-        line-height: 1.2;
-        text-align: center;
-      }
-      body.gpen-cms-active .container > .inner .buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        gap: 11px;
-        margin-top: 4px;
-      }
-      body.gpen-cms-active .container > .inner .buttons button {
-        box-sizing: border-box;
-        width: 100% !important;
-        min-height: 47px;
-        padding: 11px 16px !important;
-        border-radius: 10px !important;
-        font-size: .92rem !important;
-        font-weight: 700 !important;
-        transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
-      }
-      body.gpen-cms-active .container > .inner .buttons button:first-child {
-        border-color: #286442 !important;
-        background: #286442 !important;
-        color: #ffffff !important;
-        box-shadow: 0 4px 10px rgba(40, 100, 66, .12);
-      }
-      body.gpen-cms-active .container > .inner .buttons button:first-child:hover:not(:disabled) {
-        background: #1e5033 !important;
-        border-color: #1e5033 !important;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 15px rgba(40, 100, 66, .2);
-      }
-      body.gpen-cms-active .container > .inner .buttons button:not(:first-child) {
-        border: 1px solid #d4e1d1 !important;
-        background: #f7faf5 !important;
-        color: #315641 !important;
-      }
-      body.gpen-cms-active .container > .inner .buttons button:not(:first-child):hover:not(:disabled) {
-        background: #edf4ea !important;
-        border-color: #b9d0b4 !important;
-      }
-      body.gpen-cms-active .container > .inner .buttons button:focus-visible {
-        outline: 3px solid #a7d5a0 !important;
-        outline-offset: 3px;
-      }
-      body.gpen-cms-active .container > .inner .message,
-      body.gpen-cms-active .container > .inner [role="alert"] {
-        max-width: 100%;
-        color: #5e6d61;
-        font-size: .88rem !important;
-        line-height: 1.55;
-      }
-      body.gpen-cms-active .container > .inner .error {
-        overflow-wrap: anywhere;
-        border-radius: 9px;
-      }
-      body.gpen-cms-active .powered-by {
-        color: #768679 !important;
-        font-size: .76rem !important;
-      }
-      body.gpen-cms-active .powered-by a {
-        color: #456c50 !important;
-      }
-      @media (max-width: 520px) {
-        body.gpen-cms-active .container {
-          align-items: center;
-          padding: 16px !important;
-        }
-        body.gpen-cms-active .container > .inner {
-          width: 100% !important;
-          padding: 34px 22px 28px !important;
-          gap: 17px !important;
-          border-radius: 16px;
-        }
-        body.gpen-cms-active .container > .inner > .logo {
-          height: 62px !important;
-        }
-        body.gpen-cms-active .powered-by {
-          inset: auto 12px 10px !important;
-        }
-      }
-
-
-      body.gpen-cms-active .container > .inner > h1::after {
-        display: block;
-        max-width: 310px;
-        margin: 11px auto 0;
-        color: #78877a;
-        content: "Acesso à área de gestão do site do GPENSC";
-        font-size: .88rem;
-        font-weight: 450;
-        letter-spacing: 0;
-        line-height: 1.55;
-      }
-      body.gpen-login-active #gpen-admin-site-link {
-        display: none !important;
-      }
-
-
-      /* Redesign da área real de edição: biblioteca, formulário do conteúdo e painéis laterais. */
-      body.gpen-cms-active {
-        --gpen-editor-ink: #203b2b;
-        --gpen-editor-muted: #53685a;
-        --gpen-editor-border: #dce7d9;
-        --gpen-editor-canvas: #f2f6f0;
-        --gpen-editor-accent: #286442;
-        color: var(--gpen-editor-ink);
-      }
-
-      /* Separa visualmente as configurações avançadas das áreas de uso diário. */
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
-        margin-top: 20px !important;
-        padding-top: 14px !important;
-        border-top: 1px solid #d4dfd1 !important;
-        border-radius: 0 0 9px 9px !important;
-      }
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
-        border-top-color: #414650 !important;
-      }
-
-      /* Biblioteca de conteúdos e navegação. */
-      body.gpen-cms-active .primary-sidebar {
-        box-sizing: border-box;
-        padding: 12px 8px;
-        background: #f8faf6 !important;
-        border-right: 1px solid var(--gpen-editor-border) !important;
-        color: #294734 !important;
-      }
-
-      body.gpen-cms-active .primary-sidebar [role="listbox"] {
-        margin: 10px 4px !important;
-        padding: 5px !important;
-        border: 0 !important;
-        border-radius: 14px;
-        background: transparent !important;
-      }
-
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button {
-        min-height: 42px;
-        margin-block: 3px !important;
-        padding-inline: 11px !important;
-        border: 1px solid transparent !important;
-        border-radius: 9px !important;
-        background: transparent !important;
-        color: #405947 !important;
-        transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-      }
-
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover {
-        background: #edf4e9 !important;
-        color: #214a33 !important;
-      }
-
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"] {
-        border-color: #d8e7d4 !important;
-        background: #e8f2e4 !important;
-        color: #214f34 !important;
-        font-weight: 750 !important;
-      }
-
-      body.gpen-cms-active .primary-sidebar [role="listbox"] button .count {
-        color: #49684f !important;
-        font-weight: 700;
-      }
-
-      body.gpen-cms-active #collection-container {
-        background: var(--gpen-editor-canvas) !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active #collection-container > .sui.toolbar.primary {
-        box-sizing: border-box;
-        min-height: 70px;
-        padding: 12px 22px !important;
-        border: 0 !important;
-        border-bottom: 1px solid var(--gpen-editor-border) !important;
-        background: #ffffff !important;
-        color: #243f2e !important;
-      }
-
-      body.gpen-cms-active #collection-container > .sui.toolbar.primary h2 {
-        color: #214a33 !important;
-        font-size: 1.12rem !important;
-        font-weight: 800 !important;
-        letter-spacing: -.025em;
-      }
-
-      body.gpen-cms-active #collection-container > .sui.toolbar.secondary {
-        min-height: 54px;
-        padding-inline: 22px !important;
-        border-bottom: 1px solid #e4ece1 !important;
-        background: #f9fbf8 !important;
-        color: #304c38 !important;
-      }
-
-      body.gpen-cms-active #collection-container .list-container {
-        background: var(--gpen-editor-canvas) !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active #collection-container .grid-view {
-        padding: 20px 22px 28px !important;
-      }
-
-      body.gpen-cms-active #collection-container .grid-view .grid-body {
-        gap: 16px !important;
-      }
-
-      body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex] {
-        overflow: hidden;
-        border: 1px solid #dfe8dc !important;
-        border-radius: 14px !important;
-        background: #ffffff !important;
-        color: #263e2e !important;
-        box-shadow: 0 3px 12px rgba(32, 68, 43, .035);
-        transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-      }
-
-      body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:hover,
-      body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:focus-visible {
-        border-color: #b9d2b5 !important;
-        background: #ffffff !important;
-        box-shadow: 0 9px 22px rgba(32, 68, 43, .09);
-        transform: translateY(-2px);
-      }
-
-      body.gpen-cms-active #collection-container .grid-view .grid-row .title .label {
-        margin: 13px 14px !important;
-        color: #294b35 !important;
-        font-size: .91rem;
-        font-weight: 700;
-        line-height: 1.45 !important;
-      }
-
-      body.gpen-cms-active #collection-container .list-view,
-      body.gpen-cms-active #collection-container .table-view {
-        background: #ffffff !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active #collection-container .list-view .grid-row:hover,
-      body.gpen-cms-active #collection-container .table-view .grid-row:hover {
-        background: #f5f9f3 !important;
-      }
-
-      /* Editor aberto: barra de ações, panes e campos. */
-      body.gpen-cms-active .content-editor {
-        background: var(--gpen-editor-canvas) !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active .content-editor > .sui.toolbar {
-        z-index: 3;
-        box-sizing: border-box;
-        min-height: 62px;
-        padding: 9px 18px !important;
-        border-bottom: 1px solid var(--gpen-editor-border) !important;
-        background: #ffffff !important;
-        color: #263e2e !important;
-        box-shadow: 0 3px 12px rgba(32, 68, 43, .055) !important;
-      }
-
-      body.gpen-cms-active .content-editor > .sui.toolbar button {
-        border-radius: 9px !important;
-      }
-
-      body.gpen-cms-active .content-editor .body {
-        gap: 0;
-        padding: 12px;
-        background: var(--gpen-editor-canvas) !important;
-      }
-
-      body.gpen-cms-active .content-editor .content-area {
-        overflow: hidden;
-        border: 1px solid var(--gpen-editor-border) !important;
-        border-radius: 15px !important;
-        background: #ffffff !important;
-        color: #263e2e !important;
-        box-shadow: 0 4px 16px rgba(32, 68, 43, .045);
-      }
-
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane {
-        background: #ffffff !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar,
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
-        background: #fbfdf9 !important;
-        border-bottom: 1px solid #e5ede2 !important;
-        color: #294734 !important;
-      }
-
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane .content {
-        box-sizing: border-box;
-        padding: 20px clamp(14px, 2.5vw, 30px) 34px !important;
-        background: #f7faf5 !important;
-        color: #263e2e !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
-        box-sizing: border-box;
-        margin: 0 0 15px !important;
-        padding: 21px 22px !important;
-        border: 1px solid #dfe8dc !important;
-        border-radius: 13px !important;
-        background: #ffffff !important;
-        color: #263e2e !important;
-        box-shadow: 0 3px 12px rgba(32, 68, 43, .035) !important;
-        transition: border-color .15s ease, box-shadow .15s ease;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path]:focus-within {
-        border-color: #b7d1b2 !important;
-        box-shadow: 0 0 0 3px rgba(75, 134, 93, .075) !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header {
-        min-height: 26px;
-        margin: 0 0 14px !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4 {
-        margin: 0;
-        color: #28583b !important;
-        font-size: .94rem !important;
-        font-weight: 780 !important;
-        letter-spacing: -.012em;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label {
-        color: #334f3d !important;
-        font-weight: 650;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] .hint {
-        margin-top: 8px !important;
-        color: #53685a !important;
-        font-size: .83rem !important;
-        line-height: 1.6 !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select {
-        box-sizing: border-box;
-        min-height: 40px;
-        border: 1px solid #bdcfbd !important;
-        border-radius: 8px !important;
-        background: #ffffff !important;
-        color: #203b2b !important;
-        box-shadow: none !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea {
-        min-height: 112px;
-        line-height: 1.65;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input::placeholder,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea::placeholder {
-        color: #66796b !important;
-        opacity: 1 !important;
-      }
-
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:focus,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea:focus,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select:focus {
-        border-color: #4b865d !important;
-        box-shadow: 0 0 0 3px rgba(75, 134, 93, .14) !important;
-        outline: none !important;
-      }
-
-      body.gpen-cms-active .content-editor .sidebar {
-        gap: 8px;
-        padding: 8px;
-        background: #f5f8f3 !important;
-        color: #294734 !important;
-      }
-
-      body.gpen-cms-active .content-editor .sidebar .tabs {
-        padding: 8px 4px !important;
-        border: 1px solid #e0e8dd;
-        border-radius: 12px;
-        background: #ffffff !important;
-      }
-
-      body.gpen-cms-active .content-editor .sidebar .tabs button {
-        border-radius: 8px !important;
-        color: #385443 !important;
-      }
-
-      body.gpen-cms-active .content-editor .sidebar .tabs button[aria-pressed="true"],
-      body.gpen-cms-active .content-editor .sidebar .tabs button[aria-selected="true"] {
-        background: #e8f2e4 !important;
-        color: #255639 !important;
-      }
-
-      body.gpen-cms-active .content-editor .sidebar .content {
-        box-sizing: border-box;
-        border: 1px solid #dfe8dc !important;
-        border-radius: 13px 13px 0 0 !important;
-        background: #ffffff !important;
-        color: #263e2e !important;
-      }
-
-      /* Correção específica para telas pequenas: não herdar texto branco do tema do CMS. */
-      @media (max-width: 767px) {
-        body.gpen-cms-active {
-          background: #f3f7f1 !important;
-          color: #203b2b !important;
-          --sui-primary-background-color: #ffffff;
-          --sui-secondary-background-color: #f7faf5;
-          --sui-tertiary-background-color: #edf4e9;
-          --sui-primary-foreground-color: #203b2b;
-          --sui-secondary-foreground-color: #385443;
-          --sui-tertiary-foreground-color: #53685a;
-          --sui-primary-border-color: #dce7d9;
-          --sui-secondary-border-color: #e3ebe0;
-          --sui-hover-background-color: #edf4e9;
-        }
-
-        /* Não forçar cor em todos os descendentes: os botões preservam o contraste
-           próprio de cada variante (por exemplo, Salvar com fundo verde). */
-        body.gpen-cms-active .sui.toolbar {
-          color: #203b2b;
-        }
-        body.gpen-cms-active .primary-sidebar {
-          color: #294734;
-        }
-        body.gpen-cms-active #collection-container,
-        body.gpen-cms-active .content-editor {
-          color: #263e2e;
-        }
-
-        body.gpen-cms-active .sui.toolbar,
-        body.gpen-cms-active #collection-container > .sui.toolbar.primary,
-        body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
-        body.gpen-cms-active .content-editor > .sui.toolbar,
-        body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar {
-          background-color: #ffffff !important;
-          color: #203b2b !important;
-        }
-
-        body.gpen-cms-active .primary-sidebar [role="listbox"] button {
-          color: #405947 !important;
-        }
-
-        body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
-        body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"] {
-          color: #214f34 !important;
-        }
-
-        body.gpen-cms-active #collection-container .grid-row,
-        body.gpen-cms-active #collection-container .grid-cell,
-        body.gpen-cms-active #collection-container .grid-row .label,
-        body.gpen-cms-active #collection-container .description,
-        body.gpen-cms-active #collection-container h2 {
-          color: #263e2e !important;
-        }
-
-        body.gpen-cms-active .content-editor .body {
-          padding: 8px !important;
-          background: #f2f6f0 !important;
-        }
-
-        body.gpen-cms-active .content-editor .content-area {
-          border-radius: 12px !important;
-          background: #ffffff !important;
-        }
-
-        body.gpen-cms-active .content-editor .pane-wrapper > .pane .content {
-          padding: 12px 10px 28px !important;
-          background: #f7faf5 !important;
-          color: #263e2e !important;
-        }
-
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
-          margin-bottom: 11px !important;
-          padding: 15px 13px !important;
-          border-color: #d5e2d1 !important;
-          border-radius: 11px !important;
-          background: #ffffff !important;
-          color: #263e2e !important;
-        }
-
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4,
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label {
-          color: #294b35 !important;
-        }
-
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] .hint {
-          color: #53685a !important;
-        }
-
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select {
-          background: #ffffff !important;
-          color: #203b2b !important;
-          border-color: #bdcfbd !important;
-        }
-
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input::placeholder,
-        body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea::placeholder {
-          color: #66796b !important;
-          opacity: 1 !important;
-        }
-
-        body.gpen-cms-active .content-editor .sidebar {
-          background: #f5f8f3 !important;
-          color: #294734 !important;
-        }
-
-        body.gpen-cms-active .content-editor .sidebar .content,
-        body.gpen-cms-active .content-editor .sidebar .tabs {
-          background: #ffffff !important;
-          color: #294734 !important;
-        }
-
-        body.gpen-cms-active #gpen-admin-site-link {
-          right: 12px;
-          bottom: 74px;
-          min-height: 42px;
-          padding: 0 13px;
-        }
-      }
-
-    
-      /* Tema escuro neutro e legível.
-         O Sveltia controla html[data-theme]; estas regras só atuam quando dark está ativo. */
-      html[data-theme="dark"] body.gpen-cms-active,
-      body.gpen-cms-active[data-theme="dark"] {
-        color-scheme: dark !important;
-        background: #111318 !important;
-        color: #e5e7eb !important;
-        --sui-primary-background-color: #191b21 !important;
-        --sui-secondary-background-color: #20232a !important;
-        --sui-tertiary-background-color: #292d35 !important;
-        --sui-primary-foreground-color: #f3f4f6 !important;
-        --sui-secondary-foreground-color: #d1d5db !important;
-        --sui-tertiary-foreground-color: #aeb4bf !important;
-        --sui-primary-border-color: #3b404a !important;
-        --sui-secondary-border-color: #30353e !important;
-        --sui-hover-background-color: #2b3039 !important;
-        --sui-primary-accent-color: #86c99a !important;
-        --sui-primary-accent-color-inverted: #15221a !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active #page-container,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-container,
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .body,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
-      body.gpen-cms-active[data-theme="dark"] #page-container,
-      body.gpen-cms-active[data-theme="dark"] #collection-container,
-      body.gpen-cms-active[data-theme="dark"] .primary-sidebar,
-      body.gpen-cms-active[data-theme="dark"] .content-editor {
-        background: #181a20 !important;
-        color: #e5e7eb !important;
-        border-color: #373c46 !important;
-      }
-
-      /* Barra superior e cabeçalho da coleção — especificidade acima dos estilos claros antigos. */
-      html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
-        background: #20232a !important;
-        color: #e5e7eb !important;
-        border-color: #393e48 !important;
-        box-shadow: none !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary h2,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary h2,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor h1,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor h2,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor h3,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor h4,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor h5,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h1,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h3,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h4,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h5 {
-        color: #f3f4f6 !important;
-      }
-
-      /* Cards, listas e campos repetidos (ex.: cada linha de pesquisa). */
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
-        background: #252830 !important;
-        color: #e5e7eb !important;
-        border-color: #3b404a !important;
-        box-shadow: none !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row .title .label,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .description,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint,
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar {
-        color: #d1d5db !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field button {
-        color: #d1d5db !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button:hover,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:hover {
-        background: #303540 !important;
-        color: #ffffff !important;
-        border-color: #5a626f !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-pressed="true"],
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-selected="true"] {
-        background: #2e4a38 !important;
-        color: #f0fff4 !important;
-        border-color: #4f7a5a !important;
-      }
-
-      /* Campos de edição, pesquisa e seletores com contraste claro no fundo escuro. */
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
-      html[data-theme="dark"] body.gpen-cms-active .sui.search-bar,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__legenda {
-        background: #15171c !important;
-        color: #f3f4f6 !important;
-        border-color: #555c68 !important;
-        caret-color: #f3f4f6 !important;
-        color-scheme: dark;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active input::placeholder,
-      html[data-theme="dark"] body.gpen-cms-active textarea::placeholder {
-        color: #aeb4bf !important;
-        opacity: 1 !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figure {
-        background: #20232a !important;
-        color: #e5e7eb !important;
-        border-color: #3b404a !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__imagem,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview {
-        background: #15171c !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__corpo label,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__arquivo,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figcaption {
-        color: #cbd5e1 !important;
-      }
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte {
-        border-color: #414650 !important;
-        background: #20232a !important;
-        color: #e5e7eb !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte > summary,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__controle-recorte-cabecalho label {
-        color: #e5e7eb !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte-ajuda,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__controle-recorte-cabecalho output {
-        color: #b8c0cc !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__slider {
-        accent-color: #86c99a;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte {
-        border-color: #4b515d !important;
-        background: #30343d !important;
-        color: #f3f4f6 !important;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte:hover {
-        background: #3b414c !important;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        html[data-auto-theming="true"][data-theme="dark"] body.gpen-cms-active {
-          color-scheme: dark;
-        }
-      }
-
-      /* O tema geral do editor estiliza inputs de todos os tipos; preserve o visual do slider de recorte. */
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input.gpen-sc-galeria__slider {
-        box-sizing: border-box !important;
-        display: block !important;
-        width: 100% !important;
-        height: 20px !important;
-        min-height: 20px !important;
-        padding: 0 !important;
-        border: 0 !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        color-scheme: light;
-      }
-
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input.gpen-sc-galeria__slider {
-        background: transparent !important;
-        border: 0 !important;
-        color-scheme: dark;
-        accent-color: #86c99a !important;
-      }
-
-
-      /* Modo escuro móvel: mantém no celular a mesma paleta grafite do computador. */
-      @media (max-width: 767px) {
-        html[data-theme="dark"] body.gpen-cms-active,
-        html[data-theme="dark"] body.gpen-cms-active #page-container,
-        html[data-theme="dark"] body.gpen-cms-active #page-container > .content,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .list-container,
-        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .body,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .content,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs {
-          background-color: #181a20 !important;
-          color: #e5e7eb !important;
-          border-color: #373c46 !important;
-          box-shadow: none !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
-        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar.primary,
-        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar.secondary,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar {
-          background-color: #20232a !important;
-          color: #e5e7eb !important;
-          border-color: #393e48 !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active #collection-container h1,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container h3,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container h4,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row .label,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .description,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor h1,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor h2,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor h3,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor h4,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor label,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint {
-          color: #d1d5db !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
-        html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view {
-          background-color: #252830 !important;
-          color: #e5e7eb !important;
-          border-color: #3b404a !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4 {
-          background-color: #20232a !important;
-          color: #f3f4f6 !important;
-          border-color: #3b404a !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
-        html[data-theme="dark"] body.gpen-cms-active .sui.search-bar {
-          background-color: #15171c !important;
-          color: #f3f4f6 !important;
-          border-color: #555c68 !important;
-          color-scheme: dark !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active input::placeholder,
-        html[data-theme="dark"] body.gpen-cms-active textarea::placeholder {
-          color: #aeb4bf !important;
-          opacity: 1 !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button {
-          background-color: transparent !important;
-          color: #d1d5db !important;
-          border-color: transparent !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
-        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-pressed="true"],
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-selected="true"] {
-          background-color: #2e4a38 !important;
-          color: #f0fff4 !important;
-          border-color: #4f7a5a !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
-        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button:hover {
-          background-color: #303540 !important;
-          color: #ffffff !important;
-          border-color: #5a626f !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte,
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia,
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figure {
-          background-color: #20232a !important;
-          color: #e5e7eb !important;
-          border-color: #3b404a !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__imagem,
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview {
-          background-color: #15171c !important;
-        }
-
-        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte {
-          background-color: #30343d !important;
-          color: #f3f4f6 !important;
-          border-color: #4b515d !important;
-        }
-      }
-
-    </style>
-  </head>
-  <body class="gpen-cms-active">
-    
-    <a id="gpen-admin-site-link" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir o site público do GPENSC em uma nova aba" title="Abrir o site público em uma nova aba">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Ver site público
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f3">
+  <title>Painel Administrativo · GPENSC</title>
+  <link rel="icon" href="../img/favicon.png">
+  <style>
+    :root{color-scheme:light;--page:#f4f6f2;--surface:#fff;--soft:#f8faf7;--hover:#f0f5ee;--text:#1e2c22;--muted:#657367;--border:#dce5da;--green:#225438;--green-strong:#174329;--green-soft:#e8f1e7;--shadow:0 6px 22px rgba(25,55,33,.06);--focus:#5c9667}
+    html[data-theme="dark"]{color-scheme:dark;--page:#111318;--surface:#191b21;--soft:#20232a;--hover:#2b3039;--text:#e9edf0;--muted:#aeb6c1;--border:#383e49;--green:#a4d5ae;--green-strong:#c8eed0;--green-soft:#26382c;--shadow:0 7px 24px rgba(0,0,0,.18);--focus:#8cc99a}
+    *{box-sizing:border-box} [hidden]{display:none!important}
+    body{margin:0;background:var(--page);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background-color .18s,color .18s}
+    a{color:inherit} a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+    .skip-link{position:absolute;left:-9999px;top:8px;z-index:5;padding:10px 14px;border-radius:8px;background:var(--surface);color:var(--text)}.skip-link:focus{left:8px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px;padding:14px clamp(16px,4vw,52px);background:var(--surface);border-bottom:1px solid var(--border)}
+    .brand{display:flex;align-items:center;gap:13px;min-width:0;text-decoration:none}.brand-logo{width:46px;height:46px;flex:0 0 auto;object-fit:contain}.brand-name{display:block;font-weight:850;font-size:1.12rem;letter-spacing:-.025em}.brand-subtitle{display:block;margin-top:1px;color:var(--muted);font-size:.79rem}
+    .top-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:9px}
+    .top-link,.theme-button,.primary-button,.secondary-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:41px;padding:9px 13px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;font-size:.86rem;font-weight:700;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s,background-color .15s,border-color .15s}
+    .top-link:hover,.theme-button:hover,.secondary-button:hover{background:var(--hover)}.primary-button{border-color:var(--green);background:var(--green);color:#fff}.primary-button:hover{border-color:var(--green-strong);background:var(--green-strong);color:#fff;transform:translateY(-1px)}html[data-theme="dark"] .primary-button{color:#111b14}
+    .button-icon,.icon-box svg,.card-arrow{width:19px;height:19px;flex:0 0 auto}
+    main{width:min(1190px,calc(100% - 40px));margin:34px auto 54px}
+    .welcome{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:clamp(24px,4vw,43px);border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+    .welcome::before{position:absolute;content:"";inset:0 auto 0 0;width:5px;background:linear-gradient(180deg,#4f9158 0%,#df7824 60%,#c83d3d 100%)}
+    .eyebrow{margin:0 0 8px;color:var(--green);font-size:.77rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+    h1{margin:0;font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.13;letter-spacing:-.04em}.welcome-copy{max-width:680px;margin:12px 0 0;color:var(--muted);font-size:1rem}
+    .welcome-side{display:flex;flex-direction:column;align-items:flex-end;gap:12px}.welcome-mark{display:grid;place-items:center;width:94px;height:94px;border:1px solid var(--border);border-radius:25px;background:var(--soft)}.welcome-mark img{width:68px;height:68px;object-fit:contain}.welcome-side .primary-button{white-space:nowrap}
+    .section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:34px 0 16px}h2{margin:0;font-size:1.22rem;line-height:1.25;letter-spacing:-.02em}.section-caption{margin:5px 0 0;color:var(--muted);font-size:.88rem}
+    .search-wrap{position:relative;width:min(340px,100%)}.search-wrap svg{position:absolute;left:13px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+    .search-input{width:100%;min-height:44px;padding:10px 14px 10px 40px;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text);font:inherit;font-size:.91rem}.search-input::placeholder{color:var(--muted);opacity:1}
+    .card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .task-card{display:flex;flex-direction:column;min-width:0;min-height:218px;padding:21px;border:1px solid var(--border);border-radius:16px;background:var(--surface);color:var(--text);box-shadow:var(--shadow);text-decoration:none;transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
+    .task-card:hover{border-color:var(--focus);background:var(--soft);transform:translateY(-2px);box-shadow:0 10px 26px rgba(25,55,33,.09)}
+    .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.icon-box{display:grid;place-items:center;width:45px;height:45px;border:1px solid var(--border);border-radius:12px;background:var(--green-soft);color:var(--green)}.card-arrow{color:var(--muted);margin-top:3px}
+    .card-kicker{margin:17px 0 4px;color:var(--green);font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.075em}.task-card h3{margin:0;font-size:1.15rem;line-height:1.3;letter-spacing:-.015em}.task-card p{margin:8px 0 0;color:var(--muted);font-size:.89rem;line-height:1.5}
+    .card-tags{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:17px}.card-tags span{display:inline-block;padding:4px 8px;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-size:.73rem}
+    .no-results{margin:18px 0;padding:22px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);text-align:center}
+    .advanced-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.75fr);align-items:center;gap:18px;margin-top:36px;padding-top:26px;border-top:1px solid var(--border)}
+    .advanced-card{display:flex;align-items:center;gap:13px;min-width:0;padding:17px;border:1px solid var(--border);border-radius:14px;background:var(--soft);text-decoration:none}.advanced-card:hover{border-color:var(--focus)}
+    .advanced-icon{display:grid;place-items:center;width:43px;height:43px;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--muted);flex:0 0 auto}.advanced-card strong{display:block;font-size:.94rem}.advanced-card small{display:block;margin-top:3px;color:var(--muted);font-size:.81rem;line-height:1.45}.advanced-arrow{margin-left:auto;color:var(--muted)}
+    .workflow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}.workflow-step{display:flex;align-items:flex-start;gap:11px;padding:15px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.workflow-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:var(--soft);color:var(--green);flex:0 0 auto}.workflow-icon svg{width:18px;height:18px}.workflow-step strong{display:block;font-size:.84rem}.workflow-step span span{display:block;margin-top:3px;color:var(--muted);font-size:.78rem;line-height:1.4}
+    footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:19px clamp(16px,4vw,52px);border-top:1px solid var(--border);color:var(--muted);font-size:.78rem}footer a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+    @media(max-width:780px){.topbar{align-items:flex-start}.brand-subtitle{max-width:260px}.welcome{grid-template-columns:minmax(0,1fr)}.welcome-side{flex-direction:row;align-items:center;justify-content:space-between}.welcome-mark{width:64px;height:64px;border-radius:16px}.welcome-mark img{width:48px;height:48px}.section-heading{align-items:stretch;flex-direction:column}.search-wrap{width:100%}.advanced-section{grid-template-columns:1fr}}
+    @media(max-width:560px){.topbar{gap:10px;padding:12px 14px}.brand{gap:9px}.brand-logo{width:38px;height:38px}.brand-name{font-size:1rem}.brand-subtitle{font-size:.7rem;max-width:165px}.top-actions{gap:6px}.top-link{display:none}.theme-button{min-width:42px;padding:9px}.theme-button .theme-label{display:none}main{width:calc(100% - 24px);margin:18px auto 34px}.welcome{padding:23px 20px;border-radius:15px}.welcome-copy{font-size:.92rem}.welcome-side{gap:10px}.welcome-side .primary-button{flex:1;white-space:normal;text-align:center}.card-grid{grid-template-columns:minmax(0,1fr);gap:10px}.task-card{min-height:0;padding:17px}.card-kicker{margin-top:13px}.card-tags{padding-top:13px}.workflow{grid-template-columns:minmax(0,1fr);gap:9px}footer{padding:16px 14px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Página inicial do painel GPENSC">
+      <img class="brand-logo" src="../img/logo_gpensc.png" alt="">
+      <span><span class="brand-name">GPENSC</span><span class="brand-subtitle">Painel de gerenciamento</span></span>
     </a>
+    <div class="top-actions">
+      <a class="top-link" href="../" target="_blank" rel="noopener noreferrer">
+        <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Ver site público
+      </a>
+      <button class="theme-button" id="theme-toggle" type="button" aria-label="Ativar modo escuro">
+        <svg class="button-icon" id="theme-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span class="theme-label" id="theme-label">Modo escuro</span>
+      </button>
+    </div>
+  </header>
 
+  <main id="conteudo">
+    <section class="welcome" aria-labelledby="titulo-principal">
+      <div>
+        <p class="eyebrow">Área administrativa · UFOP</p>
+        <h1 id="titulo-principal">O que você precisa atualizar?</h1>
+        <p class="welcome-copy">Escolha uma área para editar o conteúdo do site. Os formulários e salvamentos continuam sendo gerenciados pelo Sveltia CMS e pelo GitHub.</p>
+      </div>
+      <div class="welcome-side">
+        <div class="welcome-mark"><img src="../img/logo_gpensc.png" alt=""></div>
+        <a class="primary-button" href="cms.html#/collections/comunicacao">
+          <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5h8M8 9h8M8 13h5M5 3h14a2 2 0 0 1 2 2v14H3V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Abrir editor de conteúdo
+        </a>
+      </div>
+    </section>
 
-    <!-- Registra o widget personalizado antes de iniciar o CMS. -->
-    <script>window.CMS_MANUAL_INIT = true;</script>
-    <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
-    <script src="galeria-multipla.js?v=20261023-3"></script>
-    <script>
-      // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
-      // O widget personalizado já foi registrado no script anterior.
-      document.title = "Painel Administrativo GPENSC";
+    <div class="section-heading">
+      <div><h2>Áreas de trabalho</h2><p class="section-caption">Atalhos para as tarefas mais comuns do grupo.</p></div>
+      <label class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input class="search-input" id="busca-areas" type="search" placeholder="Buscar uma área…" autocomplete="off" aria-label="Buscar área de trabalho">
+      </label>
+    </div>
 
-      // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
-      const markConfigCollection = () => {
-        document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
-          if ((button.innerText || '').includes('Configurações do site')) {
-            button.classList.add('gpen-config-collection');
-          }
+    <section class="card-grid" id="areas" aria-label="Áreas de trabalho">
+      <a class="task-card" data-dashboard-card data-search="conteúdo comunicação notícias agenda eventos datas" href="cms.html#/collections/comunicacao">
+        <div class="card-top"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v12H3V6a2 2 0 0 1 2-2Z M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><svg class="card-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="card-kicker">01 · Uso frequente</p><h3>Conteúdo e comunicação</h3><p>Publique notícias, atualize informações e organize a agenda de eventos do GPENSC.</p><div class="card-tags"><span>Notícias</span><span>Agenda</span></div>
+      </a>
+      <a class="task-card" data-dashboard-card data-search="pesquisa produção científica linhas projetos publicações artigos livros defesas bancas" href="cms.html#/collections/pesquisa">
+        <div class="card-top"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3h6M12 3v6l6.5 10.5a1 1 0 0 1-.85 1.5H6.35a1 1 0 0 1-.85-1.5L12 9M8 16h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><svg class="card-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="card-kicker">02 · Produção acadêmica</p><h3>Pesquisa e produção científica</h3><p>Gerencie linhas de pesquisa, projetos, publicações, livros e defesas acadêmicas.</p><div class="card-tags"><span>Projetos</span><span>Publicações</span><span>Defesas</span></div>
+      </a>
+      <a class="task-card" data-dashboard-card data-search="ensino equipe integrantes pessoas categorias docentes pesquisadores graduação pós graduação disciplinas" href="cms.html#/collections/ensino_equipe">
+        <div class="card-top"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 5.5a3.5 3.5 0 0 1 0 6.8M17.5 14a5.5 5.5 0 0 1 4 5.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><svg class="card-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="card-kicker">03 · Pessoas e ensino</p><h3>Ensino e equipe</h3><p>Atualize perfis dos integrantes, categorias, formação e informações das disciplinas.</p><div class="card-tags"><span>Integrantes</span><span>Disciplinas</span></div>
+      </a>
+      <a class="task-card" data-dashboard-card data-search="mídia galeria fotos vídeos podcast gpensc no ar sites úteis parcerias instituições imagens recorte" href="cms.html#/collections/midia_parcerias">
+        <div class="card-top"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="8.5" cy="9" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="m4 17 5-5 4 4 3-3 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><svg class="card-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="card-kicker">04 · Imagens e recursos</p><h3>Mídia, galeria e parcerias</h3><p>Organize fotos, ajuste o recorte da galeria e gerencie vídeos, podcast e links parceiros.</p><div class="card-tags"><span>Galeria</span><span>GPENSC no Ar</span><span>Vídeos</span></div>
+      </a>
+    </section>
+    <p class="no-results" id="sem-resultados" hidden>Nenhuma área corresponde à sua busca. Tente outro termo.</p>
+
+    <section class="advanced-section" aria-labelledby="titulo-avancado">
+      <div><p class="eyebrow">Área separada</p><h2 id="titulo-avancado">Configurações avançadas</h2><p class="section-caption">Textos institucionais, links, identidade visual e controles de visibilidade. Use esta área para mudanças estruturais, não para tarefas diárias.</p></div>
+      <a class="advanced-card" data-dashboard-card data-search="configurações avançado textos links controles site identidade missão visão rodapé contato redes visibilidade" href="cms.html#/collections/configuracoes">
+        <span class="advanced-icon"><svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" stroke="currentColor" stroke-width="1.8"/><path d="m19.4 15 .1.1 1.2.9-1.2 2.1-1.4-.5a8 8 0 0 1-1.4.8l-.2 1.5h-2.5l-.3-1.5a8 8 0 0 1-1.4-.8l-1.4.5-1.2-2.1 1.2-.9a7 7 0 0 1 0-1.6l-1.2-.9 1.2-2.1 1.4.5a8 8 0 0 1 1.4-.8l.3-1.5h2.5l.2 1.5a8 8 0 0 1 1.4.8l1.4-.5 1.2 2.1-1.2.9a7 7 0 0 1 0 1.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" transform="translate(-1 -1)"/></svg></span>
+        <span><strong>Editar configurações do site</strong><small>Identidade, páginas, contato, redes e rodapé.</small></span>
+        <svg class="card-arrow advanced-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <section aria-labelledby="como-publicar">
+      <div class="section-heading"><div><h2 id="como-publicar">Como uma alteração chega ao site</h2><p class="section-caption">O fluxo de publicação continua automático pelo GitHub.</p></div></div>
+      <div class="workflow">
+        <div class="workflow-step"><span class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>1. Edite</strong><span>Abra a área e preencha os campos.</span></span></div>
+        <div class="workflow-step"><span class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>2. Salve</strong><span>Revise e salve pelo editor.</span></span></div>
+        <div class="workflow-step"><span class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 16.5 9 11l3.5 3.5L20 7M14 7h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>3. Confira</strong><span>Após a publicação automática, confira o site público.</span></span></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>GPENSC · Universidade Federal de Ouro Preto</span><span><a href="../" target="_blank" rel="noopener noreferrer">Site público</a> · <a href="cms.html">Editor completo</a></span></footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const button = document.getElementById('theme-toggle');
+      const label = document.getElementById('theme-label');
+      const icon = document.getElementById('theme-icon');
+      const search = document.getElementById('busca-areas');
+      const cards = Array.from(document.querySelectorAll('[data-dashboard-card]'));
+      const empty = document.getElementById('sem-resultados');
+      const normalize = (value) => (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR').trim();
+      let saved = null;
+      try { saved = localStorage.getItem('gpen-admin-theme'); } catch {}
+      const initial = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const setTheme = (theme, persist = false) => {
+        root.dataset.theme = theme;
+        const dark = theme === 'dark';
+        button.setAttribute('aria-label', dark ? 'Ativar modo claro' : 'Ativar modo escuro');
+        button.setAttribute('aria-pressed', String(dark));
+        label.textContent = dark ? 'Modo claro' : 'Modo escuro';
+        icon.innerHTML = dark
+          ? '<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+          : '<path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.5 8.5 0 1 0 12 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>';
+        if (persist) { try { localStorage.setItem('gpen-admin-theme', theme); } catch {} }
+      };
+      setTheme(initial);
+      button.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true));
+      const filterCards = () => {
+        const term = normalize(search.value);
+        let visible = 0;
+        cards.forEach((card) => {
+          const text = normalize((card.dataset.search || '') + ' ' + card.textContent);
+          const show = !term || text.includes(term);
+          card.hidden = !show;
+          if (show) visible++;
         });
+        empty.hidden = visible > 0;
       };
-
-      // O link para o site público fica disponível na área de edição, não na tela de login.
-      const syncEntranceState = () => {
-        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
-        document.body.classList.toggle("gpen-login-active", loginVisible);
-        markConfigCollection();
-      };
-      const entranceObserver = new MutationObserver(syncEntranceState);
-      entranceObserver.observe(document.body, { childList: true, subtree: true });
-      syncEntranceState();
-      // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
-      CMS.init();
-    </script>
-  </body>
+      search.addEventListener('input', filterCards);
+    })();
+  </script>
+</body>
 </html>
