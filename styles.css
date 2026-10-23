@@ -398,6 +398,8 @@ a.btn-warning:hover,
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  margin-top: .65rem;
+  margin-bottom: 0;
 }
 
 /* Faixa horizontal: a pessoa pode deslizar para ver todas as fotos. */
@@ -407,14 +409,14 @@ a.btn-warning:hover,
   gap: 0.85rem;
   width: 100%;
   max-width: 100%;
-  padding: 0 1rem 0.85rem;
+  padding: 0 1rem;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gp-folha) #f0eee8;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .galeria-faixa img {
@@ -436,7 +438,9 @@ a.btn-warning:hover,
 }
 
 .galeria-faixa::-webkit-scrollbar {
-  height: 8px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .galeria-faixa::-webkit-scrollbar-track {
@@ -1151,7 +1155,7 @@ main.content,
   /* Galeria de fotos no tablet e celular */
   .galeria-faixa {
     gap: 0.65rem;
-    padding: 0 0.75rem 0.75rem;
+    padding: 0 0.75rem;
   }
 
   .galeria-faixa img {
