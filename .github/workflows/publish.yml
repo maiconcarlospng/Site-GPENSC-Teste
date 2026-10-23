@@ -191,7 +191,7 @@ jobs:
             [[ -z "$changed_files" ]] && partial=false
           fi
           if [[ "$partial" == "true" ]]; then
-            pages="$(printf '%s\\n' $pages | sort -u | tr '\\n' ' ' | xargs)"
+            pages="$(printf '%s\n' $pages | sort -u | tr '\n' ' ' | xargs)"
             echo "enabled=true" >> "$GITHUB_OUTPUT"
             echo "pages=$pages" >> "$GITHUB_OUTPUT"
             echo "Renderização parcial: $pages"
