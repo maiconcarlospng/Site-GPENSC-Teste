@@ -87,7 +87,10 @@
     document.querySelectorAll(".galeria-faixa").forEach((faixa, numero) => {
       if (faixa.dataset.carrosselInicializado === "true") return;
 
-      const imagensOriginais = Array.from(faixa.querySelectorAll(":scope > img"));
+      // Cada imagem fica dentro de um quadro de recorte com proporção fixa.
+      // O fallback mantém compatibilidade com HTML antigo ainda sem esses quadros.
+      const imagensOriginais = Array.from(faixa.querySelectorAll(":scope > .galeria-item"));
+      if (!imagensOriginais.length) imagensOriginais.push(...Array.from(faixa.querySelectorAll(":scope > img")));
       if (imagensOriginais.length < 2) return;
 
       const total = imagensOriginais.length;
@@ -104,9 +107,17 @@
       imagensOriginais.slice(0, Math.min(3, total)).forEach((imagem) => {
         const clone = imagem.cloneNode(true);
         clone.dataset.carrosselClone = "true";
-        clone.alt = "";
+        // Para quadros de recorte, limpe o texto alternativo da imagem interna.
+        if (clone.matches("img")) {
+          clone.alt = "";
+          clone.loading = "eager";
+        } else {
+          clone.querySelectorAll("img").forEach((img) => {
+            img.alt = "";
+            img.loading = "eager";
+          });
+        }
         clone.setAttribute("aria-hidden", "true");
-        clone.loading = "eager";
         faixa.appendChild(clone);
       });
 
