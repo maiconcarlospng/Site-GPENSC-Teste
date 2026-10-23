@@ -257,7 +257,6 @@ collections:
                 - { label: "Link", name: "url", widget: "string", required: false }
   - name: "configuracoes"
     label: "⚙️ Configurações avançadas"
-    description: "Edite uma área de cada vez. As alterações são usadas pelo site após a publicação automática."
     files:
         - label: "01 · Identidade"
           name: "cfg_identidade"
