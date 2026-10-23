@@ -210,7 +210,6 @@
     
       /* Ajustes de layout da área interna do Sveltia. Mantém o CMS como motor de edição. */
       body.gpen-cms-active {
-        color-scheme: light !important;
         background: #f4f7f2 !important;
         color: #263e2e !important;
         --sui-primary-background-color: #ffffff;
@@ -226,18 +225,7 @@
         --sui-primary-accent-color-inverted: #ffffff;
         --field-editor-padding: 20px;
       }
-      /* Impede que o tema escuro do sistema deixe listas e subcampos pretos. */
-      body.gpen-cms-active #page-container,
-      body.gpen-cms-active #collection-container,
-      body.gpen-cms-active .content-editor,
-      body.gpen-cms-active .content-editor .body,
-      body.gpen-cms-active .content-editor .content-area,
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane,
-      body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
-      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div {
-        color-scheme: light !important;
-      }
+      /* O tema visual é controlado pelo próprio Sveltia via html[data-theme]. */
       body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
         background: #ffffff !important;
         color: #263e2e !important;
@@ -929,6 +917,149 @@
         }
       }
 
+    
+      /* Tema escuro do painel: respeita html[data-theme="dark"] definido pelo Sveltia.
+         Estas regras compensam apenas as cores fixas do tema visual personalizado do GPENSC. */
+      html[data-theme="dark"] body.gpen-cms-active {
+        color-scheme: dark !important;
+        background: #111813 !important;
+        color: #e4ede6 !important;
+        --sui-primary-background-color: #1b261f !important;
+        --sui-secondary-background-color: #222f26 !important;
+        --sui-tertiary-background-color: #2b3a2f !important;
+        --sui-primary-foreground-color: #e5eee7 !important;
+        --sui-secondary-foreground-color: #c2d0c4 !important;
+        --sui-tertiary-foreground-color: #a5b7a8 !important;
+        --sui-primary-border-color: #3a4c3e !important;
+        --sui-secondary-border-color: #314235 !important;
+        --sui-hover-background-color: #2b3b2f !important;
+        --sui-primary-accent-color: #8bc49a !important;
+        --sui-primary-accent-color-inverted: #152019 !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active #page-container,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-container,
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .body,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar {
+        background: #151e18 !important;
+        color: #e4ede6 !important;
+        border-color: #35473a !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
+        background: #1b271f !important;
+        color: #e4ede6 !important;
+        border-color: #35473a !important;
+        box-shadow: none !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
+        background: #202c24 !important;
+        color: #e4ede6 !important;
+        border-color: #3a4d3f !important;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, .12) !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .item,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .wrapper,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .item-body,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .item-list,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .subsection,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .summary,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .removed-item {
+        background-color: #1b261f !important;
+        color: #e4ede6 !important;
+        border-color: #3a4d3f !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row .label,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .description {
+        color: #cbd9ce !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] .hint {
+        color: #a8bcad !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__legenda {
+        background: #111a14 !important;
+        color: #e4ede6 !important;
+        border-color: #465b4a !important;
+        caret-color: #e4ede6 !important;
+        color-scheme: dark;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input::placeholder,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea::placeholder,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__corpo label,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figcaption {
+        color: #a9b9ad !important;
+        opacity: 1 !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
+        color: #cddbd0 !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button:hover,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:hover {
+        background: #2a3a2e !important;
+        color: #f1f7f2 !important;
+        border-color: #58745e !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button[aria-pressed="true"],
+      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button[aria-selected="true"] {
+        background: #294631 !important;
+        color: #eff8f0 !important;
+        border-color: #48684e !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .sui.search-bar {
+        --sui-textbox-background-color: #111a14;
+        background: #111a14 !important;
+        color: #e4ede6 !important;
+        border-color: #35473a !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia {
+        background: #1b261f !important;
+        color: #dbe8dd !important;
+        border-color: #35473a !important;
+      }
+
     </style>
   </head>
   <body class="gpen-cms-active">
@@ -956,20 +1087,7 @@
       const entranceObserver = new MutationObserver(syncEntranceState);
       entranceObserver.observe(document.body, { childList: true, subtree: true });
       syncEntranceState();
-
-      // Mantém o painel administrativo em tema claro, mesmo quando o navegador/sistema está em modo escuro.
-      // O Sveltia atualiza html[data-theme] de acordo com a preferência salva ou com o tema do sistema.
-      const aplicarTemaClaro = () => {
-        const raiz = document.documentElement;
-        if (raiz.dataset.theme !== "light") raiz.dataset.theme = "light";
-      };
-      const observadorTema = new MutationObserver(aplicarTemaClaro);
-      observadorTema.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"],
-      });
-      aplicarTemaClaro();
-
+      // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
       CMS.init();
     </script>
   </body>
