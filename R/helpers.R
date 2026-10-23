@@ -21,6 +21,25 @@ suppressPackageStartupMessages({
 # Lê _variables.yml. Uso: cfg$email, cfg$instagram ...
 cfg <- yaml::read_yaml("_variables.yml")
 
+# As configurações são editadas em arquivos temáticos pelo painel.
+# _variables.yml continua como base de compatibilidade; os arquivos separados
+# substituem suas chaves correspondentes sem mudar o formato usado pelas páginas.
+diretorio_cfg <- file.path("data", "configuracoes")
+arquivos_cfg <- if (dir.exists(diretorio_cfg)) {
+  sort(list.files(diretorio_cfg, pattern = "\\.yml$", full.names = TRUE))
+} else {
+  character()
+}
+
+for (arquivo_cfg in arquivos_cfg) {
+  valores_cfg <- yaml::read_yaml(arquivo_cfg)
+  if (is.list(valores_cfg)) {
+    for (chave_cfg in names(valores_cfg)) {
+      cfg[[chave_cfg]] <- valores_cfg[[chave_cfg]]
+    }
+  }
+}
+
 # Controles do painel: uma chave ausente mantém a seção visível por compatibilidade.
 secao_ativa <- function(chave) {
   valor <- cfg[[chave]]
