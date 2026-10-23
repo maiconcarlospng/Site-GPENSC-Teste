@@ -918,9 +918,9 @@
       }
 
     
-      /* Tema escuro do painel: respeita html[data-theme="dark"] definido pelo Sveltia.
-         Estas regras compensam apenas as cores fixas do tema visual personalizado do GPENSC. */
-      html[data-theme="dark"] body.gpen-cms-active {
+      /* Tema escuro acessível. O Sveltia pode marcar o tema no html ou no body.
+         As regras substituem as cores claras personalizadas apenas quando dark está ativo. */
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) {
         color-scheme: dark !important;
         background: #111813 !important;
         color: #e4ede6 !important;
@@ -937,77 +937,77 @@
         --sui-primary-accent-color-inverted: #152019 !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active #page-container,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-container,
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .body,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #page-container,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .list-container,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .primary-sidebar,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .body,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .content-area,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .pane-wrapper > .pane,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .pane-wrapper > .pane .content,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar {
         background: #151e18 !important;
         color: #e4ede6 !important;
         border-color: #35473a !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .sui.toolbar,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container > .sui.toolbar.primary,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container > .sui.toolbar.secondary,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor > .sui.toolbar,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .pane-wrapper > .pane > .sui.toolbar,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .pane-wrapper > .pane [id$="-pane-header"] {
         background: #1b271f !important;
         color: #e4ede6 !important;
         border-color: #35473a !important;
         box-shadow: none !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path],
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .grid-view .grid-row[tabindex],
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .list-view,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .table-view,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .tabs,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .content {
         background: #202c24 !important;
         color: #e4ede6 !important;
         border-color: #3a4d3f !important;
         box-shadow: 0 3px 12px rgba(0, 0, 0, .12) !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .item,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .wrapper,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .item-body,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .item-list,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .subsection,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .summary,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .removed-item {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .item,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .wrapper,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .item-body,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .item-list,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .subsection,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .summary,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .removed-item {
         background-color: #1b261f !important;
         color: #e4ede6 !important;
         border-color: #3a4d3f !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row .label,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .description {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] > header h4,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] label,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .hint,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .type-hint,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container h2,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .grid-row,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .grid-cell,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .grid-row .label,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .description {
         color: #cbd9ce !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] .hint {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] .hint {
         color: #a8bcad !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__legenda {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] textarea,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] select,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .gpen-sc-galeria__legenda {
         background: #111a14 !important;
         color: #e4ede6 !important;
         border-color: #465b4a !important;
@@ -1015,51 +1015,116 @@
         color-scheme: dark;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input::placeholder,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea::placeholder,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__corpo label,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figcaption {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] input::placeholder,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor section.field[role="group"][data-key-path] textarea::placeholder,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .gpen-sc-galeria__corpo label,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .gpen-sc-galeria__preview figcaption {
         color: #a9b9ad !important;
         opacity: 1 !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .primary-sidebar [role="listbox"] button,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .tabs button,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .content {
         color: #cddbd0 !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button:hover,
-      html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex]:hover {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .primary-sidebar [role="listbox"] button:hover,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .tabs button:hover,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) #collection-container .grid-view .grid-row[tabindex]:hover {
         background: #2a3a2e !important;
         color: #f1f7f2 !important;
         border-color: #58745e !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
-      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button[aria-pressed="true"],
-      html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs button[aria-selected="true"] {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .primary-sidebar [role="listbox"] button[aria-selected="true"],
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .primary-sidebar [role="listbox"] button[aria-current="page"],
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .tabs button[aria-pressed="true"],
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .content-editor .sidebar .tabs button[aria-selected="true"] {
         background: #294631 !important;
         color: #eff8f0 !important;
         border-color: #48684e !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .sui.search-bar {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .sui.search-bar {
         --sui-textbox-background-color: #111a14;
         background: #111a14 !important;
         color: #e4ede6 !important;
         border-color: #35473a !important;
       }
 
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
-      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia {
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .gpen-sc-galeria__item,
+      html:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) body.gpen-cms-active, body.gpen-cms-active:is([data-theme="dark"], .dark, [data-color-scheme="dark"]) .gpen-sc-galeria__vazia {
         background: #1b261f !important;
         color: #dbe8dd !important;
         border-color: #35473a !important;
       }
 
+
+
+      /* Variações do atributo de tema usadas por diferentes versões/configurações do Sveltia. */
+      html[data-theme="dark"] body.gpen-cms-active,
+      body.gpen-cms-active[data-theme="dark"],
+      html.dark body.gpen-cms-active,
+      body.dark.gpen-cms-active,
+      html[data-color-scheme="dark"] body.gpen-cms-active,
+      body.gpen-cms-active[data-color-scheme="dark"] {
+        color-scheme: dark !important;
+        background: #111813 !important;
+        color: #e5eee7 !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active #page-container,
+      html[data-theme="dark"] body.gpen-cms-active #collection-container,
+      html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
+      body.gpen-cms-active[data-theme="dark"] #page-container,
+      body.gpen-cms-active[data-theme="dark"] #collection-container,
+      body.gpen-cms-active[data-theme="dark"] .primary-sidebar,
+      html.dark body.gpen-cms-active #page-container,
+      html.dark body.gpen-cms-active #collection-container,
+      html.dark body.gpen-cms-active .primary-sidebar {
+        background: #151e18 !important;
+        color: #e5eee7 !important;
+        border-color: #35473a !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path],
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] {
+        background: #202c24 !important;
+        color: #e5eee7 !important;
+        border-color: #3a4d3f !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path] input,
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path] textarea,
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path] select,
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input,
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select {
+        background: #111a14 !important;
+        color: #f0f5f1 !important;
+        border-color: #526a57 !important;
+        color-scheme: dark !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] h4,
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path] label,
+      body.gpen-cms-active[data-theme="dark"] .content-editor section.field[role="group"][data-key-path] h4,
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] label,
+      html.dark body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] h4 {
+        color: #dce9df !important;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html:not([data-theme="light"]) body.gpen-cms-active:not([data-theme="light"]) {
+          color-scheme: dark;
+        }
+      }
     </style>
   </head>
   <body class="gpen-cms-active">
