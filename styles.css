@@ -2312,3 +2312,43 @@ button:focus-visible,
   }
 }
 
+
+/* RESTAURAR ALTURA ORIGINAL DA GALERIA: o aspect-ratio sozinho deixou o quadro crescer pelo conteúdo da imagem. */
+/* Antes do recorte personalizado, a galeria usava altura controlada por breakpoint.
+   Mantemos esse comportamento e o corte passa a acontecer dentro do quadro. */
+.galeria-faixa .galeria-item {
+  height: clamp(230px, 28vw, 360px) !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  flex-shrink: 0 !important;
+}
+
+.galeria-faixa .galeria-item img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  object-fit: cover !important;
+}
+
+/* Mantém o tamanho anterior em tablets e celulares, sem fotos gigantes verticais. */
+@media (max-width: 767.98px) {
+  .galeria-faixa .galeria-item {
+    height: clamp(210px, 52vw, 340px) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .galeria-faixa .galeria-item {
+    height: 220px !important;
+  }
+}
+
+/* Em janelas pequenas de computador, restaura o enquadramento compacto anterior. */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .galeria-faixa .galeria-item {
+    height: clamp(230px, 28vw, 300px) !important;
+  }
+}
+
