@@ -1207,6 +1207,138 @@
         accent-color: #86c99a !important;
       }
 
+
+      /* Modo escuro móvel: mantém no celular a mesma paleta grafite do computador. */
+      @media (max-width: 767px) {
+        html[data-theme="dark"] body.gpen-cms-active,
+        html[data-theme="dark"] body.gpen-cms-active #page-container,
+        html[data-theme="dark"] body.gpen-cms-active #page-container > .content,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .list-container,
+        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .body,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .content,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .content-area,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane .content,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .content,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar .tabs {
+          background-color: #181a20 !important;
+          color: #e5e7eb !important;
+          border-color: #373c46 !important;
+          box-shadow: none !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar,
+        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar.primary,
+        html[data-theme="dark"] body.gpen-cms-active .sui.toolbar.secondary,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.secondary,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor > .sui.toolbar,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .pane-wrapper > .pane > .sui.toolbar {
+          background-color: #20232a !important;
+          color: #e5e7eb !important;
+          border-color: #393e48 !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active #collection-container h1,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container h2,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container h3,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container h4,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-cell,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-row .label,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .description,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor h1,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor h2,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor h3,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor h4,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor label,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .hint,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .type-hint {
+          color: #d1d5db !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path],
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > div,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .list-view,
+        html[data-theme="dark"] body.gpen-cms-active #collection-container .table-view {
+          background-color: #252830 !important;
+          color: #e5e7eb !important;
+          border-color: #3b404a !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] > header h4 {
+          background-color: #20232a !important;
+          color: #f3f4f6 !important;
+          border-color: #3b404a !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input:not([type="checkbox"]):not([type="radio"]),
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] textarea,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] select,
+        html[data-theme="dark"] body.gpen-cms-active .sui.search-bar {
+          background-color: #15171c !important;
+          color: #f3f4f6 !important;
+          border-color: #555c68 !important;
+          color-scheme: dark !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active input::placeholder,
+        html[data-theme="dark"] body.gpen-cms-active textarea::placeholder {
+          color: #aeb4bf !important;
+          opacity: 1 !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button {
+          background-color: transparent !important;
+          color: #d1d5db !important;
+          border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
+        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"],
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-pressed="true"],
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button[aria-selected="true"] {
+          background-color: #2e4a38 !important;
+          color: #f0fff4 !important;
+          border-color: #4f7a5a !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button:hover,
+        html[data-theme="dark"] body.gpen-cms-active .content-editor .sidebar button:hover {
+          background-color: #303540 !important;
+          color: #ffffff !important;
+          border-color: #5a626f !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte,
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__item,
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__vazia,
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figure {
+          background-color: #20232a !important;
+          color: #e5e7eb !important;
+          border-color: #3b404a !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__imagem,
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview {
+          background-color: #15171c !important;
+        }
+
+        html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte {
+          background-color: #30343d !important;
+          color: #f3f4f6 !important;
+          border-color: #4b515d !important;
+        }
+      }
+
     </style>
   </head>
   <body class="gpen-cms-active">
