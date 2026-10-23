@@ -109,9 +109,10 @@
 
             return html`
               <article class="gpen-sc-galeria__item" key=${caminho + "-" + indice}>
-                <div class="gpen-sc-galeria__imagem">
+                <span class="gpen-sc-galeria__preview-label">Prévia do recorte no site</span>
+                <div class="gpen-sc-galeria__imagem" title="Prévia aproximada do enquadramento da galeria no site">
                   ${src
-                    ? html`<img src=${src} alt=${foto.legenda || "Foto da galeria"} loading="lazy" />`
+                    ? html`<img src=${src} alt=${foto.legenda || "Prévia do recorte da foto no site"} loading="lazy" />`
                     : html`<span class="gpen-sc-galeria__sem-imagem">Pré-visualização indisponível</span>`}
                 </div>
                 <div class="gpen-sc-galeria__corpo">
