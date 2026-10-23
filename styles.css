@@ -2352,3 +2352,77 @@ button:focus-visible,
   }
 }
 
+
+/* CORREÇÃO DE COMPATIBILIDADE: restaurar dimensões mesmo se o HTML publicado ainda usar imagens diretas. */
+/* Algumas versões já publicadas ainda podem gerar imagens como filhas diretas
+   da faixa; outras usam .galeria-item para permitir o recorte personalizado.
+   As duas estruturas recebem o mesmo tamanho compacto. */
+.galeria-faixa > img,
+.galeria-faixa > .galeria-item {
+  box-sizing: border-box !important;
+  flex: 0 0 calc(33.333% - 0.6rem) !important;
+  width: calc(33.333% - 0.6rem) !important;
+  min-width: 0 !important;
+  height: clamp(230px, 28vw, 360px) !important;
+  max-height: 360px !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+}
+
+.galeria-faixa > img {
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.galeria-faixa > .galeria-item {
+  position: relative !important;
+  display: block !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+.galeria-faixa > .galeria-item > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+}
+
+.galeria-faixa > img:only-child,
+.galeria-faixa > .galeria-item:only-child {
+  flex-basis: 100% !important;
+  width: 100% !important;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .galeria-faixa > img,
+  .galeria-faixa > .galeria-item {
+    height: clamp(230px, 28vw, 300px) !important;
+    max-height: 300px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .galeria-faixa > img,
+  .galeria-faixa > .galeria-item {
+    flex-basis: 72% !important;
+    width: 72% !important;
+    height: clamp(210px, 52vw, 340px) !important;
+    max-height: 340px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .galeria-faixa > img,
+  .galeria-faixa > .galeria-item {
+    flex-basis: 86% !important;
+    width: 86% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+  }
+}
+
