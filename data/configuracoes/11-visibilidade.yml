@@ -1,0 +1,25 @@
+mostrar_agenda: true
+
+mostrar_linhas: true
+
+mostrar_projetos: true
+
+mostrar_publicacoes: true
+
+mostrar_extensao: true
+
+mostrar_noar: true
+
+mostrar_noticias: true
+
+mostrar_contato: true
+
+mostrar_disciplinas: true
+
+mostrar_teses: true
+
+mostrar_livros: true
+
+mostrar_videos: true
+
+mostrar_sites: true
