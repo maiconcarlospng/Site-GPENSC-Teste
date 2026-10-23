@@ -31,12 +31,12 @@ collections:
               hint: "Preencha título, data e resumo. Revise os exemplos antes de publicar."
               summary: "{{fields.titulo}} — {{fields.data}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Categoria", name: "categoria", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Resumo", name: "resumo", widget: "text", required: false }
                 - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
-                - { label: "Link da fonte original", name: "url", widget: "string", required: false }
+                - { label: "Link da fonte original", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "Imagem", name: "imagem", widget: "image", required: false }
         - label: "Agenda e eventos"
           name: "eventos"
@@ -50,11 +50,11 @@ collections:
               hint: "Use a data no formato AAAA-MM-DD. Eventos passados deixam de aparecer em próximos eventos."
               summary: "{{fields.data}} - {{fields.titulo}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Tipo", name: "tipo", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Local", name: "local", widget: "string", required: false }
-                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "pesquisa"
     label: "02 · Pesquisa e produção científica"
     files:
@@ -88,8 +88,8 @@ collections:
                 - { label: "Tipo", name: "tipo", widget: "string", required: false }
                 - { label: "Situação", name: "situacao", widget: "string", required: false }
                 - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
-                - { label: "Início", name: "inicio", widget: "string", required: false }
-                - { label: "Fim", name: "fim", widget: "string", required: false }
+                - { label: "Início", name: "inicio", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
+                - { label: "Fim", name: "fim", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
                 - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
                 - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
         - label: "Publicações"
@@ -103,13 +103,13 @@ collections:
               label_singular: "publicação"
               summary: "{{fields.titulo}} — {{fields.ano}}"
               fields:
-                - { label: "Ano", name: "ano", widget: "string" }
+                - { label: "Ano", name: "ano", widget: "string", hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
                 - { label: "Tipo", name: "tipo", widget: "string", required: false }
                 - { label: "Autores", name: "autores", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Veículo", name: "veiculo", widget: "string", required: false }
                 - { label: "DOI", name: "doi", widget: "string", required: false }
-                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
         - label: "Livros"
           name: "livros"
@@ -122,11 +122,11 @@ collections:
               label_singular: "livro"
               summary: "{{fields.ano}} - {{fields.titulo}}"
               fields:
-                - { label: "Ano", name: "ano", widget: "string" }
+                - { label: "Ano", name: "ano", widget: "string", hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Autores", name: "autores", widget: "string", required: false }
                 - { label: "Editora", name: "editora", widget: "string", required: false }
-                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
         - label: "Defesas e bancas"
           name: "defesas"
           file: "data/defesas.yml"
@@ -138,13 +138,13 @@ collections:
               label_singular: "defesa"
               summary: "{{fields.titulo}} — {{fields.autor}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD" }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Nível", name: "nivel", widget: "string", required: false }
                 - { label: "Etapa", name: "etapa", widget: "string", required: false }
                 - { label: "Autor", name: "autor", widget: "string" }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Orientador", name: "orientador", widget: "string", required: false }
-                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "ensino_equipe"
     label: "03 · Ensino e equipe"
     files:
@@ -165,8 +165,8 @@ collections:
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
                 - { label: "Foto", name: "foto", widget: "image", required: false }
-                - { label: "Lattes", name: "lattes", widget: "string", required: false }
-                - { label: "ORCID", name: "orcid", widget: "string", required: false }
+                - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "ORCID", name: "orcid", widget: "string", required: false, hint: "Informe somente o identificador, sem https://orcid.org/.", pattern: ['^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$', 'Informe o ORCID no formato 0000-0002-1825-0097.'] }
         - label: "Disciplinas e ensino"
           name: "disciplinas"
           file: "data/disciplinas.yml"
@@ -206,11 +206,11 @@ collections:
               label_singular: "episódio"
               summary: "{{fields.titulo}} — Ep. {{fields.episodio}}"
               fields:
-                - { label: "Episódio", name: "episodio", widget: "string" }
+                - { label: "Episódio", name: "episodio", widget: "string", pattern: ['^[0-9]+$', 'Informe apenas o número do episódio.'] }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Convidado", name: "convidado", widget: "string", required: false }
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
-                - { label: "Link", name: "link", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Link", name: "link", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "Observação", name: "obs", widget: "text", required: false }
         - label: "Vídeos publicados"
           name: "videos"
@@ -223,10 +223,10 @@ collections:
               label_singular: "vídeo"
               summary: "{{fields.titulo}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false }
+                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Descrição", name: "descricao", widget: "text", required: false }
-                - { label: "Link", name: "url", widget: "string" }
+                - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
         - label: "Sites recomendados"
           name: "sites"
           file: "data/sites.yml"
@@ -240,7 +240,7 @@ collections:
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
                 - { label: "Descrição", name: "descricao", widget: "text", required: false }
-                - { label: "Link", name: "url", widget: "string" }
+                - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
         - label: "Instituições parceiras"
           name: "apoio"
           file: "data/apoio.yml"
@@ -254,7 +254,7 @@ collections:
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
                 - { label: "Logo", name: "logo", widget: "image" }
-                - { label: "Link", name: "url", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "configuracoes"
     label: "⚙️ Configurações avançadas"
     files:
@@ -272,10 +272,10 @@ collections:
           name: "cfg_vinculos"
           file: "data/configuracoes/02-vinculos-institucionais.yml"
           fields:
-            - { label: "Link PPGSN", name: "link_ppgsn", widget: "string" }
-            - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string" }
-            - { label: "Link UFOP", name: "link_ufop", widget: "string" }
-            - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string" }
+            - { label: "Link PPGSN", name: "link_ppgsn", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link UFOP", name: "link_ufop", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
 
         - label: "03 · História, missão e objetivos"
           name: "cfg_institucional"
@@ -339,19 +339,19 @@ collections:
           fields:
             - { label: "Nome do podcast", name: "podcast_nome", widget: "string" }
             - { label: "Descrição do podcast", name: "podcast_descricao", widget: "text" }
-            - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false }
+            - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Introdução GPENSC no Ar", name: "intro_noar", widget: "text" }
 
         - label: "09 · Contato e redes"
           name: "cfg_contato"
           file: "data/configuracoes/09-contato-redes.yml"
           fields:
-            - { label: "E-mail", name: "email", widget: "string" }
+            - { label: "E-mail", name: "email", widget: "string", pattern: ['^[^\s@]+@[^\s@]+\.[^\s@]+$', 'Informe um e-mail válido.'] }
             - { label: "Telefone", name: "telefone", widget: "string" }
-            - { label: "Instagram (URL)", name: "instagram", widget: "string" }
+            - { label: "Instagram (URL)", name: "instagram", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
-            - { label: "YouTube", name: "youtube", widget: "string", required: false }
-            - { label: "Spotify", name: "spotify", widget: "string", required: false }
+            - { label: "YouTube", name: "youtube", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Spotify", name: "spotify", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
