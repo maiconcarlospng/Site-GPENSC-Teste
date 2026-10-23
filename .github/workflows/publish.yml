@@ -111,6 +111,8 @@ jobs:
         with:
           path: _site
           key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          restore-keys: |
+            quarto-site-${{ runner.os }}-
 
       # Reaproveita resultados congelados do Quarto quando a chave de cache é compatível.
       - name: Restaurar cache do Quarto
@@ -158,12 +160,64 @@ jobs:
             any::stringr
             any::lubridate
 
-      - name: Renderizar páginas e recursos para _site/
+      - name: Identificar páginas afetadas por alterações de conteúdo
+        id: partial
+        shell: bash
         run: |
-          # Evita páginas removidas sobreviverem por causa de um cache anterior.
+          partial=false
+          pages=""
+          if [[ "${{ github.event_name }}" == "push" && -f _site/index.html ]]; then
+            changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+            partial=true
+            while IFS= read -r path; do
+              [[ -z "$path" ]] && continue
+              case "$path" in
+                data/noticias.yml) pages="$pages index.qmd noticias.qmd noticia.qmd" ;;
+                data/eventos.yml) pages="$pages index.qmd agenda.qmd" ;;
+                data/projetos.yml) pages="$pages index.qmd projetos.qmd extensao.qmd" ;;
+                data/publicacoes.yml) pages="$pages publicacoes.qmd" ;;
+                data/defesas.yml) pages="$pages teses.qmd" ;;
+                data/livros.yml) pages="$pages livros.qmd" ;;
+                data/videos.yml) pages="$pages videos.qmd" ;;
+                data/sites.yml) pages="$pages sites.qmd" ;;
+                data/disciplinas.yml) pages="$pages disciplinas.qmd" ;;
+                data/linhas.yml) pages="$pages linhas.qmd" ;;
+                data/noar.yml) pages="$pages noar.qmd" ;;
+                data/equipe.yml) pages="$pages sobre.qmd" ;;
+                data/galeria.yml|data/apoio.yml) pages="$pages index.qmd" ;;
+                *) partial=false; break ;;
+              esac
+            done <<< "$changed_files"
+            [[ -z "$changed_files" ]] && partial=false
+          fi
+          if [[ "$partial" == "true" ]]; then
+            pages="$(printf '%s\\n' $pages | sort -u | tr '\\n' ' ' | xargs)"
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "pages=$pages" >> "$GITHUB_OUTPUT"
+            echo "Renderização parcial: $pages"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "pages=" >> "$GITHUB_OUTPUT"
+            echo "Renderização completa necessária."
+          fi
+
+      - name: Renderizar somente as páginas afetadas pelo conteúdo
+        if: steps.partial.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          for page in ${{ steps.partial.outputs.pages }}; do
+            quarto render "$page"
+          done
+          # Atualiza os YAML públicos copiados como recursos do site.
+          mkdir -p _site/data
+          rsync -a --delete data/ _site/data/
+          rm -f _site/admin/validar-painel.py
+
+      - name: Renderizar o site completo quando necessário
+        if: steps.partial.outputs.enabled != 'true'
+        run: |
           rm -rf _site
           quarto render
-          # O validador roda no CI, mas não precisa ser publicado como página pública.
           rm -f _site/admin/validar-painel.py
 
       - name: Empacotar o site gerado para o GitHub Pages
