@@ -256,3 +256,25 @@
   }
 })();
 </script>
+
+<!-- Barra nativa do sistema: mantém o deslize e os controles do carrossel sem exibir a trilha. -->
+<style id="gpen-galeria-hide-scrollbar">
+  /* Este estilo fica no HTML gerado para prevalecer sobre o CSS externo em cache. */
+  .galeria-faixa {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .galeria-faixa::-webkit-scrollbar,
+  .galeria-faixa::-webkit-scrollbar-track,
+  .galeria-faixa::-webkit-scrollbar-thumb,
+  .galeria-faixa::-webkit-scrollbar-button,
+  .galeria-faixa::-webkit-scrollbar-corner,
+  .galeria-faixa::-webkit-resizer {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+</style>
