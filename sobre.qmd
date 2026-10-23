@@ -2,7 +2,7 @@
 title: "Quem somos"
 ---
 
-\`\`\`{r}
+```{r}
 source("R/helpers.R")
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
@@ -45,13 +45,13 @@ div(
     class = "sobre-cards",
     div(
       class = "sobre-card",
-      div(class = "sobre-card-icone", tags$i(class = "bi bi-bullseye", \`aria-hidden\` = "true")),
+      div(class = "sobre-card-icone", tags$i(class = "bi bi-bullseye", `aria-hidden` = "true")),
       h2(cfg$titulo_missao),
       p(cfg$missao)
     ),
     div(
       class = "sobre-card",
-      div(class = "sobre-card-icone", tags$i(class = "bi bi-compass", \`aria-hidden\` = "true")),
+      div(class = "sobre-card-icone", tags$i(class = "bi bi-compass", `aria-hidden` = "true")),
       h2(cfg$titulo_visao),
       p(cfg$visao)
     )
@@ -146,7 +146,7 @@ div(
 
       div(
         class = "membro-card",
-        \`data-busca\` = texto_busca,
+        `data-busca` = texto_busca,
         div(
           class = "membro-identidade",
           foto_pessoa(nome, e$foto),
@@ -186,7 +186,7 @@ div(
           span(
             class = "equipe-contagem",
             id = "equipe-contagem",
-            \`aria-live\` = "polite",
+            `aria-live` = "polite",
             paste(nrow(integrantes), if (nrow(integrantes) == 1) "integrante cadastrado" else "integrantes cadastrados")
           )
         ),
@@ -194,7 +194,7 @@ div(
           class = "equipe-filtros",
           div(
             class = "equipe-filtro-campo",
-            tags$label(\`for\` = "equipe-busca", "Buscar integrante"),
+            tags$label(`for` = "equipe-busca", "Buscar integrante"),
             tags$input(
               id = "equipe-busca",
               class = "equipe-busca",
@@ -205,7 +205,7 @@ div(
           ),
           div(
             class = "equipe-filtro-campo",
-            tags$label(\`for\` = "equipe-categoria-filtro", "Categoria"),
+            tags$label(`for` = "equipe-categoria-filtro", "Categoria"),
             tags$select(
               id = "equipe-categoria-filtro",
               class = "equipe-categoria-filtro",
@@ -225,7 +225,7 @@ div(
 
           div(
             class = grupo_class,
-            \`data-equipe-categoria\` = cat,
+            `data-equipe-categoria` = cat,
             h3(cat),
             div(
               class = "equipe-grid",
@@ -253,7 +253,7 @@ div(
             const vazio = raiz.querySelector('#equipe-filtro-vazio');
             const normalizar = (valor) => (valor || '')
               .normalize('NFD')
-              .replace(/[\\\\u0300-\\\\u036f]/g, '')
+              .replace(/[\\u0300-\\u036f]/g, '')
               .toLocaleLowerCase('pt-BR')
               .trim();
 
@@ -307,4 +307,4 @@ div(
            cfg$botao_dgp)
   )
 )
-\`\`\`
+```
