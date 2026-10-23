@@ -45,7 +45,7 @@ COLUNAS <- list(
   videos      = c("data", "titulo", "descricao", "url"),
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
-  galeria     = c("arquivo", "legenda")
+  galeria     = c("arquivo", "legenda", "foco_x", "foco_y", "zoom")
 )
 
 # Aceita datas atuais em ISO e formatos legados comuns no painel.
@@ -260,10 +260,30 @@ faixa_galeria <- function() {
           legenda <- fotos$legenda[i]
           alt_texto <- if (tem(legenda)) as.character(legenda) else "Foto do grupo GPENSC"
 
-          tags$img(
-            src = arquivo,
-            alt = alt_texto,
-            loading = "lazy"
+          # O painel salva o ponto focal (0–100) e o zoom (100–200%).
+          # Fotos antigas sem esses campos continuam centralizadas por padrão.
+          foco_x <- suppressWarnings(as.numeric(fotos$foco_x[i]))
+          foco_y <- suppressWarnings(as.numeric(fotos$foco_y[i]))
+          zoom <- suppressWarnings(as.numeric(fotos$zoom[i]))
+          if (!length(foco_x) || is.na(foco_x)) foco_x <- 50
+          if (!length(foco_y) || is.na(foco_y)) foco_y <- 50
+          if (!length(zoom) || is.na(zoom)) zoom <- 100
+          foco_x <- min(100, max(0, foco_x))
+          foco_y <- min(100, max(0, foco_y))
+          zoom <- min(200, max(100, zoom))
+
+          div(
+            class = "galeria-item",
+            tags$img(
+              src = arquivo,
+              alt = alt_texto,
+              style = paste0(
+                "object-position: ", foco_x, "% ", foco_y, "%; ",
+                "transform: scale(", zoom / 100, "); ",
+                "transform-origin: ", foco_x, "% ", foco_y, "%;"
+              ),
+              loading = "lazy"
+            )
           )
         })
       )
