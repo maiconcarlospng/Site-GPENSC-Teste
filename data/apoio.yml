@@ -1,10 +1,10 @@
 itens:
-- nome: Programa de Pós-Graduação em Saúde e Nutrição - UFOP
-  logo: logo_ppgsn.png
-  url: https://ppgsn.ufop.br
-- nome: Escola de Nutrição - UFOP
-  logo: logo_nutricao.png
-  url: https://enut.ufop.br
-- nome: Universidade Federal de Ouro Preto (UFOP)
-  logo: ufop-logo.jpg
-  url: https://ufop.br
+  - nome: Programa de Pós-Graduação em Saúde e Nutrição - UFOP
+    logo: logo_ppgsn.png
+    url: https://posnutricao.ufop.br/
+  - nome: Escola de Nutrição - UFOP
+    logo: logo_nutricao.png
+    url: https://enut.ufop.br
+  - nome: Universidade Federal de Ouro Preto (UFOP)
+    logo: ufop-logo.jpg
+    url: https://ufop.br
