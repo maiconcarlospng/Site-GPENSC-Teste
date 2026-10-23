@@ -1,21 +1,21 @@
 itens:
-- data: '2025-10-10'
-  tipo: Aula aberta
-  titulo: '[EXEMPLO] Aula aberta com convidado(a)'
-  local: '[Local ou link]'
-  url: ''
-- data: '2025-10-25'
-  tipo: Workshop
-  titulo: '[EXEMPLO] Workshop'
-  local: '[Local ou link]'
-  url: ''
-- data: '2025-11-05'
-  tipo: Curso
-  titulo: '[EXEMPLO] Curso gratuito (ex.: Introdução ao software R)'
-  local: '[Local ou link]'
-  url: ''
-- data: '2025-12-01'
-  tipo: Defesa
-  titulo: '[EXEMPLO] Defesa de doutorado'
-  local: '[Local ou link]'
-  url: ''
+  - data: 2025-10-10
+    tipo: Aula aberta
+    titulo: Aula aberta com convidado(a)
+    local: '[Local ou link]'
+    url: ''
+  - data: 2025-10-25
+    tipo: Workshop
+    titulo: '[EXEMPLO] Workshop'
+    local: '[Local ou link]'
+    url: ''
+  - data: 2025-11-05
+    tipo: Curso
+    titulo: '[EXEMPLO] Curso gratuito (ex.: Introdução ao software R)'
+    local: '[Local ou link]'
+    url: ''
+  - data: 2025-12-01
+    tipo: Defesa
+    titulo: '[EXEMPLO] Defesa de doutorado'
+    local: '[Local ou link]'
+    url: ''
