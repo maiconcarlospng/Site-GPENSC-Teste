@@ -218,6 +218,74 @@
         padding: 12px;
         color: #aeb7c2 !important;
       }
+      .gpen-sc-galeria__recorte {
+        margin-top: 2px;
+        padding: 10px 12px;
+        border: 1px solid #d8e2d5;
+        border-radius: 9px;
+        background: #f7faf5;
+      }
+
+      .gpen-sc-galeria__recorte > summary {
+        color: #2f5038;
+        font-size: .86rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .gpen-sc-galeria__recorte-ajuda {
+        margin: 8px 0 12px;
+        color: #5f6e62;
+        font-size: .78rem;
+        line-height: 1.5;
+      }
+
+      .gpen-sc-galeria__controle-recorte {
+        margin: 10px 0;
+      }
+
+      .gpen-sc-galeria__controle-recorte-cabecalho {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 4px;
+      }
+
+      .gpen-sc-galeria__controle-recorte-cabecalho label {
+        color: #344b39 !important;
+        font-size: .78rem;
+        font-weight: 650;
+      }
+
+      .gpen-sc-galeria__controle-recorte-cabecalho output {
+        color: #526457;
+        font-size: .78rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+
+      .gpen-sc-galeria__slider {
+        display: block;
+        width: 100%;
+        margin: 0;
+        accent-color: #286442;
+        cursor: pointer;
+      }
+
+      .gpen-sc-galeria__resetar-recorte {
+        margin-top: 7px;
+        padding: 7px 10px !important;
+        border: 1px solid #cbd9c7 !important;
+        background: #ffffff !important;
+        color: #315640 !important;
+        font-size: .78rem !important;
+        font-weight: 650 !important;
+      }
+
+      .gpen-sc-galeria__resetar-recorte:hover {
+        background: #edf4e9 !important;
+      }
     
       /* Ajustes de layout da área interna do Sveltia. Mantém o CMS como motor de edição. */
       body.gpen-cms-active {
@@ -1080,6 +1148,35 @@
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__arquivo,
       html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__preview figcaption {
         color: #cbd5e1 !important;
+      }
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte {
+        border-color: #414650 !important;
+        background: #20232a !important;
+        color: #e5e7eb !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte > summary,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__controle-recorte-cabecalho label {
+        color: #e5e7eb !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__recorte-ajuda,
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__controle-recorte-cabecalho output {
+        color: #b8c0cc !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__slider {
+        accent-color: #86c99a;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte {
+        border-color: #4b515d !important;
+        background: #30343d !important;
+        color: #f3f4f6 !important;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .gpen-sc-galeria__resetar-recorte:hover {
+        background: #3b414c !important;
       }
 
       @media (prefers-color-scheme: dark) {
