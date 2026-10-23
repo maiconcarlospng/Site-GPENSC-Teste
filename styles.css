@@ -2409,20 +2409,24 @@ button:focus-visible,
 @media (max-width: 767.98px) {
   .galeria-faixa > img,
   .galeria-faixa > .galeria-item {
-    flex-basis: 72% !important;
+    flex: 0 0 72% !important;
     width: 72% !important;
     height: clamp(210px, 52vw, 340px) !important;
     max-height: 340px !important;
+    min-height: 210px !important;
+    aspect-ratio: auto !important;
   }
 }
 
 @media (max-width: 380px) {
   .galeria-faixa > img,
   .galeria-faixa > .galeria-item {
-    flex-basis: 86% !important;
-    width: 86% !important;
+    flex: 0 0 88% !important;
+    width: 88% !important;
     height: 220px !important;
     max-height: 220px !important;
+    min-height: 220px !important;
+    aspect-ratio: auto !important;
   }
 }
 
