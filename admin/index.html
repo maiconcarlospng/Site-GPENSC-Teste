@@ -1184,6 +1184,29 @@
           color-scheme: dark;
         }
       }
+
+      /* O tema geral do editor estiliza inputs de todos os tipos; preserve o visual do slider de recorte. */
+      body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input.gpen-sc-galeria__slider {
+        box-sizing: border-box !important;
+        display: block !important;
+        width: 100% !important;
+        height: 20px !important;
+        min-height: 20px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color-scheme: light;
+      }
+
+      html[data-theme="dark"] body.gpen-cms-active .content-editor section.field[role="group"][data-key-path] input.gpen-sc-galeria__slider {
+        background: transparent !important;
+        border: 0 !important;
+        color-scheme: dark;
+        accent-color: #86c99a !important;
+      }
+
     </style>
   </head>
   <body class="gpen-cms-active">
