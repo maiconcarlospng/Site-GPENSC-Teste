@@ -289,3 +289,49 @@
     border: 0 !important;
   }
 </style>
+
+
+<!-- Mantém no celular o tamanho compacto original da galeria, mesmo com o recorte personalizado. -->
+<style id="gpen-galeria-mobile-size-restore">
+  @media (max-width: 767.98px) {
+    .galeria-faixa > img,
+    .galeria-faixa > .galeria-item {
+      box-sizing: border-box !important;
+      flex: 0 0 72% !important;
+      width: 72% !important;
+      height: clamp(210px, 52vw, 340px) !important;
+      min-height: 210px !important;
+      max-height: 340px !important;
+      aspect-ratio: auto !important;
+    }
+
+    .galeria-faixa > img {
+      object-fit: cover !important;
+      object-position: center !important;
+    }
+
+    .galeria-faixa > .galeria-item {
+      display: block !important;
+      overflow: hidden !important;
+    }
+
+    .galeria-faixa > .galeria-item > img {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: none !important;
+      object-fit: cover !important;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .galeria-faixa > img,
+    .galeria-faixa > .galeria-item {
+      flex: 0 0 88% !important;
+      width: 88% !important;
+      height: 220px !important;
+      min-height: 220px !important;
+      max-height: 220px !important;
+      aspect-ratio: auto !important;
+    }
+  }
+</style>
