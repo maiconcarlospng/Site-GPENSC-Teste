@@ -33,7 +33,7 @@ secao_ativa <- function(chave) {
 COLUNAS <- list(
   noticias    = c("data", "categoria", "titulo", "resumo", "conteudo", "url", "imagem"),
   eventos     = c("data", "tipo", "titulo", "local", "url"),
-  equipe      = c("nome", "papel", "formacao", "foto", "lattes", "orcid"),
+  equipe      = c("nome", "categoria", "papel", "formacao", "foto", "lattes", "orcid"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
   projetos    = c("titulo", "tipo", "situacao", "coordenador", "inicio", "fim",
                   "linha_id", "financiamento"),
@@ -139,7 +139,7 @@ registros_reais <- function(df, campo = "titulo") {
   texto <- trimws(as.character(df[[campo]]))
   valido <- !is.na(texto) & nzchar(texto)
   demonstracao <- grepl(
-    "^(\\[EXEMPLO\\]|EXEMPLO\\s*:|TESTE\\b|___)",
+    "^(\\[EXEMPLO\\]|EXEMPLO\\s*:|NOME\\s+DE\\s+EXEMPLO\\b|TESTE\\b|___)",
     texto,
     ignore.case = TRUE,
     perl = TRUE
