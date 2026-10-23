@@ -406,17 +406,20 @@ a.btn-warning:hover,
 .galeria-faixa {
   display: flex;
   align-items: stretch;
+  box-sizing: border-box;
   gap: 0.85rem;
   width: 100%;
   max-width: 100%;
-  padding: 0 1rem;
+  /* O espaço inferior leva a barra nativa para fora da área visível do pai. */
+  padding: 0 1rem 18px;
+  margin-bottom: -18px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
 .galeria-faixa img {
@@ -1155,7 +1158,8 @@ main.content,
   /* Galeria de fotos no tablet e celular */
   .galeria-faixa {
     gap: 0.65rem;
-    padding: 0 0.75rem;
+    padding: 0 0.75rem 18px;
+    margin-bottom: -18px;
   }
 
   .galeria-faixa img {
