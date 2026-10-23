@@ -2430,3 +2430,52 @@ button:focus-visible,
   }
 }
 
+/* Ajuste exclusivo para os cartões de navegação da página inicial em celulares. */
+@media (max-width: 767.98px) {
+  .pq {
+    min-height: 0 !important;
+  }
+
+  .pq .pq-conteudo {
+    min-height: 0 !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.4rem 1.25rem !important;
+  }
+
+  .pq .pq-icone {
+    flex: 0 0 3.4rem;
+    width: 3.4rem;
+    margin: 0 !important;
+    font-size: 3.25rem !important;
+    line-height: 1 !important;
+    text-align: center;
+  }
+
+  .pq .pq-titulo {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    padding: 0 !important;
+    font-size: clamp(1rem, 4.2vw, 1.2rem) !important;
+    line-height: 1.25;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 380px) {
+  .pq .pq-conteudo {
+    gap: .7rem;
+    padding: 1.1rem .9rem !important;
+  }
+
+  .pq .pq-icone {
+    flex-basis: 2.8rem;
+    width: 2.8rem;
+    font-size: 2.7rem !important;
+  }
+}
+
