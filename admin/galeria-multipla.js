@@ -30,6 +30,23 @@
     }
     return urlRelativaAoPainel(caminho);
   };
+  const limitar = (valor, padrao, minimo, maximo) => {
+    const numero = Number(valor);
+    return Number.isFinite(numero) && valor !== "" && valor !== null
+      ? Math.min(maximo, Math.max(minimo, numero))
+      : padrao;
+  };
+
+  const focoX = (foto) => limitar(foto.foco_x, 50, 0, 100);
+  const focoY = (foto) => limitar(foto.foco_y, 50, 0, 100);
+  const zoomFoto = (foto) => limitar(foto.zoom, 100, 100, 200);
+
+  const estiloEnquadramento = (foto) => {
+    const x = focoX(foto);
+    const y = focoY(foto);
+    const zoom = zoomFoto(foto) / 100;
+    return `object-position: ${x}% ${y}%; transform: scale(${zoom}); transform-origin: ${x}% ${y}%;`;
+  };
 
   const GaleriaMultiplaControl = ({ forID, value, onChange, pickFile, getAsset }) => {
     const [carregando, setCarregando] = useState(false);
@@ -52,7 +69,7 @@
         const lista = Array.isArray(selecionadas) ? selecionadas : [selecionadas];
         const novas = lista
           .filter((item) => item && typeof item.value === "string" && item.value)
-          .map((item) => ({ arquivo: item.value, legenda: "" }));
+          .map((item) => ({ arquivo: item.value, legenda: "", foco_x: 50, foco_y: 50, zoom: 100 }));
 
         if (novas.length) onChange([...fotos, ...novas]);
       } catch (error) {
@@ -64,6 +81,17 @@
 
     const alterarLegenda = (indice, legenda) => {
       onChange(fotos.map((foto, i) => (i === indice ? { ...foto, legenda } : foto)));
+    };
+
+    const alterarEnquadramento = (indice, campo, valor) => {
+      const numero = Number(valor);
+      onChange(fotos.map((foto, i) => (i === indice ? { ...foto, [campo]: numero } : foto)));
+    };
+
+    const centralizarEnquadramento = (indice) => {
+      onChange(fotos.map((foto, i) => (i === indice
+        ? { ...foto, foco_x: 50, foco_y: 50, zoom: 100 }
+        : foto)));
     };
 
     const moverFoto = (indice, deslocamento) => {
@@ -106,16 +134,46 @@
             const nomeArquivo = caminho.startsWith("blob:")
               ? "Imagem nova — será enviada ao salvar"
               : caminho.split("/").pop() || "Imagem selecionada";
+            const x = focoX(foto);
+            const y = focoY(foto);
+            const zoom = zoomFoto(foto);
+            const sufixo = forID + "-foto-" + indice;
 
             return html`
               <article class="gpen-sc-galeria__item" key=${caminho + "-" + indice}>
                 <span class="gpen-sc-galeria__preview-label">Prévia do recorte no site</span>
                 <div class="gpen-sc-galeria__imagem" title="Prévia aproximada do enquadramento da galeria no site">
                   ${src
-                    ? html`<img src=${src} alt=${foto.legenda || "Prévia do recorte da foto no site"} loading="lazy" />`
+                    ? html`<img src=${src} alt=${foto.legenda || "Prévia do recorte da foto no site"} style=${estiloEnquadramento(foto)} loading="lazy" />`
                     : html`<span class="gpen-sc-galeria__sem-imagem">Pré-visualização indisponível</span>`}
                 </div>
                 <div class="gpen-sc-galeria__corpo">
+                  <details class="gpen-sc-galeria__recorte">
+                    <summary>Ajustar recorte para a galeria</summary>
+                    <p class="gpen-sc-galeria__recorte-ajuda">A prévia usa o quadro horizontal da página. Mova o foco e ajuste o zoom sem modificar o arquivo original.</p>
+                    <div class="gpen-sc-galeria__controle-recorte">
+                      <div class="gpen-sc-galeria__controle-recorte-cabecalho">
+                        <label for=${sufixo + "-x"}>Horizontal</label>
+                        <output for=${sufixo + "-x"}>${x}%</output>
+                      </div>
+                      <input class="gpen-sc-galeria__slider" id=${sufixo + "-x"} type="range" min="0" max="100" step="1" value=${x} onInput=${(event) => alterarEnquadramento(indice, "foco_x", event.currentTarget.value)} />
+                    </div>
+                    <div class="gpen-sc-galeria__controle-recorte">
+                      <div class="gpen-sc-galeria__controle-recorte-cabecalho">
+                        <label for=${sufixo + "-y"}>Vertical</label>
+                        <output for=${sufixo + "-y"}>${y}%</output>
+                      </div>
+                      <input class="gpen-sc-galeria__slider" id=${sufixo + "-y"} type="range" min="0" max="100" step="1" value=${y} onInput=${(event) => alterarEnquadramento(indice, "foco_y", event.currentTarget.value)} />
+                    </div>
+                    <div class="gpen-sc-galeria__controle-recorte">
+                      <div class="gpen-sc-galeria__controle-recorte-cabecalho">
+                        <label for=${sufixo + "-zoom"}>Zoom</label>
+                        <output for=${sufixo + "-zoom"}>${zoom}%</output>
+                      </div>
+                      <input class="gpen-sc-galeria__slider" id=${sufixo + "-zoom"} type="range" min="100" max="200" step="5" value=${zoom} onInput=${(event) => alterarEnquadramento(indice, "zoom", event.currentTarget.value)} />
+                    </div>
+                    <button class="gpen-sc-galeria__resetar-recorte" type="button" onClick=${() => centralizarEnquadramento(indice)}>Centralizar e redefinir zoom</button>
+                  </details>
                   <label for=${forID + "-legenda-" + indice}>Legenda (opcional)</label>
                   <input
                     class="gpen-sc-galeria__legenda"
@@ -155,7 +213,7 @@
           const src = srcDaImagem(foto.arquivo, getAsset);
           return html`
             <figure key=${foto.arquivo + "-preview-" + indice}>
-              ${src && html`<img src=${src} alt=${foto.legenda || "Foto " + (indice + 1)} loading="lazy" />`}
+              ${src && html`<img src=${src} alt=${foto.legenda || "Foto " + (indice + 1)} style=${estiloEnquadramento(foto)} loading="lazy" />`}
               <figcaption>${foto.legenda || "Foto " + (indice + 1)}</figcaption>
             </figure>
           `;
