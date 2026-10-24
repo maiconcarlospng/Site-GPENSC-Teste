@@ -3015,3 +3015,47 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     white-space: normal;
   }
 }
+
+
+/* Correção: a página inicial usa layout customizado do Quarto e não possui <main>.
+   Aplicar o tema Spotify diretamente à faixa do podcast, sem depender de <main>. */
+.faixa:has(.faixa-botoes-noar) {
+  background: linear-gradient(120deg, #101f17 0%, #163d29 58%, #1b5e38 100%) !important;
+  border: 1px solid rgba(29, 185, 84, .55) !important;
+  border-left: 6px solid #1ed760 !important;
+  color: #ffffff !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(16, 31, 23, .18) !important;
+}
+.faixa:has(.faixa-botoes-noar) .faixa-texto,
+.faixa:has(.faixa-botoes-noar) .faixa-texto strong {
+  color: #ffffff !important;
+}
+.faixa:has(.faixa-botoes-noar) .btn-secondary {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, .7) !important;
+  color: #ffffff !important;
+}
+.faixa:has(.faixa-botoes-noar) .btn-secondary:hover {
+  background: rgba(255, 255, 255, .12) !important;
+}
+.faixa:has(.faixa-botoes-noar) .btn-spotify {
+  background: #1ed760 !important;
+  border: 1px solid #1ed760 !important;
+  color: #102015 !important;
+}
+@media (max-width: 700px) {
+  .faixa:has(.faixa-botoes-noar) {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 1.2rem !important;
+  }
+  .faixa:has(.faixa-botoes-noar) .faixa-botoes-noar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+  }
+  .faixa:has(.faixa-botoes-noar) .faixa-botao {
+    white-space: normal;
+  }
+}
