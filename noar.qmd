@@ -20,7 +20,7 @@ div(
       href = cfg$spotify,
       target = "_blank",
       rel = "noopener noreferrer",
-      tags$i(class = "bi bi-spotify", `aria-hidden` = "true"),
+      tags$svg(class = "spotify-icon", xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", width = "24", height = "24", fill = "currentColor", `aria-hidden` = "true", tags$path(d = "M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.494 17.303a.75.75 0 0 1-1.032.248c-2.828-1.728-6.39-2.119-10.582-1.161a.75.75 0 1 1-.334-1.462c4.588-1.047 8.525-.597 11.7 1.343a.75.75 0 0 1 .248 1.032zm1.473-3.278a.938.938 0 0 1-1.29.309c-3.237-1.99-8.172-2.566-12.001-1.404a.938.938 0 1 1-.545-1.794c4.376-1.327 9.81-.685 13.527 1.6a.938.938 0 0 1 .309 1.289zm.126-3.413C15.21 8.254 8.782 8.042 5.06 9.171a1.125 1.125 0 1 1-.653-2.153c4.274-1.297 11.38-1.047 15.872 1.62a1.125 1.125 0 0 1-1.186 1.974z")),
       " Ouça o GPENSC no Ar no Spotify"
     )
   ),
@@ -53,7 +53,7 @@ div(
   div(
     class = "sobre-cta",
     p("Ouça o podcast no Spotify e siga o perfil do GPENSC para acompanhar a divulgação de novos episódios."),
-    if (tem(cfg$spotify)) tags$a(class = "btn btn-spotify", href = cfg$spotify, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-spotify", `aria-hidden` = "true"), " Ouvir no Spotify"),
+    if (tem(cfg$spotify)) tags$a(class = "btn btn-spotify", href = cfg$spotify, target = "_blank", rel = "noopener noreferrer", tags$svg(class = "spotify-icon", xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", width = "24", height = "24", fill = "currentColor", `aria-hidden` = "true", tags$path(d = "M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.494 17.303a.75.75 0 0 1-1.032.248c-2.828-1.728-6.39-2.119-10.582-1.161a.75.75 0 1 1-.334-1.462c4.588-1.047 8.525-.597 11.7 1.343a.75.75 0 0 1 .248 1.032zm1.473-3.278a.938.938 0 0 1-1.29.309c-3.237-1.99-8.172-2.566-12.001-1.404a.938.938 0 1 1-.545-1.794c4.376-1.327 9.81-.685 13.527 1.6a.938.938 0 0 1 .309 1.289zm.126-3.413C15.21 8.254 8.782 8.042 5.06 9.171a1.125 1.125 0 1 1-.653-2.153c4.274-1.297 11.38-1.047 15.872 1.62a1.125 1.125 0 0 1-1.186 1.974z")), " Ouvir no Spotify"),
     tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-instagram", `aria-hidden` = "true"), " Instagram do GPENSC")
   )
 )
