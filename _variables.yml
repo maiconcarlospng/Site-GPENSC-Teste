@@ -26,13 +26,13 @@ objetivo4: "Capacitar estudantes e pesquisadores na produção e análise de dad
 # --- 4. PROJETOS DE EXTENSÃO E MÍDIA ---
 podcast_nome: "GPENSC no Ar"
 podcast_descricao: "Conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
-link_podcast: "https://open.spotify.com/show/SEU_ID_AQUI"
+link_podcast: ""
 
 # --- 5. LINKS INSTITUCIONAIS E PARCERIAS ---
 link_ppgsn: "https://ppgsn.ufop.br"
 link_escola: "https://enut.ufop.br"
 link_ufop: "https://ufop.br"
-link_dgp: "http://dgp.cnpq.br/dgp/espelhogrupo/[ID-DO-GRUPO]"
+link_dgp: ""
 
 # --- 6. REDES SOCIAIS E CONTATO ---
 email: "gpensc@ufop.edu.br"
@@ -40,7 +40,7 @@ telefone: "(31) 3559-1800"
 instagram: "https://instagram.com/gpenscufop"
 instagram_user: "@gpenscufop"
 youtube: "https://youtube.com/@gpenscufop"
-spotify: "https://open.spotify.com/show/SEU_ID_AQUI"
+spotify: ""
 
 # --- 7. ENDEREÇO E LOCALIZAÇÃO ---
 endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Ouro Preto, MG – CEP 35400-000"
@@ -66,8 +66,8 @@ mostrar_sites: true
 # --- 10. TEXTOS EDITÁVEIS DA INTERFACE ---
 titulo_home_pesquisas: "Pesquisas"
 titulo_home_noticias: "Últimas notícias"
-texto_aviso_noticias_home_titulo: "Notícias de demonstração. "
-texto_aviso_noticias_home: "Estes cartões ilustram como as publicações aparecerão no site."
+texto_aviso_noticias_home_titulo: ""
+texto_aviso_noticias_home: ""
 titulo_home_agenda: "Confira nossa agenda de aulas abertas, workshops e participações"
 titulo_home_noar: "GPENSC no Ar"
 texto_home_noar: "conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
@@ -77,8 +77,8 @@ titulo_visao: "Nossa visão"
 titulo_objetivos: "Objetivos"
 titulo_vinculos: "Vínculos institucionais"
 titulo_equipe: "Equipe"
-texto_aviso_equipe_titulo: "Conteúdo demonstrativo. "
-texto_aviso_equipe: "Os perfis abaixo mostram como a equipe será apresentada. Substitua os exemplos pelos dados autorizados dos integrantes."
+texto_aviso_equipe_titulo: ""
+texto_aviso_equipe: ""
 texto_cta_sobre: "Saiba mais sobre a produção científica e as atividades do grupo."
 botao_dgp: "Consultar Diretório dos Grupos de Pesquisa do CNPq"
 intro_agenda: "Acompanhe aulas abertas, workshops, cursos, bancas e outras atividades do grupo."
