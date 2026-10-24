@@ -20,6 +20,7 @@ ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
+SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css")
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
@@ -209,7 +210,7 @@ def validate_data_against_fields(data, fields, context: str) -> None:
 
 
 def main() -> None:
-    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js"):
+    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", *SITE_CSS_PATHS):
         if not file_path.is_file():
             fail(f"Arquivo necessário não encontrado: {file_path.relative_to(ROOT)}")
 
@@ -275,7 +276,10 @@ def main() -> None:
         if path.is_file():
             load_yaml(path)
 
+    # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
     inspect_css(CSS_PATH)
+    for site_css in SITE_CSS_PATHS:
+        inspect_css(site_css)
 
     # Impede que marcadores técnicos conhecidos voltem ao conteúdo público.
     placeholder_tokens = ("SEU_ID_AQUI", "[ID-DO-GRUPO]", "[convidado(a) – preencher]")
