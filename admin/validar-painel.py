@@ -272,6 +272,7 @@ def main() -> None:
     # Detecta erros de sintaxe em todos os YAML de conteúdo consumidos pelo site.
     yaml_paths = {ROOT / "_variables.yml"}
     yaml_paths.update((ROOT / "data").rglob("*.yml"))
+    yaml_paths.update((ROOT / "data").rglob("*.yaml"))
     for path in sorted(yaml_paths):
         if path.is_file():
             load_yaml(path)
