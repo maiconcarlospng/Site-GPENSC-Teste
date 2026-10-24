@@ -71,7 +71,7 @@ website:
 format:
   html:
     theme: [default, custom.scss]
-    css: styles-mobile-v3.css
+    css: styles-mobile-v4.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
