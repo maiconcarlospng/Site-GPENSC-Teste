@@ -2938,3 +2938,36 @@ main .plot-container {
     transition: none;
   }
 }
+
+
+/* Destaque de acesso ao Spotify — GPENSC no Ar */
+.pagina-noar .noar-spotify-destaque {
+  margin: 1.25rem 0 1.75rem;
+}
+
+.btn-spotify {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  background: #1db954;
+  border: 1px solid #1db954;
+  color: #102015 !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  border-radius: 999px;
+  padding: .75rem 1.2rem;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.btn-spotify:hover,
+.btn-spotify:focus-visible {
+  background: #1ed760;
+  border-color: #1ed760;
+  color: #102015 !important;
+  transform: translateY(-1px);
+}
+
+.btn-spotify .bi-spotify {
+  font-size: 1.25em;
+}
