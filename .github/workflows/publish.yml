@@ -127,13 +127,13 @@ jobs:
             quarto-freeze-${{ runner.os }}-
 
       # Conteúdo e funções R podem afetar resultados computados; não reutilizar freeze antigo nesses casos.
-      - name: Invalidar resultados congelados se mudarem dados ou código R
+      - name: Invalidar resultados congelados quando mudar conteúdo, dados ou código
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
             changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
-            if printf '%s\n' "$changed_files" | grep -Eq '^(R/|data/|_variables\.yml$|_quarto\.yml$)'; then
-              echo "Dados ou código compartilhado mudaram; removendo _freeze antigo."
+            if printf '%s\n' "$changed_files" | grep -Eq '(^|/)[^/]+\.qmd$|^(R/|data/|_variables\.yml$|_quarto\.yml$)'; then
+              echo "Página, dados ou código compartilhado mudaram; removendo _freeze antigo."
               rm -rf _freeze
             fi
           fi
