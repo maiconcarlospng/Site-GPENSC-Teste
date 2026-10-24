@@ -2654,3 +2654,45 @@ button:focus-visible,
   }
 }
 
+
+
+/* Acessibilidade transversal: foco visível, movimento reduzido e toque confortável. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #B9560F !important;
+  outline-offset: 3px !important;
+  scroll-margin-block: 6rem;
+}
+
+@media (max-width: 768px) {
+  main button,
+  main .btn,
+  main a[role="button"],
+  main input[type="submit"],
+  main input[type="button"] {
+    min-height: 44px;
+  }
+
+  main input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  main select,
+  main textarea {
+    max-width: 100%;
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+main img, main video, main iframe { max-width: 100%; }
+main table {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
