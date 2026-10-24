@@ -6,32 +6,20 @@ title-block-banner: false
 ---
 
 ```{=html}
-<!-- Página inicial: identidade institucional, apresentação, pesquisas, notícias, agenda e conteúdos. -->
+<!-- Página inicial: identidade institucional, galeria, apresentação, pesquisa, notícias e apoio. -->
 ```
-
-::: {.home-gpensc}
 
 ```{r}
 source("R/helpers.R")
 faixa_galeria()
 ```
 
-::::: {.secao .home-apresentacao}
-<div class="home-kicker">Conheça o GPENSC</div>
-
+::::: secao
 ```{r}
 bloco_intro()
 ```
-:::::
 
-::::: {.secao .home-pesquisas}
-<div class="home-heading">
-  <div>
-    <div class="home-kicker">Conhecimento e formação</div>
-    <h2>{{< var titulo_home_pesquisas >}}</h2>
-    <p>Conheça os caminhos para acompanhar as pesquisas e a produção acadêmica do grupo.</p>
-  </div>
-:::
+## {{< var titulo_home_pesquisas >}}
 
 ```{r}
 div(
@@ -43,29 +31,22 @@ div(
 ```
 
 ::: centro
-[Explore todas as pesquisas](projetos.qmd){.btn .btn-secondary}
+[Veja todas as pesquisas](projetos.qmd){.btn .btn-secondary}
 :::
-:::::
 
-::::: {.secao .home-noticias}
-<div class="home-heading">
-  <div>
-    <div class="home-kicker">Acompanhe o grupo</div>
-    <h2>{{< var titulo_home_noticias >}}</h2>
-  </div>
-</div>
+## {{< var titulo_home_noticias >}}
 
 ```{r}
 noticias_recentes <- registros_reais(noticias, "titulo") |>
   arrange(desc(data)) |>
-  head(3)
+  head(6)
 
 if (nrow(noticias_recentes) > 0) {
   cartoes(noticias_recentes, cartao_noticia)
 } else {
   estado_vazio(
     "Novidades em breve",
-    "As notícias serão exibidas aqui quando forem cadastradas informações reais pelo painel administrativo.",
+    "As notícias do grupo serão exibidas aqui quando houver publicações cadastradas.",
     "Acompanhe o Instagram",
     cfg$instagram
   )
@@ -77,27 +58,16 @@ if (nrow(noticias_recentes) > 0) {
 :::
 :::::
 
-::: {.faixa-agenda .home-agenda}
-<div class="home-kicker">Próximas atividades</div>
-
+::: faixa-agenda
 ## {{< var titulo_home_agenda >}}
 
-<p class="home-agenda-texto">Consulte a agenda para acompanhar atividades e compromissos publicados pelo grupo.</p>
-
-[Clique aqui para consultar a agenda](agenda.qmd){.btn .btn-secondary}
+[Clique aqui](agenda.qmd){.btn .btn-secondary}
 :::
 
-:::: {.secao .home-conteudos}
-<div class="home-heading">
-  <div>
-    <div class="home-kicker">Áudio e divulgação científica</div>
-    <h2>{{< var titulo_home_noar >}}</h2>
-  </div>
-</div>
-
+:::: secao
 ```{r}
 div(
-  class = "faixa reveal home-podcast",
+  class = "faixa reveal",
   p(
     class = "faixa-texto",
     strong(cfg$titulo_home_noar),
@@ -112,5 +82,3 @@ div(
 faixa_apoio()
 ```
 ::::
-
-:::
