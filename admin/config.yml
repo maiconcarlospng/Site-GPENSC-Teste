@@ -28,7 +28,7 @@ collections:
               widget: "list"
               collapsed: true
               label_singular: "notícia"
-              hint: "Preencha título, data e resumo. Revise os exemplos antes de publicar."
+              hint: "Cadastre notícias reais, com título, data e resumo. Se não houver notícias, deixe a lista vazia."
               summary: "{{fields.titulo}} — {{fields.data}}"
               fields:
                 - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
