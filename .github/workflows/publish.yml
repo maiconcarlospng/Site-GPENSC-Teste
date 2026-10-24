@@ -16,6 +16,7 @@ on:
       - "styles.css"
       - "styles-mobile-v2.css"
       - "styles-mobile-v3.css"
+      - "styles-mobile-v4.css"
       - "custom.scss"
       - "lupa.html"
       - "topo.html"
@@ -112,7 +113,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
           restore-keys: |
             quarto-site-${{ runner.os }}-
 
