@@ -2479,3 +2479,77 @@ button:focus-visible,
   }
 }
 
+/* Refinamento final da página inicial em telas pequenas: alinhamento e áreas de toque. */
+@media (max-width: 767.98px) {
+  .pq-blocos {
+    gap: .75rem !important;
+  }
+
+  .pq-blocos .pq {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .pq-blocos .pq .pq-conteudo {
+    justify-content: flex-start;
+    gap: .85rem;
+    padding: 1rem 1.1rem !important;
+  }
+
+  .pq-blocos .pq .pq-icone {
+    flex-basis: 2.8rem;
+    width: 2.8rem;
+    font-size: 2.65rem !important;
+  }
+
+  .pq-blocos .pq .pq-titulo {
+    font-size: clamp(.98rem, 4vw, 1.1rem) !important;
+    line-height: 1.3;
+    text-wrap: pretty;
+  }
+
+  .intro-texto p {
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .intro-texto .btn,
+  .centro .btn,
+  .faixa-agenda .btn,
+  .faixa .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .parceiros {
+    row-gap: .85rem !important;
+  }
+
+  .nav-footer-right a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .pq-blocos .pq .pq-conteudo {
+    gap: .7rem;
+    padding: .9rem .85rem !important;
+  }
+
+  .pq-blocos .pq .pq-icone {
+    flex-basis: 2.55rem;
+    width: 2.55rem;
+    font-size: 2.4rem !important;
+  }
+
+  .pq-blocos .pq .pq-titulo {
+    font-size: .96rem !important;
+  }
+}
+
