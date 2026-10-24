@@ -13,6 +13,17 @@ div(
     class = "contato-intro",
     cfg$intro_noar
   ),
+  if (tem(cfg$spotify)) div(
+    class = "noar-spotify-destaque",
+    tags$a(
+      class = "btn btn-spotify",
+      href = cfg$spotify,
+      target = "_blank",
+      rel = "noopener noreferrer",
+      tags$i(class = "bi bi-spotify", `aria-hidden` = "true"),
+      " Ouça o GPENSC no Ar no Spotify"
+    )
+  ),
   if (nrow(episodios_publicados) > 0) {
     cartoes(episodios_publicados, function(e, i) {
       convidado <- valor_publico(e$convidado)
@@ -41,8 +52,9 @@ div(
   },
   div(
     class = "sobre-cta",
-    p("Siga o perfil do GPENSC para acompanhar a divulgação de novos episódios."),
-    tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", "Instagram do GPENSC")
+    p("Ouça o podcast no Spotify e siga o perfil do GPENSC para acompanhar a divulgação de novos episódios."),
+    if (tem(cfg$spotify)) tags$a(class = "btn btn-spotify", href = cfg$spotify, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-spotify", `aria-hidden` = "true"), " Ouvir no Spotify"),
+    tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-instagram", `aria-hidden` = "true"), " Instagram do GPENSC")
   )
 )
 } else {
