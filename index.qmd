@@ -9,14 +9,14 @@ title-block-banner: false
 <!-- Página inicial: identidade institucional, apresentação, pesquisas, notícias, agenda e conteúdos. -->
 ```
 
-<div class="home-gpensc">
+::: {.home-gpensc}
 
 ```{r}
 source("R/helpers.R")
 faixa_galeria()
 ```
 
-::::: secao home-apresentacao
+::::: {.secao .home-apresentacao}
 <div class="home-kicker">Conheça o GPENSC</div>
 
 ```{r}
@@ -24,14 +24,14 @@ bloco_intro()
 ```
 :::::
 
-::::: secao home-pesquisas
+::::: {.secao .home-pesquisas}
 <div class="home-heading">
   <div>
     <div class="home-kicker">Conhecimento e formação</div>
     <h2>{{< var titulo_home_pesquisas >}}</h2>
     <p>Conheça os caminhos para acompanhar as pesquisas e a produção acadêmica do grupo.</p>
   </div>
-</div>
+:::
 
 ```{r}
 div(
@@ -47,7 +47,7 @@ div(
 :::
 :::::
 
-::::: secao home-noticias
+::::: {.secao .home-noticias}
 <div class="home-heading">
   <div>
     <div class="home-kicker">Acompanhe o grupo</div>
@@ -77,7 +77,7 @@ if (nrow(noticias_recentes) > 0) {
 :::
 :::::
 
-::: faixa-agenda home-agenda
+::: {.faixa-agenda .home-agenda}
 <div class="home-kicker">Próximas atividades</div>
 
 ## {{< var titulo_home_agenda >}}
@@ -87,7 +87,7 @@ if (nrow(noticias_recentes) > 0) {
 [Clique aqui para consultar a agenda](agenda.qmd){.btn .btn-secondary}
 :::
 
-:::: secao home-conteudos
+:::: {.secao .home-conteudos}
 <div class="home-heading">
   <div>
     <div class="home-kicker">Áudio e divulgação científica</div>
