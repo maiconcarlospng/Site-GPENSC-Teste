@@ -178,7 +178,7 @@ def validate_data_against_fields(data, fields, context: str) -> None:
                     f"{value_text!r}. Corrija o dado ou ajuste a regra de validação."
                 )
             # Regex de data valida o formato, mas não impede datas impossíveis como 31/02.
-            if name.lower() in {"data", "date", "data_inicio", "data_fim"} and re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", value_text):
+            if name.lower() in {"data", "date", "data_inicio", "data_fim"} and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value_text):
                 try:
                     date.fromisoformat(value_text)
                 except ValueError:
