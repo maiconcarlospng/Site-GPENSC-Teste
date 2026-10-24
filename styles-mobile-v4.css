@@ -2968,6 +2968,6 @@ main .plot-container {
   transform: translateY(-1px);
 }
 
-.btn-spotify .bi-spotify {
+.btn-spotify .spotify-icon {
   font-size: 1.25em;
 }
