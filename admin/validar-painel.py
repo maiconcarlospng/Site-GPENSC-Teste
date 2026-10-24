@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import html.parser
+from datetime import date
 import os
 import re
 import shutil
@@ -176,6 +177,12 @@ def validate_data_against_fields(data, fields, context: str) -> None:
                     f"Valor atual não corresponde ao formato do campo '{name}' em {context}: "
                     f"{value_text!r}. Corrija o dado ou ajuste a regra de validação."
                 )
+            # Regex de data valida o formato, mas não impede datas impossíveis como 31/02.
+            if name.lower() in {"data", "date", "data_inicio", "data_fim"} and re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", value_text):
+                try:
+                    date.fromisoformat(value_text)
+                except ValueError:
+                    fail(f"Data inexistente no campo '{name}' em {context}: {value_text!r}.")
 
         if widget == "list" and value is not None:
             if not isinstance(value, list):
@@ -269,6 +276,16 @@ def main() -> None:
             load_yaml(path)
 
     inspect_css(CSS_PATH)
+
+    # Impede que marcadores técnicos conhecidos voltem ao conteúdo público.
+    placeholder_tokens = ("SEU_ID_AQUI", "[ID-DO-GRUPO]", "[convidado(a) – preencher]")
+    for path in sorted(yaml_paths | {CONFIG_PATH}):
+        if not path.is_file():
+            continue
+        source = path.read_text(encoding="utf-8")
+        for token in placeholder_tokens:
+            if token.casefold() in source.casefold():
+                fail(f"Marcador provisório '{token}' encontrado em {path.relative_to(ROOT)}.")
 
     html_text = CMS_PATH.read_text(encoding="utf-8")
     # Recursos locais do painel precisam existir após a separação dos arquivos.
