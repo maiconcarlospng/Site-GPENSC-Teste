@@ -20,33 +20,23 @@
   <path d="M1308 91C1342 116 1371 151 1394 192" stroke="#F3ECDD" stroke-width="13" stroke-linecap="round"/>
   <path d="M1378 200C1397 250 1410 310 1408 366" stroke="#F3ECDD" stroke-width="10" stroke-linecap="round" opacity=".9"/>
 
-  <!-- Nervação foliar: uma nervura central contínua e nervuras secundárias
-       alternadas, suavemente arqueadas e ligadas à nervura principal. -->
-  <g stroke="#285D35" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
-    <!-- Nervura central -->
-    <path d="M1072 448C1152 363 1236 239 1310 112"
-          fill="none" stroke-width="7"/>
+  <!-- Nervação foliar mais orgânica: nervura central suavemente arqueada
+       e apenas três pares de nervuras secundárias curvas. -->
+  <g stroke="#285D35" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".72">
+    <!-- Nervura central, acompanhando a curvatura natural da folha -->
+    <path d="M1058 442C1116 383 1172 316 1218 247C1255 190 1282 140 1306 112"
+          stroke-width="8"/>
 
-    <!-- Nervuras secundárias do lado esquerdo da nervura central -->
-    <g fill="none" stroke-width="4">
-      <path d="M1110 405C1080 412 1048 417 1018 415"/>
-      <path d="M1143 365C1110 360 1072 354 1032 350"/>
-      <path d="M1177 321C1142 307 1101 298 1058 296"/>
-      <path d="M1210 276C1175 255 1135 240 1090 238"/>
-      <path d="M1240 230C1208 207 1170 190 1135 190"/>
-      <path d="M1268 184C1240 162 1210 148 1180 151"/>
-      <path d="M1290 145C1270 130 1250 121 1228 124"/>
-    </g>
+    <!-- Três pares de nervuras secundárias, alternadas e arqueadas até a margem -->
+    <g stroke-width="4.5">
+      <path d="M1148 346C1112 325 1078 311 1040 308"/>
+      <path d="M1148 346C1210 365 1272 382 1345 390"/>
 
-    <!-- Nervuras secundárias do lado direito: acompanham a margem da folha -->
-    <g fill="none" stroke-width="4">
-      <path d="M1110 405C1170 418 1240 429 1322 428"/>
-      <path d="M1143 365C1205 382 1275 391 1342 383"/>
-      <path d="M1177 321C1238 342 1305 350 1360 337"/>
-      <path d="M1210 276C1270 296 1325 300 1370 286"/>
-      <path d="M1240 230C1290 248 1330 249 1360 236"/>
-      <path d="M1268 184C1305 198 1332 195 1345 181"/>
-      <path d="M1290 145C1312 153 1328 149 1336 137"/>
+      <path d="M1201 269C1167 244 1132 225 1097 219"/>
+      <path d="M1201 269C1257 291 1310 313 1357 322"/>
+
+      <path d="M1250 199C1221 175 1193 157 1165 151"/>
+      <path d="M1250 199C1295 215 1332 238 1361 264"/>
     </g>
   </g>
 
