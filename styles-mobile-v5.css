@@ -272,3 +272,56 @@ footer.footer .gp-footer-admin-link {
     border-top: 0 !important;
   }
 }
+
+/* ---------- MENU MOBILE: BOTÃO, LOGO E IDIOMAS NA PRIMEIRA LINHA ---------- */
+@media (max-width: 768px) {
+  body:has(.hero) .navbar .navbar-toggler {
+    order: 1 !important;
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-container {
+    order: 2 !important;
+    display: flex !important;
+    flex: 1 1 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  body:has(.hero) .navbar .bandeiras-container {
+    order: 3 !important;
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: .25rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body:has(.hero) .navbar .bandeira-idioma {
+    width: 20px !important;
+    height: 14px !important;
+    padding: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-collapse {
+    order: 4 !important;
+  }
+}
