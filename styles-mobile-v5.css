@@ -237,3 +237,38 @@ footer.footer .gp-footer-admin-link {
     font-size: .55rem !important;
   }
 }
+
+
+/* ---------- MOBILE: SOBREPOSIÇÃO DO HEADER PARA ELIMINAR A FAIXA BRANCA ---------- */
+/* A navbar do Quarto é fixa e o conteúdo começa após o padding automático do body.
+   Avançamos apenas o primeiro bloco verde por trás da navbar para cobrir qualquer
+   folga residual criada pelo layout móvel. A própria navbar permanece acima dele. */
+@media (max-width: 768px) {
+  body:has(.hero) #quarto-header {
+    z-index: 1030 !important;
+    background: #fff !important;
+  }
+
+  body:has(.hero) #quarto-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  body:has(.hero) #quarto-content > .cell:has(> .cell-output-display > .hero) {
+    position: relative !important;
+    z-index: 0 !important;
+    margin-top: -10px !important;
+    padding-top: 0 !important;
+  }
+
+  body:has(.hero) #quarto-content > .cell:has(> .cell-output-display > .hero) > .cell-output-display {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+
+  body:has(.hero) .cell-output-display:has(> .hero) > .hero {
+    margin-top: 0 !important;
+    border-top: 0 !important;
+  }
+}
