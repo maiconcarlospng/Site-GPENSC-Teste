@@ -790,125 +790,246 @@ main.content,
   box-sizing: border-box !important;
 }
 
-/* Rodapé: visual, links, marcadores e redes sociais */
+/* Rodapé institucional completo do GPENSC — Quarto page-footer */
 .nav-footer {
-  background: var(--gp-areia);
+  position: relative !important;
+  left: 50% !important;
+  width: 100vw !important;
+  margin: 0 0 0 -50vw !important;
+  padding: 3.2rem max(1.5rem, calc((100vw - 1240px) / 2)) 1.2rem !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: start !important;
+  gap: 2.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  box-sizing: border-box !important;
   border-top: 0 !important;
-  padding: 1.5rem 1.5rem !important;
+  background: var(--gp-verde) !important;
+  color: #eef3ec !important;
+  text-align: left !important;
   font-size: .9rem;
-  text-align: center;
+}
+
+.nav-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gp-folha) 0 38%, var(--gp-laranja) 38% 70%, var(--gp-vermelho) 70%);
+}
+
+.nav-footer::after {
+  content: "© GPENSC – Universidade Federal de Ouro Preto. Todos os direitos reservados.";
+  grid-column: 1 / -1;
+  display: block;
+  margin-top: .25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.17);
+  color: #c5d1c2;
+  font-size: .76rem;
+  line-height: 1.5;
+}
+
+.nav-footer-left,
+.nav-footer-center,
+.nav-footer-right {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: stretch !important;
+  text-align: left !important;
 }
 
 .nav-footer a {
-  color: var(--gp-verde);
+  color: #e5ede3 !important;
   text-decoration: none !important;
+  transition: color .18s ease, opacity .18s ease;
 }
 
-/* Esconde links repetidos/indesejados no rodapé */
-.nav-footer a[href*="sobre"],
-.nav-footer a[href*="noticias"],
-.nav-footer a[href*="agenda"] {
-  display: none !important;
+.nav-footer a:hover {
+  color: #cfe2c6 !important;
 }
 
-/* Remove pontinhos e marcadores ao lado de Contato */
-.nav-footer-left,
-.nav-footer-left ul,
-.nav-footer-left li {
-  list-style: none !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
+.gp-footer-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: .85rem;
+  margin-bottom: .9rem;
 }
 
-.nav-footer-left li::before,
-.nav-footer-left ::before {
+.gp-footer-brand-mark img {
+  display: block;
+  width: 50px !important;
+  height: 50px !important;
+  max-width: 50px !important;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: contain;
+}
+
+.gp-footer-brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+
+.gp-footer-brand-wordmark strong {
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.05;
+}
+
+.gp-footer-brand-wordmark small {
+  color: #cad8c6;
+  font-size: .7rem;
+  font-weight: 650;
+  letter-spacing: .1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.gp-footer-description,
+.gp-footer-affiliation {
+  max-width: 27rem;
+  margin: 0 0 .55rem !important;
+  color: #d1dccf;
+  font-size: .86rem;
+  line-height: 1.65;
+}
+
+.gp-footer-heading {
+  margin: .25rem 0 1rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #fff !important;
+  font-size: .8rem !important;
+  font-weight: 750 !important;
+  letter-spacing: .09em !important;
+  line-height: 1.35;
+  text-align: left !important;
+  text-transform: uppercase;
+}
+
+.gp-footer-heading::before {
   content: none !important;
   display: none !important;
 }
 
-/* Redes sociais e contato no rodapé: botões mais visíveis e acessíveis */
-.nav-footer-right {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  flex-wrap: wrap !important;
-  gap: .65rem !important;
+.gp-footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem 1rem;
 }
 
-.nav-footer-right a {
+.gp-footer-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .4rem;
+  color: #e0e9de !important;
+  font-size: .84rem;
+  line-height: 1.45;
+}
+
+.gp-footer-links a::before {
+  content: "›";
+  color: #a9c59e;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.gp-footer-contact-list {
+  display: grid;
+  justify-items: start;
+  gap: .75rem;
+  margin: 0 0 1rem;
+}
+
+.gp-footer-contact-link {
   display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: .55rem !important;
-  min-height: 42px;
-  padding: .62rem .95rem !important;
-  border: 1px solid transparent;
-  border-radius: 999px;
+  align-items: center;
+  gap: .6rem;
+  color: #e2ebe0 !important;
+  font-size: .85rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+/* Instagram e e-mail sem botões chamativos: ícones pequenos, suaves e discretos. */
+.gp-footer-contact-link .bi {
+  flex: 0 0 1rem;
+  width: 1rem;
+  color: #c3d2bf !important;
   font-size: .9rem !important;
-  font-weight: 700;
   line-height: 1 !important;
-  text-decoration: none !important;
-  box-shadow: 0 3px 10px rgba(30, 50, 35, .10);
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  opacity: .82;
 }
 
-.nav-footer-right a i,
-.nav-footer-right a .bi,
-.nav-footer-right a svg {
-  font-size: 1.25rem !important;
-  line-height: 1 !important;
+.gp-footer-contact-link:hover .bi {
+  color: #d6e5cf !important;
+  opacity: 1;
 }
 
-/* O Instagram permanece destacado mesmo sem passar o mouse. */
-.nav-footer-right a[href*="instagram.com"] {
-  color: #fff !important;
-  background: linear-gradient(115deg, #833AB4 0%, #C13584 48%, #E1306C 75%, #F77737 100%) !important;
-  border-color: rgba(193, 53, 132, .25);
+.gp-footer-address {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  max-width: 25rem;
+  margin: .15rem 0 0 !important;
+  color: #cbd7c8;
+  font-size: .82rem;
+  line-height: 1.6;
 }
 
-.nav-footer-right a[href*="instagram.com"]::after {
-  content: "Instagram";
+.gp-footer-address .bi {
+  flex: 0 0 1rem;
+  margin-top: .18rem;
+  color: #b4c8ae;
+  font-size: .9rem;
 }
 
-.nav-footer-right a[href^="mailto:"] {
-  color: #A8322A !important;
-  background: #fff !important;
-  border-color: #E8C7C2;
-}
-
-.nav-footer-right a[href^="mailto:"]::after {
-  content: "E-mail";
-}
-
-.nav-footer-right a[href*="instagram.com"]:hover {
-  color: #fff !important;
-  box-shadow: 0 5px 15px rgba(193, 53, 132, .28);
-}
-
-.nav-footer-right a[href^="mailto:"]:hover {
-  color: #8F241E !important;
-  background: #FFF7F5 !important;
-  border-color: #DFA9A2;
-}
-
-.nav-footer-right a:hover {
-  transform: translateY(-2px);
-}
-
-.nav-footer-right a:focus-visible {
-  outline: 3px solid var(--gp-verde);
+.nav-footer a:focus-visible {
+  outline: 2px solid #d6e5cf;
   outline-offset: 3px;
+  border-radius: 2px;
 }
 
-@media (max-width: 767px) {
-  .nav-footer-right {
-    justify-content: center !important;
-    margin-top: .5rem;
+@media (max-width: 900px) {
+  .nav-footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem 2.5rem !important;
+    padding: 2.8rem 1.75rem 1.1rem !important;
   }
 
-  .nav-footer-right a {
-    min-height: 44px;
-    padding: .7rem 1rem !important;
+  .nav-footer-right {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.8rem !important;
+    padding: 2.5rem 1.25rem 1rem !important;
+  }
+
+  .nav-footer-right {
+    grid-column: auto;
+  }
+
+  .gp-footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem .8rem;
+  }
+
+  .nav-footer::after {
+    margin-top: 0;
+    font-size: .72rem;
   }
 }
 

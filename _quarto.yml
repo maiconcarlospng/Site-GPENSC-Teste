@@ -61,12 +61,65 @@ website:
 
   page-footer:
     left: |
-      [Contato](contato.qmd)
+      <div class="gp-footer-brand">
+        <a class="gp-footer-brand-mark" href="index.html" aria-label="GPENSC — página inicial">
+          <img src="img/logo_gpensc.png" alt="Logotipo do GPENSC">
+          <span class="gp-footer-brand-wordmark">
+            <strong>GPENSC</strong>
+            <small>UFOP · Escola de Nutrição</small>
+          </span>
+        </a>
+        <p class="gp-footer-description">
+          Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva.
+        </p>
+        <p class="gp-footer-affiliation">
+          Universidade Federal de Ouro Preto · Escola de Nutrição.
+        </p>
+      </div>
     center: |
-      © GPENSC · Universidade Federal de Ouro Preto · <a href="admin/" style="opacity: 0.4; text-decoration: none; font-size: 0.85em;">admin</a>
+      <div class="gp-footer-navigation">
+        <h2 class="gp-footer-heading">Explore o site</h2>
+        <nav class="gp-footer-links" aria-label="Navegação do rodapé">
+          <a href="index.html">Início</a>
+          <a href="sobre.html">Quem somos</a>
+          <a href="linhas.html">Linhas de pesquisa</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="publicacoes.html">Publicações</a>
+          <a href="extensao.html">Extensão</a>
+          <a href="noar.html">GPENSC no Ar</a>
+          <a href="disciplinas.html">Disciplinas</a>
+          <a href="teses.html">Teses e dissertações</a>
+          <a href="livros.html">Livros</a>
+          <a href="videos.html">Vídeos</a>
+          <a href="sites.html">Sites recomendados</a>
+          <a href="noticias.html">Notícias</a>
+          <a href="agenda.html">Agenda</a>
+          <a href="contato.html">Contato</a>
+          <a href="admin/">Acesso administrativo</a>
+        </nav>
+      </div>
     right: |
-      [<i class="bi bi-instagram"></i>](https://instagram.com/gpenscufop){aria-label="Instagram" title="Instagram"}
-      [<i class="bi bi-envelope"></i>](mailto:gpensc@ufop.edu.br){aria-label="E-mail" title="E-mail"}
+      <div class="gp-footer-contact">
+        <h2 class="gp-footer-heading">Contato e redes</h2>
+        <div class="gp-footer-contact-list">
+          <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br">
+            <i class="bi bi-envelope" aria-hidden="true"></i>
+            <span>gpensc@ufop.edu.br</span>
+          </a>
+          <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+            <span>@gpenscufop</span>
+          </a>
+          <a class="gp-footer-contact-link" href="tel:+553135591800">
+            <i class="bi bi-telephone" aria-hidden="true"></i>
+            <span>(31) 3559-1800 · telefone institucional</span>
+          </a>
+        </div>
+        <p class="gp-footer-address">
+          <i class="bi bi-geo-alt" aria-hidden="true"></i>
+          <span>Escola de Nutrição, UFOP — Campus Morro do Cruzeiro, Ouro Preto/MG · CEP 35400-000</span>
+        </p>
+      </div>
 
 format:
   html:
