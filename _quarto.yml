@@ -65,18 +65,18 @@ website:
     left: ""
     center: |
       <div class="gp-footer-support">
-        <div class="gp-footer-support-logos" aria-label="Instituições vinculadas">
-          <a class="gp-footer-support-logo" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="PPGSN — UFOP"><img src="img/logo_ppgsn.png" alt="PPGSN — UFOP"></a>
-          <a class="gp-footer-support-logo" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — UFOP"></a>
-          <a class="gp-footer-support-logo" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="UFOP"><img src="img/ufop-logo.jpg" alt="UFOP"></a>
-        </div>
+      <div class="gp-footer-support-logos" aria-label="Instituições vinculadas">
+      <a class="gp-footer-support-logo" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="PPGSN — UFOP"><img src="img/logo_ppgsn.png" alt="PPGSN — UFOP"></a>
+      <a class="gp-footer-support-logo" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — UFOP"></a>
+      <a class="gp-footer-support-logo" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="UFOP"><img src="img/ufop-logo.jpg" alt="UFOP"></a>
+      </div>
       </div>
     right: |
       <div class="gp-footer-contact">
-        <div class="gp-footer-contact-list">
-          <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
-          <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
-        </div>
+      <div class="gp-footer-contact-list">
+      <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
+      <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
+      </div>
       </div>
 
 format:
