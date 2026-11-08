@@ -58,6 +58,8 @@ website:
         text: Agenda
       - href: contato.qmd
         text: Contato
+      - href: admin/
+        text: Admin
 
   page-footer:
     left: |
