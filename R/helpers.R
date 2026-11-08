@@ -60,7 +60,6 @@ COLUNAS <- list(
   livros      = c("ano", "titulo", "autores", "editora", "url"),
   defesas     = c("data", "nivel", "etapa", "autor", "titulo", "orientador", "url"),
   disciplinas = c("nivel", "codigo", "nome", "docente", "periodo", "ementa"),
-  noar        = c("episodio", "titulo", "convidado", "data", "link", "obs"),
   videos      = c("data", "titulo", "descricao", "url"),
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
@@ -133,7 +132,6 @@ pubs        <- ler("publicacoes")   # produção científica
 eventos     <- ler("eventos")       # agenda
 noticias    <- ler("noticias")      # notícias
 defesas     <- ler("defesas")       # defesas e qualificações
-noar        <- ler("noar")          # episódios do GPENSC no Ar
 apoio       <- ler("apoio")         # logos de apoio e vínculos
 disciplinas <- ler("disciplinas")   # disciplinas
 livros      <- ler("livros")        # livros
