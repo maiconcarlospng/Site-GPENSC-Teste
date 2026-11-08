@@ -3562,3 +3562,76 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   }
 }
 
+/* ---------- FIX: TRÊS LOGOS DO RODAPÉ NA MESMA LINHA ---------- */
+/* Quarto agrupa os links do page-footer em um único <p>. A grade precisa
+   ser aplicada a esse parágrafo (pai real dos três links), não somente
+   à div externa .gp-footer-support-logos. */
+.gp-footer-support-logos {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.gp-footer-support-logos > p {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  align-items: start !important;
+  justify-items: stretch !important;
+  gap: clamp(.55rem, 1.5vw, 1rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo,
+.gp-footer-support-logos > a.gp-footer-support-logo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo img,
+.gp-footer-support-logos > a.gp-footer-support-logo img {
+  max-width: min(100%, 132px) !important;
+  object-fit: contain !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo .gp-footer-support-name,
+.gp-footer-support-logos > a.gp-footer-support-logo .gp-footer-support-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+@media (max-width: 760px) {
+  .gp-footer-support-logos > p {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .5rem !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo,
+  .gp-footer-support-logos > a.gp-footer-support-logo {
+    padding: .1rem 0 !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo img,
+  .gp-footer-support-logos > a.gp-footer-support-logo img {
+    height: 42px !important;
+    max-height: 42px !important;
+    max-width: 100% !important;
+  }
+}
+@media (max-width: 360px) {
+  .gp-footer-support-logos > p {
+    gap: .35rem !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo .gp-footer-support-name,
+  .gp-footer-support-logos > a.gp-footer-support-logo .gp-footer-support-name {
+    font-size: .57rem !important;
+    line-height: 1.25 !important;
+  }
+}
+
