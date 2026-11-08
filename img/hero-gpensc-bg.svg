@@ -10,44 +10,27 @@
     </linearGradient>
   </defs>
 
-  <!-- Formas curvas derivadas da divisão cromática da marca: verde, laranja e vermelho.
-       A composição não reproduz a lupa; amplia apenas os gestos gráficos da identidade. -->
+  <!-- Formas curvas inspiradas na divisão cromática da marca. -->
   <path d="M1190 -45C1307 5 1360 66 1411 141C1455 206 1539 227 1640 211V-45H1190Z" fill="#D43A2F"/>
   <path d="M1399 122C1497 116 1586 175 1650 279V470H1534C1455 391 1406 305 1399 122Z" fill="url(#orange)"/>
-  <path d="M1002 468C1020 330 1114 190 1304 98C1371 197 1381 330 1296 468H1002Z" fill="url(#leaf)"/>
+  <path d="M1008 468C1042 356 1120 218 1306 96C1350 205 1386 344 1290 468C1188 452 1098 453 1008 468Z" fill="url(#leaf)" opacity=".94"/>
 
-  <!-- Recorte claro entre as três áreas, como no símbolo original -->
-  <path d="M1308 91C1342 116 1371 151 1394 192" stroke="#F3ECDD" stroke-width="13" stroke-linecap="round"/>
-  <path d="M1378 200C1397 250 1410 310 1408 366" stroke="#F3ECDD" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+  <!-- Separações leves entre as cores, seguindo os recortes da identidade original. -->
+  <path d="M1308 91C1342 116 1371 151 1394 192" stroke="#F3ECDD" stroke-width="7" stroke-linecap="round" opacity=".88"/>
+  <path d="M1378 200C1397 250 1410 310 1408 366" stroke="#F3ECDD" stroke-width="6" stroke-linecap="round" opacity=".82"/>
 
-  <!-- Nervação foliar mais orgânica: nervura central suavemente arqueada
-       e apenas três pares de nervuras secundárias curvas. -->
-  <g stroke="#285D35" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".72">
-    <!-- Nervura central, acompanhando a curvatura natural da folha -->
-    <path d="M1058 442C1116 383 1172 316 1218 247C1255 190 1282 140 1306 112"
-          stroke-width="8"/>
-
-    <!-- Três pares de nervuras secundárias, alternadas e arqueadas até a margem -->
-    <g stroke-width="4.5">
-      <path d="M1148 346C1112 325 1078 311 1040 308"/>
-      <path d="M1148 346C1210 365 1272 382 1345 390"/>
-
-      <path d="M1201 269C1167 244 1132 225 1097 219"/>
-      <path d="M1201 269C1257 291 1310 313 1357 322"/>
-
-      <path d="M1250 199C1221 175 1193 157 1165 151"/>
-      <path d="M1250 199C1295 215 1332 238 1361 264"/>
+  <!-- Folha com nervura central curva e poucas ramificações finas e orgânicas. -->
+  <g fill="none" stroke="#315D35" stroke-linecap="round" stroke-linejoin="round" opacity=".58">
+    <path d="M1038 445C1124 370 1204 243 1304 104" stroke-width="4.2"/>
+    <g stroke-width="2.2">
+      <path d="M1100 372C1074 350 1051 338 1027 333"/>
+      <path d="M1100 372C1158 401 1223 419 1295 420"/>
+      <path d="M1151 305C1122 281 1097 266 1070 258"/>
+      <path d="M1151 305C1210 329 1270 346 1335 350"/>
+      <path d="M1204 236C1177 213 1153 197 1125 188"/>
+      <path d="M1204 236C1253 256 1301 278 1350 289"/>
+      <path d="M1254 168C1233 151 1213 139 1191 132"/>
+      <path d="M1254 168C1291 183 1321 201 1350 224"/>
     </g>
   </g>
-
-  <!-- Pequenos recortes claros dão textura de impressão, sem competir com o nome -->
-  <g fill="#F3ECDD" opacity=".76">
-    <circle cx="1460" cy="80" r="4"/>
-    <circle cx="1490" cy="101" r="2.5"/>
-    <circle cx="1516" cy="71" r="3"/>
-    <circle cx="1438" cy="381" r="3.5"/>
-    <circle cx="1470" cy="402" r="2.5"/>
-    <circle cx="1501" cy="378" r="3"/>
-  </g>
-  <path d="M1468 24C1510 43 1544 69 1575 109M1474 420C1525 397 1566 390 1612 402" stroke="#F3ECDD" stroke-width="3" stroke-linecap="round" opacity=".42"/>
 </svg>
