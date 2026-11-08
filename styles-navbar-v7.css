@@ -291,3 +291,123 @@
     height: 44px !important;
   }
 }
+
+
+/* =====================================================================
+   GPENSC · ACABAMENTO DA BUSCA FLUTUANTE
+   Janela mais leve, campo confortável e resultados bem separados.
+   ===================================================================== */
+.aa-DetachedOverlay {
+  background: rgba(20, 38, 25, .34) !important;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.aa-DetachedContainer.aa-DetachedContainer--modal {
+  background: #fff !important;
+  border: 1px solid #e2e9df !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 16px 42px rgba(24, 48, 29, .20) !important;
+}
+
+.aa-DetachedFormContainer {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid #e8eee5 !important;
+  background: #fff !important;
+}
+
+.aa-DetachedFormContainer .aa-Form {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  border: 1px solid #d9e4d5 !important;
+  border-radius: 10px !important;
+  padding: 0 9px !important;
+  background: #fbfcfa !important;
+  box-shadow: none !important;
+}
+
+.aa-DetachedFormContainer .aa-Form:focus-within {
+  border-color: #5f9a3e !important;
+  box-shadow: 0 0 0 3px rgba(95, 154, 62, .13) !important;
+}
+
+.aa-DetachedFormContainer .aa-Input {
+  min-height: 40px !important;
+  font-size: 16px !important;
+  color: #263b2a !important;
+}
+
+.aa-DetachedFormContainer .aa-SubmitButton {
+  color: #1f4d2b !important;
+}
+
+.aa-DetachedFormContainer .aa-DetachedCancelButton {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 8px 5px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #1f4d2b !important;
+  font-size: .84rem !important;
+  font-weight: 600 !important;
+}
+
+.aa-DetachedContainer .aa-Panel {
+  background: #fff !important;
+}
+
+.aa-DetachedContainer .aa-Item {
+  padding: 4px 10px !important;
+}
+
+.aa-DetachedContainer .search-result-doc {
+  overflow: hidden !important;
+  border-radius: 9px !important;
+}
+
+.aa-DetachedContainer .search-result-title-container {
+  padding: 7px 8px !important;
+}
+
+.aa-DetachedContainer .search-result-title {
+  margin-top: 2px !important;
+}
+
+@media (max-width: 768px) {
+  .aa-DetachedContainer.aa-DetachedContainer--modal {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+    border-radius: 13px !important;
+  }
+
+  .aa-DetachedFormContainer {
+    gap: 6px !important;
+    padding: 9px 10px !important;
+  }
+
+  .aa-DetachedFormContainer .aa-Form {
+    min-height: 42px !important;
+  }
+
+  .aa-DetachedFormContainer .aa-DetachedCancelButton {
+    font-size: .8rem !important;
+    padding: 8px 3px !important;
+  }
+
+  .aa-DetachedContainer .aa-Item {
+    padding: 4px 8px !important;
+  }
+
+  .aa-DetachedContainer .aa-Panel {
+    max-height: calc(100dvh - 170px) !important;
+    overflow-y: auto !important;
+  }
+}
