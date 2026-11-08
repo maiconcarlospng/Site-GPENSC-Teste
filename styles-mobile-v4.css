@@ -3698,3 +3698,40 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   order: 3 !important;
   grid-column: 1 / -1 !important;
 }
+
+
+/* ---------- AJUSTE VISUAL EXCLUSIVO PARA ESPANHOL ---------- */
+/* Reduz discretamente a escala geral e compacta os rótulos mais longos
+   para evitar que os botões percam alinhamento após a tradução automática. */
+html[data-gp-language="es"] {
+  zoom: 0.97 !important;
+}
+
+html[data-gp-language="es"] .btn,
+html[data-gp-language="es"] .btn-secondary,
+html[data-gp-language="es"] .btn-orange,
+html[data-gp-language="es"] a.btn-warning,
+html[data-gp-language="es"] .btn-primary,
+html[data-gp-language="es"] .btn-outline-light,
+html[data-gp-language="es"] .btn-spotify {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  padding: .58rem 1.12rem !important;
+  font-size: .76rem !important;
+  letter-spacing: .035em !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
+html[data-gp-language="es"] .btn-sm {
+  padding: .42rem .88rem !important;
+  font-size: .69rem !important;
+}
+
+/* Os links do menu continuam visualmente simples, mas ganham espaço
+   horizontal extra para os nomes maiores em espanhol. */
+html[data-gp-language="es"] .navbar .nav-link {
+  padding: .45rem .62rem !important;
+  font-size: .86rem !important;
+}
