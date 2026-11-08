@@ -425,9 +425,10 @@ footer.footer .gp-footer-admin-link {
     display: inline-flex !important;
     flex: 0 0 auto !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: flex-end !important;
     gap: .16rem !important;
-    margin: 0 !important;
+    /* Empurra as bandeiras para a direita, separando-as da marca GPENSC. */
+    margin: 0 0 0 auto !important;
     padding: 0 !important;
   }
 
@@ -442,7 +443,8 @@ footer.footer .gp-footer-admin-link {
     display: block !important;
     flex: 0 0 40px !important;
     width: 40px !important;
-    margin: 0 0 0 auto !important;
+    /* A busca fica no extremo direito, logo após as bandeiras. */
+    margin: 0 0 0 .2rem !important;
   }
 
   body:has(.hero) .navbar .quarto-navbar-tools {
