@@ -66,20 +66,26 @@
       navbarTitle.after(container);
     }
 
-    // No celular, organiza a primeira linha como: menu, logo e idiomas.
-    // Em telas maiores, preserva as bandeiras junto à marca como antes.
+    // No celular: botão, logo e idiomas. No computador: idiomas após Contato.
     function ajustarOrdemNavbarMobile() {
       var navContainer = document.querySelector(".navbar .navbar-container");
-      var brandContainer = document.querySelector(".navbar-brand-container");
-      var brand = document.querySelector(".navbar-brand");
+      var navList = document.querySelector(".navbar .navbar-nav");
       var flags = document.querySelector(".bandeiras-container");
-      if (!navContainer || !brandContainer || !flags) return;
+      if (!navContainer || !flags) return;
 
       if (window.matchMedia("(max-width: 768px)").matches) {
+        var desktopItem = document.querySelector(".gp-nav-idiomas-item");
+        if (desktopItem) desktopItem.remove();
         if (flags.parentElement !== navContainer) navContainer.appendChild(flags);
-      } else if (flags.parentElement !== brandContainer) {
-        if (brand && brand.parentElement === brandContainer) brand.after(flags);
-        else brandContainer.appendChild(flags);
+      } else {
+        if (!navList) return;
+        var item = document.querySelector(".gp-nav-idiomas-item");
+        if (!item) {
+          item = document.createElement("li");
+          item.className = "nav-item gp-nav-idiomas-item";
+          navList.appendChild(item);
+        }
+        if (flags.parentElement !== item) item.appendChild(flags);
       }
     }
 
