@@ -88,6 +88,14 @@ website:
       <a href="contato.html">Contato</a>
       </nav>
       </div>
+      <div class="gp-footer-support">
+      <h2 class="gp-footer-heading">Apoio e vínculos institucionais</h2>
+      <div class="gp-footer-support-logos">
+      <a class="gp-footer-support-logo" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="Programa de Pós-Graduação em Saúde e Nutrição — UFOP"><img src="img/logo_ppgsn.png" alt="PPGSN — UFOP"></a>
+      <a class="gp-footer-support-logo" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — UFOP"></a>
+      <a class="gp-footer-support-logo" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="Universidade Federal de Ouro Preto"><img src="img/ufop-logo.jpg" alt="UFOP"></a>
+      </div>
+      </div>
     right: |
       <div class="gp-footer-contact">
       <h2 class="gp-footer-heading">Contato e redes</h2>
