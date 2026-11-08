@@ -85,10 +85,17 @@ website:
           <a href="linhas.html">Linhas de pesquisa</a>
           <a href="projetos.html">Projetos</a>
           <a href="publicacoes.html">Publicações</a>
+          <a href="extensao.html">Extensão</a>
           <a href="noar.html">GPENSC no Ar</a>
+          <a href="disciplinas.html">Disciplinas</a>
+          <a href="teses.html">Teses e dissertações</a>
+          <a href="livros.html">Livros</a>
+          <a href="videos.html">Vídeos</a>
+          <a href="sites.html">Sites recomendados</a>
           <a href="noticias.html">Notícias</a>
           <a href="agenda.html">Agenda</a>
           <a href="contato.html">Contato</a>
+          <a href="admin/">Acesso administrativo</a>
         </nav>
       </div>
     right: |
@@ -113,13 +120,6 @@ website:
           <span>Escola de Nutrição, UFOP — Campus Morro do Cruzeiro, Ouro Preto/MG · CEP 35400-000</span>
         </p>
       </div>
-
-      [Contato](contato.qmd)
-    center: |
-      © GPENSC · Universidade Federal de Ouro Preto · <a href="admin/" style="opacity: 0.4; text-decoration: none; font-size: 0.85em;">admin</a>
-    right: |
-      [<i class="bi bi-instagram"></i>](https://instagram.com/gpenscufop){aria-label="Instagram" title="Instagram"}
-      [<i class="bi bi-envelope"></i>](mailto:gpensc@ufop.edu.br){aria-label="E-mail" title="E-mail"}
 
 format:
   html:
