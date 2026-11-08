@@ -3704,7 +3704,30 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 /* Reduz discretamente a escala geral e compacta os rótulos mais longos
    para evitar que os botões percam alinhamento após a tradução automática. */
 html[data-gp-language="es"] {
-  zoom: 0.97 !important;
+  /* Não reduzir o elemento raiz: zoom fazia a página ficar menor que a viewport,
+     deixando uma faixa branca lateral. O ajuste de idioma fica nos componentes. */
+  zoom: 1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: clip !important;
+}
+
+html[data-gp-language="es"] body {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: clip !important;
+  box-sizing: border-box !important;
+}
+
+html[data-gp-language="es"] #quarto-content,
+html[data-gp-language="es"] .quarto-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
 }
 
 html[data-gp-language="es"] .btn,
