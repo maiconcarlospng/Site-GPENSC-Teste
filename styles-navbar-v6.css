@@ -320,3 +320,194 @@
     padding: 0 !important;
   }
 }
+
+
+/* =====================================================================
+   GPENSC · AJUSTE FINO DE TAMANHOS + CONTRASTE DA BUSCA
+   ===================================================================== */
+
+/* Busca: o botão herdava ícone branco; força contraste em qualquer página. */
+#quarto-header #quarto-search .aa-DetachedSearchButton {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  padding: 0 !important;
+  color: #1F4D2B !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#quarto-header #quarto-search .aa-DetachedSearchButtonIcon,
+#quarto-header #quarto-search .aa-SubmitIcon {
+  color: #1F4D2B !important;
+  fill: currentColor !important;
+  opacity: 1 !important;
+}
+
+#quarto-header #quarto-search .aa-DetachedSearchButtonIcon svg {
+  display: block !important;
+  width: 19px !important;
+  height: 19px !important;
+}
+
+/* Desktop amplo: links mais proporcionais e menos comprimidos. */
+@media (min-width: 1451px) {
+  #quarto-header .navbar-nav > .nav-item > .nav-link {
+    font-size: .86rem !important;
+    line-height: 1.2 !important;
+    padding: .48rem .55rem !important;
+    min-height: 40px !important;
+  }
+
+  #quarto-header .navbar-nav > .nav-item > .nav-link .menu-text {
+    font-size: inherit !important;
+    font-weight: 650 !important;
+  }
+
+  #quarto-header .navbar-nav .dropdown-menu .dropdown-item {
+    font-size: .84rem !important;
+    line-height: 1.3 !important;
+    padding: .48rem .8rem !important;
+  }
+
+  #quarto-header .navbar-brand-logo .navbar-logo {
+    max-height: 34px !important;
+    width: auto !important;
+  }
+
+  #quarto-header .navbar-brand .navbar-title {
+    font-size: 1.02rem !important;
+    line-height: 1.1 !important;
+  }
+
+  #quarto-header #quarto-search {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 40px !important;
+  }
+}
+
+/* Tablet/notebook: menu recolhido com leitura confortável, sem ocupar demais. */
+@media (min-width: 769px) and (max-width: 1450px) {
+  #quarto-header .navbar-toggler {
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: .35rem !important;
+  }
+
+  #quarto-header .navbar-toggler-icon {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    background-size: 100% 100% !important;
+  }
+
+  #quarto-header .navbar-brand-logo .navbar-logo {
+    max-height: 31px !important;
+    width: auto !important;
+  }
+
+  #quarto-header .navbar-brand .navbar-title {
+    font-size: .98rem !important;
+    line-height: 1.1 !important;
+  }
+
+  #quarto-header #quarto-search {
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+  }
+
+  #quarto-header .navbar-collapse.show .navbar-nav > .nav-item > .nav-link {
+    min-height: 40px !important;
+    padding: .52rem .7rem !important;
+    font-size: .9rem !important;
+    line-height: 1.25 !important;
+  }
+
+  #quarto-header .navbar-collapse.show .navbar-nav .dropdown-menu .dropdown-item {
+    padding: .42rem .8rem !important;
+    font-size: .86rem !important;
+  }
+}
+
+/* Celular: primeira linha compacta; itens do menu com tamanho uniforme. */
+@media (max-width: 768px) {
+  #quarto-header .navbar-brand-logo .navbar-logo {
+    width: 22px !important;
+    max-width: 22px !important;
+    max-height: 24px !important;
+  }
+
+  #quarto-header .navbar-brand .navbar-title {
+    font-size: .75rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  #quarto-header .navbar-toggler {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: .3rem !important;
+  }
+
+  #quarto-header .navbar-toggler-icon {
+    width: 1.18rem !important;
+    height: 1.18rem !important;
+  }
+
+  #quarto-header #quarto-search {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 40px !important;
+  }
+
+  #quarto-header #quarto-search .aa-DetachedSearchButtonIcon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  #quarto-header .bandeira-idioma {
+    width: 17px !important;
+    min-width: 17px !important;
+    height: 12px !important;
+  }
+
+  #quarto-header .navbar-collapse.show .navbar-nav > .nav-item > .nav-link {
+    min-height: 40px !important;
+    padding: .52rem .7rem !important;
+    font-size: .9rem !important;
+    line-height: 1.25 !important;
+  }
+
+  #quarto-header .navbar-collapse.show .navbar-nav .dropdown-menu .dropdown-item {
+    padding: .42rem .8rem !important;
+    font-size: .86rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #quarto-header .navbar-brand-logo .navbar-logo {
+    width: 19px !important;
+    max-width: 19px !important;
+    max-height: 22px !important;
+  }
+
+  #quarto-header .navbar-brand .navbar-title {
+    font-size: .69rem !important;
+  }
+
+  #quarto-header .bandeira-idioma {
+    width: 15px !important;
+    min-width: 15px !important;
+    height: 10px !important;
+  }
+}
