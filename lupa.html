@@ -65,7 +65,26 @@
       `;
       navbarTitle.after(container);
     }
-  });
+
+    // No celular, organiza a primeira linha como: menu, logo e idiomas.
+    // Em telas maiores, preserva as bandeiras junto à marca como antes.
+    function ajustarOrdemNavbarMobile() {
+      var navContainer = document.querySelector(".navbar .navbar-container");
+      var brandContainer = document.querySelector(".navbar-brand-container");
+      var brand = document.querySelector(".navbar-brand");
+      var flags = document.querySelector(".bandeiras-container");
+      if (!navContainer || !brandContainer || !flags) return;
+
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        if (flags.parentElement !== navContainer) navContainer.appendChild(flags);
+      } else if (flags.parentElement !== brandContainer) {
+        if (brand && brand.parentElement === brandContainer) brand.after(flags);
+        else brandContainer.appendChild(flags);
+      }
+    }
+
+    ajustarOrdemNavbarMobile();
+    window.addEventListener("resize", ajustarOrdemNavbarMobile, { passive: true });  });
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
