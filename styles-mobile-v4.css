@@ -5179,3 +5179,78 @@ footer.footer .gp-footer-admin-link {
     font-size: .54rem !important;
   }
 }
+
+
+/* ---------- MENU MOBILE: BOTÃO INTEIRO E RESPIRO ATÉ O HEADER ---------- */
+/* No celular, a barra precisa de altura suficiente para não cortar o toggler.
+   O pequeno intervalo abaixo dela é intencional e não afeta o desktop. */
+@media (max-width: 768px) {
+  body:has(.hero) #quarto-header {
+    overflow: visible !important;
+  }
+
+  body:has(.hero) #quarto-header .navbar,
+  body:has(.hero) .navbar {
+    display: block !important;
+    height: auto !important;
+    min-height: 56px !important;
+    padding: .55rem .85rem .65rem !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-container {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-container {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 54px) !important;
+  }
+
+  body:has(.hero) .navbar .navbar-toggler {
+    display: inline-flex !important;
+    flex: 0 0 44px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin: 0 0 0 auto !important;
+    padding: .45rem !important;
+    position: relative !important;
+    z-index: 5 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-toggler-icon {
+    display: block !important;
+    width: 1.35rem !important;
+    height: 1.35rem !important;
+    background-position: center !important;
+    background-size: 100% 100% !important;
+  }
+
+  /* Deixa uma faixa de respiro entre a navegação e o header verde. */
+  body:has(.hero) .cell:has(.hero) {
+    margin-top: .5rem !important;
+    padding-top: 0 !important;
+  }
+
+  body:has(.hero) .cell:has(.hero) > .cell-output-display,
+  body:has(.hero) .cell-output-display:has(> .hero) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
