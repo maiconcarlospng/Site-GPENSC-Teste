@@ -21,7 +21,7 @@
      passe para a linha seguinte, em vez de comprimir o botão. */
   body:has(.hero) .navbar .navbar-container {
     display: flex !important;
-    flex-flow: row wrap !important;
+    flex-flow: row nowrap !important;
     align-items: center !important;
     justify-content: space-between !important;
     gap: .35rem .5rem !important;
@@ -55,6 +55,12 @@
     height: 1.4rem !important;
     background-position: center !important;
     background-size: 100% 100% !important;
+  }
+
+  /* Só quebra a linha quando a lista de navegação estiver aberta. */
+  body:has(.hero) .navbar .navbar-container:has(.navbar-collapse.show),
+  body:has(.hero) .navbar .navbar-container:has(.navbar-collapse.collapsing) {
+    flex-wrap: wrap !important;
   }
 
   body:has(.hero) .navbar .navbar-brand-container {
