@@ -205,3 +205,18 @@
     color: #ffd28d !important;
   }
 }
+
+
+/* Leitura confortável nos cartões de busca em telas pequenas. */
+@media (max-width: 600px) {
+  .aa-DetachedOverlay .search-result-title {
+    font-size: .94rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .aa-DetachedOverlay .search-result-text,
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-item .search-result-text {
+    font-size: .88rem !important;
+    line-height: 1.45 !important;
+  }
+}
