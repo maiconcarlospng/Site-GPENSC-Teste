@@ -69,32 +69,6 @@ div(
     })
   ),
 
-  h2(cfg$titulo_vinculos),
-  div(
-    class = "logos-institucionais",
-    tags$a(
-      href = cfg$link_ppgsn, target = "_blank", rel = "noopener noreferrer",
-      div(class = "vinculo-logo-imagem",
-        tags$img(src = "img/logo_ppgsn.png", alt = "Logo do Programa de Pós-Graduação em Saúde e Nutrição")
-      ),
-      span(class = "vinculo-logo-nome", "PPGSN – UFOP")
-    ),
-    tags$a(
-      href = cfg$link_escola, target = "_blank", rel = "noopener noreferrer",
-      div(class = "vinculo-logo-imagem",
-        tags$img(src = "img/logo_nutricao.png", alt = "Logo da Escola de Nutrição")
-      ),
-      span(class = "vinculo-logo-nome", "Escola de Nutrição – UFOP")
-    ),
-    tags$a(
-      href = cfg$link_ufop, target = "_blank", rel = "noopener noreferrer",
-      div(class = "vinculo-logo-imagem",
-        tags$img(src = "img/ufop-logo.jpg", alt = "Logo da Universidade Federal de Ouro Preto")
-      ),
-      span(class = "vinculo-logo-nome", "Universidade Federal de Ouro Preto")
-    )
-  ),
-
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
     integrantes$categoria_exibicao <- vapply(
