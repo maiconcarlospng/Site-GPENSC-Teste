@@ -24,10 +24,6 @@ objetivo3: "Promover a divulgação científica e o debate público sobre nutri�
 objetivo4: "Capacitar estudantes e pesquisadores na produção e análise de dados em saúde com rigor metodológico."
 
 # --- 4. PROJETOS DE EXTENSÃO E MÍDIA ---
-podcast_nome: "GPENSC no Ar"
-podcast_descricao: "Conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
-link_podcast: ""
-
 # --- 5. LINKS INSTITUCIONAIS E PARCERIAS ---
 link_ppgsn: "https://ppgsn.ufop.br"
 link_escola: "https://enut.ufop.br"
@@ -40,7 +36,8 @@ telefone: "(31) 3559-1800"
 instagram: "https://instagram.com/gpenscufop"
 instagram_user: "@gpenscufop"
 youtube: "https://youtube.com/@gpenscufop"
-spotify: "https://open.spotify.com/show/6NuI9JqT8PvlUxv6QxLfG2"
+spotify: "https://open.spotify.com/show/2JYir3ZrFveZXjbxiTzkQy"
+spotify_gpensc: "https://open.spotify.com/show/6NuI9JqT8PvlUxv6QxLfG2"
 
 # --- 7. ENDEREÇO E LOCALIZAÇÃO ---
 endereco_completo: "Escola de Nutrição, UFOP – Campus Morro do Cruzeiro, Ouro Preto, MG – CEP 35400-000"
@@ -54,7 +51,6 @@ mostrar_linhas: true
 mostrar_projetos: true
 mostrar_publicacoes: true
 mostrar_extensao: true
-mostrar_noar: true
 mostrar_noticias: true
 mostrar_contato: true
 mostrar_disciplinas: true
@@ -69,8 +65,6 @@ titulo_home_noticias: "Últimas notícias"
 texto_aviso_noticias_home_titulo: ""
 texto_aviso_noticias_home: ""
 titulo_home_agenda: "Confira nossa agenda de aulas abertas, workshops e participações"
-titulo_home_noar: "GPENSC no Ar"
-texto_home_noar: "conversas em formato de podcast sobre nutrição, sono, exercício físico e saúde coletiva."
 botao_sobre: "Sobre nós"
 titulo_missao: "Nossa missão"
 titulo_visao: "Nossa visão"
@@ -87,7 +81,6 @@ titulo_eventos_sem_data: "Data a confirmar"
 botao_eventos_anteriores: "Consultar eventos anteriores"
 intro_projetos: "Projetos de pesquisa e extensão desenvolvidos pelo grupo, com informações sobre situação, coordenação, período e financiamento."
 intro_extensao: "A extensão aproxima a produção acadêmica da comunidade por meio de atividades educativas, troca de conhecimentos e divulgação científica em nutrição e saúde coletiva."
-intro_noar: "GPENSC no Ar é uma série em formato de podcast/videocast com conversas sobre nutrição, sono, exercício físico e saúde coletiva em linguagem acessível. Acompanhe os canais do grupo para novidades e novos episódios."
 intro_contato: "Entre em contato com o GPENSC para informações sobre pesquisa, ensino, extensão, parcerias e atividades do grupo."
 titulo_email: "E-mail"
 titulo_instagram: "Instagram"
