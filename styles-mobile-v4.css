@@ -3735,3 +3735,86 @@ html[data-gp-language="es"] .navbar .nav-link {
   padding: .45rem .62rem !important;
   font-size: .86rem !important;
 }
+
+
+/* ---------- RODAPÉ MAIS COMPACTO NO DESKTOP ---------- */
+/* Mantém a estrutura e as três logos, mas reduz o espaço vertical
+   que estava deixando o rodapé desproporcional em telas grandes. */
+@media (min-width: 761px) {
+  .nav-footer {
+    padding: 1.15rem max(1.25rem, calc((100vw - 1160px) / 2)) .55rem !important;
+    column-gap: 2rem !important;
+    row-gap: .75rem !important;
+  }
+
+  .nav-footer-center {
+    grid-column: 1 !important;
+    align-self: start !important;
+  }
+
+  .nav-footer-right {
+    grid-column: 2 !important;
+    align-self: center !important;
+    justify-self: end !important;
+  }
+
+  .nav-footer-right > p {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .gp-footer-section-title {
+    margin: 0 0 .55rem !important;
+    padding: 0 0 .32rem !important;
+    font-size: .69rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: .06em !important;
+  }
+
+  .gp-footer-support-logos > p {
+    gap: .65rem !important;
+  }
+
+  .gp-footer-support-logos > p > a.gp-footer-support-logo,
+  .gp-footer-support-logos > a.gp-footer-support-logo {
+    gap: .32rem !important;
+    padding: 0 !important;
+  }
+
+  .gp-footer-support-logos > p > a.gp-footer-support-logo img,
+  .gp-footer-support-logos > a.gp-footer-support-logo img {
+    height: 38px !important;
+    max-height: 38px !important;
+    max-width: 112px !important;
+  }
+
+  .gp-footer-support-logos > p > a.gp-footer-support-logo .gp-footer-support-name,
+  .gp-footer-support-logos > a.gp-footer-support-logo .gp-footer-support-name {
+    font-size: .61rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .gp-footer-contact-link {
+    padding: .1rem 0 !important;
+    font-size: .76rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .nav-footer-left {
+    margin-top: .05rem !important;
+    padding-top: .45rem !important;
+  }
+
+  .gp-footer-bottom {
+    gap: .75rem !important;
+  }
+
+  .gp-footer-copyright {
+    font-size: .65rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .gp-footer-admin-link {
+    font-size: .61rem !important;
+  }
+}
