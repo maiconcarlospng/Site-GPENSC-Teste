@@ -3871,3 +3871,95 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     max-width: 88px !important;
   }
 }
+
+
+/* ---------- HERO: LOGOTIPO SEM DISCO BRANCO E INSTITUIÇÃO SEM ETIQUETA ---------- */
+/* Dá protagonismo à marca usando o próprio arquivo do logo, sem círculo,
+   moldura ou preenchimento branco ao redor. */
+.hero-logo {
+  width: 172px !important;
+  height: 172px !important;
+  max-width: 172px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,.24));
+}
+
+/* Retira a chamada decorativa que ficava acima da sigla. */
+.hero-texto::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* A instituição continua identificada, mas sem cápsula, contorno ou bolinha. */
+.hero-inst {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: .85rem 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(255,255,255,.82) !important;
+  font-size: .95rem !important;
+  font-weight: 450 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.45 !important;
+}
+
+.hero-inst::before {
+  content: none !important;
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .hero-logo {
+    width: 136px !important;
+    height: 136px !important;
+    max-width: 136px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,.22));
+  }
+
+  .hero-texto::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .hero-inst {
+    margin-top: .7rem !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: .84rem !important;
+  }
+
+  .hero-inst::before {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-logo {
+    width: 118px !important;
+    height: 118px !important;
+    max-width: 118px !important;
+  }
+
+  .hero-inst {
+    padding: 0 !important;
+    font-size: .78rem !important;
+  }
+}
