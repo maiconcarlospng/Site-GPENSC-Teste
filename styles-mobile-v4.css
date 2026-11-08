@@ -3688,3 +3688,13 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     text-align: right !important;
   }
 }
+
+
+/* A linha de copyright/Admin deve ser sempre o último bloco do rodapé,
+   depois dos vínculos institucionais e dos contatos, em desktop e mobile. */
+.nav-footer-center { order: 1 !important; }
+.nav-footer-right { order: 2 !important; }
+.nav-footer-left {
+  order: 3 !important;
+  grid-column: 1 / -1 !important;
+}
