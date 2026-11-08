@@ -3563,3 +3563,70 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     min-width: 76px !important;
   }
 }
+
+
+/* ---------- LOGOS INSTITUCIONAIS DO RODAPÉ: SEM CARTÕES OU FUNDO ---------- */
+/* Seletor específico para vencer os estilos antigos do bloco parceiros. */
+.nav-footer .gp-footer-support .gp-footer-support-logos {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 18px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 120px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo:hover {
+  transform: translateY(-2px);
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
+  display: block !important;
+  width: auto !important;
+  height: 58px !important;
+  max-width: 112px !important;
+  max-height: 58px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 600px) {
+  .nav-footer .gp-footer-support .gp-footer-support-logos {
+    flex-wrap: wrap !important;
+    gap: 14px !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
+    height: 50px !important;
+    max-height: 50px !important;
+    max-width: 100px !important;
+  }
+}
