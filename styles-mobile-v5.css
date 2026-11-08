@@ -511,50 +511,76 @@ footer.footer .gp-footer-admin-link {
   right: 1.25rem !important;
   bottom: 1.35rem !important;
   z-index: 1020 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 54px !important;
-  height: 54px !important;
-  border: 2px solid rgba(255,255,255,.95) !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 56px !important;
+  min-width: 56px !important;
+  max-width: 56px !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+  aspect-ratio: 1 / 1 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 2px solid rgba(255,255,255,.96) !important;
   border-radius: 50% !important;
-  background: #1ed760 !important;
-  color: #102015 !important;
-  box-shadow: 0 5px 18px rgba(0,0,0,.22) !important;
+  background: #1DB954 !important;
+  color: #fff !important;
+  line-height: 0 !important;
   text-decoration: none !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.22) !important;
   transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease !important;
 }
 
 .gp-spotify-flutuante:hover,
 .gp-spotify-flutuante:focus-visible {
   background: #1ed760 !important;
-  color: #102015 !important;
+  color: #fff !important;
   transform: translateY(-3px) scale(1.04) !important;
   box-shadow: 0 8px 22px rgba(0,0,0,.26) !important;
 }
 
+.gp-spotify-flutuante:focus-visible {
+  outline: 3px solid #1F4D2B !important;
+  outline-offset: 3px !important;
+}
+
 .gp-spotify-flutuante .spotify-icon {
   display: block !important;
-  flex: 0 0 auto !important;
-  width: 29px !important;
-  height: 29px !important;
-  max-width: none !important;
-  max-height: none !important;
+  flex: none !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: visible !important;
+  color: currentColor !important;
 }
 
 @media (max-width: 768px) {
   .gp-spotify-flutuante {
     right: 14px !important;
     bottom: calc(16px + env(safe-area-inset-bottom)) !important;
-    width: 49px !important;
-    height: 49px !important;
+    width: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
   }
+
   .gp-spotify-flutuante .spotify-icon {
-    width: 27px !important;
-    height: 27px !important;
+    width: 29px !important;
+    min-width: 29px !important;
+    max-width: 29px !important;
+    height: 29px !important;
+    min-height: 29px !important;
+    max-height: 29px !important;
   }
 }
 
