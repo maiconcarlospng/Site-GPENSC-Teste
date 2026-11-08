@@ -4454,3 +4454,102 @@ footer.footer {
     font-size: .56rem !important;
   }
 }
+
+/* ---------- HERO GPENSC: FULL-BLEED NO DESKTOP E COMPOSIÇÃO PRÓPRIA NO MOBILE ---------- */
+/* O deslocamento anterior (left:50% + margin-left:-50vw) dependia da largura
+   da coluna interna do Quarto. Esta fórmula ancora o bloco na viewport,
+   mesmo quando o output do R está dentro de uma coluna com largura limitada. */
+.hero {
+  position: relative !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
+  left: calc(50% - 50vw) !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background-position: center, right center !important;
+  background-size: cover, auto 112% !important;
+}
+
+/* No celular, o hero deixa de imitar a faixa alta do desktop:
+   sigla e identificação ficam alinhadas à esquerda; a folha vira uma marca
+   d'água lateral discreta, parcialmente recortada e atrás do texto. */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 1.2rem 1rem 1.1rem !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background-image:
+      linear-gradient(90deg, rgba(31,77,43,.97) 0%, rgba(31,77,43,.93) 48%, rgba(31,77,43,.76) 100%),
+      url("img/hero-gpensc-bg.svg") !important;
+    background-position: center, right center !important;
+    background-size: cover, 620px auto !important;
+    box-shadow: inset 0 -3px 0 rgba(217,115,31,.92) !important;
+  }
+
+  .hero-texto {
+    flex: 0 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    align-items: flex-start !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .hero-sigla {
+    margin: 0 0 .5rem !important;
+    font-size: clamp(2rem, 8vw, 2.55rem) !important;
+    font-weight: 850 !important;
+    letter-spacing: -.05em !important;
+    line-height: .98 !important;
+  }
+
+  .hero-sigla::after {
+    width: 2.85rem !important;
+    height: 4px !important;
+    margin: .42rem 0 0 !important;
+  }
+
+  .hero-titulo {
+    max-width: 24rem !important;
+    margin: 0 !important;
+    font-size: clamp(.82rem, 3.4vw, .98rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.32 !important;
+    text-align: left !important;
+  }
+
+  .hero-inst {
+    margin: .42rem 0 0 !important;
+    font-size: .7rem !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    color: rgba(239,242,231,.82) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 1.05rem .85rem .95rem !important;
+    background-size: cover, 560px auto !important;
+  }
+
+  .hero-sigla {
+    font-size: 1.9rem !important;
+  }
+
+  .hero-titulo {
+    max-width: 21rem !important;
+    font-size: .79rem !important;
+  }
+
+  .hero-inst {
+    font-size: .66rem !important;
+  }
+}
