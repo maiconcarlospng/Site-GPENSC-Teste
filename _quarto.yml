@@ -62,51 +62,21 @@ website:
         text: Admin
 
   page-footer:
-    left: |
-      <div class="gp-footer-brand">
-        <a class="gp-footer-brand-mark" href="index.html" aria-label="GPENSC — página inicial">
-          <img src="img/logo_gpensc.png" alt="Logotipo do GPENSC">
-          <span class="gp-footer-brand-wordmark">
-            <strong>GPENSC</strong>
-            <small>UFOP · Escola de Nutrição</small>
-          </span>
-        </a>
-        <p class="gp-footer-description">
-          Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva.
-        </p>
-        <p class="gp-footer-affiliation">
-          Universidade Federal de Ouro Preto · Escola de Nutrição.
-        </p>
-      </div>
+    left: ""
     center: |
-      <div class="gp-footer-navigation">
-      <h2 class="gp-footer-heading">Explore o site</h2>
-      <nav class="gp-footer-links" aria-label="Navegação do rodapé">
-      <a href="index.html">Início</a>
-      <a href="sobre.html">Quem somos</a>
-      <a href="projetos.html">Pesquisa</a>
-      <a href="extensao.html">Extensão</a>
-      <a href="noticias.html">Notícias</a>
-      <a href="contato.html">Contato</a>
-      </nav>
-      </div>
       <div class="gp-footer-support">
-      <h2 class="gp-footer-heading">Apoio e vínculos institucionais</h2>
-      <div class="gp-footer-support-logos" style="display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:18px;width:100%;">
-      <a class="gp-footer-support-logo" style="display:inline-flex;flex:0 0 auto;width:auto;height:auto;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="Programa de Pós-Graduação em Saúde e Nutrição — UFOP"><img src="img/logo_ppgsn.png" alt="PPGSN — UFOP" style="display:block;width:auto;height:58px;max-width:112px;max-height:58px;object-fit:contain;background:transparent;"></a>
-      <a class="gp-footer-support-logo" style="display:inline-flex;flex:0 0 auto;width:auto;height:auto;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — UFOP" style="display:block;width:auto;height:58px;max-width:112px;max-height:58px;object-fit:contain;background:transparent;"></a>
-      <a class="gp-footer-support-logo" style="display:inline-flex;flex:0 0 auto;width:auto;height:auto;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="Universidade Federal de Ouro Preto"><img src="img/ufop-logo.jpg" alt="UFOP" style="display:block;width:auto;height:58px;max-width:112px;max-height:58px;object-fit:contain;background:transparent;"></a>
-      </div>
+        <div class="gp-footer-support-logos" aria-label="Instituições vinculadas">
+          <a class="gp-footer-support-logo" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="PPGSN — UFOP"><img src="img/logo_ppgsn.png" alt="PPGSN — UFOP"></a>
+          <a class="gp-footer-support-logo" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — UFOP"></a>
+          <a class="gp-footer-support-logo" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="UFOP"><img src="img/ufop-logo.jpg" alt="UFOP"></a>
+        </div>
       </div>
     right: |
       <div class="gp-footer-contact">
-      <h2 class="gp-footer-heading">Contato e redes</h2>
-      <div class="gp-footer-contact-list">
-      <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
-      <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
-      <a class="gp-footer-contact-link" href="tel:+553135591800"><i class="bi bi-telephone" aria-hidden="true"></i><span>(31) 3559-1800 · telefone institucional</span></a>
-      </div>
-      <p class="gp-footer-address"><i class="bi bi-geo-alt" aria-hidden="true"></i><span>Escola de Nutrição, UFOP — Campus Morro do Cruzeiro, Ouro Preto/MG · CEP 35400-000</span></p>
+        <div class="gp-footer-contact-list">
+          <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
+          <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
+        </div>
       </div>
 
 format:
