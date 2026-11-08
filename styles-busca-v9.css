@@ -1,0 +1,85 @@
+/* =====================================================================
+   GPENSC · BUSCA FLUTUANTE — FOCO LIMPO E COMPORTAMENTO MOBILE
+   Evita o contorno nativo estranho e o zoom automático ao focar no iOS.
+   ===================================================================== */
+
+.aa-DetachedFormContainer,
+.aa-DetachedFormContainer * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.aa-DetachedFormContainer .aa-Form {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.aa-DetachedFormContainer .aa-Form:focus,
+.aa-DetachedFormContainer .aa-Form:focus-within {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(95, 154, 62, .12) !important;
+}
+
+.aa-DetachedFormContainer .aa-Input,
+.aa-DetachedFormContainer .aa-Input:focus,
+.aa-DetachedFormContainer .aa-Input:focus-visible,
+.aa-DetachedFormContainer input.aa-Input {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 40px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #263b2a !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+  transform: none !important;
+}
+
+.aa-DetachedFormContainer .aa-Input:focus,
+.aa-DetachedFormContainer .aa-Input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.aa-DetachedFormContainer .aa-SubmitButton,
+.aa-DetachedFormContainer .aa-DetachedCancelButton {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  touch-action: manipulation !important;
+}
+
+.aa-DetachedFormContainer .aa-SubmitButton:focus,
+.aa-DetachedFormContainer .aa-SubmitButton:focus-visible,
+.aa-DetachedFormContainer .aa-DetachedCancelButton:focus,
+.aa-DetachedFormContainer .aa-DetachedCancelButton:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 600px) {
+  .aa-DetachedContainer.aa-DetachedContainer--modal {
+    top: max(72px, env(safe-area-inset-top, 0px) + 12px) !important;
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100dvh - 92px - env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .aa-DetachedFormContainer .aa-Input,
+  .aa-DetachedFormContainer input.aa-Input {
+    font-size: 16px !important;
+    min-height: 40px !important;
+  }
+
+  .aa-DetachedContainer .aa-Panel {
+    max-height: calc(100dvh - 166px - env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

@@ -127,17 +127,42 @@
 
     // O campo Algolia/Quarto é criado sob demanda ao abrir a busca.
     // O observador garante placeholder e rótulo também no modal flutuante.
+    var scrollAntesDaBusca = 0;
+    var buscaEstavaAberta = false;
+
     function prepararCampoBusca() {
+      var buscaAberta = document.body.classList.contains("aa-Detached");
+
+      if (buscaAberta && !buscaEstavaAberta) {
+        scrollAntesDaBusca = window.scrollY || window.pageYOffset || 0;
+      }
+
       document.querySelectorAll(".aa-Input").forEach(function(campo) {
         if (!campo.getAttribute("placeholder")) {
           campo.setAttribute("placeholder", "Buscar no site...");
         }
         campo.setAttribute("aria-label", "Buscar no site do GPENSC");
+        // iOS amplia a página automaticamente quando o campo tem fonte menor que 16px.
+        campo.style.setProperty("font-size", "16px", "important");
+        campo.style.setProperty("-webkit-text-size-adjust", "100%", "important");
+        campo.style.setProperty("transform", "none", "important");
       });
+
+      if (!buscaAberta && buscaEstavaAberta) {
+        var campoAtivo = document.activeElement;
+        if (campoAtivo && campoAtivo.matches && campoAtivo.matches(".aa-Input")) {
+          campoAtivo.blur();
+        }
+        window.requestAnimationFrame(function() {
+          window.scrollTo({ top: scrollAntesDaBusca, left: 0, behavior: "auto" });
+        });
+      }
+      buscaEstavaAberta = buscaAberta;
     }
+
     prepararCampoBusca();
     var observadorBusca = new MutationObserver(prepararCampoBusca);
-    observadorBusca.observe(document.body, { childList: true, subtree: true });  });
+    observadorBusca.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });  });
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

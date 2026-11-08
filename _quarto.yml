@@ -75,6 +75,7 @@ format:
       - styles-conteudo-v7.css
       - styles-navbar-v7.css
       - styles-navbar-v8.css
+      - styles-busca-v9.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
