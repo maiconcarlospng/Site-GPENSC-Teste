@@ -352,3 +352,116 @@ footer.footer .gp-footer-admin-link {
     padding: 0 !important;
   }
 }
+
+/* ---------- MOBILE: MENU À ESQUERDA, MARCA CENTRAL E IDIOMAS À DIREITA ---------- */
+/* A busca acompanha o botão do menu; a marca fica centralizada na tela,
+   sem ser empurrada pelo conjunto de idiomas. */
+@media (max-width: 768px) {
+  body:has(.hero) .navbar .navbar-container {
+    position: relative !important;
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: .35rem !important;
+  }
+
+  body:has(.hero) .navbar .navbar-toggler {
+    order: 1 !important;
+    flex: 0 0 44px !important;
+    margin: 0 !important;
+  }
+
+  body:has(.hero) #quarto-search {
+    order: 2 !important;
+    display: block !important;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    margin: 0 !important;
+  }
+
+  body:has(.hero) .navbar .quarto-navbar-tools {
+    display: none !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: max-content !important;
+    max-width: calc(100% - 150px) !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    z-index: 3 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-container .navbar-brand {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 .08rem !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-logo .navbar-logo {
+    width: 25px !important;
+    max-width: 25px !important;
+    height: auto !important;
+    max-height: 28px !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand .navbar-title {
+    font-size: .82rem !important;
+    line-height: 1.1 !important;
+    letter-spacing: .015em !important;
+    font-weight: 800 !important;
+  }
+
+  body:has(.hero) .navbar .bandeiras-container {
+    order: 4 !important;
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: .18rem !important;
+    margin: 0 0 0 auto !important;
+    padding: 0 !important;
+  }
+
+  body:has(.hero) .navbar .bandeira-idioma {
+    width: 17px !important;
+    height: 12px !important;
+    padding: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-collapse {
+    order: 5 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body:has(.hero) .navbar .navbar-brand-logo .navbar-logo {
+    width: 22px !important;
+    max-width: 22px !important;
+    max-height: 25px !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand .navbar-title {
+    font-size: .74rem !important;
+  }
+
+  body:has(.hero) .navbar .bandeiras-container {
+    gap: .12rem !important;
+  }
+
+  body:has(.hero) .navbar .bandeira-idioma {
+    width: 16px !important;
+    height: 11px !important;
+  }
+}
