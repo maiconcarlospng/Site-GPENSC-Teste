@@ -1,0 +1,20 @@
+/* GPENSC — ajuste pontual do botão flutuante do Spotify */
+@media (max-width: 768px) {
+  .gp-spotify-flutuante {
+    /* Mantém o botão afastado da linha do rodapé onde fica o acesso Admin. */
+    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .gp-spotify-flutuante .spotify-icon,
+  .gp-spotify-flutuante .spotify-icon path {
+    color: #000000 !important;
+    stroke: #000000 !important;
+  }
+}
+
+/* As três ondas do símbolo permanecem pretas também ao passar o foco. */
+.gp-spotify-flutuante .spotify-icon,
+.gp-spotify-flutuante .spotify-icon path {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
