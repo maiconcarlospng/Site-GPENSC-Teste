@@ -65,25 +65,6 @@ website:
       <span class="gp-footer-copyright">© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.</span>
       <a class="gp-footer-admin-link" href="https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/">Admin</a>
       </div>
-    center: |
-      <div class="gp-footer-support">
-      <h2 class="gp-footer-section-title">Apoio e vínculos institucionais</h2>
-      <div class="gp-footer-support-logos" aria-label="Instituições vinculadas">
-      <a class="gp-footer-support-logo" href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" aria-label="Programa de Pós-Graduação em Saúde e Nutrição da UFOP" title="PPGSN — UFOP">
-      <img src="img/logo_ppgsn.png" alt="Logotipo do Programa de Pós-Graduação em Saúde e Nutrição">
-      <span class="gp-footer-support-name">Programa de Pós-Graduação em Saúde e Nutrição</span>
-      </a>
-      <a class="gp-footer-support-logo" href="https://enut.ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Escola de Nutrição da UFOP" title="Escola de Nutrição — UFOP">
-      <img src="img/logo_nutricao.png" alt="Logotipo da Escola de Nutrição">
-      <span class="gp-footer-support-name">Escola de Nutrição</span>
-      </a>
-      <a class="gp-footer-support-logo" href="https://ufop.br" target="_blank" rel="noopener noreferrer" aria-label="Universidade Federal de Ouro Preto" title="UFOP">
-      <img src="img/ufop-logo.jpg" alt="Logotipo da Universidade Federal de Ouro Preto">
-      <span class="gp-footer-support-name">Universidade Federal de Ouro Preto</span>
-      </a>
-      </div>
-      </div>
-
 format:
   html:
     theme: [default, custom.scss]
