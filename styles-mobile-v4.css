@@ -4000,3 +4000,150 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     background-position: 70% center, 14% 12%, center;
   }
 }
+
+
+/* ---------- AJUSTE FINAL: RODAPÉ ENXUTO NO CELULAR + ACESSO ADMIN ---------- */
+/* O atalho administrativo permanece na navegação em telas grandes e pequenas. */
+.navbar .navbar-nav .nav-link[href*="admin/"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: .35rem !important;
+  padding: .48rem .9rem !important;
+  border: 1px solid rgba(31,77,43,.28) !important;
+  border-radius: 7px !important;
+  color: var(--gp-verde) !important;
+  font-weight: 750 !important;
+  background: #f2f7ef !important;
+}
+.navbar .navbar-nav .nav-link[href*="admin/"]:hover,
+.navbar .navbar-nav .nav-link[href*="admin/"]:focus-visible {
+  color: #fff !important;
+  background: var(--gp-verde) !important;
+  border-color: var(--gp-verde) !important;
+}
+.navbar .navbar-nav .nav-link[href*="admin/"]::before {
+  content: "\f4fe";
+  font-family: "bootstrap-icons" !important;
+  margin-right: .4rem;
+  font-size: .95em;
+}
+@media (max-width: 1450px) {
+  .navbar .navbar-nav .nav-link[href*="admin/"] {
+    margin: .25rem 0 !important;
+    width: fit-content !important;
+  }
+}
+
+/* No celular, o rodapé deixa de repetir informações já disponíveis na página Contato. */
+@media (max-width: 600px) {
+  .nav-footer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .7rem !important;
+    padding: 1.1rem .9rem .7rem !important;
+  }
+
+  /* Identidade compacta: mantém somente a marca. */
+  .gp-footer-brand-mark {
+    gap: .55rem !important;
+    margin: 0 !important;
+  }
+  .gp-footer-brand-mark img {
+    width: 34px !important;
+    height: 34px !important;
+    max-width: 34px !important;
+    max-height: 34px !important;
+    padding: 0 !important;
+  }
+  .gp-footer-brand-wordmark strong {
+    font-size: 1rem !important;
+    line-height: 1.1 !important;
+  }
+  .gp-footer-brand-wordmark small,
+  .gp-footer-description,
+  .gp-footer-affiliation {
+    display: none !important;
+  }
+
+  /* Retira o menu repetido; conserva os logotipos institucionais numa faixa curta. */
+  .gp-footer-navigation {
+    display: none !important;
+  }
+  .gp-footer-support {
+    margin: 0 !important;
+    padding: .55rem 0 0 !important;
+    border-top: 1px solid rgba(255,255,255,.14) !important;
+  }
+  .gp-footer-support > .gp-footer-heading {
+    display: none !important;
+  }
+  .nav-footer .gp-footer-support .gp-footer-support-logos {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: .85rem !important;
+  }
+  .nav-footer .gp-footer-support .gp-footer-support-logos > p,
+  .nav-footer .gp-footer-support .gp-footer-support-logos > div {
+    display: contents !important;
+    margin: 0 !important;
+  }
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo {
+    display: inline-flex !important;
+    flex: 0 1 76px !important;
+    width: 76px !important;
+    min-width: 0 !important;
+    max-width: 76px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img {
+    display: block !important;
+    width: auto !important;
+    height: 38px !important;
+    max-width: 76px !important;
+    max-height: 38px !important;
+    object-fit: contain !important;
+    background: transparent !important;
+  }
+
+  /* Contato reduzido a dois atalhos curtos: e-mail e Instagram. */
+  .gp-footer-contact > .gp-footer-heading,
+  .gp-footer-contact .gp-footer-contact-link[href^="tel:"],
+  .gp-footer-address {
+    display: none !important;
+  }
+  .gp-footer-contact-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: .45rem 1rem !important;
+    margin: 0 !important;
+  }
+  .gp-footer-contact-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: .4rem !important;
+    min-height: 30px !important;
+    font-size: .76rem !important;
+    line-height: 1.2 !important;
+  }
+  .gp-footer-contact-link .bi {
+    font-size: .9rem !important;
+  }
+  .nav-footer::after {
+    margin-top: .1rem !important;
+    padding-top: .55rem !important;
+    font-size: .62rem !important;
+    line-height: 1.3 !important;
+  }
+}
