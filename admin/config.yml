@@ -195,23 +195,6 @@ collections:
               name: "itens"
               widget: "galeria-multipla-v2"
               hint: "Selecione várias fotos, abra Ajustar recorte em cada foto para mudar o foco/zoom e confira a prévia antes de salvar."
-        - label: "GPENSC no Ar"
-          name: "noar"
-          file: "data/noar.yml"
-          fields:
-            - label: "Episódios"
-              name: "itens"
-              widget: "list"
-              collapsed: true
-              label_singular: "episódio"
-              summary: "{{fields.titulo}} — Ep. {{fields.episodio}}"
-              fields:
-                - { label: "Episódio", name: "episodio", widget: "string", pattern: ['^[0-9]+$', 'Informe apenas o número do episódio.'] }
-                - { label: "Título", name: "titulo", widget: "string" }
-                - { label: "Convidado", name: "convidado", widget: "string", required: false }
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
-                - { label: "Link", name: "link", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-                - { label: "Observação", name: "obs", widget: "text", required: false }
         - label: "Vídeos publicados"
           name: "videos"
           file: "data/videos.yml"
@@ -299,8 +282,6 @@ collections:
             - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
             - { label: "Aviso: texto das notícias de demonstração", name: "texto_aviso_noticias_home", widget: "text" }
             - { label: "Chamada da agenda na página inicial", name: "titulo_home_agenda", widget: "string" }
-            - { label: "Título GPENSC no Ar na página inicial", name: "titulo_home_noar", widget: "string" }
-            - { label: "Descrição GPENSC no Ar na página inicial", name: "texto_home_noar", widget: "text" }
             - { label: "Texto do botão Sobre nós", name: "botao_sobre", widget: "string" }
 
         - label: "05 · Página Quem somos"
@@ -333,15 +314,6 @@ collections:
             - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
             - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
 
-        - label: "08 · GPENSC no Ar"
-          name: "cfg_noar"
-          file: "data/configuracoes/08-gpensc-no-ar.yml"
-          fields:
-            - { label: "Nome do podcast", name: "podcast_nome", widget: "string" }
-            - { label: "Descrição do podcast", name: "podcast_descricao", widget: "text" }
-            - { label: "Link do podcast", name: "link_podcast", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-            - { label: "Introdução GPENSC no Ar", name: "intro_noar", widget: "text" }
-
         - label: "09 · Contato e redes"
           name: "cfg_contato"
           file: "data/configuracoes/09-contato-redes.yml"
@@ -351,7 +323,7 @@ collections:
             - { label: "Instagram (URL)", name: "instagram", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
             - { label: "YouTube", name: "youtube", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-            - { label: "Spotify", name: "spotify", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Spotify (UFOP Cast)", name: "spotify", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
@@ -387,7 +359,6 @@ collections:
             - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
-            - { label: "Ativar conteúdo da página GPENSC no Ar", name: "mostrar_noar", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
