@@ -347,8 +347,8 @@ collections:
               name: "spotify"
               widget: "string"
               required: false
-              hint: "Endereço usado pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Informe uma URL completa iniciada por https://.",
-              pattern: ['^https?://[^\\s]+
+              hint: "Endereço usado pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Informe uma URL completa iniciada por https://."
+              pattern: ['^https?://.+$', 'Informe uma URL completa iniciada por http:// ou https://.']
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
