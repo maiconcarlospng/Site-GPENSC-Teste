@@ -31,10 +31,10 @@ collections:
               hint: "Cadastre notícias reais, com título, data e resumo. Se não houver notícias, deixe a lista vazia."
               summary: "{{fields.titulo}} — {{fields.data}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Categoria", name: "categoria", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
-                - { label: "Resumo", name: "resumo", widget: "text", required: false }
+                - { label: "Resumo", name: "resumo", widget: "text", hint: "Escreva uma síntese objetiva. Esse texto aparece nos cartões e ajuda na busca." }
                 - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
                 - { label: "Link da fonte original", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "Imagem", name: "imagem", widget: "image", required: false }
@@ -50,8 +50,8 @@ collections:
               hint: "Use a data no formato AAAA-MM-DD. Eventos passados deixam de aparecer em próximos eventos."
               summary: "{{fields.data}} - {{fields.titulo}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
-                - { label: "Tipo", name: "tipo", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Palestra", "Curso", "Oficina", "Seminário", "Congresso", "Workshop", "Aula aberta", "Reunião", "Outro"], required: false, hint: "Escolha uma categoria. Se não se aplicar, deixe sem seleção." }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Local", name: "local", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
@@ -85,12 +85,22 @@ collections:
               summary: "{{fields.titulo}} — {{fields.situacao}}"
               fields:
                 - { label: "Título", name: "titulo", widget: "string" }
-                - { label: "Tipo", name: "tipo", widget: "string", required: false }
-                - { label: "Situação", name: "situacao", widget: "string", required: false }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Pesquisa", "Extensão"], hint: "Define em qual área o projeto será apresentado." }
+                - { label: "Situação", name: "situacao", widget: "select", options: ["Em andamento", "Em planejamento", "Concluído", "Suspenso"], hint: "Use “Em andamento” para projetos ativos." }
                 - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
                 - { label: "Início", name: "inicio", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
                 - { label: "Fim", name: "fim", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
-                - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+                - label: "Linha de pesquisa associada"
+                  name: "linha_id"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "linhas"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.nome"]
+                  search_fields: ["itens.*.nome", "itens.*.id"]
+                  multiple: false
+                  required: false
+                  hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
                 - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
         - label: "Publicações"
           name: "publicacoes"
@@ -104,13 +114,23 @@ collections:
               summary: "{{fields.titulo}} — {{fields.ano}}"
               fields:
                 - { label: "Ano", name: "ano", widget: "string", hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
-                - { label: "Tipo", name: "tipo", widget: "string", required: false }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Artigo", "Livro", "Capítulo de livro", "Resumo em evento", "Resumo expandido", "Trabalho completo em evento", "Dissertação/TCC", "Tese", "Outro"], hint: "Escolha a categoria da produção. “Artigo” mantém a contagem de artigos da página inicial." }
                 - { label: "Autores", name: "autores", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Veículo", name: "veiculo", widget: "string", required: false }
                 - { label: "DOI", name: "doi", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-                - { label: "ID da linha de pesquisa", name: "linha_id", widget: "string", required: false }
+                - label: "Linha de pesquisa associada"
+                  name: "linha_id"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "linhas"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.nome"]
+                  search_fields: ["itens.*.nome", "itens.*.id"]
+                  multiple: false
+                  required: false
+                  hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
         - label: "Livros"
           name: "livros"
           file: "data/livros.yml"
@@ -138,9 +158,9 @@ collections:
               label_singular: "defesa"
               summary: "{{fields.titulo}} — {{fields.autor}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
-                - { label: "Nível", name: "nivel", widget: "string", required: false }
-                - { label: "Etapa", name: "etapa", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Nível", name: "nivel", widget: "select", options: ["Mestrado", "Doutorado"], hint: "Selecione o nível acadêmico." }
+                - { label: "Etapa", name: "etapa", widget: "select", options: ["Qualificação", "Defesa"], hint: "Indique se o registro é de qualificação ou defesa final." }
                 - { label: "Autor", name: "autor", widget: "string" }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Orientador", name: "orientador", widget: "string", required: false }
@@ -178,7 +198,7 @@ collections:
               label_singular: "disciplina"
               summary: "{{fields.nome}} — {{fields.codigo}}"
               fields:
-                - { label: "Nível", name: "nivel", widget: "string", required: false }
+                - { label: "Nível", name: "nivel", widget: "select", options: ["Graduação", "Pós-graduação"], required: false }
                 - { label: "Código", name: "codigo", widget: "string", required: false }
                 - { label: "Nome", name: "nome", widget: "string" }
                 - { label: "Docente", name: "docente", widget: "string", required: false }
@@ -206,7 +226,7 @@ collections:
               label_singular: "vídeo"
               summary: "{{fields.titulo}}"
               fields:
-                - { label: "Data", name: "data", widget: "string", hint: "Formato: AAAA-MM-DD", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Descrição", name: "descricao", widget: "text", required: false }
                 - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
@@ -327,7 +347,57 @@ collections:
               name: "spotify"
               widget: "string"
               required: false
-              hint: "Endereço usado pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Você pode alterar o destino por aqui."
+              hint: "Endereço usado pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Informe uma URL completa iniciada por https://.",
+              pattern: ['^https?://[^\\s]+
+            - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
+            - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
+            - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
+            - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
+            - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
+            - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
+            - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
+            - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
+
+        - label: "10 · Endereço"
+          name: "cfg_endereco"
+          file: "data/configuracoes/10-endereco.yml"
+          fields:
+            - { label: "Endereço completo (exibido no site e usado no mapa)", name: "endereco_completo", widget: "string", hint: "Concentre aqui o endereço inteiro, incluindo cidade/UF e CEP quando necessário." }
+            - label: "Tópicos adicionais do endereço"
+              name: "topicos_endereco"
+              widget: "list"
+              collapsed: true
+              required: false
+              label_singular: "tópico"
+              summary: "{{fields.titulo}}"
+              hint: "Use para adicionar informações extras, como sala, horário de atendimento ou referência. Cada tópico pode ser removido individualmente."
+              fields:
+                - { label: "Nome do tópico", name: "titulo", widget: "string" }
+                - { label: "Informação", name: "valor", widget: "string" }
+
+        - label: "11 · Visibilidade das páginas"
+          name: "cfg_visibilidade"
+          file: "data/configuracoes/11-visibilidade.yml"
+          fields:
+            - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+
+        - label: "12 · Rodapé"
+          name: "cfg_rodape"
+          file: "data/configuracoes/12-rodape.yml"
+          fields:
+            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+, 'Informe uma URL completa iniciada por http:// ou https://.']
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }

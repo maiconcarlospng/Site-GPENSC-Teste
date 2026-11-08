@@ -142,3 +142,66 @@
   background: #f8e4ce !important;
   color: #743d10 !important;
 }
+
+
+/* Contraste reforçado dos resultados em telas pequenas. */
+@media (max-width: 600px) {
+  .aa-DetachedOverlay .aa-SourceHeader,
+  .aa-DetachedOverlay .search-result-header {
+    color: #263b2a !important;
+    font-weight: 750 !important;
+  }
+
+  .aa-DetachedOverlay .search-result-doc {
+    border-color: #cbdcc5 !important;
+    background: #ffffff !important;
+  }
+
+  .aa-DetachedOverlay .search-result-title-container {
+    background: #e8f1e3 !important;
+    color: #173d25 !important;
+  }
+
+  .aa-DetachedOverlay .search-result-title {
+    color: #173d25 !important;
+    font-weight: 800 !important;
+  }
+
+  .aa-DetachedOverlay .search-result-text-container,
+  .aa-DetachedOverlay .search-result-text {
+    background: #ffffff !important;
+    color: #263b2a !important;
+    font-weight: 500 !important;
+  }
+
+  .aa-DetachedOverlay .search-match {
+    background: #f8dfb8 !important;
+    color: #61320c !important;
+    font-weight: 800 !important;
+  }
+
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-result-doc,
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-result-title-container,
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-result-text-container {
+    border-color: #173d25 !important;
+    background: #173d25 !important;
+    color: #ffffff !important;
+  }
+
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-item .search-result-title,
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-item .search-result-text {
+    background: transparent !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+  }
+
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-item .search-result-text .search-match {
+    background: #ffe6bd !important;
+    color: #5b2b07 !important;
+    font-weight: 800 !important;
+  }
+
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-result-icon {
+    color: #ffd28d !important;
+  }
+}

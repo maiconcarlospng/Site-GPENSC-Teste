@@ -209,6 +209,106 @@ def validate_data_against_fields(data, fields, context: str) -> None:
                     )
 
 
+
+UNIQUE_KEYS = {
+    "noticias": ("data", "titulo"),
+    "eventos": ("data", "titulo"),
+    "linhas": ("id",),
+    "projetos": ("titulo",),
+    "publicacoes": ("ano", "titulo", "autores"),
+    "livros": ("ano", "titulo"),
+    "defesas": ("data", "autor", "titulo"),
+    "equipe": ("nome",),
+    "disciplinas": ("nivel", "codigo", "nome"),
+    "videos": ("url",),
+    "sites": ("url",),
+    "apoio": ("nome",),
+}
+
+
+def validate_unique_items(relative: Path, data) -> None:
+    """Impede registros repetidos nas coleções principais do site."""
+    if not isinstance(data, dict) or not isinstance(data.get("itens"), list):
+        return
+    keys = UNIQUE_KEYS.get(relative.stem)
+    if not keys:
+        return
+    seen = {}
+    for index, item in enumerate(data["itens"], start=1):
+        if not isinstance(item, dict):
+            continue
+        values = tuple(str(item.get(key) or "").strip().casefold() for key in keys)
+        if not all(values):
+            continue
+        if values in seen:
+            fail(
+                f"Registro duplicado em {relative}: itens {seen[values]} e {index} "
+                f"compartilham os campos {', '.join(keys)}."
+            )
+        seen[values] = index
+
+
+def validate_project_years() -> None:
+    """Verifica a coerência dos anos de início e fim dos projetos."""
+    path = ROOT / "data/projetos.yml"
+    if not path.is_file():
+        return
+    items = (load_yaml(path) or {}).get("itens", [])
+    for index, item in enumerate(items, start=1):
+        if not isinstance(item, dict):
+            continue
+        inicio = str(item.get("inicio") or "").strip()
+        fim = str(item.get("fim") or "").strip()
+        if inicio and fim and inicio.isdigit() and fim.isdigit() and int(fim) < int(inicio):
+            fail(
+                f"Projeto {index} em data/projetos.yml tem ano final ({fim}) "
+                f"anterior ao ano inicial ({inicio})."
+            )
+
+
+def validate_line_references() -> None:
+    """Garante que projetos e publicações apontem para linhas existentes."""
+    path_linhas = ROOT / "data/linhas.yml"
+    if not path_linhas.is_file():
+        return
+    linhas = (load_yaml(path_linhas) or {}).get("itens", [])
+    ids = [str(item.get("id") or "").strip() for item in linhas if isinstance(item, dict)]
+    ids_validos = {value for value in ids if value}
+    if len(ids) != len(ids_validos):
+        fail("Há IDs de linha de pesquisa vazios ou duplicados em data/linhas.yml.")
+    for filename in ("projetos.yml", "publicacoes.yml"):
+        path = ROOT / "data" / filename
+        if not path.is_file():
+            continue
+        items = (load_yaml(path) or {}).get("itens", [])
+        for index, item in enumerate(items, start=1):
+            if not isinstance(item, dict):
+                continue
+            line_id = str(item.get("linha_id") or "").strip()
+            if line_id and line_id not in ids_validos:
+                fail(
+                    f"Referência inválida em data/{filename}, item {index}: "
+                    f"a linha '{line_id}' não existe em data/linhas.yml."
+                )
+
+
+def warn_demo_content(yaml_paths) -> None:
+    """Mostra avisos para conteúdo de demonstração sem bloquear o site."""
+    markers = (
+        "[EXEMPLO]", "[Nome", "[Periódico]", "[Agência", "[Código]",
+        "[Descrição da linha", "[Ementa resumida", "[Orientador", "[Docente]",
+        "[Instituição]",
+    )
+    for path in sorted(yaml_paths):
+        if not path.is_file() or "data" not in path.parts:
+            continue
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            if any(marker.casefold() in line.casefold() for marker in markers):
+                print(
+                    f"AVISO: possível conteúdo de demonstração em "
+                    f"{path.relative_to(ROOT)}:{line_number}; confira antes de divulgar."
+                )
+
 def main() -> None:
     for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", *SITE_CSS_PATHS):
         if not file_path.is_file():
@@ -268,6 +368,7 @@ def main() -> None:
             validate_data_against_fields(
                 data, entry.get("fields", []), f"{relative}"
             )
+            validate_unique_items(relative, data)
 
     # Detecta erros de sintaxe em todos os YAML de conteúdo consumidos pelo site.
     yaml_paths = {ROOT / "_variables.yml"}
@@ -276,6 +377,10 @@ def main() -> None:
     for path in sorted(yaml_paths):
         if path.is_file():
             load_yaml(path)
+
+    validate_line_references()
+    validate_project_years()
+    warn_demo_content(yaml_paths)
 
     # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
     inspect_css(CSS_PATH)
