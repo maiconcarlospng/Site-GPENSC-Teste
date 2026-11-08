@@ -3782,3 +3782,92 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     max-height: 38px !important;
   }
 }
+
+
+/* ---------- GARANTIR OS TRÊS LOGOTIPOS NA MESMA LINHA ---------- */
+/* O Quarto/Markdown pode envolver cada link em um parágrafo.
+   Faz esses invólucros não ocuparem uma linha inteira no rodapé. */
+.nav-footer .gp-footer-support .gp-footer-support-logos {
+  display: grid !important;
+  grid-template-columns: repeat(3, max-content) !important;
+  grid-auto-flow: column !important;
+  align-items: center !important;
+  justify-content: start !important;
+  column-gap: 18px !important;
+  row-gap: 0 !important;
+  width: 100% !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos > p,
+.nav-footer .gp-footer-support .gp-footer-support-logos > div {
+  display: contents !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo,
+.nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo,
+.nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo {
+  display: inline-flex !important;
+  grid-row: 1 !important;
+  flex: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-self: start !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 112px !important;
+  height: 58px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img,
+.nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo img,
+.nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo img {
+  display: block !important;
+  width: auto !important;
+  height: 58px !important;
+  max-width: 112px !important;
+  max-height: 58px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 600px) {
+  .nav-footer .gp-footer-support .gp-footer-support-logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    justify-content: start !important;
+    column-gap: 10px !important;
+    width: min(100%, 300px) !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo,
+  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo,
+  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo {
+    width: 100% !important;
+    max-width: 88px !important;
+    height: 48px !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img,
+  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo img,
+  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo img {
+    height: 48px !important;
+    max-height: 48px !important;
+    max-width: 88px !important;
+  }
+}
