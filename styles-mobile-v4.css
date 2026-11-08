@@ -5202,13 +5202,15 @@ footer.footer .gp-footer-admin-link {
 
   body:has(.hero) .navbar .navbar-container {
     display: flex !important;
-    flex-wrap: nowrap !important;
+    /* O menu aberto precisa poder quebrar para uma segunda linha. */
+    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: space-between !important;
     width: 100% !important;
     min-height: 44px !important;
     overflow: visible !important;
     box-sizing: border-box !important;
+    row-gap: .45rem !important;
   }
 
   body:has(.hero) .navbar .navbar-brand-container {
@@ -5240,6 +5242,44 @@ footer.footer .gp-footer-admin-link {
     height: 1.35rem !important;
     background-position: center !important;
     background-size: 100% 100% !important;
+  }
+
+  /* A lista de links ocupa uma linha própria, abaixo do botão e da marca. */
+  body:has(.hero) .navbar .navbar-collapse.collapsing,
+  body:has(.hero) .navbar .navbar-collapse.show {
+    display: block !important;
+    flex: 0 0 100% !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-top: .2rem !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-collapse.show {
+    padding: .35rem .4rem .6rem !important;
+    border-top: 1px solid #e2e9df !important;
+    background: #fff !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav .nav-link {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 42px !important;
+    align-items: center !important;
+    padding: .65rem .75rem !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
   }
 
   /* Deixa uma faixa de respiro entre a navegação e o header verde. */
