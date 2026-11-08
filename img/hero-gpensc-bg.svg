@@ -20,23 +20,16 @@
   <path d="M1308 91C1342 116 1371 151 1394 192" stroke="#F3ECDD" stroke-width="13" stroke-linecap="round"/>
   <path d="M1378 200C1397 250 1410 310 1408 366" stroke="#F3ECDD" stroke-width="10" stroke-linecap="round" opacity=".9"/>
 
-  <!-- Ramo botânico redesenhado a partir da folha da marca:
-       três folíolos lanceolados, contorno verde-escuro e nervura central. -->
-  <g stroke="#285D35" stroke-linecap="round" stroke-linejoin="round">
-    <g fill="#DCEBD3" stroke-width="6" opacity=".96">
-      <path d="M1103 356C1058 350 1020 324 1008 298C1040 286 1078 315 1103 356Z"/>
-      <path d="M1168 285C1125 275 1090 247 1078 220C1110 211 1148 243 1168 285Z"/>
-      <path d="M1233 211C1197 196 1167 169 1156 143C1185 136 1217 169 1233 211Z"/>
-    </g>
-    <path d="M1047 438C1127 347 1208 245 1317 126" fill="none" stroke-width="8"/>
-    <g fill="none" stroke-width="3.5" opacity=".88">
-      <path d="M1009 299C1043 313 1076 335 1103 356"/>
-      <path d="M1079 221C1112 238 1144 260 1168 285"/>
-      <path d="M1157 144C1187 164 1214 188 1233 211"/>
-      <path d="M1038 303L1053 331"/>
-      <path d="M1108 224L1129 254"/>
-      <path d="M1182 151L1202 181"/>
-    </g>
+  <!-- Nervuras reposicionadas para acompanhar o eixo da folha original,
+       preservando a silhueta e a composição da primeira versão. -->
+  <g stroke="#285D35" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
+    <path d="M1135 444C1204 354 1260 244 1315 126"/>
+    <path d="M1185 365C1148 351 1108 329 1071 295"/>
+    <path d="M1185 365C1230 366 1276 388 1315 420"/>
+    <path d="M1235 280C1198 257 1163 230 1149 204"/>
+    <path d="M1235 280C1283 294 1320 321 1350 355"/>
+    <path d="M1284 195C1260 177 1239 158 1228 145"/>
+    <path d="M1284 195C1320 214 1346 240 1362 272"/>
   </g>
 
   <!-- Pequenos recortes claros dão textura de impressão, sem competir com o nome -->
