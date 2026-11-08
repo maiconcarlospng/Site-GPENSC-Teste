@@ -72,6 +72,7 @@ format:
       - styles-mobile-v4.css
       - styles-mobile-v5.css
       - styles-navbar-v6.css
+      - styles-conteudo-v7.css
     page-layout: full
     include-after-body: lupa.html
     toc: false

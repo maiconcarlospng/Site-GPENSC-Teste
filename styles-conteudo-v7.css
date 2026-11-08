@@ -1,0 +1,129 @@
+/* =====================================================================
+   GPENSC · TÍTULOS DE SEÇÃO E SUBTÍTULOS — TODAS AS PÁGINAS
+   Remove a marca decorativa antes dos H2, alinha a hierarquia à esquerda
+   e padroniza os intervalos verticais do conteúdo.
+   ===================================================================== */
+
+/* H2 são os títulos das seções; mantêm o verde e a linha discreta inferior. */
+main h2,
+main.content h2,
+#quarto-document-content h2 {
+  text-align: left !important;
+  margin: 2.35rem 0 .95rem !important;
+  padding: 0 0 .58rem !important;
+  border-bottom: 1px solid #dce5d8 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.025em !important;
+  scroll-margin-top: 5.5rem;
+}
+
+/* Retira a pequena logo que era acrescentada automaticamente aos H2. */
+main h2::before,
+main.content h2::before,
+#quarto-document-content h2::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* H3 ficam subordinados aos títulos de seção, sem centralização ou excesso de margem. */
+main h3,
+main.content h3,
+#quarto-document-content h3 {
+  text-align: left !important;
+  margin: 1.55rem 0 .65rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -.018em !important;
+  scroll-margin-top: 5.5rem;
+}
+
+/* Um título seguido imediatamente por texto não deve abrir um vão excessivo. */
+main h2 + p,
+main h2 + ul,
+main h2 + ol,
+main h2 + .cell,
+main h2 + div,
+main h3 + p,
+main h3 + ul,
+main h3 + ol,
+main h3 + .cell,
+main h3 + div {
+  margin-top: .45rem !important;
+}
+
+/* Seções consecutivas mantêm ritmo regular, inclusive em páginas mais longas. */
+main section.level2 + section.level2 {
+  margin-top: .35rem;
+}
+
+main section.level3 + section.level3 {
+  margin-top: .2rem;
+}
+
+/* Títulos dentro de cartões continuam compactos e respeitam o alinhamento editorial. */
+main .card h2,
+main .card h3,
+main .sobre-card h2,
+main .sobre-card h3,
+main .podcast-card h2,
+main .podcast-card h3 {
+  text-align: left !important;
+}
+
+/* Telas médias: reduz um pouco a distância entre as seções. */
+@media (max-width: 991.98px) {
+  main h2,
+  main.content h2,
+  #quarto-document-content h2 {
+    margin-top: 2rem !important;
+    margin-bottom: .8rem !important;
+    padding-bottom: .5rem !important;
+  }
+
+  main h3,
+  main.content h3,
+  #quarto-document-content h3 {
+    margin-top: 1.3rem !important;
+    margin-bottom: .55rem !important;
+  }
+}
+
+/* Celular: títulos alinhados à esquerda, sem quebrar o ritmo da leitura. */
+@media (max-width: 600px) {
+  main h2,
+  main.content h2,
+  #quarto-document-content h2 {
+    margin-top: 1.65rem !important;
+    margin-bottom: .7rem !important;
+    padding-bottom: .45rem !important;
+    line-height: 1.28 !important;
+  }
+
+  main h3,
+  main.content h3,
+  #quarto-document-content h3 {
+    margin-top: 1.1rem !important;
+    margin-bottom: .45rem !important;
+    line-height: 1.3 !important;
+  }
+
+  main h2 + p,
+  main h2 + ul,
+  main h2 + ol,
+  main h2 + .cell,
+  main h2 + div,
+  main h3 + p,
+  main h3 + ul,
+  main h3 + ol,
+  main h3 + .cell,
+  main h3 + div {
+    margin-top: .35rem !important;
+  }
+}
