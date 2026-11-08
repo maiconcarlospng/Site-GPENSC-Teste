@@ -20,16 +20,34 @@
   <path d="M1308 91C1342 116 1371 151 1394 192" stroke="#F3ECDD" stroke-width="13" stroke-linecap="round"/>
   <path d="M1378 200C1397 250 1410 310 1408 366" stroke="#F3ECDD" stroke-width="10" stroke-linecap="round" opacity=".9"/>
 
-  <!-- Nervuras reposicionadas para acompanhar o eixo da folha original,
-       preservando a silhueta e a composição da primeira versão. -->
-  <g stroke="#285D35" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
-    <path d="M1135 444C1204 354 1260 244 1315 126"/>
-    <path d="M1185 365C1148 351 1108 329 1071 295"/>
-    <path d="M1185 365C1230 366 1276 388 1315 420"/>
-    <path d="M1235 280C1198 257 1163 230 1149 204"/>
-    <path d="M1235 280C1283 294 1320 321 1350 355"/>
-    <path d="M1284 195C1260 177 1239 158 1228 145"/>
-    <path d="M1284 195C1320 214 1346 240 1362 272"/>
+  <!-- Nervação foliar: uma nervura central contínua e nervuras secundárias
+       alternadas, suavemente arqueadas e ligadas à nervura principal. -->
+  <g stroke="#285D35" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
+    <!-- Nervura central -->
+    <path d="M1072 448C1152 363 1236 239 1310 112"
+          fill="none" stroke-width="7"/>
+
+    <!-- Nervuras secundárias do lado esquerdo da nervura central -->
+    <g fill="none" stroke-width="4">
+      <path d="M1110 405C1080 412 1048 417 1018 415"/>
+      <path d="M1143 365C1110 360 1072 354 1032 350"/>
+      <path d="M1177 321C1142 307 1101 298 1058 296"/>
+      <path d="M1210 276C1175 255 1135 240 1090 238"/>
+      <path d="M1240 230C1208 207 1170 190 1135 190"/>
+      <path d="M1268 184C1240 162 1210 148 1180 151"/>
+      <path d="M1290 145C1270 130 1250 121 1228 124"/>
+    </g>
+
+    <!-- Nervuras secundárias do lado direito: acompanham a margem da folha -->
+    <g fill="none" stroke-width="4">
+      <path d="M1110 405C1170 418 1240 429 1322 428"/>
+      <path d="M1143 365C1205 382 1275 391 1342 383"/>
+      <path d="M1177 321C1238 342 1305 350 1360 337"/>
+      <path d="M1210 276C1270 296 1325 300 1370 286"/>
+      <path d="M1240 230C1290 248 1330 249 1360 236"/>
+      <path d="M1268 184C1305 198 1332 195 1345 181"/>
+      <path d="M1290 145C1312 153 1328 149 1336 137"/>
+    </g>
   </g>
 
   <!-- Pequenos recortes claros dão textura de impressão, sem competir com o nome -->
