@@ -63,7 +63,7 @@ website:
     left: |
       <div class="gp-footer-bottom">
       <span class="gp-footer-copyright">© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.</span>
-      <a class="gp-footer-admin-link" href="admin/">Admin</a>
+      <a class="gp-footer-admin-link" href="https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/">Admin</a>
       </div>
     center: |
       <div class="gp-footer-support">
