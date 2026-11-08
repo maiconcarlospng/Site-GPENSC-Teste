@@ -3180,3 +3180,211 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     white-space: normal;
   }
 }
+
+
+/* ---------- HERO INSTITUCIONAL — REFINAMENTO VISUAL ---------- */
+/* Mantém a identidade verde do GPENSC, mas acrescenta profundidade,
+   hierarquia tipográfica e elementos gráficos discretos. */
+.hero {
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden !important;
+  min-height: 310px;
+  padding: clamp(3.3rem, 5.8vw, 4.8rem) 2rem !important;
+  gap: clamp(1.6rem, 3.2vw, 3rem) !important;
+  background:
+    radial-gradient(ellipse at 14% 12%, rgba(112, 158, 84, .20), transparent 34%),
+    linear-gradient(112deg, #173f25 0%, #1f4d2b 48%, #285d35 100%) !important;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(13, 43, 24, .16), transparent 52%),
+    radial-gradient(circle at 78% 50%, rgba(255,255,255,.055), transparent 28%);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: max(1.5rem, calc((100vw - 1240px) / 2));
+  width: clamp(260px, 25vw, 390px);
+  aspect-ratio: 1;
+  transform: translate(18%, -50%);
+  border: 1px solid rgba(237, 246, 232, .13);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 28px rgba(237, 246, 232, .035),
+    0 0 0 58px rgba(237, 246, 232, .028),
+    0 0 0 92px rgba(237, 246, 232, .02);
+  pointer-events: none;
+}
+
+.hero-logo {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 126px !important;
+  height: 126px !important;
+  max-width: 126px !important;
+  padding: 13px !important;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff 0%, #f5f6ef 100%) !important;
+  box-shadow:
+    0 0 0 8px rgba(255,255,255,.075),
+    0 16px 38px rgba(8, 28, 15, .27) !important;
+  object-fit: contain;
+}
+
+.hero-texto {
+  position: relative;
+  z-index: 1;
+  display: flex !important;
+  flex: 0 1 720px;
+  flex-direction: column !important;
+  align-items: flex-start;
+  max-width: 720px !important;
+  min-width: 0;
+  margin: 0 !important;
+}
+
+.hero-texto::before {
+  content: "PESQUISA  ·  ENSINO  ·  SAÚDE COLETIVA";
+  display: block;
+  margin: 0 0 .7rem;
+  color: #c7dabb;
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .16em;
+  line-height: 1.4;
+}
+
+.hero-sigla {
+  margin: 0 0 .55rem !important;
+  color: #fff !important;
+  font-size: clamp(3.15rem, 5vw, 4.15rem) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.065em !important;
+  line-height: .98 !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,.12);
+}
+
+.hero-titulo {
+  max-width: 48rem;
+  margin: 0 !important;
+  color: rgba(255,255,255,.96) !important;
+  font-size: clamp(1.2rem, 2.1vw, 1.65rem) !important;
+  font-weight: 580 !important;
+  letter-spacing: -.025em !important;
+  line-height: 1.32 !important;
+  text-wrap: pretty;
+}
+
+.hero-inst {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 1rem 0 0 !important;
+  padding: .48rem .78rem;
+  border: 1px solid rgba(236,245,231,.19);
+  border-radius: 999px;
+  background: rgba(255,255,255,.075);
+  color: #e0eadb !important;
+  font-size: .82rem !important;
+  font-weight: 500;
+  letter-spacing: .015em;
+  line-height: 1.35 !important;
+}
+
+.hero-inst::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #a9cf86;
+  box-shadow: 0 0 0 3px rgba(169,207,134,.13);
+}
+
+/* Em telas menores, a composição se torna vertical sem perder a hierarquia. */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0;
+    padding: 2.8rem 1.2rem 2.6rem !important;
+    gap: 1.25rem !important;
+  }
+
+  .hero::after {
+    top: 38%;
+    right: -135px;
+    width: 290px;
+    transform: translateY(-50%);
+    opacity: .72;
+  }
+
+  .hero-logo {
+    width: 104px !important;
+    height: 104px !important;
+    max-width: 104px !important;
+    padding: 11px !important;
+  }
+
+  .hero-texto {
+    flex: 0 1 auto;
+    align-items: center !important;
+    max-width: 36rem !important;
+    text-align: center !important;
+  }
+
+  .hero-texto::before {
+    margin-bottom: .55rem;
+    font-size: .66rem;
+    letter-spacing: .13em;
+  }
+
+  .hero-sigla {
+    margin-bottom: .55rem !important;
+    font-size: clamp(2.8rem, 12vw, 3.6rem) !important;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1.08rem, 4.2vw, 1.35rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  .hero-inst {
+    justify-content: center;
+    max-width: 100%;
+    font-size: .76rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 2.35rem 1rem 2.2rem !important;
+  }
+
+  .hero-logo {
+    width: 92px !important;
+    height: 92px !important;
+    max-width: 92px !important;
+  }
+
+  .hero-texto::before {
+    font-size: .59rem;
+    letter-spacing: .1em;
+  }
+
+  .hero-inst {
+    padding: .42rem .6rem;
+    font-size: .7rem !important;
+  }
+}
