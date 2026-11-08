@@ -5044,3 +5044,77 @@ footer.footer {
     font-size: .56rem !important;
   }
 }
+
+
+/* ---------- RODAPÉ: CORREÇÃO DEFINITIVA DE LARGURA NO MOBILE ---------- */
+/* Evita que o width:100vw herdado das regras antigas ultrapasse a coluna
+   disponível e empurre o rodapé para fora da tela em celulares. */
+footer.footer,
+footer.footer .nav-footer {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+footer.footer {
+  overflow-x: clip !important;
+}
+
+footer.footer .nav-footer {
+  padding-left: clamp(.65rem, 3vw, 1rem) !important;
+  padding-right: clamp(.65rem, 3vw, 1rem) !important;
+  overflow: hidden !important;
+}
+
+footer.footer .nav-footer-left,
+footer.footer .nav-footer-left > p,
+footer.footer .gp-footer-bottom {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+footer.footer .gp-footer-bottom {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: .5rem !important;
+}
+
+footer.footer .gp-footer-copyright {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+footer.footer .gp-footer-admin-link {
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 380px) {
+  footer.footer .nav-footer {
+    padding-left: .55rem !important;
+    padding-right: .55rem !important;
+  }
+
+  footer.footer .gp-footer-bottom {
+    gap: .35rem !important;
+  }
+
+  footer.footer .gp-footer-copyright,
+  footer.footer .gp-footer-admin-link {
+    font-size: .54rem !important;
+  }
+}
