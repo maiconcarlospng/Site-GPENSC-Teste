@@ -68,7 +68,9 @@ website:
 format:
   html:
     theme: [default, custom.scss]
-    css: styles-mobile-v4.css
+    css:
+      - styles-mobile-v4.css
+      - styles-mobile-v5.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
