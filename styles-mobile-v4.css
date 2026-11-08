@@ -823,19 +823,34 @@ footer.footer {
   height: 4px;
   background: linear-gradient(90deg, var(--gp-folha) 0 38%, var(--gp-laranja) 38% 70%, var(--gp-vermelho) 70%);
 }
-.nav-footer::after {
-  content: "© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.";
-  grid-column: 1 / -1;
-  display: block;
-  margin: .25rem 0 0;
-  padding-top: .75rem;
-  border-top: 1px solid rgba(255,255,255,.16);
-  color: #c5d1c2;
-  font-size: .7rem;
-  line-height: 1.4;
-  text-align: left;
+.nav-footer::after { content: none !important; display: none !important; }
+.nav-footer-left {
+  display: block !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: .25rem 0 0 !important;
+  padding: .75rem 0 0 !important;
+  border-top: 1px solid rgba(255,255,255,.16) !important;
 }
-.nav-footer-left { display: none !important; }
+.gp-footer-bottom {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.gp-footer-copyright {
+  display: block !important;
+  min-width: 0 !important;
+  color: #c5d1c2 !important;
+  font-size: .7rem !important;
+  line-height: 1.4 !important;
+  text-align: left !important;
+}
+/* .nav-footer-left permanece visível para a linha Copyright + Admin. */
 .nav-footer-center,
 .nav-footer-right {
   min-width: 0 !important;
@@ -1007,13 +1022,23 @@ footer.footer {
     gap: .35rem 1.1rem !important;
   }
   .gp-footer-contact-link { font-size: .75rem !important; }
-  .nav-footer::after {
-    margin-top: 0 !important;
-    padding-top: .6rem !important;
-    font-size: .64rem !important;
-    line-height: 1.3 !important;
-    text-align: center !important;
+  .nav-footer-left {
+    grid-column: 1 !important;
+    margin-top: .1rem !important;
+    padding-top: .55rem !important;
   }
+  .gp-footer-bottom {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: .65rem !important;
+  }
+  .gp-footer-copyright {
+    font-size: .62rem !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+  }
+  .gp-footer-admin-link { font-size: .6rem !important; }
 }
 @media (max-width: 360px) {
   .gp-footer-support-logos { gap: .35rem !important; }
@@ -1022,11 +1047,13 @@ footer.footer {
   .gp-footer-contact-link { font-size: .7rem !important; }
 }
 
-/* Admin permanece como texto pequeno e secundário no rodapé. */
+/* Admin discreto, à direita e na mesma linha do copyright. */
 .gp-footer-admin-link {
   display: inline-flex !important;
+  flex: 0 0 auto !important;
   align-items: center !important;
-  margin: 0 0 0 .15rem !important;
+  justify-content: flex-end !important;
+  margin: 0 0 0 auto !important;
   padding: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
@@ -3562,3 +3589,102 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   }
 }
 
+/* ---------- FIX: TRÊS LOGOS DO RODAPÉ NA MESMA LINHA ---------- */
+/* Quarto agrupa os links do page-footer em um único <p>. A grade precisa
+   ser aplicada a esse parágrafo (pai real dos três links), não somente
+   à div externa .gp-footer-support-logos. */
+.gp-footer-support-logos {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.gp-footer-support-logos > p {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  align-items: start !important;
+  justify-items: stretch !important;
+  gap: clamp(.55rem, 1.5vw, 1rem) !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo,
+.gp-footer-support-logos > a.gp-footer-support-logo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo img,
+.gp-footer-support-logos > a.gp-footer-support-logo img {
+  max-width: min(100%, 132px) !important;
+  object-fit: contain !important;
+}
+.gp-footer-support-logos > p > a.gp-footer-support-logo .gp-footer-support-name,
+.gp-footer-support-logos > a.gp-footer-support-logo .gp-footer-support-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+@media (max-width: 760px) {
+  .gp-footer-support-logos > p {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .5rem !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo,
+  .gp-footer-support-logos > a.gp-footer-support-logo {
+    padding: .1rem 0 !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo img,
+  .gp-footer-support-logos > a.gp-footer-support-logo img {
+    height: 42px !important;
+    max-height: 42px !important;
+    max-width: 100% !important;
+  }
+}
+@media (max-width: 360px) {
+  .gp-footer-support-logos > p {
+    gap: .35rem !important;
+  }
+  .gp-footer-support-logos > p > a.gp-footer-support-logo .gp-footer-support-name,
+  .gp-footer-support-logos > a.gp-footer-support-logo .gp-footer-support-name {
+    font-size: .57rem !important;
+    line-height: 1.25 !important;
+  }
+}
+
+
+
+/* No celular, a área de apoio (com as três logos) vem antes do copyright.
+   O contato permanece entre as logos e a linha final; Admin continua à direita. */
+@media (max-width: 760px) {
+  .nav-footer-center { order: 1 !important; }
+  .nav-footer-right { order: 2 !important; }
+  .nav-footer-left { order: 3 !important; }
+  .gp-footer-bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .gp-footer-copyright {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+  .gp-footer-admin-link {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    text-align: right !important;
+  }
+}
