@@ -38,8 +38,8 @@ website:
         menu:
           - href: extensao.qmd
             text: Projetos de extensão
-          - href: noar.qmd
-            text: GPENSC no Ar
+          - href: podcasts.qmd
+            text: Podcasts
       - href: disciplinas.qmd
         text: Disciplinas
       - text: Biblioteca virtual
