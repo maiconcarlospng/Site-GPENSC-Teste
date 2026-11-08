@@ -4553,3 +4553,33 @@ footer.footer {
     font-size: .66rem !important;
   }
 }
+
+/* O hero e a galeria são emitidos juntos pelo chunk R da página inicial.
+   O próprio wrapper do output também precisa sair da coluna do Quarto;
+   assim o fundo chega à borda real da viewport no desktop. */
+.cell-output-display:has(> .hero) {
+  position: relative !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  left: calc(50% - 50vw) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.cell-output-display:has(> .hero) > .hero {
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  left: auto !important;
+  margin: 0 !important;
+}
+
+.cell-output-display:has(> .hero) > .galeria {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
