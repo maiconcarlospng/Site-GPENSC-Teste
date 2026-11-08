@@ -58,8 +58,6 @@ website:
         text: Agenda
       - href: contato.qmd
         text: Contato
-      - href: admin/
-        text: Admin
 
   page-footer:
     left: ""
@@ -76,6 +74,7 @@ website:
       <div class="gp-footer-contact-list">
       <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
       <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
+      <a class="gp-footer-admin-link" href="admin/">Admin</a>
       </div>
       </div>
 
