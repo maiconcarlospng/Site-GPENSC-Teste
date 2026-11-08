@@ -261,11 +261,6 @@ faixa_galeria <- function() {
       span(class = "hero-sigla", cfg$sigla),
       div(class = "hero-titulo", cfg$nome_completo),
       div(class = "hero-inst", cfg$instituicao)
-    ),
-    tags$img(
-      src = "img/logo_gpensc.png",
-      class = "hero-logo",
-      alt = "Logo do GPENSC"
     )
   )
 
