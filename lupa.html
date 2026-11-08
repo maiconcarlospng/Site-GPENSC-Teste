@@ -20,7 +20,7 @@
   }
 
   function recuperarIdiomaSalvo() {
-    var correspondencia = document.cookie.match(/(?:^|;\\s*)googtrans=([^;]+)/);
+    var correspondencia = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/);
     if (!correspondencia) {
       aplicarIdiomaVisual('pt');
       return;
