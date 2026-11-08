@@ -10,7 +10,32 @@
     }, 'google_translate_element');
   }
 
+  function aplicarIdiomaVisual(langCode) {
+    var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
+    if (idioma === 'es') {
+      document.documentElement.setAttribute('data-gp-language', 'es');
+    } else {
+      document.documentElement.removeAttribute('data-gp-language');
+    }
+  }
+
+  function recuperarIdiomaSalvo() {
+    var correspondencia = document.cookie.match(/(?:^|;\\s*)googtrans=([^;]+)/);
+    if (!correspondencia) {
+      aplicarIdiomaVisual('pt');
+      return;
+    }
+
+    try {
+      var partes = decodeURIComponent(correspondencia[1]).split('/').filter(Boolean);
+      aplicarIdiomaVisual(partes.length ? partes[partes.length - 1] : 'pt');
+    } catch (erro) {
+      aplicarIdiomaVisual('pt');
+    }
+  }
+
   function traduzirPagina(langCode) {
+    aplicarIdiomaVisual(langCode);
     var langPair = '/pt/' + langCode;
     document.cookie = 'googtrans=' + langPair + '; path=/;';
     document.cookie = 'googtrans=' + langPair + '; path=/; domain=' + window.location.hostname;
@@ -26,6 +51,8 @@
 
   // Injeção com eventos otimizados para touch no celular
   document.addEventListener("DOMContentLoaded", function() {
+    recuperarIdiomaSalvo();
+
     var navbarTitle = document.querySelector(".navbar-brand .navbar-title") || document.querySelector(".navbar-brand");
     
     if (navbarTitle && !document.querySelector(".bandeiras-container")) {
