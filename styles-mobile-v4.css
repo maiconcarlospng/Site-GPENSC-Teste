@@ -850,7 +850,7 @@ footer.footer {
   line-height: 1.4 !important;
   text-align: left !important;
 }
-.nav-footer-left { display: none !important; }
+/* .nav-footer-left permanece visível para a linha Copyright + Admin. */
 .nav-footer-center,
 .nav-footer-right {
   min-width: 0 !important;
