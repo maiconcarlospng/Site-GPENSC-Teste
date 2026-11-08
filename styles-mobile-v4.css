@@ -823,17 +823,32 @@ footer.footer {
   height: 4px;
   background: linear-gradient(90deg, var(--gp-folha) 0 38%, var(--gp-laranja) 38% 70%, var(--gp-vermelho) 70%);
 }
-.nav-footer::after {
-  content: "© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.";
-  grid-column: 1 / -1;
-  display: block;
-  margin: .25rem 0 0;
-  padding-top: .75rem;
-  border-top: 1px solid rgba(255,255,255,.16);
-  color: #c5d1c2;
-  font-size: .7rem;
-  line-height: 1.4;
-  text-align: left;
+.nav-footer::after { content: none !important; display: none !important; }
+.nav-footer-left {
+  display: block !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: .25rem 0 0 !important;
+  padding: .75rem 0 0 !important;
+  border-top: 1px solid rgba(255,255,255,.16) !important;
+}
+.gp-footer-bottom {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.gp-footer-copyright {
+  display: block !important;
+  min-width: 0 !important;
+  color: #c5d1c2 !important;
+  font-size: .7rem !important;
+  line-height: 1.4 !important;
+  text-align: left !important;
 }
 .nav-footer-left { display: none !important; }
 .nav-footer-center,
@@ -1007,13 +1022,23 @@ footer.footer {
     gap: .35rem 1.1rem !important;
   }
   .gp-footer-contact-link { font-size: .75rem !important; }
-  .nav-footer::after {
-    margin-top: 0 !important;
-    padding-top: .6rem !important;
-    font-size: .64rem !important;
-    line-height: 1.3 !important;
-    text-align: center !important;
+  .nav-footer-left {
+    grid-column: 1 !important;
+    margin-top: .1rem !important;
+    padding-top: .55rem !important;
   }
+  .gp-footer-bottom {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: .65rem !important;
+  }
+  .gp-footer-copyright {
+    font-size: .62rem !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+  }
+  .gp-footer-admin-link { font-size: .6rem !important; }
 }
 @media (max-width: 360px) {
   .gp-footer-support-logos { gap: .35rem !important; }
@@ -1022,11 +1047,13 @@ footer.footer {
   .gp-footer-contact-link { font-size: .7rem !important; }
 }
 
-/* Admin permanece como texto pequeno e secundário no rodapé. */
+/* Admin discreto, à direita e na mesma linha do copyright. */
 .gp-footer-admin-link {
   display: inline-flex !important;
+  flex: 0 0 auto !important;
   align-items: center !important;
-  margin: 0 0 0 .15rem !important;
+  justify-content: flex-end !important;
+  margin: 0 0 0 auto !important;
   padding: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
