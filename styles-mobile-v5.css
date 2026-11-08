@@ -535,8 +535,14 @@ footer.footer .gp-footer-admin-link {
 
 .gp-spotify-flutuante .spotify-icon {
   display: block !important;
+  flex: 0 0 auto !important;
   width: 29px !important;
   height: 29px !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
 
 @media (max-width: 768px) {
@@ -547,8 +553,8 @@ footer.footer .gp-footer-admin-link {
     height: 49px !important;
   }
   .gp-spotify-flutuante .spotify-icon {
-    width: 26px !important;
-    height: 26px !important;
+    width: 27px !important;
+    height: 27px !important;
   }
 }
 
