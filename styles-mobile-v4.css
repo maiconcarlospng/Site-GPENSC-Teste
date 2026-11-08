@@ -3963,3 +3963,40 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     font-size: .78rem !important;
   }
 }
+
+
+/* ---------- FUNDO PERSONALIZADO DO HERO GPENSC ---------- */
+/* Arte vetorial própria: elementos botânicos e conexões em rede,
+   evocando Nutrição, pesquisa e Saúde Coletiva sem competir com a marca. */
+.hero {
+  background-image:
+    url("img/hero-gpensc-bg.svg"),
+    radial-gradient(ellipse at 14% 12%, rgba(112, 158, 84, .20), transparent 34%),
+    linear-gradient(112deg, #173f25 0%, #1f4d2b 48%, #285d35 100%) !important;
+  background-position: right center, 14% 12%, center;
+  background-size: auto 100%, auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+.hero::before {
+  background:
+    linear-gradient(90deg, rgba(13, 43, 24, .12), rgba(13, 43, 24, .015) 62%, rgba(13, 43, 24, .02)),
+    radial-gradient(circle at 78% 50%, rgba(255,255,255,.025), transparent 28%) !important;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-position: 72% center, 14% 12%, center;
+    background-size: auto 100%, auto, cover;
+  }
+
+  .hero::before {
+    background: linear-gradient(180deg, rgba(13,43,24,.12), rgba(13,43,24,.035)) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    background-position: 70% center, 14% 12%, center;
+  }
+}

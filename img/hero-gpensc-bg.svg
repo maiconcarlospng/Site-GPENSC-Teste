@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="460" viewBox="0 0 1600 460" fill="none">
+  <defs>
+    <linearGradient id="leaf" x1="990" y1="70" x2="1505" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B8D69E" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#D9E8CB" stop-opacity=".07"/>
+    </linearGradient>
+    <linearGradient id="network" x1="1040" y1="100" x2="1580" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8E9C9" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#8DBB75" stop-opacity=".12"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Camadas suaves de profundidade -->
+  <circle cx="1320" cy="230" r="216" stroke="#DCEBD3" stroke-opacity=".09" stroke-width="1.2"/>
+  <circle cx="1320" cy="230" r="184" stroke="#DCEBD3" stroke-opacity=".075" stroke-width="1"/>
+  <circle cx="1320" cy="230" r="151" stroke="#DCEBD3" stroke-opacity=".055" stroke-width="1"/>
+
+  <!-- Traços botânicos: folhas estilizadas, referência à alimentação e à natureza -->
+  <g stroke="url(#leaf)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1194 385C1222 318 1263 243 1340 145C1381 92 1438 59 1505 48"/>
+    <path d="M1270 258C1213 242 1177 207 1165 156C1218 160 1260 193 1270 258Z" fill="#CDE2BD" fill-opacity=".045"/>
+    <path d="M1314 191C1293 135 1308 84 1357 51C1380 101 1365 151 1314 191Z" fill="#CDE2BD" fill-opacity=".04"/>
+    <path d="M1361 132C1372 77 1410 44 1467 38C1460 91 1424 127 1361 132Z" fill="#CDE2BD" fill-opacity=".035"/>
+    <path d="M1234 315C1174 315 1128 289 1105 235C1164 229 1211 255 1234 315Z" fill="#CDE2BD" fill-opacity=".035"/>
+    <path d="M1292 224C1342 222 1380 245 1398 291C1348 299 1309 274 1292 224Z" fill="#CDE2BD" fill-opacity=".035"/>
+    <path d="M1269 257L1171 167M1315 190L1345 68M1362 132L1447 48M1234 315L1117 245M1292 224L1386 286"/>
+  </g>
+
+  <!-- Rede de pesquisa e saúde coletiva: pontos conectados -->
+  <g stroke="url(#network)" stroke-width="1.4" stroke-linecap="round">
+    <path d="M1050 105L1128 151L1192 103L1265 147L1328 91L1410 126L1490 92L1550 150"/>
+    <path d="M1080 350L1150 306L1222 354L1295 310L1376 354L1450 302L1532 340"/>
+    <path d="M1128 151L1150 306M1192 103L1222 354M1265 147L1295 310M1328 91L1376 354M1410 126L1450 302M1490 92L1532 340"/>
+  </g>
+  <g fill="#DCEBD3">
+    <circle cx="1050" cy="105" r="3.2" opacity=".30"/>
+    <circle cx="1128" cy="151" r="4" opacity=".42"/>
+    <circle cx="1192" cy="103" r="3" opacity=".32"/>
+    <circle cx="1265" cy="147" r="4.2" opacity=".34"/>
+    <circle cx="1328" cy="91" r="3.2" opacity=".38"/>
+    <circle cx="1410" cy="126" r="4" opacity=".32"/>
+    <circle cx="1490" cy="92" r="3.1" opacity=".27"/>
+    <circle cx="1550" cy="150" r="3.6" opacity=".3"/>
+    <circle cx="1080" cy="350" r="3.2" opacity=".23"/>
+    <circle cx="1150" cy="306" r="4" opacity=".30"/>
+    <circle cx="1222" cy="354" r="3.2" opacity=".28"/>
+    <circle cx="1295" cy="310" r="4.3" opacity=".36"/>
+    <circle cx="1376" cy="354" r="3.1" opacity=".28"/>
+    <circle cx="1450" cy="302" r="4" opacity=".3"/>
+    <circle cx="1532" cy="340" r="3.2" opacity=".25"/>
+  </g>
+
+  <!-- Textura orgânica discreta -->
+  <g stroke="#DCEBD3" stroke-opacity=".10" stroke-width="1">
+    <path d="M980 410C1110 350 1160 380 1260 430"/>
+    <path d="M1010 25C1115 70 1150 45 1240 5"/>
+    <path d="M1500 430C1540 390 1570 380 1600 374"/>
+  </g>
+</svg>
