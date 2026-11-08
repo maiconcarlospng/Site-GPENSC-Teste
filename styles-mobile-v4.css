@@ -4557,14 +4557,18 @@ footer.footer {
 /* O hero e a galeria são emitidos juntos pelo chunk R da página inicial.
    O próprio wrapper do output também precisa sair da coluna do Quarto;
    assim o fundo chega à borda real da viewport no desktop. */
-/* Une visualmente o menu ao header verde: a pequena folga acima do hero
-   recebe o mesmo verde-floresta, sem alterar o fundo branco nem os links do menu. */
+/* O header começa imediatamente após o menu.
+   Remove o espaçamento padrão do chunk Quarto e qualquer pseudo-elemento
+   que tenha sido usado na tentativa anterior de preencher a faixa. */
+.cell:has(> .cell-output-display > .hero) {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
 .cell-output-display:has(> .hero)::before {
-  content: "" !important;
-  display: block !important;
-  width: 100% !important;
-  height: 8px !important;
-  background: #1f4d2b !important;
+  content: none !important;
+  display: none !important;
+  height: 0 !important;
 }
 
 .cell-output-display:has(> .hero) {
