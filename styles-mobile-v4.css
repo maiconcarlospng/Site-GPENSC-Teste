@@ -3388,3 +3388,25 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     font-size: .7rem !important;
   }
 }
+
+
+/* ---------- PÁGINA QUEM SOMOS: SUBTÍTULOS À ESQUERDA ---------- */
+/* Restringe o ajuste ao conteúdo institucional da página Quem somos. */
+.pagina-sobre h2 {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.pagina-sobre h2::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
+
+.pagina-sobre h3 {
+  text-align: left !important;
+}
