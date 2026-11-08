@@ -211,8 +211,6 @@
     document.querySelectorAll(".galeria-faixa").forEach((faixa, numero) => {
       if (faixa.dataset.carrosselInicializado === "true") return;
 
-      // Cada imagem fica dentro de um quadro de recorte com proporção fixa.
-      // O fallback mantém compatibilidade com HTML antigo ainda sem esses quadros.
       const imagensOriginais = Array.from(faixa.querySelectorAll(":scope > .galeria-item"));
       if (!imagensOriginais.length) imagensOriginais.push(...Array.from(faixa.querySelectorAll(":scope > img")));
       if (imagensOriginais.length < 2) return;
@@ -227,11 +225,11 @@
       faixa.setAttribute("aria-label", "Galeria de fotos do GPENSC");
       faixa.setAttribute("tabindex", "0");
 
-      // Clonar o início da sequência permite um retorno sem salto visível.
+      // As cópias do início permitem a passagem contínua da última foto para a primeira.
+      const imagensClonadas = [];
       imagensOriginais.slice(0, Math.min(3, total)).forEach((imagem) => {
         const clone = imagem.cloneNode(true);
         clone.dataset.carrosselClone = "true";
-        // Para quadros de recorte, limpe o texto alternativo da imagem interna.
         if (clone.matches("img")) {
           clone.alt = "";
           clone.loading = "eager";
@@ -242,8 +240,41 @@
           });
         }
         clone.setAttribute("aria-hidden", "true");
+        imagensClonadas.push(clone);
         faixa.appendChild(clone);
       });
+
+      const todosOsQuadros = () => imagensOriginais.concat(imagensClonadas);
+      const centralizarNoCelular = () =>
+        window.matchMedia("(max-width: 767.98px)").matches;
+
+      // No celular, calcula a rolagem para deixar o centro da foto no centro da faixa.
+      // No desktop, preserva o alinhamento pela borda esquerda.
+      const deslocamentoPara = (imagem) => {
+        if (!imagem) return faixa.scrollLeft;
+
+        const faixaRect = faixa.getBoundingClientRect();
+        const imagemRect = imagem.getBoundingClientRect();
+        let destino = faixa.scrollLeft + imagemRect.left - faixaRect.left;
+
+        if (centralizarNoCelular()) {
+          destino -= (faixa.clientWidth - imagemRect.width) / 2;
+        }
+
+        return Math.max(0, destino);
+      };
+
+      const rolarParaElemento = (imagem, comportamento) => {
+        if (!imagem) return;
+        faixa.scrollTo({
+          left: deslocamentoPara(imagem),
+          behavior: comportamento
+        });
+      };
+
+      const rolarParaIndice = (indice, comportamento) => {
+        rolarParaElemento(imagensOriginais[indice], comportamento);
+      };
 
       const anterior = document.createElement("button");
       anterior.type = "button";
@@ -267,14 +298,6 @@
       let intervalo = null;
       let retomada = null;
       let fimDaRolagem = null;
-
-      const passo = () => {
-        const imagem = imagensOriginais[0];
-        const estilo = window.getComputedStyle(faixa);
-        const intervaloEntreFotos =
-          parseFloat(estilo.columnGap) || parseFloat(estilo.gap) || 0;
-        return imagem.getBoundingClientRect().width + intervaloEntreFotos;
-      };
 
       const parar = () => {
         if (intervalo !== null) window.clearInterval(intervalo);
@@ -303,43 +326,55 @@
       const irPara = (novoIndice, interacaoManual) => {
         if (interacaoManual) pausarEAgendarRetomada();
 
-        const larguraPasso = passo();
         if (novoIndice < 0) {
-          if (indiceAtual === 0) {
-            // O final clonado é visualmente igual ao início; use-o para voltar um item.
-            faixa.scrollTo({ left: total * larguraPasso, behavior: "auto" });
-            indiceAtual = total - 1;
-            window.requestAnimationFrame(() => {
-              faixa.scrollTo({ left: indiceAtual * passo(), behavior: "smooth" });
-            });
-          } else {
-            indiceAtual = (indiceAtual - 1 + total) % total;
-            faixa.scrollTo({ left: indiceAtual * larguraPasso, behavior: "smooth" });
-          }
+          indiceAtual = total - 1;
+          rolarParaIndice(indiceAtual, "smooth");
           return;
         }
 
         if (novoIndice >= total) {
-          // Vá até as cópias do início e depois reinicie sem animação.
-          faixa.scrollTo({ left: total * larguraPasso, behavior: "smooth" });
+          // A primeira cópia tem a mesma foto do início; depois a rolagem
+          // é reposicionada sem animação para o quadro original equivalente.
+          rolarParaElemento(imagensClonadas[0], "smooth");
           indiceAtual = 0;
           return;
         }
 
         indiceAtual = novoIndice;
-        faixa.scrollTo({ left: indiceAtual * larguraPasso, behavior: "smooth" });
+        rolarParaIndice(indiceAtual, "smooth");
       };
 
+      // Identifica a foto mais próxima do ponto de referência após o toque ou a rolagem.
       const sincronizarIndiceManual = () => {
-        const larguraPasso = passo();
-        if (!larguraPasso) return;
-        const posicao = Math.round(faixa.scrollLeft / larguraPasso);
+        const faixaRect = faixa.getBoundingClientRect();
+        const celular = centralizarNoCelular();
+        const referencia = celular
+          ? faixaRect.left + faixa.clientWidth / 2
+          : faixaRect.left;
 
-        if (posicao >= total) {
-          indiceAtual = 0;
-          faixa.scrollTo({ left: 0, behavior: "auto" });
+        let indiceMaisProximo = 0;
+        let menorDistancia = Infinity;
+
+        todosOsQuadros().forEach((imagem, indice) => {
+          const imagemRect = imagem.getBoundingClientRect();
+          const pontoImagem = celular
+            ? imagemRect.left + imagemRect.width / 2
+            : imagemRect.left;
+          const distancia = Math.abs(pontoImagem - referencia);
+
+          if (distancia < menorDistancia) {
+            menorDistancia = distancia;
+            indiceMaisProximo = indice;
+          }
+        });
+
+        if (indiceMaisProximo >= total) {
+          indiceAtual = (indiceMaisProximo - total) % total;
+          window.requestAnimationFrame(() => {
+            rolarParaIndice(indiceAtual, "auto");
+          });
         } else {
-          indiceAtual = Math.max(0, Math.min(total - 1, posicao));
+          indiceAtual = indiceMaisProximo;
         }
       };
 
@@ -372,13 +407,20 @@
       proximo.addEventListener("pointerdown", pausarEAgendarRetomada, { passive: true });
 
       window.addEventListener("resize", () => {
-        faixa.scrollTo({ left: indiceAtual * passo(), behavior: "auto" });
+        window.requestAnimationFrame(() => {
+          rolarParaIndice(indiceAtual, "auto");
+        });
       });
 
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) parar();
         else iniciar();
       });
+
+      // A primeira foto já começa centralizada quando a página é aberta no celular.
+      if (centralizarNoCelular()) {
+        window.requestAnimationFrame(() => rolarParaIndice(0, "auto"));
+      }
 
       iniciar();
     });
@@ -415,18 +457,30 @@
 </style>
 
 
-<!-- Mantém no celular o tamanho compacto original da galeria, mesmo com o recorte personalizado. -->
+<!-- Centraliza a foto ativa no celular durante o avanço automático e o deslize manual. -->
 <style id="gpen-galeria-mobile-size-restore">
   @media (max-width: 767.98px) {
+    .galeria-faixa {
+      box-sizing: border-box !important;
+      width: 100% !important;
+      padding-left: 14% !important;
+      padding-right: 14% !important;
+      scroll-padding-left: 14% !important;
+      scroll-padding-right: 14% !important;
+      scroll-snap-type: x mandatory !important;
+    }
+
     .galeria-faixa > img,
     .galeria-faixa > .galeria-item {
       box-sizing: border-box !important;
-      flex: 0 0 72% !important;
-      width: 72% !important;
+      flex: 0 0 100% !important;
+      width: 100% !important;
       height: clamp(210px, 52vw, 340px) !important;
       min-height: 210px !important;
       max-height: 340px !important;
       aspect-ratio: auto !important;
+      scroll-snap-align: center !important;
+      scroll-snap-stop: always;
     }
 
     .galeria-faixa > img {
@@ -448,14 +502,18 @@
   }
 
   @media (max-width: 380px) {
+    .galeria-faixa {
+      padding-left: 6% !important;
+      padding-right: 6% !important;
+      scroll-padding-left: 6% !important;
+      scroll-padding-right: 6% !important;
+    }
+
     .galeria-faixa > img,
     .galeria-faixa > .galeria-item {
-      flex: 0 0 88% !important;
-      width: 88% !important;
       height: 220px !important;
       min-height: 220px !important;
       max-height: 220px !important;
-      aspect-ratio: auto !important;
     }
   }
 </style>
