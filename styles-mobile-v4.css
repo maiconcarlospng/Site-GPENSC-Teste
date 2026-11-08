@@ -3410,3 +3410,77 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 .pagina-sobre h3 {
   text-align: left !important;
 }
+
+
+/* ---------- APOIO E VÍNCULOS INSTITUCIONAIS NO RODAPÉ ---------- */
+.gp-footer-support {
+  margin-top: 1.45rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid rgba(255,255,255,.16);
+}
+
+.gp-footer-support .gp-footer-heading {
+  margin-bottom: .75rem !important;
+  color: #d9e5d5 !important;
+  font-size: .7rem !important;
+  letter-spacing: .075em !important;
+}
+
+.gp-footer-support-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .55rem;
+}
+
+.gp-footer-support-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 82px;
+  width: 82px;
+  height: 54px;
+  padding: 6px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,.62);
+  border-radius: 7px;
+  background: rgba(255,255,255,.96);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.gp-footer-support-logo img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 70px !important;
+  max-height: 40px !important;
+  object-fit: contain !important;
+}
+
+.gp-footer-support-logo:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.gp-footer-support-logo:focus-visible {
+  outline: 2px solid #d6e5cf;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .gp-footer-support-logos {
+    gap: .6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .gp-footer-support {
+    margin-top: 1.2rem;
+  }
+
+  .gp-footer-support-logos {
+    justify-content: flex-start;
+  }
+}
