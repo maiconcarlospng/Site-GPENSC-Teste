@@ -100,25 +100,13 @@ website:
       </div>
     right: |
       <div class="gp-footer-contact">
-        <h2 class="gp-footer-heading">Contato e redes</h2>
-        <div class="gp-footer-contact-list">
-          <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br">
-            <i class="bi bi-envelope" aria-hidden="true"></i>
-            <span>gpensc@ufop.edu.br</span>
-          </a>
-          <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-instagram" aria-hidden="true"></i>
-            <span>@gpenscufop</span>
-          </a>
-          <a class="gp-footer-contact-link" href="tel:+553135591800">
-            <i class="bi bi-telephone" aria-hidden="true"></i>
-            <span>(31) 3559-1800 · telefone institucional</span>
-          </a>
-        </div>
-        <p class="gp-footer-address">
-          <i class="bi bi-geo-alt" aria-hidden="true"></i>
-          <span>Escola de Nutrição, UFOP — Campus Morro do Cruzeiro, Ouro Preto/MG · CEP 35400-000</span>
-        </p>
+      <h2 class="gp-footer-heading">Contato e redes</h2>
+      <div class="gp-footer-contact-list">
+      <a class="gp-footer-contact-link" href="mailto:gpensc@ufop.edu.br"><i class="bi bi-envelope" aria-hidden="true"></i><span>gpensc@ufop.edu.br</span></a>
+      <a class="gp-footer-contact-link" href="https://www.instagram.com/gpenscufop/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram" aria-hidden="true"></i><span>@gpenscufop</span></a>
+      <a class="gp-footer-contact-link" href="tel:+553135591800"><i class="bi bi-telephone" aria-hidden="true"></i><span>(31) 3559-1800 · telefone institucional</span></a>
+      </div>
+      <p class="gp-footer-address"><i class="bi bi-geo-alt" aria-hidden="true"></i><span>Escola de Nutrição, UFOP — Campus Morro do Cruzeiro, Ouro Preto/MG · CEP 35400-000</span></p>
       </div>
 
 format:
