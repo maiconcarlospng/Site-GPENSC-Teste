@@ -84,7 +84,7 @@ website:
       </div>
       </div>
     right: |
-      <a class="gp-footer-contact-link" href="contato.qmd"><span>Contato</span></a>
+      <a class="gp-footer-contact-link" href="contato.html"><span>Contato</span></a>
 
 format:
   html:
