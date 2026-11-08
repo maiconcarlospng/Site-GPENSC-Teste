@@ -175,3 +175,128 @@ main .estado-vazio h3,
     margin-top: .35rem !important;
   }
 }
+
+
+/* =====================================================================
+   CORREÇÕES MOBILE · ESPECIFICIDADE E BLOCOS COM TÍTULOS INTERNOS
+   As regras gerais de main.content h2/h3 não devem aumentar margens
+   de títulos dentro de cards ou estreitar mensagens de estado vazio.
+   ===================================================================== */
+
+/* Mantém os títulos internos dos podcasts compactos. */
+main.content .podcast-bloco h2,
+#quarto-document-content .podcast-bloco h2 {
+  text-align: left !important;
+  margin: 0 0 .65rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: 1.25 !important;
+}
+
+/* Os títulos de missão e visão ficam dentro dos cartões, sem margem de seção. */
+main.content .sobre-card h2,
+#quarto-document-content .sobre-card h2 {
+  text-align: left !important;
+  margin: .6rem 0 .8rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: 1.3 !important;
+}
+
+/* Subtítulos de contato e mensagens vazias não recebem o espaço dos H3 de seção. */
+main.content .contato-card h3,
+#quarto-document-content .contato-card h3 {
+  text-align: left !important;
+  margin: .3rem 0 0 !important;
+}
+
+main.content .estado-vazio h3,
+#quarto-document-content .estado-vazio h3 {
+  text-align: left !important;
+  margin: 0 0 .45rem !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
+}
+
+/* Mantém o texto das mensagens vazio ocupando toda a área disponível. */
+main.content .estado-vazio-texto,
+#quarto-document-content .estado-vazio-texto {
+  min-width: 0 !important;
+  flex: 1 1 0% !important;
+  width: auto !important;
+  text-align: left !important;
+}
+
+@media (max-width: 600px) {
+  /* Em celular, ícone em cima e mensagem abaixo: sem coluna de texto estreita. */
+  main.content .estado-vazio,
+  #quarto-document-content .estado-vazio {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: .7rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 1rem !important;
+  }
+
+  main.content .estado-vazio-icone,
+  #quarto-document-content .estado-vazio-icone {
+    align-self: flex-start !important;
+    flex: 0 0 46px !important;
+    width: 46px !important;
+    height: 46px !important;
+    margin: 0 !important;
+  }
+
+  main.content .estado-vazio-texto,
+  #quarto-document-content .estado-vazio-texto {
+    display: block !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  main.content .estado-vazio h3,
+  #quarto-document-content .estado-vazio h3 {
+    width: 100% !important;
+    margin: 0 0 .4rem !important;
+    text-align: left !important;
+    font-size: 1rem !important;
+  }
+
+  main.content .estado-vazio p,
+  #quarto-document-content .estado-vazio p {
+    text-align: left !important;
+  }
+
+  /* Evita que os títulos de cards herdem as margens grandes das seções. */
+  main.content .podcast-bloco h2,
+  #quarto-document-content .podcast-bloco h2 {
+    margin: 0 0 .55rem !important;
+  }
+
+  main.content .sobre-card h2,
+  #quarto-document-content .sobre-card h2 {
+    margin: .45rem 0 .6rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  main.content h2:not(.podcast-bloco h2):not(.sobre-card h2),
+  #quarto-document-content h2:not(.podcast-bloco h2):not(.sobre-card h2) {
+    margin-top: 1.35rem !important;
+    margin-bottom: .6rem !important;
+    padding-bottom: .4rem !important;
+  }
+
+  main.content h3:not(.estado-vazio h3):not(.contato-card h3),
+  #quarto-document-content h3:not(.estado-vazio h3):not(.contato-card h3) {
+    margin-top: .95rem !important;
+    margin-bottom: .4rem !important;
+  }
+}
