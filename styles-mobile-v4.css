@@ -3484,3 +3484,82 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     justify-content: flex-start;
   }
 }
+
+
+/* ---------- AJUSTES FINAIS: LOGOS DO RODAPÉ E LUPA DA NAVEGAÇÃO ---------- */
+/* Mantém os três vínculos institucionais lado a lado no desktop. */
+.gp-footer-support-logos {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: .65rem !important;
+  width: 100% !important;
+}
+
+.gp-footer-support-logo {
+  display: flex !important;
+  flex: 0 0 82px !important;
+  width: 82px !important;
+  min-width: 82px !important;
+  height: 54px !important;
+  margin: 0 !important;
+}
+
+/* A lupa fica integrada à barra superior, sem caixa branca, com área de
+   clique preservada e desenho maior para facilitar a identificação. */
+#quarto-search .quarto-search-button,
+#quarto-search button,
+#quarto-search .aa-DetachedSearchButton {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: .35rem !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+#quarto-search .quarto-search-button i,
+#quarto-search button i,
+#quarto-search .aa-DetachedSearchButton i,
+#quarto-search .quarto-search-button svg,
+#quarto-search button svg,
+#quarto-search .aa-DetachedSearchButton svg {
+  width: 1.55rem !important;
+  height: 1.55rem !important;
+  font-size: 1.55rem !important;
+  color: #fff !important;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+#quarto-search .quarto-search-button:hover,
+#quarto-search button:hover,
+#quarto-search .aa-DetachedSearchButton:hover {
+  background: rgba(255,255,255,.10) !important;
+}
+
+#quarto-search .quarto-search-button:focus-visible,
+#quarto-search button:focus-visible,
+#quarto-search .aa-DetachedSearchButton:focus-visible {
+  outline: 2px solid rgba(255,255,255,.9) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 600px) {
+  .gp-footer-support-logos {
+    flex-wrap: wrap !important;
+  }
+
+  .gp-footer-support-logo {
+    flex-basis: 76px !important;
+    width: 76px !important;
+    min-width: 76px !important;
+  }
+}
