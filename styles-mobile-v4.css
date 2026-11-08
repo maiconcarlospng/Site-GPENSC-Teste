@@ -4598,6 +4598,53 @@ footer.footer {
   margin-right: 0 !important;
 }
 
+/* ---------- UNIÃO EXATA ENTRE MENU E HEADER (DESKTOP E MOBILE) ---------- */
+/* Remove sombra/folga do menu e elimina o filete de 1px no início do hero.
+   Aplicado apenas à página que contém o header institucional. */
+body:has(.hero) #quarto-header,
+body:has(.hero) #quarto-header .navbar,
+body:has(.hero) .navbar {
+  margin-bottom: 0 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+body:has(.hero) #quarto-content,
+body:has(.hero) main.content,
+body:has(.hero) #quarto-document-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+body:has(.hero) .cell:has(.hero) {
+  margin-top: -1px !important;
+  padding-top: 0 !important;
+}
+
+body:has(.hero) .cell:has(.hero) > .cell-output-display,
+body:has(.hero) .cell-output-display:has(> .hero) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+}
+
+/* Reforço para o breakpoint móvel: sem sombra nem margem residual. */
+@media (max-width: 768px) {
+  body:has(.hero) #quarto-header,
+  body:has(.hero) #quarto-header .navbar,
+  body:has(.hero) .navbar {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body:has(.hero) .cell:has(.hero),
+  body:has(.hero) .cell:has(.hero) > .cell-output-display {
+    margin-top: -1px !important;
+    padding-top: 0 !important;
+  }
+}
+
 /* ---------- RODAPÉ GPENSC: ESTRUTURA INSTITUCIONAL MINIMALISTA ---------- */
 /* Composição única para desktop e celular: vínculos institucionais,
    depois copyright e acesso administrativo. Sem ícones nem links repetidos. */
