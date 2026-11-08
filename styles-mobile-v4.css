@@ -4557,6 +4557,16 @@ footer.footer {
 /* O hero e a galeria são emitidos juntos pelo chunk R da página inicial.
    O próprio wrapper do output também precisa sair da coluna do Quarto;
    assim o fundo chega à borda real da viewport no desktop. */
+/* Une visualmente o menu ao header verde: a pequena folga acima do hero
+   recebe o mesmo verde-floresta, sem alterar o fundo branco nem os links do menu. */
+.cell-output-display:has(> .hero)::before {
+  content: "" !important;
+  display: block !important;
+  width: 100% !important;
+  height: 8px !important;
+  background: #1f4d2b !important;
+}
+
 .cell-output-display:has(> .hero) {
   position: relative !important;
   width: 100vw !important;
