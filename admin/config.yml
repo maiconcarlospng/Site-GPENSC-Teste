@@ -323,7 +323,56 @@ collections:
             - { label: "Instagram (URL)", name: "instagram", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
             - { label: "YouTube", name: "youtube", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-            - { label: "Spotify (UFOP Cast)", name: "spotify", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link do Spotify (ícone flutuante e UFOP Cast)", name: "spotify", widget: "string", required: false, hint: "Este link é aberto pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Você pode trocar o destino aqui sem editar o código.", pattern: ['^https?://[^\s]+
+            - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
+            - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
+            - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
+            - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
+            - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
+            - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
+            - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
+            - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
+
+        - label: "10 · Endereço"
+          name: "cfg_endereco"
+          file: "data/configuracoes/10-endereco.yml"
+          fields:
+            - { label: "Endereço completo (exibido no site e usado no mapa)", name: "endereco_completo", widget: "string", hint: "Concentre aqui o endereço inteiro, incluindo cidade/UF e CEP quando necessário." }
+            - label: "Tópicos adicionais do endereço"
+              name: "topicos_endereco"
+              widget: "list"
+              collapsed: true
+              required: false
+              label_singular: "tópico"
+              summary: "{{fields.titulo}}"
+              hint: "Use para adicionar informações extras, como sala, horário de atendimento ou referência. Cada tópico pode ser removido individualmente."
+              fields:
+                - { label: "Nome do tópico", name: "titulo", widget: "string" }
+                - { label: "Informação", name: "valor", widget: "string" }
+
+        - label: "11 · Visibilidade das páginas"
+          name: "cfg_visibilidade"
+          file: "data/configuracoes/11-visibilidade.yml"
+          fields:
+            - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+
+        - label: "12 · Rodapé"
+          name: "cfg_rodape"
+          file: "data/configuracoes/12-rodape.yml"
+          fields:
+            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+, 'Use uma URL completa iniciada por http:// ou https://.'] }
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
