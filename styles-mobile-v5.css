@@ -113,9 +113,10 @@
     white-space: normal !important;
   }
 
-  /* Pequeno espaço visível entre a barra branca e o header verde. */
+  /* O header permanece encostado visualmente ao menu: o respiro fica
+     dentro da própria área verde, sem criar uma faixa branca entre as partes. */
   body:has(.hero) .cell:has(.hero) {
-    margin-top: .6rem !important;
+    margin-top: 0 !important;
     padding-top: 0 !important;
   }
 
@@ -123,5 +124,12 @@
   body:has(.hero) .cell-output-display:has(> .hero) {
     margin-top: 0 !important;
     padding-top: 0 !important;
+  }
+
+  body:has(.hero) .cell-output-display:has(> .hero) > .hero {
+    padding-top: calc(1.2rem + .5rem) !important;
+    border-top: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
   }
 }
