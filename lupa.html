@@ -93,6 +93,23 @@
             (search && desktopWrapper.nextElementSibling !== search)) {
           navContainer.insertBefore(desktopWrapper, search || null);
         }
+
+        // A ordem visual é definida no próprio elemento para prevalecer
+        // sobre regras antigas do Bootstrap/Quarto em páginas internas.
+        var brand = navContainer.querySelector(".navbar-brand-container");
+        var collapse = navContainer.querySelector(".navbar-collapse");
+        var tools = navContainer.querySelector(".quarto-navbar-tools");
+        desktopWrapper.style.setProperty("order", "998", "important");
+        desktopWrapper.style.setProperty("display", "flex", "important");
+        desktopWrapper.style.setProperty("flex", "0 0 auto", "important");
+        desktopWrapper.style.setProperty("align-items", "center", "important");
+        if (brand) brand.style.setProperty("order", "2", "important");
+        if (collapse) collapse.style.setProperty("order", "20", "important");
+        if (tools) tools.style.setProperty("order", "900", "important");
+        if (search) {
+          search.style.setProperty("order", "999", "important");
+          search.style.setProperty("margin-left", ".15rem", "important");
+        }
       } else {
         if (!navList) return;
         if (!desktopItem) {
