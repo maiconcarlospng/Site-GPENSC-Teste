@@ -688,3 +688,24 @@ footer.footer .gp-footer-admin-link {
     min-height: 352px;
   }
 }
+
+/* ---------- MOBILE: BUSCA NÃO PODE CONSUMIR O ESPAÇO DOS IDIOMAS ---------- */
+/* O Quarto aplica .navbar.navbar-expand-lg #quarto-search { margin-left:auto }.
+   Este seletor mais específico deixa o espaço livre antes das bandeiras,
+   mantendo a busca no extremo direito. */
+@media (max-width: 768px) {
+  body:has(.hero) .navbar.navbar-expand-lg #quarto-search {
+    order: 4 !important;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    margin-left: .2rem !important;
+    margin-right: 0 !important;
+  }
+
+  body:has(.hero) .navbar.navbar-expand-lg .bandeiras-container {
+    order: 3 !important;
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+}
