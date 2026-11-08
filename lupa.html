@@ -66,31 +66,61 @@
       navbarTitle.after(container);
     }
 
-    // No celular: botão, logo e idiomas. No computador: idiomas após Contato.
+    // Mobile: idiomas na primeira linha. Tablet: dentro do menu.
+    // Desktop amplo: idiomas ao lado da busca, fora da lista de navegação.
     function ajustarOrdemNavbarMobile() {
       var navContainer = document.querySelector(".navbar .navbar-container");
       var navList = document.querySelector(".navbar .navbar-nav");
+      var search = navContainer && navContainer.querySelector("#quarto-search");
       var flags = document.querySelector(".bandeiras-container");
       if (!navContainer || !flags) return;
 
+      var desktopItem = document.querySelector(".gp-nav-idiomas-item");
+      var desktopWrapper = document.querySelector(".gp-nav-idiomas-desktop");
+
       if (window.matchMedia("(max-width: 768px)").matches) {
-        var desktopItem = document.querySelector(".gp-nav-idiomas-item");
         if (desktopItem) desktopItem.remove();
         if (flags.parentElement !== navContainer) navContainer.appendChild(flags);
+        if (desktopWrapper) desktopWrapper.remove();
+      } else if (window.matchMedia("(min-width: 1451px)").matches) {
+        if (desktopItem) desktopItem.remove();
+        if (!desktopWrapper) {
+          desktopWrapper = document.createElement("div");
+          desktopWrapper.className = "gp-nav-idiomas-desktop";
+        }
+        if (flags.parentElement !== desktopWrapper) desktopWrapper.appendChild(flags);
+        if (desktopWrapper.parentElement !== navContainer ||
+            (search && desktopWrapper.nextElementSibling !== search)) {
+          navContainer.insertBefore(desktopWrapper, search || null);
+        }
       } else {
         if (!navList) return;
-        var item = document.querySelector(".gp-nav-idiomas-item");
-        if (!item) {
-          item = document.createElement("li");
-          item.className = "nav-item gp-nav-idiomas-item";
-          navList.appendChild(item);
+        if (!desktopItem) {
+          desktopItem = document.createElement("li");
+          desktopItem.className = "nav-item gp-nav-idiomas-item";
+          navList.appendChild(desktopItem);
         }
-        if (flags.parentElement !== item) item.appendChild(flags);
+        if (flags.parentElement !== desktopItem) desktopItem.appendChild(flags);
+        if (desktopWrapper) desktopWrapper.remove();
       }
     }
 
     ajustarOrdemNavbarMobile();
-    window.addEventListener("resize", ajustarOrdemNavbarMobile, { passive: true });  });
+    window.addEventListener("resize", ajustarOrdemNavbarMobile, { passive: true });
+
+    // O campo Algolia/Quarto é criado sob demanda ao abrir a busca.
+    // O observador garante placeholder e rótulo também no modal flutuante.
+    function prepararCampoBusca() {
+      document.querySelectorAll(".aa-Input").forEach(function(campo) {
+        if (!campo.getAttribute("placeholder")) {
+          campo.setAttribute("placeholder", "Buscar no site...");
+        }
+        campo.setAttribute("aria-label", "Buscar no site do GPENSC");
+      });
+    }
+    prepararCampoBusca();
+    var observadorBusca = new MutationObserver(prepararCampoBusca);
+    observadorBusca.observe(document.body, { childList: true, subtree: true });  });
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
