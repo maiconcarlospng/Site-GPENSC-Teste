@@ -3662,3 +3662,29 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   }
 }
 
+
+
+/* No celular, a área de apoio (com as três logos) vem antes do copyright.
+   O contato permanece entre as logos e a linha final; Admin continua à direita. */
+@media (max-width: 760px) {
+  .nav-footer-center { order: 1 !important; }
+  .nav-footer-right { order: 2 !important; }
+  .nav-footer-left { order: 3 !important; }
+  .gp-footer-bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .gp-footer-copyright {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+  .gp-footer-admin-link {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    text-align: right !important;
+  }
+}
