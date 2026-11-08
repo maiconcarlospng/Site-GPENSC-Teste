@@ -1,0 +1,70 @@
+---
+title: "Podcasts"
+pagetitle: "Podcasts – GPENSC"
+---
+
+```{r}
+source("R/helpers.R")
+
+spotify_gpensc <- "https://open.spotify.com/show/6NuI9JqT8PvlUxv6QxLfG2"
+spotify_ufop <- if (tem(cfg$spotify)) as.character(cfg$spotify) else {
+  "https://open.spotify.com/show/2JYir3ZrFveZXjbxiTzkQy"
+}
+spotify_embed <- sub("/show/", "/embed/show/", spotify_gpensc, fixed = TRUE)
+
+div(
+  class = "pagina-podcasts",
+  p(
+    class = "pagina-podcasts-intro",
+    "Reunimos as produções em áudio do GPENSC e os caminhos para acompanhar conteúdos recentes do grupo nos canais de comunicação da Universidade."
+  ),
+  div(
+    class = "podcasts-grade",
+    tags$section(
+      class = "podcast-bloco",
+      `aria-labelledby` = "podcast-gpensc-titulo",
+      span(class = "podcast-selo", "Acervo do grupo"),
+      h2(id = "podcast-gpensc-titulo", "GPENSC no Ar"),
+      p(
+        "Série de conversas sobre alimentação, nutrição, sono, exercício físico e saúde coletiva, produzida pelo grupo em parceria com a Rádio Província FM. O player reúne os episódios já publicados."
+      ),
+      div(
+        class = "podcast-player",
+        tags$iframe(
+          title = "Acervo de episódios do podcast GPENSC no Ar no Spotify",
+          src = paste0(spotify_embed, "?utm_source=generator"),
+          width = "100%",
+          height = "352",
+          frameborder = "0",
+          allowfullscreen = "allowfullscreen",
+          allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture",
+          loading = "lazy"
+        )
+      ),
+      tags$a(
+        class = "btn btn-spotify",
+        href = spotify_gpensc,
+        target = "_blank",
+        rel = "noopener noreferrer",
+        "Ouvir o acervo no Spotify"
+      )
+    ),
+    tags$section(
+      class = "podcast-bloco podcast-bloco--ufop",
+      `aria-labelledby` = "podcast-ufop-titulo",
+      span(class = "podcast-selo", "Canal da Rádio UFOP"),
+      h2(id = "podcast-ufop-titulo", "UFOP Cast"),
+      p(
+        "O UFOP Cast reúne produções em áudio da Universidade. Acompanhe o canal para encontrar os lançamentos recentes e conteúdos com participação de integrantes e pesquisadores do GPENSC."
+      ),
+      tags$a(
+        class = "btn btn-secondary",
+        href = spotify_ufop,
+        target = "_blank",
+        rel = "noopener noreferrer",
+        "Acessar o UFOP Cast"
+      )
+    )
+  )
+)
+```
