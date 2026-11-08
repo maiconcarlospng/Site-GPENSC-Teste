@@ -1,64 +1,13 @@
 ---
-title: "GPENSC no Ar"
+title: "Podcasts"
+pagetitle: "Podcasts – GPENSC"
 ---
 
-```{r}
-source("R/helpers.R")
-episodios_publicados <- registros_reais(noar, "titulo")
-
-if (secao_ativa("mostrar_noar")) {
-div(
-  class = "pagina-noar",
-  p(
-    class = "contato-intro",
-    cfg$intro_noar
-  ),
-  if (tem(cfg$spotify)) div(
-    class = "noar-spotify-destaque",
-    tags$a(
-      class = "btn btn-spotify",
-      href = cfg$spotify,
-      target = "_blank",
-      rel = "noopener noreferrer",
-      tags$svg(class = "spotify-icon", xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", width = "24", height = "24", fill = "currentColor", `aria-hidden` = "true", tags$path(d = "M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.494 17.303a.75.75 0 0 1-1.032.248c-2.828-1.728-6.39-2.119-10.582-1.161a.75.75 0 1 1-.334-1.462c4.588-1.047 8.525-.597 11.7 1.343a.75.75 0 0 1 .248 1.032zm1.473-3.278a.938.938 0 0 1-1.29.309c-3.237-1.99-8.172-2.566-12.001-1.404a.938.938 0 1 1-.545-1.794c4.376-1.327 9.81-.685 13.527 1.6a.938.938 0 0 1 .309 1.289zm.126-3.413C15.21 8.254 8.782 8.042 5.06 9.171a1.125 1.125 0 1 1-.653-2.153c4.274-1.297 11.38-1.047 15.872 1.62a1.125 1.125 0 0 1-1.186 1.974z")),
-      " Ouça o GPENSC no Ar no Spotify"
-    )
-  ),
-  if (nrow(episodios_publicados) > 0) {
-    cartoes(episodios_publicados, function(e, i) {
-      convidado <- valor_publico(e$convidado)
-      link <- valor_publico(e$link)
-      numero <- valor_publico(e$episodio)
-
-      div(
-        class = paste("cartao reveal", cor_de(i)),
-        if (!is.null(numero)) span(class = "cartao-num", paste("Episódio", numero)),
-        h4(e$titulo),
-        if (!is.null(convidado)) p(class = "kw", convidado),
-        if (!is.null(link)) {
-          tags$a("Assistir ou ouvir »", href = link, target = "_blank", rel = "noopener noreferrer")
-        } else {
-          p(class = "texto-secundario", "O link deste episódio ainda não foi cadastrado.")
-        }
-      )
-    })
-  } else {
-    estado_vazio(
-      "Episódios em atualização",
-      "Os episódios cadastrados aparecerão aqui quando houver títulos publicados.",
-      "Acompanhe o Instagram",
-      cfg$instagram
-    )
-  },
-  div(
-    class = "sobre-cta",
-    p("Ouça o podcast no Spotify e siga o perfil do GPENSC para acompanhar a divulgação de novos episódios."),
-    if (tem(cfg$spotify)) tags$a(class = "btn btn-spotify", href = cfg$spotify, target = "_blank", rel = "noopener noreferrer", tags$svg(class = "spotify-icon", xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", width = "24", height = "24", fill = "currentColor", `aria-hidden` = "true", tags$path(d = "M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.494 17.303a.75.75 0 0 1-1.032.248c-2.828-1.728-6.39-2.119-10.582-1.161a.75.75 0 1 1-.334-1.462c4.588-1.047 8.525-.597 11.7 1.343a.75.75 0 0 1 .248 1.032zm1.473-3.278a.938.938 0 0 1-1.29.309c-3.237-1.99-8.172-2.566-12.001-1.404a.938.938 0 1 1-.545-1.794c4.376-1.327 9.81-.685 13.527 1.6a.938.938 0 0 1 .309 1.289zm.126-3.413C15.21 8.254 8.782 8.042 5.06 9.171a1.125 1.125 0 1 1-.653-2.153c4.274-1.297 11.38-1.047 15.872 1.62a1.125 1.125 0 0 1-1.186 1.974z")), " Ouvir no Spotify"),
-    tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-instagram", `aria-hidden` = "true"), " Instagram do GPENSC")
-  )
-)
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
+```{=html}
+<meta http-equiv="refresh" content="0; url=podcasts.html">
+<script>
+  window.location.replace("podcasts.html");
+</script>
+<p>O acervo de podcasts do GPENSC está na nova página.
+<a href="podcasts.html">Acessar Podcasts</a>.</p>
 ```
