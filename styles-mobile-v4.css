@@ -4583,3 +4583,274 @@ footer.footer {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+/* ---------- RODAPÉ GPENSC: ESTRUTURA INSTITUCIONAL MINIMALISTA ---------- */
+/* Composição única para desktop e celular: vínculos institucionais,
+   depois copyright e acesso administrativo. Sem ícones nem links repetidos. */
+footer.footer {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: #f7f8f4 !important;
+}
+
+.nav-footer {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 1.25rem max(1rem, calc((100vw - 1080px) / 2)) .7rem !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  background: #f7f8f4 !important;
+  color: #465348 !important;
+  text-align: center !important;
+}
+
+.nav-footer::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 0 auto !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, #5F9A3E 0 34%, #D9731F 34% 67%, #D43A2F 67% 100%) !important;
+}
+
+.nav-footer::after,
+.nav-footer .bi,
+.nav-footer i,
+.nav-footer svg {
+  display: none !important;
+}
+
+.nav-footer-center {
+  order: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 850px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+.gp-footer-support {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.gp-footer-section-title {
+  margin: 0 auto .8rem !important;
+  padding: 0 0 .55rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e1e6dd !important;
+  color: #31583a !important;
+  font-size: .68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .09em !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+.gp-footer-support-logos {
+  display: block !important;
+  width: 100% !important;
+  max-width: 820px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+.gp-footer-support-logos > p {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  justify-items: center !important;
+  gap: clamp(.5rem, 2vw, 1.5rem) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.gp-footer-support-logos > a.gp-footer-support-logo,
+.gp-footer-support-logos > p > a.gp-footer-support-logo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .35rem !important;
+  width: 100% !important;
+  max-width: 210px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: .15rem .25rem !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.gp-footer-support-logo img {
+  display: block !important;
+  width: auto !important;
+  height: 40px !important;
+  max-width: min(100%, 135px) !important;
+  max-height: 40px !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+}
+
+.gp-footer-support-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  color: #68736a !important;
+  font-size: .62rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  overflow-wrap: break-word !important;
+}
+
+.nav-footer-right {
+  display: none !important;
+}
+
+.nav-footer-left {
+  order: 2 !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 1080px !important;
+  min-width: 0 !important;
+  margin: .15rem auto 0 !important;
+  padding: .65rem 0 0 !important;
+  border-top: 1px solid #e1e6dd !important;
+}
+
+.nav-footer-left > p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-footer-left .gp-footer-bottom {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-footer-left .gp-footer-copyright {
+  justify-self: start !important;
+  margin: 0 !important;
+  color: #778078 !important;
+  font-size: .65rem !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+}
+
+.nav-footer-left .gp-footer-admin-link {
+  display: inline-block !important;
+  justify-self: end !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #4c684f !important;
+  font-size: .62rem !important;
+  font-weight: 550 !important;
+  line-height: 1.25 !important;
+  text-align: right !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.nav-footer-left .gp-footer-admin-link:hover,
+.nav-footer-left .gp-footer-admin-link:focus-visible {
+  color: #D9731F !important;
+  text-decoration: underline !important;
+}
+
+@media (max-width: 760px) {
+  .nav-footer {
+    gap: .8rem !important;
+    padding: 1rem .75rem .6rem !important;
+  }
+
+  .nav-footer-center {
+    max-width: 100% !important;
+  }
+
+  .gp-footer-section-title {
+    margin-bottom: .6rem !important;
+    padding-bottom: .4rem !important;
+    font-size: .62rem !important;
+  }
+
+  .gp-footer-support-logos > p {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .3rem !important;
+  }
+
+  .gp-footer-support-logos > a.gp-footer-support-logo,
+  .gp-footer-support-logos > p > a.gp-footer-support-logo {
+    gap: .25rem !important;
+    padding: .1rem .05rem !important;
+  }
+
+  .gp-footer-support-logo img {
+    height: 33px !important;
+    max-height: 33px !important;
+    max-width: 92% !important;
+  }
+
+  .gp-footer-support-name {
+    font-size: .54rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .nav-footer-left {
+    margin-top: .05rem !important;
+    padding-top: .5rem !important;
+  }
+
+  .nav-footer-left .gp-footer-bottom {
+    gap: .6rem !important;
+  }
+
+  .nav-footer-left .gp-footer-copyright,
+  .nav-footer-left .gp-footer-admin-link {
+    font-size: .58rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-footer {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+  }
+
+  .gp-footer-support-logos > p {
+    gap: .15rem !important;
+  }
+
+  .gp-footer-support-name {
+    font-size: .5rem !important;
+  }
+
+  .nav-footer-left .gp-footer-bottom {
+    gap: .4rem !important;
+  }
+
+  .nav-footer-left .gp-footer-copyright,
+  .nav-footer-left .gp-footer-admin-link {
+    font-size: .55rem !important;
+  }
+}
