@@ -220,3 +220,12 @@
     line-height: 1.45 !important;
   }
 }
+
+
+/* Contorno discreto para identificar o item ativo na navegação por toque. */
+@media (max-width: 600px) {
+  .aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-result-doc {
+    outline: 2px solid #a9d3a4 !important;
+    outline-offset: -2px !important;
+  }
+}

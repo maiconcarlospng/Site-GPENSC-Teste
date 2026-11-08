@@ -397,7 +397,6 @@ collections:
           file: "data/configuracoes/12-rodape.yml"
           fields:
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
-, 'Informe uma URL completa iniciada por http:// ou https://.']
             - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
             - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
             - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
