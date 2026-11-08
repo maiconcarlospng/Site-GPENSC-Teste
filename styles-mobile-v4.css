@@ -790,25 +790,30 @@ main.content,
   box-sizing: border-box !important;
 }
 
-/* Rodapé institucional completo do GPENSC — Quarto page-footer */
+/* ---------- RODAPÉ GPENSC: ESTRUTURA ÚNICA E RESPONSIVA ---------- */
+footer.footer {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: var(--gp-verde) !important;
+}
 .nav-footer {
   position: relative !important;
   left: 50% !important;
   width: 100vw !important;
   margin: 0 0 0 -50vw !important;
-  padding: 3.2rem max(1.5rem, calc((100vw - 1240px) / 2)) 1.2rem !important;
+  padding: 1.8rem max(1rem, calc((100vw - 1160px) / 2)) 1rem !important;
   display: grid !important;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: start !important;
-  gap: 2.5rem clamp(2rem, 4vw, 4.5rem) !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 1.25rem 2.25rem !important;
   box-sizing: border-box !important;
-  border-top: 0 !important;
+  border: 0 !important;
   background: var(--gp-verde) !important;
   color: #eef3ec !important;
   text-align: left !important;
-  font-size: .9rem;
+  font-size: .84rem !important;
 }
-
 .nav-footer::before {
   content: "";
   position: absolute;
@@ -818,219 +823,175 @@ main.content,
   height: 4px;
   background: linear-gradient(90deg, var(--gp-folha) 0 38%, var(--gp-laranja) 38% 70%, var(--gp-vermelho) 70%);
 }
-
 .nav-footer::after {
-  content: "© GPENSC – Universidade Federal de Ouro Preto. Todos os direitos reservados.";
+  content: "© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.";
   grid-column: 1 / -1;
   display: block;
-  margin-top: .25rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,.17);
+  margin: .25rem 0 0;
+  padding-top: .7rem;
+  border-top: 1px solid rgba(255,255,255,.16);
   color: #c5d1c2;
-  font-size: .76rem;
-  line-height: 1.5;
+  font-size: .7rem;
+  line-height: 1.4;
+  text-align: left;
 }
-
-.nav-footer-left,
+.nav-footer-left { display: none !important; }
 .nav-footer-center,
 .nav-footer-right {
-  width: 100% !important;
   min-width: 0 !important;
+  width: auto !important;
   margin: 0 !important;
   padding: 0 !important;
-  justify-self: stretch !important;
-  text-align: left !important;
 }
-
+.nav-footer-center { justify-self: start !important; }
+.nav-footer-right { justify-self: end !important; }
 .nav-footer a {
   color: #e5ede3 !important;
   text-decoration: none !important;
   transition: color .18s ease, opacity .18s ease;
 }
-
-.nav-footer a:hover {
-  color: #cfe2c6 !important;
-}
-
-.gp-footer-brand-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: .85rem;
-  margin-bottom: .9rem;
-}
-
-.gp-footer-brand-mark img {
-  display: block;
-  width: 50px !important;
-  height: 50px !important;
-  max-width: 50px !important;
-  padding: 5px;
-  box-sizing: border-box;
-  border-radius: 50%;
-  background: #fff;
-  object-fit: contain;
-}
-
-.gp-footer-brand-wordmark {
-  display: flex;
-  flex-direction: column;
-  gap: .15rem;
-}
-
-.gp-footer-brand-wordmark strong {
-  color: #fff;
-  font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: -.035em;
-  line-height: 1.05;
-}
-
-.gp-footer-brand-wordmark small {
-  color: #cad8c6;
-  font-size: .7rem;
-  font-weight: 650;
-  letter-spacing: .1em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-.gp-footer-description,
-.gp-footer-affiliation {
-  max-width: 27rem;
-  margin: 0 0 .55rem !important;
-  color: #d1dccf;
-  font-size: .86rem;
-  line-height: 1.65;
-}
-
-.gp-footer-heading {
-  margin: .25rem 0 1rem !important;
-  padding: 0 !important;
-  border: 0 !important;
-  color: #fff !important;
-  font-size: .8rem !important;
-  font-weight: 750 !important;
-  letter-spacing: .09em !important;
-  line-height: 1.35;
-  text-align: left !important;
-  text-transform: uppercase;
-}
-
-.gp-footer-heading::before {
-  content: none !important;
-  display: none !important;
-}
-
-.gp-footer-links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .55rem 1rem;
-}
-
-.gp-footer-links a {
-  display: inline-flex;
-  align-items: baseline;
-  gap: .4rem;
-  color: #e0e9de !important;
-  font-size: .84rem;
-  line-height: 1.45;
-}
-
-.gp-footer-links a::before {
-  content: "›";
-  color: #a9c59e;
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.gp-footer-contact-list {
-  display: grid;
-  justify-items: start;
-  gap: .75rem;
-  margin: 0 0 1rem;
-}
-
-.gp-footer-contact-link {
-  display: inline-flex !important;
-  align-items: center;
-  gap: .6rem;
-  color: #e2ebe0 !important;
-  font-size: .85rem;
-  font-weight: 500;
-  line-height: 1.45;
-}
-
-/* Instagram e e-mail sem botões chamativos: ícones pequenos, suaves e discretos. */
-.gp-footer-contact-link .bi {
-  flex: 0 0 1rem;
-  width: 1rem;
-  color: #c3d2bf !important;
-  font-size: .9rem !important;
-  line-height: 1 !important;
-  opacity: .82;
-}
-
-.gp-footer-contact-link:hover .bi {
-  color: #d6e5cf !important;
-  opacity: 1;
-}
-
-.gp-footer-address {
-  display: flex;
-  align-items: flex-start;
-  gap: .6rem;
-  max-width: 25rem;
-  margin: .15rem 0 0 !important;
-  color: #cbd7c8;
-  font-size: .82rem;
-  line-height: 1.6;
-}
-
-.gp-footer-address .bi {
-  flex: 0 0 1rem;
-  margin-top: .18rem;
-  color: #b4c8ae;
-  font-size: .9rem;
-}
-
+.nav-footer a:hover { color: #fff !important; }
 .nav-footer a:focus-visible {
   outline: 2px solid #d6e5cf;
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-@media (max-width: 900px) {
-  .nav-footer {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 2rem 2.5rem !important;
-    padding: 2.8rem 1.75rem 1.1rem !important;
-  }
-
-  .nav-footer-right {
-    grid-column: 1 / -1;
-  }
+/* Instituições: apenas as três marcas, na mesma linha e sem cartões. */
+.gp-footer-support,
+.gp-footer-contact { margin: 0 !important; padding: 0 !important; border: 0 !important; }
+.gp-footer-support-logos {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: clamp(.8rem, 2.4vw, 1.7rem) !important;
+  margin: 0 !important;
+}
+.gp-footer-support-logo {
+  display: inline-flex !important;
+  flex: 0 1 92px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 92px !important;
+  max-width: 92px !important;
+  height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.gp-footer-support-logo img {
+  display: block !important;
+  width: auto !important;
+  height: 44px !important;
+  max-width: 92px !important;
+  max-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
 }
 
-@media (max-width: 600px) {
+/* Contatos: dois links discretos, sem botões ou efeitos duplicados. */
+.gp-footer-contact-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: .55rem 1.2rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.gp-footer-contact-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .45rem !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: .25rem 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #e5ede3 !important;
+  font-size: .8rem !important;
+  font-weight: 550 !important;
+  line-height: 1.35 !important;
+}
+.gp-footer-contact-link .bi {
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  width: 1rem !important;
+  color: #d2dfcd !important;
+  font-size: .95rem !important;
+  line-height: 1 !important;
+}
+.gp-footer-contact-link::after { content: none !important; }
+
+@media (max-width: 760px) {
   .nav-footer {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.8rem !important;
-    padding: 2.5rem 1.25rem 1rem !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: center !important;
+    gap: .7rem !important;
+    padding: 1.2rem .9rem .75rem !important;
+    text-align: center !important;
   }
-
+  .nav-footer-center,
   .nav-footer-right {
-    grid-column: auto;
+    grid-column: 1 !important;
+    justify-self: center !important;
+    width: 100% !important;
+    text-align: center !important;
   }
-
-  .gp-footer-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .6rem .8rem;
+  .gp-footer-support-logos {
+    justify-content: center !important;
+    gap: clamp(.65rem, 4vw, 1.2rem) !important;
   }
-
+  .gp-footer-support-logo {
+    flex: 0 1 82px !important;
+    width: 82px !important;
+    max-width: 82px !important;
+    height: 40px !important;
+  }
+  .gp-footer-support-logo img {
+    height: 38px !important;
+    max-width: 82px !important;
+    max-height: 38px !important;
+  }
+  .gp-footer-contact-list {
+    justify-content: center !important;
+    gap: .25rem 1rem !important;
+  }
+  .gp-footer-contact-link {
+    font-size: .73rem !important;
+    min-height: 26px !important;
+  }
   .nav-footer::after {
-    margin-top: 0;
-    font-size: .72rem;
+    margin-top: .1rem !important;
+    padding-top: .55rem !important;
+    font-size: .64rem !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
   }
+}
+@media (max-width: 360px) {
+  .gp-footer-support-logos { gap: .45rem !important; }
+  .gp-footer-support-logo {
+    flex-basis: 76px !important;
+    width: 76px !important;
+    max-width: 76px !important;
+  }
+  .gp-footer-support-logo img { max-width: 76px !important; }
+  .gp-footer-contact-list { gap: .2rem .7rem !important; }
+  .gp-footer-contact-link { font-size: .69rem !important; }
 }
 
 /* ---------- 8. ABAS, EQUIPE E APOIO INSTITUCIONAL ---------- */
@@ -1672,70 +1633,6 @@ button:focus-visible,
 }
 
 
-/* Rodapé mobile: contatos destacados de forma permanente */
-@media (max-width: 767px) {
-  footer.footer .nav-footer .nav-footer-right {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    padding: .75rem .5rem 1rem !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right p {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: .8rem !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"],
-  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"] {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: .55rem !important;
-    min-width: 145px !important;
-    min-height: 48px !important;
-    padding: .8rem 1.15rem !important;
-    border-radius: 14px !important;
-    box-sizing: border-box !important;
-    font-size: 1rem !important;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-    box-shadow: 0 4px 12px rgba(30, 50, 35, .16) !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"] {
-    color: #fff !important;
-    background: linear-gradient(115deg, #833AB4 0%, #C13584 48%, #E1306C 75%, #F77737 100%) !important;
-    border: 1px solid #C13584 !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"] {
-    color: #8F241E !important;
-    background: #fff !important;
-    border: 2px solid #DFA9A2 !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a i,
-  footer.footer .nav-footer .nav-footer-right a .bi {
-    display: inline-block !important;
-    font-size: 1.4rem !important;
-    line-height: 1 !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a[href*="instagram.com"]::after {
-    content: "Instagram" !important;
-  }
-
-  footer.footer .nav-footer .nav-footer-right a[href^="mailto:"]::after {
-    content: "E-mail" !important;
-  }
-}
 
 
 /* Página Contato: destaque visual próprio para e-mail e Instagram */
@@ -3412,100 +3309,7 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 }
 
 
-/* ---------- APOIO E VÍNCULOS INSTITUCIONAIS NO RODAPÉ ---------- */
-.gp-footer-support {
-  margin-top: 1.45rem;
-  padding-top: 1.05rem;
-  border-top: 1px solid rgba(255,255,255,.16);
-}
 
-.gp-footer-support .gp-footer-heading {
-  margin-bottom: .75rem !important;
-  color: #d9e5d5 !important;
-  font-size: .7rem !important;
-  letter-spacing: .075em !important;
-}
-
-.gp-footer-support-logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: .55rem;
-}
-
-.gp-footer-support-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 1 82px;
-  width: 82px;
-  height: 54px;
-  padding: 6px;
-  box-sizing: border-box;
-  border: 1px solid rgba(255,255,255,.62);
-  border-radius: 7px;
-  background: rgba(255,255,255,.96);
-  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-}
-
-.gp-footer-support-logo img {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 70px !important;
-  max-height: 40px !important;
-  object-fit: contain !important;
-}
-
-.gp-footer-support-logo:hover {
-  transform: translateY(-2px);
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-}
-
-.gp-footer-support-logo:focus-visible {
-  outline: 2px solid #d6e5cf;
-  outline-offset: 3px;
-}
-
-@media (max-width: 900px) {
-  .gp-footer-support-logos {
-    gap: .6rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .gp-footer-support {
-    margin-top: 1.2rem;
-  }
-
-  .gp-footer-support-logos {
-    justify-content: flex-start;
-  }
-}
-
-
-/* ---------- AJUSTES FINAIS: LOGOS DO RODAPÉ E LUPA DA NAVEGAÇÃO ---------- */
-/* Mantém os três vínculos institucionais lado a lado no desktop. */
-.gp-footer-support-logos {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: .65rem !important;
-  width: 100% !important;
-}
-
-.gp-footer-support-logo {
-  display: flex !important;
-  flex: 0 0 82px !important;
-  width: 82px !important;
-  min-width: 82px !important;
-  height: 54px !important;
-  margin: 0 !important;
-}
 
 /* A lupa fica integrada à barra superior, sem caixa branca, com área de
    clique preservada e desenho maior para facilitar a identificação. */
@@ -3551,327 +3355,6 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   outline: 2px solid rgba(255,255,255,.9) !important;
   outline-offset: 3px !important;
 }
-
-@media (max-width: 600px) {
-  .gp-footer-support-logos {
-    flex-wrap: wrap !important;
-  }
-
-  .gp-footer-support-logo {
-    flex-basis: 76px !important;
-    width: 76px !important;
-    min-width: 76px !important;
-  }
-}
-
-
-/* ---------- LOGOS INSTITUCIONAIS DO RODAPÉ: SEM CARTÕES OU FUNDO ---------- */
-/* Seletor específico para vencer os estilos antigos do bloco parceiros. */
-.nav-footer .gp-footer-support .gp-footer-support-logos {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 18px !important;
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo {
-  display: inline-flex !important;
-  flex: 0 0 auto !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: auto !important;
-  min-width: 0 !important;
-  max-width: 120px !important;
-  height: auto !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  text-decoration: none !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo:hover {
-  transform: translateY(-2px);
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
-  display: block !important;
-  width: auto !important;
-  height: 58px !important;
-  max-width: 112px !important;
-  max-height: 58px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  object-fit: contain !important;
-}
-
-@media (max-width: 600px) {
-  .nav-footer .gp-footer-support .gp-footer-support-logos {
-    flex-wrap: wrap !important;
-    gap: 14px !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
-    height: 50px !important;
-    max-height: 50px !important;
-    max-width: 100px !important;
-  }
-}
-
-
-/* ---------- RODAPÉ COMPACTO EM CELULARES ---------- */
-@media (max-width: 600px) {
-  .nav-footer {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 1.05rem !important;
-    padding: 1.65rem 1rem .85rem !important;
-  }
-
-  .nav-footer-left,
-  .nav-footer-center,
-  .nav-footer-right {
-    min-width: 0 !important;
-  }
-
-  .gp-footer-brand-mark {
-    gap: .65rem;
-    margin-bottom: .45rem;
-  }
-
-  .gp-footer-brand-mark img {
-    width: 40px !important;
-    height: 40px !important;
-    max-width: 40px !important;
-    padding: 4px;
-  }
-
-  .gp-footer-brand-wordmark strong {
-    font-size: 1.18rem;
-  }
-
-  .gp-footer-brand-wordmark small {
-    font-size: .59rem;
-    letter-spacing: .075em;
-  }
-
-  .gp-footer-description,
-  .gp-footer-affiliation {
-    max-width: 34rem;
-    margin: 0 0 .28rem !important;
-    font-size: .77rem;
-    line-height: 1.45;
-  }
-
-  .gp-footer-heading {
-    margin: 0 0 .55rem !important;
-    font-size: .72rem !important;
-  }
-
-  .gp-footer-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: .35rem .75rem !important;
-  }
-
-  .gp-footer-links a {
-    font-size: .77rem;
-    line-height: 1.3;
-  }
-
-  .gp-footer-support {
-    margin-top: .8rem;
-    padding-top: .7rem;
-  }
-
-  .gp-footer-support .gp-footer-heading {
-    margin-bottom: .5rem !important;
-    font-size: .65rem !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos {
-    flex-wrap: nowrap !important;
-    gap: .7rem !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo {
-    flex: 0 1 82px !important;
-    width: 82px !important;
-    max-width: 82px !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
-    width: auto !important;
-    height: 42px !important;
-    max-width: 78px !important;
-    max-height: 42px !important;
-  }
-
-  .gp-footer-contact-list {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: .4rem .85rem !important;
-    margin: 0 0 .55rem !important;
-  }
-
-  .gp-footer-contact-link {
-    gap: .35rem;
-    font-size: .77rem;
-    line-height: 1.3;
-  }
-
-  .gp-footer-contact-link .bi {
-    flex-basis: .85rem;
-    width: .85rem;
-    font-size: .8rem !important;
-  }
-
-  .gp-footer-address {
-    gap: .45rem;
-    margin-top: .1rem !important;
-    font-size: .74rem;
-    line-height: 1.4;
-  }
-
-  .gp-footer-address .bi {
-    flex-basis: .85rem;
-    font-size: .82rem;
-  }
-
-  .nav-footer::after {
-    margin-top: .1rem;
-    padding-top: .7rem;
-    font-size: .66rem;
-    line-height: 1.35;
-  }
-}
-
-@media (max-width: 380px) {
-  .nav-footer {
-    padding-right: .85rem !important;
-    padding-left: .85rem !important;
-    gap: .9rem !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos {
-    gap: .45rem !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo {
-    flex-basis: 76px !important;
-    width: 76px !important;
-    max-width: 76px !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos > a.gp-footer-support-logo img {
-    max-width: 72px !important;
-    height: 38px !important;
-    max-height: 38px !important;
-  }
-}
-
-
-/* ---------- GARANTIR OS TRÊS LOGOTIPOS NA MESMA LINHA ---------- */
-/* O Quarto/Markdown pode envolver cada link em um parágrafo.
-   Faz esses invólucros não ocuparem uma linha inteira no rodapé. */
-.nav-footer .gp-footer-support .gp-footer-support-logos {
-  display: grid !important;
-  grid-template-columns: repeat(3, max-content) !important;
-  grid-auto-flow: column !important;
-  align-items: center !important;
-  justify-content: start !important;
-  column-gap: 18px !important;
-  row-gap: 0 !important;
-  width: 100% !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos > p,
-.nav-footer .gp-footer-support .gp-footer-support-logos > div {
-  display: contents !important;
-  width: auto !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo,
-.nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo,
-.nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo {
-  display: inline-flex !important;
-  grid-row: 1 !important;
-  flex: none !important;
-  align-items: center !important;
-  justify-content: center !important;
-  justify-self: start !important;
-  width: auto !important;
-  min-width: 0 !important;
-  max-width: 112px !important;
-  height: 58px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img,
-.nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo img,
-.nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo img {
-  display: block !important;
-  width: auto !important;
-  height: 58px !important;
-  max-width: 112px !important;
-  max-height: 58px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  object-fit: contain !important;
-}
-
-@media (max-width: 600px) {
-  .nav-footer .gp-footer-support .gp-footer-support-logos {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    grid-auto-flow: row !important;
-    justify-content: start !important;
-    column-gap: 10px !important;
-    width: min(100%, 300px) !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo,
-  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo,
-  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo {
-    width: 100% !important;
-    max-width: 88px !important;
-    height: 48px !important;
-  }
-
-  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img,
-  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo img,
-  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo img {
-    height: 48px !important;
-    max-height: 48px !important;
-    max-width: 88px !important;
-  }
-}
-
 
 /* ---------- HERO: LOGOTIPO SEM DISCO BRANCO E INSTITUIÇÃO SEM ETIQUETA ---------- */
 /* Dá protagonismo à marca usando o próprio arquivo do logo, sem círculo,
@@ -4032,232 +3515,5 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
   .navbar .navbar-nav .nav-link[href*="admin/"] {
     margin: .25rem 0 !important;
     width: fit-content !important;
-  }
-}
-
-/* No celular, o rodapé deixa de repetir informações já disponíveis na página Contato. */
-@media (max-width: 600px) {
-  .nav-footer {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: .7rem !important;
-    padding: 1.1rem .9rem .7rem !important;
-  }
-
-  /* Identidade compacta: mantém somente a marca. */
-  .gp-footer-brand-mark {
-    gap: .55rem !important;
-    margin: 0 !important;
-  }
-  .gp-footer-brand-mark img {
-    width: 34px !important;
-    height: 34px !important;
-    max-width: 34px !important;
-    max-height: 34px !important;
-    padding: 0 !important;
-  }
-  .gp-footer-brand-wordmark strong {
-    font-size: 1rem !important;
-    line-height: 1.1 !important;
-  }
-  .gp-footer-brand-wordmark small,
-  .gp-footer-description,
-  .gp-footer-affiliation {
-    display: none !important;
-  }
-
-  /* Retira o menu repetido; conserva os logotipos institucionais numa faixa curta. */
-  .gp-footer-navigation {
-    display: none !important;
-  }
-  .gp-footer-support {
-    margin: 0 !important;
-    padding: .55rem 0 0 !important;
-    border-top: 1px solid rgba(255,255,255,.14) !important;
-  }
-  .gp-footer-support > .gp-footer-heading {
-    display: none !important;
-  }
-  .nav-footer .gp-footer-support .gp-footer-support-logos {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: .85rem !important;
-  }
-  .nav-footer .gp-footer-support .gp-footer-support-logos > p,
-  .nav-footer .gp-footer-support .gp-footer-support-logos > div {
-    display: contents !important;
-    margin: 0 !important;
-  }
-  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo {
-    display: inline-flex !important;
-    flex: 0 1 76px !important;
-    width: 76px !important;
-    min-width: 0 !important;
-    max-width: 76px !important;
-    height: 40px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img {
-    display: block !important;
-    width: auto !important;
-    height: 38px !important;
-    max-width: 76px !important;
-    max-height: 38px !important;
-    object-fit: contain !important;
-    background: transparent !important;
-  }
-
-  /* Contato reduzido a dois atalhos curtos: e-mail e Instagram. */
-  .gp-footer-contact > .gp-footer-heading,
-  .gp-footer-contact .gp-footer-contact-link[href^="tel:"],
-  .gp-footer-address {
-    display: none !important;
-  }
-  .gp-footer-contact-list {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: .45rem 1rem !important;
-    margin: 0 !important;
-  }
-  .gp-footer-contact-link {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: .4rem !important;
-    min-height: 30px !important;
-    font-size: .76rem !important;
-    line-height: 1.2 !important;
-  }
-  .gp-footer-contact-link .bi {
-    font-size: .9rem !important;
-  }
-  .nav-footer::after {
-    margin-top: .1rem !important;
-    padding-top: .55rem !important;
-    font-size: .62rem !important;
-    line-height: 1.3 !important;
-  }
-}
-
-
-/* ---------- RODAPÉ SIMPLIFICADO: SEM LOGO OU TEXTO REPETIDO ---------- */
-.nav-footer {
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  align-items: center !important;
-  gap: 1.5rem 2.5rem !important;
-  padding-top: 2rem !important;
-  padding-bottom: 1rem !important;
-}
-.nav-footer-left { display: none !important; }
-.nav-footer-center,
-.nav-footer-right { min-width: 0 !important; }
-.nav-footer-center { justify-self: start !important; }
-.nav-footer-right { justify-self: end !important; }
-.gp-footer-support { margin: 0 !important; padding: 0 !important; border: 0 !important; }
-.gp-footer-support .gp-footer-heading,
-.gp-footer-contact .gp-footer-heading,
-.gp-footer-navigation,
-.gp-footer-brand,
-.gp-footer-description,
-.gp-footer-affiliation,
-.gp-footer-address { display: none !important; }
-.gp-footer-support-logos {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: clamp(1rem, 3vw, 2.2rem) !important;
-  margin: 0 !important;
-}
-.gp-footer-support-logo {
-  display: inline-flex !important;
-  flex: 0 1 auto !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: auto !important;
-  height: 48px !important;
-  max-width: 120px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-.gp-footer-support-logo img {
-  display: block !important;
-  width: auto !important;
-  height: 44px !important;
-  max-width: 120px !important;
-  max-height: 44px !important;
-  object-fit: contain !important;
-  background: transparent !important;
-}
-.gp-footer-contact-list {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  gap: .7rem 1.4rem !important;
-  margin: 0 !important;
-}
-.gp-footer-contact-link {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: .45rem !important;
-  margin: 0 !important;
-  font-size: .82rem !important;
-  line-height: 1.3 !important;
-}
-@media (max-width: 700px) {
-  .nav-footer {
-    grid-template-columns: minmax(0, 1fr) !important;
-    justify-items: center !important;
-    gap: .8rem !important;
-    padding: 1.1rem 1rem .65rem !important;
-    text-align: center !important;
-  }
-  .nav-footer-center,
-  .nav-footer-right {
-    grid-column: 1 !important;
-    justify-self: center !important;
-    width: 100% !important;
-    text-align: center !important;
-  }
-  .gp-footer-support-logos {
-    justify-content: center !important;
-    gap: clamp(.8rem, 5vw, 1.5rem) !important;
-  }
-  .gp-footer-support-logo { height: 36px !important; max-width: 92px !important; }
-  .gp-footer-support-logo img {
-    height: 34px !important;
-    max-width: 92px !important;
-    max-height: 34px !important;
-  }
-  .gp-footer-contact-list {
-    justify-content: center !important;
-    gap: .4rem 1rem !important;
-  }
-  .gp-footer-contact-link {
-    font-size: .72rem !important;
-    min-height: 26px !important;
-  }
-  .nav-footer::after {
-    margin-top: .1rem !important;
-    padding-top: .5rem !important;
-    font-size: .62rem !important;
-    line-height: 1.25 !important;
-    text-align: center !important;
   }
 }
