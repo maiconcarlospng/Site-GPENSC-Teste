@@ -83,8 +83,6 @@ website:
       </a>
       </div>
       </div>
-    right: |
-      <a class="gp-footer-contact-link" href="contato.html"><span>Contato</span></a>
 
 format:
   html:
