@@ -325,3 +325,30 @@ footer.footer .gp-footer-admin-link {
     order: 4 !important;
   }
 }
+
+/* ---------- IDIOMAS NO DESKTOP: APÓS O ÚLTIMO LINK DO MENU ---------- */
+@media (min-width: 769px) {
+  body:has(.hero) .navbar .navbar-nav > .gp-nav-idiomas-item {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 0 0 .45rem !important;
+    padding: 0 .15rem !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav > .gp-nav-idiomas-item .bandeiras-container {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .3rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav > .gp-nav-idiomas-item .bandeira-idioma {
+    width: 22px !important;
+    height: 15px !important;
+    padding: 0 !important;
+  }
+}
