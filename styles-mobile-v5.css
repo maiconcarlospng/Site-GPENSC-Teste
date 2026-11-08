@@ -1,0 +1,121 @@
+/* ---------- MENU MOBILE GPENSC: ALTURA, BOTÃO E QUEBRA DOS LINKS ---------- */
+/* Regras carregadas depois do CSS principal para corrigir o menu em celulares. */
+@media (max-width: 768px) {
+  body:has(.hero) #quarto-header,
+  body:has(.hero) #quarto-header .navbar,
+  body:has(.hero) .navbar {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) #quarto-header .navbar,
+  body:has(.hero) .navbar {
+    padding: .45rem .75rem .55rem !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Mantém os elementos da primeira linha e permite que o menu aberto
+     passe para a linha seguinte, em vez de comprimir o botão. */
+  body:has(.hero) .navbar .navbar-container {
+    display: flex !important;
+    flex-flow: row wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: .35rem .5rem !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 0 .25rem !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-toggler {
+    display: inline-flex !important;
+    flex: 0 0 48px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    padding: .5rem !important;
+    position: relative !important;
+    z-index: 6 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-toggler-icon {
+    display: block !important;
+    width: 1.4rem !important;
+    height: 1.4rem !important;
+    background-position: center !important;
+    background-size: 100% 100% !important;
+  }
+
+  body:has(.hero) .navbar .navbar-brand-container {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 56px) !important;
+  }
+
+  /* A lista de navegação ocupa a largura toda na segunda linha. */
+  body:has(.hero) .navbar .navbar-collapse.collapsing,
+  body:has(.hero) .navbar .navbar-collapse.show {
+    display: block !important;
+    flex: 0 0 100% !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: .35rem 0 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-collapse.show {
+    padding: .4rem .45rem .6rem !important;
+    border-top: 1px solid #e2e9df !important;
+    background: #fff !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav .nav-item,
+  body:has(.hero) .navbar .navbar-nav .nav-link {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body:has(.hero) .navbar .navbar-nav .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 44px !important;
+    padding: .65rem .75rem !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+  }
+
+  /* Pequeno espaço visível entre a barra branca e o header verde. */
+  body:has(.hero) .cell:has(.hero) {
+    margin-top: .6rem !important;
+    padding-top: 0 !important;
+  }
+
+  body:has(.hero) .cell:has(.hero) > .cell-output-display,
+  body:has(.hero) .cell-output-display:has(> .hero) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
