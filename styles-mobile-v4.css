@@ -4000,3 +4000,140 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
     background-position: 70% center, 14% 12%, center;
   }
 }
+
+
+/* ---------- RODAPÉ MÍNIMO EM CELULARES ---------- */
+/* No celular, prioriza identificação, logotipos e dois canais de contato. */
+@media (max-width: 600px) {
+  .nav-footer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .55rem !important;
+    padding: 1rem .9rem .65rem !important;
+  }
+
+  /* Retira textos institucionais repetidos e a navegação duplicada.
+     O menu principal já oferece todos esses destinos. */
+  .gp-footer-description,
+  .gp-footer-affiliation,
+  .gp-footer-navigation,
+  .gp-footer-heading,
+  .gp-footer-address,
+  .gp-footer-contact-link[href^="tel:"] {
+    display: none !important;
+  }
+
+  .gp-footer-brand-mark {
+    gap: .5rem !important;
+    margin: 0 !important;
+  }
+
+  .gp-footer-brand-mark img {
+    width: 32px !important;
+    height: 32px !important;
+    max-width: 32px !important;
+    padding: 0 !important;
+  }
+
+  .gp-footer-brand-wordmark strong {
+    font-size: 1rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .gp-footer-brand-wordmark small {
+    font-size: .58rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .gp-footer-support {
+    margin: .15rem 0 0 !important;
+    padding: .45rem 0 0 !important;
+    border-top: 1px solid rgba(255,255,255,.13) !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: .8rem !important;
+    width: auto !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo,
+  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo,
+  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo {
+    display: inline-flex !important;
+    flex: 0 1 auto !important;
+    width: auto !important;
+    max-width: 76px !important;
+    height: 36px !important;
+    grid-row: auto !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos a.gp-footer-support-logo img,
+  .nav-footer .gp-footer-support .gp-footer-support-logos p a.gp-footer-support-logo img,
+  .nav-footer .gp-footer-support .gp-footer-support-logos div a.gp-footer-support-logo img {
+    width: auto !important;
+    height: 36px !important;
+    max-width: 76px !important;
+    max-height: 36px !important;
+  }
+
+  .gp-footer-contact {
+    margin: 0 !important;
+  }
+
+  .gp-footer-contact-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 1rem !important;
+    margin: 0 !important;
+  }
+
+  .gp-footer-contact-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: .35rem !important;
+    font-size: .72rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  .gp-footer-contact-link .bi {
+    font-size: .85rem !important;
+  }
+
+  .nav-footer::after {
+    margin-top: .1rem !important;
+    padding-top: .45rem !important;
+    font-size: .62rem !important;
+    line-height: 1.25 !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-footer {
+    padding-right: .75rem !important;
+    padding-left: .75rem !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos {
+    gap: .55rem !important;
+  }
+
+  .nav-footer .gp-footer-support .gp-footer-support-logos img {
+    max-width: 68px !important;
+  }
+
+  .gp-footer-contact-list {
+    gap: .7rem !important;
+  }
+
+  .gp-footer-contact-link {
+    font-size: .68rem !important;
+  }
+}
