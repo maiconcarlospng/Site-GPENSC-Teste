@@ -78,25 +78,15 @@ website:
       </div>
     center: |
       <div class="gp-footer-navigation">
-        <h2 class="gp-footer-heading">Explore o site</h2>
-        <nav class="gp-footer-links" aria-label="Navegação do rodapé">
-          <a href="index.html">Início</a>
-          <a href="sobre.html">Quem somos</a>
-          <a href="linhas.html">Linhas de pesquisa</a>
-          <a href="projetos.html">Projetos</a>
-          <a href="publicacoes.html">Publicações</a>
-          <a href="extensao.html">Extensão</a>
-          <a href="noar.html">GPENSC no Ar</a>
-          <a href="disciplinas.html">Disciplinas</a>
-          <a href="teses.html">Teses e dissertações</a>
-          <a href="livros.html">Livros</a>
-          <a href="videos.html">Vídeos</a>
-          <a href="sites.html">Sites recomendados</a>
-          <a href="noticias.html">Notícias</a>
-          <a href="agenda.html">Agenda</a>
-          <a href="contato.html">Contato</a>
-          <a href="admin/">Acesso administrativo</a>
-        </nav>
+      <h2 class="gp-footer-heading">Explore o site</h2>
+      <nav class="gp-footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Quem somos</a>
+      <a href="projetos.html">Pesquisa</a>
+      <a href="extensao.html">Extensão</a>
+      <a href="noticias.html">Notícias</a>
+      <a href="contato.html">Contato</a>
+      </nav>
       </div>
     right: |
       <div class="gp-footer-contact">
