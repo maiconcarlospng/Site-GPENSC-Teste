@@ -3863,3 +3863,118 @@ html[data-gp-language="es"] .navbar .nav-link {
     column-gap: .75rem !important;
   }
 }
+
+
+\n\n/* ---------- HERO GPENSC: VERSÃO INSTITUCIONAL MAIS SÓBRIA ---------- */
+/* Remove a ilustração abstrata e preserva a identidade do grupo com
+   fundo de cor sólida, logotipo original e hierarquia tipográfica. */
+.hero {
+  min-height: 286px !important;
+  padding: clamp(2.7rem, 4.8vw, 3.8rem) clamp(1.5rem, 4vw, 3rem) !important;
+  gap: clamp(1.5rem, 3vw, 2.7rem) !important;
+  background: #1f4d2b !important;
+  background-color: #1f4d2b !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.hero::before,
+.hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+.hero-logo {
+  width: 158px !important;
+  height: 158px !important;
+  max-width: 158px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  object-fit: contain !important;
+}
+
+.hero-texto {
+  max-width: 700px !important;
+}
+
+.hero-sigla {
+  margin: 0 0 .65rem !important;
+  font-size: clamp(2.8rem, 4.6vw, 3.8rem) !important;
+  font-weight: 750 !important;
+  letter-spacing: -.04em !important;
+  line-height: 1.02 !important;
+  text-shadow: none !important;
+}
+
+.hero-titulo {
+  max-width: 46rem !important;
+  font-size: clamp(1.12rem, 1.8vw, 1.42rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.42 !important;
+}
+
+.hero-inst {
+  margin-top: .7rem !important;
+  color: rgba(255,255,255,.78) !important;
+  font-size: .9rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0 !important;
+    padding: 2.35rem 1.2rem 2.25rem !important;
+    gap: 1rem !important;
+  }
+
+  .hero-logo {
+    width: 124px !important;
+    height: 124px !important;
+    max-width: 124px !important;
+    filter: none !important;
+  }
+
+  .hero-texto {
+    align-items: center !important;
+    max-width: 36rem !important;
+    text-align: center !important;
+  }
+
+  .hero-sigla {
+    margin-bottom: .5rem !important;
+    font-size: clamp(2.45rem, 10vw, 3.2rem) !important;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1.02rem, 4vw, 1.24rem) !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-inst {
+    margin-top: .65rem !important;
+    font-size: .82rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 2rem 1rem !important;
+  }
+
+  .hero-logo {
+    width: 112px !important;
+    height: 112px !important;
+    max-width: 112px !important;
+  }
+
+  .hero-sigla {
+    font-size: 2.35rem !important;
+  }
+}
