@@ -3485,35 +3485,30 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 }
 
 
-/* ---------- AJUSTE FINAL: RODAPÉ ENXUTO NO CELULAR + ACESSO ADMIN ---------- */
-/* O atalho administrativo permanece na navegação em telas grandes e pequenas. */
-.navbar .navbar-nav .nav-link[href*="admin/"] {
+/* ---------- ACESSO ADMIN DISCRETO NO RODAPÉ ---------- */
+.gp-footer-admin-link {
   display: inline-flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  margin-left: .35rem !important;
-  padding: .48rem .9rem !important;
-  border: 1px solid rgba(31,77,43,.28) !important;
-  border-radius: 7px !important;
-  color: var(--gp-verde) !important;
-  font-weight: 750 !important;
-  background: #f2f7ef !important;
+  margin: 0 0 0 .15rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(229,237,227,.64) !important;
+  font-size: .64rem !important;
+  font-weight: 450 !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
 }
-.navbar .navbar-nav .nav-link[href*="admin/"]:hover,
-.navbar .navbar-nav .nav-link[href*="admin/"]:focus-visible {
+.gp-footer-admin-link:hover,
+.gp-footer-admin-link:focus-visible {
   color: #fff !important;
-  background: var(--gp-verde) !important;
-  border-color: var(--gp-verde) !important;
+  text-decoration: underline !important;
 }
-.navbar .navbar-nav .nav-link[href*="admin/"]::before {
-  content: "\f4fe";
-  font-family: "bootstrap-icons" !important;
-  margin-right: .4rem;
-  font-size: .95em;
-}
-@media (max-width: 1450px) {
-  .navbar .navbar-nav .nav-link[href*="admin/"] {
-    margin: .25rem 0 !important;
-    width: fit-content !important;
+@media (max-width: 760px) {
+  .gp-footer-admin-link {
+    font-size: .62rem !important;
   }
 }
+
