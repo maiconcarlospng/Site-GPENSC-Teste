@@ -3818,3 +3818,48 @@ html[data-gp-language="es"] .navbar .nav-link {
     font-size: .61rem !important;
   }
 }
+
+
+/* Alinhar Admin no extremo direito da linha final, na mesma altura
+   do copyright, com o máximo de distância entre os dois. */
+.nav-footer-left {
+  grid-column: 1 / -1 !important;
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+.nav-footer-left .gp-footer-bottom {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  column-gap: 2rem !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.nav-footer-left .gp-footer-copyright {
+  justify-self: start !important;
+  align-self: center !important;
+  text-align: left !important;
+}
+
+.nav-footer-left .gp-footer-admin-link {
+  justify-self: end !important;
+  align-self: center !important;
+  margin: 0 0 0 auto !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 760px) {
+  .nav-footer-left .gp-footer-bottom {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    column-gap: .75rem !important;
+  }
+}
