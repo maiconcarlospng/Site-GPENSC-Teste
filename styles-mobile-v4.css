@@ -3978,3 +3978,133 @@ html[data-gp-language="es"] .navbar .nav-link {
     font-size: 2.35rem !important;
   }
 }
+
+
+\n\n/* ---------- HERO GPENSC: IDENTIDADE GRÁFICA DERIVADA DA LOGO ---------- */
+/* A marca aparece como tipografia; o fundo amplia as três áreas cromáticas
+   e o desenho de folha da logo, sem repetir a lupa ou criar um ícone novo. */
+.hero {
+  position: relative !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  min-height: 292px !important;
+  padding: clamp(2.5rem, 4.6vw, 3.7rem) clamp(1.5rem, 5.5vw, 5.5rem) !important;
+  gap: 0 !important;
+  background-color: #1f4d2b !important;
+  background-image:
+    linear-gradient(90deg, #1f4d2b 0%, rgba(31,77,43,.98) 39%, rgba(31,77,43,.58) 66%, rgba(31,77,43,.12) 100%),
+    url("img/hero-gpensc-bg.svg") !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: center, right center !important;
+  background-size: cover, auto 112% !important;
+  box-shadow: inset 0 -4px 0 rgba(217,115,31,.92) !important;
+}
+
+.hero::before,
+.hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+.hero-logo {
+  display: none !important;
+}
+
+.hero-texto {
+  display: flex !important;
+  flex: 0 1 760px !important;
+  align-items: flex-start !important;
+  max-width: 760px !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.hero-sigla {
+  position: relative;
+  display: inline-block !important;
+  margin: 0 0 1.05rem !important;
+  color: #fff !important;
+  font-size: clamp(3.1rem, 5.3vw, 4.55rem) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.055em !important;
+  line-height: .98 !important;
+  text-shadow: none !important;
+}
+
+.hero-sigla::after {
+  content: "";
+  display: block;
+  width: 4.4rem;
+  height: 5px;
+  margin-top: .85rem;
+  border-radius: 0;
+  background: linear-gradient(90deg, #5F9A3E 0 34%, #D9731F 34% 68%, #D43A2F 68% 100%);
+}
+
+.hero-titulo {
+  max-width: 43rem !important;
+  margin: 0 !important;
+  color: rgba(255,255,255,.97) !important;
+  font-size: clamp(1.12rem, 1.75vw, 1.42rem) !important;
+  font-weight: 520 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.42 !important;
+}
+
+.hero-inst {
+  margin: .8rem 0 0 !important;
+  color: rgba(239,242,231,.78) !important;
+  font-size: .9rem !important;
+  font-weight: 400 !important;
+  letter-spacing: .01em !important;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0 !important;
+    justify-content: center !important;
+    padding: 2.5rem 1.2rem 2.4rem !important;
+    background-image:
+      linear-gradient(180deg, rgba(31,77,43,.90) 0%, rgba(31,77,43,.93) 60%, rgba(31,77,43,.78) 100%),
+      url("img/hero-gpensc-bg.svg") !important;
+    background-position: center, right bottom !important;
+    background-size: cover, auto 88% !important;
+  }
+
+  .hero-texto {
+    flex: 0 1 38rem !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .hero-sigla {
+    margin-bottom: .85rem !important;
+    font-size: clamp(2.8rem, 11vw, 3.65rem) !important;
+  }
+
+  .hero-sigla::after {
+    width: 3.7rem;
+    height: 4px;
+    margin: .7rem auto 0;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1.04rem, 4vw, 1.28rem) !important;
+    line-height: 1.42 !important;
+  }
+
+  .hero-inst {
+    margin-top: .65rem !important;
+    font-size: .82rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 2.15rem 1rem !important;
+  }
+
+  .hero-sigla {
+    font-size: 2.55rem !important;
+  }
+}
