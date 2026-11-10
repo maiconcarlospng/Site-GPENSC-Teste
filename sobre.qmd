@@ -97,8 +97,7 @@ div(
           `data-timeline-viewport` = "",
           tabindex = "0",
           role = "region",
-          `aria-label` = "Linha do tempo do GPENSC. Use as setas para navegar."
-        ,
+          `aria-label` = "Linha do tempo do GPENSC. Use as setas para navegar.",
           div(
             class = "gp-timeline-track",
             `data-timeline-track` = "",
