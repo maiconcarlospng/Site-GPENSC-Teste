@@ -666,3 +666,14 @@ body{background:#f0f1e5}
 @media(prefers-reduced-motion:reduce){
   .limb-toggle,.twig-toggle,.twig-leaves a{transition:none!important}
 }
+
+
+/* Área inferior completa: raízes e painéis do último ramo sem cortes. */
+.tree-map{height:1500px!important;min-height:1500px!important}
+.tree-illustration{height:1500px!important}
+@media(max-width:720px){
+  .tree-map{height:1500px!important;min-height:1500px!important}
+  .tree-illustration{height:1500px!important}
+  .tree-limb,.limb--left,.limb--right{left:85px!important;width:290px!important;max-width:290px!important}
+  .limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:290px!important}
+}
