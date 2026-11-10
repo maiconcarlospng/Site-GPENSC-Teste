@@ -2702,6 +2702,12 @@ main table {
     gap: .8rem;
   }
 
+  .sobre-parceria-logo-wrap {
+    flex-basis: 88px;
+    width: 88px;
+    height: 62px;
+  }
+
   .sobre-parceria-sigla {
     flex-basis: 58px;
     width: 58px;
@@ -2709,7 +2715,11 @@ main table {
     font-size: .98rem;
   }
 
-  .sobre-parceria-copy h3 {
+  .sobre-parceria-copy h4 {
     font-size: .94rem !important;
+  }
+
+  .sobre-parceria-externo {
+    display: none;
   }
 }
