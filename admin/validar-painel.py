@@ -20,7 +20,7 @@ ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
-SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css")
+SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css")
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
@@ -223,6 +223,7 @@ UNIQUE_KEYS = {
     "videos": ("url",),
     "sites": ("url",),
     "apoio": ("nome",),
+    "linha_tempo": ("ano", "titulo"),
 }
 
 
