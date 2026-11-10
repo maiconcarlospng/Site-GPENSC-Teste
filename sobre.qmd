@@ -485,32 +485,76 @@ div(
   if (nrow(parcerias_publicadas) > 0) {
     div(
       class = "sobre-parcerias",
-      h2("Instituições parceiras relatadas pelo grupo"),
+      h2("Parcerias e vínculos institucionais"),
       p(
         class = "sobre-parcerias-intro",
-        "Instituições registradas como parceiras do GPENSC no Diretório dos Grupos de Pesquisa do CNPq."
+        "Conheça as instituições parceiras registradas no CNPq e os vínculos institucionais que fazem parte da atuação do GPENSC."
       ),
-      div(
-        class = "sobre-parcerias-grid",
-        lapply(seq_len(nrow(parcerias_publicadas)), function(i) {
-          parceria <- parcerias_publicadas[i, , drop = FALSE]
+      lapply(c("Parcerias registradas no CNPq", "Vínculos institucionais"), function(grupo_atual) {
+        itens_grupo <- parcerias_publicadas[
+          !is.na(parcerias_publicadas$grupo) &
+            parcerias_publicadas$grupo == grupo_atual,
+          ,
+          drop = FALSE
+        ]
+
+        if (nrow(itens_grupo) == 0) return(NULL)
+
+        div(
+          class = "sobre-parcerias-grupo",
+          h3(grupo_atual),
           div(
-            class = "sobre-parceria-card",
-            span(
-              class = "sobre-parceria-sigla",
-              as.character(parceria$sigla[1])
-            ),
-            div(
-              class = "sobre-parceria-copy",
-              h3(as.character(parceria$nome[1])),
-              span(
-                class = "sobre-parceria-uf",
-                paste("UF:", as.character(parceria$uf[1]))
+            class = "sobre-parcerias-grid",
+            lapply(seq_len(nrow(itens_grupo)), function(i) {
+              parceria <- itens_grupo[i, , drop = FALSE]
+              nome_parceria <- as.character(parceria$nome[1])
+              sigla_parceria <- as.character(parceria$sigla[1])
+              logo_parceria <- valor_publico(parceria$logo)
+              link_parceria <- valor_publico(parceria$url)
+
+              conteudo_parceria <- div(
+                class = "sobre-parceria-card",
+                if (!is.null(logo_parceria)) {
+                  div(
+                    class = "sobre-parceria-logo-wrap",
+                    tags$img(
+                      class = "sobre-parceria-logo",
+                      src = caminho_img(logo_parceria),
+                      alt = paste("Logo:", nome_parceria),
+                      loading = "lazy"
+                    )
+                  )
+                } else {
+                  span(class = "sobre-parceria-sigla", sigla_parceria)
+                },
+                div(
+                  class = "sobre-parceria-copy",
+                  h4(nome_parceria),
+                  span(
+                    class = "sobre-parceria-uf",
+                    paste("UF:", as.character(parceria$uf[1]))
+                  )
+                ),
+                if (!is.null(link_parceria)) {
+                  span(class = "sobre-parceria-externo", "Acessar site")
+                }
               )
-            )
+
+              if (!is.null(link_parceria)) {
+                tags$a(
+                  class = "sobre-parceria-link",
+                  href = link_parceria,
+                  target = "_blank",
+                  rel = "noopener noreferrer",
+                  conteudo_parceria
+                )
+              } else {
+                conteudo_parceria
+              }
+            })
           )
-        })
-      )
+        )
+      })
     )
   },
 
