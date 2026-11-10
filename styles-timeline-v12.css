@@ -1,0 +1,816 @@
+/* =====================================================================
+   GPENSC · LINHA DO TEMPO DA PÁGINA "QUEM SOMOS"
+   Componente independente: não altera as outras galerias ou carrosséis.
+   ===================================================================== */
+
+.gp-timeline-intro {
+  max-width: 760px;
+  margin: .25rem 0 1.35rem !important;
+  color: #58645a;
+  font-size: .98rem;
+  line-height: 1.7;
+}
+
+.gp-timeline {
+  --timeline-green: #1F4D2B;
+  --timeline-leaf: #5F9A3E;
+  --timeline-orange: #D9731F;
+  width: 100%;
+  max-width: 1120px;
+  margin: 1.4rem auto 2.8rem;
+}
+
+.gp-timeline-stage {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: clamp(.55rem, 1.5vw, 1rem);
+}
+
+.gp-timeline-viewport {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 16px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  outline-offset: 5px;
+}
+
+.gp-timeline-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.gp-timeline-track {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+.gp-timeline-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+  flex: 0 0 100%;
+  min-width: 0;
+  min-height: 355px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid #e2e9df;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(31, 77, 43, .09);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.gp-timeline-photo {
+  position: relative;
+  min-width: 0;
+  min-height: 355px;
+  overflow: hidden;
+  background: #e9eee6;
+}
+
+.gp-timeline-photo::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 24%;
+  pointer-events: none;
+  background: linear-gradient(transparent, rgba(20, 40, 24, .12));
+}
+
+.gp-timeline-photo img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 355px;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center;
+  transition: transform .55s ease;
+}
+
+.gp-timeline-card.is-active .gp-timeline-photo img {
+  transform: scale(1.015);
+}
+
+.gp-timeline-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.8rem);
+  box-sizing: border-box;
+}
+
+.gp-timeline-eyebrow {
+  display: inline-block;
+  margin-bottom: .7rem;
+  color: var(--gp-folha, #5F9A3E);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.gp-timeline-year {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin-bottom: .85rem;
+  padding: .25rem .85rem;
+  border: 1px solid #dcebd3;
+  border-radius: 999px;
+  background: #f0f6ec;
+  color: var(--timeline-green);
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.gp-timeline-copy h3 {
+  width: 100%;
+  margin: 0 0 .75rem !important;
+  padding: 0 !important;
+  color: var(--timeline-green) !important;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem) !important;
+  font-weight: 750 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.035em !important;
+  text-align: left !important;
+}
+
+.gp-timeline-copy p {
+  max-width: 42ch;
+  margin: 0 !important;
+  color: #59645a;
+  font-size: .96rem;
+  line-height: 1.75;
+}
+
+.gp-timeline-arrow {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 46px;
+  height: 46px;
+  padding: 0 !important;
+  border: 1px solid #dce5d8 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: var(--timeline-green) !important;
+  font-size: 1.15rem !important;
+  line-height: 1 !important;
+  box-shadow: 0 3px 12px rgba(31, 77, 43, .08);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.gp-timeline-arrow:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--timeline-green) !important;
+  background: var(--timeline-green) !important;
+  color: #fff !important;
+}
+
+.gp-timeline-arrow:disabled {
+  opacity: .36;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.gp-timeline-arrow:focus-visible,
+.gp-timeline-marker:focus-visible {
+  outline: 3px solid var(--timeline-orange) !important;
+  outline-offset: 3px !important;
+}
+
+.gp-timeline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.15rem 64px .55rem;
+}
+
+.gp-timeline-status {
+  color: var(--timeline-green);
+  font-size: .78rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.gp-timeline-hint {
+  color: #7b857b;
+  font-size: .74rem;
+  text-align: right;
+}
+
+.gp-timeline-years {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .25rem;
+  margin: 0 52px;
+  padding: .25rem 0 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b9cbb3 transparent;
+}
+
+.gp-timeline-years::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: #dce5d8;
+}
+
+.gp-timeline-marker {
+  position: relative;
+  z-index: 1;
+  display: flex !important;
+  flex: 1 0 76px;
+  flex-direction: column;
+  align-items: center;
+  gap: .45rem;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 .2rem .25rem !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #778178 !important;
+  cursor: pointer;
+  box-shadow: none !important;
+  transition: color .2s ease;
+}
+
+.gp-timeline-dot {
+  display: block;
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #aebdac;
+  box-shadow: 0 0 0 1px #cbd8c6;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.gp-timeline-marker-year {
+  font-size: .73rem;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.gp-timeline-marker.is-active {
+  color: var(--timeline-green) !important;
+}
+
+.gp-timeline-marker.is-active .gp-timeline-dot {
+  transform: scale(1.18);
+  background: var(--timeline-orange);
+  box-shadow: 0 0 0 2px #f7dfcd;
+}
+
+.gp-timeline-marker.is-active .gp-timeline-marker-year {
+  font-weight: 850;
+}
+
+@media (max-width: 760px) {
+  .gp-timeline {
+    margin-top: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .gp-timeline-stage {
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: .35rem;
+  }
+
+  .gp-timeline-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem !important;
+  }
+
+  .gp-timeline-card {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    border-radius: 13px;
+  }
+
+  .gp-timeline-photo {
+    height: clamp(205px, 56vw, 300px);
+    min-height: 0;
+  }
+
+  .gp-timeline-photo img {
+    min-height: 0;
+    height: 100% !important;
+  }
+
+  .gp-timeline-copy {
+    min-height: 210px;
+    padding: 1.35rem 1.25rem 1.5rem;
+  }
+
+  .gp-timeline-eyebrow {
+    margin-bottom: .45rem;
+  }
+
+  .gp-timeline-year {
+    margin-bottom: .6rem;
+  }
+
+  .gp-timeline-copy h3 {
+    margin-bottom: .55rem !important;
+    font-size: 1.35rem !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .9rem;
+    line-height: 1.65;
+  }
+
+  .gp-timeline-meta {
+    margin: .8rem 42px .45rem;
+  }
+
+  .gp-timeline-hint {
+    font-size: .68rem;
+  }
+
+  .gp-timeline-years {
+    justify-content: flex-start;
+    margin: 0 36px;
+    padding-bottom: .35rem;
+  }
+
+  .gp-timeline-marker {
+    flex: 0 0 76px;
+  }
+}
+
+@media (max-width: 390px) {
+  .gp-timeline-stage {
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    gap: .25rem;
+  }
+
+  .gp-timeline-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: .9rem !important;
+  }
+
+  .gp-timeline-copy {
+    padding: 1.15rem 1rem 1.25rem;
+  }
+
+  .gp-timeline-meta {
+    margin-right: 36px;
+    margin-left: 36px;
+  }
+
+  .gp-timeline-years {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gp-timeline-viewport {
+    scroll-behavior: auto;
+  }
+
+  .gp-timeline-arrow,
+  .gp-timeline-photo img,
+  .gp-timeline-dot {
+    transition: none !important;
+  }
+}
+
+
+/* =====================================================================
+   REFINAMENTO VISUAL · FOTO INTEIRA E LEGENDA COMPACTA ABAIXO
+   ===================================================================== */
+
+/* Cada acontecimento vira uma foto ampla com legenda discreta em seguida. */
+.gp-timeline-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important;
+  background: #fff !important;
+}
+
+.gp-timeline-photo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: .45rem !important;
+  box-sizing: border-box !important;
+  background: #f7f8f4 !important;
+}
+
+.gp-timeline-photo::after {
+  display: none !important;
+}
+
+.gp-timeline-photo img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: 430px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+  border-radius: 8px !important;
+}
+
+/* Legenda baixa, logo abaixo da imagem, sem ocupar metade do cartão. */
+.gp-timeline-copy {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  justify-content: start !important;
+  column-gap: .8rem !important;
+  row-gap: .15rem !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: .75rem 1.1rem .85rem !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+}
+
+.gp-timeline-eyebrow {
+  display: none !important;
+}
+
+.gp-timeline-year {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: center !important;
+  min-height: 28px !important;
+  margin: 0 !important;
+  padding: .2rem .65rem !important;
+  font-size: .72rem !important;
+}
+
+.gp-timeline-copy h3 {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.25 !important;
+}
+
+.gp-timeline-copy p {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: start !important;
+  max-width: 72ch !important;
+  margin: 0 !important;
+  color: #657066 !important;
+  font-size: .78rem !important;
+  line-height: 1.45 !important;
+}
+
+@media (max-width: 760px) {
+  .gp-timeline-card {
+    border-radius: 12px !important;
+  }
+
+  .gp-timeline-photo {
+    padding: .3rem !important;
+  }
+
+  .gp-timeline-photo img {
+    max-height: 350px !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .gp-timeline-copy {
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    column-gap: .6rem !important;
+    row-gap: .12rem !important;
+    padding: .65rem .75rem .75rem !important;
+  }
+
+  .gp-timeline-year {
+    min-height: 26px !important;
+    padding: .15rem .5rem !important;
+    font-size: .68rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    font-size: .96rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .73rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .gp-timeline-photo img {
+    max-height: 300px !important;
+  }
+
+  .gp-timeline-copy {
+    column-gap: .5rem !important;
+    padding: .6rem .65rem .7rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    font-size: .9rem !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .69rem !important;
+  }
+}
+
+
+/* Estado vazio: a linha do tempo pode ficar sem registros sem interromper a página. */
+.gp-timeline-empty {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1.2rem 0 2rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed #cbd8c6;
+  border-radius: 12px;
+  background: #f7faf5;
+  color: #58645a;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.gp-timeline-empty p {
+  margin: 0 !important;
+}
+
+@media (max-width: 600px) {
+  .gp-timeline-empty {
+    margin: .9rem 0 1.5rem;
+    padding: .9rem 1rem;
+    font-size: .84rem;
+  }
+}
+
+
+/* =====================================================================
+   GPENSC · LINHA DO TEMPO V12
+   Foto em destaque + legenda flutuante.
+   Imagens são sempre exibidas por inteiro (sem corte ou distorção).
+   ===================================================================== */
+
+/* Cartão visual da história */
+.gp-timeline-card {
+  position: relative !important;
+  display: block !important;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border: 1px solid #e0e8dc !important;
+  border-radius: 18px !important;
+  background: #f2f5ef !important;
+  box-shadow: 0 12px 34px rgba(31, 77, 43, .11) !important;
+}
+
+/* Moldura com altura controlada: mantém o tamanho coerente entre registros. */
+.gp-timeline-photo {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: clamp(370px, 43vw, 510px) !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255,255,255,.98) 0%, rgba(248,250,246,.98) 44%, rgba(231,239,226,.98) 100%) !important;
+}
+
+/* Área reservada para a legenda: a foto não fica escondida pelo card. */
+.gp-timeline-photo img {
+  position: absolute !important;
+  inset: 16px 20px 132px !important;
+  display: block !important;
+  width: calc(100% - 40px) !important;
+  height: calc(100% - 148px) !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 10px !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Sombra suave na base, sem escurecer nem cortar a fotografia. */
+.gp-timeline-photo::after {
+  display: block !important;
+  position: absolute !important;
+  inset: auto 0 0 !important;
+  height: 145px !important;
+  pointer-events: none !important;
+  background: linear-gradient(180deg, rgba(242,245,239,0), rgba(223,233,218,.36)) !important;
+}
+
+/* Card flutuante da legenda */
+.gp-timeline-copy {
+  position: absolute !important;
+  z-index: 2 !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: 18px !important;
+  left: clamp(18px, 3.2vw, 34px) !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-rows: auto auto auto !important;
+  align-items: center !important;
+  justify-content: start !important;
+  gap: .18rem .9rem !important;
+  width: min(620px, calc(100% - 48px)) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: .82rem 1.15rem .9rem !important;
+  box-sizing: border-box !important;
+  border: 1px solid rgba(31, 77, 43, .12) !important;
+  border-top: 3px solid var(--gp-laranja, #D9731F) !important;
+  border-left: 5px solid var(--gp-verde, #1F4D2B) !important;
+  border-radius: 13px !important;
+  background: rgba(255, 255, 255, .97) !important;
+  box-shadow: 0 9px 28px rgba(25, 48, 29, .16) !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.gp-timeline-eyebrow {
+  display: block !important;
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  margin: 0 0 .08rem !important;
+  color: var(--gp-folha, #5F9A3E) !important;
+  font-size: .59rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .14em !important;
+  line-height: 1.25 !important;
+}
+
+.gp-timeline-year {
+  grid-column: 1 !important;
+  grid-row: 2 / span 2 !important;
+  align-self: center !important;
+  min-height: 29px !important;
+  margin: 0 !important;
+  padding: .22rem .68rem !important;
+  border: 1px solid #dcebd3 !important;
+  border-radius: 999px !important;
+  background: #f0f6ec !important;
+  color: var(--gp-verde, #1F4D2B) !important;
+  font-size: .72rem !important;
+  font-weight: 850 !important;
+  white-space: nowrap !important;
+}
+
+.gp-timeline-copy h3 {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: end !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--gp-verde, #1F4D2B) !important;
+  font-size: clamp(1.02rem, 1.55vw, 1.25rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.025em !important;
+  text-align: left !important;
+}
+
+.gp-timeline-copy p {
+  grid-column: 2 !important;
+  grid-row: 3 !important;
+  align-self: start !important;
+  max-width: 68ch !important;
+  margin: .1rem 0 0 !important;
+  color: #657066 !important;
+  font-size: .78rem !important;
+  line-height: 1.45 !important;
+}
+
+/* Em telas menores, a legenda vai para baixo da foto para não cobri-la. */
+@media (max-width: 760px) {
+  .gp-timeline-card {
+    border-radius: 13px !important;
+  }
+
+  .gp-timeline-photo {
+    height: clamp(250px, 76vw, 390px) !important;
+  }
+
+  .gp-timeline-photo img {
+    inset: 10px !important;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
+    border-radius: 8px !important;
+  }
+
+  .gp-timeline-photo::after {
+    display: none !important;
+  }
+
+  .gp-timeline-copy {
+    position: relative !important;
+    inset: auto !important;
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    gap: .12rem .65rem !important;
+    width: 100% !important;
+    padding: .78rem .85rem .9rem !important;
+    border: 0 !important;
+    border-top: 3px solid var(--gp-laranja, #D9731F) !important;
+    border-radius: 0 0 12px 12px !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .gp-timeline-eyebrow {
+    display: none !important;
+  }
+
+  .gp-timeline-year {
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+    min-height: 26px !important;
+    padding: .16rem .52rem !important;
+    font-size: .67rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: end !important;
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .gp-timeline-copy p {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin-top: .08rem !important;
+    font-size: .73rem !important;
+    line-height: 1.42 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .gp-timeline-photo {
+    height: clamp(235px, 76vw, 300px) !important;
+  }
+
+  .gp-timeline-copy {
+    gap: .1rem .5rem !important;
+    padding: .7rem .68rem .8rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    font-size: .93rem !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .69rem !important;
+  }
+}
