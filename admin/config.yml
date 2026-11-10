@@ -293,7 +293,7 @@ collections:
                 - { label: "Logo", name: "logo", widget: "image", required: false, hint: "Opcional. Se não houver logo, o site exibirá a sigla da instituição." }
                 - { label: "Site institucional", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+
   - name: "configuracoes"
-    label: "⚙️ Configurações avançadas"
+    label: "Configurações avançadas"
     files:
         - label: "01 · Identidade"
           name: "cfg_identidade"
@@ -433,7 +433,7 @@ collections:
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
 , 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "configuracoes"
-    label: "⚙️ Configurações avançadas"
+    label: "Configurações avançadas"
     files:
         - label: "01 · Identidade"
           name: "cfg_identidade"
