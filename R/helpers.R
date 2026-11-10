@@ -63,7 +63,7 @@ COLUNAS <- list(
   videos      = c("data", "titulo", "descricao", "url"),
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
-  parcerias   = c("nome", "sigla", "uf"),
+  parcerias   = c("nome", "sigla", "uf", "grupo", "logo", "url"),
   galeria     = c("arquivo", "legenda", "foco_x", "foco_y", "zoom")
 )
 
