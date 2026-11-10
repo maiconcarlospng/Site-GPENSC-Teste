@@ -12,6 +12,7 @@ on:
       - "experimental.css"
       - "tree-nav.html"
       - "tree-interactions.js"
+      - "tree-interactions.html"
       - "_quarto.yml"
       - "_variables.yml"
       - "_extensions/**"
