@@ -556,3 +556,30 @@
     font-size: .69rem !important;
   }
 }
+
+
+/* Estado vazio: a linha do tempo pode ficar sem registros sem interromper a página. */
+.gp-timeline-empty {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1.2rem 0 2rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed #cbd8c6;
+  border-radius: 12px;
+  background: #f7faf5;
+  color: #58645a;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.gp-timeline-empty p {
+  margin: 0 !important;
+}
+
+@media (max-width: 600px) {
+  .gp-timeline-empty {
+    margin: .9rem 0 1.5rem;
+    padding: .9rem 1rem;
+    font-size: .84rem;
+  }
+}
