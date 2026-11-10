@@ -192,8 +192,9 @@ title-block-banner: false
           <div class="twig">
             <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="extension-media"><span>Comunicação e divulgação</span><b>＋</b></button>
             <div class="twig-leaves" id="extension-media" hidden>
-              <a href="videos.html">Podcasts e vídeos</a>
-              <a href="videos.html">Materiais audiovisuais</a>
+              <a href="podcasts.html">Podcasts</a>
+              <a href="noar.html">No Ar</a>
+              <a href="videos.html">Vídeos</a>
             </div>
           </div>
         </div>
