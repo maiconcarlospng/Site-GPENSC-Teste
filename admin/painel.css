@@ -1585,3 +1585,78 @@ body.gpen-cms-active .gpen-sc-galeria__slider {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Identidade GPENSC: assinatura visual própria na navegação do painel. */
+body.gpen-cms-active .primary-sidebar [role="listbox"]::before {
+  content: "GPENSC · UFOP";
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  min-height: 78px;
+  margin: 0 5px 14px !important;
+  padding: 0 8px 13px 61px;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #5F9A3E 0%, #D9731F 58%, #D43A2F 100%) 1;
+  background-image: url("../img/logo_gpensc.png");
+  background-repeat: no-repeat;
+  background-position: 9px center;
+  background-size: 43px auto;
+  color: #214E35;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: .82rem;
+  font-weight: 850;
+  letter-spacing: .085em;
+  line-height: 1.2;
+}
+
+body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
+body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"] {
+  box-shadow: inset 3px 0 0 #D9731F !important;
+}
+
+body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
+  margin-top: 22px !important;
+  padding-top: 15px !important;
+  border-top: 1px solid #d7e2d3 !important;
+  border-radius: 0 0 9px 9px !important;
+}
+
+body.gpen-cms-active #collection-container > .sui.toolbar.primary {
+  border-top: 3px solid #5F9A3E !important;
+}
+
+body.gpen-cms-active #collection-container .grid-view .grid-row[tabindex],
+body.gpen-cms-active #collection-container .list-view > *,
+body.gpen-cms-active #collection-container .table-view > * {
+  border-radius: 10px;
+}
+
+html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"]::before {
+  border-image: linear-gradient(90deg, #82B86B 0%, #E58C48 58%, #E26C62 100%) 1;
+  color: #E9F5E9;
+}
+
+html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-selected="true"],
+html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button[aria-current="page"] {
+  box-shadow: inset 3px 0 0 #E58C48 !important;
+}
+
+html[data-theme="dark"] body.gpen-cms-active .primary-sidebar [role="listbox"] button.gpen-config-collection {
+  border-top-color: #454D59 !important;
+}
+
+html[data-theme="dark"] body.gpen-cms-active #collection-container > .sui.toolbar.primary {
+  border-top-color: #82B86B !important;
+}
+
+@media (max-width: 640px) {
+  body.gpen-cms-active .primary-sidebar [role="listbox"]::before {
+    min-height: 65px;
+    margin-bottom: 8px !important;
+    padding-left: 54px;
+    background-position: 7px center;
+    background-size: 38px auto;
+    font-size: .75rem;
+  }
+}
