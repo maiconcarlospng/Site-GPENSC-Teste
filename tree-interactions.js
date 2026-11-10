@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.branch-toggle').forEach(button=>{button.addEventListener('click',()=>{const panel=document.getElementById(button.getAttribute('aria-controls'));const opening=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(opening));panel.hidden=!opening;});});});
