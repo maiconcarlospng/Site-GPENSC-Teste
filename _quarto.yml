@@ -5,6 +5,7 @@ project:
   resources:
     - "img/**"
     - "data/**"
+    - "tree-interactions.js"
 
 lang: pt-BR
 
