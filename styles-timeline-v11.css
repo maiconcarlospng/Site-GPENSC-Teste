@@ -401,3 +401,158 @@
     transition: none !important;
   }
 }
+
+
+/* =====================================================================
+   REFINAMENTO VISUAL · FOTO INTEIRA E LEGENDA COMPACTA ABAIXO
+   ===================================================================== */
+
+/* Cada acontecimento vira uma foto ampla com legenda discreta em seguida. */
+.gp-timeline-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important;
+  background: #fff !important;
+}
+
+.gp-timeline-photo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: .45rem !important;
+  box-sizing: border-box !important;
+  background: #f7f8f4 !important;
+}
+
+.gp-timeline-photo::after {
+  display: none !important;
+}
+
+.gp-timeline-photo img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: 430px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+  border-radius: 8px !important;
+}
+
+/* Legenda baixa, logo abaixo da imagem, sem ocupar metade do cartão. */
+.gp-timeline-copy {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  justify-content: start !important;
+  column-gap: .8rem !important;
+  row-gap: .15rem !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: .75rem 1.1rem .85rem !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+}
+
+.gp-timeline-eyebrow {
+  display: none !important;
+}
+
+.gp-timeline-year {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: center !important;
+  min-height: 28px !important;
+  margin: 0 !important;
+  padding: .2rem .65rem !important;
+  font-size: .72rem !important;
+}
+
+.gp-timeline-copy h3 {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.25 !important;
+}
+
+.gp-timeline-copy p {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: start !important;
+  max-width: 72ch !important;
+  margin: 0 !important;
+  color: #657066 !important;
+  font-size: .78rem !important;
+  line-height: 1.45 !important;
+}
+
+@media (max-width: 760px) {
+  .gp-timeline-card {
+    border-radius: 12px !important;
+  }
+
+  .gp-timeline-photo {
+    padding: .3rem !important;
+  }
+
+  .gp-timeline-photo img {
+    max-height: 350px !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .gp-timeline-copy {
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    column-gap: .6rem !important;
+    row-gap: .12rem !important;
+    padding: .65rem .75rem .75rem !important;
+  }
+
+  .gp-timeline-year {
+    min-height: 26px !important;
+    padding: .15rem .5rem !important;
+    font-size: .68rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    font-size: .96rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .73rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .gp-timeline-photo img {
+    max-height: 300px !important;
+  }
+
+  .gp-timeline-copy {
+    column-gap: .5rem !important;
+    padding: .6rem .65rem .7rem !important;
+  }
+
+  .gp-timeline-copy h3 {
+    font-size: .9rem !important;
+  }
+
+  .gp-timeline-copy p {
+    font-size: .69rem !important;
+  }
+}
