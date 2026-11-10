@@ -4,6 +4,7 @@ title: "Quem somos"
 
 ```{r}
 source("R/helpers.R")
+# A linha do tempo e seus registros são gerenciados pelo painel Sveltia CMS.
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
 integrantes <- registros_reais(equipe, "nome")
