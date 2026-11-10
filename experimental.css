@@ -314,3 +314,22 @@ body:not(:has(.tree-home)) main.content a{color:#47734d}
 .twig-leaves:before{left:-24px!important;width:22px!important}
 .tree-heart{margin-left:0!important}
 }
+
+
+/* Ilustração botânica principal — tronco, raízes, copa e galhos */
+.tree-map:before{display:none!important}
+.tree-map:after{z-index:-3!important}
+.tree-illustration{
+  display:block!important;position:absolute!important;z-index:-1!important;
+  left:0!important;top:0!important;width:min(460px,48vw)!important;height:100%!important;
+  opacity:1!important;overflow:visible!important;pointer-events:none!important;
+}
+.tree-map{isolation:isolate!important}
+.tree-roots{filter:drop-shadow(0 3px 2px #49332220)}
+.canopy-back{filter:blur(1px)}
+.canopy-leaves use,.branch-leaves use{filter:drop-shadow(1px 4px 3px #263f2528)}
+.tree-limb{z-index:3!important}
+.limb-toggle{position:relative;z-index:2}
+@media(max-width:720px){
+  .tree-illustration{display:block!important;left:0!important;width:310px!important;height:100%!important;opacity:.92!important}
+}
