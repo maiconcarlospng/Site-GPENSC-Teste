@@ -250,7 +250,7 @@ div(
 
       setActive(0);
     })();
-  "))
+  ")),
 
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
