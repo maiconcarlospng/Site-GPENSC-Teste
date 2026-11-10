@@ -13,11 +13,6 @@ mapa_url <- paste0(
 )
 telefone <- as.character(cfg$telefone)
 telefone_url <- paste0("tel:", gsub("[^0-9+]", "", telefone))
-dgp_url <- as.character(cfg$link_dgp)
-if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case = TRUE)) {
-  dgp_url <- "https://dgp.cnpq.br"
-}
-
 if (secao_ativa("mostrar_contato")) {
 div(
   class = "pagina-contato",
@@ -85,8 +80,6 @@ div(
   div(
     class = "contato-assinatura",
     p(paste(cfg$unidade, cfg$departamento, sep = " · ")),
-    tags$a(class = "link-acao", href = dgp_url, target = "_blank", rel = "noopener noreferrer",
-           "Diretório dos Grupos de Pesquisa do CNPq")
   )
 )
 } else {
