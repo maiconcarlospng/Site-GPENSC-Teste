@@ -14,7 +14,7 @@
     return String(value);
   };
 
-  const SpreadsheetEditorControl = ({ forID, value, onChange, field }) => {
+  const SpreadsheetEditorControl = ({ forID, value, onChange, field, pickFile }) => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [pending, setPending] = useState([]);
@@ -84,8 +84,21 @@
         (column.widget === "date" || (column.widget === "datetime" && column.type === "date")) ? "date" : "text";
       const placeholder = column.widget === "image" ? "Caminho em img/ (ex.: img/equipe/foto.jpg)" : "Digite " + label.toLocaleLowerCase("pt-BR");
       return html`
-        <input id=${id} type=${type} placeholder=${placeholder} value=${valueText}
-          onChange=${(event) => updateCell(index, column.name, event.target.value)} />
+        <div class="gpen-planilha__campo-com-foto">
+          <input id=${id} type=${type} placeholder=${placeholder} value=${valueText}
+            onChange=${(event) => updateCell(index, column.name, event.target.value)} />
+          ${column.widget === "image" ? html`
+            <button type="button" class="gpen-planilha__escolher-foto" onClick=${async () => {
+              try {
+                const picked = await pickFile({ kind: "image", accept: "image/*", multiple: false, allowURL: false });
+                const item = Array.isArray(picked) ? picked[0] : picked;
+                if (item && item.value) updateCell(index, column.name, item.value);
+              } catch (caught) {
+                setError(caught && caught.message ? caught.message : "Não foi possível selecionar a imagem.");
+              }
+            }}>Escolher foto</button>
+          ` : ""}
+        </div>
       `;
     };
 
