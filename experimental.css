@@ -273,3 +273,44 @@ body:not(:has(.tree-home)) main.content>h1{font:800 clamp(2rem,4vw,3rem) Manrope
 body:not(:has(.tree-home)) main.content h2{font:800 1.45rem Manrope,sans-serif;color:var(--forest);margin-top:2.4rem}
 body:not(:has(.tree-home)) main.content p{line-height:1.75;color:#536358}
 body:not(:has(.tree-home)) main.content a{color:#47734d}
+
+
+/* === Navegação arbórea horizontal: cada clique faz a árvore crescer === */
+.tree-world{max-width:none;padding:0 0 3rem;overflow:visible}
+.tree-canopy-label{margin:1rem auto 1.5rem}
+.tree-map{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center;gap:1.05rem;min-height:760px;width:100%;max-width:none;padding:2.5rem 2rem 3rem clamp(2.2rem,6vw,6.5rem);overflow-x:auto;overflow-y:visible;overscroll-behavior-x:contain;scrollbar-color:#9eb48f #edf1e8;scrollbar-width:thin}
+.tree-illustration{display:none!important}
+.tree-map:before{content:"";position:absolute;z-index:-1;left:clamp(2.4rem,5vw,5.5rem);top:3%;bottom:4%;width:48px;border-radius:48% 52% 24% 25%;background:linear-gradient(90deg,#493321 0%,#785237 24%,#a17a50 48%,#795338 72%,#493321 100%);box-shadow:inset 7px 0 0 #c39a6850,inset -6px 0 0 #38291f55,8px 0 18px #46352222}
+.tree-map:after{content:"";position:absolute;z-index:-2;left:0;right:0;top:0;bottom:0;pointer-events:none;background:radial-gradient(ellipse at 7% 8%,#b7ce9b55 0 8%,transparent 22%),radial-gradient(ellipse at 9% 94%,#9fbd8a44 0 9%,transparent 24%),radial-gradient(ellipse at 48% 50%,#dce8d055 0 12%,transparent 35%)}
+.tree-limb,.limb--left,.limb--right{position:relative!important;display:block!important;flex:0 0 auto;width:300px!important;max-width:300px!important;margin:0!important;padding:0!important;text-align:left!important;align-items:stretch!important}
+.limb--left .limb-toggle,.limb--right .limb-toggle,.limb-toggle{width:280px!important;min-height:76px;padding:.85rem 1.1rem!important;flex-direction:row!important;text-align:left!important;border:1px solid #d5e3cc!important;border-radius:8px 42px 8px 42px!important;background:linear-gradient(110deg,#fffef9 0%,#f3f7eb 58%,#e6efdd 100%)!important;box-shadow:0 8px 22px #304b2d18,inset 0 1px 0 white!important}
+.limb-toggle:before{inset:4px!important;border:1px solid #e7eddf!important;border-radius:6px 38px 6px 38px!important}
+.limb-toggle:after{content:"";position:absolute;right:-15px;top:50%;width:30px;height:30px;transform:translateY(-50%) rotate(45deg);border-radius:4px 14px 4px 14px;background:linear-gradient(135deg,#d5e5c9,#a8c694);border:1px solid #d0dfc5;z-index:-1}
+.limb-symbol,.limb--left .limb-symbol{border-radius:50% 50% 50% 8px!important;background:linear-gradient(145deg,#d9e9cb,#91b77c)!important;color:#315a38!important}
+.limb-title-wrap strong{font-size:1.05rem!important}.limb-title-wrap small{font-size:.69rem!important}
+.limb-plus{background:#e3eddb!important}.limb-toggle[aria-expanded="true"]{border-color:#7ea16f!important;background:#fafff3!important}
+.limb-connector,.limb--left .limb-connector,.limb--right .limb-connector{display:block!important;top:50%!important;left:280px!important;right:auto!important;width:clamp(38px,4vw,72px)!important;height:8px!important;border-radius:0 100% 100% 0!important;background:linear-gradient(90deg,#795337,#a57c50)!important;transform:translateY(-50%)!important;opacity:1!important}
+.branch-children,.limb--left .branch-children,.limb--right .branch-children{position:absolute!important;z-index:8;left:calc(100% + 76px)!important;right:auto!important;top:-.1rem!important;width:270px!important;max-width:270px!important;display:grid;gap:.65rem;margin:0!important;padding:.9rem!important;border:1px solid #d7e4cf!important;border-radius:24px 9px 24px 9px!important;border-left:5px solid #8eaf7d!important;border-right:1px solid #d7e4cf!important;background:linear-gradient(145deg,#fffef9,#f1f6e9)!important;box-shadow:0 16px 38px #29452b20!important}
+.branch-children:before{content:"";position:absolute;left:-76px;top:32px;width:72px;height:8px;border-radius:100% 0 0 100%;background:linear-gradient(90deg,#9c744a,#795337)}
+.twig{position:relative;display:block!important}.twig:before{display:none!important}
+.twig-toggle,.limb--left .twig-toggle,.limb--right .twig-toggle{display:flex!important;justify-content:space-between;align-items:center;width:100%;min-height:42px;padding:.65rem .8rem!important;flex-direction:row!important;text-align:left!important;justify-self:stretch!important;border:1px solid #e2eadb!important;border-radius:8px 22px 8px 22px!important;background:linear-gradient(110deg,#edf4e8,#e1ecd9)!important;color:#315c3b!important;font-size:.78rem!important}
+.twig-toggle:hover,.twig-toggle[aria-expanded="true"]{background:linear-gradient(110deg,#dcebd2,#c9dfbd)!important}
+.twig-leaves,.limb--left .twig-leaves,.limb--right .twig-leaves{position:absolute!important;z-index:12;left:calc(100% + 34px)!important;right:auto!important;top:0!important;width:230px!important;display:grid;gap:.35rem;margin:0!important;padding:.8rem!important;justify-items:stretch!important;border:1px solid #d7e4cf!important;border-left:4px solid #a3bd91!important;border-radius:20px 8px 20px 8px!important;background:#fffef7!important;box-shadow:0 14px 30px #29452b1c!important}
+.twig-leaves:before{content:"";position:absolute;left:-36px;top:16px;width:34px;height:5px;border-radius:100% 0 0 100%;background:#98734b}
+.twig-leaves a,.limb--left .twig-leaves a,.limb--right .twig-leaves a{display:flex!important;align-items:center;padding:.55rem .65rem!important;border-radius:7px 16px 7px 16px!important;background:#f4f7ef;color:#3d6544!important;font-size:.76rem!important;text-decoration:none}
+.twig-leaves a:hover{background:#e5efdc!important}.twig-leaves a:before{background:#91b27d!important}
+.tree-heart{position:relative!important;left:auto!important;bottom:auto!important;transform:none!important;align-self:flex-start;margin:1rem 0 0 0!important}
+.tree-roots-caption{padding:1rem}
+@media(max-width:720px){
+.tree-world{overflow-x:auto!important}
+.tree-map{display:flex!important;flex-direction:column!important;align-items:flex-start!important;min-height:740px!important;width:max-content!important;min-width:100%;padding:1.5rem 1.5rem 2.5rem 2rem!important;gap:1rem!important}
+.tree-map:before{left:2.2rem!important;width:34px!important}
+.tree-limb,.limb--left,.limb--right{width:280px!important;max-width:280px!important}
+.limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:260px!important}
+.limb-connector,.limb--left .limb-connector,.limb--right .limb-connector{left:260px!important;width:36px!important}
+.branch-children,.limb--left .branch-children,.limb--right .branch-children{left:calc(100% + 38px)!important;width:250px!important;max-width:250px!important}
+.branch-children:before{left:-38px!important;width:34px!important}
+.twig-leaves,.limb--left .twig-leaves,.limb--right .twig-leaves{left:calc(100% + 22px)!important;width:210px!important}
+.twig-leaves:before{left:-24px!important;width:22px!important}
+.tree-heart{margin-left:0!important}
+}
