@@ -677,3 +677,90 @@ body{background:#f0f1e5}
   .tree-limb,.limb--left,.limb--right{left:85px!important;width:290px!important;max-width:290px!important}
   .limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:290px!important}
 }
+
+
+/* ===== Correção de estado: painéis só aparecem após interação ===== */
+.tree-world .branch-children[hidden],
+.tree-world .twig-leaves[hidden]{
+  display:none!important;
+}
+
+/* ===== Cabeçalho sob uma copa ilustrada ===== */
+.tree-intro{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  min-height:590px!important;
+  padding-top:clamp(5.2rem,9vw,8.8rem)!important;
+  padding-bottom:clamp(4.2rem,7vw,7rem)!important;
+  background:
+    radial-gradient(ellipse at 50% 42%,#fbf9edb8 0%,#f8f7ec82 34%,transparent 68%),
+    linear-gradient(180deg,#edf1e4 0%,#f2f3e8 100%)!important;
+}
+.tree-header-canopy{
+  position:absolute!important;z-index:0!important;top:-22px!important;left:0!important;
+  display:block!important;width:100%!important;height:calc(100% + 48px)!important;
+  max-width:none!important;object-fit:cover!important;object-position:center top!important;
+  opacity:.77!important;pointer-events:none!important;
+  filter:saturate(1.04) contrast(1.015)!important;
+  mask-image:linear-gradient(to bottom,#000 0%,#000 57%,#0009 77%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 57%,#0009 77%,transparent 100%);
+}
+.tree-intro:after{
+  content:"";position:absolute;z-index:1;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,#f7f7ed66 0%,#f7f7ed1c 25%,#f7f7ed22 75%,#f7f7ed66 100%);
+}
+.tree-intro>:not(.tree-header-canopy){position:relative!important;z-index:2!important}
+.tree-eyebrow{
+  border-color:#aebf9b!important;background:#fbfaedda!important;
+  box-shadow:0 6px 20px #29472c12!important;
+}
+.tree-heading{text-shadow:0 2px 18px #f8f7eac7!important}
+.tree-intro p{
+  max-width:760px!important;color:#4e654e!important;
+  text-shadow:0 1px 10px #f8f7eacc;
+}
+.tree-instruction{
+  background:#fbfaedf0!important;border-color:#b7c8a6!important;
+  box-shadow:0 8px 24px #26472b18!important;
+}
+
+/* ===== Tronco mais largo e parcialmente fora do enquadramento ===== */
+.tree-illustration{
+  transform:translateX(-10.5vw)!important;
+  transform-origin:left top!important;
+}
+.tree-limb,.limb--left,.limb--right{
+  left:clamp(375px,25.5vw,490px)!important;
+}
+@media(max-width:1100px) and (min-width:721px){
+  .tree-illustration{
+    width:1360px!important;height:1500px!important;
+    transform:translateX(-10.5vw)!important;
+  }
+  .tree-limb,.limb--left,.limb--right{
+    left:calc(494px - 10.5vw)!important;
+    width:350px!important;max-width:350px!important;
+  }
+  .limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:350px!important}
+}
+@media(max-width:720px){
+  .tree-intro{
+    min-height:0!important;padding:4.1rem 1.15rem 3.2rem!important;
+  }
+  .tree-header-canopy{
+    top:-8px!important;height:calc(100% + 24px)!important;
+    object-position:center top!important;opacity:.57!important;
+    mask-image:linear-gradient(to bottom,#000 0%,#0008 58%,transparent 100%);
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#0008 58%,transparent 100%);
+  }
+  .tree-intro:after{
+    background:linear-gradient(180deg,#f7f7ed40 0%,#f7f7ed70 55%,#f7f7edb8 100%);
+  }
+  .tree-illustration{
+    width:280px!important;height:1500px!important;
+    transform:translateX(-30px)!important;
+  }
+  .tree-limb,.limb--left,.limb--right{
+    left:72px!important;width:290px!important;max-width:290px!important;
+  }
+  .limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:290px!important}
+}
