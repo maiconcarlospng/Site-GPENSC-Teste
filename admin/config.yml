@@ -274,6 +274,21 @@ collections:
                 - { label: "Nome", name: "nome", widget: "string" }
                 - { label: "Logo", name: "logo", widget: "image" }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Parcerias registradas no CNPq"
+          name: "parcerias"
+          file: "data/parcerias.yml"
+          fields:
+            - label: "Instituições parceiras"
+              name: "itens"
+              widget: "planilha-editor"
+              collapsed: true
+              label_singular: "parceria"
+              hint: "Instituições parceiras conforme o cadastro do Diretório dos Grupos de Pesquisa do CNPq."
+              summary: "{{fields.sigla}} — {{fields.nome}}"
+              fields:
+                - { label: "Nome da instituição", name: "nome", widget: "string" }
+                - { label: "Sigla", name: "sigla", widget: "string" }
+                - { label: "UF", name: "uf", widget: "string", hint: "Ex.: MG." }
   - name: "configuracoes"
     label: "⚙️ Configurações avançadas"
     files:
