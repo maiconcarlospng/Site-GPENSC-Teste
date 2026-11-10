@@ -1,0 +1,7 @@
+itens:
+  - nome: "Universidade Federal de Viçosa"
+    sigla: "UFV"
+    uf: "MG"
+  - nome: "Universidade Federal de Minas Gerais"
+    sigla: "UFMG"
+    uf: "MG"
