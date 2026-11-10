@@ -15,7 +15,6 @@ if (nrow(linhas_publicadas) > 0) {
 
     div(
       class = paste("cartao reveal", cor_de(i)),
-      if (tem(l$id)) span(class = "cartao-num", l$id),
       h4(l$nome),
       if (!is.null(descricao)) p(descricao),
       if (!is.null(palavras)) p(class = "kw", tags$strong("Palavras-chave: "), palavras)
