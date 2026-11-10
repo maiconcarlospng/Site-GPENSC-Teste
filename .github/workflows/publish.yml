@@ -24,6 +24,7 @@ on:
       - "styles-busca-v9.css"
       - "styles-spotify-v10.css"
       - "styles-conteudo-v7.css"
+      - "styles-timeline-v11.css"
       - "custom.scss"
       - "lupa.html"
       - "topo.html"
@@ -120,7 +121,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-navbar-v8.css', 'styles-busca-v9.css', 'styles-spotify-v10.css', 'styles-conteudo-v7.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-navbar-v8.css', 'styles-busca-v9.css', 'styles-spotify-v10.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
           restore-keys: |
             quarto-site-${{ runner.os }}-
 
@@ -249,7 +250,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-conteudo-v7.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       - name: Conferir o cache antes de publicar
         shell: bash
