@@ -1,0 +1,70 @@
+name: Prévia experimental do GPENSC
+
+on:
+  push:
+    branches:
+      - layout-experimental
+    paths:
+      - "**.qmd"
+      - "R/**"
+      - "data/**"
+      - "img/**"
+      - "experimental.css"
+      - "tree-nav.html"
+      - "tree-interactions.js"
+      - "_quarto.yml"
+      - "_variables.yml"
+      - "_extensions/**"
+      - ".github/workflows/preview-experimental.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gpensc-experimental-preview
+  cancel-in-progress: true
+
+jobs:
+  build-preview:
+    name: Renderizar prévia sem publicar no site oficial
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar a branch experimental
+        uses: actions/checkout@v4
+
+      - name: Instalar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Preparar R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Instalar dependências R
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::readr
+            any::dplyr
+            any::htmltools
+            any::DT
+            any::plotly
+            any::yaml
+            any::knitr
+            any::rmarkdown
+            any::here
+            any::purrr
+            any::stringr
+            any::lubridate
+
+      - name: Renderizar o site experimental
+        run: quarto render
+
+      - name: Guardar o site renderizado como artefato de prévia
+        uses: actions/upload-artifact@v4
+        with:
+          name: gpensc-arvore-experimental
+          path: _site/
+          if-no-files-found: error
+          retention-days: 7
