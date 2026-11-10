@@ -1,0 +1,68 @@
+/* GPENSC — conceito experimental: árvore do conhecimento */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{--forest:#173d2d;--forest-2:#285b40;--leaf:#6f9560;--sage:#dce7d6;--cream:#f7f6ef;--paper:#fffefa;--ink:#24362c;--muted:#718074;--line:#dfe7dc;--gold:#c49a5a}
+html{scroll-behavior:smooth;background:var(--cream)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}
+#quarto-content,.page-columns,.page-full,.quarto-container,main.content{max-width:none!important;width:100%!important;padding:0!important;margin:0!important}
+#quarto-header{display:none!important}
+.nav-footer{background:var(--forest)!important;color:#eaf0e6!important;border:0!important;padding:1.2rem!important}
+.nav-footer a{color:#fff!important}
+.nav-footer .nav-footer-center{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.tree-nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1rem clamp(1.25rem,5vw,5rem);background:rgba(255,254,250,.92);border-bottom:1px solid rgba(31,65,45,.08);backdrop-filter:blur(14px)}
+.tree-nav-brand{display:flex;align-items:center;gap:.75rem;color:var(--forest);text-decoration:none;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:.04em}
+.tree-nav-brand img{width:42px;height:42px;object-fit:contain}
+.tree-nav-brand small{display:block;color:var(--muted);font:500 .66rem 'DM Sans',sans-serif;letter-spacing:.09em;text-transform:uppercase}
+.tree-nav-home{color:var(--forest-2);text-decoration:none;font-size:.86rem;font-weight:700;padding:.65rem 1rem;border:1px solid var(--line);border-radius:999px;transition:.2s}
+.tree-nav-home:hover{background:var(--forest);color:white;border-color:var(--forest)}
+.tree-home{overflow:hidden;min-height:calc(100vh - 70px);background:radial-gradient(ellipse at 50% 38%,#edf2e8 0%,var(--cream) 56%,#f4f1e8 100%)}
+.tree-intro{max-width:850px;margin:0 auto;padding:clamp(3.2rem,7vw,6.2rem) 1.5rem 1rem;text-align:center}
+.tree-eyebrow{display:inline-flex;align-items:center;gap:.6rem;color:var(--forest-2);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.tree-eyebrow span{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px #c49a5a22}
+.tree-intro h1{margin:1.15rem 0 1rem;color:var(--forest);font:800 clamp(2.15rem,5.5vw,4.4rem)/1.08 Manrope,sans-serif;letter-spacing:-.055em}
+.tree-intro h1 em{color:#71916a;font-style:normal}
+.tree-intro p{max-width:650px;margin:0 auto;color:#657367;font-size:clamp(.95rem,1.5vw,1.08rem);line-height:1.8}
+.tree-hint{display:inline-flex;align-items:center;gap:.65rem;margin-top:1.5rem;color:#547158;font-size:.78rem;font-weight:700;letter-spacing:.04em}
+.hint-pulse{width:8px;height:8px;border-radius:50%;background:#7eaa69;box-shadow:0 0 0 0 #7eaa6960;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px #7eaa6900}100%{box-shadow:0 0 0 0 #7eaa6900}}
+.tree-stage{position:relative;max-width:1240px;min-height:650px;margin:0 auto;padding:1rem 2rem 2rem}
+.tree-art{position:absolute;inset:0;width:100%;height:100%;opacity:.62;pointer-events:none}
+.tree-trunk{fill:none;stroke:url(#trunk);stroke-width:34;stroke-linecap:round}
+.tree-branch{fill:none;stroke:#805d3c;stroke-width:15;stroke-linecap:round;stroke-linejoin:round}
+.tree-leaves ellipse{fill:url(#leaf);opacity:.22}
+.root-line{fill:none;stroke:#9b7953;stroke-width:8;stroke-linecap:round;opacity:.6}
+.tree-center{position:absolute;z-index:2;left:50%;top:42%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:.25rem;width:150px;text-align:center;color:var(--forest)}
+.tree-logo{display:grid;place-items:center;width:76px;height:76px;margin-bottom:.25rem;border:5px solid #fff;border-radius:50%;background:#fff;box-shadow:0 8px 28px #1d43231c}
+.tree-logo img{width:58px;height:58px;object-fit:contain}
+.tree-center strong{font:800 1.2rem Manrope,sans-serif;letter-spacing:.12em}
+.tree-center span{font-size:.65rem;color:#72816f;letter-spacing:.04em}
+.tree-branches{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem 2.5rem;max-width:1040px;margin:0 auto;padding-top:1.1rem}
+.tree-branch-card{position:relative;max-width:290px;width:100%;justify-self:center;align-self:start}
+.branch-toggle{width:100%;min-height:82px;display:flex;align-items:center;gap:.85rem;padding:.9rem 1rem;text-align:left;border:1px solid #dce6d8;border-radius:18px;background:rgba(255,254,250,.94);box-shadow:0 12px 32px #24452c0d;color:var(--ink);cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s}
+.branch-toggle:hover,.branch-toggle[aria-expanded=true]{transform:translateY(-3px);border-color:#9db69a;box-shadow:0 16px 35px #24452c16}
+.branch-toggle[aria-expanded=true]{background:#f7fbf4}
+.branch-icon{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#eaf1e5;color:var(--forest-2);font:700 1.25rem Manrope,sans-serif}
+.branch-toggle>span:nth-child(2){display:flex;flex:1;flex-direction:column;gap:.22rem;min-width:0}
+.branch-toggle strong{font:800 .94rem Manrope,sans-serif;color:var(--forest)}
+.branch-toggle small{font-size:.72rem;color:#788579;line-height:1.35}
+.branch-toggle>b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#f0f3ec;color:#56734f;font-size:1rem;transition:transform .2s}
+.branch-toggle[aria-expanded=true]>b{transform:rotate(45deg);background:var(--forest);color:white}
+.branch-links{display:grid;gap:.35rem;margin:.55rem .65rem 0;padding:.65rem;border-left:2px solid #a9c39d;animation:openBranch .22s ease-out}
+.branch-links[hidden]{display:none}
+.branch-links a{display:block;padding:.55rem .7rem;border-radius:9px;color:#48634b;text-decoration:none;font-size:.82rem;font-weight:600;transition:background .18s,color .18s,transform .18s}
+.branch-links a:before{content:'↳';margin-right:.55rem;color:#91aa83}
+.branch-links a:hover{background:#eaf1e5;color:var(--forest);transform:translateX(3px)}
+@keyframes openBranch{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.branch-about{transform:translateY(35px)}.branch-research{transform:translateY(115px)}.branch-teaching{transform:translateY(35px)}.branch-extension{transform:translateY(-5px)}.branch-library{transform:translateY(75px)}.branch-community{transform:translateY(-5px)}
+.tree-bottom{max-width:700px;margin:1rem auto 0;padding:1.5rem 1.25rem 4rem;text-align:center}
+.tree-bottom span{color:#8a9b83;font-size:.67rem;font-weight:800;letter-spacing:.2em}
+.tree-bottom p{margin:.55rem 0 0;color:#617164;font:600 clamp(.95rem,1.5vw,1.1rem) Manrope,sans-serif}
+body:not(:has(.tree-home)) main.content{max-width:1050px!important;margin:2.5rem auto!important;padding:0 1.5rem!important}
+body:not(:has(.tree-home)) main.content>h1{font:800 clamp(2rem,4vw,3rem) Manrope,sans-serif;color:var(--forest);letter-spacing:-.04em;margin-bottom:2rem}
+body:not(:has(.tree-home)) main.content h2{font:800 1.45rem Manrope,sans-serif;color:var(--forest);margin-top:2.4rem}
+body:not(:has(.tree-home)) main.content p{line-height:1.75;color:#536358}
+body:not(:has(.tree-home)) main.content a{color:#47734d}
+body:not(:has(.tree-home)) .card,body:not(:has(.tree-home)) .cartao,body:not(:has(.tree-home)) .sobre-card,body:not(:has(.tree-home)) .contato-card{border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 28px #24452c0b}
+@media(max-width:900px){.tree-stage{min-height:auto;padding:1rem 1.25rem 2rem}.tree-art{opacity:.12}.tree-center{position:relative;left:auto;top:auto;transform:none;margin:1rem auto 1.5rem}.tree-branches{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:700px}.tree-branch-card{transform:none!important;max-width:none}.branch-toggle{min-height:90px}.tree-bottom{padding-bottom:2.5rem}}
+@media(max-width:560px){.tree-nav{padding:.8rem 1rem}.tree-nav-brand img{width:36px;height:36px}.tree-nav-home{font-size:.76rem;padding:.55rem .8rem}.tree-intro{padding:2.8rem 1.2rem .5rem}.tree-intro h1{font-size:clamp(2rem,10vw,3rem)}.tree-intro p{font-size:.91rem;line-height:1.7}.tree-stage{padding:.7rem 1rem 1.5rem}.tree-branches{grid-template-columns:1fr;gap:.7rem}.tree-branch-card{max-width:440px}.branch-toggle{min-height:72px;padding:.75rem .85rem}.branch-icon{width:38px;height:38px;flex-basis:38px}.branch-toggle strong{font-size:.92rem}.branch-links{margin:.35rem .5rem .3rem}.tree-bottom{padding:1rem 1.2rem 2.5rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
