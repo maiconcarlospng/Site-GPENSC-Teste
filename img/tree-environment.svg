@@ -144,70 +144,64 @@
   <path d="M205 1265 Q242 1235 239 1190 M218 925 Q248 889 238 850 M249 575 Q281 548 268 510 M266 240 Q288 215 279 183" stroke="#4a3424" stroke-width="5" opacity=".5"/>
 </g>
 
-<!-- Seis galhos principais: cada um conduz a um caminho do grupo -->
+<!-- Seis galhos principais: brotam em alturas, direções e espessuras diferentes -->
 <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <g>
-    <path d="M285 188 C372 156 425 190 492 178 C560 164 610 188 690 182" stroke="#38291f" stroke-width="54"/>
-    <path d="M285 188 C372 156 425 190 492 178 C560 164 610 188 690 182" stroke="url(#branchWood)" stroke-width="39"/>
-    <path d="M432 181 C450 130 440 103 411 77 M500 178 C535 133 566 122 599 117" stroke="#65462e" stroke-width="17"/>
-  </g>
-  <g>
-    <path d="M277 398 C360 363 430 420 492 402 C561 382 616 405 690 397" stroke="#38291f" stroke-width="48"/>
-    <path d="M277 398 C360 363 430 420 492 402 C561 382 616 405 690 397" stroke="url(#branchWood)" stroke-width="34"/>
-    <path d="M430 405 C450 359 438 333 407 308 M526 394 C558 354 590 342 627 342" stroke="#67482f" stroke-width="15"/>
-  </g>
-  <g>
-    <path d="M278 610 C360 580 420 635 490 618 C560 601 620 621 690 612" stroke="#38291f" stroke-width="45"/>
-    <path d="M278 610 C360 580 420 635 490 618 C560 601 620 621 690 612" stroke="url(#branchWood)" stroke-width="31"/>
-    <path d="M425 621 C449 575 433 552 402 526 M535 612 C568 576 602 566 638 569" stroke="#67482f" stroke-width="14"/>
-  </g>
-  <g>
-    <path d="M280 824 C366 789 428 850 496 829 C557 810 619 835 690 824" stroke="#38291f" stroke-width="46"/>
-    <path d="M280 824 C366 789 428 850 496 829 C557 810 619 835 690 824" stroke="url(#branchWood)" stroke-width="32"/>
-    <path d="M432 832 C451 786 439 760 407 738 M536 824 C570 783 601 775 639 777" stroke="#67482f" stroke-width="14"/>
-  </g>
-  <g>
-    <path d="M285 1037 C368 1004 429 1063 495 1044 C565 1026 620 1049 690 1037" stroke="#38291f" stroke-width="49"/>
-    <path d="M285 1037 C368 1004 429 1063 495 1044 C565 1026 620 1049 690 1037" stroke="url(#branchWood)" stroke-width="35"/>
-    <path d="M433 1046 C453 1002 436 974 406 950 M538 1040 C572 1001 603 992 640 991" stroke="#67482f" stroke-width="15"/>
-  </g>
-  <g>
-    <path d="M285 1245 C365 1215 432 1270 500 1252 C566 1234 624 1258 690 1246" stroke="#38291f" stroke-width="52"/>
-    <path d="M285 1245 C365 1215 432 1270 500 1252 C566 1234 624 1258 690 1246" stroke="url(#branchWood)" stroke-width="38"/>
-    <path d="M436 1253 C453 1208 439 1182 406 1159 M540 1247 C571 1209 606 1198 642 1200" stroke="#67482f" stroke-width="16"/>
-  </g>
+  <!-- O grupo: ramo ascendente que procura a luz -->
+  <path d="M285 188 C354 112 422 151 490 126 C575 94 645 165 746 145" stroke="#38291f" stroke-width="60"/>
+  <path d="M285 188 C354 112 422 151 490 126 C575 94 645 165 746 145" stroke="url(#branchWood)" stroke-width="43"/>
+  <path d="M397 151 C390 99 365 71 330 50 M493 126 C523 68 565 53 603 56 M636 158 C671 121 701 110 742 113" stroke="#67482f" stroke-width="17"/>
+  <!-- Pesquisa: curva longa, com uma elevação no meio -->
+  <path d="M277 398 C360 468 427 369 512 395 C605 424 707 348 850 393" stroke="#38291f" stroke-width="50"/>
+  <path d="M277 398 C360 468 427 369 512 395 C605 424 707 348 850 393" stroke="url(#branchWood)" stroke-width="35"/>
+  <path d="M408 424 C420 473 397 500 365 524 M515 395 C552 347 587 326 626 332 M726 370 C757 327 794 316 832 326" stroke="#67482f" stroke-width="15"/>
+  <!-- Ensino: ramo inclinado para baixo, com bifurcação aberta -->
+  <path d="M274 610 C354 572 416 633 476 685 C553 752 620 681 704 718" stroke="#38291f" stroke-width="58"/>
+  <path d="M274 610 C354 572 416 633 476 685 C553 752 620 681 704 718" stroke="url(#branchWood)" stroke-width="41"/>
+  <path d="M397 644 C393 590 370 563 335 544 M478 685 C466 735 437 761 400 780 M585 710 C613 754 651 769 686 765" stroke="#67482f" stroke-width="18"/>
+  <!-- Extensão: ramo que ondula e sobe até uma ponta fina -->
+  <path d="M279 824 C358 922 427 866 507 850 C630 825 710 929 884 866" stroke="#38291f" stroke-width="46"/>
+  <path d="M279 824 C358 922 427 866 507 850 C630 825 710 929 884 866" stroke="url(#branchWood)" stroke-width="32"/>
+  <path d="M390 886 C382 930 357 952 324 966 M510 850 C542 794 583 779 624 786 M730 891 C760 842 802 830 841 837" stroke="#67482f" stroke-width="14"/>
+  <!-- Biblioteca: ramo mais baixo e largo, com curva descendente -->
+  <path d="M284 1037 C363 1000 425 1062 492 1124 C567 1193 674 1064 812 1103" stroke="#38291f" stroke-width="62"/>
+  <path d="M284 1037 C363 1000 425 1062 492 1124 C567 1193 674 1064 812 1103" stroke="url(#branchWood)" stroke-width="44"/>
+  <path d="M405 1068 C399 1018 371 988 339 967 M492 1124 C475 1176 444 1205 404 1222 M651 1100 C684 1150 724 1167 763 1160" stroke="#67482f" stroke-width="17"/>
+  <!-- Vida do grupo: ramo final mais ascendente e alongado -->
+  <path d="M286 1245 C361 1327 428 1284 522 1262 C660 1229 780 1378 930 1311" stroke="#38291f" stroke-width="55"/>
+  <path d="M286 1245 C361 1327 428 1284 522 1262 C660 1229 780 1378 930 1311" stroke="url(#branchWood)" stroke-width="39"/>
+  <path d="M409 1290 C391 1330 361 1354 326 1370 M522 1262 C551 1208 593 1187 636 1194 M770 1362 C799 1315 837 1297 878 1305" stroke="#67482f" stroke-width="16"/>
 </g>
 
-<!-- Ramos finos e brotos nas bifurcações -->
-<g fill="none" stroke="#745033" stroke-width="11" stroke-linecap="round" opacity=".94">
-  <path d="M411 77 C402 43 382 28 358 16 M418 79 C448 54 467 31 470 4 M599 117 C626 83 655 75 680 80"/>
-  <path d="M407 308 C397 275 377 257 352 246 M410 308 C445 281 471 270 501 278 M627 342 C656 312 681 306 710 314"/>
-  <path d="M402 526 C395 492 374 476 348 462 M405 526 C440 499 467 489 495 498 M638 569 C665 543 690 539 719 547"/>
-  <path d="M407 738 C397 705 374 688 348 675 M410 738 C445 710 471 701 500 710 M639 777 C668 752 691 748 720 756"/>
-  <path d="M406 950 C395 918 374 900 348 888 M407 950 C445 922 470 912 500 920 M640 991 C667 965 692 963 720 969"/>
-  <path d="M406 1159 C394 1127 373 1110 348 1097 M408 1159 C444 1130 473 1121 501 1130 M642 1200 C669 1176 692 1171 720 1178"/>
+<!-- Ramificações curtas: assimétricas, quebradas e com pontas naturais -->
+<g fill="none" stroke="#745033" stroke-width="10" stroke-linecap="round" opacity=".94">
+  <path d="M330 50 C309 15 281 5 250 -2 M603 56 C633 20 668 12 702 19 M742 113 C780 83 818 81 850 94"/>
+  <path d="M365 524 C343 555 311 574 276 580 M626 332 C652 288 685 274 723 279 M832 326 C866 292 899 286 936 300"/>
+  <path d="M335 544 C305 514 270 508 238 516 M400 780 C371 818 338 828 302 823 M686 765 C716 802 751 812 788 804"/>
+  <path d="M324 966 C291 981 268 1008 255 1040 M624 786 C650 742 687 724 724 730 M841 837 C880 815 916 816 948 833"/>
+  <path d="M339 967 C309 930 274 918 237 927 M404 1222 C372 1253 341 1260 307 1252 M763 1160 C796 1194 829 1200 866 1187"/>
+  <path d="M326 1370 C296 1402 265 1410 230 1402 M636 1194 C664 1154 701 1141 741 1149 M878 1305 C916 1275 950 1273 986 1288"/>
 </g>
 
-<!-- Folhagem lateral e pequenos cachos nas pontas dos galhos -->
+<!-- Cachos de folhas em posições irregulares, acompanhando as bifurcações -->
 <g filter="url(#leafShadow)">
-  <use href="#leafPair" transform="translate(367 35) rotate(-42) scale(1.15)"/>
-  <use href="#leafPair" transform="translate(478 27) rotate(34) scale(.92)"/>
-  <use href="#leafPair" transform="translate(661 81) rotate(48) scale(.82)"/>
-  <use href="#leafPair" transform="translate(342 242) rotate(-48) scale(1.05)"/>
-  <use href="#leafPair" transform="translate(490 273) rotate(40) scale(.86)"/>
-  <use href="#leafPair" transform="translate(691 307) rotate(42) scale(.75)"/>
-  <use href="#leafPair" transform="translate(338 463) rotate(-50) scale(.95)"/>
-  <use href="#leafPair" transform="translate(486 493) rotate(38) scale(.82)"/>
-  <use href="#leafPair" transform="translate(700 540) rotate(45) scale(.73)"/>
-  <use href="#leafPair" transform="translate(337 675) rotate(-47) scale(.94)"/>
-  <use href="#leafPair" transform="translate(491 704) rotate(38) scale(.82)"/>
-  <use href="#leafPair" transform="translate(699 750) rotate(42) scale(.72)"/>
-  <use href="#leafPair" transform="translate(338 888) rotate(-47) scale(.93)"/>
-  <use href="#leafPair" transform="translate(491 914) rotate(37) scale(.82)"/>
-  <use href="#leafPair" transform="translate(702 962) rotate(42) scale(.74)"/>
-  <use href="#leafPair" transform="translate(339 1097) rotate(-45) scale(.98)"/>
-  <use href="#leafPair" transform="translate(492 1124) rotate(36) scale(.84)"/>
-  <use href="#leafPair" transform="translate(701 1170) rotate(42) scale(.78)"/>
+  <use href="#leafPair" transform="translate(253 3) rotate(-51) scale(.78)"/>
+  <use href="#leafPair" transform="translate(701 18) rotate(36) scale(.82)"/>
+  <use href="#leafPair" transform="translate(849 94) rotate(40) scale(.76)"/>
+  <use href="#leafPair" transform="translate(276 580) rotate(-64) scale(.73)"/>
+  <use href="#leafPair" transform="translate(722 279) rotate(52) scale(.82)"/>
+  <use href="#leafPair" transform="translate(936 300) rotate(49) scale(.76)"/>
+  <use href="#leafPair" transform="translate(238 516) rotate(-56) scale(.77)"/>
+  <use href="#leafPair" transform="translate(302 823) rotate(-54) scale(.77)"/>
+  <use href="#leafPair" transform="translate(788 804) rotate(47) scale(.83)"/>
+  <use href="#leafPair" transform="translate(255 1040) rotate(-64) scale(.83)"/>
+  <use href="#leafPair" transform="translate(724 730) rotate(51) scale(.76)"/>
+  <use href="#leafPair" transform="translate(948 833) rotate(45) scale(.86)"/>
+  <use href="#leafPair" transform="translate(237 927) rotate(-62) scale(.82)"/>
+  <use href="#leafPair" transform="translate(307 1252) rotate(-55) scale(.81)"/>
+  <use href="#leafPair" transform="translate(866 1187) rotate(46) scale(.9)"/>
+  <use href="#leafPair" transform="translate(230 1402) rotate(-60) scale(.68)"/>
+  <use href="#leafPair" transform="translate(741 1149) rotate(42) scale(.82)"/>
+  <use href="#leafPair" transform="translate(986 1288) rotate(52) scale(.84)"/>
 </g>
 
 <!-- Grandes folhas que entram pelas laterais, para a árvore ocupar a paisagem -->
