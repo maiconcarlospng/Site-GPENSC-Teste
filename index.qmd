@@ -8,6 +8,7 @@ title-block-banner: false
 ```{=html}
 <div class="tree-home">
   <section class="tree-intro">
+    <img class="tree-header-canopy" src="img/tree-canopy-header.svg" alt="" aria-hidden="true" fetchpriority="high">
     <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
     <div class="tree-heading" role="heading" aria-level="1">
       Conhecimento que cria raízes.
