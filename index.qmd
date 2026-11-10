@@ -5,7 +5,7 @@ page-layout: full
 title-block-banner: false
 ---
 
-\`\`\`{=html}
+```{=html}
 <div class="tree-home">
   <section class="tree-intro">
     <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
@@ -266,4 +266,4 @@ title-block-banner: false
     </div>
   </section>
 </div>
-\`\`\`
+```
