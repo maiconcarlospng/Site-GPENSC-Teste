@@ -153,6 +153,7 @@
       if (names.has("id")) keys = ["id"];
       else if (names.has("titulo") && names.has("ano")) keys = ["titulo", "ano", ...(names.has("autores") ? ["autores"] : [])];
       else if (names.has("titulo") && names.has("data") && names.has("autor")) keys = ["titulo", "data", "autor"];
+      else if (names.has("titulo") && names.has("data")) keys = ["titulo", "data"];
       else if (names.has("titulo")) keys = ["titulo"];
       else if (names.has("nome")) keys = ["nome"];
       else if (names.has("url")) keys = ["url"];
@@ -162,7 +163,7 @@
     };
 
     const applyImport = () => {
-      const required = columns.filter((column) => column.required);
+      const required = columns.filter((column) => column.required !== false);
       const validRows = [];
       let incomplete = 0;
       pending.forEach((record) => {
