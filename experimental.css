@@ -1009,3 +1009,91 @@ body:not(:has(.tree-home)) main.content table{
   .twig-leaves a{font-size:.68rem!important;padding:.52rem .55rem!important}
   .tree-heart{left:16px!important;bottom:1rem!important}
 }
+
+
+/* Canvas base sempre igual à largura real do dispositivo.
+   Só os painéis abertos criam a extensão horizontal. */
+.tree-world{
+  width:100vw!important;max-width:100vw!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  overscroll-behavior-x:contain!important;
+}
+.tree-map{
+  width:100vw!important;min-width:100vw!important;
+  max-width:none!important;
+}
+.tree-illustration{
+  left:0!important;top:0!important;width:100%!important;height:100%!important;
+  transform:none!important;object-fit:fill!important;
+}
+@media(min-width:1101px){
+  .tree-map{width:100vw!important;min-width:100vw!important}
+}
+@media(min-width:721px) and (max-width:1100px){
+  .tree-map{width:100vw!important;min-width:100vw!important}
+  .tree-illustration{width:100%!important;height:1500px!important}
+  .limb--group{top:115px!important;left:clamp(230px,29vw,320px)!important}
+  .limb--research{top:365px!important;left:clamp(300px,34vw,365px)!important}
+  .limb--teaching{top:630px!important;left:clamp(230px,28vw,310px)!important}
+  .limb--extension{top:830px!important;left:clamp(330px,36vw,390px)!important}
+  .limb--library{top:1060px!important;left:clamp(255px,30vw,340px)!important}
+  .limb--community{top:1270px!important;left:clamp(335px,36vw,400px)!important}
+  .tree-limb,.limb--left,.limb--right{width:320px!important;max-width:320px!important}
+  .limb-toggle,.limb--group .limb-toggle,.limb--research .limb-toggle,
+  .limb--teaching .limb-toggle,.limb--extension .limb-toggle,
+  .limb--library .limb-toggle,.limb--community .limb-toggle{width:320px!important}
+}
+@media(max-width:720px){
+  .tree-world{
+    width:100vw!important;max-width:100vw!important;
+    padding-left:0!important;padding-right:0!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    scroll-padding-left:12px;
+  }
+  .tree-map{
+    width:100vw!important;min-width:100vw!important;
+    height:1500px!important;min-height:1500px!important;
+  }
+  .tree-illustration{
+    left:0!important;top:0!important;
+    width:100vw!important;height:1500px!important;
+    transform:none!important;object-fit:fill!important;
+  }
+  .limb--group{top:115px!important;left:52px!important}
+  .limb--research{top:365px!important;left:66px!important}
+  .limb--teaching{top:630px!important;left:45px!important}
+  .limb--extension{top:830px!important;left:72px!important}
+  .limb--library{top:1060px!important;left:54px!important}
+  .limb--community{top:1270px!important;left:68px!important}
+  .tree-limb,.limb--left,.limb--right{
+    width:min(245px,calc(100vw - 88px))!important;
+    max-width:min(245px,calc(100vw - 88px))!important;
+  }
+  .limb-toggle,.limb--group .limb-toggle,.limb--research .limb-toggle,
+  .limb--teaching .limb-toggle,.limb--extension .limb-toggle,
+  .limb--library .limb-toggle,.limb--community .limb-toggle{
+    width:100%!important;min-height:82px!important;
+    padding:.68rem .72rem!important;gap:.48rem!important;
+  }
+  .limb-title-wrap strong{font-size:.94rem!important}
+  .limb-title-wrap small{font-size:.57rem!important;line-height:1.28!important}
+  .limb-symbol{width:35px!important;height:35px!important;flex-basis:35px!important}
+  .limb-plus{width:23px!important;height:23px!important;flex-basis:23px!important}
+  .branch-children,.limb--left .branch-children,.limb--right .branch-children{
+    left:calc(100% + 15px)!important;width:220px!important;max-width:220px!important;
+    padding:.64rem!important;
+  }
+  .branch-children:before{left:-18px!important;width:15px!important}
+  .twig-toggle{font-size:.69rem!important;min-height:39px!important;padding:.52rem .58rem!important}
+  .twig-leaves,.limb--left .twig-leaves,.limb--right .twig-leaves{
+    left:calc(100% + 12px)!important;width:195px!important;padding:.56rem!important;
+  }
+  .twig-leaves:before{left:-15px!important;width:12px!important}
+  .twig-leaves a{font-size:.67rem!important;padding:.5rem .52rem!important}
+}
+@media(max-width:360px){
+  .limb-title-wrap small{display:none!important}
+  .limb-title-wrap strong{font-size:.9rem!important}
+  .limb-symbol{width:32px!important;height:32px!important;flex-basis:32px!important}
+}
