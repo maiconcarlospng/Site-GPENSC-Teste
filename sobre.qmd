@@ -30,6 +30,22 @@ categoria_integrante <- function(e) {
   }
 }
 
+# Na página pública, manter apenas a liderança e os pesquisadores.
+# Estudantes, técnicos, colaboradores e egressos permanecem consultáveis
+# no Diretório dos Grupos de Pesquisa do CNPq.
+if (nrow(integrantes) > 0) {
+  integrantes$categoria_exibicao <- vapply(
+    seq_len(nrow(integrantes)),
+    function(i) categoria_integrante(integrantes[i, , drop = FALSE]),
+    character(1)
+  )
+  integrantes <- integrantes[
+    integrantes$categoria_exibicao %in% c("Coordenação", "Docentes e pesquisadores"),
+    ,
+    drop = FALSE
+  ]
+}
+
 dgp_url <- as.character(cfg$link_dgp)
 if (!tem(dgp_url) || grepl("\\[|ID-DO-GRUPO|SEU_ID_AQUI", dgp_url, ignore.case = TRUE)) {
   dgp_url <- "https://dgp.cnpq.br"
@@ -268,12 +284,6 @@ div(
   },
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
-    integrantes$categoria_exibicao <- vapply(
-      seq_len(nrow(integrantes)),
-      function(i) categoria_integrante(integrantes[i, , drop = FALSE]),
-      character(1)
-    )
-
     ordem_categorias <- c(
       "Coordenação",
       "Docentes e pesquisadores",
@@ -353,7 +363,7 @@ div(
         class = "equipe-diretorio",
         div(
           class = "equipe-diretorio-intro",
-          p("Conheça as pessoas que integram o GPENSC. Use a busca ou filtre por categoria para encontrar um perfil."),
+          p("Nesta página, apresentamos as lideranças e os pesquisadores do GPENSC. A relação de estudantes e demais integrantes, que muda ao longo do tempo, pode ser consultada no Diretório dos Grupos de Pesquisa do CNPq pelo botão ao final desta página."),
           span(
             class = "equipe-contagem",
             id = "equipe-contagem",
