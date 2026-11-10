@@ -9,7 +9,7 @@ title-block-banner: false
 <main class="tree-home">
   <section class="tree-intro">
     <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
-    <h1>Conhecimento que cria raízes.<br><em>Pesquisa que transforma vidas.</em></h1>
+    <div class="tree-heading" role="heading" aria-level="1">Conhecimento que cria raízes.<br><em>Pesquisa que transforma vidas.</em></div>
     <p>Explore o universo do GPENSC por meio dos galhos da nossa árvore. Cada caminho revela pessoas, projetos e conhecimentos que conectam Nutrição e Saúde Coletiva.</p>
     <div class="tree-hint"><span class="hint-pulse"></span> Selecione um galho para explorar</div>
   </section>
