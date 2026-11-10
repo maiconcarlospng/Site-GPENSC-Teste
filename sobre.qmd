@@ -8,6 +8,7 @@ source("R/helpers.R")
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
 integrantes <- registros_reais(equipe, "nome")
+parcerias_publicadas <- registros_reais(parcerias, "nome")
 
 # Usa a categoria escolhida no painel; para registros antigos, tenta inferir pelo papel.
 categoria_integrante <- function(e) {
@@ -478,6 +479,38 @@ div(
     estado_vazio(
       "Perfis da equipe em atualização",
       "Os perfis serão exibidos aqui quando os nomes e as informações autorizadas dos integrantes forem cadastrados no painel administrativo."
+    )
+  },
+
+  if (nrow(parcerias_publicadas) > 0) {
+    div(
+      class = "sobre-parcerias",
+      h2("Instituições parceiras relatadas pelo grupo"),
+      p(
+        class = "sobre-parcerias-intro",
+        "Instituições registradas como parceiras do GPENSC no Diretório dos Grupos de Pesquisa do CNPq."
+      ),
+      div(
+        class = "sobre-parcerias-grid",
+        lapply(seq_len(nrow(parcerias_publicadas)), function(i) {
+          parceria <- parcerias_publicadas[i, , drop = FALSE]
+          div(
+            class = "sobre-parceria-card",
+            span(
+              class = "sobre-parceria-sigla",
+              as.character(parceria$sigla[1])
+            ),
+            div(
+              class = "sobre-parceria-copy",
+              h3(as.character(parceria$nome[1])),
+              span(
+                class = "sobre-parceria-uf",
+                paste("UF:", as.character(parceria$uf[1]))
+              )
+            )
+          )
+        })
+      )
     )
   },
 
