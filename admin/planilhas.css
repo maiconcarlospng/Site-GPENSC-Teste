@@ -1,0 +1,427 @@
+/* GPENSC · Editor de planilhas integrado ao Sveltia CMS */
+
+.gpen-planilha {
+  width: 100%;
+  min-width: 0;
+  color: var(--primary-text, #26352b);
+  font-size: 14px;
+}
+
+.gpen-planilha__intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 0 0 14px;
+}
+
+.gpen-planilha__intro strong,
+.gpen-planilha__revisao-cabecalho strong {
+  display: block;
+  color: #244d31;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.gpen-planilha__intro p {
+  max-width: 760px;
+  margin: 5px 0 0;
+  color: #657267;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.gpen-planilha__contador {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid #dbe7d8;
+  border-radius: 999px;
+  background: #f2f7ef;
+  color: #315b3a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gpen-planilha__acoes-principais,
+.gpen-planilha__revisao-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.gpen-planilha__botao {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid #d7e1d4;
+  border-radius: 8px;
+  background: #fff;
+  color: #31543a;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gpen-planilha__botao:hover:not(:disabled) {
+  border-color: #8aab8d;
+  background: #f4f8f2;
+}
+
+.gpen-planilha__botao:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.gpen-planilha__botao--principal {
+  border-color: #1f4d2b;
+  background: #1f4d2b;
+  color: #fff;
+}
+
+.gpen-planilha__botao--principal:hover:not(:disabled) {
+  border-color: #163d21;
+  background: #163d21;
+  color: #fff;
+}
+
+.gpen-planilha__input-arquivo {
+  display: none !important;
+}
+
+.gpen-planilha__ajuda {
+  margin: 9px 0 12px !important;
+  color: #778278;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.gpen-planilha__alerta {
+  margin: 10px 0;
+  padding: 9px 11px;
+  border: 1px solid #dce8d8;
+  border-radius: 8px;
+  background: #f4f8f1;
+  color: #355b3c;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.gpen-planilha__alerta--erro {
+  border-color: #f0d1c9;
+  background: #fff6f3;
+  color: #963d2e;
+}
+
+.gpen-planilha__revisao {
+  margin: 14px 0;
+  padding: 14px;
+  border: 1px solid #dbe4d8;
+  border-radius: 10px;
+  background: #f8faf6;
+}
+
+.gpen-planilha__revisao-cabecalho {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.gpen-planilha__revisao-cabecalho span {
+  display: block;
+  margin-top: 3px;
+  color: #6d786d;
+  font-size: 11px;
+}
+
+.gpen-planilha__revisao-cabecalho label {
+  display: grid;
+  gap: 5px;
+  min-width: 240px;
+  color: #536254;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.gpen-planilha__revisao-cabecalho select {
+  min-height: 36px;
+  padding: 6px 9px;
+  border: 1px solid #d5dfd1;
+  border-radius: 7px;
+  background: #fff;
+  color: #26352b;
+  font: inherit;
+  font-size: 12px;
+}
+
+.gpen-planilha__amostra {
+  display: grid;
+  gap: 5px;
+  margin: 8px 0 12px;
+}
+
+.gpen-planilha__amostra-linha {
+  display: flex;
+  gap: 9px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: #fff;
+  color: #536052;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.gpen-planilha__amostra-linha strong {
+  color: #315b3a;
+}
+
+.gpen-planilha__mais {
+  color: #7b857b;
+  font-size: 11px;
+}
+
+.gpen-planilha__vazia {
+  margin-top: 12px;
+  padding: 18px;
+  border: 1px dashed #cbd8c6;
+  border-radius: 9px;
+  color: #657267;
+  background: #f8faf6;
+  text-align: center;
+  font-size: 12px;
+}
+
+.gpen-planilha__tabela-wrap {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 12px;
+  overflow-x: auto;
+  border: 1px solid #e1e7de;
+  border-radius: 9px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gpen-planilha__tabela {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+
+.gpen-planilha__tabela th {
+  position: sticky;
+  top: 0;
+  padding: 9px 8px;
+  border-bottom: 1px solid #dce5d8;
+  background: #f2f6ef;
+  color: #31543a;
+  font-size: 11px;
+  font-weight: 750;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.gpen-planilha__tabela td {
+  min-width: 110px;
+  padding: 7px;
+  border-bottom: 1px solid #edf0eb;
+  vertical-align: top;
+}
+
+.gpen-planilha__tabela tr:last-child td {
+  border-bottom: 0;
+}
+
+.gpen-planilha__tabela input,
+.gpen-planilha__tabela select,
+.gpen-planilha__tabela textarea {
+  width: 100%;
+  min-width: 100px;
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 1px solid #dbe2d8;
+  border-radius: 6px;
+  background: #fff;
+  color: #27362b;
+  font: inherit;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.gpen-planilha__tabela textarea {
+  min-height: 56px;
+  resize: vertical;
+}
+
+.gpen-planilha__rotulo-celula {
+  display: none;
+}
+
+.gpen-planilha__acoes-linha {
+  min-width: 120px !important;
+  white-space: nowrap;
+}
+
+.gpen-planilha__acoes-linha button {
+  min-width: 30px;
+  min-height: 32px;
+  margin: 0 2px 3px 0;
+  padding: 5px 7px;
+  border: 1px solid #dbe3d8;
+  border-radius: 6px;
+  background: #fff;
+  color: #34563a;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.gpen-planilha__acoes-linha button:last-child {
+  color: #9b493b;
+}
+
+.gpen-planilha__acoes-linha button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+  .gpen-planilha__intro {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gpen-planilha__acoes-principais {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .gpen-planilha__botao {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 9px;
+    white-space: normal;
+  }
+
+  .gpen-planilha__revisao-cabecalho {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .gpen-planilha__revisao-cabecalho label {
+    min-width: 0;
+  }
+
+  .gpen-planilha__tabela-wrap {
+    overflow: visible;
+    border: 0;
+  }
+
+  .gpen-planilha__tabela {
+    display: block;
+    min-width: 0;
+    background: transparent;
+  }
+
+  .gpen-planilha__tabela thead {
+    display: none;
+  }
+
+  .gpen-planilha__tabela tbody {
+    display: grid;
+    gap: 11px;
+  }
+
+  .gpen-planilha__tabela tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 11px;
+    border: 1px solid #e0e7dc;
+    border-radius: 9px;
+    background: #fff;
+  }
+
+  .gpen-planilha__tabela td {
+    display: grid;
+    grid-template-columns: minmax(105px, 34%) minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .gpen-planilha__rotulo-celula {
+    display: block;
+    color: #526254;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .gpen-planilha__tabela input,
+  .gpen-planilha__tabela select,
+  .gpen-planilha__tabela textarea {
+    min-width: 0;
+    min-height: 40px;
+    font-size: 16px;
+  }
+
+  .gpen-planilha__tabela textarea {
+    min-height: 66px;
+  }
+
+  .gpen-planilha__acoes-linha {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 7px !important;
+    border-top: 1px solid #edf0eb !important;
+  }
+
+  .gpen-planilha__acoes-linha button {
+    flex: 1 1 28%;
+    min-height: 40px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .gpen-planilha__acoes-principais {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gpen-planilha__tabela td {
+    grid-template-columns: minmax(88px, 31%) minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .gpen-planilha__tabela tr {
+    padding: 9px;
+  }
+
+  .gpen-planilha__rotulo-celula {
+    font-size: 10px;
+  }
+
+  .gpen-planilha__tabela input,
+  .gpen-planilha__tabela select,
+  .gpen-planilha__tabela textarea {
+    min-height: 38px;
+    padding: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gpen-planilha *,
+  .gpen-planilha *::before,
+  .gpen-planilha *::after {
+    transition: none !important;
+  }
+}
