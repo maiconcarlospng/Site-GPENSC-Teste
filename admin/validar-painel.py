@@ -223,6 +223,7 @@ UNIQUE_KEYS = {
     "videos": ("url",),
     "sites": ("url",),
     "apoio": ("nome",),
+    "parcerias": ("sigla",),
     "linha_tempo": ("ano", "titulo"),
     "linha_tempo": ("ano", "titulo"),
 }
