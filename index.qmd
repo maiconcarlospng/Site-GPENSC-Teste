@@ -25,65 +25,136 @@ title-block-banner: false
     </div>
 
     <div class="tree-map">
-      <svg class="tree-illustration" viewBox="0 0 1600 1100" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="wood-shade" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#9b754d"/>
-            <stop offset=".48" stop-color="#795438"/>
-            <stop offset="1" stop-color="#4f392b"/>
-          </linearGradient>
-          <linearGradient id="leaf-shade" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#a8c58c"/>
-            <stop offset=".55" stop-color="#65945e"/>
-            <stop offset="1" stop-color="#356b49"/>
-          </linearGradient>
-          <linearGradient id="leaf-light" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#c4d8a5"/>
-            <stop offset="1" stop-color="#7ca56d"/>
-          </linearGradient>
-        </defs>
+      <svg class="tree-illustration" viewBox="0 0 460 1000" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bark" x1="0" y1="0" x2="1" y2=".15">
+      <stop offset="0" stop-color="#493322"/>
+      <stop offset=".18" stop-color="#765033"/>
+      <stop offset=".42" stop-color="#ad8050"/>
+      <stop offset=".62" stop-color="#8a603c"/>
+      <stop offset=".84" stop-color="#64442d"/>
+      <stop offset="1" stop-color="#38291f"/>
+    </linearGradient>
+    <linearGradient id="bark-light" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d1a16a" stop-opacity=".05"/>
+      <stop offset=".4" stop-color="#f0c68c" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#8a613e" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="branch-wood" x1="0" y1="0" x2="1" y2=".2">
+      <stop offset="0" stop-color="#69472f"/>
+      <stop offset=".48" stop-color="#a5794c"/>
+      <stop offset="1" stop-color="#755035"/>
+    </linearGradient>
+    <linearGradient id="leaf-deep" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9dbb78"/>
+      <stop offset=".55" stop-color="#5f8d4f"/>
+      <stop offset="1" stop-color="#285c3a"/>
+    </linearGradient>
+    <linearGradient id="leaf-mid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c4d99a"/>
+      <stop offset=".55" stop-color="#83aa68"/>
+      <stop offset="1" stop-color="#4b7c4c"/>
+    </linearGradient>
+    <linearGradient id="leaf-sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d7e5ad"/>
+      <stop offset="1" stop-color="#8caf6f"/>
+    </linearGradient>
+    <filter id="canopy-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <g id="leaf-cluster">
+      <path d="M0 0 C-38 -36 -30 -76 4 -88 C38 -72 42 -34 0 0Z" fill="url(#leaf-mid)"/>
+      <path d="M0 0 C-9 -29 0 -57 4 -82" fill="none" stroke="#e0e9bd" stroke-width="2.5" opacity=".55"/>
+      <path d="M4 -25 C-8 -42 -18 -49 -25 -53 M5 -43 C17 -57 23 -63 27 -70" fill="none" stroke="#e0e9bd" stroke-width="1.5" opacity=".35"/>
+      <path d="M-18 -6 C-50 -27 -61 -56 -39 -73 C-8 -65 0 -36 -18 -6Z" fill="url(#leaf-deep)"/>
+      <path d="M18 -8 C43 -37 69 -43 79 -20 C69 8 43 8 18 -8Z" fill="url(#leaf-sun)"/>
+    </g>
+  </defs>
 
-        <g class="tree-roots">
-          <path d="M800 1010 C730 1038 680 1073 590 1090 M800 1010 C860 1042 930 1070 1020 1090 M785 1025 C740 1060 720 1084 700 1100 M820 1025 C870 1060 900 1085 925 1100" />
-        </g>
+  <!-- Sombra delicada da copa -->
+  <g opacity=".17" filter="url(#canopy-shadow)" fill="#426b42">
+    <ellipse cx="192" cy="104" rx="176" ry="105"/>
+    <ellipse cx="245" cy="315" rx="150" ry="82"/>
+    <ellipse cx="245" cy="540" rx="128" ry="74"/>
+  </g>
 
-        <g class="tree-wood">
-          <path class="wood-outline" d="M800 1085 C770 1000 820 925 795 830 C770 740 820 660 800 560 C782 465 820 370 800 255"/>
-          <path class="wood-main" d="M800 1085 C770 1000 820 925 795 830 C770 740 820 660 800 560 C782 465 820 370 800 255"/>
-          <path class="wood-outline branch-stroke" d="M795 815 C680 760 585 680 465 585 C390 525 330 440 230 385"/>
-          <path class="wood-main branch-stroke" d="M795 815 C680 760 585 680 465 585 C390 525 330 440 230 385"/>
-          <path class="wood-outline branch-stroke" d="M805 770 C930 720 1030 645 1140 560 C1230 490 1315 425 1400 365"/>
-          <path class="wood-main branch-stroke" d="M805 770 C930 720 1030 645 1140 560 C1230 490 1315 425 1400 365"/>
-          <path class="wood-outline branch-stroke" d="M795 625 C690 560 600 475 520 380 C470 320 420 250 365 205"/>
-          <path class="wood-main branch-stroke" d="M795 625 C690 560 600 475 520 380 C470 320 420 250 365 205"/>
-          <path class="wood-outline branch-stroke" d="M805 570 C920 500 1000 405 1080 315 C1125 265 1180 220 1245 190"/>
-          <path class="wood-main branch-stroke" d="M805 570 C920 500 1000 405 1080 315 C1125 265 1180 220 1245 190"/>
-          <path class="wood-outline branch-stroke" d="M790 900 C665 865 555 830 425 815 C355 805 290 815 225 850"/>
-          <path class="wood-main branch-stroke" d="M790 900 C665 865 555 830 425 815 C355 805 290 815 225 850"/>
-          <path class="wood-outline branch-stroke" d="M810 890 C930 865 1045 825 1170 805 C1245 792 1325 805 1390 840"/>
-          <path class="wood-main branch-stroke" d="M810 890 C930 865 1045 825 1170 805 C1245 792 1325 805 1390 840"/>
-        </g>
+  <!-- Copa: massas de folhas em vários planos -->
+  <g class="canopy-back">
+    <ellipse cx="118" cy="105" rx="105" ry="75" fill="#4e7d4d" opacity=".16"/>
+    <ellipse cx="245" cy="91" rx="122" ry="83" fill="#5f8e51" opacity=".18"/>
+    <ellipse cx="307" cy="190" rx="104" ry="74" fill="#77a364" opacity=".16"/>
+    <ellipse cx="175" cy="245" rx="115" ry="70" fill="#6c9558" opacity=".15"/>
+  </g>
+  <g class="canopy-leaves">
+    <use href="#leaf-cluster" transform="translate(52 129) rotate(-34) scale(1.08)"/>
+    <use href="#leaf-cluster" transform="translate(116 74) rotate(-12) scale(1.18)"/>
+    <use href="#leaf-cluster" transform="translate(190 56) rotate(12) scale(1.25)"/>
+    <use href="#leaf-cluster" transform="translate(277 86) rotate(28) scale(1.12)"/>
+    <use href="#leaf-cluster" transform="translate(344 151) rotate(42) scale(1.05)"/>
+    <use href="#leaf-cluster" transform="translate(72 225) rotate(-48) scale(.95)"/>
+    <use href="#leaf-cluster" transform="translate(163 205) rotate(-12) scale(1.08)"/>
+    <use href="#leaf-cluster" transform="translate(275 238) rotate(24) scale(.98)"/>
+    <use href="#leaf-cluster" transform="translate(359 276) rotate(52) scale(.82)"/>
+    <use href="#leaf-cluster" transform="translate(60 420) rotate(-54) scale(.74)"/>
+    <use href="#leaf-cluster" transform="translate(285 405) rotate(34) scale(.82)"/>
+    <use href="#leaf-cluster" transform="translate(356 579) rotate(52) scale(.76)"/>
+    <use href="#leaf-cluster" transform="translate(65 668) rotate(-52) scale(.8)"/>
+    <use href="#leaf-cluster" transform="translate(300 744) rotate(28) scale(.78)"/>
+  </g>
 
-        <g class="tree-twigs">
-          <path d="M465 585 C420 530 390 475 380 415 M465 585 C410 575 350 555 305 520 M1140 560 C1190 510 1220 455 1230 405 M1140 560 C1205 565 1270 545 1320 505 M520 380 C500 320 485 270 470 230 M520 380 C565 335 610 290 635 245 M1080 315 C1060 250 1055 220 1060 175 M1080 315 C1140 290 1195 265 1255 235 M425 815 C390 770 345 750 295 735 M425 815 C380 850 340 875 290 900 M1170 805 C1215 760 1260 735 1310 720 M1170 805 C1210 850 1260 875 1310 895" />
-        </g>
+  <!-- Tronco e raízes -->
+  <g class="tree-roots">
+    <path d="M78 908 C60 938 37 961 10 977 M89 914 C105 948 138 973 181 991 M69 918 C38 935 22 946 0 950 M101 917 C133 933 156 945 207 949"
+      fill="none" stroke="#563b27" stroke-width="25" stroke-linecap="round"/>
+    <path d="M78 908 C60 938 37 961 10 977 M89 914 C105 948 138 973 181 991"
+      fill="none" stroke="#a47b50" stroke-width="12" stroke-linecap="round" opacity=".72"/>
+  </g>
+  <path d="M76 940 C40 833 104 770 67 665 C34 572 105 499 72 399 C43 312 96 231 79 140 C72 105 91 78 111 51"
+    fill="none" stroke="#3c2b20" stroke-width="82" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M76 940 C40 833 104 770 67 665 C34 572 105 499 72 399 C43 312 96 231 79 140 C72 105 91 78 111 51"
+    fill="none" stroke="url(#bark)" stroke-width="68" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M57 910 C35 820 88 773 54 672 C24 578 88 506 57 404 C34 315 78 237 62 146"
+    fill="none" stroke="url(#bark-light)" stroke-width="17" stroke-linecap="round" opacity=".7"/>
+  <path d="M102 876 C79 807 119 752 95 679 M89 638 C68 572 111 518 91 458 M91 388 C67 321 104 260 91 202"
+    fill="none" stroke="#493221" stroke-width="5" stroke-linecap="round" opacity=".45"/>
+  <path d="M70 795 C85 785 96 771 101 749 M55 550 C71 536 82 520 86 499 M62 286 C80 272 88 253 89 235"
+    fill="none" stroke="#d2a16b" stroke-width="4" stroke-linecap="round" opacity=".55"/>
 
-        <g class="tree-foliage">
-          <path d="M135 385 C170 295 280 280 345 330 C305 420 215 445 135 385Z"/>
-          <path d="M300 190 C340 105 445 105 495 165 C440 240 360 250 300 190Z"/>
-          <path d="M1160 175 C1225 100 1330 115 1370 195 C1300 255 1215 240 1160 175Z"/>
-          <path d="M1270 365 C1325 280 1435 285 1480 355 C1425 440 1335 445 1270 365Z"/>
-          <path d="M140 835 C205 755 310 765 350 845 C275 920 190 910 140 835Z"/>
-          <path d="M1260 830 C1320 755 1425 770 1460 850 C1385 925 1300 915 1260 830Z"/>
-          <path d="M395 275 C430 210 510 205 550 255 C510 325 440 330 395 275Z"/>
-          <path d="M1035 285 C1080 215 1160 210 1200 265 C1155 330 1085 335 1035 285Z"/>
-          <path d="M230 500 C270 430 350 425 390 480 C345 545 275 550 230 500Z"/>
-          <path d="M1210 500 C1250 430 1330 425 1370 480 C1325 545 1255 550 1210 500Z"/>
-        </g>
-        <g class="tree-leaf-veins">
-          <path d="M160 385 Q250 350 320 345 M340 190 Q410 160 470 165 M1195 180 Q1280 160 1345 190 M1300 370 Q1390 345 1450 355 M170 835 Q250 810 325 835 M1290 835 Q1370 810 1435 850"/>
-        </g>
-      </svg>
+  <!-- Galhos robustos que ligam tronco e navegação -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 145 C112 129 130 110 174 93 C201 82 215 66 229 43" stroke="#493221" stroke-width="34"/>
+    <path d="M70 145 C112 129 130 110 174 93 C201 82 215 66 229 43" stroke="url(#branch-wood)" stroke-width="25"/>
+    <path d="M76 282 C119 275 142 254 178 244 C203 237 222 218 243 195" stroke="#493221" stroke-width="31"/>
+    <path d="M76 282 C119 275 142 254 178 244 C203 237 222 218 243 195" stroke="url(#branch-wood)" stroke-width="22"/>
+    <path d="M75 420 C119 411 143 393 179 389 C214 385 234 362 255 338" stroke="#493221" stroke-width="29"/>
+    <path d="M75 420 C119 411 143 393 179 389 C214 385 234 362 255 338" stroke="url(#branch-wood)" stroke-width="20"/>
+    <path d="M75 555 C120 550 146 534 183 532 C215 531 246 511 265 483" stroke="#493221" stroke-width="29"/>
+    <path d="M75 555 C120 550 146 534 183 532 C215 531 246 511 265 483" stroke="url(#branch-wood)" stroke-width="20"/>
+    <path d="M72 690 C116 686 145 673 179 675 C215 677 239 652 260 628" stroke="#493221" stroke-width="31"/>
+    <path d="M72 690 C116 686 145 673 179 675 C215 677 239 652 260 628" stroke="url(#branch-wood)" stroke-width="22"/>
+    <path d="M69 822 C111 817 145 807 178 811 C210 815 238 799 258 779" stroke="#493221" stroke-width="32"/>
+    <path d="M69 822 C111 817 145 807 178 811 C210 815 238 799 258 779" stroke="url(#branch-wood)" stroke-width="22"/>
+  </g>
+
+  <!-- Ramificações finas -->
+  <g fill="none" stroke="#765137" stroke-width="9" stroke-linecap="round">
+    <path d="M173 94 C170 61 152 42 135 28 M177 94 C201 91 221 99 241 113 M180 244 C171 213 153 196 131 180 M190 241 C222 248 246 265 261 289"/>
+    <path d="M179 389 C174 355 154 338 131 321 M185 389 C221 390 248 407 269 429"/>
+    <path d="M183 532 C174 501 156 486 135 470 M193 532 C226 538 250 557 269 579"/>
+    <path d="M180 675 C172 644 154 626 132 610 M190 675 C220 684 246 702 265 724"/>
+    <path d="M179 811 C167 782 149 769 128 755 M190 811 C219 821 241 837 258 854"/>
+  </g>
+
+  <!-- Pequenas folhas junto aos galhos laterais -->
+  <g class="branch-leaves">
+    <use href="#leaf-cluster" transform="translate(215 135) rotate(30) scale(.55)"/>
+    <use href="#leaf-cluster" transform="translate(264 290) rotate(64) scale(.47)"/>
+    <use href="#leaf-cluster" transform="translate(264 429) rotate(55) scale(.45)"/>
+    <use href="#leaf-cluster" transform="translate(268 580) rotate(66) scale(.48)"/>
+    <use href="#leaf-cluster" transform="translate(262 725) rotate(62) scale(.48)"/>
+    <use href="#leaf-cluster" transform="translate(253 855) rotate(60) scale(.5)"/>
+  </g>
+</svg>
 
       <article class="tree-limb limb--left limb--group">
         <div class="limb-connector" aria-hidden="true"></div>
