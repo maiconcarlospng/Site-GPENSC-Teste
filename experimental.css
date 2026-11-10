@@ -834,3 +834,178 @@ body{background:#f0f1e5}
   .limb--library .limb-toggle{transform:rotate(.5deg)!important}
   .limb--community .limb-toggle{transform:rotate(-.8deg)!important}
 }
+
+
+/* ==========================================================
+   FUNDO CONTÍNUO DO SITE — árvore em todas as páginas
+   ========================================================== */
+body:not(:has(.tree-home)){
+  background-color:#f1f2e7!important;
+  background-image:
+    linear-gradient(180deg,rgba(249,249,240,.86),rgba(240,243,231,.9)),
+    url("img/tree-environment.svg")!important;
+  background-position:center top,center center!important;
+  background-size:100% 100%,100% 100%!important;
+  background-repeat:no-repeat,no-repeat!important;
+  background-attachment:fixed,fixed!important;
+}
+body:not(:has(.tree-home)) #quarto-content,
+body:not(:has(.tree-home)) main.content{
+  background:transparent!important;
+}
+body:not(:has(.tree-home)) main.content{
+  max-width:1120px!important;
+  margin:0 auto!important;
+  padding:0 clamp(1rem,3.8vw,3.2rem) 3rem!important;
+}
+body:not(:has(.tree-home)) #title-block-header{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  display:flex!important;align-items:center!important;
+  min-height:245px!important;
+  margin:0 calc(-1 * clamp(1rem,3.8vw,3.2rem)) 2.2rem!important;
+  padding:3.7rem clamp(1.2rem,5vw,4.8rem)!important;
+  border-bottom:1px solid #9eaf8d55!important;
+  background:
+    linear-gradient(90deg,rgba(248,248,237,.72),rgba(248,248,237,.44) 54%,rgba(248,248,237,.68)),
+    url("img/tree-canopy-header.svg") center 42% / cover no-repeat!important;
+}
+body:not(:has(.tree-home)) #title-block-header:after{
+  content:"";position:absolute;z-index:-1;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(240,243,231,.7));
+  pointer-events:none;
+}
+body:not(:has(.tree-home)) #title-block-header .quarto-title{
+  position:relative;z-index:1;max-width:1050px;margin:0 auto;width:100%;
+}
+body:not(:has(.tree-home)) #title-block-header h1.title{
+  margin:0!important;color:#163f2b!important;
+  font:800 clamp(2.35rem,5vw,4.3rem)/1.04 Manrope,sans-serif!important;
+  letter-spacing:-.065em!important;
+  text-shadow:0 2px 22px #f8f7eccc;
+}
+body:not(:has(.tree-home)) main.content p{
+  line-height:1.78;color:#536653;
+}
+body:not(:has(.tree-home)) main.content img,
+body:not(:has(.tree-home)) main.content video,
+body:not(:has(.tree-home)) main.content iframe{
+  max-width:100%;
+}
+body:not(:has(.tree-home)) main.content table{
+  max-width:100%;display:block;overflow-x:auto;
+}
+
+/* ==========================================================
+   CENÁRIO DA ÁRVORE — imagem inteira, sem recorte acidental
+   ========================================================== */
+.tree-world{
+  width:100%!important;max-width:none!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  overscroll-behavior-x:contain;
+}
+.tree-map{
+  width:max(100%,1360px)!important;
+  min-width:1360px!important;
+}
+.tree-illustration{
+  display:block!important;position:absolute!important;
+  left:0!important;top:0!important;
+  width:100%!important;height:100%!important;
+  max-width:none!important;transform:none!important;
+  object-fit:fill!important;object-position:center top!important;
+  pointer-events:none!important;
+}
+.tree-map{background:transparent!important}
+.tree-home{
+  width:100%!important;max-width:none!important;
+  overflow:visible!important;
+}
+.tree-intro{width:100%!important;max-width:none!important}
+.tree-header-canopy{
+  width:100%!important;max-width:none!important;
+  object-fit:cover!important;object-position:center top!important;
+}
+.tree-nav{
+  background:
+    linear-gradient(90deg,rgba(251,250,240,.87),rgba(251,250,240,.72)),
+    url("img/tree-canopy-header.svg") center 17% / cover no-repeat!important;
+}
+
+/* Celular: a arte continua inteira dentro de uma área que pode ser deslizada. */
+@media(max-width:720px){
+  html,body{max-width:100%;overflow-x:hidden!important}
+  .tree-nav{
+    display:flex!important;align-items:center!important;justify-content:space-between!important;
+    gap:.45rem!important;padding:.55rem .72rem!important;
+  }
+  .tree-nav-brand{min-width:0!important;gap:.45rem!important}
+  .tree-nav-brand img{width:32px!important;height:32px!important;flex:0 0 32px}
+  .tree-nav-brand span{font-size:.75rem!important}
+  .tree-nav-brand small{font-size:.48rem!important;letter-spacing:.035em!important}
+  .tree-nav-home{flex:0 0 auto!important;white-space:nowrap!important;font-size:.62rem!important;padding:.47rem .58rem!important}
+  body:not(:has(.tree-home)) main.content{
+    width:100%!important;max-width:none!important;
+    padding:0 .9rem 2rem!important;margin:0!important;
+  }
+  body:not(:has(.tree-home)) #title-block-header{
+    min-height:185px!important;margin:0 -.9rem 1.6rem!important;
+    padding:2.7rem 1.15rem!important;
+    background-position:center 35%!important;
+  }
+  body:not(:has(.tree-home)) #title-block-header h1.title{
+    font-size:clamp(2rem,8vw,2.8rem)!important;
+  }
+  body:not(:has(.tree-home)) .cell,
+  body:not(:has(.tree-home)) .cell-output-display,
+  body:not(:has(.tree-home)) .quarto-figure{
+    max-width:100%!important;min-width:0!important;
+  }
+  .tree-world{
+    width:100%!important;max-width:100%!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    scroll-snap-type:x proximity;
+  }
+  .tree-map{
+    width:720px!important;min-width:720px!important;
+    height:1500px!important;min-height:1500px!important;
+    overflow:visible!important;
+  }
+  .tree-illustration{
+    left:0!important;top:0!important;
+    width:720px!important;height:1500px!important;
+    max-width:none!important;transform:none!important;
+    object-fit:fill!important;
+  }
+  .limb--group{top:115px!important;left:140px!important}
+  .limb--research{top:365px!important;left:190px!important}
+  .limb--teaching{top:630px!important;left:120px!important}
+  .limb--extension{top:830px!important;left:210px!important}
+  .limb--library{top:1060px!important;left:160px!important}
+  .limb--community{top:1270px!important;left:225px!important}
+  .tree-limb,.limb--left,.limb--right{
+    width:245px!important;max-width:245px!important;
+  }
+  .limb-toggle,.limb--group .limb-toggle,.limb--research .limb-toggle,
+  .limb--teaching .limb-toggle,.limb--extension .limb-toggle,
+  .limb--library .limb-toggle,.limb--community .limb-toggle{
+    width:245px!important;min-height:82px!important;
+    gap:.52rem!important;padding:.68rem .75rem!important;
+  }
+  .limb-title-wrap strong{font-size:.98rem!important}
+  .limb-title-wrap small{font-size:.59rem!important;line-height:1.3!important}
+  .limb-symbol{width:36px!important;height:36px!important;flex-basis:36px!important;font-size:.64rem!important}
+  .limb-plus{width:24px!important;height:24px!important;flex-basis:24px!important}
+  .branch-children,.limb--left .branch-children,.limb--right .branch-children{
+    left:calc(100% + 17px)!important;width:225px!important;max-width:225px!important;
+    padding:.65rem!important;
+  }
+  .branch-children:before{left:-20px!important;width:17px!important}
+  .twig-toggle{font-size:.7rem!important;min-height:40px!important;padding:.55rem .62rem!important}
+  .twig-leaves,.limb--left .twig-leaves,.limb--right .twig-leaves{
+    left:calc(100% + 13px)!important;width:200px!important;padding:.58rem!important;
+  }
+  .twig-leaves:before{left:-16px!important;width:13px!important}
+  .twig-leaves a{font-size:.68rem!important;padding:.52rem .55rem!important}
+  .tree-heart{left:16px!important;bottom:1rem!important}
+}
