@@ -22,7 +22,7 @@ format:
     theme: default
     css: experimental.css
     include-before-body: tree-nav.html
-    include-after-body: tree-interactions.js
+    include-after-body: tree-interactions.html
     page-layout: full
     toc: false
     smooth-scroll: true
