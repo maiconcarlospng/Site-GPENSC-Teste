@@ -2595,3 +2595,121 @@ main table {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+/* ---------- INSTITUIÇÕES PARCEIRAS · QUEM SOMOS ---------- */
+.sobre-parcerias {
+  margin: 3rem 0 1.75rem !important;
+  padding: clamp(1.2rem, 3vw, 2rem) !important;
+  background: var(--gp-areia);
+  border: 1px solid rgba(31, 77, 43, .08);
+  border-radius: 16px;
+}
+
+.sobre-parcerias > h2 {
+  margin-top: 0 !important;
+  margin-bottom: .55rem !important;
+}
+
+.sobre-parcerias-intro {
+  max-width: 760px;
+  margin: 0 auto 1.35rem !important;
+  color: #586258;
+  text-align: center;
+  font-size: .96rem;
+  line-height: 1.6;
+}
+
+.sobre-parcerias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr));
+  gap: 1rem;
+}
+
+.sobre-parceria-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  min-height: 112px;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid rgba(31, 77, 43, .12);
+  border-left: 4px solid var(--gp-folha);
+  border-radius: 12px;
+  box-shadow: 0 5px 16px rgba(31, 55, 35, .06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.sobre-parceria-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(31, 55, 35, .10);
+}
+
+.sobre-parceria-sigla {
+  display: grid;
+  place-items: center;
+  flex: 0 0 66px;
+  width: 66px;
+  height: 66px;
+  padding: .3rem;
+  background: var(--gp-menta);
+  border-radius: 13px;
+  color: var(--gp-verde);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-align: center;
+}
+
+.sobre-parceria-copy {
+  min-width: 0;
+}
+
+.sobre-parceria-copy h3 {
+  margin: 0 0 .55rem !important;
+  color: var(--gp-verde);
+  font-size: 1rem !important;
+  font-weight: 750 !important;
+  line-height: 1.35;
+}
+
+.sobre-parceria-uf {
+  display: inline-flex;
+  align-items: center;
+  padding: .22rem .55rem;
+  background: #f5f3ec;
+  border-radius: 999px;
+  color: #64685f;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+@media (max-width: 575.98px) {
+  .sobre-parcerias {
+    margin: 2rem 0 1.25rem !important;
+    padding: 1rem !important;
+    border-radius: 13px;
+  }
+
+  .sobre-parcerias-grid {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+
+  .sobre-parceria-card {
+    min-height: 94px;
+    padding: .85rem;
+    gap: .8rem;
+  }
+
+  .sobre-parceria-sigla {
+    flex-basis: 58px;
+    width: 58px;
+    height: 58px;
+    font-size: .98rem;
+  }
+
+  .sobre-parceria-copy h3 {
+    font-size: .94rem !important;
+  }
+}
