@@ -5,69 +5,265 @@ page-layout: full
 title-block-banner: false
 ---
 
-```{=html}
+\`\`\`{=html}
 <main class="tree-home">
   <section class="tree-intro">
     <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
-    <div class="tree-heading" role="heading" aria-level="1">Conhecimento que cria raízes.<br><em>Pesquisa que transforma vidas.</em></div>
-    <p>Explore o universo do GPENSC por meio dos galhos da nossa árvore. Cada caminho revela pessoas, projetos e conhecimentos que conectam Nutrição e Saúde Coletiva.</p>
-    <div class="tree-hint"><span class="hint-pulse"></span> Selecione um galho para explorar</div>
+    <div class="tree-heading" role="heading" aria-level="1">
+      Conhecimento que cria raízes.
+      <em>Pesquisa que transforma vidas.</em>
+    </div>
+    <p>Uma árvore, muitos caminhos. Explore os ramos do GPENSC: cada galho se divide em novas áreas, projetos, experiências e conhecimentos.</p>
+    <div class="tree-instruction"><span class="instruction-dot"></span> Clique nos galhos para revelar seus caminhos. Abra os ramos menores para chegar aos conteúdos.</div>
   </section>
 
-  <section class="tree-stage" aria-label="Árvore interativa de navegação do GPENSC">
-    <svg class="tree-art" viewBox="0 0 1000 650" role="img" aria-label="Ilustração estilizada de uma árvore com galhos que representam as áreas do GPENSC">
-      <defs>
-        <linearGradient id="trunk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b7048"/><stop offset="1" stop-color="#65452f"/></linearGradient>
-        <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ab77a"/><stop offset="1" stop-color="#477b56"/></linearGradient>
-      </defs>
-      <path class="tree-trunk" d="M500 650 C485 560 520 500 500 430 C480 355 500 300 500 245" />
-      <path class="tree-branch" d="M500 430 C420 370 330 330 220 265 M500 385 C585 335 675 300 790 235 M500 320 C430 255 390 190 355 115 M500 300 C575 235 620 175 655 105 M500 470 C610 430 730 400 855 350 M500 470 C390 430 270 405 145 350"/>
-      <g class="tree-leaves">
-        <ellipse cx="220" cy="245" rx="95" ry="55"/><ellipse cx="790" cy="215" rx="105" ry="60"/>
-        <ellipse cx="355" cy="105" rx="90" ry="58"/><ellipse cx="655" cy="95" rx="92" ry="58"/>
-        <ellipse cx="855" cy="335" rx="88" ry="55"/><ellipse cx="145" cy="335" rx="90" ry="56"/>
-        <ellipse cx="500" cy="205" rx="105" ry="62"/><ellipse cx="500" cy="145" rx="78" ry="48"/>
-      </g>
-      <path class="root-line" d="M500 610 C455 630 420 640 365 645 M500 610 C545 630 590 640 645 645"/>
-    </svg>
-
-    <div class="tree-center">
-      <div class="tree-logo"><img src="img/logo_gpensc.png" alt="Logo do GPENSC"></div>
-      <strong>GPENSC</strong>
-      <span>Raízes em conhecimento</span>
+  <section class="tree-world" aria-label="Árvore de navegação do GPENSC">
+    <div class="tree-canopy-label" aria-hidden="true">
+      <span>RAMOS DO CONHECIMENTO</span>
+      <span class="canopy-line"></span>
+      <span>RAÍZES NA UNIVERSIDADE · CONEXÕES COM A SOCIEDADE</span>
     </div>
 
-    <div class="tree-branches">
-      <article class="tree-branch-card branch-about">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-about"><span class="branch-icon">✳</span><span><strong>O grupo</strong><small>Nossa história e pessoas</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-about" hidden><a href="sobre.html">Quem somos</a><a href="contato.html">Contato</a></div>
-      </article>
-      <article class="tree-branch-card branch-research">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-research"><span class="branch-icon">⌕</span><span><strong>Pesquisa</strong><small>Investigar e produzir ciência</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-research" hidden><a href="linhas.html">Linhas de pesquisa</a><a href="projetos.html">Projetos</a><a href="publicacoes.html">Publicações</a><a href="teses.html">Teses e dissertações</a></div>
-      </article>
-      <article class="tree-branch-card branch-teaching">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-teaching"><span class="branch-icon">⌂</span><span><strong>Ensino</strong><small>Formação e aprendizagem</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-teaching" hidden><a href="disciplinas.html">Disciplinas</a><a href="teses.html">Orientações e defesas</a><a href="livros.html">Livros e capítulos</a></div>
-      </article>
-      <article class="tree-branch-card branch-extension">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-extension"><span class="branch-icon">↗</span><span><strong>Extensão</strong><small>Conhecimento em diálogo</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-extension" hidden><a href="extensao.html">Projetos de extensão</a><a href="podcasts.html">Podcasts</a><a href="videos.html">Vídeos</a></div>
-      </article>
-      <article class="tree-branch-card branch-library">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-library"><span class="branch-icon">▤</span><span><strong>Biblioteca</strong><small>Conteúdos para descobrir</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-library" hidden><a href="livros.html">Livros</a><a href="videos.html">Vídeos</a><a href="sites.html">Sites recomendados</a></div>
-      </article>
-      <article class="tree-branch-card branch-community">
-        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-community"><span class="branch-icon">◌</span><span><strong>Vida do grupo</strong><small>Novidades e encontros</small></span><b>＋</b></button>
-        <div class="branch-links" id="branch-community" hidden><a href="noticias.html">Notícias</a><a href="agenda.html">Agenda</a></div>
-      </article>
-    </div>
-  </section>
+    <div class="tree-map">
+      <svg class="tree-illustration" viewBox="0 0 1600 1100" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wood-shade" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9b754d"/>
+            <stop offset=".48" stop-color="#795438"/>
+            <stop offset="1" stop-color="#4f392b"/>
+          </linearGradient>
+          <linearGradient id="leaf-shade" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a8c58c"/>
+            <stop offset=".55" stop-color="#65945e"/>
+            <stop offset="1" stop-color="#356b49"/>
+          </linearGradient>
+          <linearGradient id="leaf-light" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#c4d8a5"/>
+            <stop offset="1" stop-color="#7ca56d"/>
+          </linearGradient>
+        </defs>
 
-  <section class="tree-bottom">
-    <span>UM GRUPO, MUITOS CAMINHOS</span>
-    <p>Da pesquisa à comunidade, cultivamos conhecimento em Nutrição e Saúde Coletiva.</p>
+        <g class="tree-roots">
+          <path d="M800 1010 C730 1038 680 1073 590 1090 M800 1010 C860 1042 930 1070 1020 1090 M785 1025 C740 1060 720 1084 700 1100 M820 1025 C870 1060 900 1085 925 1100" />
+        </g>
+
+        <g class="tree-wood">
+          <path class="wood-outline" d="M800 1085 C770 1000 820 925 795 830 C770 740 820 660 800 560 C782 465 820 370 800 255"/>
+          <path class="wood-main" d="M800 1085 C770 1000 820 925 795 830 C770 740 820 660 800 560 C782 465 820 370 800 255"/>
+          <path class="wood-outline branch-stroke" d="M795 815 C680 760 585 680 465 585 C390 525 330 440 230 385"/>
+          <path class="wood-main branch-stroke" d="M795 815 C680 760 585 680 465 585 C390 525 330 440 230 385"/>
+          <path class="wood-outline branch-stroke" d="M805 770 C930 720 1030 645 1140 560 C1230 490 1315 425 1400 365"/>
+          <path class="wood-main branch-stroke" d="M805 770 C930 720 1030 645 1140 560 C1230 490 1315 425 1400 365"/>
+          <path class="wood-outline branch-stroke" d="M795 625 C690 560 600 475 520 380 C470 320 420 250 365 205"/>
+          <path class="wood-main branch-stroke" d="M795 625 C690 560 600 475 520 380 C470 320 420 250 365 205"/>
+          <path class="wood-outline branch-stroke" d="M805 570 C920 500 1000 405 1080 315 C1125 265 1180 220 1245 190"/>
+          <path class="wood-main branch-stroke" d="M805 570 C920 500 1000 405 1080 315 C1125 265 1180 220 1245 190"/>
+          <path class="wood-outline branch-stroke" d="M790 900 C665 865 555 830 425 815 C355 805 290 815 225 850"/>
+          <path class="wood-main branch-stroke" d="M790 900 C665 865 555 830 425 815 C355 805 290 815 225 850"/>
+          <path class="wood-outline branch-stroke" d="M810 890 C930 865 1045 825 1170 805 C1245 792 1325 805 1390 840"/>
+          <path class="wood-main branch-stroke" d="M810 890 C930 865 1045 825 1170 805 C1245 792 1325 805 1390 840"/>
+        </g>
+
+        <g class="tree-twigs">
+          <path d="M465 585 C420 530 390 475 380 415 M465 585 C410 575 350 555 305 520 M1140 560 C1190 510 1220 455 1230 405 M1140 560 C1205 565 1270 545 1320 505 M520 380 C500 320 485 270 470 230 M520 380 C565 335 610 290 635 245 M1080 315 C1060 250 1055 220 1060 175 M1080 315 C1140 290 1195 265 1255 235 M425 815 C390 770 345 750 295 735 M425 815 C380 850 340 875 290 900 M1170 805 C1215 760 1260 735 1310 720 M1170 805 C1210 850 1260 875 1310 895" />
+        </g>
+
+        <g class="tree-foliage">
+          <path d="M135 385 C170 295 280 280 345 330 C305 420 215 445 135 385Z"/>
+          <path d="M300 190 C340 105 445 105 495 165 C440 240 360 250 300 190Z"/>
+          <path d="M1160 175 C1225 100 1330 115 1370 195 C1300 255 1215 240 1160 175Z"/>
+          <path d="M1270 365 C1325 280 1435 285 1480 355 C1425 440 1335 445 1270 365Z"/>
+          <path d="M140 835 C205 755 310 765 350 845 C275 920 190 910 140 835Z"/>
+          <path d="M1260 830 C1320 755 1425 770 1460 850 C1385 925 1300 915 1260 830Z"/>
+          <path d="M395 275 C430 210 510 205 550 255 C510 325 440 330 395 275Z"/>
+          <path d="M1035 285 C1080 215 1160 210 1200 265 C1155 330 1085 335 1035 285Z"/>
+          <path d="M230 500 C270 430 350 425 390 480 C345 545 275 550 230 500Z"/>
+          <path d="M1210 500 C1250 430 1330 425 1370 480 C1325 545 1255 550 1210 500Z"/>
+        </g>
+        <g class="tree-leaf-veins">
+          <path d="M160 385 Q250 350 320 345 M340 190 Q410 160 470 165 M1195 180 Q1280 160 1345 190 M1300 370 Q1390 345 1450 355 M170 835 Q250 810 325 835 M1290 835 Q1370 810 1435 850"/>
+        </g>
+      </svg>
+
+      <article class="tree-limb limb--left limb--group">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-group">
+          <span class="limb-symbol">01</span>
+          <span class="limb-title-wrap"><strong>O grupo</strong><small>Quem somos e como nos conectamos</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-group" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="group-identity"><span>Identidade e história</span><b>＋</b></button>
+            <div class="twig-leaves" id="group-identity" hidden>
+              <a href="sobre.html">Conheça o GPENSC</a>
+              <a href="sobre.html">Nossa história</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="group-people"><span>Pessoas e organização</span><b>＋</b></button>
+            <div class="twig-leaves" id="group-people" hidden>
+              <a href="sobre.html">Equipe e integrantes</a>
+              <a href="sobre.html">Organização do grupo</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle twig-direct" data-branch-toggle aria-expanded="false" aria-controls="group-contact"><span>Contato</span><b>＋</b></button>
+            <div class="twig-leaves" id="group-contact" hidden>
+              <a href="contato.html">Fale com o GPENSC</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tree-limb limb--right limb--research">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-research">
+          <span class="limb-symbol">02</span>
+          <span class="limb-title-wrap"><strong>Pesquisa</strong><small>Investigar, produzir e compartilhar ciência</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-research" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="research-lines"><span>Linhas de pesquisa</span><b>＋</b></button>
+            <div class="twig-leaves" id="research-lines" hidden>
+              <a href="linhas.html">Conheça nossas linhas</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="research-projects"><span>Projetos</span><b>＋</b></button>
+            <div class="twig-leaves" id="research-projects" hidden>
+              <a href="projetos.html">Projetos de pesquisa</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="research-production"><span>Produção científica</span><b>＋</b></button>
+            <div class="twig-leaves" id="research-production" hidden>
+              <a href="publicacoes.html">Artigos e publicações</a>
+              <a href="teses.html">Teses e dissertações</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tree-limb limb--left limb--teaching">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-teaching">
+          <span class="limb-symbol">03</span>
+          <span class="limb-title-wrap"><strong>Ensino</strong><small>Formação, orientação e aprendizagem</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-teaching" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="teaching-classes"><span>Graduação</span><b>＋</b></button>
+            <div class="twig-leaves" id="teaching-classes" hidden>
+              <a href="disciplinas.html">Disciplinas</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="teaching-guidance"><span>Orientação acadêmica</span><b>＋</b></button>
+            <div class="twig-leaves" id="teaching-guidance" hidden>
+              <a href="teses.html">Orientações e defesas</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="teaching-materials"><span>Produção didática</span><b>＋</b></button>
+            <div class="twig-leaves" id="teaching-materials" hidden>
+              <a href="livros.html">Livros e capítulos</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tree-limb limb--right limb--extension">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-extension">
+          <span class="limb-symbol">04</span>
+          <span class="limb-title-wrap"><strong>Extensão</strong><small>Universidade em diálogo com a sociedade</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-extension" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="extension-actions"><span>Projetos e ações</span><b>＋</b></button>
+            <div class="twig-leaves" id="extension-actions" hidden>
+              <a href="extensao.html">Projetos de extensão</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="extension-media"><span>Comunicação e divulgação</span><b>＋</b></button>
+            <div class="twig-leaves" id="extension-media" hidden>
+              <a href="videos.html">Podcasts e vídeos</a>
+              <a href="videos.html">Materiais audiovisuais</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tree-limb limb--left limb--library">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-library">
+          <span class="limb-symbol">05</span>
+          <span class="limb-title-wrap"><strong>Biblioteca</strong><small>Materiais, referências e descobertas</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-library" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="library-reading"><span>Leituras</span><b>＋</b></button>
+            <div class="twig-leaves" id="library-reading" hidden>
+              <a href="livros.html">Livros e capítulos</a>
+              <a href="publicacoes.html">Publicações do grupo</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="library-media"><span>Audiovisual</span><b>＋</b></button>
+            <div class="twig-leaves" id="library-media" hidden>
+              <a href="videos.html">Vídeos</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="library-resources"><span>Fontes e recursos</span><b>＋</b></button>
+            <div class="twig-leaves" id="library-resources" hidden>
+              <a href="sites.html">Sites recomendados</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tree-limb limb--right limb--community">
+        <div class="limb-connector" aria-hidden="true"></div>
+        <button class="limb-toggle" type="button" data-branch-toggle aria-expanded="false" aria-controls="branch-community">
+          <span class="limb-symbol">06</span>
+          <span class="limb-title-wrap"><strong>Vida do grupo</strong><small>Encontros, notícias e caminhos compartilhados</small></span>
+          <span class="limb-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="branch-children" id="branch-community" hidden>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="community-news"><span>Novidades</span><b>＋</b></button>
+            <div class="twig-leaves" id="community-news" hidden>
+              <a href="noticias.html">Notícias do GPENSC</a>
+            </div>
+          </div>
+          <div class="twig">
+            <button type="button" class="twig-toggle" data-branch-toggle aria-expanded="false" aria-controls="community-calendar"><span>Encontros e atividades</span><b>＋</b></button>
+            <div class="twig-leaves" id="community-calendar" hidden>
+              <a href="agenda.html">Agenda do grupo</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="tree-heart" aria-label="GPENSC, Universidade Federal de Ouro Preto">
+        <div class="heart-ring"><img src="img/logo_gpensc.png" alt="Logo do GPENSC"></div>
+        <strong>GPENSC</strong>
+        <span>Nutrição e Saúde Coletiva · UFOP</span>
+      </div>
+    </div>
+
+    <div class="tree-roots-caption">
+      <span class="root-rule"></span>
+      <span>RAÍZES QUE SUSTENTAM · CONHECIMENTO QUE FLORESCE</span>
+      <span class="root-rule"></span>
+    </div>
   </section>
 </main>
-```
+\`\`\`
