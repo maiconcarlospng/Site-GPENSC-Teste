@@ -25,7 +25,7 @@ title-block-banner: false
     </div>
 
     <div class="tree-map">
-      <svg class="tree-illustration" viewBox="0 0 460 1000" preserveAspectRatio="none" aria-hidden="true">
+      <svg class="tree-illustration" viewBox="0 0 460 1070" preserveAspectRatio="none" aria-hidden="true">
   <defs>
     <linearGradient id="bark" x1="0" y1="0" x2="1" y2=".15">
       <stop offset="0" stop-color="#493322"/>
