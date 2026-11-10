@@ -6,7 +6,7 @@ title-block-banner: false
 ---
 
 \`\`\`{=html}
-<main class="tree-home">
+<div class="tree-home">
   <section class="tree-intro">
     <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
     <div class="tree-heading" role="heading" aria-level="1">
@@ -265,5 +265,5 @@ title-block-banner: false
       <span class="root-rule"></span>
     </div>
   </section>
-</main>
+</div>
 \`\`\`
