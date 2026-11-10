@@ -1,15 +1,10 @@
-# =====================================================================
-# _quarto.yml  –  CONFIGURAÇÃO GERAL DO SITE
-# =====================================================================
-
 project:
   type: website
   render:
-    - "*.qmd"                 # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
+    - "*.qmd"
   resources:
-    - img/**                  # copia TODAS as imagens para o site
-    - "admin/**"              # copia a pasta do painel Sveltia CMS
-    - "data/**"               # <--- NOVO: Copia os dados do CMS (noticias.yml) para o site final
+    - "img/**"
+    - "data/**"
 
 lang: pt-BR
 
@@ -17,68 +12,18 @@ website:
   title: "GPENSC"
   description: "Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
   favicon: img/logo_gpensc.png
-  search: true                # Lupa de busca no menu
-
-  navbar:
-    logo: img/logo_gpensc.png
-    background: light
-    
-    right:
-      - href: sobre.qmd
-        text: Quem somos
-      - href: linhas.qmd
-        text: Linhas de pesquisa
-      - text: Pesquisa
-        menu:
-          - href: projetos.qmd
-            text: Projetos
-          - href: publicacoes.qmd
-            text: Publicações
-      - text: Extensão
-        menu:
-          - href: extensao.qmd
-            text: Projetos de extensão
-          - href: podcasts.qmd
-            text: Podcasts
-      - href: disciplinas.qmd
-        text: Disciplinas
-      - text: Biblioteca virtual
-        menu:
-          - href: teses.qmd
-            text: Teses e dissertações
-          - href: livros.qmd
-            text: Livros
-          - href: videos.qmd
-            text: Vídeos
-          - href: sites.qmd
-            text: Sites recomendados
-      - href: noticias.qmd
-        text: Notícias
-      - href: agenda.qmd
-        text: Agenda
-      - href: contato.qmd
-        text: Contato
-
+  search: false
   page-footer:
-    left: |
-      <div class="gp-footer-bottom">
-      <span class="gp-footer-copyright">© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.</span>
-      <a class="gp-footer-admin-link" href="https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/">Admin</a>
-      </div>
+    center: |
+      <span>GPENSC · Universidade Federal de Ouro Preto</span>
+
 format:
   html:
-    theme: [default, custom.scss]
-    css:
-      - styles-mobile-v4.css
-      - styles-mobile-v5.css
-      - styles-navbar-v6.css
-      - styles-conteudo-v7.css
-      - styles-navbar-v7.css
-      - styles-navbar-v8.css
-      - styles-busca-v9.css
-      - styles-spotify-v10.css
+    theme: default
+    css: experimental.css
+    include-before-body: tree-nav.html
+    include-after-body: tree-interactions.js
     page-layout: full
-    include-after-body: lupa.html
     toc: false
     smooth-scroll: true
 
@@ -86,4 +31,4 @@ execute:
   echo: false
   warning: false
   message: false
-  freeze: auto                # Reaproveita resultados R; o workflow invalida o cache se os dados mudarem.
+  freeze: auto
