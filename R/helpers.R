@@ -63,6 +63,7 @@ COLUNAS <- list(
   videos      = c("data", "titulo", "descricao", "url"),
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
+  parcerias   = c("nome", "sigla", "uf"),
   galeria     = c("arquivo", "legenda", "foco_x", "foco_y", "zoom")
 )
 
@@ -133,6 +134,7 @@ eventos     <- ler("eventos")       # agenda
 noticias    <- ler("noticias")      # notícias
 defesas     <- ler("defesas")       # defesas e qualificações
 apoio       <- ler("apoio")         # logos de apoio e vínculos
+parcerias   <- ler("parcerias")       # instituições parceiras registradas no CNPq
 disciplinas <- ler("disciplinas")   # disciplinas
 livros      <- ler("livros")        # livros
 videos      <- ler("videos")        # vídeos
