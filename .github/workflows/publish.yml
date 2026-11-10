@@ -193,6 +193,7 @@ jobs:
                 data/sites.yml) pages="$pages sites.qmd" ;;
                 data/disciplinas.yml) pages="$pages disciplinas.qmd" ;;
                 data/linhas.yml) pages="$pages linhas.qmd" ;;
+                data/parcerias.yml) pages="$pages sobre.qmd" ;;
                 data/noar.yml) pages="$pages noar.qmd" ;;
                 data/equipe.yml) pages="$pages sobre.qmd" ;;
                 data/galeria.yml|data/apoio.yml) pages="$pages index.qmd" ;;
