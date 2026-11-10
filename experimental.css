@@ -764,3 +764,73 @@ body{background:#f0f1e5}
   }
   .limb-toggle,.limb--left .limb-toggle,.limb--right .limb-toggle{width:290px!important}
 }
+
+
+/* Distribuição orgânica dos seis ramos: nenhuma linha em série */
+.tree-limb,.limb--left,.limb--right{
+  position:absolute!important;display:block!important;
+  width:370px!important;max-width:370px!important;min-width:0!important;
+  margin:0!important;padding:0!important;text-align:left!important;
+}
+.limb--group{top:115px!important;left:clamp(350px,24vw,430px)!important}
+.limb--research{top:365px!important;left:clamp(430px,30vw,535px)!important}
+.limb--teaching{top:630px!important;left:clamp(320px,22vw,390px)!important}
+.limb--extension{top:830px!important;left:clamp(465px,32vw,575px)!important}
+.limb--library{top:1060px!important;left:clamp(365px,25vw,465px)!important}
+.limb--community{top:1270px!important;left:clamp(445px,30vw,555px)!important}
+
+.limb--group .limb-toggle{width:365px!important;transform:rotate(-1.15deg)!important;border-radius:12px 58px 10px 42px!important}
+.limb--research .limb-toggle{width:350px!important;transform:rotate(.8deg)!important;border-radius:48px 12px 46px 12px!important}
+.limb--teaching .limb-toggle{width:385px!important;transform:rotate(1.35deg)!important;border-radius:12px 42px 12px 60px!important}
+.limb--extension .limb-toggle{width:355px!important;transform:rotate(-.9deg)!important;border-radius:48px 12px 56px 12px!important}
+.limb--library .limb-toggle{width:380px!important;transform:rotate(.6deg)!important;border-radius:12px 60px 12px 44px!important}
+.limb--community .limb-toggle{width:360px!important;transform:rotate(-1.25deg)!important;border-radius:50px 12px 44px 12px!important}
+.limb--group .limb-toggle:hover,.limb--research .limb-toggle:hover,
+.limb--teaching .limb-toggle:hover,.limb--extension .limb-toggle:hover,
+.limb--library .limb-toggle:hover,.limb--community .limb-toggle:hover,
+.limb--group .limb-toggle[aria-expanded="true"],.limb--research .limb-toggle[aria-expanded="true"],
+.limb--teaching .limb-toggle[aria-expanded="true"],.limb--extension .limb-toggle[aria-expanded="true"],
+.limb--library .limb-toggle[aria-expanded="true"],.limb--community .limb-toggle[aria-expanded="true"]{
+  transform:translateY(-5px) rotate(0deg) scale(1.025)!important;
+}
+
+/* O atributo hidden tem prioridade real sobre o display dos painéis. */
+.tree-world .branch-children[hidden],
+.tree-world .twig-leaves[hidden]{display:none!important}
+.tree-world .branch-children:not([hidden]),
+.tree-world .twig-leaves:not([hidden]){display:grid!important}
+
+@media(max-width:1100px) and (min-width:721px){
+  .limb--group{top:120px!important;left:345px!important}
+  .limb--research{top:370px!important;left:425px!important}
+  .limb--teaching{top:630px!important;left:320px!important}
+  .limb--extension{top:830px!important;left:455px!important}
+  .limb--library{top:1060px!important;left:350px!important}
+  .limb--community{top:1270px!important;left:435px!important}
+  .tree-limb,.limb--left,.limb--right{width:350px!important;max-width:350px!important}
+  .limb-toggle,.limb--group .limb-toggle,.limb--research .limb-toggle,
+  .limb--teaching .limb-toggle,.limb--extension .limb-toggle,
+  .limb--library .limb-toggle,.limb--community .limb-toggle{max-width:100%!important}
+}
+@media(max-width:720px){
+  .tree-map{width:1080px!important;height:1500px!important;min-height:1500px!important}
+  .tree-illustration{left:0!important;width:280px!important;height:1500px!important;transform:translateX(-30px)!important}
+  .limb--group{top:115px!important;left:58px!important}
+  .limb--research{top:365px!important;left:78px!important}
+  .limb--teaching{top:630px!important;left:48px!important}
+  .limb--extension{top:830px!important;left:88px!important}
+  .limb--library{top:1060px!important;left:63px!important}
+  .limb--community{top:1270px!important;left:82px!important}
+  .tree-limb,.limb--left,.limb--right{width:290px!important;max-width:290px!important}
+  .limb-toggle,.limb--group .limb-toggle,.limb--research .limb-toggle,
+  .limb--teaching .limb-toggle,.limb--extension .limb-toggle,
+  .limb--library .limb-toggle,.limb--community .limb-toggle{
+    width:290px!important;min-height:88px!important
+  }
+  .limb--group .limb-toggle{transform:rotate(-.7deg)!important}
+  .limb--research .limb-toggle{transform:rotate(.7deg)!important}
+  .limb--teaching .limb-toggle{transform:rotate(1deg)!important}
+  .limb--extension .limb-toggle{transform:rotate(-.8deg)!important}
+  .limb--library .limb-toggle{transform:rotate(.5deg)!important}
+  .limb--community .limb-toggle{transform:rotate(-.8deg)!important}
+}
