@@ -425,3 +425,41 @@
     transition: none !important;
   }
 }
+
+.gpen-planilha__campo-com-foto {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.gpen-planilha__campo-com-foto input {
+  flex: 1 1 auto;
+  min-width: 0 !important;
+}
+
+.gpen-planilha__escolher-foto {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 1px solid #dbe3d8;
+  border-radius: 6px;
+  background: #f7faf5;
+  color: #31543a;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .gpen-planilha__campo-com-foto {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .gpen-planilha__escolher-foto {
+    min-height: 40px;
+    font-size: 12px;
+  }
+}
