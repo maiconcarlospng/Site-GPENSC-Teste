@@ -25,7 +25,7 @@ KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
     "color", "map", "code", "uuid", "keyvalue", "richtext",
-    "galeria-multipla-v2",
+    "galeria-multipla-v2", "planilha-editor",
 }
 
 
@@ -185,7 +185,7 @@ def validate_data_against_fields(data, fields, context: str) -> None:
                 except ValueError:
                     fail(f"Data inexistente no campo '{name}' em {context}: {value_text!r}.")
 
-        if widget == "list" and value is not None:
+        if widget in {"list", "planilha-editor"} and value is not None:
             if not isinstance(value, list):
                 fail(f"O campo de lista '{name}' não contém uma lista em {context}.")
             child_fields = field.get("fields")
@@ -223,6 +223,7 @@ UNIQUE_KEYS = {
     "videos": ("url",),
     "sites": ("url",),
     "apoio": ("nome",),
+    "linha_tempo": ("ano", "titulo"),
     "linha_tempo": ("ano", "titulo"),
 }
 
@@ -311,7 +312,7 @@ def warn_demo_content(yaml_paths) -> None:
                 )
 
 def main() -> None:
-    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", *SITE_CSS_PATHS):
+    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js", ADMIN / "planilhas.css", *SITE_CSS_PATHS):
         if not file_path.is_file():
             fail(f"Arquivo necessário não encontrado: {file_path.relative_to(ROOT)}")
 
@@ -385,6 +386,7 @@ def main() -> None:
 
     # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
     inspect_css(CSS_PATH)
+    inspect_css(ADMIN / "planilhas.css")
     for site_css in SITE_CSS_PATHS:
         inspect_css(site_css)
 
@@ -421,6 +423,11 @@ def main() -> None:
             result = subprocess.run([node, "--check", str(script_path)], text=True, capture_output=True)
             if result.returncode:
                 fail(f"JavaScript inline #{index} inválido em admin/cms.html:\n{result.stderr.strip()}")
+
+    for js_file in (ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js"):
+        result = subprocess.run([node, "--check", str(js_file)], text=True, capture_output=True)
+        if result.returncode:
+            fail(f"JavaScript inválido em {js_file.relative_to(ROOT)}:\n{result.stderr.strip()}")
 
     print(
         "Validação concluída: "
