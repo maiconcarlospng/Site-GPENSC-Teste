@@ -69,6 +69,190 @@ div(
     })
   ),
 
+
+  h2("Nossa trajetória"),
+  p(
+    class = "gp-timeline-intro",
+    "Uma linha do tempo para registrar os momentos, projetos e encontros que fazem parte da história do GPENSC."
+  ),
+  {
+    linha_tempo_config <- yaml::read_yaml("data/linha_tempo.yml")
+    linha_tempo_itens <- linha_tempo_config$itens
+
+    div(
+      class = "gp-timeline",
+      id = "gp-timeline-quem-somos",
+      div(
+        class = "gp-timeline-stage",
+        tags$button(
+          class = "gp-timeline-arrow gp-timeline-prev",
+          type = "button",
+          `data-timeline-prev` = "",
+          `aria-label` = "Voltar um acontecimento",
+          disabled = TRUE,
+          tags$i(class = "bi bi-chevron-left", `aria-hidden` = "true")
+        ),
+        div(
+          class = "gp-timeline-viewport",
+          `data-timeline-viewport` = "",
+          tabindex = "0",
+          role = "region",
+          `aria-label` = "Linha do tempo do GPENSC. Use as setas para navegar."
+        ,
+          div(
+            class = "gp-timeline-track",
+            `data-timeline-track` = "",
+            lapply(seq_along(linha_tempo_itens), function(i) {
+              evento <- linha_tempo_itens[[i]]
+              imagem <- caminho_img(evento$imagem)
+              titulo <- as.character(evento$titulo)
+              descricao <- as.character(evento$descricao)
+              ano <- as.character(evento$ano)
+
+              tags$article(
+                class = "gp-timeline-card",
+                `data-timeline-card` = i,
+                `aria-label` = paste(ano, titulo),
+                div(
+                  class = "gp-timeline-photo",
+                  tags$img(
+                    src = imagem,
+                    alt = paste("Registro fotográfico:", titulo),
+                    loading = if (i == 1) "eager" else "lazy"
+                  )
+                ),
+                div(
+                  class = "gp-timeline-copy",
+                  span(class = "gp-timeline-eyebrow", "NOSSA HISTÓRIA"),
+                  span(class = "gp-timeline-year", ano),
+                  h3(titulo),
+                  p(descricao)
+                )
+              )
+            })
+          )
+        ),
+        tags$button(
+          class = "gp-timeline-arrow gp-timeline-next",
+          type = "button",
+          `data-timeline-next` = "",
+          `aria-label` = "Avançar um acontecimento",
+          tags$i(class = "bi bi-chevron-right", `aria-hidden` = "true")
+        )
+      ),
+      div(
+        class = "gp-timeline-meta",
+        span(
+          class = "gp-timeline-status",
+          `data-timeline-status` = "",
+          `aria-live` = "polite",
+          paste0("1 de ", length(linha_tempo_itens), " · ", linha_tempo_itens[[1]]$ano)
+        ),
+        span(class = "gp-timeline-hint", "Use as setas ou escolha um ano")
+      ),
+      div(
+        class = "gp-timeline-years",
+        `data-timeline-years` = "",
+        lapply(seq_along(linha_tempo_itens), function(i) {
+          evento <- linha_tempo_itens[[i]]
+          tags$button(
+            class = "gp-timeline-marker",
+            type = "button",
+            `data-timeline-go` = i,
+            `aria-label` = paste("Ver", evento$ano, "-", evento$titulo),
+            `aria-current` = if (i == 1) "step" else "false",
+            span(class = "gp-timeline-dot"),
+            span(class = "gp-timeline-marker-year", as.character(evento$ano))
+          )
+        })
+      )
+    )
+  },
+  tags$script(htmltools::HTML("
+    (() => {
+      const root = document.querySelector('#gp-timeline-quem-somos');
+      if (!root || root.dataset.timelineReady === 'true') return;
+      root.dataset.timelineReady = 'true';
+
+      const viewport = root.querySelector('[data-timeline-viewport]');
+      const cards = Array.from(root.querySelectorAll('[data-timeline-card]'));
+      const markers = Array.from(root.querySelectorAll('[data-timeline-go]'));
+      const previous = root.querySelector('[data-timeline-prev]');
+      const next = root.querySelector('[data-timeline-next]');
+      const status = root.querySelector('[data-timeline-status]');
+      if (!viewport || cards.length === 0) return;
+
+      let active = 0;
+      let framePending = false;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const setActive = (index) => {
+        active = Math.max(0, Math.min(cards.length - 1, index));
+        cards.forEach((card, i) => {
+          card.setAttribute('aria-hidden', i === active ? 'false' : 'true');
+          card.classList.toggle('is-active', i === active);
+        });
+        markers.forEach((marker, i) => {
+          marker.setAttribute('aria-current', i === active ? 'step' : 'false');
+          marker.classList.toggle('is-active', i === active);
+        });
+        previous.disabled = active === 0;
+        next.disabled = active === cards.length - 1;
+        const year = cards[active].querySelector('.gp-timeline-year')?.textContent?.trim() || '';
+        status.textContent = (active + 1) + ' de ' + cards.length + ' · ' + year;
+      };
+
+      const goTo = (index) => {
+        const targetIndex = Math.max(0, Math.min(cards.length - 1, index));
+        const target = cards[targetIndex];
+        const left = target.getBoundingClientRect().left -
+          viewport.getBoundingClientRect().left + viewport.scrollLeft;
+        viewport.scrollTo({
+          left,
+          behavior: reducedMotion.matches ? 'auto' : 'smooth'
+        });
+        setActive(targetIndex);
+      };
+
+      const syncFromScroll = () => {
+        framePending = false;
+        const edge = viewport.getBoundingClientRect().left;
+        let closest = 0;
+        let distance = Infinity;
+        cards.forEach((card, i) => {
+          const currentDistance = Math.abs(card.getBoundingClientRect().left - edge);
+          if (currentDistance < distance) {
+            closest = i;
+            distance = currentDistance;
+          }
+        });
+        setActive(closest);
+      };
+
+      previous.addEventListener('click', () => goTo(active - 1));
+      next.addEventListener('click', () => goTo(active + 1));
+      markers.forEach((marker, i) => marker.addEventListener('click', () => goTo(i)));
+
+      viewport.addEventListener('scroll', () => {
+        if (framePending) return;
+        framePending = true;
+        window.requestAnimationFrame(syncFromScroll);
+      }, { passive: true });
+
+      viewport.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          goTo(active - 1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          goTo(active + 1);
+        }
+      });
+
+      setActive(0);
+    })();
+  "))
+
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
     integrantes$categoria_exibicao <- vapply(
