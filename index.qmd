@@ -1,108 +1,73 @@
 ---
 pagetitle: "GPENSC – Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva – UFOP"
 title-prefix: ""
-page-layout: custom
+page-layout: full
 title-block-banner: false
 ---
 
 ```{=html}
-<!-- Página inicial: identidade institucional, galeria, apresentação, pesquisa, notícias e apoio. -->
-```
+<main class="tree-home">
+  <section class="tree-intro">
+    <div class="tree-eyebrow"><span></span> Universidade Federal de Ouro Preto</div>
+    <h1>Conhecimento que cria raízes.<br><em>Pesquisa que transforma vidas.</em></h1>
+    <p>Explore o universo do GPENSC por meio dos galhos da nossa árvore. Cada caminho revela pessoas, projetos e conhecimentos que conectam Nutrição e Saúde Coletiva.</p>
+    <div class="tree-hint"><span class="hint-pulse"></span> Selecione um galho para explorar</div>
+  </section>
 
-```{r}
-source("R/helpers.R")
-faixa_galeria()
-```
+  <section class="tree-stage" aria-label="Árvore interativa de navegação do GPENSC">
+    <svg class="tree-art" viewBox="0 0 1000 650" role="img" aria-label="Ilustração estilizada de uma árvore com galhos que representam as áreas do GPENSC">
+      <defs>
+        <linearGradient id="trunk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b7048"/><stop offset="1" stop-color="#65452f"/></linearGradient>
+        <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9ab77a"/><stop offset="1" stop-color="#477b56"/></linearGradient>
+      </defs>
+      <path class="tree-trunk" d="M500 650 C485 560 520 500 500 430 C480 355 500 300 500 245" />
+      <path class="tree-branch" d="M500 430 C420 370 330 330 220 265 M500 385 C585 335 675 300 790 235 M500 320 C430 255 390 190 355 115 M500 300 C575 235 620 175 655 105 M500 470 C610 430 730 400 855 350 M500 470 C390 430 270 405 145 350"/>
+      <g class="tree-leaves">
+        <ellipse cx="220" cy="245" rx="95" ry="55"/><ellipse cx="790" cy="215" rx="105" ry="60"/>
+        <ellipse cx="355" cy="105" rx="90" ry="58"/><ellipse cx="655" cy="95" rx="92" ry="58"/>
+        <ellipse cx="855" cy="335" rx="88" ry="55"/><ellipse cx="145" cy="335" rx="90" ry="56"/>
+        <ellipse cx="500" cy="205" rx="105" ry="62"/><ellipse cx="500" cy="145" rx="78" ry="48"/>
+      </g>
+      <path class="root-line" d="M500 610 C455 630 420 640 365 645 M500 610 C545 630 590 640 645 645"/>
+    </svg>
 
-::::: secao
-```{r}
-bloco_intro()
-```
+    <div class="tree-center">
+      <div class="tree-logo"><img src="img/logo_gpensc.png" alt="Logo do GPENSC"></div>
+      <strong>GPENSC</strong>
+      <span>Raízes em conhecimento</span>
+    </div>
 
-## {{< var titulo_home_pesquisas >}}
+    <div class="tree-branches">
+      <article class="tree-branch-card branch-about">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-about"><span class="branch-icon">✳</span><span><strong>O grupo</strong><small>Nossa história e pessoas</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-about" hidden><a href="sobre.html">Quem somos</a><a href="contato.html">Contato</a></div>
+      </article>
+      <article class="tree-branch-card branch-research">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-research"><span class="branch-icon">⌕</span><span><strong>Pesquisa</strong><small>Investigar e produzir ciência</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-research" hidden><a href="linhas.html">Linhas de pesquisa</a><a href="projetos.html">Projetos</a><a href="publicacoes.html">Publicações</a><a href="teses.html">Teses e dissertações</a></div>
+      </article>
+      <article class="tree-branch-card branch-teaching">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-teaching"><span class="branch-icon">⌂</span><span><strong>Ensino</strong><small>Formação e aprendizagem</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-teaching" hidden><a href="disciplinas.html">Disciplinas</a><a href="teses.html">Orientações e defesas</a><a href="livros.html">Livros e capítulos</a></div>
+      </article>
+      <article class="tree-branch-card branch-extension">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-extension"><span class="branch-icon">↗</span><span><strong>Extensão</strong><small>Conhecimento em diálogo</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-extension" hidden><a href="extensao.html">Projetos de extensão</a><a href="podcasts.html">Podcasts</a><a href="videos.html">Vídeos</a></div>
+      </article>
+      <article class="tree-branch-card branch-library">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-library"><span class="branch-icon">▤</span><span><strong>Biblioteca</strong><small>Conteúdos para descobrir</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-library" hidden><a href="livros.html">Livros</a><a href="videos.html">Vídeos</a><a href="sites.html">Sites recomendados</a></div>
+      </article>
+      <article class="tree-branch-card branch-community">
+        <button class="branch-toggle" aria-expanded="false" aria-controls="branch-community"><span class="branch-icon">◌</span><span><strong>Vida do grupo</strong><small>Novidades e encontros</small></span><b>＋</b></button>
+        <div class="branch-links" id="branch-community" hidden><a href="noticias.html">Notícias</a><a href="agenda.html">Agenda</a></div>
+      </article>
+    </div>
+  </section>
 
-```{r}
-div(
-  class = "pq-blocos reveal",
-  card_pesq("Projetos em andamento", "projetos.html", "projetos.png", "cor-1", icone = "bi-diagram-3"),
-  card_pesq("Teses, dissertações e TCCs", "teses.html", "teses.png", "cor-2", icone = "bi-mortarboard"),
-  card_pesq("Publicações", "publicacoes.html", "publicacoes.png", "cor-3", icone = "bi-journal-text")
-)
-```
-
-::: centro
-[Veja todas as pesquisas](projetos.qmd){.btn .btn-secondary}
-:::
-
-## {{< var titulo_home_noticias >}}
-
-```{r}
-noticias_recentes <- registros_reais(noticias, "titulo") |>
-  arrange(desc(data)) |>
-  head(6)
-
-if (nrow(noticias_recentes) > 0) {
-  cartoes(noticias_recentes, cartao_noticia)
-} else {
-  estado_vazio(
-    "Novidades em breve",
-    "As notícias do grupo serão exibidas aqui quando houver publicações cadastradas.",
-    "Acompanhe o Instagram",
-    cfg$instagram
-  )
-}
-```
-
-::: centro
-[Todas as notícias](noticias.qmd){.btn .btn-secondary}
-:::
-:::::
-
-::: faixa-agenda
-## {{< var titulo_home_agenda >}}
-
-[Clique aqui](agenda.qmd){.btn .btn-secondary}
-:::
-
-```{r}
-if (tem(cfg$spotify)) {
-  tags$a(
-    class = "gp-spotify-flutuante",
-    href = as.character(cfg$spotify),
-    target = "_blank",
-    rel = "noopener noreferrer",
-    title = "Abrir o link do Spotify",
-    `aria-label` = "Acessar o Spotify do GPENSC",
-    tags$svg(
-      class = "spotify-icon",
-      xmlns = "http://www.w3.org/2000/svg",
-      viewBox = "0 0 64 64",
-      width = "32",
-      height = "32",
-      fill = "none",
-      `aria-hidden` = "true",
-      tags$path(
-        d = "M8 22.5C21.5 14.8 42.5 16 56 24.5",
-        fill = "none",
-        stroke = "currentColor",
-        `stroke-width` = "5.2",
-        `stroke-linecap` = "round"
-      ),
-      tags$path(
-        d = "M12 33.5C24 27 42.5 28.5 53 35.5",
-        fill = "none",
-        stroke = "currentColor",
-        `stroke-width` = "5.2",
-        `stroke-linecap` = "round"
-      ),
-      tags$path(
-        d = "M17 44C27 39.5 40.5 40.5 48 45.5",
-        fill = "none",
-        stroke = "currentColor",
-        `stroke-width` = "5.2",
-        `stroke-linecap` = "round"
-      )
-    )
-  )
-}
+  <section class="tree-bottom">
+    <span>UM GRUPO, MUITOS CAMINHOS</span>
+    <p>Da pesquisa à comunidade, cultivamos conhecimento em Nutrição e Saúde Coletiva.</p>
+  </section>
+</main>
 ```
