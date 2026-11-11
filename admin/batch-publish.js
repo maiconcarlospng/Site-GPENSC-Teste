@@ -95,9 +95,9 @@ function login(){
  return new Promise((resolve,reject)=>{
   const popup=window.open(WORKER+'/auth?provider=github&site_id='+encodeURIComponent(location.hostname)+'&scope=repo','gpen-github-auth','width=620,height=720,menubar=no,toolbar=no');
   if(!popup){reject(new Error('Permita a abertura da janela de autenticação do GitHub.'));return;}
-  const timeout=setTimeout(()=>{window.removeEventListener('message',listener);reject(new Error('A autenticação expirou. Tente novamente.'));},180000);
+  const timeout=setTimeout(()=>{window.removeEventListener('message',listener);try{popup.close();}catch{}reject(new Error('A autenticação expirou. Tente novamente.'));},180000);
   function listener(event){
-   if(event.origin!==new URL(WORKER).origin)return;
+   if(event.origin!==new URL(WORKER).origin||event.source!==popup)return;
    const msg=String(event.data||'');
    if(!msg.startsWith('authorization:github:'))return;
    clearTimeout(timeout);window.removeEventListener('message',listener);
