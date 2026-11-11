@@ -299,12 +299,12 @@ function render() {
   if (mobileMenu) mobileMenu.addEventListener('click', () => {
     setMobileMenu(!root.classList.contains('gpd-menu-open'));
   });
-  root.addEventListener('keydown', event => {
+  root.onkeydown = event => {
     if (event.key === 'Escape' && root.classList.contains('gpd-menu-open')) {
       setMobileMenu(false);
       mobileMenu?.focus();
     }
-  });
+  };
   root.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
     setMobileMenu(false);
     if (button.dataset.go === 'config') navigate('config');
