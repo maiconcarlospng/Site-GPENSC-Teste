@@ -110,7 +110,7 @@ div(
       titulo <- if (is.null(evento$titulo) || !length(evento$titulo)) "" else trimws(as.character(evento$titulo[1]))
       descricao <- if (is.null(evento$descricao) || !length(evento$descricao)) "" else trimws(as.character(evento$descricao[1]))
       !identical(ano, "20XX") &&
-        !grepl("^(\\\\[EXEMPLO\\\\]|EXEMPLO\\\\s*:)", titulo, ignore.case = TRUE) &&
+        !grepl("^(\\[EXEMPLO\\]|EXEMPLO\\s*:)", titulo, ignore.case = TRUE) &&
         !grepl("^(Conte aqui|Registre |Destaque |Acrescente aqui)", descricao, ignore.case = TRUE)
     }, linha_tempo_itens)
 
