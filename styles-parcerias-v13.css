@@ -1,0 +1,228 @@
+/* ==========================================================
+   PARCERIAS E VÍNCULOS INSTITUCIONAIS — layout responsivo
+   Mantém todas as marcas em áreas de proporção uniforme.
+   ========================================================== */
+
+.sobre-parcerias {
+  width: min(100% - 2rem, 1180px);
+  margin: clamp(2.5rem, 6vw, 5rem) auto 2rem;
+}
+
+.sobre-parcerias > h2 {
+  margin: 0 0 2rem;
+  color: #1f4d2b;
+  text-align: center;
+}
+
+.sobre-parcerias-grupo {
+  margin: 0 0 2.25rem;
+}
+
+.sobre-parcerias-grupo > h3 {
+  margin: 0 0 1.25rem;
+  color: #315c3b;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+
+.sobre-parcerias-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.sobre-parceria-link {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sobre-parceria-card {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: 1.1rem;
+  height: 100%;
+  min-height: 190px;
+  padding: 1.15rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e9e2;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(31, 77, 43, .07);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.sobre-parceria-link:hover .sobre-parceria-card {
+  border-color: #a9c49c;
+  box-shadow: 0 9px 24px rgba(31, 77, 43, .11);
+  transform: translateY(-2px);
+}
+
+.sobre-parceria-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 142px;
+  min-width: 0;
+  padding: .65rem;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.sobre-parceria-logo-wrap img.sobre-parceria-logo,
+.sobre-parceria-logo {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: 100%;
+  max-height: 122px;
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.sobre-parceria-copy {
+  min-width: 0;
+}
+
+.sobre-parceria-copy h4 {
+  margin: 0 0 .55rem;
+  color: #315c3b;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.sobre-parceria-uf {
+  display: block;
+  color: #59675b;
+  font-size: .92rem;
+}
+
+.sobre-parceria-externo {
+  display: inline-block;
+  margin-top: .65rem;
+  color: #1f6b3c;
+  font-size: .9rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Grupo de parcerias do CNPq: somente as marcas, sem legenda. */
+.sobre-parcerias-grupo--logos .sobre-parcerias-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sobre-parceria-logo-link,
+.sobre-parceria-logo-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 150px;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #e7ebe4;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(31, 77, 43, .06);
+}
+
+.sobre-parceria-logo-only img.sobre-parceria-logo {
+  width: 100%;
+  max-width: 210px;
+  height: 118px;
+  max-height: 118px;
+  object-fit: contain;
+}
+
+.sobre-parceria-logo-link:hover {
+  border-color: #a9c49c;
+}
+
+@media (max-width: 700px) {
+  .sobre-parcerias {
+    width: min(100% - 1.5rem, 560px);
+    margin-top: 2.5rem;
+  }
+
+  .sobre-parcerias-grid,
+  .sobre-parcerias-grupo--logos .sobre-parcerias-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .85rem;
+  }
+
+  .sobre-parceria-card {
+    grid-template-columns: minmax(104px, 34%) minmax(0, 1fr);
+    gap: .85rem;
+    min-height: 138px;
+    padding: .85rem;
+    border-radius: 13px;
+  }
+
+  .sobre-parceria-logo-wrap {
+    height: 112px;
+    padding: .35rem;
+  }
+
+  .sobre-parceria-logo-wrap img.sobre-parceria-logo {
+    width: 100%;
+    max-width: 132px;
+    height: 100%;
+    max-height: 96px;
+  }
+
+  .sobre-parceria-copy h4 {
+    margin-bottom: .35rem;
+    font-size: .96rem;
+    line-height: 1.25;
+  }
+
+  .sobre-parceria-uf,
+  .sobre-parceria-externo {
+    font-size: .84rem;
+  }
+
+  .sobre-parceria-logo-link,
+  .sobre-parceria-logo-only {
+    min-height: 112px;
+    padding: .7rem;
+  }
+
+  .sobre-parceria-logo-only img.sobre-parceria-logo {
+    width: 100%;
+    max-width: 160px;
+    height: 88px;
+    max-height: 88px;
+  }
+}
+
+@media (max-width: 380px) {
+  .sobre-parceria-card {
+    grid-template-columns: 98px minmax(0, 1fr);
+    gap: .65rem;
+    padding: .7rem;
+  }
+
+  .sobre-parceria-logo-wrap {
+    height: 96px;
+  }
+
+  .sobre-parceria-logo-wrap img.sobre-parceria-logo {
+    max-height: 82px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sobre-parceria-card,
+  .sobre-parceria-logo-link {
+    transition: none;
+  }
+  .sobre-parceria-link:hover .sobre-parceria-card {
+    transform: none;
+  }
+}
