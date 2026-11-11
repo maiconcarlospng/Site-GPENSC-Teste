@@ -1,0 +1,114 @@
+/* GPENSC · REVISÃO GERAL DE NAVEGAÇÃO, LEITURA E ACESSIBILIDADE
+   Camada complementar e conservadora: não substitui os estilos existentes. */
+
+/* Área de leitura consistente em páginas internas. */
+#quarto-content main.content,
+#quarto-document-content {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+#quarto-content main.content > :not(.hero):not(.galeria),
+#quarto-document-content > :not(.hero):not(.galeria) {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Hierarquia tipográfica fluida, sem alterar títulos de componentes/cartões. */
+main.content > h1,
+#quarto-document-content > h1,
+.quarto-title-block .title {
+  line-height: 1.16;
+  text-wrap: balance;
+}
+
+main.content > p,
+#quarto-document-content > p {
+  line-height: 1.72;
+}
+
+/* Foco visível para teclado, leitores assistivos e navegação externa. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #b9560f !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline-offset: 2px !important;
+}
+
+/* Alvos de toque confortáveis, sem transformar links comuns em botões. */
+.navbar .nav-link,
+.navbar .dropdown-item,
+.btn,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+.btn,
+button,
+[role="button"] {
+  min-height: 42px;
+}
+
+@media (max-width: 768px) {
+  main.content,
+  #quarto-document-content {
+    padding-left: max(.9rem, env(safe-area-inset-left, 0px));
+    padding-right: max(.9rem, env(safe-area-inset-right, 0px));
+  }
+
+  main.content > p,
+  #quarto-document-content > p {
+    font-size: .97rem;
+    line-height: 1.68;
+  }
+
+  .navbar .nav-link,
+  .navbar .dropdown-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn,
+  button,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Evita que imagens e mídias causem rolagem horizontal no Safari/iOS. */
+  main img,
+  main video,
+  main iframe,
+  #quarto-document-content img,
+  #quarto-document-content video,
+  #quarto-document-content iframe {
+    max-width: 100%;
+  }
+
+  /* Respeita a área segura inferior em aparelhos com indicador de início. */
+  footer.footer {
+    padding-bottom: max(.75rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Evita animações forçadas para quem prefere movimento reduzido. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* O Safari controla o Modo Leitor; não tentamos bloqueá-lo por scripts ou truques. */
