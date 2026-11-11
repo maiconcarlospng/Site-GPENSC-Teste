@@ -1947,3 +1947,100 @@ html[data-theme="dark"] body.gpen-cms-active:not(.gpen-login-active) #gpen-admin
     padding: 10px !important;
   }
 }
+
+
+/* GPENSC — identidade do ambiente de edição Sveltia */
+body.gpen-cms-active:not(.gpen-dashboard-open) {
+  background: #f3f5f3 !important;
+  color: #202722 !important;
+  --sui-primary-accent-color: #28583b;
+  --sui-primary-accent-color-inverted: #fff;
+  --sui-primary-background-color: #fff;
+  --sui-secondary-background-color: #f5f7f5;
+  --sui-tertiary-background-color: #eaf1eb;
+  --sui-primary-foreground-color: #202722;
+  --sui-secondary-foreground-color: #536057;
+  --sui-primary-border-color: #e1e7e1;
+  --sui-secondary-border-color: #e9ede9;
+  --sui-hover-background-color: #edf3ed;
+  --sui-primary-accent-color: #28583b;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) .sui.toolbar {
+  min-height: 62px !important;
+  padding-inline: 22px !important;
+  background: #fff !important;
+  border-bottom: 1px solid #e2e8e2 !important;
+  box-shadow: 0 2px 12px rgba(28,48,33,.045) !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar {
+  background: #202722 !important;
+  color: #f4f7f4 !important;
+  border-right: 1px solid #303a33 !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar button,
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar a {
+  border-radius: 7px !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar button {
+  color: #d4ddd5 !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar button:hover,
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar button[aria-current="page"],
+body.gpen-cms-active:not(.gpen-dashboard-open) .primary-sidebar button[aria-selected="true"] {
+  background: #304b38 !important;
+  color: #fff !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container {
+  background: #f3f5f3 !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container .content {
+  max-width: 1480px;
+  margin-inline: auto;
+  padding: 28px clamp(18px,3vw,42px) !important;
+  background: #f3f5f3 !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container section.field[role="group"][data-key-path] {
+  margin-bottom: 13px !important;
+  padding: 20px 22px !important;
+  border: 1px solid #e2e8e2 !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 8px rgba(28,48,33,.035) !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container section.field[role="group"][data-key-path] > header h4 {
+  color: #28583b !important;
+  font-size: .95rem !important;
+  font-weight: 750 !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container input:not([type="checkbox"]):not([type="radio"]),
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container textarea,
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container select {
+  min-height: 40px;
+  border: 1px solid #d4ded4 !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  color: #202722 !important;
+  box-shadow: none !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container input:focus,
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container textarea:focus,
+body.gpen-cms-active:not(.gpen-dashboard-open) #page-container select:focus {
+  border-color: #5c8966 !important;
+  box-shadow: 0 0 0 3px rgba(53,107,73,.12) !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) button {
+  border-radius: 6px !important;
+}
+body.gpen-cms-active:not(.gpen-dashboard-open) #gpen-admin-site-link {
+  border-radius: 6px !important;
+  background: #28583b !important;
+  box-shadow: 0 4px 14px rgba(28,48,33,.15) !important;
+}
+@media(max-width:700px) {
+  body.gpen-cms-active:not(.gpen-dashboard-open) #page-container .content {
+    padding: 13px !important;
+  }
+  body.gpen-cms-active:not(.gpen-dashboard-open) #page-container section.field[role="group"][data-key-path] {
+    padding: 15px !important;
+  }
+}
