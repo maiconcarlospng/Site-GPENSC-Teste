@@ -349,7 +349,7 @@ def main() -> None:
         fail("O Sveltia deve salvar em uma branch de rascunhos, nunca diretamente em main.")
     batch_source = (ADMIN / "batch-publish.js").read_text(encoding="utf-8")
     batch_constants = {
-        key: re.search(r"const\\s+" + key + r"\\s*=\\s*['\"]([^'\"]+)['\"]", batch_source)
+        key: re.search(r"const\s+" + key + r"\s*=\s*['\"]([^'\"]+)['\"]", batch_source)
         for key in ("OWNER", "REPO", "DRAFT", "MAIN", "WORKER")
     }
     missing_constants = [key for key, match in batch_constants.items() if not match]
