@@ -7,7 +7,7 @@ source("R/helpers.R")
 
 linhas_publicadas <- registros_reais(linhas, "nome")
 projetos_publicados <- registros_reais(projetos, "titulo")
-publicacoes_publicadas <- registros_reais(publicacoes, "titulo")
+publicacoes_publicadas <- registros_reais(pubs, "titulo")
 
 filtrar_por_linha <- function(dados, id) {
   if (nrow(dados) == 0 || !("linha_id" %in% names(dados))) {
