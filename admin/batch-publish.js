@@ -86,7 +86,7 @@ function renderModal(){
  if(!modal)return;
  const body=modal.querySelector('[data-body]');
  const files=compareData?.files||[];
- if(!compareData){body.innerHTML='<p class="gpen-batch-error">Não foi possível consultar a branch de rascunhos. Tente novamente.</p>';return;}
+ if(!compareData){modal.querySelector('[data-publish]').disabled=true;body.innerHTML='<p class="gpen-batch-error">Não foi possível consultar a branch de rascunhos. Tente novamente.</p>';return;}
  if(!files.length){body.innerHTML='<div class="gpen-batch-empty"><strong>Tudo atualizado</strong><span>Não há alterações salvas aguardando publicação.</span></div>';modal.querySelector('[data-publish]').disabled=true;return;}
  body.innerHTML='<div class="gpen-batch-summary"><strong>'+files.length+' arquivo(s) modificado(s)</strong><span>As alterações estão guardadas em segurança e ainda não aparecem no site.</span></div><ul class="gpen-batch-files">'+files.map(file=>'<li><span class="gpen-batch-file-icon">YML</span><span><strong>'+esc(labelFor(file.filename))+'</strong><small>'+esc(file.filename)+'</small></span><em>'+({added:'Novo',modified:'Alterado',removed:'Removido',renamed:'Renomeado'}[file.status]||'Alterado')+'</em></li>').join('')+'</ul><div class="gpen-batch-warning">Ao publicar, todas essas alterações serão reunidas em uma única publicação na versão principal do site.</div>';
  modal.querySelector('[data-publish]').disabled=busy;
