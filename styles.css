@@ -2942,3 +2942,56 @@ main table {
     max-height: 30px !important;
   }
 }
+
+
+/* QUEM SOMOS: reduzir TODAS as logos institucionais no celular,
+   incluindo UFOP, ENUT, PPGSN, UFV e UFMG. */
+@media (max-width: 575.98px) {
+  .sobre-parcerias .sobre-parceria-card {
+    min-height: 68px !important;
+    padding: .5rem .6rem !important;
+    gap: .55rem !important;
+  }
+
+  .sobre-parcerias .sobre-parceria-logo-wrap {
+    flex: 0 0 58px !important;
+    width: 58px !important;
+    height: 42px !important;
+    min-width: 58px !important;
+    padding: 3px !important;
+  }
+
+  .sobre-parcerias .sobre-parceria-logo-wrap img.sobre-parceria-logo {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .sobre-parcerias .sobre-parceria-copy h4 {
+    font-size: .82rem !important;
+    margin-bottom: .2rem !important;
+  }
+
+  .sobre-parcerias .sobre-parceria-sigla {
+    flex: 0 0 42px !important;
+    width: 42px !important;
+    height: 42px !important;
+    font-size: .78rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .sobre-parcerias .sobre-parceria-logo-wrap {
+    flex-basis: 52px !important;
+    width: 52px !important;
+    height: 38px !important;
+    min-width: 52px !important;
+  }
+
+  .sobre-parcerias .sobre-parceria-card {
+    min-height: 62px !important;
+    padding: .4rem .5rem !important;
+  }
+}
