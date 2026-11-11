@@ -33,4 +33,4 @@
 .gpen-batch-empty strong,.gpen-batch-success strong{color:#2d4935;font-size:17px}
 .gpen-batch-success a{margin-top:6px;color:#356a43;font-weight:700;text-decoration:none}
 .gpen-batch-error{padding:10px 12px;border-radius:8px;background:#fff0ed;color:#a33b2f;font-size:12px;line-height:1.5}
-@media(max-width:640px){#gpen-batch-publish{right:12px;bottom:12px;padding:11px 13px;font-size:12px}.gpen-batch-overlay{padding:10px}.gpen-batch-dialog{max-height:90vh;border-radius:14px}.gpen-batch-dialog>header,.gpen-batch-body{padding:19px}.gpen-batch-dialog>footer{align-items:stretch;flex-direction:column;padding:15px 19px}.gpen-batch-dialog footer>div{display:flex}.gpen-batch-secondary,.gpen-batch-primary{flex:1}}
+@media(max-width:640px){#gpen-batch-publish{left:12px;right:auto;bottom:16px;max-width:calc(100vw - 24px);padding:11px 13px;font-size:12px}.gpen-batch-overlay{padding:10px}.gpen-batch-dialog{max-height:90vh;border-radius:14px}.gpen-batch-dialog>header,.gpen-batch-body{padding:19px}.gpen-batch-dialog>footer{align-items:stretch;flex-direction:column;padding:15px 19px}.gpen-batch-dialog footer>div{display:flex}.gpen-batch-secondary,.gpen-batch-primary{flex:1}}
