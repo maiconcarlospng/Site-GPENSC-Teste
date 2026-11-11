@@ -20,6 +20,8 @@ ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
+ADMIN_CSS_PATHS = tuple(ADMIN.glob("*.css"))
+ADMIN_JS_PATHS = tuple(ADMIN.glob("*.js"))
 SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css")
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
@@ -313,7 +315,14 @@ def warn_demo_content(yaml_paths) -> None:
                 )
 
 def main() -> None:
-    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js", ADMIN / "planilhas.css", *SITE_CSS_PATHS):
+    required_admin_files = (
+        CONFIG_PATH, CMS_PATH, CSS_PATH,
+        ADMIN / "dashboard.js", ADMIN / "dashboard.css",
+        ADMIN / "preview.js", ADMIN / "batch-publish.js",
+        ADMIN / "batch-publish.css", ADMIN / "galeria-multipla.js",
+        ADMIN / "planilhas.js", ADMIN / "planilhas.css",
+    )
+    for file_path in (*required_admin_files, *SITE_CSS_PATHS):
         if not file_path.is_file():
             fail(f"Arquivo necessário não encontrado: {file_path.relative_to(ROOT)}")
 
@@ -386,8 +395,8 @@ def main() -> None:
     warn_demo_content(yaml_paths)
 
     # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
-    inspect_css(CSS_PATH)
-    inspect_css(ADMIN / "planilhas.css")
+    for admin_css in ADMIN_CSS_PATHS:
+        inspect_css(admin_css)
     for site_css in SITE_CSS_PATHS:
         inspect_css(site_css)
 
@@ -425,7 +434,9 @@ def main() -> None:
             if result.returncode:
                 fail(f"JavaScript inline #{index} inválido em admin/cms.html:\n{result.stderr.strip()}")
 
-    for js_file in (ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js"):
+    # Todos os scripts administrativos são verificados, inclusive os carregados
+    # por defer ou dinamicamente depois da inicialização do CMS.
+    for js_file in ADMIN_JS_PATHS:
         result = subprocess.run([node, "--check", str(js_file)], text=True, capture_output=True)
         if result.returncode:
             fail(f"JavaScript inválido em {js_file.relative_to(ROOT)}:\n{result.stderr.strip()}")
@@ -433,7 +444,8 @@ def main() -> None:
     print(
         "Validação concluída: "
         f"{len(collection_names)} coleções, {len(configured_files)} arquivos de conteúdo, "
-        f"{len(yaml_paths)} caminhos YAML candidatos, CSS balanceado e JavaScript inline válido."
+        f"{len(yaml_paths)} caminhos YAML candidatos, {len(ADMIN_CSS_PATHS)} folhas CSS administrativas, "
+        f"{len(ADMIN_JS_PATHS)} scripts administrativos e JavaScript inline válidos."
     )
 
 
