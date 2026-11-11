@@ -114,27 +114,30 @@ const collectionRoutes = {
   parcerias: { collection: 'midia_parcerias', file: 'parcerias', label: 'Parcerias registradas no CNPq' }
 };
 
+function normalizeLabel(value) {
+  return String(value || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/\\s+/g, ' ').trim().toLocaleLowerCase('pt-BR');
+}
 function findVisibleTextElement(label) {
-  const wanted = String(label || '').trim().toLocaleLowerCase('pt-BR');
-  const candidates = [...document.querySelectorAll('button, a, [role="button"]')];
+  const wanted = normalizeLabel(label);
+  const sidebar = document.querySelector('.primary-sidebar');
+  if (!sidebar) return null;
+  const candidates = [...sidebar.querySelectorAll('button, a, [role="button"], [role="option"]')];
   return candidates.find(element => {
     if (!element.isConnected || root?.contains(element)) return false;
-    const text = (element.innerText || element.getAttribute('aria-label') || '').trim().toLocaleLowerCase('pt-BR');
+    const text = normalizeLabel(element.innerText || element.getAttribute('aria-label') || element.textContent);
     const rect = element.getBoundingClientRect();
     return text === wanted && rect.width > 0 && rect.height > 0;
-  });
+  }) || null;
 }
 
 function navigate(key) {
-  const route = collectionRoutes[key];
-  if (!route) {
-    if (key === 'config') {
-      window.location.hash = '/collections/configuracoes';
-      hide();
-    }
+  if (key === 'config') {
+    hide();
+    window.location.hash = '/collections/configuracoes';
     return;
   }
-
+  const route = collectionRoutes[key];
+  if (!route) return;
   hide();
   const targetHash = '/collections/' + route.collection;
   if (window.location.hash !== '#' + targetHash) {
@@ -142,7 +145,6 @@ function navigate(key) {
   } else {
     window.dispatchEvent(new HashChangeEvent('hashchange'));
   }
-
   let attempts = 0;
   const openFile = () => {
     const target = findVisibleTextElement(route.label);
@@ -151,9 +153,9 @@ function navigate(key) {
       return;
     }
     attempts += 1;
-    if (attempts < 30) window.setTimeout(openFile, 180);
+    if (attempts < 60) window.setTimeout(openFile, 150);
   };
-  window.setTimeout(openFile, 180);
+  window.setTimeout(openFile, 150);
 }
 function hide() {
   if (!root) return;
@@ -279,7 +281,7 @@ function render() {
         '<footer><span>GPENSC · Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva</span><span>Universidade Federal de Ouro Preto</span></footer>'+
       '</div></main></div>';
   root.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
-    if (button.dataset.go === 'config') navigate('Configurações avançadas');
+    if (button.dataset.go === 'config') navigate('config');
     else navigate(button.dataset.go);
   }));
   root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', hide));
