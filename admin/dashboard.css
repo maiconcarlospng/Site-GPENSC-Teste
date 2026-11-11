@@ -444,3 +444,22 @@ body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button[data-home] {
     display:inline-flex;
   }
 }
+
+@media (max-width:680px) {
+  body.gpen-dashboard-editor-mode #gpen-dashboard {
+    height:calc(58px + env(safe-area-inset-top, 0px)) !important;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side {
+    height:calc(58px + env(safe-area-inset-top, 0px));
+    min-height:calc(58px + env(safe-area-inset-top, 0px));
+    padding-top:max(5px,env(safe-area-inset-top, 0px));
+  }
+  body.gpen-dashboard-editor-mode #page-container {
+    inset:calc(58px + env(safe-area-inset-top, 0px)) 0 0 0 !important;
+    height:calc(100dvh - 58px - env(safe-area-inset-top, 0px)) !important;
+  }
+  body.gpen-cms-active #gpen-admin-site-link {
+    right:calc(12px + env(safe-area-inset-right, 0px));
+    bottom:calc(74px + env(safe-area-inset-bottom, 0px));
+  }
+}
