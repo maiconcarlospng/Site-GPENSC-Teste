@@ -257,7 +257,7 @@ function render() {
   ];
   root.innerHTML = '<div class="gpd-layout">'+
     '<aside class="gpd-side">'+
-      '<div class="gpd-brand"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Painel administrativo</small></span></div>'+
+      '<div class="gpd-brand"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Painel administrativo</small></span><button class="gpd-mobile-menu-toggle" type="button" aria-expanded="false" aria-label="Abrir menu de seções">'+icon('content')+'<span>Seções</span></button></div>'+
       '<nav class="gpd-nav" aria-label="Navegação administrativa">'+groups.map(group =>
         '<section class="gpd-nav-group"><label>'+group.title+'</label>'+group.items.map(([label,ico,key]) =>
           '<button class="'+(!key?'selected':'')+'" '+(key?'data-go="'+key+'"':'data-home="true"')+'>'+icon(ico)+'<span>'+label+'</span></button>'
@@ -284,7 +284,18 @@ function render() {
         '<section class="gpd-panel gpd-quick"><div class="gpd-panel-head"><div><h3>Acesso rápido</h3><p>Abra diretamente as áreas de atualização mais utilizadas.</p></div></div><div class="gpd-quick-grid">'+[['Notícias','noticias','Publicar comunicados e novidades'],['Agenda e eventos','eventos','Atualizar atividades e datas'],['Projetos','projetos','Gerenciar pesquisa e extensão'],['Equipe e integrantes','equipe','Atualizar perfis e vínculos'],['Galeria de fotos','galeria','Organizar imagens e legendas'],['Configurações avançadas','config','Editar textos e informações institucionais']].map(item=>'<button data-go="'+item[1]+'"><span>'+item[0]+'</span><small>'+item[2]+'</small>'+icon('arrow')+'</button>').join('')+'</div></section>'+
         '<footer><span>GPENSC · Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva</span><span>Universidade Federal de Ouro Preto</span></footer>'+
       '</div></main></div>';
+  const mobileMenu = root.querySelector('.gpd-mobile-menu-toggle');
+  if (mobileMenu) mobileMenu.addEventListener('click', () => {
+    const opened = root.classList.toggle('gpd-menu-open');
+    mobileMenu.setAttribute('aria-expanded', String(opened));
+    mobileMenu.setAttribute('aria-label', opened ? 'Fechar menu de seções' : 'Abrir menu de seções');
+    const label = mobileMenu.querySelector('span');
+    if (label) label.textContent = opened ? 'Fechar' : 'Seções';
+  });
   root.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
+    root.classList.remove('gpd-menu-open');
+    const toggle = root.querySelector('.gpd-mobile-menu-toggle');
+    if (toggle) { toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Abrir menu de seções'); const label=toggle.querySelector('span'); if(label) label.textContent='Seções'; }
     if (button.dataset.go === 'config') navigate('config');
     else navigate(button.dataset.go);
   }));
