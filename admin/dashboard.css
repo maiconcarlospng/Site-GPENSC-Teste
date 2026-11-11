@@ -427,3 +427,20 @@ body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button[data-home] {
   body.gpen-dashboard-editor-mode #page-container .sui.toolbar { flex-wrap:wrap !important; }
   body.gpen-dashboard-editor-mode #page-container section.field[role="group"][data-key-path] { padding:10px 8px !important; }
 }
+
+
+/* O controle de navegação compacto existe apenas em telas pequenas. */
+#gpen-dashboard .gpd-side .gpd-mobile-menu-toggle { display:none; }
+@media (max-width:680px) {
+  #gpen-dashboard .gpd-side .gpd-mobile-menu-toggle { display:inline-flex; }
+  #gpen-dashboard button:focus-visible,
+  #gpen-dashboard a:focus-visible {
+    outline:3px solid #d7b16c;
+    outline-offset:3px;
+  }
+}
+@media (max-width:680px) {
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side .gpd-mobile-menu-toggle {
+    display:inline-flex;
+  }
+}
