@@ -19,6 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
+INDEX_PATH = ADMIN / "index.html"
+LEGACY_APP_PATH = ADMIN / "app.html"
 CSS_PATH = ADMIN / "painel.css"
 ADMIN_CSS_PATHS = tuple(ADMIN.glob("*.css"))
 ADMIN_JS_PATHS = tuple(ADMIN.glob("*.js"))
@@ -315,7 +317,7 @@ def warn_demo_content(yaml_paths) -> None:
 
 def main() -> None:
     required_admin_files = (
-        CONFIG_PATH, CMS_PATH, CSS_PATH,
+        CONFIG_PATH, CMS_PATH, INDEX_PATH, LEGACY_APP_PATH, CSS_PATH,
         ADMIN / "dashboard.js", ADMIN / "dashboard.css",
         ADMIN / "preview.js", ADMIN / "batch-publish.js",
         ADMIN / "batch-publish.css", ADMIN / "galeria-multipla.js",
@@ -427,6 +429,11 @@ def main() -> None:
         for token in placeholder_tokens:
             if token.casefold() in source.casefold():
                 fail(f"Marcador provisório '{token}' encontrado em {path.relative_to(ROOT)}.")
+
+    for entrypoint in (INDEX_PATH, LEGACY_APP_PATH):
+        entry_html = entrypoint.read_text(encoding="utf-8")
+        if "cms.html" not in entry_html or "app.js" in entry_html:
+            fail(f"O acesso {entrypoint.relative_to(ROOT)} deve encaminhar exclusivamente para admin/cms.html.")
 
     html_text = CMS_PATH.read_text(encoding="utf-8")
     # Recursos locais do painel precisam existir após a separação dos arquivos.
