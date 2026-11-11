@@ -48,7 +48,11 @@
     const link = pick(linkKeys);
     const category = pick(['categoria','tipo','situacao','nivel','etapa']);
     const authors = pick(['autores','autor','coordenador','responsavel']);
-    const imageURL = image?.value || image?.element.querySelector('img[src]')?.src || '';
+    const rawImageURL = image?.value || image?.element.querySelector('img[src]')?.src || '';
+    let imageURL = rawImageURL;
+    if (rawImageURL && !/^(?:https?:|blob:|data:|\/\/)/i.test(rawImageURL)) {
+      try { imageURL = new URL(rawImageURL.replace(/^\.\//, ''), new URL('../', location.href)).href; } catch {}
+    }
     const isImage = /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(imageURL) || imageURL.startsWith('blob:') || imageURL.startsWith('data:image/');
     const safeImage = isImage ? '<img class="gpen-preview-image" src="'+escapeHTML(imageURL)+'" alt="Imagem do conteúdo">' : '';
     const heading = title?.value || 'Título do conteúdo';
