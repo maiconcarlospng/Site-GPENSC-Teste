@@ -114,14 +114,31 @@ const collectionRoutes = {
   parcerias: { collection: 'midia_parcerias', file: 'parcerias', label: 'Parcerias registradas no CNPq' }
 };
 
+function setActiveNavigation(key) {
+  if (!root) return;
+  root.querySelectorAll('.gpd-nav [data-go]').forEach(button => {
+    const active = button.dataset.go === key;
+    button.classList.toggle('selected', active);
+    if (active) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+  root.querySelectorAll('.gpd-nav [data-home]').forEach(button => {
+    button.classList.toggle('selected', key === 'home');
+    if (key === 'home') button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+}
+
 function navigate(key) {
   const route = collectionRoutes[key];
   if (key === 'config') {
+    setActiveNavigation(key);
     enterEditorMode();
     window.location.hash = '/collections/configuracoes/entries/cfg_identidade';
     return;
   }
   if (!route) return;
+  setActiveNavigation(key);
   enterEditorMode();
   // Mantém a navegação GPENSC fixa e abre o formulário diretamente à direita.
   window.location.hash = '/collections/' + route.collection + '/entries/' + route.file;
@@ -150,6 +167,7 @@ function hide() {
 }
 function show() {
   if (!root) return;
+  setActiveNavigation('home');
   root.hidden = false;
   document.body.classList.remove('gpen-dashboard-editor-mode');
   document.body.classList.add('gpen-dashboard-open');
