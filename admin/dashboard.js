@@ -96,14 +96,65 @@ async function load() {
   render();
 }
 
-function navigate(label) {
-  const buttons = [...document.querySelectorAll('.primary-sidebar button, [role="listbox"] button')];
-  const normalized = String(label || '').toLocaleLowerCase('pt-BR');
-  const button = buttons.find(item => (item.innerText || '').trim().toLocaleLowerCase('pt-BR').includes(normalized));
-  if (button) button.click();
-  hide();
+const collectionRoutes = {
+  noticias: { collection: 'comunicacao', file: 'noticias', label: 'Notícias' },
+  eventos: { collection: 'comunicacao', file: 'eventos', label: 'Agenda e eventos' },
+  linhas: { collection: 'pesquisa', file: 'linhas', label: 'Linhas de pesquisa' },
+  projetos: { collection: 'pesquisa', file: 'projetos', label: 'Projetos' },
+  publicacoes: { collection: 'pesquisa', file: 'publicacoes', label: 'Publicações' },
+  livros: { collection: 'pesquisa', file: 'livros', label: 'Livros' },
+  defesas: { collection: 'pesquisa', file: 'defesas', label: 'Defesas e bancas' },
+  equipe: { collection: 'ensino_equipe', file: 'equipe', label: 'Equipe e integrantes' },
+  disciplinas: { collection: 'ensino_equipe', file: 'disciplinas', label: 'Disciplinas e ensino' },
+  linha_tempo: { collection: 'midia_parcerias', file: 'linha_tempo', label: 'Linha do tempo · Quem somos' },
+  galeria: { collection: 'midia_parcerias', file: 'galeria', label: 'Galeria de fotos' },
+  videos: { collection: 'midia_parcerias', file: 'videos', label: 'Vídeos publicados' },
+  sites: { collection: 'midia_parcerias', file: 'sites', label: 'Sites recomendados' },
+  apoio: { collection: 'midia_parcerias', file: 'apoio', label: 'Instituições parceiras' },
+  parcerias: { collection: 'midia_parcerias', file: 'parcerias', label: 'Parcerias registradas no CNPq' }
+};
+
+function findVisibleTextElement(label) {
+  const wanted = String(label || '').trim().toLocaleLowerCase('pt-BR');
+  const candidates = [...document.querySelectorAll('button, a, [role="button"]')];
+  return candidates.find(element => {
+    if (!element.isConnected || root?.contains(element)) return false;
+    const text = (element.innerText || element.getAttribute('aria-label') || '').trim().toLocaleLowerCase('pt-BR');
+    const rect = element.getBoundingClientRect();
+    return text === wanted && rect.width > 0 && rect.height > 0;
+  });
 }
 
+function navigate(key) {
+  const route = collectionRoutes[key];
+  if (!route) {
+    if (key === 'config') {
+      window.location.hash = '/collections/configuracoes';
+      hide();
+    }
+    return;
+  }
+
+  hide();
+  const targetHash = '/collections/' + route.collection;
+  if (window.location.hash !== '#' + targetHash) {
+    window.location.hash = targetHash;
+  } else {
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }
+
+  let attempts = 0;
+  const openFile = () => {
+    const target = findVisibleTextElement(route.label);
+    if (target) {
+      target.click();
+      return;
+    }
+    attempts += 1;
+    if (attempts < 30) window.setTimeout(openFile, 180);
+  };
+  window.setTimeout(openFile, 180);
+}
 function hide() {
   if (!root) return;
   root.hidden = true;
@@ -229,7 +280,7 @@ function render() {
       '</div></main></div>';
   root.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
     if (button.dataset.go === 'config') navigate('Configurações avançadas');
-    else navigate(labels[button.dataset.go] || button.dataset.go);
+    else navigate(button.dataset.go);
   }));
   root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', hide));
   root.querySelectorAll('[data-home]').forEach(button => button.addEventListener('click', show));
