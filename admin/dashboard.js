@@ -168,6 +168,9 @@ function hide() {
 }
 function show() {
   if (!root) return;
+  root.classList.remove('gpd-menu-open');
+  const mobileMenu = root.querySelector('.gpd-mobile-menu-toggle');
+  if (mobileMenu) { mobileMenu.setAttribute('aria-expanded','false'); mobileMenu.setAttribute('aria-label','Abrir menu de seções'); const label=mobileMenu.querySelector('span'); if(label) label.textContent='Seções'; }
   setActiveNavigation('home');
   root.hidden = false;
   document.body.classList.remove('gpen-dashboard-editor-mode');
