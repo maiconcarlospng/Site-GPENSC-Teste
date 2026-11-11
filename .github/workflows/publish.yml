@@ -76,15 +76,10 @@ jobs:
             exit 0
           fi
 
-          site_build=false
-          while IFS= read -r path; do
-            [[ -z "$path" ]] && continue
-            if [[ "$path" != admin/* ]]; then
-              site_build=true
-              break
-            fi
-          done <<< "$changed_files"
-
+          # Mudanças administrativas também exigem uma publicação completa
+          # quando ainda não existe cache público compatível no runner.
+          # Isso garante que os novos arquivos do painel cheguem ao Pages.
+          site_build=true
           echo "site_build=$site_build" >> "$GITHUB_OUTPUT"
           echo "Recompilar site público: $site_build"
 
