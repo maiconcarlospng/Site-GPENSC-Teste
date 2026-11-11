@@ -260,8 +260,8 @@ function render() {
   ];
   root.innerHTML = '<div class="gpd-layout">'+
     '<aside class="gpd-side">'+
-      '<div class="gpd-brand"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Painel administrativo</small></span><button class="gpd-mobile-menu-toggle" type="button" aria-expanded="false" aria-label="Abrir menu de seções">'+icon('content')+'<span>Seções</span></button></div>'+
-      '<nav class="gpd-nav" aria-label="Navegação administrativa">'+groups.map(group =>
+      '<div class="gpd-brand"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Painel administrativo</small></span><button class="gpd-mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="gpd-mobile-sections" aria-label="Abrir menu de seções">'+icon('content')+'<span>Seções</span></button></div>'+
+      '<nav class="gpd-nav" id="gpd-mobile-sections" aria-label="Navegação administrativa">'+groups.map(group =>
         '<section class="gpd-nav-group"><label>'+group.title+'</label>'+group.items.map(([label,ico,key]) =>
           '<button class="'+(!key?'selected':'')+'" '+(key?'data-go="'+key+'"':'data-home="true"')+'>'+icon(ico)+'<span>'+label+'</span></button>'
         ).join('')+'</section>'
@@ -288,17 +288,25 @@ function render() {
         '<footer><span>GPENSC · Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva</span><span>Universidade Federal de Ouro Preto</span></footer>'+
       '</div></main></div>';
   const mobileMenu = root.querySelector('.gpd-mobile-menu-toggle');
-  if (mobileMenu) mobileMenu.addEventListener('click', () => {
-    const opened = root.classList.toggle('gpd-menu-open');
+  const setMobileMenu = opened => {
+    root.classList.toggle('gpd-menu-open', opened);
+    if (!mobileMenu) return;
     mobileMenu.setAttribute('aria-expanded', String(opened));
     mobileMenu.setAttribute('aria-label', opened ? 'Fechar menu de seções' : 'Abrir menu de seções');
     const label = mobileMenu.querySelector('span');
     if (label) label.textContent = opened ? 'Fechar' : 'Seções';
+  };
+  if (mobileMenu) mobileMenu.addEventListener('click', () => {
+    setMobileMenu(!root.classList.contains('gpd-menu-open'));
+  });
+  root.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && root.classList.contains('gpd-menu-open')) {
+      setMobileMenu(false);
+      mobileMenu?.focus();
+    }
   });
   root.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => {
-    root.classList.remove('gpd-menu-open');
-    const toggle = root.querySelector('.gpd-mobile-menu-toggle');
-    if (toggle) { toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-label','Abrir menu de seções'); const label=toggle.querySelector('span'); if(label) label.textContent='Seções'; }
+    setMobileMenu(false);
     if (button.dataset.go === 'config') navigate('config');
     else navigate(button.dataset.go);
   }));
