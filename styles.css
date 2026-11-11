@@ -3251,3 +3251,21 @@ main table {
 }
 
 /* Recompilação integral após a restauração dos formulários nativos do painel. */
+
+
+/* LINHAS DE PESQUISA: mais respiro entre os cartões */
+.linhas-pesquisa-grid {
+  column-gap: 26px;
+  row-gap: 26px;
+}
+
+.linha-pesquisa-card {
+  border-color: #dce6d8;
+  box-shadow: 0 7px 22px rgba(31, 77, 43, .075);
+}
+
+@media (max-width: 760px) {
+  .linhas-pesquisa-grid {
+    row-gap: 20px;
+  }
+}
