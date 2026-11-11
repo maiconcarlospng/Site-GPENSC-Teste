@@ -46,7 +46,7 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({
 }[c]));
 const valid = value => value !== null && value !== undefined && String(value).trim() !== '';
 const isExample = item => Object.values(item || {}).some(value =>
-  typeof value === 'string' && /\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]|\[Agência\/Edital\]|\[Nome\]/i.test(value)
+  typeof value === 'string' && /\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]|\[Agência\/Edital\]|\[Nome\]|^20XX$/i.test(value)
 );
 const records = key => (Array.isArray(data[key]) ? data[key] : []).filter(item => item && !isExample(item));
 const total = key => records(key).length;
