@@ -78,7 +78,7 @@ function ensureModal(){
 }
 async function openModal(){
  ensureModal();modal.hidden=false;
- const publishButton=modal.querySelector('[data-publish]');publishButton.hidden=false;publishButton.textContent='Confirmar publicação';
+ const publishButton=modal.querySelector('[data-publish]');publishButton.hidden=false;publishButton.disabled=true;publishButton.textContent='Confirmar publicação';
  modal.querySelector('[data-body]').innerHTML='<div class="gpen-batch-loading">Consultando alterações…</div>';
  await refresh();
 }
