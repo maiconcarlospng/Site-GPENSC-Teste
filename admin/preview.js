@@ -94,8 +94,8 @@
     modal.hidden = false;
   }
   function addButton() {
-    const toolbar = document.querySelector('.sui.toolbar');
     const editor = document.querySelector('#page-container');
+    const toolbar = editor?.querySelector('.sui.toolbar') || document.querySelector('.sui.toolbar');
     if (!toolbar || !editor || document.querySelector('[data-gpen-preview-open]')) return;
     const button = document.createElement('button');
     button.type = 'button';
