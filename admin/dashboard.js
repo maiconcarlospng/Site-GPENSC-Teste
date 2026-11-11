@@ -1,7 +1,7 @@
 (() => {
 'use strict'; if(window.__GPEN_DASH__) return; window.__GPEN_DASH__=true;
 const files={equipe:'equipe.yml',linhas:'linhas.yml',projetos:'projetos.yml',publicacoes:'publicacoes.yml',eventos:'eventos.yml',noticias:'noticias.yml',galeria:'galeria.yml'};
-const base=new URL('../data/',document.currentScript.src); let data={},root;
+const base=new URL('../data/',window.location.href); let data={},root;
 const clean=a=>(Array.isArray(a)?a:[]).filter(x=>!Object.values(x||{}).some(v=>typeof v==='string'&&/\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]/i.test(v)));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const icons={dashboard:'▦',users:'♧',research:'⌘',projects:'⚗',books:'▤',news:'▣',calendar:'▦',photos:'▧',external:'↗',arrow:'›'};
