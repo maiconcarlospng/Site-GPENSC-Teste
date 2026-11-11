@@ -485,112 +485,44 @@ div(
 
   if (nrow(parcerias_publicadas) > 0) {
     div(
-      class = "sobre-parcerias",
+      class = "sobre-parcerias sobre-parcerias--somente-logos",
       h2("Instituições parceiras e vínculos"),
-      lapply(c("Parcerias registradas no CNPq", "Vínculos institucionais"), function(grupo_atual) {
-        itens_grupo <- parcerias_publicadas[
-          !is.na(parcerias_publicadas$grupo) &
-            parcerias_publicadas$grupo == grupo_atual,
-          ,
-          drop = FALSE
-        ]
+      div(
+        class = "sobre-parcerias-grid",
+        lapply(seq_len(nrow(parcerias_publicadas)), function(i) {
+          parceria <- parcerias_publicadas[i, , drop = FALSE]
+          nome_parceria <- as.character(parceria$nome[1])
+          logo_parceria <- valor_publico(parceria$logo)
+          link_parceria <- valor_publico(parceria$url)
 
-        if (nrow(itens_grupo) == 0) return(NULL)
+          if (is.null(logo_parceria)) return(NULL)
 
-        somente_logos <- identical(grupo_atual, "Parcerias registradas no CNPq")
-
-        div(
-          class = if (somente_logos) {
-            "sobre-parcerias-grupo sobre-parcerias-grupo--logos"
-          } else {
-            "sobre-parcerias-grupo"
-          },
-          if (!somente_logos) h3(grupo_atual),
-          div(
-            class = "sobre-parcerias-grid",
-            lapply(seq_len(nrow(itens_grupo)), function(i) {
-              parceria <- itens_grupo[i, , drop = FALSE]
-              nome_parceria <- as.character(parceria$nome[1])
-              sigla_parceria <- as.character(parceria$sigla[1])
-              logo_parceria <- valor_publico(parceria$logo)
-              link_parceria <- valor_publico(parceria$url)
-
-              if (somente_logos) {
-                logo_item <- if (!is.null(logo_parceria)) {
-                  tags$img(
-                    class = "sobre-parceria-logo",
-                    src = caminho_img(logo_parceria),
-                    alt = paste("Logo:", nome_parceria),
-                    loading = "lazy"
-                  )
-                } else {
-                  NULL
-                }
-
-                if (is.null(logo_item)) return(NULL)
-
-                conteudo_logo <- div(
-                  class = "sobre-parceria-logo-only",
-                  logo_item
-                )
-
-                if (!is.null(link_parceria)) {
-                  tags$a(
-                    class = "sobre-parceria-logo-link",
-                    href = link_parceria,
-                    target = "_blank",
-                    rel = "noopener noreferrer",
-                    aria_label = paste("Acessar", nome_parceria),
-                    conteudo_logo
-                  )
-                } else {
-                  conteudo_logo
-                }
-              } else {
-                conteudo_parceria <- div(
-                  class = "sobre-parceria-card",
-                  if (!is.null(logo_parceria)) {
-                    div(
-                      class = "sobre-parceria-logo-wrap",
-                      tags$img(
-                        class = "sobre-parceria-logo",
-                        src = caminho_img(logo_parceria),
-                        alt = paste("Logo:", nome_parceria),
-                        loading = "lazy"
-                      )
-                    )
-                  } else {
-                    span(class = "sobre-parceria-sigla", sigla_parceria)
-                  },
-                  div(
-                    class = "sobre-parceria-copy",
-                    h4(nome_parceria),
-                    span(
-                      class = "sobre-parceria-uf",
-                      paste("UF:", as.character(parceria$uf[1]))
-                    )
-                  ),
-                  if (!is.null(link_parceria)) {
-                    span(class = "sobre-parceria-externo", "Acessar site")
-                  }
-                )
-
-                if (!is.null(link_parceria)) {
-                  tags$a(
-                    class = "sobre-parceria-link",
-                    href = link_parceria,
-                    target = "_blank",
-                    rel = "noopener noreferrer",
-                    conteudo_parceria
-                  )
-                } else {
-                  conteudo_parceria
-                }
-              }
-            })
+          logo_item <- tags$img(
+            class = "sobre-parceria-logo",
+            src = caminho_img(logo_parceria),
+            alt = paste("Logo:", nome_parceria),
+            loading = "lazy"
           )
-        )
-      })
+
+          conteudo_logo <- div(
+            class = "sobre-parceria-logo-only",
+            logo_item
+          )
+
+          if (!is.null(link_parceria)) {
+            tags$a(
+              class = "sobre-parceria-logo-link",
+              href = link_parceria,
+              target = "_blank",
+              rel = "noopener noreferrer",
+              aria_label = paste("Acessar", nome_parceria),
+              conteudo_logo
+            )
+          } else {
+            conteudo_logo
+          }
+        })
+      )
     )
   },
 
