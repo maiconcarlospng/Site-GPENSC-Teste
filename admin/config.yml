@@ -25,7 +25,7 @@ collections:
           fields:
             - label: "Notícias"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "notícia"
               hint: "Cadastre notícias reais, com título, data e resumo. Se não houver notícias, deixe a lista vazia."
@@ -44,7 +44,7 @@ collections:
           fields:
             - label: "Agenda e eventos"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "evento"
               hint: "Use a data no formato AAAA-MM-DD. Eventos passados deixam de aparecer em próximos eventos."
@@ -64,7 +64,7 @@ collections:
           fields:
             - label: "Linhas"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "linha de pesquisa"
               summary: "{{fields.nome}} — ID {{fields.id}}"
@@ -79,7 +79,7 @@ collections:
           fields:
             - label: "Projetos"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "projeto"
               summary: "{{fields.titulo}} — {{fields.situacao}}"
@@ -108,7 +108,7 @@ collections:
           fields:
             - label: "Publicações"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "publicação"
               summary: "{{fields.titulo}} — {{fields.ano}}"
@@ -137,7 +137,7 @@ collections:
           fields:
             - label: "Livros"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "livro"
               summary: "{{fields.ano}} - {{fields.titulo}}"
@@ -153,7 +153,7 @@ collections:
           fields:
             - label: "Defesas e bancas"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "defesa"
               summary: "{{fields.titulo}} — {{fields.autor}}"
@@ -174,7 +174,7 @@ collections:
           fields:
             - label: "Membros"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "membro"
               hint: "Cadastre integrantes reais e mantenha a categoria atualizada. Divulgue fotos e links apenas com autorização."
@@ -193,7 +193,7 @@ collections:
           fields:
             - label: "Disciplinas e ensino"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "disciplina"
               summary: "{{fields.nome}} — {{fields.codigo}}"
@@ -213,7 +213,7 @@ collections:
           fields:
             - label: "Acontecimentos da trajetória"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "acontecimento"
               hint: "Edite as linhas diretamente, importe Excel/CSV, exporte uma cópia e reordene os acontecimentos. Organize do mais antigo para o mais recente."
@@ -237,7 +237,7 @@ collections:
           fields:
             - label: "Vídeos publicados"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "vídeo"
               summary: "{{fields.titulo}}"
@@ -252,7 +252,7 @@ collections:
           fields:
             - label: "Sites"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "site"
               summary: "{{fields.nome}}"
@@ -266,7 +266,7 @@ collections:
           fields:
             - label: "Instituições"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "instituição"
               summary: "{{fields.nome}}"
@@ -280,7 +280,7 @@ collections:
           fields:
             - label: "Instituições parceiras"
               name: "itens"
-              widget: "planilha-editor"
+              widget: "list"
               collapsed: true
               label_singular: "parceria"
               hint: "Separe instituições parceiras registradas no CNPq dos vínculos institucionais do GPENSC. Logos são opcionais; UFV e UFMG podem receber seus arquivos depois."
