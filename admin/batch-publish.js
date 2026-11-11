@@ -41,6 +41,7 @@ async function refresh(){
  }catch(error){
   compareData=null;
   renderButton(error.message);
+  if(modal&&!modal.hidden) renderModal();
  }
 }
 function ensureButton(){
@@ -116,7 +117,8 @@ async function publish(){
  action.disabled=true;action.textContent='Preparando publicação…';
  try{
   await refresh();
-  const files=compareData?.files||[];
+  if(!compareData)throw new Error('Não foi possível consultar as alterações no GitHub. Verifique sua conexão e tente novamente.');
+  const files=compareData.files||[];
   if(!files.length)throw new Error('Não há alterações para publicar.');
   if(!token)await login();
   else {try{await authedApi('/user');}catch(e){token='';sessionStorage.removeItem('gpen_admin_token');await login();}}
@@ -152,9 +154,19 @@ async function publish(){
   if(!action.hidden)action.disabled=!(compareData?.files?.length);
  }
 }
+function syncButtonVisibility(){
+ if(!button)return;
+ const loginVisible=Boolean(document.querySelector('.container > .inner .buttons'));
+ const editorReady=Boolean(document.querySelector('#page-container'));
+ const dashboardOpen=document.body.classList.contains('gpen-dashboard-open');
+ button.hidden=loginVisible||!editorReady||dashboardOpen;
+}
 function start(){
  ensureButton();
+ syncButtonVisibility();
  refresh();
+ const observer=new MutationObserver(syncButtonVisibility);
+ observer.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden']});
  setInterval(refresh,30000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
