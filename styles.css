@@ -3269,3 +3269,61 @@ main table {
     row-gap: 20px;
   }
 }
+
+
+/* PARCERIAS: logos em linha, sem cartões ou bordas */
+.sobre-parcerias--somente-logos {
+  width: min(100% - 2rem, 1120px);
+  margin-inline: auto;
+}
+
+.sobre-parcerias--somente-logos .sobre-parcerias-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  justify-items: center !important;
+  gap: 1.5rem 2.25rem !important;
+}
+
+.sobre-parcerias--somente-logos .sobre-parceria-logo-link,
+.sobre-parcerias--somente-logos .sobre-parceria-logo-only {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 112px !important;
+  padding: .35rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sobre-parcerias--somente-logos .sobre-parceria-logo {
+  display: block !important;
+  width: 100% !important;
+  max-width: 190px !important;
+  height: 100% !important;
+  max-height: 100px !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 700px) {
+  .sobre-parcerias--somente-logos .sobre-parcerias-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem 1.1rem !important;
+  }
+
+  .sobre-parcerias--somente-logos .sobre-parceria-logo-link,
+  .sobre-parcerias--somente-logos .sobre-parceria-logo-only {
+    height: 88px !important;
+    padding: .2rem !important;
+  }
+
+  .sobre-parcerias--somente-logos .sobre-parceria-logo {
+    max-width: 145px !important;
+    max-height: 78px !important;
+  }
+}
