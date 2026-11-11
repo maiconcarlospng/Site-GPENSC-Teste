@@ -20,7 +20,8 @@ const collections = {
   apoio: 'apoio.yml',
   parcerias: 'parcerias.yml'
 };
-const base = new URL('../data/', window.location.href);
+// O dashboard administrativo acompanha a branch de rascunhos, não os dados já publicados.
+const base = new URL('https://raw.githubusercontent.com/maiconcarlospng/Site-GPENSC-Teste/admin-rascunhos/data/');
 const data = {};
 let root;
 const labels = {
@@ -173,7 +174,7 @@ function show() {
   document.body.classList.add('gpen-dashboard-open');
   const launcher = document.getElementById('gpen-dashboard-launcher');
   if (launcher) launcher.hidden = true;
-  render();
+  load();
 }
 
 function publicationChart(items) {
@@ -268,7 +269,7 @@ function render() {
       '<header class="gpd-top"><div class="gpd-breadcrumb"><span>Administração</span><i>/</i><b>Visão geral</b></div><div class="gpd-top-actions"><span class="gpd-date">'+esc(now)+'</span><button data-editor>Entrar no editor</button></div></header>'+
       '<div class="gpd-content">'+
         '<section class="gpd-hero"><div><small>PAINEL DE CONTROLE</small><h1>Visão geral</h1><p>Acompanhe a estrutura, a produção e as atualizações do GPENSC.</p></div><div class="gpd-hero-mark">GP</div></section>'+
-        '<section class="gpd-section-head"><div><h2>Indicadores do grupo</h2><p>Totais calculados com base nos registros publicados nos arquivos de conteúdo.</p></div><span class="gpd-live"><i></i> Dados carregados</span></section>'+
+        '<section class="gpd-section-head"><div><h2>Indicadores do grupo</h2><p>Totais calculados com base nos registros atuais da branch de rascunhos.</p></div><span class="gpd-live"><i></i> Dados do rascunho</span></section>'+
         '<section class="gpd-stats">'+metrics.map((metric,index) =>
           '<button class="gpd-stat gpd-stat-'+index+'" data-go="'+metric[3]+'"><span class="gpd-stat-top">'+icon(metric[4])+'<small>'+metric[0]+'</small></span><strong>'+metric[1]+'</strong><span class="gpd-stat-foot">'+metric[2]+'</span></button>'
         ).join('')+'</section>'+
@@ -303,7 +304,6 @@ function mount() {
   launcher.hidden = true;
   launcher.addEventListener('click', show);
   document.body.append(launcher);
-  load();
   show();
 }
 function check() {
