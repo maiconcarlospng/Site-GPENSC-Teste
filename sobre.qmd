@@ -41,8 +41,13 @@ if (nrow(integrantes) > 0) {
     function(i) categoria_integrante(integrantes[i, , drop = FALSE]),
     character(1)
   )
+  integrantes$categoria_exibicao <- dplyr::recode(
+    integrantes$categoria_exibicao,
+    "Coordenação" = "Líderes",
+    "Docentes e pesquisadores" = "Pesquisadores"
+  )
   integrantes <- integrantes[
-    integrantes$categoria_exibicao %in% c("Coordenação", "Docentes e pesquisadores"),
+    integrantes$categoria_exibicao %in% c("Líderes", "Pesquisadores"),
     ,
     drop = FALSE
   ]
@@ -286,14 +291,7 @@ div(
   },
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
-    ordem_categorias <- c(
-      "Coordenação",
-      "Docentes e pesquisadores",
-      "Pós-graduandos",
-      "Graduandos",
-      "Colaboradores e egressos",
-      "Outros integrantes"
-    )
+    ordem_categorias <- c("Líderes", "Pesquisadores")
     categorias_encontradas <- unique(integrantes$categoria_exibicao)
     categorias <- c(
       intersect(ordem_categorias, categorias_encontradas),
@@ -400,7 +398,7 @@ div(
         lapply(categorias, function(cat) {
           itens_categoria <- integrantes[integrantes$categoria_exibicao == cat, , drop = FALSE] |>
             arrange(nome)
-          grupo_class <- if (identical(cat, "Coordenação")) {
+          grupo_class <- if (identical(cat, "Líderes")) {
             "equipe-categoria-grupo equipe-categoria-coordenacao"
           } else {
             "equipe-categoria-grupo"
