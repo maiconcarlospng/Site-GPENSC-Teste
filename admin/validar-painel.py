@@ -24,7 +24,7 @@ LEGACY_APP_PATH = ADMIN / "app.html"
 CSS_PATH = ADMIN / "painel.css"
 ADMIN_CSS_PATHS = tuple(ADMIN.glob("*.css"))
 ADMIN_JS_PATHS = tuple(ADMIN.glob("*.js"))
-SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css")
+SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v12.css")
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
