@@ -309,7 +309,8 @@ def warn_demo_content(yaml_paths) -> None:
     markers = (
         "[EXEMPLO]", "[Nome", "[Periódico]", "[Agência", "[Código]",
         "[Descrição da linha", "[Ementa resumida", "[Orientador", "[Docente]",
-        "[Instituição]",
+        "[Instituição]", "20XX", "Conte aqui", "Registre encontros",
+        "Destaque projetos", "Acrescente aqui",
     )
     for path in sorted(yaml_paths):
         if not path.is_file() or "data" not in path.parts:
