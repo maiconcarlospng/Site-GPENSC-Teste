@@ -1,0 +1,36 @@
+/* Publicação conjunta de rascunhos GPENSC */
+#gpen-batch-publish{position:fixed;right:22px;bottom:22px;z-index:10020;display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid #d9e2dc;border-radius:999px;background:#fff;color:#26352c;box-shadow:0 8px 28px rgba(20,40,28,.16);font:600 13px/1.2 Inter,system-ui,sans-serif;cursor:pointer}
+#gpen-batch-publish b{display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:#edf1ed;color:#435448;font-size:11px}
+#gpen-batch-publish .gpen-batch-dot{width:8px;height:8px;border-radius:50%;background:#9ba79e}
+#gpen-batch-publish.has-changes{border-color:#b7cfbd;background:#214e35;color:#fff}
+#gpen-batch-publish.has-changes b{background:#fff;color:#214e35}
+#gpen-batch-publish.has-changes .gpen-batch-dot{background:#9ed4a9;box-shadow:0 0 0 3px rgba(158,212,169,.16)}
+.gpen-batch-overlay{position:fixed;inset:0;z-index:10030;display:grid;place-items:center;padding:20px;background:rgba(15,25,19,.58);backdrop-filter:blur(4px)}
+.gpen-batch-overlay[hidden]{display:none}
+.gpen-batch-dialog{width:min(620px,100%);max-height:min(82vh,760px);display:flex;flex-direction:column;overflow:hidden;border:1px solid #e1e7e2;border-radius:18px;background:#fff;color:#26352c;box-shadow:0 24px 80px rgba(0,0,0,.25);font-family:Inter,system-ui,sans-serif}
+.gpen-batch-dialog>header{display:flex;justify-content:space-between;gap:20px;padding:25px 26px 20px;border-bottom:1px solid #edf0ed}
+.gpen-batch-dialog header h2{margin:5px 0 6px;font-size:22px;letter-spacing:-.5px}
+.gpen-batch-dialog header p{margin:0;color:#69766d;font-size:13px;line-height:1.5}
+.gpen-batch-eyebrow{color:#54775e;font-size:10px;font-weight:800;letter-spacing:1.2px}
+.gpen-batch-dialog [data-close]{width:34px;height:34px;flex:0 0 auto;border:0;border-radius:50%;background:#f1f4f1;color:#526056;font-size:23px;cursor:pointer}
+.gpen-batch-body{overflow:auto;padding:22px 26px;min-height:150px}
+.gpen-batch-summary{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.gpen-batch-summary strong{font-size:15px}.gpen-batch-summary span,.gpen-batch-note{color:#718076;font-size:12px;line-height:1.5}
+.gpen-batch-files{list-style:none;padding:0;margin:0;border:1px solid #e8ede9;border-radius:12px;overflow:hidden}
+.gpen-batch-files li{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #edf1ed}
+.gpen-batch-files li:last-child{border-bottom:0}
+.gpen-batch-file-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:9px;background:#edf3ed;color:#45694d;font-size:9px;font-weight:800}
+.gpen-batch-files li>span:nth-child(2){display:flex;min-width:0;flex:1;flex-direction:column;gap:3px}
+.gpen-batch-files strong{font-size:13px}.gpen-batch-files small{overflow:hidden;color:#849087;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.gpen-batch-files em{color:#617268;font-size:11px;font-style:normal}
+.gpen-batch-warning{margin-top:14px;padding:12px 14px;border-radius:9px;background:#f5f7f4;color:#66736a;font-size:12px;line-height:1.5}
+.gpen-batch-dialog>footer{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 26px;border-top:1px solid #edf0ed}
+.gpen-batch-dialog footer>div{display:flex;gap:8px}
+.gpen-batch-secondary,.gpen-batch-primary{padding:10px 15px;border:0;border-radius:8px;font:700 12px Inter,system-ui,sans-serif;cursor:pointer}
+.gpen-batch-secondary{background:#f0f3f0;color:#455249}.gpen-batch-primary{background:#214e35;color:#fff}
+.gpen-batch-primary:disabled{opacity:.45;cursor:not-allowed}
+.gpen-batch-loading,.gpen-batch-empty,.gpen-batch-success{display:flex;min-height:120px;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;color:#6c796f;font-size:13px}
+.gpen-batch-empty strong,.gpen-batch-success strong{color:#2d4935;font-size:17px}
+.gpen-batch-success a{margin-top:6px;color:#356a43;font-weight:700;text-decoration:none}
+.gpen-batch-error{padding:10px 12px;border-radius:8px;background:#fff0ed;color:#a33b2f;font-size:12px;line-height:1.5}
+@media(max-width:640px){#gpen-batch-publish{right:12px;bottom:12px;padding:11px 13px;font-size:12px}.gpen-batch-overlay{padding:10px}.gpen-batch-dialog{max-height:90vh;border-radius:14px}.gpen-batch-dialog>header,.gpen-batch-body{padding:19px}.gpen-batch-dialog>footer{align-items:stretch;flex-direction:column;padding:15px 19px}.gpen-batch-dialog footer>div{display:flex}.gpen-batch-secondary,.gpen-batch-primary{flex:1}}
