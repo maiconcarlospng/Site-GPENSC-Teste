@@ -486,11 +486,7 @@ div(
   if (nrow(parcerias_publicadas) > 0) {
     div(
       class = "sobre-parcerias",
-      h2("Parcerias e vínculos institucionais"),
-      p(
-        class = "sobre-parcerias-intro",
-        "Conheça as instituições parceiras registradas no CNPq e os vínculos institucionais que fazem parte da atuação do GPENSC."
-      ),
+      h2("Instituições parceiras e vínculos"),
       lapply(c("Parcerias registradas no CNPq", "Vínculos institucionais"), function(grupo_atual) {
         itens_grupo <- parcerias_publicadas[
           !is.na(parcerias_publicadas$grupo) &
@@ -501,9 +497,15 @@ div(
 
         if (nrow(itens_grupo) == 0) return(NULL)
 
+        somente_logos <- identical(grupo_atual, "Parcerias registradas no CNPq")
+
         div(
-          class = "sobre-parcerias-grupo",
-          h3(grupo_atual),
+          class = if (somente_logos) {
+            "sobre-parcerias-grupo sobre-parcerias-grupo--logos"
+          } else {
+            "sobre-parcerias-grupo"
+          },
+          if (!somente_logos) h3(grupo_atual),
           div(
             class = "sobre-parcerias-grid",
             lapply(seq_len(nrow(itens_grupo)), function(i) {
@@ -513,44 +515,77 @@ div(
               logo_parceria <- valor_publico(parceria$logo)
               link_parceria <- valor_publico(parceria$url)
 
-              conteudo_parceria <- div(
-                class = "sobre-parceria-card",
-                if (!is.null(logo_parceria)) {
-                  div(
-                    class = "sobre-parceria-logo-wrap",
-                    tags$img(
-                      class = "sobre-parceria-logo",
-                      src = caminho_img(logo_parceria),
-                      alt = paste("Logo:", nome_parceria),
-                      loading = "lazy"
-                    )
+              if (somente_logos) {
+                logo_item <- if (!is.null(logo_parceria)) {
+                  tags$img(
+                    class = "sobre-parceria-logo",
+                    src = caminho_img(logo_parceria),
+                    alt = paste("Logo:", nome_parceria),
+                    loading = "lazy"
                   )
                 } else {
-                  span(class = "sobre-parceria-sigla", sigla_parceria)
-                },
-                div(
-                  class = "sobre-parceria-copy",
-                  h4(nome_parceria),
-                  span(
-                    class = "sobre-parceria-uf",
-                    paste("UF:", as.character(parceria$uf[1]))
-                  )
-                ),
-                if (!is.null(link_parceria)) {
-                  span(class = "sobre-parceria-externo", "Acessar site")
+                  NULL
                 }
-              )
 
-              if (!is.null(link_parceria)) {
-                tags$a(
-                  class = "sobre-parceria-link",
-                  href = link_parceria,
-                  target = "_blank",
-                  rel = "noopener noreferrer",
-                  conteudo_parceria
+                if (is.null(logo_item)) return(NULL)
+
+                conteudo_logo <- div(
+                  class = "sobre-parceria-logo-only",
+                  logo_item
                 )
+
+                if (!is.null(link_parceria)) {
+                  tags$a(
+                    class = "sobre-parceria-logo-link",
+                    href = link_parceria,
+                    target = "_blank",
+                    rel = "noopener noreferrer",
+                    aria_label = paste("Acessar", nome_parceria),
+                    conteudo_logo
+                  )
+                } else {
+                  conteudo_logo
+                }
               } else {
-                conteudo_parceria
+                conteudo_parceria <- div(
+                  class = "sobre-parceria-card",
+                  if (!is.null(logo_parceria)) {
+                    div(
+                      class = "sobre-parceria-logo-wrap",
+                      tags$img(
+                        class = "sobre-parceria-logo",
+                        src = caminho_img(logo_parceria),
+                        alt = paste("Logo:", nome_parceria),
+                        loading = "lazy"
+                      )
+                    )
+                  } else {
+                    span(class = "sobre-parceria-sigla", sigla_parceria)
+                  },
+                  div(
+                    class = "sobre-parceria-copy",
+                    h4(nome_parceria),
+                    span(
+                      class = "sobre-parceria-uf",
+                      paste("UF:", as.character(parceria$uf[1]))
+                    )
+                  ),
+                  if (!is.null(link_parceria)) {
+                    span(class = "sobre-parceria-externo", "Acessar site")
+                  }
+                )
+
+                if (!is.null(link_parceria)) {
+                  tags$a(
+                    class = "sobre-parceria-link",
+                    href = link_parceria,
+                    target = "_blank",
+                    rel = "noopener noreferrer",
+                    conteudo_parceria
+                  )
+                } else {
+                  conteudo_parceria
+                }
               }
             })
           )
