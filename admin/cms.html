@@ -1,1 +1,62 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#18251e"><title>Painel administrativo · GPENSC</title><link rel="icon" href="../img/logo_gpensc.png"><link rel="stylesheet" href="painel-proprio.css?v=20261111-1"></head><body><div id="app"><div class="login-shell"><div class="login-card">Carregando painel…</div></div></div><script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script><script src="painel-proprio.js?v=20261111-1"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#214e35" />
+    <title>Editor de conteúdo · GPENSC</title>
+    <link rel="icon" href="../img/logo_gpensc.png" />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="preconnect" href="https://sveltia-cms-auth.maicon-carlos.workers.dev" crossorigin />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-gpensc-20261111-1" />
+
+    <link rel="stylesheet" href="painel.css?v=20261111-7" />
+        <link rel="stylesheet" href="dashboard.css?v=20261111-3" />
+  </head>
+  <body class="gpen-cms-active">
+    
+
+
+    <a id="gpen-admin-site-link" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir o site público do GPENSC em uma nova aba" title="Abrir o site público em uma nova aba">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ver site público
+    </a>
+
+
+    <!-- Registra o widget personalizado antes de iniciar o CMS. -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
+    <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
+    <script src="galeria-multipla.js?v=20261023-3"></script>
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="excel-button.js?v=20261111-1"></script>
+    <script src="dashboard.js?v=20261111-4" defer></script>
+    <script>
+      // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
+      // O widget personalizado já foi registrado no script anterior.
+      document.title = "Painel Administrativo GPENSC";
+
+      // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
+      const markConfigCollection = () => {
+        document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
+          if ((button.innerText || '').includes('Configurações avançadas') || (button.innerText || '').includes('Configurações do site')) {
+            button.classList.add('gpen-config-collection');
+          }
+        });
+      };
+
+      // O link para o site público fica disponível na área de edição, não na tela de login.
+      const syncEntranceState = () => {
+        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
+        document.body.classList.toggle("gpen-login-active", loginVisible);
+        markConfigCollection();
+      };
+      const entranceObserver = new MutationObserver(syncEntranceState);
+      entranceObserver.observe(document.body, { childList: true, subtree: true });
+      syncEntranceState();
+      // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
+      CMS.init();
+    </script>
+  </body>
+</html>
