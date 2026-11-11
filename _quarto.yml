@@ -80,6 +80,7 @@ format:
       - styles-timeline-v12.css
       - styles-parcerias-v13.css
       - styles-linhas-v14.css
+      - styles-geral-v15.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
