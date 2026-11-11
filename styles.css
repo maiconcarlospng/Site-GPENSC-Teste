@@ -2883,3 +2883,62 @@ main table {
     max-height: 48px !important;
   }
 }
+
+
+/* CORREÇÃO DEFINITIVA: logos das instituições parceiras compactas no celular. */
+@media (max-width: 575.98px) {
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parcerias-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1.1rem !important;
+  }
+
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parceria-logo-link,
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parceria-logo-only {
+    flex: 0 1 112px !important;
+    width: 112px !important;
+    min-width: 0 !important;
+    max-width: 112px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .sobre-parcerias .sobre-parcerias-grupo--logos img.sobre-parceria-logo {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 108px !important;
+    max-height: 34px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parcerias-grid {
+    gap: .65rem !important;
+  }
+
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parceria-logo-link,
+  .sobre-parcerias .sobre-parcerias-grupo--logos .sobre-parceria-logo-only {
+    flex-basis: 98px !important;
+    width: 98px !important;
+    max-width: 98px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  .sobre-parcerias .sobre-parcerias-grupo--logos img.sobre-parceria-logo {
+    max-width: 94px !important;
+    max-height: 30px !important;
+  }
+}
