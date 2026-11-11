@@ -126,7 +126,13 @@ function navigate(key) {
   // Mantém a navegação GPENSC fixa e abre o formulário diretamente à direita.
   window.location.hash = '/collections/' + route.collection + '/entries/' + route.file;
 }
+function removeUnusedSveltiaMenu() {
+  // A navegação própria do GPENSC substitui integralmente o menu lateral do CMS.
+  document.querySelectorAll('.primary-sidebar').forEach(element => element.remove());
+}
+
 function enterEditorMode() {
+  removeUnusedSveltiaMenu();
   if (!root) return;
   root.hidden = false;
   document.body.classList.remove('gpen-dashboard-open');
@@ -283,6 +289,7 @@ function mount() {
   show();
 }
 function check() {
+  if (root && !document.body.classList.contains('gpen-login-active')) removeUnusedSveltiaMenu();
   const login = document.querySelector('.container > .inner .buttons');
   if (login) {
     if (root) hide();
