@@ -231,7 +231,7 @@ body.gpen-dashboard-editor-mode #page-container {
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
     overflow-y: auto !important;
     transform: none !important;
   }
