@@ -104,6 +104,16 @@ div(
     linha_tempo_itens <- linha_tempo_config$itens
     if (is.null(linha_tempo_itens)) linha_tempo_itens <- list()
 
+    # Mantém os modelos no painel, mas não publica registros ainda não preenchidos.
+    linha_tempo_itens <- Filter(function(evento) {
+      ano <- if (is.null(evento$ano) || !length(evento$ano)) "" else trimws(as.character(evento$ano[1]))
+      titulo <- if (is.null(evento$titulo) || !length(evento$titulo)) "" else trimws(as.character(evento$titulo[1]))
+      descricao <- if (is.null(evento$descricao) || !length(evento$descricao)) "" else trimws(as.character(evento$descricao[1]))
+      !identical(ano, "20XX") &&
+        !grepl("^(\\\\[EXEMPLO\\\\]|EXEMPLO\\\\s*:)", titulo, ignore.case = TRUE) &&
+        !grepl("^(Conte aqui|Registre |Destaque |Acrescente aqui)", descricao, ignore.case = TRUE)
+    }, linha_tempo_itens)
+
     if (length(linha_tempo_itens) > 0) {
       tagList(
         div(
