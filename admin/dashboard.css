@@ -206,3 +206,67 @@ body.gpen-dashboard-editor-mode #page-container {
     height: calc(100dvh - 112px) !important;
   }
 }
+
+
+/* Ajuste estrutural do editor: área útil calculada pela largura real da janela. */
+@media (min-width: 681px) {
+  body.gpen-dashboard-editor-mode {
+    overflow: hidden !important;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard {
+    left: 0 !important;
+    right: auto !important;
+    width: 258px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 258px !important;
+    width: calc(100vw - 258px) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    transform: none !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container > *,
+  body.gpen-dashboard-editor-mode #page-container .content-editor,
+  body.gpen-dashboard-editor-mode #page-container .pane-wrapper,
+  body.gpen-dashboard-editor-mode #page-container .pane-wrapper > .pane {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .content {
+    width: 100% !important;
+    max-width: 1480px !important;
+    margin-inline: auto !important;
+    box-sizing: border-box !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .sui.toolbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  body.gpen-dashboard-editor-mode .primary-sidebar {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    flex: 0 0 0 !important;
+  }
+}
+@media (max-width: 680px) {
+  body.gpen-dashboard-editor-mode #page-container {
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+}
