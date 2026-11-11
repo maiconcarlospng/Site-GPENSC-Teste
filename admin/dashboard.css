@@ -258,3 +258,172 @@ body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button[data-home] {
     overflow-x: auto !important;
   }
 }
+
+
+/* Experiência mobile: navegação compacta, menu recolhível e conteúdo em coluna. */
+@media (max-width:680px) {
+  #gpen-dashboard { overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+  #gpen-dashboard .gpd-layout { min-height:100%; }
+  #gpen-dashboard .gpd-side {
+    position:sticky; top:0; z-index:20; display:flex; align-items:center;
+    flex-direction:column; padding: max(8px,env(safe-area-inset-top)) 12px 8px;
+    background:#202722; box-shadow:0 4px 16px #101a1230;
+  }
+  #gpen-dashboard .gpd-brand {
+    display:flex; width:100%; align-items:center; gap:10px;
+    padding:0; min-height:42px; font-size:13px;
+  }
+  #gpen-dashboard .gpd-brand img { width:34px;height:34px; }
+  #gpen-dashboard .gpd-brand small { display:block; font-size:9px; }
+  #gpen-dashboard .gpd-mobile-menu-toggle {
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    width:auto; min-width:42px; min-height:38px; margin-left:auto; padding:0 11px;
+    border:1px solid #526257; border-radius:9px; background:#2b382f; color:#fff;
+    font-size:11px; font-weight:700;
+  }
+  #gpen-dashboard .gpd-mobile-menu-toggle svg { width:17px;height:17px; }
+  #gpen-dashboard .gpd-nav { display:none; }
+  #gpen-dashboard.gpd-menu-open .gpd-nav {
+    position:absolute; z-index:30; top:100%; left:0; right:0;
+    display:block; max-height:min(68dvh,520px); overflow-y:auto; overflow-x:hidden;
+    padding:8px 12px 14px; background:#202722;
+    border-top:1px solid #354139; box-shadow:0 14px 24px #101a1240;
+  }
+  #gpen-dashboard.gpd-menu-open .gpd-nav-group { display:block; margin:0 0 8px; }
+  #gpen-dashboard.gpd-menu-open .gpd-nav-group label {
+    display:block; padding:11px 8px 5px; color:#9aa99d; font-size:9px;
+    letter-spacing:.12em;
+  }
+  #gpen-dashboard .gpd-side button {
+    display:flex; flex:initial; width:100%; min-height:43px; justify-content:flex-start;
+    gap:11px; padding:0 11px; border-radius:8px; font-size:12px;
+  }
+  #gpen-dashboard .gpd-side button svg { width:16px;height:16px; }
+  #gpen-dashboard .gpd-side button.selected:before {
+    left:0; top:8px; right:auto; bottom:8px; width:3px; height:auto;
+  }
+  #gpen-dashboard .gpd-side-bottom { display:none; }
+  #gpen-dashboard .gpd-main { min-width:0; }
+  #gpen-dashboard .gpd-top {
+    position:relative; min-height:54px; padding:9px 14px;
+  }
+  #gpen-dashboard .gpd-breadcrumb { font-size:10px; }
+  #gpen-dashboard .gpd-top-actions { gap:7px; }
+  #gpen-dashboard .gpd-top button { min-height:36px; padding:0 10px; font-size:10px; }
+  #gpen-dashboard .gpd-content { padding:14px 13px calc(24px + env(safe-area-inset-bottom)); }
+  #gpen-dashboard .gpd-hero { min-height:128px; padding:20px 17px; border-radius:12px; }
+  #gpen-dashboard .gpd-hero h1 { font-size:23px; }
+  #gpen-dashboard .gpd-hero p { max-width:250px; font-size:11px; }
+  #gpen-dashboard .gpd-section-head { margin:23px 0 12px; }
+  #gpen-dashboard .gpd-section-head h2 { font-size:16px; }
+  #gpen-dashboard .gpd-section-head p { font-size:11px; }
+  #gpen-dashboard .gpd-stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+  #gpen-dashboard .gpd-stat { min-height:112px; padding:13px 12px 11px; border-radius:10px; }
+  #gpen-dashboard .gpd-stat-top { gap:7px; }
+  #gpen-dashboard .gpd-stat-top svg { width:17px;height:17px; }
+  #gpen-dashboard .gpd-stat-top small { font-size:10px; }
+  #gpen-dashboard .gpd-stat strong { margin:12px 0 5px; font-size:27px; }
+  #gpen-dashboard .gpd-stat-foot { font-size:9px; line-height:1.35; }
+  #gpen-dashboard .gpd-panels,#gpen-dashboard .gpd-lower { grid-template-columns:minmax(0,1fr); gap:11px; }
+  #gpen-dashboard .gpd-panel { padding:15px 14px; border-radius:11px; }
+  #gpen-dashboard .gpd-panel-head { align-items:flex-start; gap:8px; }
+  #gpen-dashboard .gpd-panel-head h3 { font-size:13px; }
+  #gpen-dashboard .gpd-panel-head p { font-size:10px; }
+  #gpen-dashboard .gpd-panel-head>button { min-height:32px; font-size:9px; }
+  #gpen-dashboard .gpd-chart { grid-template-columns:22px minmax(0,1fr); height:172px; }
+  #gpen-dashboard .gpd-bar-track { height:118px; }
+  #gpen-dashboard .gpd-donut-wrap { flex-wrap:wrap; justify-content:center; gap:18px; }
+  #gpen-dashboard .gpd-legend { flex:1 1 130px; }
+  #gpen-dashboard .gpd-activity-row { min-height:58px; grid-template-columns:8px minmax(0,1fr); gap:9px; padding:7px 0; }
+  #gpen-dashboard .gpd-activity-row time { grid-column:2; font-size:9px; }
+  #gpen-dashboard .gpd-activity-row b { white-space:normal; overflow-wrap:anywhere; }
+  #gpen-dashboard .gpd-structure { grid-template-columns:1fr 1fr; column-gap:14px; }
+  #gpen-dashboard .gpd-structure button { min-height:48px; }
+  #gpen-dashboard .gpd-quick-grid { grid-template-columns:1fr 1fr; gap:8px; }
+  #gpen-dashboard .gpd-quick-grid button { min-height:86px; padding:12px 28px 11px 11px; border-radius:9px; }
+  #gpen-dashboard .gpd-quick-grid button>span { font-size:11px; }
+  #gpen-dashboard .gpd-quick-grid button>small { font-size:9px; }
+  #gpen-dashboard .gpd-content footer { padding:20px 2px 5px; font-size:9px; line-height:1.5; }
+}
+@media (max-width:390px) {
+  #gpen-dashboard .gpd-content { padding-inline:10px; }
+  #gpen-dashboard .gpd-hero-mark { display:none; }
+  #gpen-dashboard .gpd-stats { gap:7px; }
+  #gpen-dashboard .gpd-stat { min-height:105px; padding:11px 10px; }
+  #gpen-dashboard .gpd-stat strong { font-size:24px; }
+  #gpen-dashboard .gpd-quick-grid { grid-template-columns:1fr; }
+  #gpen-dashboard .gpd-quick-grid button { min-height:68px; }
+}
+
+/* Editor no celular: cabeçalho baixo e menu de seções em gaveta, sem ocupar a tela. */
+@media (max-width:680px) {
+  body.gpen-dashboard-editor-mode #gpen-dashboard {
+    inset:0 0 auto 0 !important; width:100% !important; height:58px !important;
+    max-height:none !important; overflow:visible !important;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side {
+    position:relative; display:flex; width:100%; height:58px; min-height:58px;
+    padding:max(5px,env(safe-area-inset-top)) 12px 5px;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-brand {
+    min-height:44px; padding:0; font-size:13px;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-brand small { display:block; }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-mobile-menu-toggle { display:inline-flex; }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-nav { display:none; }
+  body.gpen-dashboard-editor-mode #gpen-dashboard.gpd-menu-open .gpd-nav {
+    position:absolute; top:100%; left:0; right:0; display:block;
+    max-height:calc(100dvh - 58px); overflow:auto; padding:8px 12px 18px;
+    background:#202722; border-top:1px solid #354139; box-shadow:0 14px 24px #101a1240;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard.gpd-menu-open .gpd-nav-group { display:block; margin:0 0 8px; }
+  body.gpen-dashboard-editor-mode #gpen-dashboard.gpd-menu-open .gpd-nav-group label {
+    display:block; padding:11px 8px 5px; color:#9aa99d; font-size:9px; letter-spacing:.12em;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button {
+    display:flex; flex:initial; width:100%; min-height:43px; padding:0 11px;
+    font-size:12px; white-space:normal;
+  }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button svg { width:16px;height:16px; }
+  body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button.selected:before {
+    left:0; top:8px; right:auto; bottom:8px; width:3px; height:auto;
+  }
+  body.gpen-dashboard-editor-mode #page-container {
+    position:fixed !important; inset:58px 0 0 0 !important;
+    width:100% !important; max-width:100vw !important;
+    height:calc(100dvh - 58px) !important; min-width:0 !important;
+    margin:0 !important; box-sizing:border-box !important;
+    overflow-x:auto !important; overflow-y:auto !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .content {
+    min-width:0 !important; max-width:100% !important;
+    padding:12px 10px 24px !important; box-sizing:border-box !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .sui.toolbar {
+    position:sticky; top:0; z-index:8; min-height:52px !important;
+    padding:7px 9px !important; gap:6px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .content-editor .body {
+    padding:8px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container .content-editor .pane-wrapper > .pane .content {
+    padding:10px 8px 22px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container section.field[role="group"][data-key-path] {
+    padding:12px 10px !important; margin-bottom:9px !important;
+    border-radius:10px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container input:not([type="checkbox"]):not([type="radio"]),
+  body.gpen-dashboard-editor-mode #page-container textarea,
+  body.gpen-dashboard-editor-mode #page-container select {
+    width:100%; max-width:100%; min-width:0 !important; font-size:16px !important;
+  }
+  body.gpen-dashboard-editor-mode #page-container textarea { min-height:110px; }
+  body.gpen-dashboard-editor-mode #page-container .sui.toolbar button {
+    min-height:38px !important; padding:0 9px !important; font-size:11px !important;
+  }
+}
+@media (max-width:390px) {
+  body.gpen-dashboard-editor-mode #page-container .sui.toolbar { flex-wrap:wrap !important; }
+  body.gpen-dashboard-editor-mode #page-container section.field[role="group"][data-key-path] { padding:10px 8px !important; }
+}
