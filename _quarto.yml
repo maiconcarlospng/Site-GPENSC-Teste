@@ -78,6 +78,7 @@ format:
       - styles-busca-v9.css
       - styles-spotify-v10.css
       - styles-timeline-v12.css
+      - styles-parcerias-v13.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
