@@ -148,18 +148,6 @@ body.gpen-dashboard-editor-mode #gpen-dashboard .gpd-side button[data-home] {
   background: #304b38;
   border-color: #3c5e45;
 }
-body.gpen-dashboard-editor-mode .primary-sidebar {
-  display: none !important;
-}
-body.gpen-dashboard-editor-mode #page-container {
-  position: fixed !important;
-  inset: 0 0 0 258px !important;
-  width: auto !important;
-  height: 100dvh !important;
-  margin: 0 !important;
-  overflow: auto !important;
-  background: #f3f5f3 !important;
-}
 @media (max-width: 680px) {
   body.gpen-dashboard-editor-mode #gpen-dashboard {
     inset: 0 0 auto 0;
