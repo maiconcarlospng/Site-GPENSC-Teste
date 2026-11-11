@@ -267,6 +267,6 @@ body.gpen-dashboard-editor-mode #page-container {
     max-width: 100vw !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
   }
 }
