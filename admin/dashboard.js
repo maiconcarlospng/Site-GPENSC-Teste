@@ -117,16 +117,22 @@ const collectionRoutes = {
 function navigate(key) {
   const route = collectionRoutes[key];
   if (key === 'config') {
-    hide();
-    // Abre diretamente a primeira seção de configurações, em vez da lista da coleção.
+    enterEditorMode();
     window.location.hash = '/collections/configuracoes/entries/cfg_identidade';
     return;
   }
   if (!route) return;
-  hide();
-  // File collections do Sveltia usam /entries/<nome-do-arquivo> para abrir
-  // diretamente o formulário do arquivo, e não apenas a lista da coleção.
+  enterEditorMode();
+  // Mantém a navegação GPENSC fixa e abre o formulário diretamente à direita.
   window.location.hash = '/collections/' + route.collection + '/entries/' + route.file;
+}
+function enterEditorMode() {
+  if (!root) return;
+  root.hidden = false;
+  document.body.classList.remove('gpen-dashboard-open');
+  document.body.classList.add('gpen-dashboard-editor-mode');
+  const launcher = document.getElementById('gpen-dashboard-launcher');
+  if (launcher) launcher.hidden = true;
 }
 
 function hide() {
@@ -139,6 +145,7 @@ function hide() {
 function show() {
   if (!root) return;
   root.hidden = false;
+  document.body.classList.remove('gpen-dashboard-editor-mode');
   document.body.classList.add('gpen-dashboard-open');
   const launcher = document.getElementById('gpen-dashboard-launcher');
   if (launcher) launcher.hidden = true;
