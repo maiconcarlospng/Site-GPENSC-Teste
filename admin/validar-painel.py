@@ -227,7 +227,6 @@ UNIQUE_KEYS = {
     "apoio": ("nome",),
     "parcerias": ("sigla",),
     "linha_tempo": ("ano", "titulo"),
-    "linha_tempo": ("ano", "titulo"),
 }
 
 
@@ -346,6 +345,25 @@ def main() -> None:
     backend = config.get("backend", {})
     if backend.get("name") != "github" or not backend.get("repo") or not backend.get("branch"):
         fail("Backend do painel incompleto: confira nome, repositório e branch.")
+    if backend.get("branch") == "main":
+        fail("O Sveltia deve salvar em uma branch de rascunhos, nunca diretamente em main.")
+    batch_source = (ADMIN / "batch-publish.js").read_text(encoding="utf-8")
+    batch_constants = {
+        key: re.search(r"const\\s+" + key + r"\\s*=\\s*['\"]([^'\"]+)['\"]", batch_source)
+        for key in ("OWNER", "REPO", "DRAFT", "MAIN", "WORKER")
+    }
+    missing_constants = [key for key, match in batch_constants.items() if not match]
+    if missing_constants:
+        fail("Constantes ausentes em admin/batch-publish.js: " + ", ".join(missing_constants))
+    batch_values = {key: match.group(1) for key, match in batch_constants.items()}
+    if backend.get("branch") != batch_values["DRAFT"]:
+        fail("A branch configurada no Sveltia não corresponde à branch de rascunhos usada pelo botão de publicação.")
+    if backend.get("repo") != batch_values["OWNER"] + "/" + batch_values["REPO"]:
+        fail("O repositório do Sveltia não corresponde ao repositório usado pelo botão de publicação.")
+    if backend.get("base_url", "").rstrip("/") != batch_values["WORKER"].rstrip("/"):
+        fail("A URL de autenticação do Sveltia não corresponde ao Worker usado na publicação em lote.")
+    if batch_values["MAIN"] == batch_values["DRAFT"]:
+        fail("A branch de publicação e a branch de rascunhos não podem ser iguais.")
     collections = config.get("collections")
     if not isinstance(collections, list) or not collections:
         fail("Nenhuma coleção válida foi definida no painel.")
