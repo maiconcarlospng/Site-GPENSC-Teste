@@ -55,7 +55,7 @@ function ensureButton(){
 function renderButton(error){
  if(!button)return;
  const count=compareData?.files?.length||0;
- button.innerHTML='<span class="gpen-batch-dot"></span><span>Alterações pendentes</span><b>'+count+'</b>';
+ button.innerHTML='<span class="gpen-batch-dot"></span><span>Salvar alterações</span><b>'+count+'</b>';
  button.classList.toggle('has-changes',count>0);
  button.title=error|| (count?count+' arquivo(s) alterado(s) aguardando publicação':'Nenhuma alteração aguardando publicação');
  button.setAttribute('aria-label',button.title);
@@ -69,7 +69,7 @@ function ensureModal(){
  modal.innerHTML='<section class="gpen-batch-dialog" role="dialog" aria-modal="true" aria-labelledby="gpen-batch-title">'+
  '<header><div><span class="gpen-batch-eyebrow">PUBLICAÇÃO DO SITE</span><h2 id="gpen-batch-title">Alterações pendentes</h2><p>Revise o que foi salvo no rascunho antes de atualizar o site público.</p></div><button type="button" data-close aria-label="Fechar">×</button></header>'+
  '<div class="gpen-batch-body" data-body><div class="gpen-batch-loading">Consultando alterações…</div></div>'+
- '<footer><span class="gpen-batch-note">O site público permanece intacto até a publicação.</span><div><button type="button" class="gpen-batch-secondary" data-close>Fechar</button><button type="button" class="gpen-batch-primary" data-publish disabled>Publicar alterações</button></div></footer>'+
+ '<footer><span class="gpen-batch-note">O site público permanece intacto até a publicação.</span><div><button type="button" class="gpen-batch-secondary" data-close>Fechar</button><button type="button" class="gpen-batch-primary" data-publish disabled>Confirmar publicação</button></div></footer>'+
  '</section>';
  document.body.append(modal);
  modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('[data-close]'))modal.hidden=true;if(e.target.closest('[data-publish]'))publish();});
@@ -77,7 +77,7 @@ function ensureModal(){
 }
 async function openModal(){
  ensureModal();modal.hidden=false;
- const publishButton=modal.querySelector('[data-publish]');publishButton.hidden=false;publishButton.textContent='Publicar alterações';
+ const publishButton=modal.querySelector('[data-publish]');publishButton.hidden=false;publishButton.textContent='Confirmar publicação';
  modal.querySelector('[data-body]').innerHTML='<div class="gpen-batch-loading">Consultando alterações…</div>';
  await refresh();
 }
@@ -148,7 +148,7 @@ async function publish(){
   action.disabled=false;action.textContent='Tentar novamente';
  }finally{
   busy=false;
-  if(!action.hidden&&action.textContent!=='Tentar novamente')action.textContent='Publicar alterações';
+  if(!action.hidden&&action.textContent!=='Tentar novamente')action.textContent='Confirmar publicação';
   if(!action.hidden)action.disabled=!(compareData?.files?.length);
  }
 }
