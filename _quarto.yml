@@ -81,6 +81,7 @@ format:
       - styles-parcerias-v13.css
       - styles-linhas-v14.css
       - styles-geral-v15.css
+      - styles-menu-mobile-v16.css
     page-layout: full
     include-after-body: lupa.html
     toc: false
