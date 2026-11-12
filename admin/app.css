@@ -552,3 +552,357 @@
 .access-login>p{margin:0;color:#879188;font-size:10px;line-height:1.5}
 .login-note{margin-top:12px}
 @media(max-width:460px){.login-card{padding:32px 23px}.access-code-row{grid-template-columns:1fr}.access-code-row .secondary-button{width:100%}}
+
+
+/* =========================================================
+   GPENSC — AJUSTE FINAL RESPONSIVO PARA CELULARES
+   Consolida a navegação mobile e evita conflitos entre
+   as camadas responsivas adicionadas anteriormente.
+   ========================================================= */
+@media (max-width: 700px) {
+  html, body {
+    width: 100%;
+    min-width: 320px;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  body {
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior-x: none;
+  }
+  #app, .workspace, .main-area, .page-content {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .workspace {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+    overflow: clip;
+  }
+
+  /* Cabeçalho compacto; o menu fica recolhido até ser solicitado. */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding: calc(9px + env(safe-area-inset-top)) 14px 9px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 5px 18px rgba(20, 32, 24, .12);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 2px 7px;
+  }
+  .brand img { flex: 0 0 35px; }
+  .side-caption, .sidebar-bottom { display: none !important; }
+
+  #collection-nav {
+    display: none;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-height: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar.mobile-open #collection-nav {
+    display: grid;
+    max-height: min(62svh, 520px);
+    padding: 10px 1px 5px;
+  }
+  #collection-nav > .summary-nav-item {
+    width: 100%;
+    min-height: 44px;
+    max-width: none;
+    margin: 0;
+    padding: 9px 12px;
+    border: 1px solid #58715e;
+    border-radius: 10px;
+    background: #304b38;
+    color: #fff;
+    white-space: normal;
+  }
+  #collection-nav .menu-section {
+    display: grid;
+    grid-column: 1 / -1;
+    gap: 7px;
+    min-width: 0;
+    margin: 2px 0 0;
+  }
+  #collection-nav .menu-section-title {
+    padding: 9px 3px 4px;
+    font-size: 9px;
+  }
+  #collection-nav .menu-section-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    min-width: 0;
+  }
+  #collection-nav button:not(.summary-nav-item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    max-width: none;
+    padding: 8px 10px;
+    border: 1px solid #435247;
+    border-radius: 9px;
+    background: #29362d;
+    color: #e0e9e1;
+    font-size: 10px;
+    line-height: 1.35;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  #collection-nav button.active:not(.summary-nav-item) {
+    border-color: #b7d0b9;
+    background: #e8f1e7;
+    color: #24472f;
+  }
+  #collection-nav button .nav-count {
+    flex: 0 0 auto;
+    margin-left: 5px;
+    font-size: 9px;
+  }
+
+  .main-area {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .topbar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 54px;
+    gap: 10px;
+    padding: 9px 14px;
+  }
+  .topbar > div:first-child { min-width: 0; }
+  .topbar strong {
+    display: block;
+    max-width: 52vw;
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .user-area {
+    flex: 0 0 auto;
+    max-width: 42%;
+    overflow: hidden;
+    font-size: 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .page-content {
+    padding: 18px 13px calc(28px + env(safe-area-inset-bottom));
+  }
+  .page-heading {
+    align-items: stretch;
+    gap: 12px;
+    min-width: 0;
+  }
+  .page-heading > div { min-width: 0; }
+  .page-heading h1 {
+    font-size: clamp(22px, 6vw, 27px);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+  .stats-grid, .collection-grid, .dashboard-chart-grid,
+  .analytics-metrics-grid, .analytics-detail-grid,
+  .panel-grid, .config-fields, .gallery-photo-grid {
+    min-width: 0;
+  }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .collection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-card, .panel-card, .collection-card,
+  .dashboard-chart-card, .dashboard-activity-card,
+  .dashboard-analytics-card, .analytics-detail-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .stat-card strong { font-size: clamp(21px, 6vw, 25px); }
+  .collection-card { overflow-wrap: anywhere; }
+  .table-wrap {
+    display: none !important;
+  }
+  .mobile-record-list {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+  }
+  .record-card { min-width: 0; }
+  .record-card-heading,
+  .record-card-meta,
+  .record-card-actions { min-width: 0; }
+  .record-card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .record-card-actions button {
+    width: 100%;
+    min-width: 0;
+    min-height: 43px;
+    padding-inline: 8px;
+    white-space: normal;
+  }
+
+  /* Ações principais sempre acima da área segura do aparelho. */
+  .mobile-dock {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    padding: 7px 12px calc(7px + env(safe-area-inset-bottom));
+    border-top: 1px solid #e1e9e1;
+    background: rgba(255,255,255,.97);
+    box-shadow: 0 -5px 20px rgba(25, 48, 32, .08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .mobile-dock button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 48px;
+    padding: 4px 2px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #657469;
+    font-size: 10px;
+    font-weight: 750;
+    touch-action: manipulation;
+  }
+  .mobile-dock button:active,
+  .mobile-dock button[aria-expanded="true"] {
+    background: #edf4ed;
+    color: #28583b;
+  }
+  .mobile-dock .dock-icon { font-size: 19px; }
+
+  /* Modal em formato de folha inferior, com rolagem só no formulário. */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+  }
+  .modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: min(92svh, 860px);
+    max-height: calc(100svh - env(safe-area-inset-top));
+    margin: 0;
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
+  }
+  .modal-head { flex: 0 0 auto; }
+  .modal-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-body > *, .field, .field.full { min-width: 0; }
+  .field input:not([type="checkbox"]):not([type="radio"]),
+  .field textarea, .field select {
+    width: 100%;
+    min-height: 45px;
+    font-size: 16px;
+  }
+  .modal-foot {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 11px 14px calc(12px + env(safe-area-inset-bottom));
+  }
+  .modal-foot > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .modal-foot button { min-width: 0; min-height: 44px; }
+
+  .gallery-photo-grid { grid-template-columns: minmax(0, 1fr); }
+  .gallery-photo-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .donut-layout { grid-template-columns: minmax(96px, 120px) minmax(0, 1fr); }
+  .chart-legend-label { overflow-wrap: anywhere; }
+  .analytics-controls { min-width: 0; }
+  .analytics-controls select { min-width: 0; max-width: 100%; }
+  .activity-entry { min-width: 0; }
+  .activity-entry-main { overflow-wrap: anywhere; }
+  #toast-root {
+    right: 10px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    left: 10px;
+    z-index: 70;
+  }
+  .toast { overflow-wrap: anywhere; }
+  .access-code-row { grid-template-columns: minmax(0, 1fr); }
+  .access-code-row .secondary-button { width: 100%; min-height: 44px; }
+}
+
+@media (max-width: 390px) {
+  #collection-nav .menu-section-items {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .page-content { padding-right: 11px; padding-left: 11px; }
+  .record-card-actions { grid-template-columns: minmax(0, 1fr); }
+  .donut-layout { grid-template-columns: minmax(88px, 105px) minmax(0, 1fr); gap: 9px; }
+  .chart-legend-item { grid-template-columns: 8px minmax(0, 1fr) auto; gap: 6px; }
+  .mobile-dock { padding-right: 8px; padding-left: 8px; }
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+  .sidebar.mobile-open #collection-nav { max-height: 48svh; }
+  .sidebar { position: relative; }
+  .modal { height: 96svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-dock *, #collection-nav * { scroll-behavior: auto !important; transition: none !important; }
+}
