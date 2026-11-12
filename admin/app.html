@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#202722">
   <title>Painel administrativo · GPENSC</title>
   <link rel="icon" href="../img/logo_gpensc.png">
-  <link rel="stylesheet" href="app.css?v=20261111-6">
+  <link rel="stylesheet" href="app.css?v=20261112-1">
 </head>
 <body>
   <main id="app" aria-live="polite">
@@ -26,7 +26,7 @@
       <aside class="sidebar">
         <a class="brand" href="#inicio"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Administração</small></span></a>
         <div class="side-caption">GERENCIAMENTO</div>
-        <nav id="collection-nav"></nav>
+        <nav id="collection-nav" aria-label="Seções do painel"></nav>
         <div class="sidebar-bottom">
           <a href="../" target="_blank" rel="noopener">Abrir site público ↗</a>
           <button id="logout-button" class="quiet-button">Sair da conta</button>
@@ -41,12 +41,17 @@
           <div class="loading-state">Carregando conteúdos do GPENSC…</div>
         </div>
       </section>
+      <nav class="mobile-dock" aria-label="Navegação rápida">
+        <button type="button" id="mobile-home" aria-label="Abrir visão geral"><span class="dock-icon">⌂</span><span>Início</span></button>
+        <button type="button" id="mobile-sections" aria-controls="collection-nav" aria-expanded="false"><span class="dock-icon">☷</span><span>Seções</span></button>
+        <button type="button" id="mobile-logout"><span class="dock-icon">↪</span><span>Sair</span></button>
+      </nav>
     </section>
     <div id="modal-root"></div>
     <div id="toast-root" role="status"></div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261111-4"></script>
+  <script src="app.js?v=20261112-1"></script>
 </body>
 </html>
