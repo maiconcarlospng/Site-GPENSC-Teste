@@ -357,7 +357,7 @@ def main() -> None:
     if backend.get("branch") == "main":
         fail("O Sveltia deve salvar em uma branch de rascunhos, nunca diretamente em main.")
     workflow_source = (ROOT / ".github" / "workflows" / "publish.yml").read_text(encoding="utf-8")
-    site_cache_keys = re.findall(r"^\\s+key:\\s+(quarto-site-.*)$", workflow_source, flags=re.M)
+    site_cache_keys = re.findall(r"^\s+key:\s+(quarto-site-.*)$", workflow_source, flags=re.M)
     if len(site_cache_keys) != 2 or site_cache_keys[0] != site_cache_keys[1]:
         fail("As etapas de compilação completa e atualização rápida precisam usar a mesma chave de cache do site.")
     if "admin/*)" not in workflow_source or "admin_fast_path:" not in workflow_source:
