@@ -310,7 +310,7 @@ function render() {
     if (button.dataset.go === 'config') navigate('config');
     else navigate(button.dataset.go);
   }));
-  root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', hide));
+  root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', enterEditorMode));
   root.querySelectorAll('[data-home]').forEach(button => button.addEventListener('click', show));
 }
 
