@@ -5,7 +5,7 @@ const BRANCH='main';
 const WORKER='https://sveltia-cms-auth.maicon-carlos.workers.dev';
 const API='https://api.github.com';
 const $=s=>document.querySelector(s);
-const state={token:sessionStorage.getItem('gpen_admin_token')||'',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null};
+const state={token:sessionStorage.getItem('gpen_admin_token')||'',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:''};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const toast=(message,error=false)=>{const el=document.createElement('div');el.className='toast'+(error?' error':'');el.textContent=message;$('#toast-root').append(el);setTimeout(()=>el.remove(),3800)};
 const apiHeaders=()=>({'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
@@ -76,7 +76,160 @@ function renderNav(){
   nav.querySelector('[data-summary]').addEventListener('click',()=>{renderHome();closeMobileMenu()});
   nav.querySelectorAll('[data-index]').forEach(b=>b.addEventListener('click',()=>{openCollection(Number(b.dataset.index));closeMobileMenu()}));
 }
-function renderHome(){state.active=null;$('#page-crumb').textContent='Painel de resumo';$('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));const total=key=>state.collections.filter(c=>c.name===key||c.group===key).reduce((n,c)=>n+entryList(c).length,0);const stats=[['Registros cadastrados',state.collections.reduce((n,c)=>n+entryList(c).length,0),'Conteúdos no repositório'],['Integrantes',state.collections.filter(c=>c.name==='equipe').reduce((n,c)=>n+entryList(c).length,0),'Equipe e colaboradores'],['Projetos',state.collections.filter(c=>c.name==='projetos').reduce((n,c)=>n+entryList(c).length,0),'Pesquisa e extensão'],['Notícias e eventos',state.collections.filter(c=>['noticias','eventos'].includes(c.name)).reduce((n,c)=>n+entryList(c).length,0),'Comunicação do grupo']];$('#page-content').innerHTML='<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Gerencie os conteúdos institucionais do GPENSC em um só lugar.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div><div class="stats-grid">'+stats.map(s=>'<article class="stat-card"><span>'+esc(s[0])+'</span><strong>'+s[1]+'</strong><small>'+esc(s[2])+'</small></article>').join('')+'</div><div class="panel-card"><h2>Áreas de gerenciamento</h2><div class="collection-grid">'+state.collections.map((c,i)=>'<button class="collection-card" data-open="'+i+'"><span class="eyebrow">'+esc(c.groupName||'CONTEÚDO')+'</span><strong>'+esc(c.label)+'</strong><small>'+esc(collectionSummary(c))+'</small></button>').join('')+'</div></div>';$('#refresh-button').onclick=async()=>{try{await loadAll();renderNav();renderHome();toast('Conteúdos atualizados.')}catch(e){toast(e.message,true)}};$('#page-content').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openCollection(Number(b.dataset.open)))}
+function donutSegment(items){
+  const total=items.reduce((sum,item)=>sum+item.value,0);
+  const colors=['#315d40','#79a66a','#d08a42','#7795a8','#a88ab2','#b8a47a'];
+  const radius=35,circumference=2*Math.PI*radius;
+  let offset=0;
+  const segments=items.filter(item=>item.value>0).map((item,index)=>{
+    const length=total?circumference*item.value/total:0;
+    const circle='<circle cx="50" cy="50" r="'+radius+'" fill="none" stroke="'+colors[index%colors.length]+'" stroke-width="13" stroke-dasharray="'+length+' '+(circumference-length)+'" stroke-dashoffset="'+(-offset)+'" transform="rotate(-90 50 50)"/>';
+    offset+=length;
+    return circle;
+  }).join('');
+  const chart='<svg class="donut-chart" viewBox="0 0 100 100" role="img" aria-label="Gráfico de distribuição">'+
+    '<circle cx="50" cy="50" r="'+radius+'" fill="none" stroke="#e8eee8" stroke-width="13"/>'+segments+
+    '<text x="50" y="47" text-anchor="middle" class="donut-total">'+total+'</text>'+
+    '<text x="50" y="59" text-anchor="middle" class="donut-caption">registros</text></svg>';
+  const legend=items.map((item,index)=>'<div class="chart-legend-item"><span class="chart-legend-dot" style="background:'+(item.value?colors[index%colors.length]:'#dfe6df')+'"></span><span class="chart-legend-label">'+esc(item.label)+'</span><strong>'+item.value+'</strong></div>').join('');
+  return '<div class="donut-layout">'+chart+'<div class="chart-legend">'+legend+'</div></div>';
+}
+function activityDate(value){
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime()))return 'Data não informada';
+  return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(date);
+}
+function renderRecentActivity(){
+  const host=$('#recent-activity');
+  if(!host)return;
+  if(state.activityError){
+    host.innerHTML='<div class="activity-empty">Não foi possível carregar o histórico agora. Use “Atualizar dados” para tentar novamente.</div>';
+    return;
+  }
+  if(!state.activityLoaded){
+    host.innerHTML='<div class="activity-empty"><span class="activity-loader"></span> Consultando o histórico do repositório…</div>';
+    return;
+  }
+  if(!state.activity.length){
+    host.innerHTML='<div class="activity-empty">Ainda não há adições recentes de registros no histórico do repositório.</div>';
+    return;
+  }
+  host.innerHTML='<ol class="activity-list">'+state.activity.map(item=>
+    '<li class="activity-entry"><span class="activity-marker" aria-hidden="true"></span><div class="activity-entry-main">'+
+    '<div class="activity-entry-top"><strong>'+esc(item.title)+'</strong><time datetime="'+esc(item.date)+'">'+esc(activityDate(item.date))+'</time></div>'+
+    '<p>'+esc(item.collections.join(', '))+'</p>'+
+    '<div class="activity-entry-meta"><span class="activity-added">+'+item.added+' '+(item.added===1?'registro':'registros')+'</span><span>por '+esc(item.author||'Colaborador')+'</span></div>'+
+    '</div><a class="activity-commit-link" href="'+esc(item.url)+'" target="_blank" rel="noopener" aria-label="Ver alteração no GitHub">Ver commit ↗</a></li>'
+  ).join('')+'</ol>';
+}
+async function loadRecentActivity(force=false){
+  if(state.activityPromise&&!force)return state.activityPromise;
+  if(state.activityLoaded&&!force){renderRecentActivity();return}
+  state.activityError='';
+  state.activityLoaded=false;
+  renderRecentActivity();
+  state.activityPromise=(async()=>{
+    try{
+      const commits=await api('/repos/'+REPO+'/commits?path=data&per_page=15');
+      const details=await Promise.all((Array.isArray(commits)?commits:[]).slice(0,12).map(async commit=>{
+        try{return await api('/repos/'+REPO+'/commits/'+commit.sha)}
+        catch(error){return null}
+      }));
+      const activity=[];
+      for(const detail of details){
+        if(!detail?.files?.length)continue;
+        const additionsByFile=[];
+        for(const file of detail.files){
+          if(!file.filename.startsWith('data/')||!/\.(yml|yaml)$/i.test(file.filename))continue;
+          const patch=String(file.patch||'').split('\n');
+          const addedRecords=patch.filter(line=>/^\+\s+-\s+/.test(line)).length;
+          const removedRecords=patch.filter(line=>/^-\s+-\s+/.test(line)).length;
+          const netAdds=Math.max(0,addedRecords-removedRecords);
+          if(netAdds>0){
+            const collection=state.collections.find(item=>item.file===file.filename);
+            additionsByFile.push({label:collection?.label||file.filename.replace(/^data\//,''),count:netAdds});
+          }
+        }
+        const added=additionsByFile.reduce((sum,item)=>sum+item.count,0);
+        if(!added)continue;
+        activity.push({
+          title:added===1?'Novo registro adicionado':'Novos registros adicionados',
+          added,
+          collections:additionsByFile.map(item=>item.label),
+          author:detail.author?.login||detail.commit?.author?.name||'Colaborador',
+          date:detail.commit?.author?.date||detail.commit?.committer?.date||'',
+          url:detail.html_url||'#'
+        });
+      }
+      state.activity=activity.slice(0,6);
+      state.activityLoaded=true;
+    }catch(error){
+      state.activityError=error.message||'Erro ao consultar commits';
+    }finally{
+      state.activityPromise=null;
+      renderRecentActivity();
+    }
+  })();
+  return state.activityPromise;
+}
+function dashboardCharts(){
+  const areas=new Map();
+  state.collections.filter(item=>!isConfigCollection(item)).forEach(item=>{
+    const label=String(item.groupLabel||'Outras áreas').replace(/^\d+\s*[·.-]\s*/,'');
+    areas.set(label,(areas.get(label)||0)+entryList(item).length);
+  });
+  const areaData=[...areas.entries()].map(([label,value])=>({label,value})).filter(item=>item.value>0);
+  const projects=state.collections.find(item=>item.name==='projetos');
+  const statuses=new Map();
+  entryList(projects||{file:''}).forEach(item=>{
+    const label=String(item.situacao||'Não informado');
+    statuses.set(label,(statuses.get(label)||0)+1);
+  });
+  const statusData=[...statuses.entries()].map(([label,value])=>({label,value}));
+  if(!statusData.length)statusData.push({label:'Sem projetos cadastrados',value:0});
+  return {areaData,statusData};
+}
+function renderHome(){
+  state.active=null;
+  $('#page-crumb').textContent='Painel de resumo';
+  $('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));
+  const total=key=>state.collections.filter(c=>c.name===key||c.group===key).reduce((n,c)=>n+entryList(c).length,0);
+  const stats=[
+    ['Registros cadastrados',state.collections.reduce((n,c)=>n+entryList(c).length,0),'Conteúdos no repositório'],
+    ['Integrantes',state.collections.filter(c=>c.name==='equipe').reduce((n,c)=>n+entryList(c).length,0),'Equipe e colaboradores'],
+    ['Projetos',state.collections.filter(c=>c.name==='projetos').reduce((n,c)=>n+entryList(c).length,0),'Pesquisa e extensão'],
+    ['Notícias e eventos',state.collections.filter(c=>['noticias','eventos'].includes(c.name)).reduce((n,c)=>n+entryList(c).length,0),'Comunicação do grupo']
+  ];
+  const charts=dashboardCharts();
+  $('#page-content').innerHTML=
+    '<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Acompanhe a composição dos conteúdos e as novas inclusões no GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
+    '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+
+    '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Registros por área</h2><p>Como os conteúdos estão distribuídos entre as frentes do grupo.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">PESQUISA</span><h2>Situação dos projetos</h2><p>Distribuição dos projetos conforme a situação cadastrada.</p></div></div>'+donutSegment(charts.statusData)+'</article>'+
+    '</section>'+
+    '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
+  $('#refresh-button').onclick=async()=>{
+    const button=$('#refresh-button');
+    button.disabled=true;button.textContent='Atualizando…';
+    try{
+      await loadAll();
+      state.activityLoaded=false;state.activityError='';state.activity=[];
+      renderNav();renderHome();
+      await loadRecentActivity(true);
+      toast('Resumo e histórico atualizados.');
+    }catch(error){toast(error.message,true)}
+    finally{button.disabled=false;button.textContent='Atualizar dados'}
+  };
+  $('#refresh-activity').onclick=async()=>{
+    const button=$('#refresh-activity');
+    button.disabled=true;button.textContent='Consultando…';
+    await loadRecentActivity(true);
+    button.disabled=false;button.textContent='Atualizar histórico';
+  };
+  renderRecentActivity();
+  loadRecentActivity();
+}
 function openCollection(index){state.active=index;const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
 function renderConfigControl(field,value,attribute='data-config-field'){
@@ -284,7 +437,7 @@ function normalizeHeader(value){return String(value??'').normalize('NFD').replac
 function excelCell(value){if(value instanceof Date&&!isNaN(value))return value.toISOString().slice(0,10);return value??''}
 function exportExcel(c,fields){if(!window.XLSX){toast('A biblioteca de planilhas ainda não carregou. Atualize a página.',true);return}const rows=entryList(c).map(item=>Object.fromEntries(fields.map(f=>[f.label||f.name,(['list','object'].includes(f.widget)&&item[f.name]!=null)?JSON.stringify(item[f.name]):(item[f.name]??'')])));const ws=XLSX.utils.json_to_sheet(rows.length?rows:[Object.fromEntries(fields.map(f=>[f.label||f.name,'']))]);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Registros');XLSX.writeFile(wb,'GPENSC-'+c.name+'.xlsx');toast('Planilha exportada.')}
 function openExcelImport(c,fields){if(!window.XLSX){toast('A biblioteca de planilhas ainda não carregou. Atualize a página.',true);return}$('#modal-root').innerHTML='<div class="modal-backdrop"><section class="modal excel-modal"><div class="modal-head"><div><span class="eyebrow">IMPORTAÇÃO EM LOTE</span><h2>Adicionar registros por Excel</h2></div><button type="button" class="small-button" id="close-excel">Fechar</button></div><div class="modal-body excel-body"><div class="excel-intro"><strong>Importe vários registros de uma só vez.</strong><p>Use uma planilha .xlsx, .xls ou .csv. A primeira linha deve conter os nomes dos campos. Os registros serão adicionados aos atuais, sem apagar o que já existe.</p></div><div class="field full"><label for="excel-file">Selecionar planilha</label><input id="excel-file" type="file" accept=".xlsx,.xls,.csv"></div><div id="excel-preview" class="excel-preview"><p>Depois de selecionar o arquivo, confira a prévia antes de salvar.</p></div></div><div class="modal-foot"><span class="eyebrow">A IMPORTAÇÃO SÓ É GRAVADA APÓS SUA CONFIRMAÇÃO</span><div><button type="button" class="secondary-button" id="cancel-excel">Cancelar</button><button type="button" class="primary-button" id="confirm-excel" disabled>Adicionar registros</button></div></div></section></div>';$('#close-excel').onclick=$('#cancel-excel').onclick=closeModal;let pending=[];const fileInput=$('#excel-file');fileInput.onchange=async()=>{pending=[];$('#confirm-excel').disabled=true;const file=fileInput.files?.[0];if(!file)return;try{const data=await file.arrayBuffer();const wb=XLSX.read(data,{type:'array',cellDates:true});const sheet=wb.Sheets[wb.SheetNames[0]];const rows=XLSX.utils.sheet_to_json(sheet,{defval:'',raw:false});if(!rows.length)throw new Error('A planilha está vazia ou não possui cabeçalho.');const headers=Object.keys(rows[0]);const mapping={};for(const f of fields){const candidates=[normalizeHeader(f.name),normalizeHeader(f.label)];mapping[f.name]=headers.find(h=>candidates.includes(normalizeHeader(h)))||null}const missing=fields.filter(f=>f.required&&!mapping[f.name]).map(f=>f.label||f.name);if(missing.length)throw new Error('Colunas obrigatórias não encontradas: '+missing.join(', ')+'. Use os nomes dos campos exibidos no painel.');const issues=[];pending=rows.map((row,i)=>{const item=defaultItem(fields);for(const f of fields){const h=mapping[f.name];if(!h)continue;let v=excelCell(row[h]);if(typeof v==='string')v=v.trim();if(['list','object'].includes(f.widget)&&v){try{v=JSON.parse(v)}catch{issues.push('Linha '+(i+2)+': '+(f.label||f.name)+' deve estar em JSON válido.')}}else if(f.widget==='boolean'){v=String(v).toLowerCase()==='true'||String(v).toLowerCase()==='sim'||String(v)==='1'}else if(f.widget==='number'&&v!==''){v=Number(String(v).replace(',','.'));if(!Number.isFinite(v))issues.push('Linha '+(i+2)+': valor numérico inválido em '+(f.label||f.name)+'.')}if(v!==''&&v!==undefined)item[f.name]=v}for(const f of fields.filter(x=>x.required)){if(item[f.name]===''||item[f.name]===undefined)issues.push('Linha '+(i+2)+': falta preencher '+(f.label||f.name)+'.')}return item});const preview=$('#excel-preview');preview.innerHTML='<div class="excel-summary"><strong>'+pending.length+' linhas encontradas</strong><span>'+Object.values(mapping).filter(Boolean).length+' de '+fields.length+' colunas reconhecidas</span></div><div class="excel-columns">'+fields.map(f=>'<span class="'+(mapping[f.name]?'mapped':'unmapped')+'">'+esc(f.label||f.name)+(mapping[f.name]?' · '+esc(mapping[f.name]):' · não encontrada')+'</span>').join('')+'</div>'+(issues.length?'<div class="excel-errors"><strong>Corrija antes de importar:</strong><ul>'+issues.slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+(issues.length>12?'<small>e mais '+(issues.length-12)+' ocorrência(s).</small>':'')+'</div>':'<p class="excel-ready">Prévia validada. Os registros serão acrescentados ao final da lista.</p>');$('#confirm-excel').disabled=issues.length>0||!pending.length; }catch(e){$('#excel-preview').innerHTML='<div class="excel-errors">'+esc(e.message)+'</div>';pending=[]}};$('#confirm-excel').onclick=async()=>{if(!pending.length)return;const button=$('#confirm-excel');button.disabled=true;button.textContent='Salvando…';try{await saveCollection(c,{...state.contents[c.file],itens:[...entryList(c),...pending]});const count=pending.length;closeModal();openCollection(state.active);renderNav();toast(count+' registro(s) importado(s) com sucesso.')}catch(e){button.disabled=false;button.textContent='Tentar novamente';toast(e.message,true)}}}
-async function saveCollection(c,content){const path=c.file;const text=jsyaml.dump(content,{noRefs:true,lineWidth:120,quotingType:'"',forceQuotes:false});const body={message:'Atualiza '+c.label+' pelo painel GPENSC',content:btoa(unescape(encodeURIComponent(text))),branch:BRANCH};if(state.sha[path])body.sha=state.sha[path];const r=await api('/repos/'+REPO+'/contents/'+path,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});state.sha[path]=r.content.sha;state.contents[path]=content}
+async function saveCollection(c,content){const path=c.file;const text=jsyaml.dump(content,{noRefs:true,lineWidth:120,quotingType:'"',forceQuotes:false});const body={message:'Atualiza '+c.label+' pelo painel GPENSC',content:btoa(unescape(encodeURIComponent(text))),branch:BRANCH};if(state.sha[path])body.sha=state.sha[path];const r=await api('/repos/'+REPO+'/contents/'+path,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});state.sha[path]=r.content.sha;state.contents[path]=content;state.activityLoaded=false;state.activity=[];state.activityError=''}
 async function uploadImage(file){const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'-');const path='img/'+Date.now()+'-'+safe;const base64=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=reject;reader.readAsDataURL(file)});await api('/repos/'+REPO+'/contents/'+path,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Adiciona mídia pelo painel GPENSC',content:base64,branch:BRANCH})});return path}
 async function deleteItem(index){if(!confirm('Deseja excluir este registro? A alteração será salva no repositório.'))return;const c=state.collections[state.active];const items=entryList(c).slice();items.splice(index,1);try{await saveCollection(c,{...state.contents[c.file],itens:items});openCollection(state.active);renderNav();toast('Registro excluído.')}catch(e){toast(e.message,true)}}
 function closeModal(){$('#modal-root').innerHTML=''}
