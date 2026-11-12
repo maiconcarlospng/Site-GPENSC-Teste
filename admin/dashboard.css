@@ -206,3 +206,44 @@ body.gpen-dashboard-editor-mode #page-container {
     height: calc(100dvh - 112px) !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE DO EDITOR — MENU GPENSC + SVELTIA
+   Garante que toda a área de edição, inclusive a barra superior,
+   respeite a largura da navegação fixa do painel.
+   ========================================================= */
+body.gpen-dashboard-editor-mode .content-editor {
+  position: fixed !important;
+  inset: 0 0 0 258px !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+body.gpen-dashboard-editor-mode .content-editor > .sui.toolbar {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+body.gpen-dashboard-editor-mode .content-editor .body {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+body.gpen-dashboard-editor-mode #gpen-admin-site-link {
+  display: none !important;
+}
+@media (max-width: 680px) {
+  body.gpen-dashboard-editor-mode .content-editor {
+    inset: 112px 0 0 0 !important;
+    width: 100% !important;
+    height: calc(100dvh - 112px) !important;
+  }
+}
