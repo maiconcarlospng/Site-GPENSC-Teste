@@ -1,8 +1,7 @@
 {
-  "enabled": false,
+  "enabled": true,
   "provider": "umami",
-  "websiteId": "",
+  "websiteId": "1591f591-4f93-4697-8457-60c32ded8eac",
   "trackerUrl": "https://cloud.umami.is/script.js",
-  "hostUrl": "https://api.umami.is",
   "apiUrl": ""
 }

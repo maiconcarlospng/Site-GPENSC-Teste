@@ -9,7 +9,7 @@ O site é estático no GitHub Pages. A chave privada da API do Umami **não pode
 3. Copie o Website ID.
 4. Gere uma API key nas configurações da conta.
 
-A coleta começa depois que o rastreador estiver ativo. Não há recuperação retroativa de visitas anteriores.
+O rastreador já foi instalado no site GPENSC com o Website ID informado. A coleta começa após a publicação desta alteração; não há recuperação retroativa de visitas anteriores.
 
 ## 2. Publicar o Worker no Cloudflare
 
