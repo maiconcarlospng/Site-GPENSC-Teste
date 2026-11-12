@@ -1,0 +1,7 @@
+name = "gpensc-analytics"
+main = "worker.js"
+compatibility_date = "2026-11-12"
+
+[vars]
+ALLOWED_ORIGIN = "https://maiconcarlospng.github.io"
+UMAMI_API_BASE_URL = "https://api.umami.is/v1"
