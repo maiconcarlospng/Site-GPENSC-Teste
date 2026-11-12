@@ -64,8 +64,6 @@ if (nrow(noticias_recentes) > 0) {
 
 ## {{< var titulo_home_agenda >}}
 
-<p class="agenda-descricao">Confira a próxima atividade e acompanhe a programação de aulas abertas, workshops e participações do grupo.</p>
-
 ```{r}
 eventos_home_publicados <- registros_reais(eventos, "titulo")
 

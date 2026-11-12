@@ -47,3 +47,34 @@
   .faixa-agenda .agenda-proximo-conteudo{padding:1rem}
   .faixa-agenda .agenda-sem-eventos{align-items:flex-start;padding:1rem;text-align:left}
 }
+
+/* V19 · chamada da agenda mais curta e compacta. */
+.faixa-agenda{
+  padding:clamp(1.55rem,3.2vw,2.65rem) 1rem !important;
+}
+.faixa-agenda .agenda-chamada{
+  padding:clamp(1.15rem,2.7vw,1.85rem) !important;
+}
+.faixa-agenda .agenda-chamada .agenda-selo{
+  margin-bottom:.65rem !important;
+}
+.faixa-agenda .agenda-chamada>h2{
+  max-width:620px !important;
+  margin-bottom:1rem !important;
+  font-size:clamp(1.18rem,2.7vw,1.55rem) !important;
+  line-height:1.25 !important;
+}
+.faixa-agenda .agenda-proximo-evento,
+.faixa-agenda .agenda-sem-eventos{
+  margin-bottom:1rem;
+}
+@media(max-width:560px){
+  .faixa-agenda{padding:1.25rem .8rem !important}
+  .faixa-agenda .agenda-chamada{padding:1.05rem .9rem !important}
+  .faixa-agenda .agenda-chamada>h2{
+    margin-bottom:.8rem !important;
+    font-size:1.16rem !important;
+  }
+  .faixa-agenda .agenda-proximo-evento,
+  .faixa-agenda .agenda-sem-eventos{margin-bottom:.9rem}
+}
