@@ -7,102 +7,59 @@
     <meta name="theme-color" content="#214e35" />
     <title>Editor de conteúdo · GPENSC</title>
     <link rel="icon" href="../img/logo_gpensc.png" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
     <link rel="preconnect" href="https://sveltia-cms-auth.maicon-carlos.workers.dev" crossorigin />
     <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-gpensc-20261111-2" />
+
     <link rel="stylesheet" href="painel.css?v=20261111-8" />
-    <link rel="stylesheet" href="dashboard.css?v=20261111-10" />
-    <link rel="stylesheet" href="batch-publish.css?v=20261111-3" />
-    <style>
-      #gpen-loader{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;padding:24px;background:#f4f7f2;color:#244b32;font:500 14px/1.5 Inter,system-ui,sans-serif;text-align:center}
-      #gpen-loader[hidden]{display:none}
-      #gpen-loader section{max-width:420px;padding:28px;border:1px solid #dce7d9;border-radius:14px;background:#fff;box-shadow:0 12px 36px #203b2b12}
-      #gpen-loader strong{display:block;margin-bottom:8px;font-size:17px}
-      #gpen-loader p{margin:0;color:#657568}
-      #gpen-loader button{margin-top:18px;padding:10px 18px;border:0;border-radius:7px;background:#245238;color:#fff;font:700 13px inherit}
-    </style>
+        <link rel="stylesheet" href="dashboard.css?v=20261111-10" />
+      <link rel="stylesheet" href="batch-publish.css?v=20261111-3" />
   </head>
   <body class="gpen-cms-active">
-    <div id="gpen-loader" role="status" aria-live="polite">
-      <section>
-        <strong>Carregando o painel GPENSC</strong>
-        <p id="gpen-loader-message">Preparando o editor e a autenticação do GitHub…</p>
-        <button id="gpen-loader-retry" type="button" hidden onclick="location.reload()">Tentar novamente</button>
-      </section>
-    </div>
+    
+
 
     <a id="gpen-admin-site-link" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir o site público do GPENSC em uma nova aba" title="Abrir o site público em uma nova aba">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Ver site público
     </a>
 
+
+    <!-- Registra o widget personalizado antes de iniciar o CMS. -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
+    <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
+    <script src="galeria-multipla.js?v=20261023-3"></script>
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="excel-button.js?v=20261112-1"></script>
+    <script src="dashboard.js?v=20261112-2" defer></script>
+    <script src="preview.js?v=20261111-3" defer></script>
+    <script src="batch-publish.js?v=20261112-2" defer></script>
     <script>
-      window.CMS_MANUAL_INIT = true;
-      (() => {
-        const status = document.getElementById('gpen-loader');
-        const message = document.getElementById('gpen-loader-message');
-        const retry = document.getElementById('gpen-loader-retry');
-        const loadScript = (urls) => new Promise((resolve, reject) => {
-          const attempt = (index) => {
-            if (index >= urls.length) { reject(new Error('Não foi possível carregar: ' + urls[0])); return; }
-            const script = document.createElement('script');
-            script.src = urls[index];
-            script.onload = () => resolve();
-            script.onerror = () => { script.remove(); attempt(index + 1); };
-            document.head.append(script);
-          };
-          attempt(0);
-        });
-        const loadLocal = path => loadScript([path]);
-        const setError = error => {
-          message.textContent = 'O editor não conseguiu iniciar. Verifique sua conexão e tente novamente. Detalhe: ' + (error?.message || 'falha ao carregar um recurso.');
-          retry.hidden = false;
-        };
-        const entranceObserver = new MutationObserver(() => {
-          const loginVisible = Boolean(document.querySelector('.container > .inner .buttons'));
-          document.body.classList.toggle('gpen-login-active', loginVisible);
-          if (loginVisible) status.hidden = true;
-          document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach(button => {
-            if ((button.innerText || '').includes('Configurações avançadas') || (button.innerText || '').includes('Configurações do site')) button.classList.add('gpen-config-collection');
-          });
-        });
-        entranceObserver.observe(document.body, { childList: true, subtree: true });
-        const start = async () => {
-          try {
-            await loadScript([
-              'https://cdn.jsdelivr.net/npm/@sveltia/cms@0.250.1/dist/sveltia-cms.js',
-              'https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js'
-            ]);
-            await loadLocal('galeria-multipla.js?v=20261023-3');
-            await loadScript([
-              'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
-              'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
-            ]);
-            await loadScript([
-              'https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js',
-              'https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js'
-            ]);
-            await loadLocal('excel-button.js?v=20261112-1');
-            await loadLocal('dashboard.js?v=20261112-2');
-            await loadLocal('preview.js?v=20261111-3');
-            await loadLocal('batch-publish.js?v=20261112-2');
-            if (!window.CMS || typeof window.CMS.init !== 'function') throw new Error('O Sveltia CMS foi baixado, mas não inicializou.');
-            window.CMS.init();
-            message.textContent = 'Editor carregado. Abrindo a autenticação…';
-            setTimeout(() => {
-              if (!status.hidden && !document.querySelector('.container > .inner .buttons')) {
-                message.textContent = 'O editor iniciou, mas a tela de login não apareceu. Recarregue a página ou tente abrir em uma aba privada.';
-                retry.hidden = false;
-              }
-            }, 15000);
-          } catch (error) {
-            console.error('[GPENSC] Falha ao iniciar o painel:', error);
-            setError(error);
+      // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
+      // O widget personalizado já foi registrado no script anterior.
+      document.title = "Painel Administrativo GPENSC";
+
+      // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
+      const markConfigCollection = () => {
+        document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
+          if ((button.innerText || '').includes('Configurações avançadas') || (button.innerText || '').includes('Configurações do site')) {
+            button.classList.add('gpen-config-collection');
           }
-        };
-        start();
-      })();
+        });
+      };
+
+      // O link para o site público fica disponível na área de edição, não na tela de login.
+      const syncEntranceState = () => {
+        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
+        document.body.classList.toggle("gpen-login-active", loginVisible);
+        markConfigCollection();
+      };
+      const entranceObserver = new MutationObserver(syncEntranceState);
+      entranceObserver.observe(document.body, { childList: true, subtree: true });
+      syncEntranceState();
+      // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
+      CMS.init();
     </script>
   </body>
 </html>
