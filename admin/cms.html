@@ -14,22 +14,20 @@
     <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-gpensc-20261111-1" />
 
     <link rel="stylesheet" href="painel.css?v=20261111-8" />
-        <link rel="stylesheet" href="dashboard.css?v=20261112-4" />
+        <link rel="stylesheet" href="dashboard.css?v=20261112-5" />
   </head>
   <body class="gpen-cms-active">
     
 
 
-    <!-- O pré-carregamento dos dados começa antes do pacote do CMS. -->
+    <!-- Mantém a sequência de inicialização testada do Sveltia e registra os widgets antes do CMS.init(). -->
     <script>window.CMS_MANUAL_INIT = true;</script>
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-    <script src="dashboard.js?v=20261112-4"></script>
-
-    <!-- O Sveltia é carregado em seguida, preservando os widgets e comandos nativos. -->
     <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
     <script src="galeria-multipla.js?v=20261023-3"></script>
     <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     <script src="excel-button.js?v=20261111-1"></script>
+    <script src="dashboard.js?v=20261112-5" defer></script>
     <script src="preview.js?v=20261111-1" defer></script>
     <script>
       // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
