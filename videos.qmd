@@ -9,8 +9,8 @@ videos_publicados <- registros_reais(videos, "titulo")
 if (secao_ativa("mostrar_videos")) {
 if (nrow(videos_publicados) == 0) {
   estado_vazio(
-    "Vídeos em atualização",
-    "Vídeos e materiais audiovisuais serão listados aqui quando os títulos, descrições e links forem cadastrados.",
+    "Nenhum vídeo disponível",
+    "No momento, não há vídeos ou materiais audiovisuais disponíveis para consulta.",
     "Acompanhe o Instagram",
     cfg$instagram
   )

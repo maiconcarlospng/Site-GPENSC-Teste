@@ -9,8 +9,8 @@ sites_publicados <- registros_reais(sites, "nome")
 if (secao_ativa("mostrar_sites")) {
 if (nrow(sites_publicados) == 0) {
   estado_vazio(
-    "Sites recomendados em atualização",
-    "Os links institucionais e recursos recomendados serão apresentados aqui quando forem cadastrados.",
+    "Nenhum link disponível",
+    "No momento, não há links institucionais ou recursos externos disponíveis para consulta.",
     "Entrar em contato",
     "contato.html"
   )

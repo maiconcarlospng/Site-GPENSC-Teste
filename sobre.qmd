@@ -285,7 +285,7 @@ div(
     } else {
       div(
         class = "gp-timeline-empty",
-        p("A trajetória do GPENSC será apresentada aqui. Os acontecimentos podem ser cadastrados pelo painel administrativo.")
+        p("Não há registros da trajetória do GPENSC disponíveis no momento.")
       )
     }
   },
@@ -368,7 +368,7 @@ div(
             class = "equipe-contagem",
             id = "equipe-contagem",
             `aria-live` = "polite",
-            paste(nrow(integrantes), if (nrow(integrantes) == 1) "integrante cadastrado" else "integrantes cadastrados")
+            paste(nrow(integrantes), if (nrow(integrantes) == 1) "integrante" else "integrantes")
           )
         ),
         div(
@@ -476,8 +476,8 @@ div(
     )
   } else {
     estado_vazio(
-      "Perfis da equipe em atualização",
-      "Os perfis serão exibidos aqui quando os nomes e as informações autorizadas dos integrantes forem cadastrados no painel administrativo."
+      "Nenhum perfil disponível",
+      "No momento, não há perfis de integrantes disponíveis para consulta."
     )
   },
 

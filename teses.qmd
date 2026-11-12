@@ -41,8 +41,8 @@ div(
       )
   } else {
     estado_vazio(
-      "Teses e dissertações em atualização",
-      "As defesas e qualificações serão listadas quando os títulos, autores, orientadores e datas forem cadastrados com dados confirmados.",
+      "Nenhuma defesa ou qualificação disponível",
+      "No momento, não há defesas ou qualificações disponíveis para consulta.",
       "Entrar em contato",
       "contato.html"
     )
