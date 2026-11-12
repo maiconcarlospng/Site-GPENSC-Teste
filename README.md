@@ -304,11 +304,15 @@ Para alterações de domínio ou portabilidade para o GPENSC, revise também o d
 | `admin/excel-button.js`, `admin/planilhas.js` | Recursos relacionados a planilhas/importação e exportação. |
 | `_quarto.yml` | Recursos, navegação, estilos, inclusão do rastreador e rodapé. |
 | `_variables.yml` | Variáveis gerais legadas e compatibilidade. |
-| `styles.css`, `styles-*.css`, `custom.scss` | Estilo geral, responsividade e identidade visual. |
+| `styles.css` | Folha legada mantida no repositório; não está carregada diretamente pelo Quarto no momento. Alterações nela, isoladamente, não mudam a aparência publicada. |
+| `styles-mobile-v4.css` e `styles-*.css` listados em `_quarto.yml` | Camadas ativas de identidade visual, responsividade, menu, páginas, linha do tempo e agenda. A ordem em `_quarto.yml` define qual regra prevalece. |
+| `custom.scss` | Paleta e tipografia do tema Quarto/Bootstrap. |
 | `topo.html`, `lupa.html` | Elementos auxiliares do site. |
 | `.github/workflows/publish.yml` | Validação, compilação e publicação. |
 | `README.md` | Documentação de arquitetura, operação e migração. |
 | `COMO-EDITAR.md` | Guia complementar de edição. |
+
+A folha `styles.css` é mantida como referência/legado, mas não aparece na lista `format.html.css` do `_quarto.yml`. O site publicado carrega as 15 folhas de estilo versionadas listadas ali. Antes de alterar um estilo, confira em qual arquivo ativo a regra está definida; não crie uma nova folha de estilo apenas para sobrescrever outra sem necessidade.
 
 ### Onde alterar cada parte
 

@@ -20,7 +20,24 @@ ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
-SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css", ROOT / "styles-timeline-v12.css", ROOT / "styles-home-v17.css", ROOT / "styles-agenda-v18.css")
+SITE_CSS_PATHS = (
+    ROOT / "styles-mobile-v4.css",
+    ROOT / "styles-mobile-v5.css",
+    ROOT / "styles-navbar-v6.css",
+    ROOT / "styles-conteudo-v7.css",
+    ROOT / "styles-navbar-v7.css",
+    ROOT / "styles-navbar-v8.css",
+    ROOT / "styles-busca-v9.css",
+    ROOT / "styles-spotify-v10.css",
+    ROOT / "styles-timeline-v12.css",
+    ROOT / "styles-parcerias-v13.css",
+    ROOT / "styles-linhas-v14.css",
+    ROOT / "styles-geral-v15.css",
+    ROOT / "styles-menu-mobile-v16.css",
+    ROOT / "styles-home-v17.css",
+    ROOT / "styles-agenda-v18.css",
+)
+PANEL_APP_CSS_PATH = ADMIN / "app.css"
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
@@ -313,7 +330,7 @@ def warn_demo_content(yaml_paths) -> None:
                 )
 
 def main() -> None:
-    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js", ADMIN / "planilhas.css", *SITE_CSS_PATHS):
+    for file_path in (CONFIG_PATH, CMS_PATH, CSS_PATH, PANEL_APP_CSS_PATH, ADMIN / "galeria-multipla.js", ADMIN / "planilhas.js", ADMIN / "planilhas.css", *SITE_CSS_PATHS):
         if not file_path.is_file():
             fail(f"Arquivo necessário não encontrado: {file_path.relative_to(ROOT)}")
 
@@ -387,6 +404,7 @@ def main() -> None:
 
     # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
     inspect_css(CSS_PATH)
+    inspect_css(PANEL_APP_CSS_PATH)
     inspect_css(ADMIN / "planilhas.css")
     for site_css in SITE_CSS_PATHS:
         inspect_css(site_css)

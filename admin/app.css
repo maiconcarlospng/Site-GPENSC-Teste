@@ -1517,3 +1517,12 @@
     font-weight: 650;
   }
 }
+
+
+/* Auditoria mobile: impede zoom automático no Safari ao focar o código de acesso. */
+@media (max-width: 700px) {
+  .access-code-row input {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
