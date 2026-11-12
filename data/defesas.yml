@@ -1,0 +1,29 @@
+itens:
+- data: '2025-06-15'
+  nivel: Mestrado
+  etapa: Defesa
+  autor: '[Nome do(a) mestrando(a)]'
+  titulo: '[EXEMPLO] Título da dissertação'
+  orientador: '[Orientador(a)]'
+  url: ''
+- data: '2025-07-10'
+  nivel: Mestrado
+  etapa: Qualificação
+  autor: '[Nome do(a) mestrando(a)]'
+  titulo: '[EXEMPLO] Título do projeto'
+  orientador: '[Orientador(a)]'
+  url: ''
+- data: '2025-08-20'
+  nivel: Doutorado
+  etapa: Qualificação
+  autor: '[Nome do(a) doutorando(a)]'
+  titulo: '[EXEMPLO] Título do projeto'
+  orientador: '[Orientador(a)]'
+  url: ''
+- data: '2025-09-30'
+  nivel: Doutorado
+  etapa: Defesa
+  autor: '[Nome do(a) doutorando(a)]'
+  titulo: '[EXEMPLO] Título da tese'
+  orientador: '[Orientador(a)]'
+  url: ''

@@ -1,0 +1,2 @@
+Imagens das notícias. Escreva só o nome do arquivo na coluna "imagem" de data/noticias.csv.
+Sem imagem, o cartão aparece com fundo verde e a logo.

@@ -1,0 +1,3 @@
+Coloque aqui as fotos das pessoas (JPG ou PNG, de preferência quadradas, ~400x400 px).
+No data/equipe.csv, escreva só o NOME DO ARQUIVO na coluna "foto" (ex.: maria.jpg).
+Sem foto? O site mostra um círculo com as iniciais da pessoa.

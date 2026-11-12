@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1900 620" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Copa verde de uma árvore vista por baixo">
+<defs>
+ <linearGradient id="canopyGreen" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#d7e7ae"/><stop offset=".48" stop-color="#86ad6b"/><stop offset="1" stop-color="#356b42"/>
+ </linearGradient>
+ <linearGradient id="canopyDeep" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#a8c98a"/><stop offset=".5" stop-color="#5f9256"/><stop offset="1" stop-color="#244f35"/>
+ </linearGradient>
+ <linearGradient id="canopySun" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#e9efc3"/><stop offset="1" stop-color="#9bbb78"/>
+ </linearGradient>
+ <radialGradient id="light">
+  <stop offset="0" stop-color="#fff6d2" stop-opacity=".92"/><stop offset=".48" stop-color="#f8edc7" stop-opacity=".4"/><stop offset="1" stop-color="#f8edc7" stop-opacity="0"/>
+ </radialGradient>
+ <linearGradient id="limbWood" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b18756"/><stop offset=".45" stop-color="#765136"/><stop offset="1" stop-color="#4b3525"/>
+ </linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+ <g id="leaf">
+  <path d="M0 0 C-43 -13 -70 -57 -52 -96 C-17 -111 22 -74 0 0Z" fill="url(#canopyGreen)" stroke="#315e3b" stroke-opacity=".2" stroke-width="2"/>
+  <path d="M0 -2 Q-15 -49 -48 -92 M-19 -48 L-46 -55 M-11 -28 L-36 -28 M-26 -67 L-30 -81" fill="none" stroke="#e6edc9" stroke-width="2.4" stroke-linecap="round" opacity=".58"/>
+ </g>
+ <g id="sprig">
+  <use href="#leaf" transform="rotate(-34) scale(1.02)"/>
+  <use href="#leaf" transform="translate(28 -5) rotate(27) scale(.88)"/>
+  <use href="#leaf" transform="translate(9 -30) rotate(7) scale(.72)"/>
+ </g>
+</defs>
+<rect width="1900" height="620" fill="url(#light)" opacity=".6"/>
+<g filter="url(#blur)" opacity=".2" fill="#355f3a">
+ <ellipse cx="110" cy="40" rx="420" ry="210"/>
+ <ellipse cx="550" cy="-45" rx="390" ry="180"/>
+ <ellipse cx="1340" cy="-70" rx="430" ry="220"/>
+ <ellipse cx="1810" cy="65" rx="350" ry="240"/>
+</g>
+<!-- Galhos que emolduram o cabeçalho -->
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M-90 190 C110 55 250 12 440 43 C570 65 650 2 780 -70" stroke="#493523" stroke-width="65"/>
+ <path d="M-90 190 C110 55 250 12 440 43 C570 65 650 2 780 -70" stroke="url(#limbWood)" stroke-width="48"/>
+ <path d="M199 63 C205 -7 180 -55 130 -95 M420 43 C462 -23 484 -62 476 -112 M600 30 C657 7 704 -12 730 -61" stroke="#795638" stroke-width="17"/>
+ <path d="M199 63 C205 -7 180 -55 130 -95 M420 43 C462 -23 484 -62 476 -112" stroke="#c29a68" stroke-width="7" opacity=".65"/>
+ <path d="M1990 168 C1775 53 1644 11 1460 48 C1320 76 1250 7 1110 -74" stroke="#493523" stroke-width="65"/>
+ <path d="M1990 168 C1775 53 1644 11 1460 48 C1320 76 1250 7 1110 -74" stroke="url(#limbWood)" stroke-width="48"/>
+ <path d="M1690 55 C1687 -8 1718 -59 1760 -95 M1460 48 C1415 -15 1392 -57 1405 -110 M1280 27 C1222 0 1180 -24 1154 -69" stroke="#795638" stroke-width="17"/>
+ <path d="M1690 55 C1687 -8 1718 -59 1760 -95 M1460 48 C1415 -15 1392 -57 1405 -110" stroke="#c29a68" stroke-width="7" opacity=".65"/>
+ <path d="M-40 480 C110 390 188 330 257 253 M1940 474 C1800 380 1714 325 1648 248" stroke="#765136" stroke-width="25"/>
+</g>
+<!-- Massas suaves de folhas distantes -->
+<g fill="#5e8b51" opacity=".15">
+ <path d="M0 0H700 C610 126 520 177 404 150 C285 125 206 224 95 209 C45 204 15 176 0 142Z"/>
+ <path d="M1180 0H1900V160 C1830 208 1738 211 1665 179 C1540 125 1470 173 1378 140 C1296 112 1230 59 1180 0Z"/>
+</g>
+<!-- Folhagem em camadas, mais densa nos cantos e bordas -->
+<g opacity=".96">
+ <use href="#sprig" transform="translate(12 160) rotate(-43) scale(2.4)"/>
+ <use href="#sprig" transform="translate(135 35) rotate(-17) scale(2.25)"/>
+ <use href="#sprig" transform="translate(284 67) rotate(24) scale(1.9)"/>
+ <use href="#sprig" transform="translate(420 15) rotate(-15) scale(2.2)"/>
+ <use href="#sprig" transform="translate(548 78) rotate(37) scale(1.8)"/>
+ <use href="#sprig" transform="translate(690 0) rotate(-16) scale(2.25)"/>
+ <use href="#sprig" transform="translate(820 50) rotate(26) scale(1.8)"/>
+ <use href="#sprig" transform="translate(1032 0) rotate(-18) scale(2.0)"/>
+ <use href="#sprig" transform="translate(1175 58) rotate(33) scale(1.85)"/>
+ <use href="#sprig" transform="translate(1320 8) rotate(-18) scale(2.2)"/>
+ <use href="#sprig" transform="translate(1470 62) rotate(30) scale(2.0)"/>
+ <use href="#sprig" transform="translate(1620 8) rotate(-22) scale(2.25)"/>
+ <use href="#sprig" transform="translate(1760 66) rotate(35) scale(2.15)"/>
+ <use href="#sprig" transform="translate(1890 160) rotate(48) scale(2.4)"/>
+ <use href="#sprig" transform="translate(35 356) rotate(-58) scale(1.75)"/>
+ <use href="#sprig" transform="translate(220 286) rotate(-40) scale(1.15)"/>
+ <use href="#sprig" transform="translate(420 230) rotate(30) scale(1.05)"/>
+ <use href="#sprig" transform="translate(1480 228) rotate(-31) scale(1.1)"/>
+ <use href="#sprig" transform="translate(1690 303) rotate(42) scale(1.35)"/>
+ <use href="#sprig" transform="translate(1870 365) rotate(58) scale(1.85)"/>
+</g>
+<!-- Folhas iluminadas no contorno do clarão central -->
+<g opacity=".88">
+ <use href="#sprig" transform="translate(595 185) rotate(35) scale(.94)"/>
+ <use href="#sprig" transform="translate(750 142) rotate(-20) scale(.92)"/>
+ <use href="#sprig" transform="translate(1135 146) rotate(25) scale(.95)"/>
+ <use href="#sprig" transform="translate(1300 185) rotate(-37) scale(.9)"/>
+</g>
+<circle cx="950" cy="150" r="220" fill="url(#light)" opacity=".45"/>
+<!-- Pequenos brotos suspensos -->
+<g fill="none" stroke="#7d9d65" stroke-width="4" stroke-linecap="round" opacity=".72">
+ <path d="M76 280 Q100 322 133 337 M1808 272 Q1780 315 1747 332 M340 178 Q350 217 380 241 M1570 185 Q1556 225 1524 247"/>
+</g>
+<g opacity=".72">
+ <use href="#leaf" transform="translate(133 337) rotate(62) scale(.46)"/>
+ <use href="#leaf" transform="translate(1747 332) rotate(-74) scale(.46)"/>
+ <use href="#leaf" transform="translate(380 241) rotate(52) scale(.42)"/>
+ <use href="#leaf" transform="translate(1524 247) rotate(-58) scale(.42)"/>
+</g>
+<!-- Pássaros em silhueta -->
+<g fill="none" stroke="#536b4e" stroke-width="4" stroke-linecap="round" opacity=".55">
+ <path d="M820 244 Q838 226 856 244 Q873 226 891 244"/>
+ <path d="M1030 322 Q1042 310 1054 322 Q1067 310 1080 322"/>
+</g>
+</svg>

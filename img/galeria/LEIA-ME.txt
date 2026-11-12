@@ -1,0 +1,4 @@
+FOTOS DO GRUPO para a faixa do topo da página inicial (estilo Bertha).
+1) Coloque aqui as fotos (JPG/PNG, horizontais, ~1600x900 px).
+2) Liste os nomes dos arquivos em data/galeria.csv (coluna "arquivo").
+Sem fotos listadas, o site mostra o bloco verde com a lente da lupa.
