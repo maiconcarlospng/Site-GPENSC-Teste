@@ -181,7 +181,7 @@ function dashboardCharts(){
   const types=[];
   state.collections.filter(item=>!isConfigCollection(item)).forEach(item=>{
     const count=summaryRecords(item).length;
-    const area=String(item.groupLabel||'Outras áreas').replace(/^\d+\s*[·.-]\s*/,'');
+    const area=String(item.groupName||item.group||'Outras áreas').replace(/^\d+\s*[·.-]\s*/,'');
     areas.set(area,(areas.get(area)||0)+count);
     if(count)types.push({label:item.label,value:count});
   });
@@ -209,7 +209,7 @@ function renderHome(){
     '<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Acompanhe a composição dos conteúdos e as novas inclusões no GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+
     '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Registros por área</h2><p>Como os conteúdos estão distribuídos entre as frentes do grupo.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Conteúdos por frente de atuação</h2><p>Distribuição dos registros entre comunicação, pesquisa, ensino e equipe, e mídia e parcerias.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
       '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Registros por tipo de conteúdo</h2><p>Quais seções concentram mais registros cadastrados.</p></div></div>'+donutSegment(charts.typeData)+'</article>'+
     '</section>'+
     '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
