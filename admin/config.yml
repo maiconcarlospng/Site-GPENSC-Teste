@@ -368,7 +368,7 @@ collections:
             - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
             - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
 
-        - label: "09 · Contato e redes"
+        - label: "08 · Contato e redes"
           name: "cfg_contato"
           file: "data/configuracoes/09-contato-redes.yml"
           fields:
@@ -392,7 +392,7 @@ collections:
             - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
             - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
 
-        - label: "10 · Endereço"
+        - label: "09 · Endereço"
           name: "cfg_endereco"
           file: "data/configuracoes/10-endereco.yml"
           fields:
@@ -409,7 +409,7 @@ collections:
                 - { label: "Nome do tópico", name: "titulo", widget: "string" }
                 - { label: "Informação", name: "valor", widget: "string" }
 
-        - label: "11 · Visibilidade das páginas"
+        - label: "10 · Visibilidade das páginas"
           name: "cfg_visibilidade"
           file: "data/configuracoes/11-visibilidade.yml"
           fields:
@@ -426,7 +426,7 @@ collections:
             - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
             - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
 
-        - label: "12 · Rodapé"
+        - label: "11 · Rodapé"
           name: "cfg_rodape"
           file: "data/configuracoes/12-rodape.yml"
           fields:
