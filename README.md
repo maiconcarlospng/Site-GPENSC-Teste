@@ -58,13 +58,13 @@ Pessoa autorizada edita o conteúdo no /admin/
 | **GitHub Actions** | Executa a compilação e publica o resultado quando há mudanças relevantes. |
 | **GitHub Pages** | Hospeda a versão estática gerada pelo processo de publicação. |
 
-**Importante:** o painel não publica HTML diretamente. Ao salvar conteúdo, ele cria um commit no repositório; esse commit aciona o workflow de publicação. O site só deve ser considerado atualizado quando a execução correspondente terminar com sucesso.
+**Importante:** o painel não publica HTML diretamente. O Sveltia salva cada arquivo na branch `admin-rascunhos`. No editor, o botão **Salvar alterações** reúne os arquivos modificados e, após sua confirmação, publica o conjunto na branch `main`. Essa publicação aciona o GitHub Actions; o site só deve ser considerado atualizado quando a execução correspondente terminar com sucesso.
 
 ## Editar o conteúdo pelo painel
 
 1. Abra o [painel administrativo](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/).
 2. O painel usa autenticação OAuth pelo GitHub através do Cloudflare Worker `https://sveltia-cms-auth.maicon-carlos.workers.dev`, com callback `/callback`. Se a autenticação apresentar erro de configuração, confira as variáveis de produção em **Cloudflare Worker → Settings → Variables and Secrets → Runtime variables and secrets → Production**. O Client Secret deve permanecer apenas como segredo no Worker; nunca o coloque neste repositório.
-3. O backend aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `main`. Salvar no painel grava commits diretamente nessa branch; não há aprovação editorial por Pull Request configurada no fluxo atual.
+3. O backend aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `admin-rascunhos`. O Sveltia grava os rascunhos nessa branch. Para publicar, abra **Salvar alterações**, confira a lista de arquivos e confirme. O painel cria ou reutiliza um Pull Request e faz a publicação conjunta na `main` após sua confirmação; não é uma etapa de revisão manual por outra pessoa.
 4. Depois de uma edição autorizada, confira a execução correspondente em **Actions**.
 5. Aguarde o status **Success** e recarregue o site. Se necessário, use `Ctrl + F5`.
 
@@ -291,17 +291,17 @@ Se houver outras branches ou tags que precisem ser preservadas, elas também dev
 
 ## Configurar novamente o painel Sveltia CMS
 
-O painel fica em `admin/`. O arquivo `admin/index.html` carrega a aplicação Sveltia CMS e `admin/config.yml` declara o backend e as coleções.
+O painel fica em `admin/`. O arquivo `admin/index.html` redireciona para `admin/cms.html`, que carrega a aplicação Sveltia CMS; `admin/config.yml` declara o backend e as coleções.
 
 ### O que precisa mudar ao trocar de repositório
 
-No início de `admin/config.yml`, confira a configuração do backend. O valor `repo` deve apontar para o novo repositório, no formato `PROPRIETARIO/NOME-DO-REPOSITORIO`, e `branch` deve corresponder à branch usada para publicar o site, normalmente `main`.
+No início de `admin/config.yml`, confira a configuração do backend. O valor `repo` deve apontar para o novo repositório, no formato `PROPRIETARIO/NOME-DO-REPOSITORIO`, e `branch` deve corresponder à branch de rascunhos usada pelo CMS. Neste projeto, ela é `admin-rascunhos`; a publicação é feita na branch `main`.
 
 ```yaml
 backend:
   name: github
   repo: ORGANIZACAO-DO-GPENSC/NOME-DO-REPOSITORIO
-  branch: main
+  branch: admin-rascunhos
 ```
 
 Esse trecho é um exemplo: substitua pelo nome real do repositório de destino. Não mude o restante da configuração sem necessidade, pois as coleções precisam continuar apontando para os arquivos existentes em `data/`.
@@ -327,15 +327,15 @@ Referências oficiais:
 5. **Guardar segredos com segurança.** Se o método escolhido usar Client Secret, cadastre-o somente nas variáveis secretas do serviço de autenticação. Nunca o coloque em `admin/config.yml`, JavaScript público, README, commits ou mensagens. O Client ID não é um segredo, mas só deve ser colocado nos campos exigidos pela configuração oficial.
 6. **Configurar o Sveltia CMS.** Faça apenas as alterações de configuração indicadas pela documentação oficial da versão usada. Não copie configurações de exemplo sem confirmar que os campos são suportados.
 7. **Testar antes de liberar.** Teste login e logout, conta autorizada e não autorizada, leitura, criação e edição de conteúdo, upload de imagens e comportamento após revogar o acesso. Confira também a publicação em GitHub Actions.
-8. **Definir permissões e aprovação editorial.** A autenticação identifica a conta, mas não substitui permissões do repositório. O backend atual grava na branch `main`; para exigir revisão, configure e teste um fluxo de Pull Request compatível com o CMS e as proteções de branch antes de abrir o painel ao grupo.
+8. **Definir permissões e aprovação editorial.** A autenticação identifica a conta, mas não substitui permissões do repositório. O CMS grava na branch `admin-rascunhos`; o botão de publicação cria ou reutiliza um Pull Request e faz o merge após a confirmação de quem está usando o painel. Isso não equivale a uma aprovação independente. Se o grupo exigir revisão por outra pessoa, configure proteções e um fluxo de aprovação separado.
 9. **Documentar a operação.** Registre quem administra a OAuth App e o serviço, como renovar/revogar credenciais e como recuperar o acesso. Nunca documente valores de segredos.
 
 #### Segurança e estado atual
 
-- O backend do protótipo aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `main`.
+- O backend do protótipo aponta para `maiconcarlospng/Site-GPENSC-Teste`, branch `admin-rascunhos`; a branch publicada é `main`.
 - O login OAuth via Cloudflare Worker já foi configurado e testado anteriormente; teste novamente após qualquer migração de domínio ou repositório.
 - O Worker deve manter `GITHUB_CLIENT_ID` e `ALLOWED_DOMAINS` como variáveis de runtime em Production e `GITHUB_CLIENT_SECRET` como segredo de runtime em Production.
-- O painel grava na branch `main`, portanto as permissões de acesso ao repositório determinam quem pode editar e publicar.
+- O painel grava rascunhos em `admin-rascunhos`. A publicação para `main` é feita pelo botão **Salvar alterações**; as permissões do repositório e do OAuth determinam quem pode editar e publicar.
 - Antes de liberar o painel para uso amplo, valide login, permissões, upload de imagens e publicação.
 - A aprovação editorial não está garantida na configuração atual.
 
@@ -391,4 +391,4 @@ Quando um conteúdo de página é desativado, a página mostra um aviso de seç�
 
 Em **Configurações do site → Tópicos adicionais do endereço**, use o botão de adicionar do Sveltia para criar um tópico e preencha **Nome do tópico** e **Informação**. Cada item pode ser removido individualmente pelo controle de exclusão da própria lista. Esses tópicos aparecem abaixo do endereço no cartão de localização da página Contato; o endereço completo continua sendo a única origem para abrir o mapa. Isso permite acrescentar informações como sala, horário de atendimento ou ponto de referência sem alterar o código. Para criar um novo tipo de campo fixo em outra parte do painel, ainda é preciso modificar `admin/config.yml` e, quando necessário, o código que exibe o conteúdo.
 
-As alterações feitas no painel gravam no repositório e disparam a publicação automática. Após salvar, confira **Actions** e valide o site publicado.
+As alterações salvas no painel ficam primeiro em `admin-rascunhos`. Depois de revisar e confirmar **Salvar alterações**, o conjunto é publicado na `main` e dispara o workflow. Confira **Actions** e valide o site publicado.
