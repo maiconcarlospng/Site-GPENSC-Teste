@@ -581,6 +581,7 @@ function closeMobileMenu(){
   $('#mobile-sections').setAttribute('aria-expanded','false');
   updateMobileTabs();
 }
+$('.brand').addEventListener('click',event=>{if($('.sidebar').classList.contains('mobile-open')){event.preventDefault();closeMobileMenu()}});
 $('#mobile-home').addEventListener('click',()=>{
   closeMobileMenu();renderHome();window.scrollTo({top:0,behavior:'smooth'});
 });
