@@ -11,6 +11,7 @@ const MAIN='main';
 const WORKER='https://sveltia-cms-auth.maicon-carlos.workers.dev';
 const API='https://api.github.com';
 let compareData=null;
+let publicationCompleted=false;
 let busy=false;
 let modal=null;
 let button=null;
@@ -34,6 +35,7 @@ async function authedApi(path,method='GET',body){
  return data;
 }
 async function refresh(){
+ if(publicationCompleted)return;
  try{
   compareData=await publicApi('/repos/'+FULL_REPO+'/compare/'+MAIN+'...'+DRAFT);
   renderButton();
@@ -140,9 +142,15 @@ async function publish(){
   });
   if(!merged.merged)throw new Error(merged.message||'O GitHub não confirmou a publicação.');
   action.textContent='Finalizando…';
-  await authedApi('/repos/'+FULL_REPO+'/git/refs/heads/'+DRAFT,'PATCH',{sha:merged.sha,force:true});
+  publicationCompleted=true;
   compareData=null;
-  modal.querySelector('[data-body]').innerHTML='<div class="gpen-batch-success"><strong>Publicação concluída</strong><span>As alterações foram reunidas em um único commit. O site será atualizado pelo GitHub Pages.</span><a href="https://github.com/'+FULL_REPO+'/commit/'+merged.sha+'" target="_blank" rel="noopener">Ver publicação no GitHub ↗</a></div>';
+  let syncWarning='';
+  try{
+   await authedApi('/repos/'+FULL_REPO+'/git/refs/heads/'+DRAFT,'PATCH',{sha:merged.sha,force:true});
+  }catch(syncError){
+   syncWarning=' A publicação já foi concluída na main, mas a sincronização da branch de rascunhos não terminou. Não repita a publicação; atualize o painel e confira a branch antes de continuar editando.';
+  }
+  modal.querySelector('[data-body]').innerHTML='<div class="gpen-batch-success"><strong>Publicação concluída</strong><span>As alterações foram reunidas em um único commit. O site será atualizado pelo GitHub Pages.'+esc(syncWarning)+'</span><a href="https://github.com/'+FULL_REPO+'/commit/'+merged.sha+'" target="_blank" rel="noopener">Ver publicação no GitHub ↗</a></div>';
   action.hidden=true;
   renderButton();
  }catch(error){
