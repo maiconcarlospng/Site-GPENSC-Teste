@@ -1,0 +1,20 @@
+<!-- Rastreamento Umami do GPENSC. Ativa somente quando data/analytics.json estiver configurado. -->
+<script>
+(function(){
+  try{
+    var configUrl=new URL('data/analytics.json',document.baseURI);
+    fetch(configUrl,{cache:'force-cache',credentials:'omit'})
+      .then(function(response){if(!response.ok)throw new Error('Configuração indisponível');return response.json()})
+      .then(function(config){
+        if(!config||config.enabled!==true||!config.websiteId)return;
+        var script=document.createElement('script');
+        script.defer=true;
+        script.src=config.trackerUrl||'https://cloud.umami.is/script.js';
+        script.setAttribute('data-website-id',config.websiteId);
+        if(config.hostUrl)script.setAttribute('data-host-url',config.hostUrl);
+        document.head.appendChild(script);
+      })
+      .catch(function(){});
+  }catch(error){}
+})();
+</script>
