@@ -85,6 +85,7 @@ format:
       - styles-home-v17.css
     page-layout: full
     include-after-body: lupa.html
+    include-in-header: analytics.html
     toc: false
     smooth-scroll: true
 
