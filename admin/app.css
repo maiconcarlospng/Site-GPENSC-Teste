@@ -394,3 +394,91 @@
     border-radius:10px;
   }
 }
+
+
+/* Painel analítico: gráficos de rosca e histórico de inclusões. */
+.dashboard-chart-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+  margin:0 0 16px;
+}
+.dashboard-chart-card,.dashboard-activity-card{
+  min-width:0;
+  padding:20px;
+  border:1px solid #e3e9e3;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 2px 10px #1b352007;
+}
+.dashboard-chart-heading h2,.dashboard-activity-heading h2{
+  margin:5px 0 5px;
+  color:#26372b;
+  font-size:15px;
+  letter-spacing:-.02em;
+}
+.dashboard-chart-heading p,.dashboard-activity-heading p{
+  margin:0;
+  color:#849087;
+  font-size:11px;
+  line-height:1.55;
+}
+.donut-layout{
+  display:grid;
+  grid-template-columns: minmax(120px, 150px) minmax(0,1fr);
+  align-items:center;
+  gap:16px;
+  margin-top:18px;
+}
+.donut-chart{display:block;width:100%;max-width:150px;margin:auto;overflow:visible}
+.donut-total{fill:#293b2e;font-size:15px;font-weight:800}
+.donut-caption{fill:#89948c;font-size:6px}
+.chart-legend{display:grid;gap:9px;min-width:0}
+.chart-legend-item{display:grid;grid-template-columns:9px minmax(0,1fr) auto;align-items:center;gap:8px;min-width:0}
+.chart-legend-dot{width:8px;height:8px;border-radius:50%}
+.chart-legend-label{overflow:hidden;color:#67746a;font-size:10px;line-height:1.35;text-overflow:ellipsis}
+.chart-legend-item strong{color:#34463a;font-size:11px;font-variant-numeric:tabular-nums}
+.dashboard-activity-card{margin-top:0}
+.dashboard-activity-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:8px}
+.dashboard-activity-heading .secondary-button{flex:0 0 auto}
+.activity-list{position:relative;display:grid;gap:0;margin:15px 0 0;padding:0;list-style:none}
+.activity-entry{position:relative;display:grid;grid-template-columns:13px minmax(0,1fr) auto;gap:12px;padding:13px 0;border-top:1px solid #edf1ed}
+.activity-marker{position:relative;z-index:1;width:9px;height:9px;margin:5px 0 0 2px;border:2px solid #fff;border-radius:50%;background:#5f986b;box-shadow:0 0 0 1px #8bb294}
+.activity-entry:not(:last-child) .activity-marker:after{position:absolute;top:8px;left:2px;width:1px;height:calc(100% + 29px);background:#e1eae1;content:""}
+.activity-entry-main{min-width:0}
+.activity-entry-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.activity-entry-top strong{color:#2c3d31;font-size:12px;line-height:1.4}
+.activity-entry-top time{flex:0 0 auto;color:#929b94;font-size:9px;font-variant-numeric:tabular-nums}
+.activity-entry-main p{margin:4px 0 7px;color:#738077;font-size:10px;line-height:1.45}
+.activity-entry-meta{display:flex;flex-wrap:wrap;gap:10px;color:#929b94;font-size:9px}
+.activity-added{color:#3c7a4b;font-weight:750}
+.activity-commit-link{align-self:center;color:#476d50;font-size:10px;font-weight:700;text-decoration:none;white-space:nowrap}
+.activity-commit-link:hover{text-decoration:underline}
+.activity-empty{display:flex;align-items:center;gap:10px;min-height:76px;color:#89948c;font-size:11px}
+.activity-loader{width:14px;height:14px;border:2px solid #dbe6dc;border-top-color:#527d5c;border-radius:50%;animation:gpen-activity-spin .8s linear infinite}
+@keyframes gpen-activity-spin{to{transform:rotate(360deg)}}
+@media(max-width:1050px){
+  .dashboard-chart-grid{grid-template-columns:1fr}
+  .dashboard-chart-card{padding:18px}
+  .donut-layout{grid-template-columns:minmax(120px,145px) minmax(0,1fr)}
+}
+@media(max-width:700px){
+  .dashboard-chart-grid{gap:11px;margin-bottom:12px}
+  .dashboard-chart-card,.dashboard-activity-card{padding:15px;border-radius:13px}
+  .dashboard-chart-heading h2,.dashboard-activity-heading h2{font-size:14px}
+  .donut-layout{grid-template-columns:minmax(106px,125px) minmax(0,1fr);gap:12px;margin-top:14px}
+  .donut-chart{max-width:125px}
+  .chart-legend{gap:8px}
+  .chart-legend-label{font-size:9px}
+  .chart-legend-item strong{font-size:10px}
+  .dashboard-activity-heading{align-items:flex-start;flex-direction:column;gap:10px}
+  .dashboard-activity-heading .secondary-button{width:100%}
+  .activity-entry{grid-template-columns:11px minmax(0,1fr);gap:8px;padding:12px 0}
+  .activity-entry-top{flex-direction:column;gap:4px}
+  .activity-entry-top time{order:1}
+  .activity-commit-link{grid-column:2;justify-self:start;margin-top:-2px}
+  .activity-entry:not(:last-child) .activity-marker:after{height:calc(100% + 43px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .activity-loader{animation:none}
+}
