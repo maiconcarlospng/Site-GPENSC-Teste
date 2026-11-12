@@ -1106,3 +1106,388 @@
   #collection-nav { grid-template-columns: minmax(0, 1fr); }
   #collection-nav > .summary-nav-item { grid-column: 1; }
 }
+
+
+/* =========================================================
+   EXPERIÊNCIA MOBILE APP — GPENSC
+   No celular, a navegação vira uma interface própria:
+   tela principal + seletor de seções em tela cheia + dock fixo.
+   O layout desktop permanece preservado acima de 700px.
+   ========================================================= */
+@media (max-width:700px) {
+  html, body {
+    width: 100%;
+    min-width: 320px;
+    min-height: 100%;
+    overflow-x: clip;
+    background: #f3f6f3;
+  }
+  body.mobile-menu-open { overflow: hidden; }
+  #app { min-height: 100svh; }
+  .workspace {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100svh;
+    padding: 0 0 calc(70px + env(safe-area-inset-bottom));
+    background: #f3f6f3;
+  }
+
+  /* Cabeçalho compacto do aplicativo. */
+  .sidebar {
+    position: relative !important;
+    inset: auto;
+    z-index: 20;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width: 100%;
+    height: auto !important;
+    min-height: 0;
+    max-height: none;
+    gap: 0;
+    padding: calc(10px + env(safe-area-inset-top)) 17px 10px;
+    overflow: visible;
+    border: 0;
+    border-radius: 0 0 17px 17px;
+    background: #202c23;
+    box-shadow: 0 5px 18px rgba(24,45,30,.12);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    min-height: 43px;
+    gap: 11px;
+    padding: 0;
+    color: #fff;
+    font-size: 15px;
+  }
+  .brand img {
+    width: 38px;
+    height: 38px;
+    padding: 3px;
+    border-radius: 10px;
+    background: #fff;
+    object-fit: contain;
+  }
+  .brand small { margin-top: 2px; color: #b9c8bb; font-size: 10px; }
+  .side-caption { display: none !important; }
+
+  /* A área de conteúdo se comporta como uma tela, não como coluna desktop. */
+  .main-area {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: calc(100svh - 62px);
+    overflow: visible;
+  }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    min-height: 58px;
+    padding: 10px 17px;
+    border: 0;
+    border-bottom: 1px solid #e7ece7;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .topbar > div:first-child { gap: 3px; }
+  .topbar .eyebrow { color: #849087; font-size: 8px; }
+  .topbar strong {
+    color: #25382b;
+    font-size: 14px;
+    font-weight: 750;
+  }
+  .user-area {
+    gap: 6px;
+    padding: 6px 9px;
+    border: 1px solid #e4ebe4;
+    border-radius: 999px;
+    background: #f8faf8;
+    font-size: 9px;
+  }
+  .page-content {
+    width: 100%;
+    min-width: 0;
+    padding: 19px 15px 30px;
+  }
+  .page-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 19px;
+  }
+  .page-heading h1 {
+    margin: 4px 0 6px;
+    color: #203b29;
+    font-size: clamp(24px, 7vw, 29px);
+    line-height: 1.12;
+    letter-spacing: -.045em;
+  }
+  .page-heading p { color: #738076; font-size: 12px; line-height: 1.55; }
+  .page-heading > button, .collection-tools { width: 100%; }
+  .collection-tools {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 8px;
+  }
+  .collection-tools #new-item { grid-column: 1 / -1; grid-row: 1; }
+  .collection-tools button, .page-heading > button {
+    min-height: 46px;
+    border-radius: 11px;
+    font-size: 11px;
+  }
+
+  /* Cards e indicadores com hierarquia própria de celular. */
+  .stats-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+    margin: 0 0 16px;
+  }
+  .stat-card {
+    min-width: 0;
+    min-height: 112px;
+    padding: 14px;
+    border: 1px solid #e8eee8;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(34,57,40,.045);
+  }
+  .stat-card > span { color: #758278; font-size: 10px; line-height: 1.35; }
+  .stat-card strong {
+    display: block;
+    margin: 9px 0 4px;
+    color: #244b31;
+    font-size: 27px;
+    line-height: 1;
+  }
+  .stat-card small { color: #929d94; font-size: 9px; line-height: 1.35; }
+  .collection-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .collection-card, .panel-card, .dashboard-chart-card,
+  .dashboard-activity-card, .dashboard-analytics-card {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #e8eee8;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(34,57,40,.04);
+  }
+  .dashboard-chart-grid { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .donut-layout { grid-template-columns: minmax(105px, .8fr) minmax(0,1fr); gap: 10px; }
+  .dashboard-chart-heading h2, .dashboard-activity-heading h2 { font-size: 15px; }
+  .dashboard-chart-heading p, .dashboard-activity-heading p { font-size: 11px; }
+  .dashboard-activity-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .dashboard-activity-heading button { width: 100%; min-height: 43px; }
+  .activity-entry { grid-template-columns: 12px minmax(0,1fr); gap: 8px; }
+  .activity-commit-link { grid-column: 2; justify-self: start; }
+
+  /* Registros em cartões; a tabela desktop não aparece no telefone. */
+  .table-wrap { display: none !important; }
+  .mobile-record-list { display: grid !important; gap: 11px; }
+  .record-card {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #e6ece6;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(34,57,40,.04);
+  }
+  .record-card-heading { display: flex; align-items: flex-start; gap: 9px; }
+  .record-card-heading strong { color: #263a2c; font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+  .record-card-heading > span { flex: 0 0 auto; color: #89958c; font-size: 9px; }
+  .record-card-meta { display: grid; gap: 9px; margin: 12px 0; }
+  .record-card-meta > div { display: grid; gap: 3px; }
+  .record-card-meta small { color: #8b978e; font-size: 9px; }
+  .record-card-meta span { color: #4e5e52; font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
+  .record-card-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .record-card-actions button { min-height: 43px; border-radius: 10px; }
+
+  /* Barra inferior nativa: permanece fixa e substitui a navegação desktop. */
+  .mobile-dock {
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 45;
+    display: grid !important;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 5px;
+    padding: 7px 12px calc(7px + env(safe-area-inset-bottom));
+    border-top: 1px solid #e3eae3;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 -5px 22px rgba(28,49,33,.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .mobile-dock button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 49px;
+    padding: 5px 3px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: #78847b;
+    font-size: 10px;
+    font-weight: 700;
+    touch-action: manipulation;
+  }
+  .mobile-dock button.active {
+    background: #eaf2e9;
+    color: #285337;
+  }
+  .mobile-dock button:last-child { color: #9a5555; }
+  .mobile-dock .dock-icon { display: none !important; }
+
+  /* Conteúdos abre uma tela de seleção independente, como uma tela de app. */
+  .sidebar.mobile-open {
+    position: fixed !important;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    width: 100%;
+    height: 100svh !important;
+    max-height: 100svh;
+    min-height: 0;
+    padding: calc(14px + env(safe-area-inset-top)) 17px calc(14px + env(safe-area-inset-bottom));
+    overflow: hidden;
+    border-radius: 0;
+    background: #202c23;
+    box-shadow: none;
+  }
+  .sidebar.mobile-open .brand {
+    flex: 0 0 auto;
+    min-height: 53px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #3b493e;
+  }
+  .sidebar.mobile-open #collection-nav {
+    display: grid !important;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    align-content: start;
+    gap: 9px;
+    width: 100%;
+    min-height: 0;
+    max-height: none;
+    margin: 0;
+    padding: 16px 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  #collection-nav .menu-section { display: contents !important; }
+  #collection-nav .menu-section-title { display: none !important; }
+  #collection-nav .menu-section-items { display: contents !important; }
+  #collection-nav > .summary-nav-item {
+    grid-column: 1 / -1;
+    min-height: 50px;
+    margin: 0 0 3px;
+    padding: 12px 14px;
+    border: 1px solid #a9c4aa;
+    border-radius: 13px;
+    background: #e7f0e6;
+    color: #24472f;
+    font-size: 12px;
+    font-weight: 750;
+  }
+  #collection-nav button:not(.summary-nav-item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    min-height: 55px;
+    padding: 11px 12px;
+    border: 1px solid #405044;
+    border-radius: 13px;
+    background: #2a382e;
+    color: #edf3ee;
+    text-align: left;
+    white-space: normal;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+  #collection-nav button:not(.summary-nav-item).active {
+    border-color: #a9c4aa;
+    background: #e7f0e6;
+    color: #24472f;
+  }
+  #collection-nav button .nav-count {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 23px;
+    min-height: 23px;
+    margin-left: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
+    color: inherit;
+    font-size: 9px;
+  }
+  .sidebar.mobile-open .sidebar-bottom {
+    display: flex !important;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0;
+    padding: 12px 0 2px;
+    border-top: 1px solid #3b493e;
+  }
+  .sidebar.mobile-open .sidebar-bottom a,
+  .sidebar.mobile-open .sidebar-bottom .quiet-button {
+    min-height: 43px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    color: #e0e9e1;
+    font-size: 11px;
+  }
+  .sidebar.mobile-open ~ .main-area { visibility: hidden; }
+
+  /* Formulários e janelas ocupam a tela com controles confortáveis ao toque. */
+  .modal-backdrop { padding: 0; }
+  .modal {
+    width: 100%;
+    max-width: none;
+    height: min(94svh,900px);
+    max-height: calc(100svh - env(safe-area-inset-top));
+    border-radius: 20px 20px 0 0;
+  }
+  .modal-head { padding: 15px 17px; }
+  .modal-body { grid-template-columns: minmax(0,1fr); padding: 17px 16px; }
+  .modal-foot { padding: 12px 16px calc(14px + env(safe-area-inset-bottom)); }
+  .field, .field.full { min-width: 0; }
+  .field input:not([type="checkbox"]):not([type="radio"]),
+  .field textarea, .field select,
+  .config-fields input, .config-fields textarea, .config-fields select {
+    width: 100%;
+    min-height: 47px;
+    font-size: 16px;
+  }
+  .config-fields { grid-template-columns: minmax(0,1fr); }
+  .config-fields > .field.full { grid-column: auto; }
+  #toast-root { right: 10px; bottom: calc(76px + env(safe-area-inset-bottom)); left: 10px; }
+}
+@media (max-width:390px) {
+  .page-content { padding-right: 12px; padding-left: 12px; }
+  .stats-grid, .collection-grid { gap: 8px; }
+  .stat-card { padding: 12px 11px; }
+  .donut-layout { grid-template-columns: minmax(90px, .75fr) minmax(0,1fr); gap: 8px; }
+  .sidebar.mobile-open #collection-nav { grid-template-columns: minmax(0,1fr); }
+  #collection-nav > .summary-nav-item { grid-column: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .mobile-dock, #collection-nav, #page-content * { scroll-behavior: auto !important; transition: none !important; }
+}
