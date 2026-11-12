@@ -6,6 +6,7 @@ project:
     - "img/**"
     - "data/**"
     - "tree-interactions.js"
+    - "onezoom.js"
 
 lang: pt-BR
 
@@ -21,7 +22,9 @@ website:
 format:
   html:
     theme: default
-    css: experimental.css
+    css:
+      - experimental.css
+      - onezoom.css
     include-before-body: tree-nav.html
     include-after-body: tree-interactions.html
     page-layout: full
