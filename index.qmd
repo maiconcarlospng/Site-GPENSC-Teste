@@ -58,11 +58,17 @@ if (nrow(noticias_recentes) > 0) {
 :::
 :::::
 
-::: faixa-agenda
+:::: faixa-agenda
+::: agenda-chamada
+<p class="agenda-selo">AGENDA GPENSC</p>
+
 ## {{< var titulo_home_agenda >}}
 
-[Clique aqui](agenda.qmd){.btn .btn-secondary}
+<p class="agenda-descricao">Acompanhe os próximos encontros e saiba onde o grupo estará presente.</p>
+
+[Ver agenda completa](agenda.qmd){.btn .btn-secondary .agenda-botao}
 :::
+::::
 
 ```{r}
 if (tem(cfg$spotify)) {
