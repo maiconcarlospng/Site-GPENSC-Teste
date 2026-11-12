@@ -131,14 +131,28 @@ async function saveConfigCollection(event,index,fields){
   for(const field of fields){
     if(field.widget==='list'&&Array.isArray(field.fields)){
       const list=form.querySelector('[data-config-list="'+field.name+'"]');
-      updated[field.name]=list?[...list.querySelectorAll('[data-config-list-row]')].map(row=>{
+      const rows=list?[...list.querySelectorAll('[data-config-list-row]')]:[];
+      const values=[];
+      for(const row of rows){
         const item={};
         for(const child of field.fields){
           const input=row.querySelector('[data-config-subfield="'+child.name+'"]');
-          item[child.name]=!input?'':child.widget==='boolean'?input.checked:input.value;
+          const value=!input?'':child.widget==='boolean'?input.checked:input.value;
+          if(child.required&&(value===''||value===null||value===undefined)){
+            toast('Preencha '+(child.label||child.name)+' em todos os itens.',true);
+            input?.focus();
+            return;
+          }
+          if(Array.isArray(child.pattern)&&child.pattern[0]&&value!==''&&!new RegExp(child.pattern[0]).test(String(value))){
+            toast('Confira o formato de '+(child.label||child.name)+' em um dos itens.',true);
+            input?.focus();
+            return;
+          }
+          item[child.name]=value;
         }
-        return item;
-      }):[];
+        values.push(item);
+      }
+      updated[field.name]=values;
       continue;
     }
     const input=form.querySelector('[data-config-field="'+field.name+'"]');
