@@ -64,7 +64,60 @@ if (nrow(noticias_recentes) > 0) {
 
 ## {{< var titulo_home_agenda >}}
 
-<p class="agenda-descricao">Acompanhe os próximos encontros e saiba onde o grupo estará presente.</p>
+<p class="agenda-descricao">Confira a próxima atividade e acompanhe a programação de aulas abertas, workshops e participações do grupo.</p>
+
+```{r}
+eventos_home_publicados <- registros_reais(eventos, "titulo")
+
+eventos_home_futuros <- eventos_home_publicados[
+  !is.na(eventos_home_publicados$data) &
+    eventos_home_publicados$data >= Sys.Date(),
+  ,
+  drop = FALSE
+] |>
+  arrange(data)
+
+if (nrow(eventos_home_futuros) > 0) {
+  proximo_evento_home <- eventos_home_futuros[1, , drop = FALSE]
+  evento_tipo_home <- valor_publico(proximo_evento_home$tipo)
+  evento_local_home <- valor_publico(proximo_evento_home$local)
+  evento_url_home <- valor_publico(proximo_evento_home$url)
+  evento_data_home <- proximo_evento_home$data[1]
+
+  div(
+    class = "agenda-proximo-evento reveal",
+    div(
+      class = "agenda-proximo-data",
+      span("PRÓXIMA ATIVIDADE"),
+      tags$time(
+        datetime = format(evento_data_home, "%Y-%m-%d"),
+        format(evento_data_home, "%d/%m/%Y")
+      )
+    ),
+    div(
+      class = "agenda-proximo-conteudo",
+      if (!is.null(evento_tipo_home)) span(class = "agenda-evento-tipo", evento_tipo_home),
+      h3(proximo_evento_home$titulo[1]),
+      if (!is.null(evento_local_home)) p(class = "agenda-evento-local", evento_local_home),
+      if (!is.null(evento_url_home)) {
+        tags$a(
+          class = "agenda-evento-link",
+          href = evento_url_home,
+          target = "_blank",
+          rel = "noopener noreferrer",
+          "Mais informações"
+        )
+      }
+    )
+  )
+} else {
+  div(
+    class = "agenda-sem-eventos",
+    p("Nenhuma atividade futura cadastrada no momento."),
+    span("Assim que uma data futura for cadastrada no painel, o próximo evento aparecerá aqui automaticamente.")
+  )
+}
+```
 
 [Ver agenda completa](agenda.qmd){.btn .btn-secondary .agenda-botao}
 :::
