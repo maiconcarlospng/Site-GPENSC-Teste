@@ -2,6 +2,7 @@
   "use strict";
 
   const repo = "maiconcarlospng/Site-GPENSC-Teste";
+  const draftBranch = "admin-rascunhos";
   const allowedFiles = new Set([
     "noticias", "eventos", "linhas", "projetos", "publicacoes", "livros",
     "defesas", "equipe", "disciplinas", "videos", "sites", "apoio",
@@ -47,7 +48,7 @@
     button.disabled = true;
     button.textContent = "Preparando...";
     try {
-      const url = "https://raw.githubusercontent.com/" + repo + "/admin-rascunhos/data/" + file + ".yml";
+      const url = "https://raw.githubusercontent.com/" + repo + "/" + draftBranch + "/data/" + file + ".yml";
       const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) throw new Error("Não foi possível acessar os dados salvos desta seção.");
       const yamlText = await response.text();
