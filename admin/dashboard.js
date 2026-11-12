@@ -318,27 +318,14 @@ function mount() {
   if (isEditorRoute(window.location.hash)) enterEditorMode();
   else show();
 }
-function isVisible(element) {
-  if (!element || !element.getClientRects().length) return false;
-  const style = window.getComputedStyle(element);
-  return style.display !== 'none' && style.visibility !== 'hidden' && !element.closest('[hidden]');
-}
 function check() {
-  // O Sveltia usa o mesmo cartão durante login e durante suas telas transitórias
-  // ("Entrando", "Carregando configuração"). Não considerar apenas o botão de login:
-  // ele desaparece durante o carregamento e fazia o painel alternar entre telas.
-  const authPanel = document.querySelector('.container > .inner');
-  const authActive = isVisible(authPanel);
-  if (authActive) {
-    document.body.classList.add('gpen-login-active');
+  // Preserva a detecção de autenticação usada pela versão funcional do Sveltia.
+  const login = document.querySelector('.container > .inner .buttons');
+  if (login) {
     if (root) hide();
-    const launcher = document.getElementById('gpen-dashboard-launcher');
-    if (launcher) launcher.hidden = true;
     return;
   }
-  document.body.classList.remove('gpen-login-active');
 
-  // Só considerar o CMS pronto quando sua navegação e sua área principal existirem.
   const cmsReady = Boolean(
     document.querySelector('.primary-sidebar') &&
     document.querySelector('#page-container')
@@ -352,10 +339,10 @@ function check() {
   }
 }
 new MutationObserver(check).observe(document.documentElement, {
-  childList:true,
-  subtree:true,
-  attributes:true,
-  attributeFilter:['class','hidden','style','aria-hidden']
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['class', 'hidden']
 });
 document.addEventListener('DOMContentLoaded', check);
 check();
