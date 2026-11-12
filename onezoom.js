@@ -109,11 +109,11 @@
     $("oz-hint-text").textContent=n.children?.length?(opened.has(id)?"Galho aberto · selecione outro ramo ou aproxime-se dos brotos":"Galho recolhido · selecione para expandir"):"Conteúdo selecionado · use o botão para abrir a página";
   }
   function updateDetail(n){
+    const link=$("oz-detail-link");link.onclick=null;
     $("oz-detail-symbol").textContent=n.short||n.title.split(/\s+/).slice(0,2).map(s=>s[0]).join("").toUpperCase();
     $("oz-detail-eyebrow").textContent=n.eyebrow||(n.depth===0?"RAÍZES DO CONHECIMENTO":n.depth===1?"RAMO DO CONHECIMENTO":n.depth===2?"BROTO DE CONHECIMENTO":"FOLHA");
     $("oz-detail-title").textContent=n.title;
     $("oz-detail-description").textContent=n.description||"Explore este conteúdo do GPENSC.";
-    const link=$("oz-detail-link");
     if(n.href){link.href=n.href;link.hidden=false;link.innerHTML=`Abrir conteúdo <span aria-hidden="true">↗</span>`}
     else if(n.children?.length){link.hidden=false;link.href="#oz-tree";link.innerHTML=`Explorar este galho <span aria-hidden="true">→</span>`;link.onclick=e=>{e.preventDefault();if(!opened.has(n.id))activate(n.id)}}
     else link.hidden=true;
@@ -161,7 +161,7 @@
   document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();search.focus()}if(e.key==="Escape"&&document.activeElement===search){search.value="";search.blur();resetAll()}});
   // Wheel zoom and pointer drag; Pointer Events also cover touch and stylus.
   tree.addEventListener("wheel",e=>{e.preventDefault();zoom(e.deltaY<0?1.12:.89)}, {passive:false});
-  tree.addEventListener("pointerdown",e=>{if(e.target.closest(".oz-node"))return;pointer={id:e.pointerId,x:e.clientX,y:e.clientY,box:{...camera}};dragMoved=false;tree.setPointerCapture(e.pointerId);tree.classList.add("is-dragging")});
+  tree.addEventListener("pointerdown",e=>{if(e.target.closest(".oz-node")){dragMoved=false;return}pointer={id:e.pointerId,x:e.clientX,y:e.clientY,box:{...camera}};dragMoved=false;tree.setPointerCapture(e.pointerId);tree.classList.add("is-dragging")});
   tree.addEventListener("pointermove",e=>{if(!pointer||pointer.id!==e.pointerId)return;const rect=tree.getBoundingClientRect(),dx=(e.clientX-pointer.x)*pointer.box.w/rect.width,dy=(e.clientY-pointer.y)*pointer.box.h/rect.height;if(Math.abs(dx)+Math.abs(dy)>4)dragMoved=true;setCamera({x:pointer.box.x-dx,y:pointer.box.y-dy,w:pointer.box.w,h:pointer.box.h},false)});
   const endDrag=()=>{pointer=null;tree.classList.remove("is-dragging")};
   tree.addEventListener("pointerup",endDrag);tree.addEventListener("pointercancel",endDrag);tree.addEventListener("lostpointercapture",endDrag);
