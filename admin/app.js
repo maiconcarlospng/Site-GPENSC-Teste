@@ -10,11 +10,44 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const toast=(message,error=false)=>{const el=document.createElement('div');el.className='toast'+(error?' error':'');el.textContent=message;$('#toast-root').append(el);setTimeout(()=>el.remove(),3800)};
 const apiHeaders=()=>({'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
 async function api(path,options={}){const r=await fetch(API+path,{...options,headers:{...apiHeaders(),...(options.headers||{})}});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||'Falha ao comunicar com o GitHub.');return data}
-function login(){const url=WORKER+'/auth?provider=github&site_id='+encodeURIComponent(location.hostname)+'&scope=repo';const popup=window.open(url,'gpen-github-auth','width=620,height=720,menubar=no,toolbar=no');if(!popup){toast('Permita a abertura da janela de autenticação.',true);return}
-$('#login-status').textContent='Aguardando autorização do GitHub…';
-const timeout=setTimeout(()=>{window.removeEventListener('message',listener);$('#login-status').textContent='A autenticação não foi concluída. Tente novamente.'},180000);
-function listener(event){if(event.origin!==new URL(WORKER).origin)return;const msg=String(event.data||'');if(!msg.startsWith('authorization:github:'))return;clearTimeout(timeout);window.removeEventListener('message',listener);try{const parts=msg.split(':');const result=JSON.parse(parts.slice(3).join(':'));if(parts[2]!=='success'||!result.token)throw new Error(result.error||'Autorização não concluída.');state.token=result.token;sessionStorage.setItem('gpen_admin_token',state.token);popup.close();initialize()}catch(e){$('#login-status').textContent=e.message;toast(e.message,true)}}
-window.addEventListener('message',listener)}
+function login(){
+  const workerOrigin=new URL(WORKER).origin;
+  const url=WORKER+'/auth?provider=github&site_id='+encodeURIComponent(location.hostname)+'&scope=repo';
+  const popup=window.open(url,'gpen-github-auth','width=620,height=720,menubar=no,toolbar=no');
+  if(!popup){toast('Permita a abertura da janela de autenticação.',true);return}
+  $('#login-status').textContent='Aguardando autorização do GitHub…';
+  let finished=false;
+  const finish=()=>{if(finished)return;finished=true;clearTimeout(timeout);window.removeEventListener('message',listener)};
+  const timeout=setTimeout(()=>{
+    finish();
+    $('#login-status').textContent='A autenticação não foi concluída. Feche a janela de autorização e tente novamente.';
+  },180000);
+  function listener(event){
+    if(event.origin!==workerOrigin||event.source!==popup)return;
+    const msg=String(event.data||'');
+    // O Worker inicia um handshake: a janela principal precisa responder
+    // para que o callback envie o token de volta com segurança.
+    if(msg==='authorizing:github'){
+      popup.postMessage('authorizing:github',workerOrigin);
+      return;
+    }
+    if(!msg.startsWith('authorization:github:'))return;
+    finish();
+    try{
+      const parts=msg.split(':');
+      const result=JSON.parse(parts.slice(3).join(':'));
+      if(parts[2]!=='success'||!result.token)throw new Error(result.error||'Autorização não concluída.');
+      state.token=result.token;
+      sessionStorage.setItem('gpen_admin_token',state.token);
+      popup.close();
+      initialize();
+    }catch(e){
+      $('#login-status').textContent=e.message;
+      toast(e.message,true);
+    }
+  }
+  window.addEventListener('message',listener);
+}
 async function initialize(){try{const user=await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';sessionStorage.removeItem('gpen_admin_token');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
 async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/config.yml?ref='+BRANCH);state.sha['admin/config.yml']=r.sha;const raw=decodeURIComponent(escape(atob(r.content.replace(/\n/g,''))));state.config=jsyaml.load(raw);state.collections=(state.config.collections||[]).flatMap(group=>(group.files||[]).map(file=>({...file,groupName:group.label,group:group.name})))}
 async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
