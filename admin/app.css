@@ -537,3 +537,18 @@
   .analytics-setup{padding:13px}
 }
 @media(max-width:380px){.analytics-controls{grid-template-columns:1fr 1fr}.analytics-controls label{grid-column:1/-1}.analytics-controls button{grid-column:1/-1;width:100%}}
+
+
+/* Acesso alternativo por código */
+.login-divider{display:flex;align-items:center;gap:12px;margin:19px 0;color:#98a39a;font-size:9px;font-weight:800;letter-spacing:.13em}
+.login-divider::before,.login-divider::after{content:"";height:1px;flex:1;background:#e6ebe6}
+.access-login{display:grid;gap:8px;margin:0 0 15px}
+.access-login>label{color:#536057;font-size:11px;font-weight:750}
+.access-code-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;min-width:0}
+.access-code-row input{width:100%;min-width:0;min-height:39px;padding:0 11px;border:1px solid #dce4dc;border-radius:7px;background:#fff;color:#28362c;font:inherit;font-size:12px;outline:none}
+.access-code-row input:focus{border-color:#6e9879;box-shadow:0 0 0 3px #5f9a3e1a}
+.access-code-row .secondary-button{white-space:nowrap;min-height:39px}
+.access-code-row .secondary-button:disabled{opacity:.65;cursor:wait}
+.access-login>p{margin:0;color:#879188;font-size:10px;line-height:1.5}
+.login-note{margin-top:12px}
+@media(max-width:460px){.login-card{padding:32px 23px}.access-code-row{grid-template-columns:1fr}.access-code-row .secondary-button{width:100%}}

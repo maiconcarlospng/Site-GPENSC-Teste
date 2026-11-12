@@ -68,6 +68,7 @@ GitHub Pages  ->  site público atualizado
 | **Painel próprio (`admin/app.*`)** | Interface principal para resumo, edição, configuração, galeria e planilhas. |
 | **Sveltia CMS (`admin/cms.html`)** | Editor alternativo, mantido para acesso às funções do CMS. |
 | **Cloudflare Worker de autenticação** | Intermedeia o OAuth do GitHub; não deve expor Client Secret. |
+| **Cloudflare Worker de acesso** | Valida o código de colaboradores e faz proxy restrito para a API do repositório, sem entregar o token GitHub ao navegador. |
 | **Umami** | Recebe os eventos de navegação do site e fornece estatísticas de acesso. |
 | **Cloudflare Worker de analytics** | Proxy planejado para consultar a API do Umami sem expor a chave no navegador. |
 | **GitHub Actions** | Valida, compila e publica o site. |
@@ -124,6 +125,13 @@ O painel foi personalizado para uso em desktop e celular e inclui:
 - **Uso móvel:** menu adaptado, navegação inferior rápida, cartões e formulários reorganizados para telas menores.
 
 Os arquivos centrais são `admin/app.js`, `admin/app.css` e `admin/app.html`. Ao alterar o JavaScript ou CSS do painel, atualize também o parâmetro de versão desses arquivos em `admin/app.html` quando necessário, para evitar que o navegador continue usando uma versão em cache.
+
+
+### Entrada por código de acesso
+
+A tela de login oferece duas alternativas: autenticação individual com GitHub ou código compartilhado pela coordenação. O acesso por código não exige conta GitHub de cada colaborador. O navegador recebe somente uma sessão temporária assinada; o token GitHub fica como Secret no Cloudflare e o Worker restringe as operações ao repositório atual.
+
+O código é um segredo compartilhado, não uma identidade individual. Todos os usuários desse modo escrevem usando a conta vinculada ao token de serviço e as alterações do GitHub não identificam cada colaborador separadamente. A sessão dura 8 horas; trocar o Secret `ACCESS_CODE` invalida sessões anteriores. A publicação e os Secrets necessários estão descritos em [admin-access-worker/README.md](admin-access-worker/README.md).
 
 ---
 
@@ -285,6 +293,8 @@ Para alterações de domínio ou portabilidade para o GPENSC, revise também o d
 | `data/analytics.json` | Configuração pública do rastreador e URL do proxy; não guarda segredos. |
 | `analytics.html` | Script de rastreamento Umami incluído no cabeçalho do site. |
 | `analytics-worker/worker.js` | Proxy protegido para consultar a API do Umami. |
+| `admin-access-worker/worker.js` | Validação do código de acesso, sessão temporária e proxy GitHub restrito. |
+| `admin-access-worker/README.md` | Publicação do acesso por código e configuração segura dos Secrets. |
 | `analytics-worker/wrangler.toml` | Configuração de publicação do Worker de estatísticas. |
 | `admin/index.html` | Redireciona `/admin/` para o painel próprio. |
 | `admin/app.html`, `admin/app.js`, `admin/app.css` | Painel principal personalizado. |
@@ -307,7 +317,7 @@ Para alterações de domínio ou portabilidade para o GPENSC, revise também o d
 | Conteúdo de notícias, eventos, equipe etc. | Painel e YAML correspondente em `data/`. |
 | Campos e coleções do CMS | `admin/config.yml`. |
 | Formulários e funções do painel próprio | `admin/app.js` e `admin/app.css`. |
-| Login do painel | `admin/app.js`, `admin/config.yml` e configuração do Worker OAuth. |
+| Login do painel | `admin/app.js`, `admin/config.yml` e Worker OAuth. A entrada por código usa `admin-access-worker/`. |
 | Como os dados são lidos ou apresentados | `R/helpers.R` e página `.qmd` relacionada. |
 | Estrutura da página inicial | `index.qmd`. |
 | Menu, recursos e rodapé | `_quarto.yml`. |
@@ -487,6 +497,7 @@ Após definir o novo endereço, faça uma busca no repositório por `maiconcarlo
 | `analytics-worker/wrangler.toml` | Atualizar `ALLOWED_ORIGIN` para a nova origem pública do site. |
 | Cloudflare Worker de analytics | Atualizar a variável `ALLOWED_ORIGIN` e manter a API key do Umami como Secret. |
 | Cloudflare Worker de OAuth | Recriar ou transferir o Worker para uma conta institucional, ajustar domínios permitidos e configurar novamente os segredos. |
+| `admin-access-worker` | Migrar o Worker de acesso por código e recriar `GITHUB_TOKEN`, `ACCESS_CODE` e `SESSION_SECRET` como Secrets institucionais. |
 | GitHub OAuth App | Atualizar Homepage URL e Authorization callback URL para os endereços definitivos; usar o callback exato do Worker implantado. |
 | GitHub Pages e Actions | Habilitar Pages por GitHub Actions, conferir permissões e executar a primeira publicação completa. |
 | Documentação | Atualizar links do README, `COMO-EDITAR.md` e demais guias. |
@@ -573,7 +584,7 @@ As estatísticas históricas dependem da propriedade Umami escolhida e da contin
 | O site não atualiza após salvar | Execução mais recente do Actions, conclusão do deploy e cache do navegador (`Ctrl + F5`). |
 | Actions falha na validação | Configuração em `admin/config.yml`, arquivos YAML, campos, caminhos e CSS. |
 | Actions falha na compilação | Primeiro passo com erro no job **Compilar site (Quarto + R)**; confira logs do Quarto/R. |
-| Login do painel não conclui | OAuth App, callback do Worker, domínio permitido e segredos de produção no Cloudflare. |
+| Login do painel não conclui | OAuth App, callback do Worker, domínio permitido e segredos de produção no Cloudflare. No acesso por código, confira também `ACCESS_CODE`, `SESSION_SECRET`, `GITHUB_TOKEN` e a URL do Worker. |
 | Painel abre em branco | Console do navegador, carregamento de `app.js`/ `app.css`, cache e mensagens de rede. |
 | Não é possível salvar | Conta GitHub autenticada, permissão de escrita no repositório, branch e resposta da API. |
 | Galeria não salva ou não exibe imagens | Caminhos dos arquivos, upload, campos de recorte e estrutura de `data/galeria.yml`. |

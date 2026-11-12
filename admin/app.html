@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#202722">
   <title>Painel administrativo · GPENSC</title>
   <link rel="icon" href="../img/logo_gpensc.png">
-  <link rel="stylesheet" href="app.css?v=20261112-6">
+  <link rel="stylesheet" href="app.css?v=20261112-7">
 </head>
 <body>
   <main id="app" aria-live="polite">
@@ -18,7 +18,16 @@
         <h1>Painel GPENSC</h1>
         <p>Gerencie os conteúdos do site em um ambiente próprio, integrado ao repositório do grupo.</p>
         <button class="primary-button" id="login-button">Entrar com GitHub</button>
-        <p class="login-note" id="login-status">Acesso restrito a colaboradores autorizados no repositório.</p>
+        <div class="login-divider"><span>OU</span></div>
+        <div class="access-login">
+          <label for="access-code">Código de acesso</label>
+          <div class="access-code-row">
+            <input id="access-code" type="password" autocomplete="one-time-code" placeholder="Digite o código fornecido" spellcheck="false">
+            <button type="button" class="secondary-button" id="token-login-button">Entrar com código</button>
+          </div>
+          <p>Use o código disponibilizado pela coordenação do GPENSC.</p>
+        </div>
+        <p class="login-note" id="login-status">O acesso por código dispensa uma conta GitHub individual.</p>
         <a class="site-link" href="../" target="_blank" rel="noopener">Visitar site público ↗</a>
       </div>
     </section>
@@ -52,6 +61,6 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261112-11"></script>
+  <script src="app.js?v=20261112-12"></script>
 </body>
 </html>

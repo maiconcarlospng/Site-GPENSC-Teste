@@ -1,0 +1,6 @@
+name = "gpensc-admin-access"
+main = "worker.js"
+compatibility_date = "2026-11-12"
+
+[vars]
+ALLOWED_ORIGIN = "https://maiconcarlospng.github.io"

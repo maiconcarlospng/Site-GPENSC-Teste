@@ -3,13 +3,44 @@
 const REPO='maiconcarlospng/Site-GPENSC-Teste';
 const BRANCH='main';
 const WORKER='https://sveltia-cms-auth.maicon-carlos.workers.dev';
+const ACCESS_WORKER='https://gpensc-admin-access.maicon-carlos.workers.dev';
 const API='https://api.github.com';
 const $=s=>document.querySelector(s);
-const state={token:sessionStorage.getItem('gpen_admin_token')||'',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:'',analyticsConfig:null,analyticsData:null,analyticsLoading:false,analyticsError:'',analyticsDays:30};
+const state={token:sessionStorage.getItem('gpen_admin_token')||'',authMode:sessionStorage.getItem('gpen_admin_auth_mode')||'github',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:'',analyticsConfig:null,analyticsData:null,analyticsLoading:false,analyticsError:'',analyticsDays:30};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const toast=(message,error=false)=>{const el=document.createElement('div');el.className='toast'+(error?' error':'');el.textContent=message;$('#toast-root').append(el);setTimeout(()=>el.remove(),3800)};
 const apiHeaders=()=>({'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
-async function api(path,options={}){const r=await fetch(API+path,{...options,headers:{...apiHeaders(),...(options.headers||{})}});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.message||'Falha ao comunicar com o GitHub.');return data}
+async function api(path,options={}){
+  const viaAccessCode=state.authMode==='access-code';
+  const url=viaAccessCode?ACCESS_WORKER+'/github?path='+encodeURIComponent(path):API+path;
+  const headers=viaAccessCode
+    ?{'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(options.headers||{})}
+    :{...apiHeaders(),...(options.headers||{})};
+  const r=await fetch(url,{...options,headers});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.message||data.error||'Falha ao comunicar com o GitHub.');
+  return data;
+}
+async function loginWithCode(){
+  const code=$('#access-code').value.trim();
+  const button=$('#token-login-button');
+  if(!code){$('#login-status').textContent='Informe o código de acesso.';$('#access-code').focus();return}
+  button.disabled=true;button.textContent='Verificando…';
+  $('#login-status').textContent='Validando o código de acesso…';
+  try{
+    const response=await fetch(ACCESS_WORKER+'/token/login',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({code})});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||!data.token)throw new Error(data.error||'Não foi possível validar o código.');
+    state.token=data.token;state.authMode='access-code';
+    sessionStorage.setItem('gpen_admin_token',state.token);
+    sessionStorage.setItem('gpen_admin_auth_mode',state.authMode);
+    $('#access-code').value='';
+    await initialize();
+  }catch(error){
+    $('#login-status').textContent=error.message||'Falha ao validar o código.';
+    toast(error.message||'Falha ao validar o código.',true);
+  }finally{button.disabled=false;button.textContent='Entrar com código'}
+}
 function login(){
   const workerOrigin=new URL(WORKER).origin;
   const url=WORKER+'/auth?provider=github&site_id='+encodeURIComponent(location.hostname)+'&scope=repo';
@@ -38,7 +69,9 @@ function login(){
       const result=JSON.parse(parts.slice(3).join(':'));
       if(parts[2]!=='success'||!result.token)throw new Error(result.error||'Autorização não concluída.');
       state.token=result.token;
+      state.authMode='github';
       sessionStorage.setItem('gpen_admin_token',state.token);
+      sessionStorage.setItem('gpen_admin_auth_mode',state.authMode);
       popup.close();
       initialize();
     }catch(e){
@@ -48,7 +81,7 @@ function login(){
   }
   window.addEventListener('message',listener);
 }
-async function initialize(){try{const user=await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAnalyticsConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';sessionStorage.removeItem('gpen_admin_token');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
+async function initialize(){try{const user=state.authMode==='access-code'?{name:'Acesso por código',login:'Colaborador'}:await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAnalyticsConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';state.authMode='github';sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
 async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/config.yml?ref='+BRANCH);state.sha['admin/config.yml']=r.sha;const raw=decodeURIComponent(escape(atob(r.content.replace(/\n/g,''))));state.config=jsyaml.load(raw);state.collections=(state.config.collections||[]).flatMap(group=>(group.files||[]).map(file=>({...file,groupName:group.label,group:group.name})))}
 async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
 async function loadAll(){await Promise.all(state.collections.map(async item=>{try{state.contents[item.file]=await readFile(item.file)}catch(e){state.contents[item.file]={itens:[]}}}))}
@@ -533,10 +566,12 @@ async function uploadImage(file){const safe=file.name.normalize('NFD').replace(/
 async function deleteItem(index){if(!confirm('Deseja excluir este registro? A alteração será salva no repositório.'))return;const c=state.collections[state.active];const items=entryList(c).slice();items.splice(index,1);try{await saveCollection(c,{...state.contents[c.file],itens:items});openCollection(state.active);renderNav();toast('Registro excluído.')}catch(e){toast(e.message,true)}}
 function closeModal(){$('#modal-root').innerHTML=''}
 $('#login-button').addEventListener('click',login);
+$('#token-login-button').addEventListener('click',loginWithCode);
+$('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loginWithCode()}});
 function closeMobileMenu(){const side=$('.sidebar');side.classList.remove('mobile-open');$('#mobile-sections').setAttribute('aria-expanded','false')}
 $('#mobile-home').addEventListener('click',()=>{closeMobileMenu();renderHome();window.scrollTo({top:0,behavior:'smooth'})});
 $('#mobile-sections').addEventListener('click',()=>{const side=$('.sidebar');const open=!side.classList.contains('mobile-open');side.classList.toggle('mobile-open',open);$('#mobile-sections').setAttribute('aria-expanded',String(open));if(open)side.scrollIntoView({behavior:'smooth',block:'start'})});
 $('#mobile-logout').addEventListener('click',()=>$('#logout-button').click());
-$('#logout-button').addEventListener('click',()=>{sessionStorage.removeItem('gpen_admin_token');state.token='';state.user=null;$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
+$('#logout-button').addEventListener('click',()=>{sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
 if(state.token)initialize();
 })();
