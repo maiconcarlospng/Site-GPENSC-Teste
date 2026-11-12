@@ -247,3 +247,14 @@ body.gpen-dashboard-editor-mode #gpen-admin-site-link {
     height: calc(100dvh - 112px) !important;
   }
 }
+
+
+/* Evita mostrar por um instante a interface nativa antes do painel GPENSC. */
+html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .primary-sidebar,
+html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) #page-container,
+html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) #collection-container,
+html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .content-editor,
+html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .sui.toolbar {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
