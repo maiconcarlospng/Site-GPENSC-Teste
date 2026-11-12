@@ -82,11 +82,9 @@ const icon = name => {
   return '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(paths[name] || paths.overview)+'</svg>';
 };
 
-let dataPromise;
-function preloadData() {
-  if (dataPromise) return dataPromise;
+async function load() {
   const parser = window.jsyaml || window.jsYaml;
-  dataPromise = Promise.all(Object.entries(collections).map(async ([key, file]) => {
+  await Promise.all(Object.entries(collections).map(async ([key, file]) => {
     try {
       const response = await fetch(new URL(file, base), { cache: 'no-store' });
       if (!response.ok || !parser || typeof parser.load !== 'function') {
@@ -99,14 +97,8 @@ function preloadData() {
       data[key] = [];
     }
   }));
-  return dataPromise;
+  render();
 }
-function load() {
-  return preloadData().then(render);
-}
-// Os arquivos são públicos; começamos a leitura durante a tela de login
-// para que os indicadores estejam prontos quando a autenticação terminar.
-preloadData();
 
 const collectionRoutes = {
   noticias: { collection: 'comunicacao', file: 'noticias', label: 'Notícias' },
