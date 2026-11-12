@@ -1,0 +1,263 @@
+/* =====================================================================
+   GPENSC · AJUSTES DA HOME E NAVEGAÇÃO ADAPTATIVA V17
+   Carregado por último no _quarto.yml para prevalecer sobre regras antigas.
+   ===================================================================== */
+
+/* ---------- AGENDA DA PÁGINA INICIAL ---------- */
+.faixa-agenda {
+  box-sizing: border-box !important;
+  padding: clamp(2.4rem, 5vw, 4rem) 1rem !important;
+  background: linear-gradient(135deg, #f8f5ed 0%, #f3ecdd 100%) !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-chamada {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  width: min(100%, 900px) !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: clamp(1.5rem, 4vw, 2.8rem) !important;
+  border: 1px solid rgba(31, 77, 43, .12) !important;
+  border-top: 4px solid #5f9a3e !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 12px 30px rgba(31, 77, 43, .09) !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-selo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  margin: 0 auto 1rem !important;
+  padding: .38rem .82rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #edf4e9 !important;
+  color: #1f4d2b !important;
+  font-size: .7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-chamada > h2 {
+  display: block !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 0 auto .8rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #1f4d2b !important;
+  font-size: clamp(1.3rem, 3.3vw, 1.85rem) !important;
+  font-weight: 750 !important;
+  line-height: 1.28 !important;
+  letter-spacing: -.035em !important;
+  text-align: center !important;
+  text-wrap: balance;
+}
+
+.faixa-agenda .agenda-chamada > h2::before {
+  content: none !important;
+  display: none !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-descricao {
+  display: block !important;
+  width: 100% !important;
+  max-width: 620px !important;
+  margin: 0 auto 1.45rem !important;
+  color: #667267 !important;
+  font-size: .97rem !important;
+  line-height: 1.65 !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-chamada > p:last-of-type {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .55rem !important;
+  min-width: 220px !important;
+  min-height: 48px !important;
+  margin: 0 auto !important;
+  padding: .75rem 1.45rem !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  box-shadow: 0 5px 13px rgba(185, 86, 15, .18) !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao::after {
+  content: "→";
+  display: inline-block;
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover::after {
+  transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+  .faixa-agenda {
+    padding: 2rem .8rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada {
+    padding: 1.35rem 1rem 1.5rem !important;
+    border-radius: 14px !important;
+  }
+
+  .faixa-agenda .agenda-chamada > h2 {
+    font-size: clamp(1.18rem, 5vw, 1.45rem) !important;
+    line-height: 1.3 !important;
+  }
+
+  .faixa-agenda .agenda-chamada .agenda-descricao {
+    margin-bottom: 1.15rem !important;
+    font-size: .9rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada .agenda-botao {
+    width: min(100%, 290px) !important;
+    min-width: 0 !important;
+    white-space: normal !important;
+  }
+}
+
+/* ---------- MENU ADAPTADO AO TIPO DE APARELHO ---------- */
+/*
+   CSS não identifica com certeza a marca/modelo do aparelho. Usa sinais
+   mais confiáveis do navegador:
+   - hover + pointer fine: computador com mouse/trackpad;
+   - pointer coarse ou sem hover: celular/tablet com toque.
+   Assim, monitores e notebooks não recebem o menu recolhido só por estarem
+   entre 769 e 1450 px. Tablets touch mantêm o menu compacto.
+*/
+@media (min-width: 769px) and (max-width: 1450px) and (hover: hover) and (pointer: fine) {
+  #quarto-header .navbar.navbar-expand-lg .navbar-container {
+    display: flex !important;
+    flex-flow: row wrap !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: .35rem .65rem !important;
+    box-sizing: border-box !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-toggler {
+    display: none !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand-container {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg #quarto-search {
+    order: 2 !important;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    margin: 0 0 0 auto !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse,
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.collapse,
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.collapse:not(.show) {
+    order: 3 !important;
+    display: flex !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: .25rem 0 0 !important;
+    padding: .35rem 0 0 !important;
+    border-top: 1px solid #edf1ea !important;
+    visibility: visible !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: .12rem .2rem !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav > .nav-item {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    border: 0 !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav > .nav-item > .nav-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 38px !important;
+    padding: .38rem .5rem !important;
+    border-radius: 7px !important;
+    font-size: .78rem !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav .dropdown-menu {
+    z-index: 1100 !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav > .gp-nav-idiomas-item {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    margin: 0 .2rem !important;
+  }
+}
+
+/* Notebook mais estreito: mantém a navegação aberta, mas compacta. */
+@media (min-width: 769px) and (max-width: 1050px) and (hover: hover) and (pointer: fine) {
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand-logo .navbar-logo {
+    max-height: 29px !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand .navbar-title {
+    font-size: .92rem !important;
+  }
+
+  #quarto-header .navbar.navbar-expand-lg .navbar-nav > .nav-item > .nav-link {
+    min-height: 35px !important;
+    padding: .32rem .42rem !important;
+    font-size: .73rem !important;
+  }
+}
