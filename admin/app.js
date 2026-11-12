@@ -54,6 +54,7 @@ async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path
 async function loadAll(){await Promise.all(state.collections.map(async item=>{try{state.contents[item.file]=await readFile(item.file)}catch(e){state.contents[item.file]={itens:[]}}}))}
 function entryList(entry){return Array.isArray(state.contents[entry.file]?.itens)?state.contents[entry.file].itens:[]}
 function isConfigCollection(entry){return entry?.group==='configuracoes'||String(entry?.file||'').startsWith('data/configuracoes/')}
+function isGalleryCollection(entry){return entry?.name==='galeria'||entry?.file==='data/galeria.yml'}
 function collectionSummary(entry){return isConfigCollection(entry)?'Configuração institucional':entryList(entry).length+' registros cadastrados'}
 function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo||item.autor||'Registro sem título'}
 function renderNav(){
@@ -64,7 +65,7 @@ function renderNav(){
   nav.querySelectorAll('[data-index]').forEach(b=>b.addEventListener('click',()=>{openCollection(Number(b.dataset.index));closeMobileMenu()}));
 }
 function renderHome(){state.active=null;$('#page-crumb').textContent='Painel de resumo';$('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));const total=key=>state.collections.filter(c=>c.name===key||c.group===key).reduce((n,c)=>n+entryList(c).length,0);const stats=[['Registros cadastrados',state.collections.reduce((n,c)=>n+entryList(c).length,0),'Conteúdos no repositório'],['Integrantes',state.collections.filter(c=>c.name==='equipe').reduce((n,c)=>n+entryList(c).length,0),'Equipe e colaboradores'],['Projetos',state.collections.filter(c=>c.name==='projetos').reduce((n,c)=>n+entryList(c).length,0),'Pesquisa e extensão'],['Notícias e eventos',state.collections.filter(c=>['noticias','eventos'].includes(c.name)).reduce((n,c)=>n+entryList(c).length,0),'Comunicação do grupo']];$('#page-content').innerHTML='<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Gerencie os conteúdos institucionais do GPENSC em um só lugar.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div><div class="stats-grid">'+stats.map(s=>'<article class="stat-card"><span>'+esc(s[0])+'</span><strong>'+s[1]+'</strong><small>'+esc(s[2])+'</small></article>').join('')+'</div><div class="panel-card"><h2>Áreas de gerenciamento</h2><div class="collection-grid">'+state.collections.map((c,i)=>'<button class="collection-card" data-open="'+i+'"><span class="eyebrow">'+esc(c.groupName||'CONTEÚDO')+'</span><strong>'+esc(c.label)+'</strong><small>'+esc(collectionSummary(c))+'</small></button>').join('')+'</div></div>';$('#refresh-button').onclick=async()=>{try{await loadAll();renderNav();renderHome();toast('Conteúdos atualizados.')}catch(e){toast(e.message,true)}};$('#page-content').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openCollection(Number(b.dataset.open)))}
-function openCollection(index){state.active=index;const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
+function openCollection(index){state.active=index;const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
 function renderConfigControl(field,value,attribute='data-config-field'){
   const name=esc(field.name),label=esc(field.label||field.name),hint=field.hint?'<small>'+esc(field.hint)+'</small>':'';
@@ -178,6 +179,83 @@ async function saveConfigCollection(event,index,fields){
     await saveCollection(c,updated);
     openConfigCollection(index);
     toast('Configuração salva no repositório.');
+  }catch(error){
+    button.disabled=false;
+    button.textContent='Tentar novamente';
+    toast(error.message,true);
+  }
+}
+
+
+function galleryPreviewUrl(path){
+  const value=String(path||'');
+  if(/^https?:\/\//i.test(value))return value;
+  return '../'+value.replace(/^\/+/,'');
+}
+function openGalleryCollection(index){
+  state.active=index;
+  const c=state.collections[index];
+  const items=entryList(c);
+  renderNav();
+  $('#page-crumb').textContent=c.label;
+  $('#page-content').innerHTML=
+    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'MÍDIA E INSTITUIÇÕES')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+
+    '<form id="gallery-form" class="gallery-form"><div class="gallery-photo-grid">'+items.map((item,i)=>
+      '<article class="gallery-photo-card" data-gallery-row data-index="'+i+'"><div class="gallery-photo-preview"><img src="'+esc(galleryPreviewUrl(item.arquivo))+'" alt="'+esc(item.legenda||'Foto da galeria')+'" loading="lazy"><span>Foto '+(i+1)+'</span></div>'+
+      '<div class="gallery-photo-fields"><div class="field full"><label>Legenda</label><input type="text" data-gallery-caption value="'+esc(item.legenda||'')+'" placeholder="Descreva a foto (opcional)"></div>'+
+      '<div class="field"><label>Foco horizontal (%)</label><input type="number" data-gallery-focus-x min="0" max="100" step="1" value="'+esc(item.foco_x??'')+'" placeholder="50"></div>'+
+      '<div class="field"><label>Foco vertical (%)</label><input type="number" data-gallery-focus-y min="0" max="100" step="1" value="'+esc(item.foco_y??'')+'" placeholder="50"></div>'+
+      '<div class="field full"><label>Substituir imagem</label><input type="file" data-gallery-replace accept="image/*"></div></div>'+
+      '<button type="button" class="small-button danger-button" data-gallery-remove>Remover foto</button></article>'
+    ).join('')+'</div>'+
+    '<div class="panel-card gallery-add-card"><div><h2>Adicionar novas fotos</h2><p>Selecione uma ou várias imagens. Elas serão enviadas para a pasta de imagens do site.</p></div><div class="field full"><label for="gallery-add-files">Selecionar imagens</label><input id="gallery-add-files" type="file" accept="image/*" multiple></div></div>'+
+    '<div class="config-actions"><span>As imagens e legendas serão gravadas no repositório após salvar.</span><button type="submit" class="primary-button" id="save-gallery">Salvar galeria</button></div></form>';
+  $('#gallery-back').onclick=renderHome;
+  const form=$('#gallery-form');
+  form.addEventListener('click',event=>{
+    const remove=event.target.closest('[data-gallery-remove]');
+    if(remove)remove.closest('[data-gallery-row]')?.remove();
+  });
+  form.onsubmit=event=>saveGalleryCollection(event,index);
+}
+async function saveGalleryCollection(event,index){
+  event.preventDefault();
+  const form=event.currentTarget;
+  const c=state.collections[index];
+  const button=form.querySelector('#save-gallery');
+  const originals=entryList(c);
+  const updated=[];
+  button.disabled=true;
+  button.textContent='Enviando imagens…';
+  try{
+    for(const row of form.querySelectorAll('[data-gallery-row]')){
+      const old=originals[Number(row.dataset.index)]||{};
+      const item={...old};
+      const replacement=row.querySelector('[data-gallery-replace]')?.files?.[0];
+      if(replacement)item.arquivo='/'+await uploadImage(replacement);
+      const caption=row.querySelector('[data-gallery-caption]')?.value??'';
+      item.legenda=caption;
+      const focusX=row.querySelector('[data-gallery-focus-x]')?.value??'';
+      const focusY=row.querySelector('[data-gallery-focus-y]')?.value??'';
+      for(const [key,value] of [['foco_x',focusX],['foco_y',focusY]]){
+        if(value==='')delete item[key];
+        else{
+          const number=Number(value);
+          if(!Number.isFinite(number)||number<0||number>100)throw new Error('Os pontos de foco devem estar entre 0 e 100.');
+          item[key]=number;
+        }
+      }
+      updated.push(item);
+    }
+    const additions=[...(form.querySelector('#gallery-add-files')?.files||[])];
+    for(const file of additions){
+      const path=await uploadImage(file);
+      updated.push({arquivo:'/'+path,legenda:''});
+    }
+    button.textContent='Salvando galeria…';
+    await saveCollection(c,{...state.contents[c.file],itens:updated});
+    openGalleryCollection(index);
+    toast('Galeria atualizada com '+updated.length+' foto(s).');
   }catch(error){
     button.disabled=false;
     button.textContent='Tentar novamente';
