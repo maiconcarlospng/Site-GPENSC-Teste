@@ -11,11 +11,11 @@ Na maior parte do tempo você só usa o **painel** e, de vez em quando, o `_vari
 ## 1. Editar pelo painel (o jeito do dia a dia)
 
 1. Abra: **https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/**
-2. **Estado do protótipo:** o login OAuth individual ainda não está configurado nem testado. Se o site for aprovado para uso, siga o passo a passo “Login com GitHub” no README para configurar autenticação, permissões e testes antes de liberar o painel. Se o painel pedir token, não compartilhe tokens nem os coloque em arquivos ou mensagens.
-3. O painel está apontado para o repositório do protótipo e para a branch `main`; salvar pode gravar diretamente nessa branch.
-4. Só faça alterações se tiver autorização do responsável pelo repositório. O fluxo de aprovação editorial ainda não está implementado.
-5. Após uma edição autorizada, espere de **2 a 5 minutos**. O site é recompilado automaticamente quando a publicação é acionada.
-5. Para conferir: no GitHub, aba **Actions**. Círculo amarelo = compilando; ✅ verde = no ar. Abra o site em **janela anônima** para não ver a versão guardada no navegador.
+2. O painel usa login OAuth pelo GitHub via Cloudflare Worker. Antes de liberar o acesso ao grupo, teste cada conta e confirme as permissões do repositório. Se o painel pedir token manual, não compartilhe tokens nem os coloque em arquivos ou mensagens.
+3. O Sveltia salva os arquivos na branch `admin-rascunhos`; a branch `main` só é atualizada quando você confirma a publicação em lote.
+4. Só faça alterações se tiver autorização do responsável pelo repositório. O botão de publicação faz o merge após sua confirmação, mas não exige aprovação independente de outra pessoa.
+5. Depois de editar, use **Salvar alterações** no editor, confira os arquivos listados e confirme a publicação. Só então começa a compilação do site.
+6. Para conferir: no GitHub, aba **Actions**. Círculo amarelo = compilando; ✅ verde = publicação concluída. Abra o site em **janela anônima** para não ver a versão guardada no navegador.
 
 > O site só muda depois do ✅ verde. Se aparecer ❌, veja a seção 8.
 
