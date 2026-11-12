@@ -82,11 +82,13 @@ const icon = name => {
   return '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(paths[name] || paths.overview)+'</svg>';
 };
 
-async function load() {
+let dataPromise;
+function preloadData() {
+  if (dataPromise) return dataPromise;
   const parser = window.jsyaml || window.jsYaml;
-  await Promise.all(Object.entries(collections).map(async ([key, file]) => {
+  dataPromise = Promise.all(Object.entries(collections).map(async ([key, file]) => {
     try {
-      const response = await fetch(new URL(file, base), { cache: 'no-store' });
+      const response = await fetch(new URL(file, base), { cache: 'force-cache' });
       if (!response.ok || !parser || typeof parser.load !== 'function') {
         data[key] = [];
         return;
@@ -97,8 +99,14 @@ async function load() {
       data[key] = [];
     }
   }));
-  render();
+  return dataPromise;
 }
+function load() {
+  return preloadData().then(render);
+}
+// Os arquivos são públicos; começamos a leitura durante a tela de login
+// para que os indicadores estejam prontos quando a autenticação terminar.
+preloadData();
 
 const collectionRoutes = {
   noticias: { collection: 'comunicacao', file: 'noticias', label: 'Notícias' },
@@ -306,21 +314,48 @@ function mount() {
   launcher.addEventListener('click', show);
   document.body.append(launcher);
   load();
-  show();
+  // Respeita a rota que já estiver aberta, sem mostrar a visão geral por um frame.
+  if (isEditorRoute(window.location.hash)) enterEditorMode();
+  else show();
+}
+function isVisible(element) {
+  if (!element || !element.getClientRects().length) return false;
+  const style = window.getComputedStyle(element);
+  return style.display !== 'none' && style.visibility !== 'hidden' && !element.closest('[hidden]');
 }
 function check() {
-  const login = document.querySelector('.container > .inner .buttons');
-  if (login) {
+  // O Sveltia usa o mesmo cartão durante login e durante suas telas transitórias
+  // ("Entrando", "Carregando configuração"). Não considerar apenas o botão de login:
+  // ele desaparece durante o carregamento e fazia o painel alternar entre telas.
+  const authPanel = document.querySelector('.container > .inner');
+  const authActive = isVisible(authPanel);
+  if (authActive) {
+    document.body.classList.add('gpen-login-active');
     if (root) hide();
+    const launcher = document.getElementById('gpen-dashboard-launcher');
+    if (launcher) launcher.hidden = true;
     return;
   }
-  if (document.querySelector('.primary-sidebar, #page-container')) {
-    if (!root) mount();
-    else if (root.hidden) show();
+  document.body.classList.remove('gpen-login-active');
+
+  // Só considerar o CMS pronto quando sua navegação e sua área principal existirem.
+  const cmsReady = Boolean(
+    document.querySelector('.primary-sidebar') &&
+    document.querySelector('#page-container')
+  );
+  if (!cmsReady) return;
+
+  if (!root) mount();
+  else if (root.hidden) {
+    if (isEditorRoute(window.location.hash)) enterEditorMode();
+    else show();
   }
 }
 new MutationObserver(check).observe(document.documentElement, {
-  childList:true, subtree:true, attributes:true, attributeFilter:['class','hidden']
+  childList:true,
+  subtree:true,
+  attributes:true,
+  attributeFilter:['class','hidden','style','aria-hidden']
 });
 document.addEventListener('DOMContentLoaded', check);
 check();
