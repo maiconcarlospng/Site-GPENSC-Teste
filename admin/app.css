@@ -281,3 +281,51 @@
 @media(prefers-reduced-motion:reduce){
   #collection-nav,.mobile-dock button{transition:none;scroll-behavior:auto}
 }
+
+
+/* Navegação: acesso direto ao resumo do repositório. */
+#collection-nav button[data-summary]{
+  margin-bottom:7px;
+  border-color:#3d5844;
+  background:#273b2d;
+  color:#e7efe8;
+  font-weight:750;
+}
+#collection-nav button[data-summary].active{
+  background:#304b38;
+  border-color:#5b8063;
+  color:#fff;
+}
+#collection-nav button[data-summary] .nav-count{
+  color:#c4d5c7;
+  font-size:9px;
+}
+
+/* Editor das páginas de configuração (arquivos YAML de campos únicos). */
+.config-form{display:grid;gap:14px}
+.config-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 20px}
+.config-fields>.field.full{grid-column:1/-1}
+.config-toggle{display:flex;align-items:center;gap:9px;min-height:40px;padding:9px 11px;border:1px solid #dce4dc;border-radius:8px;background:#f8faf8;color:#385543;font-size:12px;font-weight:700}
+.config-toggle input{width:17px!important;height:17px;min-height:0!important;margin:0;accent-color:#315e42}
+.config-list-field{padding:15px;border:1px solid #e4eae4;border-radius:9px;background:#fbfcfb}
+.config-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.config-list-rows{display:grid;gap:10px}
+.config-list-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;padding:12px;border:1px solid #e4eae4;border-radius:8px;background:#fff}
+.config-list-row-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.config-list-row .field{min-width:0}
+.config-list-row .danger-button{min-height:38px}
+.config-list-field>small{display:block;margin-top:10px}
+.config-actions{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 16px;border:1px solid #e4eae4;border-radius:9px;background:#fff}
+.config-actions>span{color:#849087;font-size:10px;line-height:1.5}
+.config-actions button{min-width:190px}
+#save-config:disabled{opacity:.65;cursor:wait}
+@media(max-width:700px){
+  .config-fields{grid-template-columns:1fr;gap:14px}
+  .config-fields>.field.full{grid-column:1}
+  .config-list-row{grid-template-columns:1fr}
+  .config-list-row-fields{grid-template-columns:1fr}
+  .config-list-row .danger-button{width:100%}
+  .config-actions{align-items:stretch;flex-direction:column}
+  .config-actions button{width:100%;min-width:0}
+  #collection-nav button[data-summary]{margin:0}
+}
