@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "provider": "umami",
+  "websiteId": "",
+  "trackerUrl": "https://cloud.umami.is/script.js",
+  "hostUrl": "https://api.umami.is",
+  "apiUrl": ""
+}
