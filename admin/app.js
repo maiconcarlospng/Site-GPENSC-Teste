@@ -59,8 +59,20 @@ function collectionSummary(entry){return isConfigCollection(entry)?'Configuraç�
 function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo||item.autor||'Registro sem título'}
 function renderNav(){
   const nav=$('#collection-nav');
-  nav.innerHTML='<button type="button" data-summary class="'+(state.active===null?'active':'')+'"><span>Painel de resumo</span><span class="nav-count">Resumo</span></button>'+
-    state.collections.map((c,i)=>'<button type="button" data-index="'+i+'" class="'+(state.active===i?'active':'')+'">'+esc(c.label)+'<span class="nav-count">'+(isConfigCollection(c)?'Editar':entryList(c).length)+'</span></button>').join('');
+  const content=state.collections.map((c,i)=>({c,i})).filter(({c})=>!isConfigCollection(c));
+  const settings=state.collections.map((c,i)=>({c,i})).filter(({c})=>isConfigCollection(c));
+  const button=({c,i})=>'<button type="button" data-index="'+i+'" class="'+(state.active===i?'active':'')+'">'+
+    '<span>'+esc(c.label)+'</span><span class="nav-count">'+(isConfigCollection(c)?'Editar':entryList(c).length)+'</span></button>';
+  nav.innerHTML=
+    '<button type="button" data-summary class="summary-nav-item '+(state.active===null?'active':'')+'"><span>Painel de resumo</span><span class="nav-count">Resumo</span></button>'+
+    '<section class="menu-section menu-section-content" aria-label="Conteúdo do site">'+
+      '<div class="menu-section-title">CONTEÚDO DO SITE</div>'+
+      '<div class="menu-section-items">'+content.map(button).join('')+'</div>'+
+    '</section>'+
+    '<section class="menu-section menu-section-settings" aria-label="Configurações">'+
+      '<div class="menu-section-title">CONFIGURAÇÕES</div>'+
+      '<div class="menu-section-items">'+settings.map(button).join('')+'</div>'+
+    '</section>';
   nav.querySelector('[data-summary]').addEventListener('click',()=>{renderHome();closeMobileMenu()});
   nav.querySelectorAll('[data-index]').forEach(b=>b.addEventListener('click',()=>{openCollection(Number(b.dataset.index));closeMobileMenu()}));
 }
