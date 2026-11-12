@@ -20,7 +20,7 @@ ADMIN = ROOT / "admin"
 CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
-SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css")
+SITE_CSS_PATHS = (ROOT / "styles.css", ROOT / "styles-mobile-v4.css", ROOT / "styles-timeline-v11.css", ROOT / "styles-timeline-v12.css", ROOT / "styles-home-v17.css", ROOT / "styles-agenda-v18.css")
 KNOWN_WIDGETS = {
     "string", "text", "markdown", "number", "boolean", "select", "date",
     "datetime", "image", "file", "list", "object", "relation", "hidden",
