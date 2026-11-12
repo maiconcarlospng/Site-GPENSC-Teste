@@ -200,7 +200,7 @@ A página inicial lê `data/eventos.yml`, remove registros de demonstração, co
 
 - Se houver vários eventos futuros, aparece o que ocorrerá primeiro.
 - Eventos passados não ocupam o destaque.
-- Se não houver eventos futuros, a home mostra uma mensagem de ausência de atividades futuras.
+- Se não houver eventos futuros, a página inicial informa que não há atividades programadas no momento, mantendo o acesso à agenda completa.
 - O destaque inclui data, tipo, título e local; o link “Mais informações” aparece quando o cadastro contém uma URL.
 
 A página `agenda.qmd` continua apresentando os próximos eventos em ordem cronológica, registros sem data em uma seção própria e eventos passados em uma área recolhível. A atualização depende da compilação do site; não é uma consulta dinâmica a cada visita.

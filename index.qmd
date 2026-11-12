@@ -45,8 +45,8 @@ if (nrow(noticias_recentes) > 0) {
   cartoes(noticias_recentes, cartao_noticia)
 } else {
   estado_vazio(
-    "Novidades em breve",
-    "As notícias do grupo serão exibidas aqui quando houver publicações cadastradas.",
+    "Nenhuma notícia publicada",
+    "No momento, não há notícias disponíveis. Acompanhe os canais oficiais do GPENSC para ficar por dentro das novidades.",
     "Acompanhe o Instagram",
     cfg$instagram
   )
@@ -111,8 +111,8 @@ if (nrow(eventos_home_futuros) > 0) {
 } else {
   div(
     class = "agenda-sem-eventos",
-    p("Nenhuma atividade futura cadastrada no momento."),
-    span("Assim que uma data futura for cadastrada no painel, o próximo evento aparecerá aqui automaticamente.")
+    p("No momento, não há atividades programadas."),
+    span("Acompanhe os canais oficiais do GPENSC para ficar por dentro das próximas ações.")
   )
 }
 ```

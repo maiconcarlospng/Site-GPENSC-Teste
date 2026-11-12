@@ -9,8 +9,8 @@ disciplinas_publicadas <- registros_reais(disciplinas, "nome")
 if (secao_ativa("mostrar_disciplinas")) {
 if (nrow(disciplinas_publicadas) == 0) {
   estado_vazio(
-    "Disciplinas em atualização",
-    "As disciplinas da graduação e da pós-graduação serão apresentadas aqui quando os nomes, docentes e informações acadêmicas estiverem cadastrados.",
+    "Nenhuma disciplina disponível",
+    "No momento, não há informações sobre disciplinas de graduação ou pós-graduação disponíveis para consulta.",
     "Conheça o grupo",
     "sobre.html"
   )

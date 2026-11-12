@@ -146,8 +146,8 @@ if (secao_ativa("mostrar_linhas")) {
     )
   } else {
     estado_vazio(
-      "Linhas de pesquisa em atualização",
-      "As linhas de pesquisa serão apresentadas aqui assim que forem cadastradas no painel administrativo.",
+      "Nenhuma linha de pesquisa disponível",
+      "No momento, não há linhas de pesquisa disponíveis para consulta.",
       "Fale com o grupo",
       "contato.html"
     )

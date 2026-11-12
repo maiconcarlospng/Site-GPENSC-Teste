@@ -46,8 +46,8 @@ div(
     renderizar_eventos(eventos_futuros)
   } else {
     estado_vazio(
-      "Nenhum evento futuro cadastrado",
-      "Quando novas atividades forem incluídas no painel administrativo, elas aparecerão nesta página.",
+      "Nenhum evento programado",
+      "No momento, não há atividades futuras programadas. Acompanhe os canais oficiais do GPENSC para ficar por dentro das próximas ações.",
       "Acompanhe o Instagram",
       cfg$instagram
     )
