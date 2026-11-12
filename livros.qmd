@@ -9,8 +9,8 @@ livros_publicados <- registros_reais(livros, "titulo")
 if (secao_ativa("mostrar_livros")) {
 if (nrow(livros_publicados) == 0) {
   estado_vazio(
-    "Livros e capítulos em atualização",
-    "Livros e capítulos de autoria ou organização de integrantes do grupo serão exibidos aqui quando os registros forem cadastrados.",
+    "Nenhum livro ou capítulo disponível",
+    "No momento, não há livros ou capítulos de autoria ou organização de integrantes do GPENSC disponíveis para consulta.",
     "Ver publicações",
     "publicacoes.html"
   )

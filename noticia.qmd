@@ -57,7 +57,7 @@ if (nrow(noticias_publicadas) == 0) {
         div(class = "noticia-detalhe-texto", p(conteudo)),
         if (is.null(valor_publico(n$conteudo))) p(
           class = "noticia-detalhe-aviso",
-          "Este registro ainda não tem conteúdo completo. O campo “Conteúdo completo” pode ser preenchido no painel administrativo."
+          "O conteúdo completo desta notícia não está disponível no momento."
         ),
         if (!is.null(fonte)) tags$a(
           class = "btn btn-secondary",

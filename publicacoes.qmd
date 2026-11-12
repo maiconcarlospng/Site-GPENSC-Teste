@@ -9,8 +9,8 @@ publicacoes_publicadas <- registros_reais(pubs, "titulo")
 if (secao_ativa("mostrar_publicacoes")) {
 if (nrow(publicacoes_publicadas) == 0) {
   estado_vazio(
-    "Publicações em atualização",
-    "A produção científica será exibida aqui quando os títulos, autores e referências forem cadastrados com dados reais.",
+    "Nenhuma publicação disponível",
+    "No momento, não há publicações científicas disponíveis para consulta nesta seção.",
     "Consultar teses e dissertações",
     "teses.html"
   )

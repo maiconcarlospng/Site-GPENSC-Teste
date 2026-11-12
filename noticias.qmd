@@ -10,8 +10,8 @@ noticias_publicadas <- registros_reais(noticias, "titulo")
 if (secao_ativa("mostrar_noticias")) {
 if (nrow(noticias_publicadas) == 0) {
   estado_vazio(
-    "Nenhuma notícia publicada no momento",
-    "Quando novas notícias forem cadastradas no painel administrativo, elas aparecerão nesta página.",
+    "Nenhuma notícia publicada",
+    "No momento, não há notícias disponíveis. Acompanhe os canais oficiais do GPENSC para ficar por dentro das novidades.",
     "Acompanhe o Instagram",
     cfg$instagram
   )

@@ -29,8 +29,8 @@ div(
       )
   } else {
     estado_vazio(
-      "Projetos em atualização",
-      "Os projetos serão listados aqui quando os registros estiverem preenchidos com informações confirmadas. Os modelos de demonstração continuam disponíveis para edição no painel.",
+      "Nenhum projeto disponível",
+      "No momento, não há projetos de pesquisa ou extensão disponíveis para consulta.",
       "Entrar em contato",
       "contato.html"
     )
