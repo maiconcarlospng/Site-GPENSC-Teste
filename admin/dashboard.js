@@ -23,6 +23,10 @@ const collections = {
 const base = new URL('../data/', window.location.href);
 const data = {};
 let root;
+const isEditorRoute = hash => /\/entries\/[^/?#]+/.test(hash || '');
+let lastEditorHash = isEditorRoute(window.location.hash)
+  ? window.location.hash
+  : '#/collections/comunicacao/entries/noticias';
 const labels = {
   noticias: 'Notícias',
   eventos: 'Agenda e eventos',
@@ -116,41 +120,63 @@ const collectionRoutes = {
 
 function navigate(key) {
   const route = collectionRoutes[key];
+  let target;
   if (key === 'config') {
-    enterEditorMode();
-    window.location.hash = '/collections/configuracoes/entries/cfg_identidade';
-    return;
+    target = '#/collections/configuracoes/entries/cfg_identidade';
+  } else {
+    if (!route) return;
+    target = '#/collections/' + route.collection + '/entries/' + route.file;
   }
-  if (!route) return;
+  lastEditorHash = target;
   enterEditorMode();
-  // Mantém a navegação GPENSC fixa e abre o formulário diretamente à direita.
-  window.location.hash = '/collections/' + route.collection + '/entries/' + route.file;
+  if (window.location.hash !== target) window.location.hash = target;
 }
 function enterEditorMode() {
   if (!root) return;
   root.hidden = false;
+  document.documentElement.classList.remove('gpen-admin-booting');
   document.body.classList.remove('gpen-dashboard-open');
   document.body.classList.add('gpen-dashboard-editor-mode');
   const launcher = document.getElementById('gpen-dashboard-launcher');
   if (launcher) launcher.hidden = true;
 }
-
+function openEditor() {
+  const target = isEditorRoute(window.location.hash) ? window.location.hash : lastEditorHash;
+  if (!isEditorRoute(target)) return;
+  lastEditorHash = target;
+  if (window.location.hash !== target) {
+    window.location.hash = target;
+    return;
+  }
+  enterEditorMode();
+}
 function hide() {
   if (!root) return;
   root.hidden = true;
-  document.body.classList.remove('gpen-dashboard-open');
+  document.body.classList.remove('gpen-dashboard-open', 'gpen-dashboard-editor-mode');
   const launcher = document.getElementById('gpen-dashboard-launcher');
-  if (launcher) launcher.hidden = false;
+  if (launcher) launcher.hidden = true;
 }
 function show() {
   if (!root) return;
   root.hidden = false;
+  document.documentElement.classList.remove('gpen-admin-booting');
   document.body.classList.remove('gpen-dashboard-editor-mode');
   document.body.classList.add('gpen-dashboard-open');
   const launcher = document.getElementById('gpen-dashboard-launcher');
   if (launcher) launcher.hidden = true;
   render();
 }
+function syncRouteMode() {
+  if (!root || document.body.classList.contains('gpen-login-active')) return;
+  if (isEditorRoute(window.location.hash)) {
+    lastEditorHash = window.location.hash;
+    enterEditorMode();
+  } else {
+    show();
+  }
+}
+window.addEventListener('hashchange', syncRouteMode);
 
 function publicationChart(items) {
   const years = {};
@@ -263,7 +289,7 @@ function render() {
     if (button.dataset.go === 'config') navigate('config');
     else navigate(button.dataset.go);
   }));
-  root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', hide));
+  root.querySelectorAll('[data-editor]').forEach(button => button.addEventListener('click', openEditor));
   root.querySelectorAll('[data-home]').forEach(button => button.addEventListener('click', show));
 }
 
@@ -288,7 +314,10 @@ function check() {
     if (root) hide();
     return;
   }
-  if (document.querySelector('.primary-sidebar, #page-container') && !root) mount();
+  if (document.querySelector('.primary-sidebar, #page-container')) {
+    if (!root) mount();
+    else if (root.hidden) show();
+  }
 }
 new MutationObserver(check).observe(document.documentElement, {
   childList:true, subtree:true, attributes:true, attributeFilter:['class','hidden']
