@@ -4,7 +4,7 @@
   const repo = "maiconcarlospng/Site-GPENSC-Teste";
   const allowedFiles = new Set([
     "noticias", "eventos", "linhas", "projetos", "publicacoes", "livros",
-    "teses", "equipe", "disciplinas", "videos", "sites", "apoio",
+    "defesas", "equipe", "disciplinas", "videos", "sites", "apoio",
     "parcerias", "linha_tempo"
   ]);
 
@@ -47,7 +47,7 @@
     button.disabled = true;
     button.textContent = "Preparando...";
     try {
-      const url = "https://raw.githubusercontent.com/" + repo + "/main/data/" + file + ".yml";
+      const url = "https://raw.githubusercontent.com/" + repo + "/admin-rascunhos/data/" + file + ".yml";
       const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) throw new Error("Não foi possível acessar os dados salvos desta seção.");
       const yamlText = await response.text();
@@ -65,7 +65,7 @@
       }));
       window.XLSX.utils.book_append_sheet(workbook, sheet, "Registros");
       window.XLSX.writeFile(workbook, "gpensc-" + file + ".xlsx");
-      notify("Arquivo Excel dos dados salvos preparado.");
+      notify("Arquivo Excel dos dados salvos no rascunho preparado.");
     } catch (error) {
       notify(error && error.message ? error.message : "Não foi possível gerar o arquivo Excel.");
     } finally {
@@ -129,7 +129,7 @@
     });
 
     const note = document.createElement("p");
-    note.textContent = "Exporta os registros já salvos no repositório. As edições ainda não salvas não entram no arquivo.";
+    note.textContent = "Exporta os registros salvos na branch de rascunhos. As edições ainda não salvas no Sveltia não entram no arquivo.";
     Object.assign(note.style, {
       margin: "8px 5px 2px", color: "#748075", fontSize: "10px", lineHeight: "1.45"
     });
