@@ -77,10 +77,17 @@ jobs:
             exit 0
           fi
 
-          # Mudanças administrativas também exigem uma publicação completa
-          # quando ainda não existe cache público compatível no runner.
-          # Isso garante que os novos arquivos do painel cheguem ao Pages.
-          site_build=true
+          # Se todos os arquivos alterados estiverem em admin/, basta substituir
+          # o painel no site já compilado. Qualquer outro caminho exige Quarto/R.
+          site_build=false
+          while IFS= read -r path; do
+            [[ -z "$path" ]] && continue
+            case "$path" in
+              admin/*) ;;
+              *) site_build=true; break ;;
+            esac
+          done <<< "$changed_files"
+
           echo "site_build=$site_build" >> "$GITHUB_OUTPUT"
           echo "Recompilar site público: $site_build"
 
@@ -251,7 +258,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-navbar-v8.css', 'styles-busca-v9.css', 'styles-spotify-v10.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'styles-timeline-v12.css', 'styles-parcerias-v13.css', 'styles-linhas-v14.css', 'styles-geral-v15.css', 'styles-menu-mobile-v16.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       - name: Conferir o cache antes de publicar
         shell: bash
