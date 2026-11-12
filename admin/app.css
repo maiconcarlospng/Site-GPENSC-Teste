@@ -24,3 +24,106 @@
 #toast-root{position:fixed;right:20px;bottom:20px;z-index:50;display:grid;gap:8px}.toast{padding:12px 16px;border-radius:8px;background:#263d2d;color:#fff;box-shadow:0 8px 25px #0002;font-size:12px}.toast.error{background:#87394a}
 @media(max-width:1050px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.collection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.workspace{grid-template-columns:minmax(0,1fr)}.sidebar{position:relative;height:auto;min-height:0;padding:13px 14px}.brand{padding:0 5px 13px}.side-caption{display:none}#collection-nav{display:flex;overflow-x:auto;padding-bottom:4px}#collection-nav button{flex:none;width:auto;white-space:nowrap;min-height:35px;padding:0 12px}.nav-count{display:none}.sidebar-bottom{display:flex;justify-content:space-between;padding-top:8px}.topbar{min-height:60px;padding:10px 16px}.page-content{padding:22px 15px 35px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:23px}.stats-grid{gap:9px}.stat-card{padding:14px}.stat-card strong{font-size:23px}.collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.collection-card{padding:13px}.modal-body{grid-template-columns:1fr;padding:17px}.field.full{grid-column:auto}.login-card{padding:34px 25px}}
+
+
+
+/* =========================================================
+   EXPERIÊNCIA MOBILE — PAINEL GPENSC
+   Camada responsiva independente; não altera o layout desktop.
+   ========================================================= */
+@media (max-width:700px){
+  html,body{width:100%;min-width:320px;overflow-x:hidden}
+  body{-webkit-text-size-adjust:100%;overscroll-behavior-x:none}
+  #app{width:100%;min-height:100svh}
+  .workspace{display:flex;flex-direction:column;width:100%;min-height:100svh;overflow:visible}
+  .sidebar{position:sticky;top:0;z-index:8;width:100%;height:auto;min-height:0;padding:calc(10px + env(safe-area-inset-top)) 14px 9px;background:#202722;box-shadow:0 5px 18px #14201818}
+  .brand{min-height:42px;gap:10px;padding:0 2px 10px;font-size:14px}
+  .brand img{width:35px;height:35px;border-radius:9px}
+  .brand small{font-size:9px;letter-spacing:.02em}
+  .side-caption{display:none}
+  #collection-nav{display:flex;gap:7px;width:100%;margin:0 -2px;padding:1px 2px 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  #collection-nav::-webkit-scrollbar{display:none}
+  #collection-nav button{flex:0 0 auto;min-height:36px;width:auto;max-width:210px;padding:0 13px;border:1px solid #455248;border-radius:999px;background:#29332c;color:#d5ded6;font-size:11px;font-weight:650;white-space:nowrap}
+  #collection-nav button.active{background:#e8f0e7;border-color:#e8f0e7;color:#24452e}
+  #collection-nav button:hover{background:#354338}
+  #collection-nav button.active:hover{background:#e8f0e7;color:#24452e}
+  #collection-nav button .nav-count{display:inline;margin-left:7px;color:inherit;opacity:.65;font-size:10px}
+  .sidebar-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0;padding:7px 1px 0;border-top:1px solid #3a463d}
+  .sidebar-bottom a,.quiet-button{min-height:34px;padding:8px 9px;border-radius:7px;font-size:10px}
+  .main-area{width:100%;min-width:0;max-width:100%;overflow:visible}
+  .topbar{position:relative;top:auto;z-index:1;min-height:54px;padding:10px 16px;background:#f8faf8;border-bottom:1px solid #e7ece7}
+  .topbar .eyebrow{font-size:8px;letter-spacing:.12em}
+  .topbar strong{font-size:12px}
+  .user-area{gap:6px;font-size:10px}
+  .status-dot{width:7px;height:7px;flex:0 0 7px}
+  .page-content{width:100%;max-width:none;margin:0;padding:21px 15px calc(30px + env(safe-area-inset-bottom))}
+  .page-heading{display:flex;align-items:stretch;gap:14px;margin-bottom:18px}
+  .page-heading>div{min-width:0}
+  .page-heading h1{margin:6px 0 5px;font-size:25px;line-height:1.12;letter-spacing:-.045em}
+  .page-heading p{font-size:11px;line-height:1.55}
+  .page-heading>.primary-button,.page-heading>.secondary-button{width:100%;min-height:44px}
+  .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:16px}
+  .stat-card{min-width:0;min-height:112px;padding:14px 13px;border-radius:12px}
+  .stat-card span{display:block;font-size:10px;line-height:1.35}
+  .stat-card strong{margin:11px 0 3px;font-size:25px;line-height:1}
+  .stat-card small{font-size:9px;line-height:1.35}
+  .panel-card{padding:16px 14px;border-radius:12px}
+  .panel-card h2{margin-bottom:13px;font-size:13px}
+  .collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .collection-card{min-width:0;min-height:112px;padding:13px 12px;border-radius:10px}
+  .collection-card .eyebrow{font-size:8px;line-height:1.35}
+  .collection-card strong{margin:9px 0 5px;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+  .collection-card small{font-size:9px;line-height:1.4}
+  .table-wrap{width:100%;max-width:100%;border:0;border-radius:0;background:transparent;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .data-table{min-width:560px;border:1px solid #e5eae5;border-radius:10px;background:#fff}
+  .data-table th,.data-table td{padding:12px 13px;font-size:10px}
+  .data-table th{font-size:8px}
+  .row-actions{gap:6px}
+  .small-button,.secondary-button{min-height:40px;padding:0 12px;font-size:10px}
+  .primary-button{min-height:44px;padding:0 16px;border-radius:9px;font-size:12px}
+  .empty-state,.loading-state{padding:34px 16px;border:1px dashed #dce5dc;border-radius:12px;background:#fff;font-size:11px;line-height:1.6}
+  .modal-backdrop{display:flex;align-items:flex-end;justify-content:center;padding:0;background:#142019a8}
+  .modal{display:flex;flex-direction:column;width:100%;max-width:none;height:min(94svh,900px);max-height:calc(100svh - env(safe-area-inset-top));margin:0;border-radius:19px 19px 0 0;overflow:hidden;box-shadow:0 -12px 50px #0002}
+  .modal-head{flex:0 0 auto;min-height:62px;padding:13px 17px}
+  .modal-head h2{font-size:15px}
+  .modal-body{display:grid;grid-template-columns:minmax(0,1fr);gap:15px;flex:1 1 auto;min-height:0;padding:17px 16px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .field,.field.full{grid-column:auto;min-width:0;gap:7px}
+  .field label{font-size:11px}
+  .field input,.field textarea,.field select{min-height:46px;padding:11px 12px;border-radius:9px;font-size:16px}
+  .field textarea{min-height:112px}
+  .field input[type=file]{min-height:42px;padding:8px;font-size:12px}
+  .field small{font-size:10px;line-height:1.5}
+  .modal-foot{position:relative;flex:0 0 auto;display:flex;flex-direction:column;gap:11px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff}
+  .modal-foot>.eyebrow,.modal-foot>span{font-size:8px}
+  .modal-foot>div{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .modal-foot button{min-height:45px}
+  #toast-root{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));left:12px;z-index:60}
+  .toast{padding:13px 15px;border-radius:10px;font-size:11px;box-shadow:0 8px 25px #0003}
+  .login-shell{min-height:100svh;padding:20px 16px}
+  .login-card{width:100%;max-width:420px;padding:32px 24px;border-radius:17px}
+  .login-logo{width:58px;height:58px;margin-bottom:25px}
+  .login-card h1{font-size:27px}
+  .login-card>p:not(.login-note){font-size:13px}
+  .login-card .primary-button{min-height:48px}
+}
+@media(max-width:380px){
+  .page-content{padding-right:12px;padding-left:12px}
+  .stats-grid{gap:8px}
+  .stat-card{padding:12px 10px}
+  .stat-card span{font-size:9px}
+  .stat-card strong{font-size:23px}
+  .collection-grid{gap:8px}
+  .collection-card{padding:12px 10px}
+  .collection-card strong{font-size:11px}
+  .topbar{padding-right:12px;padding-left:12px}
+  .user-area{font-size:9px}
+}
+@media(max-width:700px) and (orientation:landscape){
+  .sidebar{position:relative}
+  .modal{height:96svh}
+  .modal-body{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .field.full{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){
+  .collection-card,.primary-button{transition:none}
+}
