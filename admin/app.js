@@ -53,6 +53,10 @@ async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/co
 async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
 async function loadAll(){await Promise.all(state.collections.map(async item=>{try{state.contents[item.file]=await readFile(item.file)}catch(e){state.contents[item.file]={itens:[]}}}))}
 function entryList(entry){return Array.isArray(state.contents[entry.file]?.itens)?state.contents[entry.file].itens:[]}
+function isExampleRecord(item){
+  return Object.values(item||{}).some(value=>typeof value==='string'&&/\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]|\[Agência\/Edital\]|\[Nome\]/i.test(value));
+}
+function summaryRecords(entry){return entryList(entry).filter(item=>item&&!isExampleRecord(item))}
 function isConfigCollection(entry){return entry?.group==='configuracoes'||String(entry?.file||'').startsWith('data/configuracoes/')}
 function isGalleryCollection(entry){return entry?.name==='galeria'||entry?.file==='data/galeria.yml'}
 function collectionSummary(entry){return isConfigCollection(entry)?'Configuração institucional':entryList(entry).length+' registros cadastrados'}
@@ -123,7 +127,7 @@ function renderRecentActivity(){
   ).join('')+'</ol>';
 }
 async function loadRecentActivity(force=false){
-  if(state.activityPromise&&!force)return state.activityPromise;
+  if(state.activityPromise)return state.activityPromise;
   if(state.activityLoaded&&!force){renderRecentActivity();return}
   state.activityError='';
   state.activityLoaded=false;
@@ -153,7 +157,7 @@ async function loadRecentActivity(force=false){
         const added=additionsByFile.reduce((sum,item)=>sum+item.count,0);
         if(!added)continue;
         activity.push({
-          title:added===1?'Novo registro adicionado':'Novos registros adicionados',
+          title:String(detail.commit?.message||'Novos registros adicionados').split('\n')[0],
           added,
           collections:additionsByFile.map(item=>item.label),
           author:detail.author?.login||detail.commit?.author?.name||'Colaborador',
@@ -174,31 +178,31 @@ async function loadRecentActivity(force=false){
 }
 function dashboardCharts(){
   const areas=new Map();
+  const types=[];
   state.collections.filter(item=>!isConfigCollection(item)).forEach(item=>{
-    const label=String(item.groupLabel||'Outras áreas').replace(/^\d+\s*[·.-]\s*/,'');
-    areas.set(label,(areas.get(label)||0)+entryList(item).length);
+    const count=summaryRecords(item).length;
+    const area=String(item.groupLabel||'Outras áreas').replace(/^\d+\s*[·.-]\s*/,'');
+    areas.set(area,(areas.get(area)||0)+count);
+    if(count)types.push({label:item.label,value:count});
   });
   const areaData=[...areas.entries()].map(([label,value])=>({label,value})).filter(item=>item.value>0);
-  const projects=state.collections.find(item=>item.name==='projetos');
-  const statuses=new Map();
-  entryList(projects||{file:''}).forEach(item=>{
-    const label=String(item.situacao||'Não informado');
-    statuses.set(label,(statuses.get(label)||0)+1);
-  });
-  const statusData=[...statuses.entries()].map(([label,value])=>({label,value}));
-  if(!statusData.length)statusData.push({label:'Sem projetos cadastrados',value:0});
-  return {areaData,statusData};
+  const sortedTypes=types.sort((a,b)=>b.value-a.value);
+  const typeData=sortedTypes.slice(0,6);
+  if(sortedTypes.length>6){
+    typeData.push({label:'Outros conteúdos',value:sortedTypes.slice(6).reduce((sum,item)=>sum+item.value,0)});
+  }
+  return {areaData,typeData};
 }
 function renderHome(){
   state.active=null;
   $('#page-crumb').textContent='Painel de resumo';
   $('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));
-  const total=key=>state.collections.filter(c=>c.name===key||c.group===key).reduce((n,c)=>n+entryList(c).length,0);
+  const count=names=>state.collections.filter(c=>names.includes(c.name)).reduce((n,c)=>n+summaryRecords(c).length,0);
   const stats=[
-    ['Registros cadastrados',state.collections.reduce((n,c)=>n+entryList(c).length,0),'Conteúdos no repositório'],
-    ['Integrantes',state.collections.filter(c=>c.name==='equipe').reduce((n,c)=>n+entryList(c).length,0),'Equipe e colaboradores'],
-    ['Projetos',state.collections.filter(c=>c.name==='projetos').reduce((n,c)=>n+entryList(c).length,0),'Pesquisa e extensão'],
-    ['Notícias e eventos',state.collections.filter(c=>['noticias','eventos'].includes(c.name)).reduce((n,c)=>n+entryList(c).length,0),'Comunicação do grupo']
+    ['Registros cadastrados',state.collections.filter(c=>!isConfigCollection(c)).reduce((n,c)=>n+summaryRecords(c).length,0),'Conteúdos reais, sem exemplos'],
+    ['Integrantes',count(['equipe']),'Equipe e colaboradores'],
+    ['Projetos',count(['projetos']),'Pesquisa e extensão'],
+    ['Notícias e eventos',count(['noticias','eventos']),'Comunicação do grupo']
   ];
   const charts=dashboardCharts();
   $('#page-content').innerHTML=
@@ -206,7 +210,7 @@ function renderHome(){
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+
     '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
       '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Registros por área</h2><p>Como os conteúdos estão distribuídos entre as frentes do grupo.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">PESQUISA</span><h2>Situação dos projetos</h2><p>Distribuição dos projetos conforme a situação cadastrada.</p></div></div>'+donutSegment(charts.statusData)+'</article>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Registros por tipo de conteúdo</h2><p>Quais seções concentram mais registros cadastrados.</p></div></div>'+donutSegment(charts.typeData)+'</article>'+
     '</section>'+
     '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
   $('#refresh-button').onclick=async()=>{
@@ -216,7 +220,6 @@ function renderHome(){
       await loadAll();
       state.activityLoaded=false;state.activityError='';state.activity=[];
       renderNav();renderHome();
-      await loadRecentActivity(true);
       toast('Resumo e histórico atualizados.');
     }catch(error){toast(error.message,true)}
     finally{button.disabled=false;button.textContent='Atualizar dados'}
