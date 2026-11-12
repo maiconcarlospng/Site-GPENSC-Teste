@@ -313,6 +313,7 @@ async function loadAnalytics(days=state.analyticsDays){
 
 function renderHome(){
   state.active=null;
+  updateMobileTabs();
   $('#page-crumb').textContent='Painel de resumo';
   $('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));
   const count=names=>state.collections.filter(c=>names.includes(c.name)).reduce((n,c)=>n+summaryRecords(c).length,0);
@@ -354,7 +355,7 @@ function renderHome(){
   loadRecentActivity();
   loadAnalytics();
 }
-function openCollection(index){state.active=index;const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
+function openCollection(index){state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
 function renderConfigControl(field,value,attribute='data-config-field'){
   const name=esc(field.name),label=esc(field.label||field.name),hint=field.hint?'<small>'+esc(field.hint)+'</small>':'';
@@ -568,9 +569,30 @@ function closeModal(){$('#modal-root').innerHTML=''}
 $('#login-button').addEventListener('click',login);
 $('#token-login-button').addEventListener('click',loginWithCode);
 $('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loginWithCode()}});
-function closeMobileMenu(){const side=$('.sidebar');side.classList.remove('mobile-open');$('#mobile-sections').setAttribute('aria-expanded','false')}
-$('#mobile-home').addEventListener('click',()=>{closeMobileMenu();renderHome();window.scrollTo({top:0,behavior:'smooth'})});
-$('#mobile-sections').addEventListener('click',()=>{const side=$('.sidebar');const open=!side.classList.contains('mobile-open');side.classList.toggle('mobile-open',open);$('#mobile-sections').setAttribute('aria-expanded',String(open));if(open)side.scrollIntoView({behavior:'smooth',block:'start'})});
+function updateMobileTabs(){
+  const menuOpen=$('.sidebar').classList.contains('mobile-open');
+  $('#mobile-home').classList.toggle('active',state.active===null&&!menuOpen);
+  $('#mobile-sections').classList.toggle('active',state.active!==null||menuOpen);
+}
+function closeMobileMenu(){
+  const side=$('.sidebar');
+  side.classList.remove('mobile-open');
+  document.body.classList.remove('mobile-menu-open');
+  $('#mobile-sections').setAttribute('aria-expanded','false');
+  updateMobileTabs();
+}
+$('#mobile-home').addEventListener('click',()=>{
+  closeMobileMenu();renderHome();window.scrollTo({top:0,behavior:'smooth'});
+});
+$('#mobile-sections').addEventListener('click',()=>{
+  const side=$('.sidebar');
+  const open=!side.classList.contains('mobile-open');
+  side.classList.toggle('mobile-open',open);
+  document.body.classList.toggle('mobile-menu-open',open);
+  $('#mobile-sections').setAttribute('aria-expanded',String(open));
+  updateMobileTabs();
+});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileMenu()});
 $('#mobile-logout').addEventListener('click',()=>$('#logout-button').click());
 $('#logout-button').addEventListener('click',()=>{sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
 if(state.token)initialize();
