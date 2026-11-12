@@ -5,7 +5,7 @@ const BRANCH='main';
 const WORKER='https://sveltia-cms-auth.maicon-carlos.workers.dev';
 const API='https://api.github.com';
 const $=s=>document.querySelector(s);
-const state={token:sessionStorage.getItem('gpen_admin_token')||'',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:''};
+const state={token:sessionStorage.getItem('gpen_admin_token')||'',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:'',analyticsConfig:null,analyticsData:null,analyticsLoading:false,analyticsError:'',analyticsDays:30};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const toast=(message,error=false)=>{const el=document.createElement('div');el.className='toast'+(error?' error':'');el.textContent=message;$('#toast-root').append(el);setTimeout(()=>el.remove(),3800)};
 const apiHeaders=()=>({'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
@@ -48,7 +48,7 @@ function login(){
   }
   window.addEventListener('message',listener);
 }
-async function initialize(){try{const user=await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';sessionStorage.removeItem('gpen_admin_token');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
+async function initialize(){try{const user=await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAnalyticsConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';sessionStorage.removeItem('gpen_admin_token');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
 async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/config.yml?ref='+BRANCH);state.sha['admin/config.yml']=r.sha;const raw=decodeURIComponent(escape(atob(r.content.replace(/\n/g,''))));state.config=jsyaml.load(raw);state.collections=(state.config.collections||[]).flatMap(group=>(group.files||[]).map(file=>({...file,groupName:group.label,group:group.name})))}
 async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
 async function loadAll(){await Promise.all(state.collections.map(async item=>{try{state.contents[item.file]=await readFile(item.file)}catch(e){state.contents[item.file]={itens:[]}}}))}
@@ -193,6 +193,88 @@ function dashboardCharts(){
   }
   return {areaData,typeData};
 }
+
+async function loadAnalyticsConfig(){
+  try{
+    const response=await fetch(new URL('../data/analytics.json',location.href),{cache:'no-store'});
+    if(!response.ok)throw new Error('Configuração indisponível');
+    state.analyticsConfig=await response.json();
+  }catch(error){state.analyticsConfig={enabled:false,websiteId:'',apiUrl:''}}
+}
+function analyticsNumber(value){
+  if(value&&typeof value==='object')value=value.value;
+  const number=Number(value);
+  return Number.isFinite(number)?new Intl.NumberFormat('pt-BR').format(number):'—';
+}
+function analyticsDuration(value){
+  const seconds=Number(value);
+  if(!Number.isFinite(seconds)||seconds<0)return '—';
+  const minutes=Math.floor(seconds/60),rest=Math.floor(seconds%60);
+  return minutes?minutes+' min '+String(rest).padStart(2,'0')+' s':rest+' s';
+}
+function analyticsTrendChart(series){
+  const values=(Array.isArray(series)?series:[]).map(item=>({label:String(item.label||item.x||''),value:Number(item.value??item.y??0)})).filter(item=>Number.isFinite(item.value));
+  if(values.length<2)return '<div class="analytics-empty-chart">Ainda não há dados suficientes para montar a evolução diária.</div>';
+  const width=640,height=180,padX=18,padY=18,max=Math.max(1,...values.map(item=>item.value));
+  const points=values.map((item,index)=>({x:padX+(width-padX*2)*index/(values.length-1),y:height-padY-(height-padY*2)*item.value/max,value:item.value}));
+  const polyline=points.map(point=>point.x.toFixed(1)+','+point.y.toFixed(1)).join(' ');
+  const circles=points.map(point=>'<circle cx="'+point.x.toFixed(1)+'" cy="'+point.y.toFixed(1)+'" r="3" fill="#477d55"><title>'+analyticsNumber(point.value)+'</title></circle>').join('');
+  const grid=[0,1,2,3].map(index=>{const y=padY+(height-padY*2)*index/3;return '<line x1="'+padX+'" y1="'+y.toFixed(1)+'" x2="'+(width-padX)+'" y2="'+y.toFixed(1)+'" stroke="#edf1ed" stroke-width="1"/>'}).join('');
+  return '<div class="analytics-trend-chart"><svg viewBox="0 0 '+width+' '+height+'" role="img" aria-label="Evolução diária das visualizações">'+grid+'<polyline points="'+polyline+'" fill="none" stroke="#477d55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+circles+'</svg><div class="analytics-chart-axis"><span>'+esc(values[0].label)+'</span><span>'+esc(values[values.length-1].label)+'</span></div></div>';
+}
+function analyticsList(items,empty){
+  if(!Array.isArray(items)||!items.length)return '<div class="analytics-list-empty">'+esc(empty)+'</div>';
+  return '<ol class="analytics-rank-list">'+items.slice(0,5).map(item=>{const label=String(item.label||item.x||'Não identificado');return '<li><span title="'+esc(label)+'">'+esc(label)+'</span><strong>'+analyticsNumber(item.value??item.y)+'</strong></li>'}).join('')+'</ol>';
+}
+function analyticsContentMarkup(){
+  const config=state.analyticsConfig||{};
+  if(!config.enabled||!config.websiteId||!config.apiUrl){
+    return '<div class="analytics-setup"><div class="analytics-setup-icon" aria-hidden="true">↗</div><div><strong>Conexão com as estatísticas ainda não configurada</strong><p>O painel está preparado para receber os dados do Umami. Para começar a contabilizar visitas, é necessário cadastrar o site no Umami e configurar o rastreador e o proxy protegido descritos em <code>analytics-worker</code> no repositório.</p><a href="https://cloud.umami.is/" target="_blank" rel="noopener">Abrir Umami Cloud ↗</a></div></div>';
+  }
+  if(state.analyticsLoading)return '<div class="analytics-loading"><span class="activity-loader"></span> Consultando os dados de acesso…</div>';
+  if(state.analyticsError)return '<div class="analytics-error"><strong>Não foi possível consultar as estatísticas.</strong><span>'+esc(state.analyticsError)+'</span><button type="button" class="secondary-button" id="analytics-retry">Tentar novamente</button></div>';
+  const data=state.analyticsData||{},stats=data.stats||{};
+  return '<div class="analytics-metrics-grid">'+
+    '<article class="analytics-metric"><span>Visualizações de páginas</span><strong>'+analyticsNumber(stats.pageviews)+'</strong><small>Total de páginas visualizadas</small></article>'+
+    '<article class="analytics-metric"><span>Visitantes únicos</span><strong>'+analyticsNumber(stats.visitors)+'</strong><small>Pessoas estimadas no período</small></article>'+
+    '<article class="analytics-metric"><span>Sessões</span><strong>'+analyticsNumber(stats.visits)+'</strong><small>Visitas iniciadas</small></article>'+
+    '<article class="analytics-metric"><span>Duração média</span><strong>'+analyticsDuration(stats.avgDurationSeconds)+'</strong><small>Tempo médio por sessão</small></article></div>'+
+    '<div class="analytics-detail-grid"><article class="analytics-detail-card analytics-trend-card"><div class="analytics-detail-heading"><h3>Evolução das visualizações</h3><span>Por dia</span></div>'+analyticsTrendChart(data.series)+'</article>'+
+    '<article class="analytics-detail-card"><div class="analytics-detail-heading"><h3>Páginas mais acessadas</h3><span>Top 5</span></div>'+analyticsList(data.topPages,'Nenhuma página registrada neste período.')+'</article>'+
+    '<article class="analytics-detail-card"><div class="analytics-detail-heading"><h3>Origem dos acessos</h3><span>Referências</span></div>'+analyticsList(data.referrers,'Ainda não há referências identificadas.')+'</article></div>'+
+    '<p class="analytics-data-note">Dados fornecidos pelo Umami. Os números começam a ser coletados após a ativação do rastreador.</p>';
+}
+function analyticsMarkup(){
+  const config=state.analyticsConfig||{},active=Boolean(config.enabled&&config.websiteId&&config.apiUrl);
+  return '<section class="dashboard-analytics-card" aria-label="Estatísticas de acesso"><div class="dashboard-analytics-heading"><div><span class="eyebrow">ALCANCE E AUDIÊNCIA</span><h2>Estatísticas de acesso</h2><p>Acompanhe as visitas, os conteúdos mais consultados e a origem dos visitantes.</p></div>'+
+    (active?'<div class="analytics-controls"><label for="analytics-period">Período</label><select id="analytics-period"><option value="7" '+(state.analyticsDays===7?'selected':'')+'>7 dias</option><option value="30" '+(state.analyticsDays===30?'selected':'')+'>30 dias</option><option value="90" '+(state.analyticsDays===90?'selected':'')+'>90 dias</option></select><button type="button" class="secondary-button" id="analytics-refresh">Atualizar</button></div>':'')+
+    '</div><div id="analytics-content">'+analyticsContentMarkup()+'</div></section>';
+}
+function renderAnalytics(){
+  const host=$('#analytics-panel-root');if(!host)return;
+  host.innerHTML=analyticsMarkup();
+  const period=$('#analytics-period');
+  if(period)period.addEventListener('change',()=>loadAnalytics(Number(period.value)));
+  const refresh=$('#analytics-refresh'),retry=$('#analytics-retry');
+  if(refresh)refresh.addEventListener('click',()=>loadAnalytics(state.analyticsDays));
+  if(retry)retry.addEventListener('click',()=>loadAnalytics(state.analyticsDays));
+}
+async function loadAnalytics(days=state.analyticsDays){
+  const config=state.analyticsConfig||{};
+  if(!config.enabled||!config.websiteId||!config.apiUrl){renderAnalytics();return}
+  state.analyticsDays=[7,30,90].includes(Number(days))?Number(days):30;
+  state.analyticsLoading=true;state.analyticsError='';renderAnalytics();
+  try{
+    const base=String(config.apiUrl).replace(/\/+$/,'');
+    const response=await fetch(base+'/summary?days='+state.analyticsDays,{headers:{'Accept':'application/json'},cache:'no-store'});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||'O serviço de estatísticas respondeu com erro ('+response.status+').');
+    if(data.ok===false)throw new Error(data.error||'O serviço de estatísticas não conseguiu consultar o Umami.');
+    state.analyticsData=data;
+  }catch(error){state.analyticsError=error.message||'Falha na conexão com o serviço de estatísticas.'}
+  finally{state.analyticsLoading=false;renderAnalytics()}
+}
+
 function renderHome(){
   state.active=null;
   $('#page-crumb').textContent='Painel de resumo';
@@ -208,6 +290,7 @@ function renderHome(){
   $('#page-content').innerHTML=
     '<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Acompanhe a composição dos conteúdos e as novas inclusões no GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+
+    '<div id="analytics-panel-root"></div>'+
     '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
       '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Conteúdos por frente de atuação</h2><p>Distribuição dos registros entre comunicação, pesquisa, ensino e equipe, e mídia e parcerias.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
       '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Registros por tipo de conteúdo</h2><p>Quais seções concentram mais registros cadastrados.</p></div></div>'+donutSegment(charts.typeData)+'</article>'+
@@ -231,7 +314,9 @@ function renderHome(){
     button.disabled=false;button.textContent='Atualizar histórico';
   };
   renderRecentActivity();
+  renderAnalytics();
   loadRecentActivity();
+  loadAnalytics();
 }
 function openCollection(index){state.active=index;const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const fields=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>Registro '+(i+1)+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(c.groupName||'GERENCIAMENTO')+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' registros cadastrados nesta seção.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+table+mobile;$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
