@@ -170,3 +170,43 @@
   .record-card-heading strong{font-size:12px}
   .record-card-actions button{flex:1}
 }
+
+
+/* =========================================================
+   PAINEL MOBILE — HIERARQUIA, AÇÕES E IMPORTAÇÃO EXCEL
+   ========================================================= */
+.collection-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.excel-modal{width:min(100%,680px)}
+.excel-body{display:flex;flex-direction:column;gap:16px}
+.excel-intro{padding:15px 16px;border:1px solid #dfe9df;border-radius:11px;background:#f6faf6}
+.excel-intro strong{color:#294b32;font-size:13px}
+.excel-intro p{margin:7px 0 0;color:#68766b;font-size:11px;line-height:1.6}
+.excel-preview{display:grid;gap:10px;min-width:0}
+.excel-preview>p{margin:0;color:#849087;font-size:11px;line-height:1.5}
+.excel-summary{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.excel-summary strong{font-size:13px;color:#294b32}
+.excel-summary span{font-size:10px;color:#77847a}
+.excel-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.excel-columns span{min-width:0;padding:8px 9px;border-radius:7px;font-size:10px;overflow-wrap:anywhere}
+.excel-columns .mapped{background:#edf5ed;color:#315d3b}
+.excel-columns .unmapped{background:#f6f1eb;color:#8a6845}
+.excel-ready{padding:11px 12px!important;border-radius:8px;background:#edf6ee;color:#315d3b!important}
+.excel-errors{padding:12px;border:1px solid #efd8d8;border-radius:9px;background:#fff8f8;color:#93464b;font-size:11px;line-height:1.5}
+.excel-errors ul{margin:7px 0 0;padding-left:18px}
+@media(max-width:700px){
+ .collection-heading{gap:13px}
+ .collection-tools{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}
+ .collection-tools button{width:100%;min-width:0;min-height:43px;padding:0 9px;font-size:10px;white-space:normal;line-height:1.25}
+ .collection-tools #new-item{grid-column:1/-1;min-height:47px}
+ .excel-modal{height:min(94svh,900px)}
+ .excel-body{gap:13px;padding:14px}
+ .excel-intro{padding:13px}
+ .excel-columns{grid-template-columns:1fr 1fr;gap:6px}
+ .excel-columns span{font-size:9px;padding:8px}
+ .excel-summary{align-items:flex-start;flex-direction:column;gap:4px}
+ .excel-modal .modal-foot>div{grid-template-columns:1fr 1fr}
+}
+@media(max-width:380px){
+ .collection-tools{gap:6px}
+ .collection-tools button{font-size:9px;padding:0 6px}
+}
