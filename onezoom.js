@@ -134,8 +134,8 @@
     requestAnimationFrame(step);
   }
   function focusNode(n){
-    const w=n.depth===1?950:n.depth===2?690:570,h=n.depth===1?Math.min(620,stage.clientHeight*1.05):Math.min(420,stage.clientHeight*.8);
-    const x=Math.max(0,Math.min(width-w,n.x-(n.depth===1?210:n.depth===2?250:310)));
+    const w=n.depth===1?950:n.depth===2?900:570,h=n.depth===1?Math.min(620,stage.clientHeight*1.05):Math.min(420,stage.clientHeight*.8);
+    const x=Math.max(0,Math.min(width-w,n.x-(n.depth===1?210:n.depth===2?280:310)));
     const y=Math.max(0,Math.min(height-h,n.y-h/2));
     setCamera({x,y,w,h});
   }
@@ -169,5 +169,5 @@
   tree.addEventListener("dblclick",e=>{if(!e.target.closest(".oz-node"))resetCamera()});
   draw();updateDetail(data);updateBreadcrumb(data);resetCamera();
   // Fit the first view to the actual device width without shrinking the labels excessively.
-  if(window.matchMedia("(max-width: 700px)").matches)setCamera({x:0,y:0,w:560,h:900},false);
+  if(window.matchMedia("(max-width: 700px)").matches)setCamera({x:0,y:0,w:680,h:900},false);
 })();
