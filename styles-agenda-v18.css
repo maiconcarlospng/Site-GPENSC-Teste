@@ -78,3 +78,358 @@
   .faixa-agenda .agenda-proximo-evento,
   .faixa-agenda .agenda-sem-eventos{margin-bottom:.9rem}
 }
+
+
+/* =====================================================================
+   AGENDA DA HOME · V20
+   Chamada editorial em duas áreas: apresentação + próximo compromisso.
+   Mantém o destaque do evento dinâmico e reorganiza a composição no celular.
+   ===================================================================== */
+
+.faixa-agenda {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  padding: clamp(2.4rem, 5vw, 4.6rem) 1rem !important;
+  background:
+    radial-gradient(ellipse at 8% 15%, rgba(95,154,62,.12), transparent 34%),
+    radial-gradient(ellipse at 92% 86%, rgba(217,115,31,.10), transparent 30%),
+    linear-gradient(135deg, #f4ecdc 0%, #faf8f2 52%, #edf3e9 100%) !important;
+}
+
+.faixa-agenda::before,
+.faixa-agenda::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(31,77,43,.08);
+  border-radius: 50%;
+}
+
+.faixa-agenda::before {
+  width: 340px;
+  height: 340px;
+  top: -230px;
+  right: -100px;
+}
+
+.faixa-agenda::after {
+  width: 240px;
+  height: 240px;
+  bottom: -180px;
+  left: -70px;
+}
+
+.faixa-agenda .agenda-chamada {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr) !important;
+  grid-template-rows: auto auto 1fr !important;
+  grid-template-areas:
+    "selo evento"
+    "titulo evento"
+    "botao evento" !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  gap: .85rem clamp(1.8rem, 4vw, 3.4rem) !important;
+  width: min(100%, 1120px) !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: clamp(1.7rem, 4.2vw, 3.35rem) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(31,77,43,.11) !important;
+  border-top: 0 !important;
+  border-radius: 24px !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: 0 18px 48px rgba(31,77,43,.10), 0 2px 8px rgba(31,77,43,.04) !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-selo {
+  grid-area: selo !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-self: start !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  margin: 0 0 .25rem !important;
+  padding: .42rem .78rem !important;
+  border: 1px solid rgba(95,154,62,.18) !important;
+  border-radius: 999px !important;
+  background: #f0f6ec !important;
+  color: #315f39 !important;
+  font-size: .66rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .15em !important;
+  line-height: 1.25 !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-selo::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  margin-right: .5rem;
+  border-radius: 50%;
+  background: #d9731f;
+  box-shadow: 0 0 0 3px rgba(217,115,31,.12);
+}
+
+.faixa-agenda .agenda-chamada > h2 {
+  grid-area: titulo !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 470px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #1f4d2b !important;
+  font-size: clamp(1.55rem, 3.2vw, 2.35rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.13 !important;
+  letter-spacing: -.045em !important;
+  text-align: left !important;
+  text-wrap: pretty;
+  overflow-wrap: normal;
+}
+
+.faixa-agenda .agenda-chamada > h2::before {
+  content: none !important;
+  display: none !important;
+}
+
+.faixa-agenda .agenda-chamada > .cell {
+  grid-area: evento !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.faixa-agenda .agenda-chamada > .cell > .cell-output-display {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.faixa-agenda .agenda-chamada > p:has(.agenda-botao) {
+  grid-area: botao !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  margin: .35rem 0 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .7rem !important;
+  min-width: 0 !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: .78rem 1.25rem !important;
+  border-radius: 9px !important;
+  text-align: center !important;
+  white-space: normal !important;
+  box-shadow: 0 7px 18px rgba(185,86,15,.17) !important;
+  transition: transform .18s ease, box-shadow .18s ease !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao::after {
+  content: "→";
+  display: inline-block;
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(185,86,15,.2) !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover::after {
+  transform: translateX(3px);
+}
+
+/* Próximo evento: cartão com data em destaque e conteúdo bem separado. */
+.faixa-agenda .agenda-proximo-evento {
+  width: 100% !important;
+  min-height: 190px !important;
+  margin: 0 !important;
+  grid-template-columns: minmax(112px, 132px) minmax(0, 1fr) !important;
+  border: 1px solid #e3eae0 !important;
+  border-radius: 17px !important;
+  background: #fff !important;
+  box-shadow: 0 9px 25px rgba(31,77,43,.07) !important;
+}
+
+.faixa-agenda .agenda-proximo-data {
+  padding: 1.1rem .8rem !important;
+  background: linear-gradient(155deg, #285a34 0%, #1f4d2b 100%) !important;
+  border: 0 !important;
+  color: #fff !important;
+}
+
+.faixa-agenda .agenda-proximo-data > span {
+  color: rgba(255,255,255,.78) !important;
+  font-size: .59rem !important;
+  letter-spacing: .13em !important;
+}
+
+.faixa-agenda .agenda-proximo-data time {
+  color: #fff !important;
+  font-size: clamp(1.05rem, 2.2vw, 1.32rem) !important;
+  letter-spacing: -.035em !important;
+}
+
+.faixa-agenda .agenda-proximo-conteudo {
+  min-width: 0 !important;
+  padding: 1.2rem clamp(1rem, 2vw, 1.5rem) !important;
+}
+
+.faixa-agenda .agenda-evento-tipo {
+  margin-bottom: .6rem !important;
+  padding: .3rem .62rem !important;
+  background: #f8eee3 !important;
+  color: #98551c !important;
+  font-size: .62rem !important;
+  letter-spacing: .035em;
+}
+
+.faixa-agenda .agenda-proximo-conteudo h3 {
+  margin: 0 !important;
+  color: #25462d !important;
+  font-size: clamp(1.02rem, 1.7vw, 1.26rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -.025em !important;
+}
+
+.faixa-agenda .agenda-proximo-conteudo .agenda-evento-local {
+  margin: .55rem 0 0 !important;
+  color: #68766b !important;
+  font-size: .82rem !important;
+  line-height: 1.5 !important;
+}
+
+.faixa-agenda .agenda-evento-link {
+  margin-top: .8rem !important;
+  color: #32623c !important;
+  font-size: .76rem !important;
+  font-weight: 800 !important;
+}
+
+.faixa-agenda .agenda-sem-eventos {
+  width: 100% !important;
+  min-height: 190px !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  margin: 0 !important;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem) !important;
+  border: 1px dashed #cbd9c5 !important;
+  border-radius: 17px !important;
+  background: linear-gradient(135deg, #f8fbf6, #fff) !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-sem-eventos p {
+  margin: 0 0 .45rem !important;
+  color: #285333 !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+}
+
+.faixa-agenda .agenda-sem-eventos span {
+  max-width: 38ch;
+  color: #718073 !important;
+  font-size: .84rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Em telas menores, a composição vira uma única coluna, sem apertar o título. */
+@media (max-width: 760px) {
+  .faixa-agenda {
+    padding: 2rem .85rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto auto !important;
+    grid-template-areas:
+      "selo"
+      "titulo"
+      "evento"
+      "botao" !important;
+    gap: .75rem !important;
+    padding: clamp(1.2rem, 5vw, 1.8rem) !important;
+    border-radius: 18px !important;
+  }
+
+  .faixa-agenda .agenda-chamada > h2 {
+    max-width: 22ch !important;
+    font-size: clamp(1.55rem, 6.4vw, 2rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .faixa-agenda .agenda-chamada > .cell {
+    margin-top: .5rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada > p:has(.agenda-botao) {
+    justify-content: stretch !important;
+    margin-top: .15rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada .agenda-botao {
+    width: 100% !important;
+    min-height: 48px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .faixa-agenda .agenda-proximo-evento {
+    grid-template-columns: minmax(0, 1fr) !important;
+    border-radius: 13px !important;
+  }
+
+  .faixa-agenda .agenda-proximo-data {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: .7rem !important;
+    padding: .8rem 1rem !important;
+    border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  }
+
+  .faixa-agenda .agenda-proximo-data time {
+    font-size: 1.02rem !important;
+  }
+
+  .faixa-agenda .agenda-proximo-conteudo {
+    padding: 1.05rem 1rem 1.15rem !important;
+  }
+
+  .faixa-agenda .agenda-sem-eventos {
+    min-height: 0 !important;
+    padding: 1.05rem !important;
+  }
+
+  .faixa-agenda .agenda-chamada .agenda-botao {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faixa-agenda .agenda-chamada .agenda-botao,
+  .faixa-agenda .agenda-chamada .agenda-botao::after {
+    transition: none !important;
+  }
+}
