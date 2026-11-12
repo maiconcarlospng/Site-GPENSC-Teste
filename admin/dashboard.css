@@ -249,12 +249,18 @@ body.gpen-dashboard-editor-mode #gpen-admin-site-link {
 }
 
 
-/* Evita mostrar por um instante a interface nativa antes do painel GPENSC. */
-html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .primary-sidebar,
-html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) #page-container,
-html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) #collection-container,
-html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .content-editor,
-html.gpen-admin-booting body.gpen-cms-active:not(.gpen-login-active) .sui.toolbar {
+/* O editor Sveltia só fica visível quando a pessoa escolhe "Entrar no editor".
+   Assim a tela de coleções nativa não aparece por trás/antes do painel GPENSC. */
+body.gpen-cms-active:not(.gpen-login-active):not(.gpen-dashboard-editor-mode) .primary-sidebar,
+body.gpen-cms-active:not(.gpen-login-active):not(.gpen-dashboard-editor-mode) #page-container,
+body.gpen-cms-active:not(.gpen-login-active):not(.gpen-dashboard-editor-mode) #collection-container,
+body.gpen-cms-active:not(.gpen-login-active):not(.gpen-dashboard-editor-mode) .content-editor,
+body.gpen-cms-active:not(.gpen-login-active):not(.gpen-dashboard-editor-mode) .sui.toolbar {
   visibility: hidden !important;
   pointer-events: none !important;
+}
+
+/* Segurança visual: não deixar o link flutuante surgir antes da confirmação do estado. */
+#gpen-admin-site-link[hidden] {
+  display: none !important;
 }
