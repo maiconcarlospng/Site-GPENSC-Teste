@@ -40,6 +40,7 @@
   if(!world||!tree||!stage)return;
   const nodes=new Map(), opened=new Set(["gpensc"]), selected="gpensc";
   let activeId=selected, camera={x:0,y:0,w:900,h:900}, pointer=null, pinch=null, dragMoved=false;
+  const activePointers=new Map();
   const width=1400,height=900;
   const el=(name,attrs={},parent=world)=>{const n=document.createElementNS(svgNS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,String(v)));parent.appendChild(n);return n};
   function allNodes(node=data,parent=null,depth=0){
@@ -161,9 +162,46 @@
   document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();search.focus()}if(e.key==="Escape"&&document.activeElement===search){search.value="";search.blur();resetAll()}});
   // Wheel zoom and pointer drag; Pointer Events also cover touch and stylus.
   tree.addEventListener("wheel",e=>{e.preventDefault();zoom(e.deltaY<0?1.12:.89)}, {passive:false});
-  tree.addEventListener("pointerdown",e=>{if(e.target.closest(".oz-node")){dragMoved=false;return}pointer={id:e.pointerId,x:e.clientX,y:e.clientY,box:{...camera}};dragMoved=false;tree.setPointerCapture(e.pointerId);tree.classList.add("is-dragging")});
-  tree.addEventListener("pointermove",e=>{if(!pointer||pointer.id!==e.pointerId)return;const rect=tree.getBoundingClientRect(),dx=(e.clientX-pointer.x)*pointer.box.w/rect.width,dy=(e.clientY-pointer.y)*pointer.box.h/rect.height;if(Math.abs(dx)+Math.abs(dy)>4)dragMoved=true;setCamera({x:pointer.box.x-dx,y:pointer.box.y-dy,w:pointer.box.w,h:pointer.box.h},false)});
-  const endDrag=()=>{pointer=null;tree.classList.remove("is-dragging")};
+  tree.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".oz-node")){dragMoved=false;return}
+    activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    tree.setPointerCapture(e.pointerId);
+    if(activePointers.size===2){
+      const pts=[...activePointers.values()],dx=pts[1].x-pts[0].x,dy=pts[1].y-pts[0].y;
+      pinch={distance:Math.hypot(dx,dy),box:{...camera},center:{x:(pts[0].x+pts[1].x)/2,y:(pts[0].y+pts[1].y)/2}};
+      pointer=null;dragMoved=true;
+    }else if(activePointers.size===1){
+      pointer={id:e.pointerId,x:e.clientX,y:e.clientY,box:{...camera}};dragMoved=false;
+    }
+    tree.classList.add("is-dragging");
+  });
+  tree.addEventListener("pointermove",e=>{
+    if(!activePointers.has(e.pointerId))return;
+    activePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    const rect=tree.getBoundingClientRect();
+    if(pinch&&activePointers.size>=2){
+      const pts=[...activePointers.values()],dx=pts[1].x-pts[0].x,dy=pts[1].y-pts[0].y;
+      const distance=Math.max(20,Math.hypot(dx,dy)),scale=Math.max(.55,Math.min(2.8,distance/pinch.distance));
+      const w=Math.max(300,Math.min(1800,pinch.box.w/scale)),h=Math.max(300,Math.min(1400,pinch.box.h/scale));
+      const cx=(pts[0].x+pts[1].x)/2,cy=(pts[0].y+pts[1].y)/2;
+      const worldX=pinch.box.x+(pinch.center.x-rect.left)*pinch.box.w/rect.width;
+      const worldY=pinch.box.y+(pinch.center.y-rect.top)*pinch.box.h/rect.height;
+      setCamera({x:worldX-(cx-rect.left)*w/rect.width,y:worldY-(cy-rect.top)*h/rect.height,w,h},false);
+      return;
+    }
+    if(!pointer||pointer.id!==e.pointerId)return;
+    const dx=(e.clientX-pointer.x)*pointer.box.w/rect.width,dy=(e.clientY-pointer.y)*pointer.box.h/rect.height;
+    if(Math.abs(dx)+Math.abs(dy)>4)dragMoved=true;
+    setCamera({x:pointer.box.x-dx,y:pointer.box.y-dy,w:pointer.box.w,h:pointer.box.h},false);
+  });
+  const endDrag=e=>{
+    activePointers.delete(e.pointerId);
+    if(activePointers.size<2)pinch=null;
+    if(activePointers.size===1){
+      const [id,p]=[...activePointers.entries()][0];pointer={id,x:p.x,y:p.y,box:{...camera}};
+    }else pointer=null;
+    if(activePointers.size===0)tree.classList.remove("is-dragging");
+  };
   tree.addEventListener("pointerup",endDrag);tree.addEventListener("pointercancel",endDrag);tree.addEventListener("lostpointercapture",endDrag);
   // Double tap/click on empty space returns to the overview.
   tree.addEventListener("dblclick",e=>{if(!e.target.closest(".oz-node"))resetCamera()});
