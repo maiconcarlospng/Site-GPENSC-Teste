@@ -329,3 +329,26 @@
   .config-actions button{width:100%;min-width:0}
   #collection-nav button[data-summary]{margin:0}
 }
+
+
+/* Editor específico da galeria de fotos. */
+.gallery-form{display:grid;gap:16px}
+.gallery-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.gallery-photo-card{display:grid;align-content:start;gap:11px;min-width:0;padding:12px;border:1px solid #e2e9e2;border-radius:11px;background:#fff;box-shadow:0 2px 9px #203a2908}
+.gallery-photo-preview{position:relative;overflow:hidden;aspect-ratio:16/10;border-radius:8px;background:#edf1ed}
+.gallery-photo-preview img{display:block;width:100%;height:100%;object-fit:cover}
+.gallery-photo-preview>span{position:absolute;left:8px;bottom:8px;padding:4px 7px;border-radius:5px;background:#17231bc9;color:#fff;font-size:9px;font-weight:700}
+.gallery-photo-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gallery-photo-fields .field{min-width:0}
+.gallery-photo-fields .field.full{grid-column:1/-1}
+.gallery-photo-card>.danger-button{width:100%}
+.gallery-add-card{display:grid;gap:12px}
+.gallery-add-card h2{margin:0 0 4px}
+.gallery-add-card p{margin:0;color:#7c887f;font-size:11px}
+@media(max-width:1050px){.gallery-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+  .gallery-photo-grid{grid-template-columns:1fr}
+  .gallery-photo-card{padding:13px;border-radius:13px}
+  .gallery-photo-preview{aspect-ratio:16/9}
+  .gallery-photo-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
