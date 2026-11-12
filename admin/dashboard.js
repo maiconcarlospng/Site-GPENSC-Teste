@@ -88,7 +88,7 @@ function preloadData() {
   const parser = window.jsyaml || window.jsYaml;
   dataPromise = Promise.all(Object.entries(collections).map(async ([key, file]) => {
     try {
-      const response = await fetch(new URL(file, base), { cache: 'force-cache' });
+      const response = await fetch(new URL(file, base), { cache: 'no-store' });
       if (!response.ok || !parser || typeof parser.load !== 'function') {
         data[key] = [];
         return;
