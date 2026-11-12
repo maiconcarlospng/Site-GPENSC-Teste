@@ -357,7 +357,7 @@ def main() -> None:
     if backend.get("branch") == "main":
         fail("O Sveltia deve salvar em uma branch de rascunhos, nunca diretamente em main.")
     excel_source = (ADMIN / "excel-button.js").read_text(encoding="utf-8")
-    excel_branch = re.search(r'const\\s+draftBranch\\s*=\\s*["\\']([^"\\']+)["\\']', excel_source)
+    excel_branch = re.search(r"const\s+draftBranch\s*=\s*['\"]([^'\"]+)['\"]", excel_source)
     if not excel_branch:
         fail("A exportação Excel precisa declarar a branch de rascunhos.")
     if excel_branch.group(1) != backend.get("branch"):
