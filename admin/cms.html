@@ -13,7 +13,7 @@
     <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-gpensc-20261111-1" />
 
     <link rel="stylesheet" href="painel.css?v=20261111-8" />
-        <link rel="stylesheet" href="dashboard.css?v=20261112-3" />
+        <link rel="stylesheet" href="dashboard.css?v=20261112-4" />
   </head>
   <body class="gpen-cms-active">
     
@@ -26,7 +26,7 @@
     <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     <script src="excel-button.js?v=20261111-1"></script>
-    <script src="dashboard.js?v=20261112-2"></script>
+    <script src="dashboard.js?v=20261112-3"></script>
     <script src="preview.js?v=20261111-1" defer></script>
     <script>
       // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
@@ -44,12 +44,24 @@
 
       // O link para o site público fica disponível na área de edição, não na tela de login.
       const syncEntranceState = () => {
-        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
+        const authPanel = document.querySelector(".container > .inner");
+        const loginVisible = Boolean(
+          authPanel &&
+          authPanel.getClientRects().length &&
+          getComputedStyle(authPanel).display !== "none" &&
+          getComputedStyle(authPanel).visibility !== "hidden" &&
+          !authPanel.closest("[hidden]")
+        );
         document.body.classList.toggle("gpen-login-active", loginVisible);
         markConfigCollection();
       };
       const entranceObserver = new MutationObserver(syncEntranceState);
-      entranceObserver.observe(document.body, { childList: true, subtree: true });
+      entranceObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class", "hidden", "style", "aria-hidden"]
+      });
       syncEntranceState();
       // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
       CMS.init();
