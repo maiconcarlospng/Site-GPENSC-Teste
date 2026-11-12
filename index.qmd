@@ -5,6 +5,7 @@ page-layout: full
 title-block-banner: false
 ---
 
+```{=html}
 <div class="oz-app" id="gpensc-explorer">
   <section class="oz-welcome">
     <div class="oz-kicker"><span class="oz-kicker-mark"></span> UNIVERSIDADE FEDERAL DE OURO PRETO · GPENSC</div>
@@ -68,3 +69,4 @@ title-block-banner: false
     <div class="oz-footnote"><span>01 — 06</span><span>Uma estrutura viva de pessoas, ideias e transformação social</span><span>GPENSC · UFOP</span></div>
   </section>
 </div>
+```
