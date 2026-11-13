@@ -1,0 +1,266 @@
+/* =====================================================================
+   GPENSC · CORREÇÕES VISUAIS FINAIS V26
+   Carregar depois de todas as folhas anteriores para evitar sobrescritas.
+   ===================================================================== */
+
+/* AGENDA DA HOME: faixa claramente diferente do rodapé e chamada arejada. */
+.faixa-agenda {
+  box-sizing: border-box !important;
+  background: #edf3e9 !important;
+  border-top: 1px solid #dce8d6 !important;
+  border-bottom: 1px solid #dce8d6 !important;
+  padding: clamp(2.2rem, 4.5vw, 3.6rem) 1rem !important;
+}
+
+.faixa-agenda .agenda-chamada {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+  width: min(100%, 960px) !important;
+  margin: 0 auto !important;
+  padding: clamp(1.5rem, 3.6vw, 2.5rem) !important;
+  border: 1px solid #e2e9de !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 24px rgba(31,77,43,.055) !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-chamada p.agenda-selo {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  margin: 0 0 1.25rem !important;
+  padding: .35rem .7rem !important;
+  border: 1px solid #dce8d6 !important;
+  border-radius: 999px !important;
+  background: #f1f6ee !important;
+  color: #315f39 !important;
+  font-size: .68rem !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+  line-height: 1.3 !important;
+}
+
+.faixa-agenda .agenda-chamada > h2 {
+  width: 100% !important;
+  max-width: 720px !important;
+  margin: 0 0 1.35rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #1f4d2b !important;
+  font-size: clamp(1.45rem, 3vw, 2rem) !important;
+  font-weight: 750 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.035em !important;
+  text-align: left !important;
+  text-wrap: balance;
+}
+
+.faixa-agenda .agenda-chamada > h2::before {
+  content: none !important;
+  display: none !important;
+}
+
+.faixa-agenda .agenda-chamada > .cell,
+.faixa-agenda .agenda-chamada .cell,
+.faixa-agenda .agenda-chamada .cell > .cell-output-display {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.faixa-agenda .agenda-proximo-evento,
+.faixa-agenda .agenda-sem-eventos {
+  margin-bottom: 1.2rem !important;
+}
+
+.faixa-agenda .agenda-chamada p:has(.agenda-botao) {
+  display: flex !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  margin: .15rem 0 0 !important;
+  padding: 0 !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .55rem !important;
+  width: auto !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: .55rem 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #315f39 !important;
+  font-size: .84rem !important;
+  font-weight: 750 !important;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao::after {
+  content: "→";
+  transition: transform .18s ease;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover {
+  background: transparent !important;
+  color: #b9560f !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover::after {
+  transform: translateX(3px);
+}
+
+/* PESQUISAS: cartões simples, equilibrados e consistentes em todos os tamanhos. */
+.pq-blocos {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: clamp(.75rem, 1.6vw, 1.15rem) !important;
+  width: 100% !important;
+  margin: 1.5rem 0 1rem !important;
+}
+
+.pq-blocos > .pq,
+a.pq {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 126px !important;
+  height: auto !important;
+  padding: 1.1rem 1.2rem !important;
+  overflow: hidden !important;
+  border: 1px solid #e2e9de !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 9px rgba(31,77,43,.045) !important;
+  color: #244f2d !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease !important;
+}
+
+.pq-tinta { display: none !important; }
+
+.pq-conteudo,
+a.pq > .pq-conteudo {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: .9rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+.pq-icone,
+a.pq .pq-icone {
+  display: grid !important;
+  flex: 0 0 3rem !important;
+  place-items: center !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  margin: 0 !important;
+  border: 1px solid #e0eadb !important;
+  border-radius: 10px !important;
+  background: #f0f5ed !important;
+  color: #397044 !important;
+  font-size: 1.4rem !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+.pq-titulo,
+a.pq .pq-titulo {
+  position: relative !important;
+  display: block !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 1.1rem 0 0 !important;
+  color: #244f2d !important;
+  font-size: clamp(.94rem, 1.2vw, 1.06rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  text-align: left !important;
+  letter-spacing: -.015em !important;
+}
+
+a.pq .pq-titulo::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+  color: #73966a;
+  font-size: 1rem;
+  transition: transform .18s ease;
+}
+
+.pq-blocos > .pq:hover,
+a.pq:hover {
+  border-color: #b9cdb1 !important;
+  background: #fcfefb !important;
+  box-shadow: 0 6px 16px rgba(31,77,43,.085) !important;
+  transform: translateY(-2px) !important;
+}
+
+a.pq:hover .pq-titulo::after { transform: translateX(3px); }
+
+a.pq:focus-visible {
+  outline: 3px solid #d9731f !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 760px) {
+  .faixa-agenda { padding: 1.7rem .85rem !important; }
+  .faixa-agenda .agenda-chamada {
+    padding: 1.25rem 1rem !important;
+    border-radius: 13px !important;
+  }
+  .faixa-agenda .agenda-chamada p.agenda-selo { margin-bottom: 1rem !important; }
+  .faixa-agenda .agenda-chamada > h2 {
+    margin-bottom: 1.1rem !important;
+    font-size: clamp(1.3rem, 6vw, 1.7rem) !important;
+  }
+  .pq-blocos {
+    grid-template-columns: 1fr !important;
+    gap: .7rem !important;
+    margin-top: 1.1rem !important;
+  }
+  .pq-blocos > .pq,
+  a.pq {
+    min-height: 94px !important;
+    padding: .85rem 1rem !important;
+  }
+  .pq-icone,
+  a.pq .pq-icone {
+    flex-basis: 2.7rem !important;
+    width: 2.7rem !important;
+    height: 2.7rem !important;
+    font-size: 1.25rem !important;
+  }
+  .pq-titulo,
+  a.pq .pq-titulo { font-size: .98rem !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pq-blocos > .pq,
+  a.pq,
+  a.pq .pq-titulo::after,
+  .faixa-agenda .agenda-chamada .agenda-botao::after {
+    transition: none !important;
+  }
+}
