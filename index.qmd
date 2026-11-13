@@ -31,7 +31,7 @@ div(
 ```
 
 ::: centro
-[Veja todas as pesquisas](projetos.qmd){.btn .btn-secondary}
+[Veja todas as pesquisas](projetos.qmd){.btn .btn-secondary .btn-pesquisas}
 :::
 
 ## {{< var titulo_home_noticias >}}
