@@ -513,3 +513,6 @@ html body a.pq:is(:hover, :focus, :focus-visible) .pq-titulo::after {
   background-color: #d9731f !important;
   border-color: #d9731f !important;
 }
+
+
+/* Atualização de build: garante recompilação do site após correção dos estilos. */
