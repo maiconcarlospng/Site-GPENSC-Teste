@@ -475,3 +475,41 @@ body.page-index .pq-blocos > a.pq:focus-visible .pq-titulo::after {
   background: #d9731f !important;
   border-color: #d9731f !important;
 }
+
+
+/* HOVER DEFINITIVO DOS CARDS DE PESQUISA
+   Sem depender de classe no <body>; mantém o fundo institucional mesmo
+   quando regras genéricas de links do tema Quarto/Bootstrap entram em ação. */
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible),
+html body a.pq:is(:hover, :focus, :focus-visible) {
+  background: #1f4d2b !important;
+  background-image: linear-gradient(145deg, #285b34 0%, #1f4d2b 68%, #173c22 100%) !important;
+  background-color: #1f4d2b !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  filter: brightness(1.08) !important;
+}
+
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible) .pq-conteudo,
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible) .pq-titulo,
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible) .pq-icone,
+html body a.pq:is(:hover, :focus, :focus-visible) .pq-conteudo,
+html body a.pq:is(:hover, :focus, :focus-visible) .pq-titulo,
+html body a.pq:is(:hover, :focus, :focus-visible) .pq-icone {
+  color: #ffffff !important;
+}
+
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible) .pq-icone,
+html body a.pq:is(:hover, :focus, :focus-visible) .pq-icone {
+  background: rgba(255,255,255,.13) !important;
+  background-color: rgba(255,255,255,.13) !important;
+  border-color: rgba(255,255,255,.25) !important;
+}
+
+html body .pq-blocos a.pq:is(:hover, :focus, :focus-visible) .pq-titulo::after,
+html body a.pq:is(:hover, :focus, :focus-visible) .pq-titulo::after {
+  color: #ffffff !important;
+  background: #d9731f !important;
+  background-color: #d9731f !important;
+  border-color: #d9731f !important;
+}
