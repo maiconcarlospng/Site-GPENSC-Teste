@@ -1096,3 +1096,13 @@
     margin-bottom: 1.45rem !important;
   }
 }
+
+/* =====================================================================
+   AGENDA DA HOME · V25 — separação visual do rodapé
+   Esta regra fica no fim do CSS ativo para prevalecer sobre versões anteriores.
+   ===================================================================== */
+.faixa-agenda {
+  background: #E6EFE2 !important;
+  border-top: 1px solid #D4E3CF !important;
+  border-bottom: 1px solid #D4E3CF !important;
+}
