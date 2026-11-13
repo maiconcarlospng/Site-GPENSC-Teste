@@ -445,3 +445,33 @@ a.pq:focus-visible {
   a.pq,
   .faixa-agenda .agenda-chamada .agenda-botao { transition: none !important; }
 }
+
+
+/* CORREÇÃO DO HOVER — preserva o cartão verde ao passar o mouse.
+   Regras antigas da home tinham maior especificidade e clareavam o fundo. */
+body.page-index .pq-blocos > a.pq:hover,
+body.page-index .pq-blocos > a.pq:focus-visible {
+  background: linear-gradient(145deg, #285b34 0%, #1f4d2b 68%, #173c22 100%) !important;
+  color: #fff !important;
+  filter: brightness(1.08) !important;
+}
+
+body.page-index .pq-blocos > a.pq:hover .pq-titulo,
+body.page-index .pq-blocos > a.pq:focus-visible .pq-titulo,
+body.page-index .pq-blocos > a.pq:hover .pq-icone,
+body.page-index .pq-blocos > a.pq:focus-visible .pq-icone {
+  color: #fff !important;
+}
+
+body.page-index .pq-blocos > a.pq:hover .pq-icone,
+body.page-index .pq-blocos > a.pq:focus-visible .pq-icone {
+  background: rgba(255,255,255,.13) !important;
+  border-color: rgba(255,255,255,.25) !important;
+}
+
+body.page-index .pq-blocos > a.pq:hover .pq-titulo::after,
+body.page-index .pq-blocos > a.pq:focus-visible .pq-titulo::after {
+  color: #fff !important;
+  background: #d9731f !important;
+  border-color: #d9731f !important;
+}
