@@ -85,6 +85,7 @@ format:
       - styles-home-v17.css
       - styles-agenda-v18.css
       - styles-gpensc-v26.css
+      - styles-gpensc-v27.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
