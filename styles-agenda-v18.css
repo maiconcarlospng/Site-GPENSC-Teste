@@ -1106,3 +1106,151 @@
   border-top: 1px solid #D4E3CF !important;
   border-bottom: 1px solid #D4E3CF !important;
 }
+
+
+/* ---------- PESQUISAS DA HOME: CARTÕES MINIMALISTAS ---------- */
+/* Esta folha é carregada por último no _quarto.yml; os ajustes prevalecem
+   sobre os estilos antigos dos cartões definidos em styles-mobile-v4.css. */
+body.page-index .pq-blocos {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(.8rem, 1.8vw, 1.25rem) !important;
+  width: 100% !important;
+  margin: 1.6rem 0 1rem !important;
+}
+
+body.page-index a.pq,
+body.page-index .pq-blocos > .pq {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 148px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  padding: 1.15rem 1.25rem !important;
+  border: 1px solid #e1e9dd !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 12px rgba(31, 77, 43, .055) !important;
+  color: #1f4d2b !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease !important;
+}
+
+body.page-index .pq.cor-1,
+body.page-index .pq.cor-2,
+body.page-index .pq.cor-3 {
+  background: #fff !important;
+}
+
+body.page-index .pq-tinta {
+  display: none !important;
+}
+
+body.page-index .pq-conteudo,
+body.page-index a.pq > .pq-conteudo {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+body.page-index .pq-icone,
+body.page-index a.pq .pq-icone {
+  display: grid !important;
+  flex: 0 0 3.25rem !important;
+  place-items: center !important;
+  width: 3.25rem !important;
+  height: 3.25rem !important;
+  margin: 0 !important;
+  border-radius: 10px !important;
+  background: #edf4e9 !important;
+  color: #397044 !important;
+  font-size: 1.55rem !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+body.page-index .pq-titulo,
+body.page-index a.pq .pq-titulo {
+  display: block !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  padding: 0 1.1rem 0 0 !important;
+  color: #244f2d !important;
+  font-size: clamp(.96rem, 1.25vw, 1.08rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+  letter-spacing: -.02em !important;
+}
+
+body.page-index a.pq .pq-titulo::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+  color: #6b9660;
+  font-size: 1rem;
+  transition: transform .2s ease;
+}
+
+body.page-index a.pq:hover,
+body.page-index .pq-blocos > .pq:hover {
+  border-color: #a9c59e !important;
+  background: #fcfefb !important;
+  box-shadow: 0 7px 18px rgba(31, 77, 43, .10) !important;
+  transform: translateY(-2px) !important;
+}
+
+body.page-index a.pq:hover .pq-titulo::after {
+  transform: translateX(3px);
+}
+
+body.page-index a.pq:focus-visible {
+  outline: 3px solid #d9731f !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 760px) {
+  body.page-index .pq-blocos {
+    grid-template-columns: 1fr !important;
+    gap: .75rem !important;
+    margin-top: 1.2rem !important;
+  }
+
+  body.page-index a.pq,
+  body.page-index .pq-blocos > .pq {
+    min-height: 104px !important;
+    padding: .9rem 1rem !important;
+  }
+
+  body.page-index .pq-icone,
+  body.page-index a.pq .pq-icone {
+    flex-basis: 2.85rem !important;
+    width: 2.85rem !important;
+    height: 2.85rem !important;
+    font-size: 1.35rem !important;
+  }
+
+  body.page-index .pq-titulo,
+  body.page-index a.pq .pq-titulo {
+    font-size: 1rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-index a.pq,
+  body.page-index a.pq .pq-titulo::after {
+    transition: none !important;
+  }
+}
