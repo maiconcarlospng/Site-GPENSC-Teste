@@ -3453,3 +3453,43 @@ main table {
     max-height: 78px !important;
   }
 }
+
+/* HOVER DOS CARTÕES DE PESQUISA — contraste visível no desktop. */
+.pq-blocos .pq:hover,
+.pq-blocos .pq:focus-visible {
+  background: linear-gradient(135deg, #eaf3e6 0%, #dcebd3 100%) !important;
+  border-color: var(--gp-folha) !important;
+  box-shadow: 0 10px 24px rgba(31, 77, 43, .16) !important;
+  transform: translateY(-4px);
+}
+
+.pq-blocos .pq:hover::before,
+.pq-blocos .pq:focus-visible::before {
+  width: 6px;
+  background: var(--gp-laranja);
+}
+
+.pq-blocos .pq:hover .pq-icone,
+.pq-blocos .pq:focus-visible .pq-icone {
+  background: var(--gp-verde) !important;
+  border-color: var(--gp-verde) !important;
+  color: #fff !important;
+  transform: scale(1.05);
+}
+
+.pq-blocos .pq:hover .pq-icone *,
+.pq-blocos .pq:focus-visible .pq-icone * {
+  color: #fff !important;
+}
+
+.pq-blocos .pq:hover .pq-titulo,
+.pq-blocos .pq:focus-visible .pq-titulo {
+  color: var(--gp-verde) !important;
+}
+
+.pq-blocos .pq:hover .pq-titulo::after,
+.pq-blocos .pq:focus-visible .pq-titulo::after {
+  color: var(--gp-laranja) !important;
+  transform: translateX(4px);
+}
+
