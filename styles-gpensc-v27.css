@@ -1,0 +1,447 @@
+/* =====================================================================
+   GPENSC · DIREÇÃO VISUAL COM MAIS PRESENÇA V27
+   Agenda e pesquisas: contraste institucional, acento laranja e hierarquia.
+   ===================================================================== */
+
+/* AGENDA — faixa verde-floresta, com contraste real em relação ao rodapé. */
+.faixa-agenda {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  padding: clamp(3rem, 6vw, 5.2rem) 1rem !important;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(95,154,62,.24), transparent 28%),
+    radial-gradient(circle at 8% 100%, rgba(217,115,31,.13), transparent 30%),
+    linear-gradient(125deg, #173c22 0%, #1f4d2b 58%, #285b34 100%) !important;
+}
+
+.faixa-agenda::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  top: -110px !important;
+  right: -80px !important;
+  width: 340px !important;
+  height: 340px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 35px rgba(255,255,255,.025), 0 0 0 70px rgba(255,255,255,.02) !important;
+  pointer-events: none !important;
+}
+
+.faixa-agenda::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(90deg, #d9731f 0%, #f0a04b 48%, #5f9a3e 100%) !important;
+}
+
+.faixa-agenda .agenda-chamada {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 1rem !important;
+  width: min(100%, 1040px) !important;
+  margin: 0 auto !important;
+  padding: clamp(1.7rem, 4.2vw, 3.1rem) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  border-top: 5px solid #d9731f !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 22px 55px rgba(0,0,0,.2) !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-selo {
+  display: inline-flex !important;
+  align-items: center !important;
+  align-self: flex-start !important;
+  width: fit-content !important;
+  margin: 0 0 .1rem !important;
+  padding: .45rem .8rem !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  background: #fff0e2 !important;
+  color: #a84f12 !important;
+  font-size: .7rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .16em !important;
+  line-height: 1.2 !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-selo::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 8px !important;
+  margin-right: .55rem !important;
+  border-radius: 50% !important;
+  background: #d9731f !important;
+  box-shadow: 0 0 0 3px rgba(217,115,31,.16) !important;
+}
+
+.faixa-agenda .agenda-chamada > h2,
+.faixa-agenda .agenda-chamada h2 {
+  width: 100% !important;
+  max-width: 780px !important;
+  margin: 0 0 .2rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #1f4d2b !important;
+  font-size: clamp(1.75rem, 4vw, 2.65rem) !important;
+  font-weight: 850 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.045em !important;
+  text-align: left !important;
+  text-wrap: balance !important;
+}
+
+.faixa-agenda .agenda-chamada h2::before { content: none !important; display: none !important; }
+
+.faixa-agenda .agenda-chamada .cell,
+.faixa-agenda .agenda-chamada .cell > .cell-output-display {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.faixa-agenda .agenda-proximo-evento {
+  display: grid !important;
+  grid-template-columns: minmax(140px, 185px) minmax(0,1fr) !important;
+  width: 100% !important;
+  margin: .35rem 0 .4rem !important;
+  overflow: hidden !important;
+  border: 1px solid #e2e9df !important;
+  border-radius: 14px !important;
+  background: #fbfcfa !important;
+  box-shadow: 0 8px 22px rgba(31,77,43,.08) !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-proximo-data {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .55rem !important;
+  padding: 1.25rem .9rem !important;
+  border: 0 !important;
+  border-right: 4px solid #d9731f !important;
+  background: #1f4d2b !important;
+  text-align: center !important;
+}
+
+.faixa-agenda .agenda-proximo-data > span {
+  color: #dcebd3 !important;
+  font-size: .66rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .12em !important;
+}
+
+.faixa-agenda .agenda-proximo-data time {
+  color: #fff !important;
+  font-size: clamp(1.25rem, 2.6vw, 1.65rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -.04em !important;
+}
+
+.faixa-agenda .agenda-proximo-conteudo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.faixa-agenda .agenda-evento-tipo {
+  margin: 0 0 .5rem !important;
+  padding: .3rem .65rem !important;
+  border-radius: 4px !important;
+  background: #fff0e2 !important;
+  color: #a84f12 !important;
+  font-size: .67rem !important;
+  font-weight: 850 !important;
+}
+
+.faixa-agenda .agenda-proximo-conteudo h3 {
+  margin: 0 !important;
+  color: #1f4d2b !important;
+  font-size: clamp(1.08rem, 2vw, 1.35rem) !important;
+  font-weight: 850 !important;
+  line-height: 1.3 !important;
+}
+
+.faixa-agenda .agenda-proximo-conteudo .agenda-evento-local {
+  margin: .45rem 0 0 !important;
+  color: #68766b !important;
+  font-size: .88rem !important;
+}
+
+.faixa-agenda .agenda-evento-link {
+  margin-top: .65rem !important;
+  color: #a84f12 !important;
+  font-size: .82rem !important;
+  font-weight: 850 !important;
+}
+
+.faixa-agenda .agenda-sem-eventos {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: .3rem !important;
+  width: 100% !important;
+  margin: .35rem 0 .4rem !important;
+  padding: 1.3rem 1.5rem !important;
+  border: 1px solid #e0e9dc !important;
+  border-left: 5px solid #d9731f !important;
+  border-radius: 12px !important;
+  background: #f5f8f2 !important;
+  text-align: left !important;
+}
+
+.faixa-agenda .agenda-sem-eventos p {
+  margin: 0 !important;
+  color: #1f4d2b !important;
+  font-size: 1rem !important;
+  font-weight: 850 !important;
+}
+
+.faixa-agenda .agenda-sem-eventos span {
+  color: #68766b !important;
+  font-size: .86rem !important;
+  line-height: 1.55 !important;
+}
+
+.faixa-agenda .agenda-chamada p:has(.agenda-botao) {
+  display: flex !important;
+  justify-content: flex-start !important;
+  margin: .25rem 0 0 !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .75rem !important;
+  min-width: 205px !important;
+  min-height: 48px !important;
+  padding: .8rem 1.35rem !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background: #d9731f !important;
+  box-shadow: 0 7px 16px rgba(217,115,31,.24) !important;
+  color: #fff !important;
+  font-size: .83rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .025em !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  transition: background .18s ease, transform .18s ease, box-shadow .18s ease !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao::after {
+  content: "→" !important;
+  font-size: 1.1rem !important;
+  transition: transform .18s ease !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover {
+  background: #b9560f !important;
+  box-shadow: 0 9px 20px rgba(185,86,15,.28) !important;
+  transform: translateY(-2px) !important;
+}
+
+.faixa-agenda .agenda-chamada .agenda-botao:hover::after { transform: translateX(3px) !important; }
+
+/* PESQUISAS — cartões sólidos e com identidade, não caixas brancas genéricas. */
+.pq-blocos {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  gap: clamp(.85rem, 1.8vw, 1.35rem) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  margin: 1.8rem 0 1.2rem !important;
+}
+
+.pq-blocos > a.pq,
+.pq-blocos > .pq,
+a.pq {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 168px !important;
+  padding: 1.35rem !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-top: 5px solid #d9731f !important;
+  border-radius: 15px !important;
+  background: linear-gradient(145deg, #285b34 0%, #1f4d2b 68%, #173c22 100%) !important;
+  box-shadow: 0 10px 24px rgba(31,77,43,.17) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  transform: translateY(0) !important;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+}
+
+.pq-blocos > a.pq::before,
+.pq-blocos > .pq::before,
+a.pq::before {
+  content: "" !important;
+  position: absolute !important;
+  right: -42px !important;
+  bottom: -62px !important;
+  width: 165px !important;
+  height: 165px !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 22px rgba(255,255,255,.035), 0 0 0 44px rgba(255,255,255,.025) !important;
+  pointer-events: none !important;
+}
+
+.pq-tinta { display: none !important; }
+
+.pq-conteudo,
+a.pq .pq-conteudo {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 1.05rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.pq-icone,
+a.pq .pq-icone {
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 3.5rem !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  margin: 0 !important;
+  border: 1px solid rgba(255,255,255,.25) !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,.13) !important;
+  color: #fff !important;
+  font-size: 1.65rem !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+.pq-titulo,
+a.pq .pq-titulo {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 2rem 0 0 !important;
+  color: #fff !important;
+  font-size: clamp(1.02rem, 1.35vw, 1.2rem) !important;
+  font-weight: 850 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -.02em !important;
+  text-align: left !important;
+}
+
+a.pq .pq-titulo::after {
+  content: "↗" !important;
+  position: absolute !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 29px !important;
+  height: 29px !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+  font-size: .95rem !important;
+  transition: background .2s ease, transform .2s ease !important;
+}
+
+.pq-blocos > a.pq:hover,
+.pq-blocos > .pq:hover,
+a.pq:hover {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 16px 30px rgba(31,77,43,.24) !important;
+  transform: translateY(-5px) !important;
+}
+
+a.pq:hover .pq-titulo::after {
+  background: #d9731f !important;
+  border-color: #d9731f !important;
+  transform: translate(2px,-2px) !important;
+}
+
+a.pq:focus-visible {
+  outline: 3px solid #d9731f !important;
+  outline-offset: 4px !important;
+}
+
+@media (max-width: 760px) {
+  .faixa-agenda { padding: 2.1rem .85rem !important; }
+  .faixa-agenda .agenda-chamada {
+    gap: .85rem !important;
+    padding: 1.35rem 1.1rem !important;
+    border-radius: 15px !important;
+  }
+  .faixa-agenda .agenda-chamada h2 {
+    font-size: clamp(1.55rem, 7vw, 2rem) !important;
+  }
+  .faixa-agenda .agenda-proximo-evento {
+    grid-template-columns: 1fr !important;
+  }
+  .faixa-agenda .agenda-proximo-data {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: .8rem 1rem !important;
+    border-right: 0 !important;
+    border-bottom: 4px solid #d9731f !important;
+  }
+  .faixa-agenda .agenda-proximo-data time { font-size: 1.1rem !important; }
+  .faixa-agenda .agenda-proximo-conteudo { padding: 1rem !important; }
+  .faixa-agenda .agenda-chamada .agenda-botao { width: 100% !important; }
+  .pq-blocos {
+    grid-template-columns: 1fr !important;
+    gap: .8rem !important;
+  }
+  .pq-blocos > a.pq,
+  .pq-blocos > .pq,
+  a.pq {
+    min-height: 126px !important;
+    padding: 1.1rem !important;
+  }
+  .pq-conteudo,
+  a.pq .pq-conteudo {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+  .pq-icone,
+  a.pq .pq-icone {
+    flex-basis: 3.1rem !important;
+    width: 3.1rem !important;
+    height: 3.1rem !important;
+    font-size: 1.4rem !important;
+  }
+  .pq-titulo,
+  a.pq .pq-titulo { font-size: 1rem !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pq-blocos > a.pq,
+  .pq-blocos > .pq,
+  a.pq,
+  .faixa-agenda .agenda-chamada .agenda-botao { transition: none !important; }
+}
