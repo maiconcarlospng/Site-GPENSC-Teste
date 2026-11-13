@@ -528,90 +528,182 @@ a.btn-warning:hover,
 /* ---------- 5. CARTÕES DE PESQUISA E NOTÍCIAS ---------- */
 .pq-blocos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: 1.25rem;
-  margin: 2rem 0 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin: 1.75rem 0 .85rem;
+  align-items: stretch;
 }
 
+/* Cartões de navegação: visual claro, institucional e sem gradientes fortes. */
 .pq {
   position: relative;
   display: flex;
-  align-items: stretch;
-  min-height: 280px;
-  border-radius: 12px;
+  min-width: 0;
+  min-height: 154px;
   overflow: hidden;
-  background-color: var(--gp-verde);
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+  border: 1px solid #e1e9dd;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 14px rgba(31, 77, 43, .065);
   text-decoration: none !important;
-  transition: transform .22s ease, box-shadow .22s ease;
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 
-.pq.cor-1 {
-  background: linear-gradient(135deg, #356d49 0%, #1f4d2b 58%, #4c8058 100%);
+.pq::before {
+  content: "";
+  position: absolute;
+  inset: 18px auto 18px 0;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--gp-folha);
 }
 
-.pq.cor-2 {
-  background: linear-gradient(135deg, #f39a3d 0%, #d9731f 58%, #f5ad62 100%);
-}
-
+.pq.cor-1,
+.pq.cor-2,
 .pq.cor-3 {
-  background: linear-gradient(135deg, #e66b61 0%, #c94239 58%, #ee8a7f 100%);
+  background: #fff;
 }
 
 .pq:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.19);
+  transform: translateY(-3px);
+  border-color: #bfd2b7;
+  background: #fbfdf9;
+  box-shadow: 0 8px 20px rgba(31, 77, 43, .11);
 }
 
 .pq-tinta {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .22;
-  background: linear-gradient(135deg, rgba(255,255,255,.28), transparent 52%);
+  display: none !important;
 }
 
 .pq-conteudo {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.4rem;
+  justify-content: flex-start;
+  gap: 1rem;
   box-sizing: border-box;
   width: 100%;
-  min-height: 280px;
-  padding: 1.4rem 1.25rem 1.1rem;
+  min-height: 154px;
+  padding: 1.25rem 1.35rem;
 }
 
 .pq-icone {
-  display: block;
-  margin-top: .35rem;
-  color: rgba(255,255,255,.96) !important;
-  font-size: clamp(5.25rem, 9vw, 7.5rem) !important;
+  display: grid;
+  flex: 0 0 3.55rem;
+  place-items: center;
+  width: 3.55rem;
+  height: 3.55rem;
+  margin: 0 !important;
+  border: 1px solid #dce8d5;
+  border-radius: 13px;
+  background: #edf4e9;
+  color: var(--gp-verde) !important;
+  font-size: 1.7rem !important;
   line-height: 1 !important;
-  text-shadow: 0 3px 12px rgba(0,0,0,.12);
-  transition: transform .22s ease;
+  text-shadow: none;
+  transition: background-color .2s ease, transform .2s ease;
 }
 
 .pq:hover .pq-icone {
-  transform: translateY(-3px) scale(1.04);
+  transform: translateY(-1px);
+  background: #e4efde;
 }
 
 .pq-titulo {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: .7rem;
+  min-width: 0;
+  width: auto;
   box-sizing: border-box;
-  color: #fff !important;
-  font-size: clamp(1.05rem, 2vw, 1.35rem) !important;
+  padding: 0 !important;
+  color: var(--gp-verde) !important;
+  font-size: clamp(.98rem, 1.35vw, 1.12rem) !important;
   font-weight: 700 !important;
-  line-height: 1.2;
-  padding: .55rem .25rem 0;
-  text-align: center;
-  letter-spacing: -0.02em !important;
+  line-height: 1.35;
+  text-align: left;
+  letter-spacing: -.02em !important;
+  text-wrap: pretty;
+}
+
+.pq-titulo::after {
+  content: "→";
+  flex: 0 0 auto;
+  color: var(--gp-folha);
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: transform .2s ease;
+}
+
+.pq:hover .pq-titulo::after {
+  transform: translateX(3px);
+}
+
+.pq:focus-visible {
+  outline: 3px solid var(--gp-laranja) !important;
+  outline-offset: 3px;
+}
+
+/* CTA específico da seção de pesquisas, sem alterar os demais botões do site. */
+.centro .btn-pesquisas {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  min-height: 46px;
+  margin-top: .3rem;
+  padding: .75rem 1.25rem !important;
+  border: 1px solid var(--gp-verde) !important;
+  border-radius: 8px !important;
+  background: var(--gp-verde) !important;
+  color: #fff !important;
+  font-size: .76rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .045em !important;
+  box-shadow: 0 3px 9px rgba(31, 77, 43, .15);
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.centro .btn-pesquisas::after {
+  content: "→";
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.centro .btn-pesquisas:hover {
+  transform: translateY(-2px);
+  border-color: var(--gp-laranja) !important;
+  background: var(--gp-laranja) !important;
+  box-shadow: 0 5px 12px rgba(217, 115, 31, .2);
+}
+
+.centro .btn-pesquisas:hover::after {
+  transform: translateX(3px);
+}
+
+.centro .btn-pesquisas:focus-visible {
+  outline: 3px solid var(--gp-laranja) !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 980px) and (min-width: 768px) {
+  .pq-blocos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pq-blocos .pq:last-child {
+    grid-column: 1 / -1;
+    min-height: 128px;
+  }
+
+  .pq-blocos .pq:last-child .pq-conteudo {
+    min-height: 128px;
+  }
 }
 
 .cartoes {
@@ -2497,83 +2589,47 @@ button:focus-visible,
   }
 }
 
-/* Ajuste exclusivo para os cartões de navegação da página inicial em celulares. */
-@media (max-width: 767.98px) {
-  .pq {
-    min-height: 0 !important;
-  }
-
-  .pq .pq-conteudo {
-    min-height: 0 !important;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1.4rem 1.25rem !important;
-  }
-
-  .pq .pq-icone {
-    flex: 0 0 3.4rem;
-    width: 3.4rem;
-    margin: 0 !important;
-    font-size: 3.25rem !important;
-    line-height: 1 !important;
-    text-align: center;
-  }
-
-  .pq .pq-titulo {
-    flex: 1 1 auto;
-    width: auto;
-    min-width: 0;
-    padding: 0 !important;
-    font-size: clamp(1rem, 4.2vw, 1.2rem) !important;
-    line-height: 1.25;
-    text-align: left;
-    overflow-wrap: anywhere;
-  }
-}
-
-@media (max-width: 380px) {
-  .pq .pq-conteudo {
-    gap: .7rem;
-    padding: 1.1rem .9rem !important;
-  }
-
-  .pq .pq-icone {
-    flex-basis: 2.8rem;
-    width: 2.8rem;
-    font-size: 2.7rem !important;
-  }
-}
-
-/* Refinamento final da página inicial em telas pequenas: alinhamento e áreas de toque. */
+/* Ajustes responsivos dos cartões de pesquisa e dos botões da página inicial. */
 @media (max-width: 767.98px) {
   .pq-blocos {
-    gap: .75rem !important;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .8rem !important;
   }
 
   .pq-blocos .pq {
-    box-sizing: border-box;
     width: 100%;
-    border-radius: 10px;
+    min-height: 104px;
+    border-radius: 12px;
+  }
+
+  .pq-blocos .pq::before {
+    inset-block: 15px;
   }
 
   .pq-blocos .pq .pq-conteudo {
+    min-height: 104px;
     justify-content: flex-start;
-    gap: .85rem;
-    padding: 1rem 1.1rem !important;
+    gap: .9rem;
+    padding: .95rem 1.1rem !important;
   }
 
   .pq-blocos .pq .pq-icone {
-    flex-basis: 2.8rem;
-    width: 2.8rem;
-    font-size: 2.65rem !important;
+    flex-basis: 3rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 11px;
+    font-size: 1.5rem !important;
   }
 
   .pq-blocos .pq .pq-titulo {
-    font-size: clamp(.98rem, 4vw, 1.1rem) !important;
+    font-size: clamp(.98rem, 4vw, 1.08rem) !important;
     line-height: 1.3;
-    text-wrap: pretty;
+  }
+
+  .centro .btn-pesquisas {
+    min-height: 46px;
+    width: auto;
+    max-width: 100%;
   }
 
   .intro-texto p {
@@ -2605,14 +2661,15 @@ button:focus-visible,
 
 @media (max-width: 380px) {
   .pq-blocos .pq .pq-conteudo {
-    gap: .7rem;
-    padding: .9rem .85rem !important;
+    gap: .75rem;
+    padding: .85rem .9rem !important;
   }
 
   .pq-blocos .pq .pq-icone {
-    flex-basis: 2.55rem;
-    width: 2.55rem;
-    font-size: 2.4rem !important;
+    flex-basis: 2.7rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    font-size: 1.35rem !important;
   }
 
   .pq-blocos .pq .pq-titulo {
