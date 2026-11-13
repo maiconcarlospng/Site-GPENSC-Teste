@@ -1071,3 +1071,28 @@
     transition: none !important;
   }
 }
+
+
+/* =====================================================================
+   AGENDA DA HOME · V24 — DISTÂNCIA ENTRE SELO E TÍTULO
+   Espaçamento explícito entre o identificador e o título da chamada.
+   ===================================================================== */
+
+.faixa-agenda .agenda-chamada > p.agenda-selo,
+.faixa-agenda .agenda-chamada p.agenda-selo {
+  display: block !important;
+  box-sizing: border-box !important;
+  margin: 0 0 1.8rem !important;
+  padding: 0 0 .35rem !important;
+}
+
+.faixa-agenda .agenda-chamada > h2 {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 700px) {
+  .faixa-agenda .agenda-chamada > p.agenda-selo,
+  .faixa-agenda .agenda-chamada p.agenda-selo {
+    margin-bottom: 1.45rem !important;
+  }
+}
