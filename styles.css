@@ -777,7 +777,9 @@ a.btn-warning:hover,
 
 /* ---------- 6. FAIXAS (AGENDA, PODCAST, COORDENAÇÃO) ---------- */
 .faixa-agenda {
-  background: linear-gradient(135deg, #f8f5ed 0%, var(--gp-areia) 100%);
+  background: linear-gradient(135deg, #EEF4EB 0%, #E5EFE1 100%);
+  border-top: 1px solid #D9E6D4;
+  border-bottom: 1px solid #D9E6D4;
   text-align: center;
   padding: clamp(2.5rem, 5vw, 4rem) 1.25rem !important;
   margin-top: 3rem;
