@@ -114,6 +114,7 @@ format:
       - styles-identidade-v34.css
       - styles-arvore-v35.css
       - styles-refino-v36.css
+      - styles-editorial-v37.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
