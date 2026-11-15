@@ -48,4 +48,4 @@ Consulte artigos, livros, capítulos e trabalhos apresentados em eventos.
 
 ## Metodologias e indicadores
 
-[Conheça as metodologias e os portfólios](metodos.qmd) utilizados na pesquisa e na formação. Consulte também a [produção científica](publicacoes.qmd), com a distribuição das publicações por ano e periódico. Indicadores de citações dependem de fontes bibliométricas verificadas.
+[Conheça as metodologias e os portfólios](metodos.qmd) utilizados na pesquisa e na formação. Consulte também a [produção científica](publicacoes.qmd), com a distribuição das publicações por ano e periódico. Os materiais e registros disponíveis são organizados no portfólio público do grupo.

@@ -47,7 +47,7 @@ Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formaç
 
 ## Da pesquisa à sociedade
 
-Aqui reunimos relatos, produtos e resultados documentados das ações do grupo.
+Nesta seção são apresentados produtos e registros de ações com informações confirmadas pelo grupo.
 
 ```{r}
 source("R/helpers.R")

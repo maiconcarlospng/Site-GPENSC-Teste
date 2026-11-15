@@ -323,8 +323,8 @@ bloco_intro <- function() {
     class = "intro reveal",
     div(
       class = "intro-texto",
-      span(class = "intro-kicker", "NUTRIÇÃO · EPIDEMIOLOGIA · SAÚDE COLETIVA"),
-      h1("Pesquisa, formação e diálogo com a sociedade."),
+      span(class = "intro-kicker", "UNIVERSIDADE FEDERAL DE OURO PRETO"),
+      h1("Nutrição e saúde coletiva: pesquisa, ensino e extensão."),
       p(cfg$resumo),
       div(
         class = "intro-acoes",
@@ -334,12 +334,12 @@ bloco_intro <- function() {
     ),
     div(
       class = "intro-sinal",
-      div(class = "intro-sinal-cabecalho", "ATUAÇÃO INTEGRADA"),
+      div(class = "intro-sinal-cabecalho", "O QUE FAZEMOS"),
       div(
         class = "intro-sinal-lista",
-        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-pesquisa.svg", alt = "", width = 72, height = 54), div(strong("Pesquisa"), tags$small("Produção de conhecimento e evidências"))),
-        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-ensino.svg", alt = "", width = 72, height = 54), div(strong("Ensino"), tags$small("Formação acadêmica e compartilhamento"))),
-        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-extensao.svg", alt = "", width = 72, height = 54), div(strong("Extensão"), tags$small("Diálogo com serviços e comunidades")))
+        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "01"), div(strong("Pesquisa"), tags$small("Estudos em alimentação, nutrição e saúde coletiva"))),
+        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "02"), div(strong("Ensino"), tags$small("Formação, cursos e atividades acadêmicas"))),
+        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "03"), div(strong("Extensão"), tags$small("Trocas de conhecimento com a comunidade")))
       ),
       p(class = "intro-sinal-base", "Universidade Federal de Ouro Preto · UFOP")
     )
@@ -406,7 +406,7 @@ cartao_noticia <- function(n, i) {
       tags$a(
         class = "nt-mais",
         href = detalhe_href,
-        "VER DETALHAMENTO »"
+        "Ler notícia"
       )
     ),
     div(class = "nt-data", if (!is.na(n$data)) format(n$data, "%d/%m/%Y"))
