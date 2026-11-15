@@ -18,7 +18,7 @@ async function api(path,options={}){
     :{...apiHeaders(),...(options.headers||{})};
   const r=await fetch(url,{...options,headers});
   const data=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error(data.message||data.error||'Falha ao comunicar com o GitHub.');
+  if(!r.ok){const error=new Error(data.message||data.error||'Falha ao comunicar com o GitHub.');error.status=r.status;throw error;}
   return data;
 }
 async function loginWithCode(){
@@ -81,11 +81,61 @@ function login(){
   }
   window.addEventListener('message',listener);
 }
-async function initialize(){try{const user=state.authMode==='access-code'?{name:'Acesso por código',login:'Colaborador'}:await api('/user');state.user=user;$('#user-name').textContent=user.name||user.login;$('#login-view').hidden=true;$('#workspace').hidden=false;await loadConfig();await loadAnalyticsConfig();await loadAll();renderNav();renderHome()}catch(e){state.token='';state.authMode='github';sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent=e.message;toast('Não foi possível conectar ao repositório.',true)}}
+let loadingSession=false;
+async function initialize(){
+  if(loadingSession)return;
+  loadingSession=true;
+  const retry=$('#retry-loading');
+  if(retry)retry.hidden=true;
+  $('#login-status').textContent='Carregando o painel e os conteúdos…';
+  try{
+    const user=state.authMode==='access-code'
+      ?{name:'Acesso por código',login:'Colaborador'}
+      :await api('/user');
+    state.user=user;
+    await loadConfig();
+    await loadAnalyticsConfig();
+    await loadAll();
+    $('#user-name').textContent=user.name||user.login||'Colaborador';
+    $('#login-view').hidden=true;
+    $('#workspace').hidden=false;
+    renderNav();
+    renderHome();
+  }catch(error){
+    const expired=error.status===401;
+    if(expired){
+      state.token='';
+      state.authMode='github';
+      sessionStorage.removeItem('gpen_admin_token');
+      sessionStorage.removeItem('gpen_admin_auth_mode');
+    }
+    $('#workspace').hidden=true;
+    $('#login-view').hidden=false;
+    $('#login-status').textContent=expired
+      ?'Sua sessão expirou. Entre novamente.'
+      :'Não foi possível carregar os dados: '+(error.message||'falha de conexão')+'.';
+    if(retry)retry.hidden=expired||!state.token;
+    toast(expired?'Entre novamente para continuar.':'Falha no carregamento. Sua sessão foi preservada.',true);
+  }finally{
+    loadingSession=false;
+  }
+}
 async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/config.yml?ref='+BRANCH);state.sha['admin/config.yml']=r.sha;const raw=decodeURIComponent(escape(atob(r.content.replace(/\n/g,''))));state.config=jsyaml.load(raw);state.collections=(state.config.collections||[]).flatMap(group=>(group.files||[]).map(file=>({...file,groupName:group.label,group:group.name})))}
 async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
 async function loadAll(){
-  const results=await Promise.all(state.collections.map(async item=>({file:item.file,data:await readFile(item.file)})));
+  // Carrega até quatro arquivos simultâneos para reduzir falhas de API.
+  const list=state.collections;
+  const results=new Array(list.length);
+  let cursor=0;
+  async function loadNext(){
+    while(cursor<list.length){
+      const index=cursor++;
+      const item=list[index];
+      try{results[index]={file:item.file,data:await readFile(item.file)}}
+      catch(error){throw new Error('Falha ao carregar '+item.label+': '+error.message)}
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(4,list.length)},()=>loadNext()));
   for(const result of results)state.contents[result.file]=result.data;
 }
 function entryList(entry){return Array.isArray(state.contents[entry.file]?.itens)?state.contents[entry.file].itens:[]}
@@ -641,6 +691,7 @@ window.addEventListener('beforeunload',event=>{
 });
 $('#login-button').addEventListener('click',login);
 $('#token-login-button').addEventListener('click',loginWithCode);
+$('#retry-loading')?.addEventListener('click',()=>initialize());
 $('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loginWithCode()}});
 function updateMobileTabs(){
   const menuOpen=$('.sidebar').classList.contains('mobile-open');
