@@ -19,10 +19,6 @@ spotify_embed <- sub("/show/", "/embed/show/", spotify_gpensc, fixed = TRUE)
 
 div(
   class = "pagina-podcasts",
-  p(
-    class = "pagina-podcasts-intro",
-    "Reunimos as produções em áudio do GPENSC e os caminhos para acompanhar conteúdos recentes do grupo nos canais de comunicação da Universidade."
-  ),
   div(
     class = "podcasts-grade",
     tags$section(
