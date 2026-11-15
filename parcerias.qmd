@@ -1,0 +1,42 @@
+---
+title: "Parcerias"
+---
+
+A colaboração com instituições e grupos de pesquisa amplia as possibilidades de produção científica, formação e intercâmbio de conhecimentos. Esta página reúne os vínculos institucionais e as parcerias cadastradas pelo GPENSC.
+
+```{r}
+source("R/helpers.R")
+parcerias_site <- registros_reais(parcerias, "nome")
+if (nrow(parcerias_site) > 0) {
+  grupos_parceria <- unique(ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo))
+  tagList(lapply(grupos_parceria, function(grupo_atual) {
+    dados <- parcerias_site[ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo) == grupo_atual, , drop = FALSE]
+    tagList(
+      h2(grupo_atual),
+      div(
+        class = "parcerias-catalogo",
+        lapply(seq_len(nrow(dados)), function(i) {
+          p <- dados[i, , drop = FALSE]
+          logo <- valor_publico(p$logo)
+          url <- valor_publico(p$url)
+          marca <- if (!is.null(logo)) tags$img(src = caminho_img(logo), alt = paste("Identidade visual:", p$nome[1]), loading = "lazy") else span(class = "parceria-sigla", as.character(p$sigla[1]))
+          div(
+            class = "parceria-instituicao",
+            div(class = "parceria-marca", marca),
+            h3(as.character(p$nome[1])),
+            if (tem(p$uf)) p(class = "parceria-local", as.character(p$uf[1])),
+            if (!is.null(url)) tags$a("Visitar instituição", href = url, target = "_blank", rel = "noopener noreferrer")
+          )
+        })
+      )
+    )
+  }))
+} else {
+  estado_vazio("Parcerias em atualização", "As instituições parceiras serão apresentadas aqui após a conferência dos registros.")
+}
+```
+
+## Mapa de colaboração
+
+O mapa será consolidado a partir do cadastro de localização das instituições (cidade e país), para que cada ponto represente um vínculo confirmado. Os registros atuais identificam instituições e, em alguns casos, apenas a unidade federativa; por isso, não exibimos marcadores geográficos presumidos.
+
