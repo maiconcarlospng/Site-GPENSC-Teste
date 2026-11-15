@@ -1,0 +1,72 @@
+---
+title: "Árvore do conhecimento"
+---
+
+A árvore do conhecimento representa a forma como o GPENSC articula suas atividades: o grupo é o tronco; as linhas de pesquisa, os galhos; os projetos, os ramos em desenvolvimento; e as pessoas e produções científicas, os frutos desse trabalho coletivo.
+
+```{r}
+source("R/helpers.R")
+
+linhas_arvore <- registros_reais(linhas, "nome")
+projetos_arvore <- registros_reais(projetos, "titulo")
+publicacoes_arvore <- registros_reais(pubs, "titulo")
+equipe_arvore <- registros_reais(equipe, "nome")
+
+div(
+  class = "arvore-conhecimento",
+  div(
+    class = "arvore-copa",
+    div(
+      class = "arvore-copa-intro",
+      span(class = "arvore-selo", "CONHECIMENTO EM MOVIMENTO"),
+      h2("Uma árvore, muitas conexões"),
+      p("Cada linha reúne perguntas, projetos, pessoas e resultados que se conectam à missão do GPENSC.")
+    ),
+    div(
+      class = "arvore-galhos",
+      if (nrow(linhas_arvore) > 0) {
+        lapply(seq_len(nrow(linhas_arvore)), function(i) {
+          linha <- linhas_arvore[i, , drop = FALSE]
+          id_linha <- as.character(linha$id[1])
+          projetos_linha <- if ("linha_id" %in% names(projetos_arvore) && nrow(projetos_arvore) > 0) {
+            projetos_arvore[!is.na(projetos_arvore$linha_id) & projetos_arvore$linha_id == id_linha, , drop = FALSE]
+          } else projetos_arvore[0, , drop = FALSE]
+          div(
+            class = "arvore-galho",
+            span(class = "arvore-galho-numero", sprintf("%02d", i)),
+            h3(as.character(linha$nome[1])),
+            if (tem(linha$descricao)) p(as.character(linha$descricao[1])),
+            span(class = "arvore-galho-dado", paste(nrow(projetos_linha), if (nrow(projetos_linha) == 1) "projeto cadastrado" else "projetos cadastrados"))
+          )
+        })
+      } else {
+        estado_vazio("Linhas em atualização", "As linhas de pesquisa serão apresentadas aqui após a revisão dos registros institucionais.")
+      }
+    )
+  ),
+  div(
+    class = "arvore-tronco",
+    div(class = "arvore-tronco-linha"),
+    div(class = "arvore-tronco-nome", "GPENSC"),
+    p("Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva · UFOP"),
+    div(
+      class = "arvore-raizes",
+      span("Pesquisa"),
+      span("Ensino"),
+      span("Extensão")
+    )
+  ),
+  div(
+    class = "arvore-frutos",
+    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(equipe_arvore)), span("integrantes cadastrados")),
+    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(projetos_arvore)), span("projetos publicados")),
+    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(publicacoes_arvore)), span("produções científicas cadastradas"))
+  )
+)
+```
+
+::: {.arvore-nota}
+Os indicadores são calculados a partir dos registros publicados no painel do site. Itens de demonstração e campos ainda não preenchidos não são contabilizados.
+:::
+
+[Explorar as linhas de pesquisa](linhas.qmd){.btn .btn-secondary}
