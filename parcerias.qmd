@@ -38,5 +38,62 @@ if (nrow(parcerias_site) > 0) {
 
 ## Mapa de colaboração
 
-O mapa será consolidado a partir do cadastro de localização das instituições (cidade e país), para que cada ponto represente um vínculo confirmado. Os registros atuais identificam instituições e, em alguns casos, apenas a unidade federativa; por isso, não exibimos marcadores geográficos presumidos.
+```{r}
+pontos_mapa <- parcerias_site |>
+  mutate(
+    latitude_num = suppressWarnings(as.numeric(latitude)),
+    longitude_num = suppressWarnings(as.numeric(longitude))
+  ) |>
+  filter(
+    !is.na(latitude_num), !is.na(longitude_num),
+    latitude_num >= -90, latitude_num <= 90,
+    longitude_num >= -180, longitude_num <= 180
+  )
+
+if (nrow(pontos_mapa) > 0) {
+  dados_mapa <- lapply(seq_len(nrow(pontos_mapa)), function(i) {
+    list(
+      nome = as.character(pontos_mapa$nome[i]),
+      cidade = valor_publico(pontos_mapa$cidade[i]),
+      pais = valor_publico(pontos_mapa$pais[i]),
+      latitude = pontos_mapa$latitude_num[i],
+      longitude = pontos_mapa$longitude_num[i],
+      url = valor_publico(pontos_mapa$url[i])
+    )
+  })
+  json_mapa <- jsonlite::toJSON(dados_mapa, auto_unbox = TRUE)
+  tagList(
+    tags$link(rel = "stylesheet", href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"),
+    div(
+      id = "gpensc-mapa-parcerias",
+      class = "gpensc-mapa-parcerias",
+      role = "region",
+      aria_label = "Mapa das instituições parceiras do GPENSC"
+    ),
+    p(class = "mapa-legenda", "Localização aproximada por município ou campus. A posição dos marcadores depende dos dados cadastrados no painel."),
+    tags$script(src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"),
+    tags$script(htmltools::HTML(paste0(
+      "(function(){",
+      "const pontos=", as.character(json_mapa), ";",
+      "function iniciar(){",
+      "const el=document.getElementById('gpensc-mapa-parcerias');",
+      "if(!el||!window.L||el.dataset.iniciado==='1')return;",
+      "el.dataset.iniciado='1';",
+      "const mapa=L.map(el,{scrollWheelZoom:false}).setView([-19.95,-43.7],8);",
+      "L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(mapa);",
+      "const marcadores=[];",
+      "pontos.forEach(p=>{const m=L.marker([p.latitude,p.longitude]).addTo(mapa);",
+      "const local=[p.cidade,p.pais].filter(Boolean).join(', ');",
+      "const nome=p.url?'<a href=\"'+p.url+'\" target=\"_blank\" rel=\"noopener noreferrer\">'+p.nome+'</a>':p.nome;",
+      "m.bindPopup('<strong>'+nome+'</strong>'+(local?'<br>'+local:''));marcadores.push(m);});",
+      "if(marcadores.length>1){mapa.fitBounds(L.featureGroup(marcadores).getBounds().pad(0.18));}",
+      "}",
+      "if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',iniciar);}else{iniciar();}",
+      "})();"
+    )))
+  )
+} else {
+  estado_vazio("Mapa em atualização", "Inclua cidade, país, latitude e longitude nos registros das instituições para posicioná-las no mapa.")
+}
+```
 
