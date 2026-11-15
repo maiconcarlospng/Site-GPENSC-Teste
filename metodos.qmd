@@ -7,8 +7,6 @@ title: "Metodologias e portfólios"
 ```
 
 
-Métodos e recursos de apoio à pesquisa, à formação e à aplicação de evidências em Nutrição e Saúde Coletiva.
-
 ```{r}
 source("R/helpers.R")
 renderizar_acervo("metodos", "Ainda não há materiais disponíveis nesta seção")
