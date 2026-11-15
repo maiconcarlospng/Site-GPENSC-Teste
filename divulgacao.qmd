@@ -7,8 +7,6 @@ title: "Divulgação científica"
 ```
 
 
-O GPENSC compartilha conhecimentos e experiências por diferentes formatos, buscando aproximar a produção científica de estudantes, profissionais, gestores e da população em geral.
-
 ## Materiais e conteúdos
 
 :::: {.divulgacao-grade}
