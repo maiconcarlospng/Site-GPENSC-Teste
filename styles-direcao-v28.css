@@ -557,3 +557,25 @@ hr { border-color:var(--gp-line) !important; opacity:1; }
   html { scroll-behavior:auto; }
   *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; }
 }
+
+
+/* Complementos da revisão funcional. */
+.arvore-galho-link { display:block; color:inherit !important; text-decoration:none !important; }
+.arvore-galho-link:hover h3 { color:var(--gp-orange-dark) !important; }
+.agenda-defesas { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.85rem; margin:1rem 0 2rem; }
+.agenda-defesa { display:grid; grid-template-columns:125px minmax(0,1fr); overflow:hidden; border:1px solid var(--gp-line); border-radius:14px; background:#fff; box-shadow:var(--gp-soft-shadow); }
+.agenda-defesa-data { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem; padding:1rem .7rem; background:#f0f5ed; border-right:3px solid var(--gp-leaf); text-align:center; }
+.agenda-defesa-data span { color:var(--gp-orange-dark); font-size:.62rem; font-weight:850; letter-spacing:.12em; }
+.agenda-defesa-data strong { color:var(--gp-forest); font-size:1rem; }
+.agenda-defesa-conteudo { padding:1rem 1.1rem; }
+.agenda-defesa-tipo { color:var(--gp-orange-dark); font-size:.68rem; font-weight:850; letter-spacing:.06em; text-transform:uppercase; }
+.agenda-defesa-conteudo h3 { margin:.35rem 0 .5rem; font-size:.98rem !important; }
+.agenda-defesa-conteudo p { margin:.2rem 0; color:var(--gp-muted) !important; font-size:.78rem; }
+.agenda-defesa-conteudo a { display:inline-block; margin-top:.45rem; color:var(--gp-forest); font-size:.78rem; font-weight:750; }
+.indicadores-citacao-nota { margin:1.3rem 0; padding:1rem 1.1rem; border-left:3px solid var(--gp-leaf); border-radius:0 10px 10px 0; background:#f4f7f1; }
+.indicadores-citacao-nota strong { color:var(--gp-forest); font-size:.86rem; }
+.indicadores-citacao-nota p { margin:.25rem 0 0; color:var(--gp-muted) !important; font-size:.83rem; }
+@media (max-width:760px) {
+  .agenda-defesas { grid-template-columns:1fr; }
+  .agenda-defesa { grid-template-columns:100px minmax(0,1fr); }
+}

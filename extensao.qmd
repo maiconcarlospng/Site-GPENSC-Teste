@@ -2,21 +2,21 @@
 title: "Projetos de extensão"
 ---
 
+O GPENSC desenvolve ações de extensão que aproximam conhecimentos sobre alimentação, nutrição e saúde coletiva das questões vividas pela sociedade, em diálogo com profissionais, gestores, estudantes e comunidade.
+
 ```{r}
 source("R/helpers.R")
 
 projetos_extensao <- registros_reais(projetos, "titulo") |>
   filter(tipo == "Extensão")
 
-if (secao_ativa("mostrar_extensao")) {
 div(
   class = "pagina-extensao",
-  p(class = "contato-intro", cfg$intro_extensao),
-  h2("Projetos"),
+  h2("Projetos cadastrados"),
   if (nrow(projetos_extensao) > 0) {
     projetos_extensao |>
       transmute(
-        Título = titulo,
+        Projeto = titulo,
         Situação = situacao,
         Coordenação = coordenador,
         Início = inicio
@@ -27,34 +27,28 @@ div(
       )
   } else {
     estado_vazio(
-      "Projetos de extensão em atualização",
-      "Os projetos serão apresentados aqui quando seus registros estiverem preenchidos com informações confirmadas.",
-      "Conheça o GPENSC no Ar",
-      "noar.html"
+      "Projetos em atualização",
+      "O cadastro detalhado dos projetos será apresentado aqui à medida que as informações forem revisadas e publicadas pelo grupo."
     )
-  },
-  h2("Iniciativas de extensão destacadas pelo grupo"),
-  div(
-    class = "extensao-iniciativas",
-    div(
-      class = "extensao-iniciativa",
-      span(class = "extensao-iniciativa-selo", "EXTENSÃO"),
-      h3("Vi no Rótulo"),
-      p("Iniciativa de extensão citada no planejamento do portfólio do GPENSC. A página poderá reunir objetivos, público participante, atividades realizadas, materiais e resultados confirmados.")
-    ),
-    div(
-      class = "extensao-iniciativa",
-      span(class = "extensao-iniciativa-selo", "FORMAÇÃO"),
-      h3("Capacitação em epidemiologia e análise de dados"),
-      p("Projeto de capacitação mencionado pelo grupo, com espaço para apresentar conteúdos, público atendido, metodologia e materiais de apoio.")
-    )
-  ),
-  h2("Divulgação científica"),
-  p("O GPENSC também divulga conversas e conteúdos de interesse público por meio de suas iniciativas de comunicação."),
-  tags$a(class = "btn btn-secondary", href = "noar.html", "Conheça o GPENSC no Ar")
+  }
 )
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
 ```
+
+## Iniciativas de extensão
+
+O portfólio do GPENSC destaca iniciativas de extensão relacionadas à informação sobre alimentos e à formação em epidemiologia e análise de dados.
+
+<div class="extensao-iniciativas">
+  <article class="extensao-iniciativa">
+    <span class="extensao-iniciativa-selo">PROJETO DE EXTENSÃO</span>
+    <h3>Vi no Rótulo</h3>
+    <p>Iniciativa de extensão do GPENSC. A página reunirá a apresentação do projeto, seus materiais e informações de participação quando esses conteúdos estiverem revisados.</p>
+  </article>
+  <article class="extensao-iniciativa">
+    <span class="extensao-iniciativa-selo">FORMAÇÃO E CAPACITAÇÃO</span>
+    <h3>Capacitação em epidemiologia e análise de dados</h3>
+    <p>Iniciativa de capacitação mencionada pelo grupo, com espaço para disponibilizar informações sobre atividades formativas e materiais de apoio.</p>
+  </article>
+</div>
+
+[Entre em contato com o GPENSC](contato.qmd){.btn .btn-secondary}

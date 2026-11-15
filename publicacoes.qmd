@@ -5,6 +5,12 @@ title: "Publicações"
 ```{r}
 source("R/helpers.R")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")
+artigos_periodicos <- publicacoes_publicadas |>
+  filter(
+    !is.na(tipo), tolower(tipo) == "artigo",
+    !is.na(veiculo), nzchar(trimws(veiculo)),
+    !grepl("^\\[", trimws(veiculo))
+  )
 
 if (secao_ativa("mostrar_publicacoes")) {
 if (nrow(publicacoes_publicadas) == 0) {
@@ -27,6 +33,37 @@ if (nrow(publicacoes_publicadas) == 0) {
         plot_bgcolor = "rgba(0,0,0,0)"
       ) |>
       config(displayModeBar = FALSE),
+
+    if (nrow(artigos_periodicos) > 0) {
+      tagList(
+        h2("Periódicos e veículos de publicação"),
+        p("Distribuição dos artigos cadastrados por periódico ou veículo informado."),
+        artigos_periodicos |>
+          count(veiculo, sort = TRUE) |>
+          slice_head(n = 10) |>
+          plot_ly(
+            x = ~n,
+            y = ~reorder(veiculo, n),
+            type = "bar",
+            orientation = "h",
+            marker = list(color = "#5F9A3E")
+          ) |>
+          layout(
+            xaxis = list(title = "Artigos"),
+            yaxis = list(title = ""),
+            paper_bgcolor = "rgba(0,0,0,0)",
+            plot_bgcolor = "rgba(0,0,0,0)",
+            margin = list(l = 150)
+          ) |>
+          config(displayModeBar = FALSE)
+      )
+    },
+
+    div(
+      class = "indicadores-citacao-nota",
+      strong("Sobre métricas de citação"),
+      p("Indicadores de citação e impacto bibliométrico só serão apresentados quando houver levantamento com fonte, data de consulta e método de contagem documentados.")
+    ),
 
     h2("Linha do tempo"),
     {

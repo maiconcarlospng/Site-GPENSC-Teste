@@ -2,7 +2,7 @@
 title: "Árvore do conhecimento"
 ---
 
-A árvore do conhecimento representa a forma como o GPENSC articula suas atividades: o grupo é o tronco; as linhas de pesquisa, os galhos; os projetos, os ramos em desenvolvimento; e as pessoas e produções científicas, os frutos desse trabalho coletivo.
+A árvore do conhecimento traduz visualmente a estrutura do GPENSC: o grupo forma o tronco; as linhas de pesquisa, os galhos; e os projetos, as pessoas e as produções científicas representam os caminhos e frutos desse trabalho coletivo.
 
 ```{r}
 source("R/helpers.R")
@@ -18,9 +18,9 @@ div(
     class = "arvore-copa",
     div(
       class = "arvore-copa-intro",
-      span(class = "arvore-selo", "CONHECIMENTO EM MOVIMENTO"),
-      h2("Uma árvore, muitas conexões"),
-      p("Cada linha reúne perguntas, projetos, pessoas e resultados que se conectam à missão do GPENSC.")
+      span(class = "arvore-selo", "ESTRUTURA E CONEXÕES"),
+      h2("Um grupo, diferentes caminhos de investigação"),
+      p("Explore as linhas de pesquisa e veja como elas se conectam às atividades, às pessoas e à produção do grupo.")
     ),
     div(
       class = "arvore-galhos",
@@ -28,15 +28,30 @@ div(
         lapply(seq_len(nrow(linhas_arvore)), function(i) {
           linha <- linhas_arvore[i, , drop = FALSE]
           id_linha <- as.character(linha$id[1])
-          projetos_linha <- if ("linha_id" %in% names(projetos_arvore) && nrow(projetos_arvore) > 0) {
-            projetos_arvore[!is.na(projetos_arvore$linha_id) & projetos_arvore$linha_id == id_linha, , drop = FALSE]
+          projetos_linha <- if (nrow(projetos_arvore) > 0) {
+            projetos_arvore[
+              !is.na(projetos_arvore$linha_id) &
+                as.character(projetos_arvore$linha_id) == id_linha,
+              , drop = FALSE
+            ]
           } else projetos_arvore[0, , drop = FALSE]
           div(
             class = "arvore-galho",
             span(class = "arvore-galho-numero", sprintf("%02d", i)),
-            h3(as.character(linha$nome[1])),
+            tags$a(
+              h3(as.character(linha$nome[1])),
+              href = paste0("linhas.html#linha-", id_linha),
+              class = "arvore-galho-link"
+            ),
             if (tem(linha$descricao)) p(as.character(linha$descricao[1])),
-            span(class = "arvore-galho-dado", paste(nrow(projetos_linha), if (nrow(projetos_linha) == 1) "projeto cadastrado" else "projetos cadastrados"))
+            span(
+              class = "arvore-galho-dado",
+              if (nrow(projetos_linha) > 0) {
+                paste(nrow(projetos_linha), if (nrow(projetos_linha) == 1) "projeto associado" else "projetos associados")
+              } else {
+                "Conheça esta linha de pesquisa"
+              }
+            )
           )
         })
       } else {
@@ -58,15 +73,27 @@ div(
   ),
   div(
     class = "arvore-frutos",
-    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(equipe_arvore)), span("integrantes cadastrados")),
-    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(projetos_arvore)), span("projetos publicados")),
-    div(class = "arvore-fruto", span(class = "arvore-fruto-numero", nrow(publicacoes_arvore)), span("produções científicas cadastradas"))
+    div(
+      class = "arvore-fruto",
+      span(class = "arvore-fruto-numero", nrow(equipe_arvore)),
+      span(if (nrow(equipe_arvore) == 1) "pessoa cadastrada" else "pessoas cadastradas")
+    ),
+    div(
+      class = "arvore-fruto",
+      span(class = "arvore-fruto-numero", if (nrow(projetos_arvore) > 0) nrow(projetos_arvore) else "—"),
+      span(if (nrow(projetos_arvore) > 0) "projetos cadastrados" else "cadastro de projetos em atualização")
+    ),
+    div(
+      class = "arvore-fruto",
+      span(class = "arvore-fruto-numero", if (nrow(publicacoes_arvore) > 0) nrow(publicacoes_arvore) else "—"),
+      span(if (nrow(publicacoes_arvore) > 0) "produções cadastradas" else "cadastro de produções em atualização")
+    )
   )
 )
 ```
 
 ::: {.arvore-nota}
-Os indicadores são calculados a partir dos registros publicados no painel do site. Itens de demonstração e campos ainda não preenchidos não são contabilizados.
+Os indicadores refletem apenas registros reais publicados no painel. A ausência de um número indica que o cadastro daquele tipo de conteúdo ainda não foi preenchido; ela não representa ausência de atividade do grupo.
 :::
 
-[Explorar as linhas de pesquisa](linhas.qmd){.btn .btn-secondary}
+[Explorar linhas, projetos e integrantes](linhas.qmd){.btn .btn-secondary}

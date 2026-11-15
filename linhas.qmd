@@ -55,6 +55,7 @@ if (secao_ativa("mostrar_linhas")) {
 
           div(
             class = "linha-pesquisa-card",
+            id = paste0("linha-", id),
             div(
               class = "linha-pesquisa-card-topo",
               span(class = "linha-pesquisa-numero", sprintf("%02d", i)),
