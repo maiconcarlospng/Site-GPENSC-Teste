@@ -90,10 +90,6 @@ renderizar_defesas <- function(dados) {
 if (secao_ativa("mostrar_agenda")) {
   div(
     class = "pagina-agenda",
-    p(
-      class = "contato-intro",
-      "Acompanhe reuniões, cursos, workshops, aulas abertas, eventos e defesas relacionadas às atividades do GPENSC."
-    ),
     h2("Próximas atividades"),
     if (nrow(eventos_futuros) > 0) {
       renderizar_eventos(eventos_futuros)
