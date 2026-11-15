@@ -6,7 +6,7 @@ A produção científica do GPENSC dialoga com questões concretas da alimentaç
 
 ## Como o conhecimento pode contribuir
 
-::: {.impacto-eixos}
+:::: {.impacto-eixos}
 ::: {.impacto-eixo}
 <span class="impacto-numero">01</span>
 ### Evidências para políticas públicas
@@ -31,7 +31,7 @@ Tradução de conceitos, métodos e resultados científicos em materiais educati
 
 Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formação crítica e a participação de diferentes públicos.
 :::
-:::
+::::
 
 ## Comunicação para diferentes públicos
 
