@@ -218,3 +218,54 @@ body{background:#f6f7f3;color:#283b2f}
  .collection-card,.field input,.field textarea,.field select{transition:none!important}
  .collection-card:hover,.collection-card:focus-visible{transform:none!important}
 }
+
+/* Acabamento institucional: superfícies sóbrias, sem estética de dashboard genérico. */
+body{background:#f7f8f5}
+.login-shell{background:#f6f8f4}
+.login-card{
+  border:1px solid #dce6dc;border-top:3px solid #5f9a3e;
+  border-radius:8px;box-shadow:0 12px 36px rgba(21,54,32,.07);
+}
+.login-card .eyebrow{letter-spacing:.06em}
+.access-login{background:#f7faf6;border-radius:6px}
+.sidebar,.sidebar.mobile-open{
+  background:#204b30!important;background-image:none!important;
+}
+.sidebar::before{display:none!important;content:none!important}
+.brand img{border-radius:6px}
+.collection-card,.dashboard-chart-card,.dashboard-activity-card,
+.dashboard-analytics-card,.panel-card,.stat-card{
+  border:1px solid #dfe7de!important;border-radius:7px!important;
+  background:#fff!important;box-shadow:none!important;
+}
+.collection-card::before{display:none;content:none}
+.collection-card:hover,.collection-card:focus-visible{
+  transform:none!important;background:#f5f9f4!important;
+  border-color:#95b59d!important;box-shadow:none!important;
+}
+.stat-card,.stat-card:nth-child(n){
+  border-top:1px solid #dfe7de!important;
+}
+.editorial-review{
+  background:#f3f7f1!important;border:1px solid #d9e5d6;
+  border-left:3px solid #5f9a3e;border-radius:7px;box-shadow:none;
+}
+.primary-button,.secondary-button,.small-button{
+  border-radius:6px;box-shadow:none;
+}
+.primary-button:hover,.primary-button:focus-visible{
+  box-shadow:none;transform:none;
+}
+.table-wrap{border-radius:7px;box-shadow:none}
+.modal{border-radius:8px}
+.field input,.field textarea,.field select{border-radius:6px}
+.mobile-dock{box-shadow:none;border-top:1px solid #dae4da}
+.toast{border-radius:6px;box-shadow:0 3px 14px rgba(10,40,20,.11)}
+@media(max-width:700px){
+  .login-card{border-radius:9px}
+  .collection-card{border-radius:7px!important}
+  .sidebar.mobile-open{background:#204b30!important;background-image:none!important}
+  .sidebar.mobile-open #collection-nav button{border-radius:7px}
+  .editorial-review{border-radius:7px}
+  #modal-root .modal{border-radius:0}
+}
