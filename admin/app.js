@@ -631,14 +631,14 @@ document.addEventListener('keydown',event=>{
   const modal=document.querySelector('#modal-root .modal');if(!modal)return;
   if(event.key==='Escape'&&!modal.dataset.saving){closeModal();return}
   if(event.key!=='Tab')return;
-  if(modal.id==='entry-form'&&window.matchMedia('(min-width:1200px)').matches)return;
+  if(modal.id==='entry-form'&&window.matchMedia('(min-width:1450px)').matches)return;
   const nodes=[...modal.querySelectorAll('button,input,select,textarea,a[href]')].filter(n=>!n.disabled&&n.offsetParent!==null);
   const first=nodes[0],last=nodes[nodes.length-1];
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus()}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus()}
 });
 function defaultItem(fields){const item={};fields.forEach(f=>{if(f.widget==='list')item[f.name]=[];else if(f.widget==='object')item[f.name]=defaultItem(f.fields||[]);else if(f.widget==='boolean')item[f.name]=false;else item[f.name]=''});return item}
-function editItem(index){if(!canLeaveCurrentEditor())return;const c=state.collections[state.active];const schema=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const original=index===null?defaultItem(schema):structuredClone(entryList(c)[index]);state.editing={index,original};const fields=schema.map(f=>renderField(f,original[f.name])).join('');$('#modal-root').innerHTML='<div class="modal-backdrop"><form class="modal" id="entry-form" role="dialog" aria-modal="true" aria-label="Editar conteúdo"><div class="modal-head"><h2>'+(index===null?'Novo registro':'Editar registro')+'</h2><button type="button" class="small-button" id="close-modal">Fechar</button></div><div class="modal-body">'+fields+'</div><div class="modal-foot"><span class="eyebrow">ALTERAÇÕES SALVAS NO GITHUB</span><div><button type="button" class="secondary-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button" id="save-entry">Salvar alterações</button></div></div></form></div>';$('#close-modal').onclick=$('#cancel-modal').onclick=()=>closeModal();$('#entry-form').onsubmit=e=>saveEntry(e,schema);const form=$('#entry-form');form.setAttribute('aria-modal',String(window.matchMedia('(max-width:1199px)').matches));form.dataset.dirty='false';form.addEventListener('input',()=>{form.dataset.dirty='true'});form.addEventListener('change',()=>{form.dataset.dirty='true'});document.body.classList.add('editor-open');form.querySelector('input,select,textarea,button')?.focus()}
+function editItem(index){if(!canLeaveCurrentEditor())return;const c=state.collections[state.active];const schema=(c.fields||[]).find(f=>f.name==='itens')?.fields||[];const original=index===null?defaultItem(schema):structuredClone(entryList(c)[index]);state.editing={index,original};const fields=schema.map(f=>renderField(f,original[f.name])).join('');$('#modal-root').innerHTML='<div class="modal-backdrop"><form class="modal" id="entry-form" role="dialog" aria-modal="true" aria-label="Editar conteúdo"><div class="modal-head"><h2>'+(index===null?'Novo registro':'Editar registro')+'</h2><button type="button" class="small-button" id="close-modal">Fechar</button></div><div class="modal-body">'+fields+'</div><div class="modal-foot"><span class="eyebrow">ALTERAÇÕES SALVAS NO GITHUB</span><div><button type="button" class="secondary-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button" id="save-entry">Salvar alterações</button></div></div></form></div>';$('#close-modal').onclick=$('#cancel-modal').onclick=()=>closeModal();$('#entry-form').onsubmit=e=>saveEntry(e,schema);const form=$('#entry-form');form.setAttribute('aria-modal',String(window.matchMedia('(max-width:1449px)').matches));form.dataset.dirty='false';form.addEventListener('input',()=>{form.dataset.dirty='true'});form.addEventListener('change',()=>{form.dataset.dirty='true'});document.body.classList.add('editor-open');form.querySelector('input,select,textarea,button')?.focus()}
 function renderField(f,value){
   const name=esc(f.name),label=esc(f.label||f.name),full=['text','list','object','markdown'].includes(f.widget)?' full':'';
   const required=f.required!==false?' required':'',id='entry-'+name;
@@ -720,6 +720,10 @@ $('#mobile-collection-search').addEventListener('input',event=>{
   const term=normalize(event.target.value.trim());
   $('#collection-nav').querySelectorAll('button[data-index],button[data-summary]').forEach(button=>{
     button.hidden=!!term&&!normalize(button.textContent).includes(term);
+  });
+  $('#collection-nav').querySelectorAll('.menu-section').forEach(section=>{
+    const buttons=[...section.querySelectorAll('button[data-index]')];
+    section.hidden=!!term&&!buttons.some(button=>!button.hidden);
   });
 });
 $('#mobile-home').addEventListener('click',()=>{
