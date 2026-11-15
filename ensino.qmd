@@ -7,11 +7,7 @@ title: "Ensino"
 ```
 
 
-O GPENSC contribui para a formação acadêmica e profissional por meio de atividades de ensino, formação e compartilhamento de conhecimentos em Nutrição e Saúde Coletiva.
-
-## Atividades formativas
-
-O planejamento do grupo contempla workshops para graduação e pós-graduação, palestras, cursos, simpósios e outras atividades formativas. A agenda de atividades abertas é atualizada na página de eventos.
+O GPENSC reúne nesta página cursos, workshops, palestras, outras atividades formativas e conteúdos de disciplinas. As datas das próximas atividades são divulgadas na [Agenda](agenda.qmd).
 
 ```{r}
 source("R/helpers.R")
@@ -39,7 +35,7 @@ if (nrow(eventos_formativos) > 0) {
     })
   )
 } else {
-  estado_vazio("Programação em atualização", "As atividades formativas serão divulgadas nesta página e na Agenda GPENSC quando houver datas e informações confirmadas.", "Consultar agenda", "agenda.html")
+  estado_vazio("Sem atividades formativas cadastradas", "A programação aparecerá aqui quando houver informações confirmadas.")
 }
 
 h2("Disciplinas e conteúdos de formação")
@@ -58,4 +54,3 @@ if (nrow(disciplinas_ensino) > 0) {
 }
 ```
 
-[Ver agenda de atividades](agenda.qmd){.btn .btn-secondary}
