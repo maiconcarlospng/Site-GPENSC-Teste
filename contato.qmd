@@ -2,11 +2,6 @@
 title: "Contato"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Converse com o grupo sobre pesquisa, formação, participação e colaboração.</p><img src="img/ilustracoes/contato.svg" alt="" width="240" height="180"></div>
-```
-
-
 ```{r}
 source("R/helpers.R")
 
