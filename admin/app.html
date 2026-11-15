@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#173b22">
   <title>Painel administrativo · GPENSC</title>
   <link rel="icon" href="../img/logo_gpensc.png">
-  <link rel="stylesheet" href="app.css?v=20261115-05">
-  <link rel="stylesheet" href="app-melhorias.css?v=20261115-05">
+  <link rel="stylesheet" href="app.css?v=20261115-06">
+  <link rel="stylesheet" href="app-melhorias.css?v=20261115-06">
 </head>
 <body>
   <main id="app" aria-live="polite">
@@ -28,7 +28,8 @@
           </div>
           <p>Use o código disponibilizado pela coordenação do GPENSC.</p>
         </div>
-        <p class="login-note" id="login-status">O acesso por código dispensa uma conta GitHub individual.</p>
+        <p class="login-note" id="login-status" role="status">O acesso por código dispensa uma conta GitHub individual.</p>
+        <button type="button" id="retry-loading" class="secondary-button retry-loading" hidden>Tentar carregar novamente</button>
       </div>
     </section>
     <section class="workspace" id="workspace" hidden>
@@ -63,6 +64,6 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261115-05"></script>
+  <script src="app.js?v=20261115-06"></script>
 </body>
 </html>
