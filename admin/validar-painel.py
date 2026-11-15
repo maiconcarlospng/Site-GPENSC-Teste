@@ -47,6 +47,7 @@ SITE_CSS_PATHS = (
     ROOT / "styles-refino-v36.css",
     ROOT / "styles-home-fix-v33.css",
     ROOT / "styles-identidade-v34.css",
+    ROOT / "styles-editorial-v37.css",
 )
 PANEL_APP_CSS_PATH = ADMIN / "app.css"
 KNOWN_WIDGETS = {
