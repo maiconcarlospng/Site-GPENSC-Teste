@@ -19,6 +19,31 @@ faixa_galeria()
 bloco_intro()
 ```
 
+```{r}
+div(
+  class = "home-arvore-destaque reveal",
+  div(
+    class = "home-arvore-texto",
+    span(class = "home-arvore-selo", "IDENTIDADE E CONHECIMENTO"),
+    h2("Conheça a árvore do GPENSC"),
+    p("O grupo é o tronco; as linhas de pesquisa formam os galhos; os projetos conectam ideias e investigações; e as pessoas e produções científicas dão frutos a esse trabalho coletivo."),
+    tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar a árvore do conhecimento")
+  ),
+  div(
+    class = "home-arvore-simbolo",
+    tags$span(class = "home-arvore-copa", "✳"),
+    tags$span(class = "home-arvore-tronco", "GPENSC"),
+    tags$span(class = "home-arvore-raizes", "PESQUISA · ENSINO · EXTENSÃO")
+  )
+)
+```
+
+<div class="home-frentes" aria-label="Frentes de atuação do GPENSC">
+  <a href="pesquisa.html"><span>01</span><strong>Pesquisa</strong><small>Linhas, projetos e produção científica</small></a>
+  <a href="extensao.html"><span>02</span><strong>Extensão</strong><small>Projetos e diálogo com a comunidade</small></a>
+  <a href="ensino.html"><span>03</span><strong>Ensino</strong><small>Formação, cursos e atividades acadêmicas</small></a>
+</div>
+
 ## {{< var titulo_home_pesquisas >}}
 
 ```{r}
