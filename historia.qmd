@@ -7,8 +7,6 @@ title: "Nossa história"
 ```
 
 
-A trajetória do GPENSC é construída por pessoas, parcerias, projetos e experiências de ensino, pesquisa e extensão. Esta linha do tempo reúne acontecimentos institucionais confirmados e será atualizada coletivamente.
-
 ```{r}
 source("R/helpers.R")
 
