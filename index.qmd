@@ -165,8 +165,7 @@ if (nrow(eventos_home_futuros) > 0) {
 } else {
   div(
     class = "agenda-sem-eventos",
-    p("No momento, não há atividades programadas."),
-    span("Acompanhe os canais oficiais do GPENSC para ficar por dentro das próximas ações.")
+    p("Nenhuma atividade programada no momento.")
   )
 }
 ```
