@@ -44,19 +44,44 @@ div(
   <a href="ensino.html"><span>03</span><strong>Ensino</strong><small>Formação, cursos e atividades acadêmicas</small></a>
 </div>
 
-<section class="home-publicos" aria-labelledby="home-publicos-titulo">
-  <div class="home-publicos-intro">
-    <span>UM SITE, DIFERENTES CAMINHOS</span>
-    <h2 id="home-publicos-titulo">Encontre o que procura</h2>
-    <p>O conteúdo é organizado para facilitar o acesso de quem pesquisa, estuda, atua nos serviços ou deseja conhecer os temas trabalhados pelo grupo.</p>
-  </div>
-  <div class="home-publicos-links">
-    <a href="publicacoes.html"><span>01</span><strong>Comunidade científica</strong><small>Artigos, pesquisas e produção acadêmica</small></a>
-    <a href="ensino.html"><span>02</span><strong>Estudantes</strong><small>Formação, métodos e atividades de ensino</small></a>
-    <a href="impacto.html"><span>03</span><strong>Gestores e profissionais</strong><small>Aplicações e diálogo com os serviços</small></a>
-    <a href="extensao.html"><span>04</span><strong>Comunidade</strong><small>Extensão e materiais em linguagem acessível</small></a>
-  </div>
-</section>
+```{r}
+div(
+  class = "home-publicos",
+  div(
+    class = "home-publicos-intro",
+    span("UM SITE, DIFERENTES CAMINHOS"),
+    h2("Encontre o que procura"),
+    p("O conteúdo é organizado para facilitar o acesso de quem pesquisa, estuda, atua nos serviços ou deseja conhecer os temas trabalhados pelo grupo.")
+  ),
+  div(
+    class = "home-publicos-links",
+    tags$a(
+      href = "publicacoes.html",
+      span("01"),
+      tags$strong("Comunidade científica"),
+      tags$small("Artigos, pesquisas e produção acadêmica")
+    ),
+    tags$a(
+      href = "ensino.html",
+      span("02"),
+      tags$strong("Estudantes"),
+      tags$small("Formação, métodos e atividades de ensino")
+    ),
+    tags$a(
+      href = "impacto.html",
+      span("03"),
+      tags$strong("Gestores e profissionais"),
+      tags$small("Aplicações e diálogo com os serviços")
+    ),
+    tags$a(
+      href = "extensao.html",
+      span("04"),
+      tags$strong("Comunidade"),
+      tags$small("Extensão e materiais em linguagem acessível")
+    )
+  )
+)
+```
 
 ## {{< var titulo_home_pesquisas >}}
 
