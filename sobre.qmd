@@ -14,6 +14,10 @@ source("R/helpers.R")
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
 integrantes <- registros_reais(equipe, "nome")
+fotos_sobre <- galeria[
+  !is.na(galeria$arquivo) & nzchar(trimws(as.character(galeria$arquivo))),
+  , drop = FALSE
+]
 
 # Usa a categoria escolhida no painel; para registros antigos, tenta inferir pelo papel.
 categoria_integrante <- function(e) {
@@ -96,6 +100,47 @@ div(
     })
   ),
 
+
+  # Galeria própria da página Quem somos; fotografias cadastradas no painel.
+  if (nrow(fotos_sobre) > 0) {
+    div(
+      class = "gp-sobre-fotos",
+      div(
+        class = "gp-sobre-fotos-cabecalho",
+        h2("Registros em imagens"),
+        p("Fotografias do acervo do GPENSC.")
+      ),
+      div(
+        class = "gp-sobre-fotos-navegacao",
+        tags$button(type = "button", class = "gp-sobre-fotos-controle gp-sobre-fotos-anterior",
+                    `aria-label` = "Foto anterior", "‹"),
+        div(
+          class = "gp-sobre-fotos-janela",
+          tabindex = "0",
+          `aria-label` = "Galeria de fotografias do GPENSC",
+          div(
+            class = "gp-sobre-fotos-trilha",
+            lapply(seq_len(nrow(fotos_sobre)), function(i) {
+              legenda <- valor_publico(fotos_sobre$legenda[i])
+              tags$figure(
+                class = "gp-sobre-foto",
+                tags$img(
+                  src = caminho_img(fotos_sobre$arquivo[i]),
+                  alt = if (is.null(legenda)) paste("Fotografia", i, "do acervo do GPENSC") else legenda,
+                  loading = if (i == 1) "eager" else "lazy"
+                ),
+                if (!is.null(legenda)) tags$figcaption(legenda)
+              )
+            })
+          )
+        ),
+        tags$button(type = "button", class = "gp-sobre-fotos-controle gp-sobre-fotos-proximo",
+                    `aria-label` = "Próxima foto", "›")
+      ),
+      p(class = "gp-sobre-fotos-contador", `aria-live` = "polite",
+        paste0("Foto 1 de ", nrow(fotos_sobre)))
+    )
+  } else NULL,
 
   div(
     class = "sobre-historia-link",
@@ -315,4 +360,9 @@ div(
            cfg$botao_dgp)
   )
 )
+```
+
+
+```{=html}
+<script defer src="js/galeria-sobre.js"></script>
 ```
