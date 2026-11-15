@@ -16,15 +16,15 @@ if (nrow(parcerias_site) > 0) {
       div(
         class = "parcerias-catalogo",
         lapply(seq_len(nrow(dados)), function(i) {
-          p <- dados[i, , drop = FALSE]
-          logo <- valor_publico(p$logo)
-          url <- valor_publico(p$url)
-          marca <- if (!is.null(logo)) tags$img(src = caminho_img(logo), alt = paste("Identidade visual:", p$nome[1]), loading = "lazy") else span(class = "parceria-sigla", as.character(p$sigla[1]))
+          parceria <- dados[i, , drop = FALSE]
+          logo <- valor_publico(parceria$logo)
+          url <- valor_publico(parceria$url)
+          marca <- if (!is.null(logo)) tags$img(src = caminho_img(logo), alt = paste("Identidade visual:", parceria$nome[1]), loading = "lazy") else span(class = "parceria-sigla", as.character(parceria$sigla[1]))
           div(
             class = "parceria-instituicao",
             div(class = "parceria-marca", marca),
-            h3(as.character(p$nome[1])),
-            if (tem(p$uf)) p(class = "parceria-local", as.character(p$uf[1])),
+            h3(as.character(parceria$nome[1])),
+            if (tem(parceria$uf)) p(class = "parceria-local", as.character(parceria$uf[1])),
             if (!is.null(url)) tags$a("Visitar instituição", href = url, target = "_blank", rel = "noopener noreferrer")
           )
         })
