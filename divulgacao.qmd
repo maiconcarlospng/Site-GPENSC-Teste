@@ -34,16 +34,11 @@ Conteúdos audiovisuais, registros de atividades e materiais educativos.
 [Assistir aos vídeos](videos.qmd)
 :::
 ::: {.divulgacao-item}
-### Materiais educativos
+### Materiais educativos e anuário
 
-Cartilhas, infográficos e outros recursos de comunicação para diferentes públicos.
+Cartilhas, infográficos e outros recursos. O anuário do GPENSC está previsto a partir de 2027.
 
-[Consultar materiais educativos](materiais.qmd)
+[Consultar materiais](materiais.qmd)
 :::
 ::::
 
-## Anuário do GPENSC
-
-Com início previsto para 2027, o anuário reunirá atividades, projetos, produções e acontecimentos do grupo.
-
-[Consultar materiais e anuários disponíveis](materiais.qmd)
