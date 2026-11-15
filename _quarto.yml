@@ -24,12 +24,14 @@ website:
     background: light
     
     right:
-      - href: sobre.qmd
-        text: Quem somos
-      - href: historia.qmd
-        text: Nossa história
-      - href: arvore.qmd
-        text: Árvore do conhecimento
+      - text: O GPENSC
+        menu:
+          - href: sobre.qmd
+            text: Quem somos
+          - href: historia.qmd
+            text: Nossa história
+          - href: arvore.qmd
+            text: Árvore do conhecimento
       - text: Pesquisa
         menu:
           - href: pesquisa.qmd
@@ -56,14 +58,18 @@ website:
             text: Livros e e-books
           - href: videos.qmd
             text: Vídeos
-      - href: agenda.qmd
-        text: Agenda
-      - href: noticias.qmd
-        text: Notícias
-      - href: parcerias.qmd
-        text: Parcerias
-      - href: impacto.qmd
-        text: Impacto social
+      - text: Agenda e notícias
+        menu:
+          - href: agenda.qmd
+            text: Agenda
+          - href: noticias.qmd
+            text: Notícias
+      - text: Parcerias e impacto
+        menu:
+          - href: parcerias.qmd
+            text: Parcerias
+          - href: impacto.qmd
+            text: Impacto social
       - href: contato.qmd
         text: Contato
 
