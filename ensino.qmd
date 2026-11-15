@@ -7,7 +7,7 @@ title: "Ensino"
 ```
 
 
-O GPENSC reúne nesta página cursos, workshops, palestras, outras atividades formativas e conteúdos de disciplinas. As datas das próximas atividades são divulgadas na [Agenda](agenda.qmd).
+As próximas datas são divulgadas na [Agenda](agenda.qmd).
 
 ```{r}
 source("R/helpers.R")
