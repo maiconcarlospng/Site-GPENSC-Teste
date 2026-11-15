@@ -12,7 +12,7 @@ description: "Conheça a iniciativa de extensão voltada à rotulagem e à infor
     <p>O Vi no Rótulo aproxima o tema da rotulagem de alimentos do cotidiano, valorizando a leitura crítica das informações apresentadas nas embalagens.</p>
     <a class="gp-project-button" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Acompanhar o Vi no Rótulo no Instagram</a>
   </div>
-  <img src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração temática de rotulagem, não uma reprodução do logotipo oficial." width="320" height="220">
+  <img src="img/ilustracoes/rotulo-projeto.svg" alt="Ilustração temática de rotulagem, não uma reprodução do logotipo oficial." width="320" height="220">
 </div>
 
 ## Sobre a iniciativa

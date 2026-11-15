@@ -87,11 +87,11 @@ div(
   <div class="gp-home-projects-grid">
     <a href="vi-no-rotulo.html" class="gp-home-project-card">
       <span><strong>Vi no Rótulo</strong><small>Informação e educação sobre rotulagem de alimentos</small></span>
-      <img src="img/ilustracoes/rotulo-editorial.svg" width="130" height="105" loading="lazy" alt="">
+      <img src="img/ilustracoes/rotulo-resumo.svg" width="130" height="105" loading="lazy" alt="">
     </a>
     <a href="capacitacao-epidemiologia.html" class="gp-home-project-card">
       <span><strong>Capacitação em Epidemiologia e Análise de Dados</strong><small>Formação para interpretar dados e evidências em saúde</small></span>
-      <img src="img/ilustracoes/epidemiologia-editorial.svg" width="130" height="105" loading="lazy" alt="">
+      <img src="img/ilustracoes/epidemiologia-resumo.svg" width="130" height="105" loading="lazy" alt="">
     </a>
   </div>
 </section>

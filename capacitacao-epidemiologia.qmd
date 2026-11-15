@@ -12,7 +12,7 @@ description: "Conheça a iniciativa de formação em epidemiologia e análise de
     <p>A capacitação em epidemiologia e análise de dados integra as iniciativas de extensão mencionadas no planejamento do GPENSC.</p>
     <a class="gp-project-button" href="agenda.html">Consultar próximas atividades</a>
   </div>
-  <img src="img/ilustracoes/epidemiologia-editorial.svg" alt="Ilustração temática de análise de dados, não o logotipo oficial do projeto." width="320" height="220">
+  <img src="img/ilustracoes/epidemiologia-projeto.svg" alt="Ilustração temática de análise de dados, não o logotipo oficial do projeto." width="320" height="220">
 </div>
 
 ## A proposta de formação
