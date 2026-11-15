@@ -319,6 +319,15 @@ faixa_galeria <- function() {
 }
 
 bloco_intro <- function() {
+  # A página inicial apresenta as três frentes e oferece acesso direto a cada uma.
+  frente <- function(numero, titulo, descricao, href) {
+    tags$a(
+      class = "intro-sinal-item",
+      href = href,
+      span(class = "gp-activity-numeral", numero),
+      span(class = "intro-sinal-copy", strong(titulo), tags$small(descricao))
+    )
+  }
   div(
     class = "intro reveal",
     div(
@@ -328,24 +337,21 @@ bloco_intro <- function() {
       p(cfg$resumo),
       div(
         class = "intro-acoes",
-        tags$a(class = "btn btn-secondary", href = "sobre.html", "Conheça o GPENSC"),
-        tags$a(class = "intro-link", href = "pesquisa.html", "Explore nossas pesquisas")
+        tags$a(class = "btn btn-secondary", href = "sobre.html", "Conheça o GPENSC")
       )
     ),
     div(
       class = "intro-sinal",
-      div(class = "intro-sinal-cabecalho", "O QUE FAZEMOS"),
+      div(class = "intro-sinal-cabecalho", "ÁREAS DE ATUAÇÃO"),
       div(
         class = "intro-sinal-lista",
-        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "01"), div(strong("Pesquisa"), tags$small("Estudos em alimentação, nutrição e saúde coletiva"))),
-        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "02"), div(strong("Ensino"), tags$small("Formação, cursos e atividades acadêmicas"))),
-        div(class = "intro-sinal-item", span(class = "gp-activity-numeral", "03"), div(strong("Extensão"), tags$small("Trocas de conhecimento com a comunidade")))
-      ),
-      p(class = "intro-sinal-base", "Universidade Federal de Ouro Preto · UFOP")
+        frente("01", "Pesquisa", "Linhas, projetos e publicações", "pesquisa.html"),
+        frente("02", "Ensino", "Formação e atividades acadêmicas", "ensino.html"),
+        frente("03", "Extensão", "Projetos e ações com a comunidade", "extensao.html")
+      )
     )
   )
 }
-
 
 # ---------- CARTÕES "PESQUISAS" ----------
 card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
