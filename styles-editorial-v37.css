@@ -680,6 +680,11 @@ body #quarto-content .gp-indice-pesquisa > a:nth-child(even){
 body #quarto-content .gp-indice-pesquisa > a:last-child{
   border-bottom:0!important;
 }
+/* Cinco seções: o último link ocupa a linha inteira, sem cartão solto. */
+body #quarto-content .gp-indice-pesquisa > a:last-child:nth-child(odd){
+  grid-column:1 / -1!important;
+  border-left:0!important;
+}
 body #quarto-content .gp-indice-pesquisa > a:is(:hover,:focus-visible){
   background:#f1f7ef!important;
 }
@@ -695,6 +700,7 @@ body #quarto-content .gp-indice-pesquisa > a span{
 }
 @media(max-width:680px){
   body #quarto-content .gp-indice-pesquisa{grid-template-columns:minmax(0,1fr)!important}
+  body #quarto-content .gp-indice-pesquisa > a:last-child:nth-child(odd){grid-column:auto!important}
   body #quarto-content .gp-indice-pesquisa > a:nth-child(n){
     border-left:0!important;
     border-bottom:1px solid #e4ebe2!important;
