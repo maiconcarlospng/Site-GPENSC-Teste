@@ -10,8 +10,8 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
   <header class="gp-vi-hero">
     <div class="gp-vi-copy">
       <div class="gp-vi-brand">
-        <img src="img/marcas/vi-no-rotulo-perfil.png" alt="Marca do Vi no Rótulo exibida no perfil @vinorotulo" width="92" height="92">
-        <div><span>GRUPO DE PESQUISA E EXTENSÃO · UFOP</span><strong>VI NO RÓTULO</strong></div>
+        <img src="img/marcas/vi-no-rotulo-oficial.png" alt="Logotipo Vi no Rótulo: o que os consumidores precisam saber?" width="138" height="91">
+        <div><span>PESQUISA E EXTENSÃO · UFOP</span><strong>Vi no Rótulo</strong></div>
       </div>
       <h2>Olhar para o rótulo é entender melhor os alimentos.</h2>
       <p>O Vi no Rótulo compartilha informações e conteúdos educativos sobre alimentos, embalagens e rotulagem nutricional, aproximando ciência e cotidiano.</p>

@@ -15,7 +15,7 @@ A extensão conecta o conhecimento produzido na universidade às necessidades e 
 ```{=html}
 <div class="gp-ext-projects">
   <article class="gp-ext-card gp-ext-card-rotulo">
-    <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-perfil.png" alt="Marca exibida no perfil @vinorotulo" width="80" height="80"><img class="gp-ext-vi-art" src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração de rótulo e lupa" width="206" height="170"></div></div>
+    <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-oficial.png" alt="Logotipo oficial do Vi no Rótulo" width="138" height="91"></div></div>
     <div class="gp-ext-text">
       <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
       <h3>Vi no Rótulo</h3>
@@ -35,6 +35,22 @@ A extensão conecta o conhecimento produzido na universidade às necessidades e 
 </div>
 ```
 
+
+```{=html}
+<section class="gp-ext-guide" aria-label="Como a extensão se conecta com a sociedade">
+  <header class="gp-ext-guide-header">
+    <span class="gp-ext-guide-label">EXTENSÃO UNIVERSITÁRIA</span>
+    <h2>Ciência que se transforma em diálogo e formação</h2>
+    <p>As ações de extensão aproximam a produção acadêmica das experiências e necessidades de estudantes, profissionais, serviços e comunidades.</p>
+  </header>
+  <div class="gp-ext-guide-grid">
+    <article><span class="gp-ext-guide-icon" aria-hidden="true">01</span><h3>Públicos e participação</h3><p>Estudantes, profissionais, gestores e comunidade podem conhecer as frentes de atuação e acompanhar oportunidades divulgadas pelo grupo.</p><a href="contato.html">Entrar em contato <span aria-hidden="true">↗</span></a></article>
+    <article><span class="gp-ext-guide-icon" aria-hidden="true">02</span><h3>Formação e capacitação</h3><p>Atividades de ensino e extensão ligadas a métodos de pesquisa, epidemiologia, dados e informação em alimentação e nutrição.</p><a href="capacitacao-epidemiologia.html">Conhecer a capacitação <span aria-hidden="true">↗</span></a></article>
+    <article><span class="gp-ext-guide-icon" aria-hidden="true">03</span><h3>Materiais e divulgação</h3><p>Conteúdos de divulgação científica e materiais educativos que ajudam a compartilhar os temas abordados pelas iniciativas.</p><a href="materiais.html">Explorar materiais <span aria-hidden="true">↗</span></a></article>
+  </div>
+  <aside class="gp-ext-guide-action"><div><span class="gp-ext-guide-label">PARTICIPE E ACOMPANHE</span><h3>Conheça as atividades do GPENSC</h3><p>Confira eventos, oportunidades divulgadas e canais oficiais de contato.</p></div><div class="gp-ext-guide-buttons"><a href="agenda.html">Ver agenda <span aria-hidden="true">↗</span></a><a href="contato.html">Fale com o grupo <span aria-hidden="true">↗</span></a></div></aside>
+</section>
+```
 
 ## Projetos cadastrados no portfólio
 

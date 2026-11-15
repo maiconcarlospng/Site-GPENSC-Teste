@@ -43,6 +43,8 @@ SITE_CSS_PATHS = (
     ROOT / "styles-projetos-v30.css",
     ROOT / "styles-identidades-v31.css",
     ROOT / "styles-revisao-mobile-v32.css",
+    ROOT / "styles-arvore-v35.css",
+    ROOT / "styles-refino-v36.css",
     ROOT / "styles-home-fix-v33.css",
     ROOT / "styles-identidade-v34.css",
 )

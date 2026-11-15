@@ -103,7 +103,7 @@ tags$section(
         tags$small("Informação sobre rotulagem nutricional para compreender os alimentos."),
         span(class = "gp-home-project-card-cta", "Conhecer o projeto", tags$span(`aria-hidden` = "true", "↗"))
       ),
-      tags$img(src = "img/ilustracoes/rotulo-resumo.svg", width = 160, height = 120, loading = "lazy", alt = "")
+      tags$img(src = "img/marcas/vi-no-rotulo-oficial.png", width = 138, height = 91, loading = "lazy", alt = "Vi no Rótulo")
     ),
     tags$a(
       href = "capacitacao-epidemiologia.html", class = "gp-home-project-card gp-home-project-card--epi",
