@@ -6,7 +6,7 @@ O GPENSC compartilha conhecimentos e experiências por diferentes formatos, busc
 
 ## Materiais e conteúdos
 
-::: {.divulgacao-grade}
+:::: {.divulgacao-grade}
 ::: {.divulgacao-item}
 ### Podcasts
 
@@ -35,7 +35,7 @@ Cartilhas, infográficos e outros recursos de comunicação para diferentes púb
 
 [Conhecer o impacto social](impacto.qmd)
 :::
-:::
+::::
 
 ## Anuário do GPENSC
 
