@@ -84,7 +84,7 @@ div(
   ),
   div(
     class = "contato-assinatura",
-    p(paste(cfg$unidade, cfg$departamento, sep = " · ")),
+    p(paste(cfg$unidade, cfg$departamento, sep = " · "))
   )
 )
 } else {
