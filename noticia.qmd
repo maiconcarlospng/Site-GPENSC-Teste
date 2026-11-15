@@ -14,7 +14,7 @@ if (nrow(noticias_publicadas) == 0) {
     id = "noticia-detalhe-vazio",
     class = "noticia-detalhe-vazio",
     h1("Nenhuma notícia publicada"),
-    p("Cadastre ou selecione uma notícia para visualizar seu detalhamento. Os registros atuais são exemplos de demonstração."),
+    p("Não há notícias publicadas no momento. Consulte a página de notícias para acompanhar as próximas atualizações."),
     tags$a(class = "btn btn-secondary", href = "noticias.html", "Voltar às notícias")
   )
 } else {
