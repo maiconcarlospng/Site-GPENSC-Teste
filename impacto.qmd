@@ -7,8 +7,6 @@ title: "Impacto social"
 ```
 
 
-O GPENSC reúne nesta área produtos e registros de ações que aproximam a pesquisa em nutrição e saúde coletiva dos serviços, dos profissionais e da comunidade.
-
 ## Ações e resultados documentados
 
 Os registros publicados apresentam atividades e resultados confirmados pelo grupo. Para consultar as pesquisas que deram origem a esses trabalhos, acesse a área de [Pesquisa](pesquisa.qmd).
