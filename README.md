@@ -76,6 +76,15 @@ GitHub Pages  ->  site público atualizado
 
 **Regra importante:** salvar no painel não altera diretamente o HTML já publicado. O painel cria um commit no repositório. A mudança pública só aparece depois que a execução do GitHub Actions publicar com sucesso.
 
+
+### Organização das páginas públicas
+
+A navegação principal é dividida entre **Grupo**, **Pesquisa**, **Extensão**, **Ensino**, **Divulgação**, **Agenda**, **Notícias** e **Contato**. Quem somos, história, árvore, parcerias e impacto social estão reunidos em Grupo; os acervos de pesquisa e de divulgação ficam em seus respectivos submenus.
+
+A página inicial apresenta o grupo, oferece acesso direto às três frentes, destaca a árvore do conhecimento, pesquisas, iniciativas de extensão e a próxima atividade. As notícias só são exibidas na home quando houver registros reais. O índice completo de pesquisas aparece em `pesquisa.qmd` e os formatos de divulgação em `divulgacao.qmd`, evitando replicar o mesmo conjunto de atalhos.
+
+As páginas de projetos mantêm sua identidade própria; os destaques de Extensão não devem ser repetidos na tabela de outros projetos. Se não houver projetos adicionais ou coordenadas de parcerias, essas seções não exibem um segundo aviso vazio. O conteúdo segue editável pelos dados YAML e pelo painel administrativo.
+
 ---
 
 ## Painel administrativo
