@@ -108,6 +108,7 @@ div(
           )
         ),
         div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
+        p(class = "gp-tree-swipe-hint", "No celular, deslize o desenho para os lados e toque nos ramos numerados. Você também pode usar a busca abaixo."),
         div(class = "gp-tree-legend",
             span("Tronco: GPENSC"),
             span("Galhos: linhas de pesquisa e projetos"),

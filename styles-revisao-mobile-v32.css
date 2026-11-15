@@ -1,0 +1,202 @@
+/* GPENSC — revisão responsiva 32. Última camada do tema.
+   Evita divergências entre home/páginas internas. Não altera marcas oficiais. */
+:root{--gp-touch:44px;--gp-side-pad:clamp(.85rem,3.5vw,1.5rem)}
+:where(main.content,#quarto-content,.quarto-container,.quarto-layout-cell){min-width:0}
+:where(main.content,#quarto-content) img{max-width:100%;height:auto}
+main.content :where(h1,h2,h3,h4,p,a,span,strong){overflow-wrap:break-word}
+main.content :where(a,button,input,select,textarea):focus-visible{outline:3px solid #d9731f;outline-offset:3px}
+main.content :where(.pesquisa-atalho,.linha-pesquisa-card,.parceria-instituicao,.gp-acervo-card,.extensao-iniciativa,.divulgacao-item,.impacto-eixo){min-width:0}
+main.content :where(.pq-blocos,.home-frentes,.home-publicos-links,.gp-acervo,.gp-home-projects-grid,.gp-ext-projects,.gp-project-steps,.gp-vi-topic-cards) > *{min-width:0}
+main.content :where(.pq-blocos a.pq,.pesquisa-atalho,.gp-acervo-card,.divulgacao-item,.impacto-eixo):hover{background:#eef6e9!important;border-color:#a5c895!important;box-shadow:0 9px 26px rgba(31,77,43,.12)!important}
+main.content :where(.pq-blocos a.pq,.pesquisa-atalho,.gp-acervo-card,.divulgacao-item,.impacto-eixo):focus-within{outline:2px solid #659b50;outline-offset:2px}
+main.content :where(.pq-blocos a.pq,.pesquisa-atalho,.gp-acervo-card,.divulgacao-item,.impacto-eixo) :where(h3,h4,p,span){color:inherit}
+.gp-home-project-card--vi:hover,.gp-home-project-card--vi:focus-visible{background:#d3eeee!important}
+.dataTables_wrapper{max-width:100%;min-width:0}
+.dataTables_wrapper .dataTables_scroll,.dataTables_wrapper .dataTables_scrollBody,.dataTables_wrapper .dataTables_scrollHead{max-width:100%}
+.dataTables_wrapper .dataTables_scrollBody{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.gp-tree-scroll{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin}
+.gp-tree-swipe-hint{display:none;color:#496a54;font-size:.79rem!important;line-height:1.45!important;margin:.3rem 1rem .9rem!important}
+.gp-section-illustration{min-width:0}
+.gp-section-illustration p{overflow-wrap:anywhere}
+.gp-section-illustration img{object-position:center}
+#quarto-content a:focus-visible{scroll-margin-top:6rem}
+@media(max-width:1450px){
+  /* O menu colapsa de forma previsível também em tablets e notebooks estreitos.
+     A barra tem quatro posições: menu, marca, idiomas e busca. */
+  #quarto-header .navbar.navbar-expand-lg .navbar-container{
+    display:grid!important;
+    grid-template-columns:44px minmax(44px,1fr) auto 42px!important;
+    grid-template-rows:auto!important;
+    align-items:center!important;
+    gap:0 .4rem!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    padding:.35rem var(--gp-side-pad)!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-toggler{
+    display:inline-flex!important;
+    grid-column:1!important;grid-row:1!important;
+    width:44px!important;min-width:44px!important;height:44px!important;
+    min-height:44px!important;max-width:44px!important;
+    padding:.55rem!important;align-items:center;justify-content:center;
+    margin:0!important;position:relative!important;z-index:3!important;
+    order:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand-container{
+    grid-column:2!important;grid-row:1!important;
+    justify-self:start!important;align-self:center!important;
+    min-width:0!important;max-width:100%!important;
+    width:auto!important;flex:0 1 auto!important;margin:0!important;
+    order:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand{
+    display:flex!important;align-items:center!important;gap:.3rem!important;
+    min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-logo{
+    width:auto!important;height:42px!important;max-width:55px!important;
+    object-fit:contain!important;flex:0 0 auto!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .bandeiras-container{
+    grid-column:3!important;grid-row:1!important;
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    gap:.18rem!important;width:auto!important;max-width:none!important;
+    min-width:0!important;margin:0!important;padding:0!important;
+    flex:0 0 auto!important;order:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .gp-language-button{
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    width:34px!important;min-width:34px!important;height:40px!important;
+    min-height:40px!important;padding:.3rem!important;border-radius:8px!important;
+    font-size:.7rem!important;line-height:1!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg #quarto-search{
+    grid-column:4!important;grid-row:1!important;
+    display:flex!important;align-items:center!important;justify-self:end!important;
+    width:42px!important;max-width:42px!important;min-width:42px!important;
+    flex:0 0 42px!important;margin:0!important;padding:0!important;order:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg #quarto-search .aa-DetachedSearchButton{
+    width:42px!important;min-width:42px!important;min-height:42px!important;
+    padding:.45rem!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse:not(.show):not(.collapsing){
+    display:none!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.show,
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.collapsing{
+    display:block!important;grid-column:1/-1!important;grid-row:2!important;
+    width:100%!important;max-width:100%!important;min-width:0!important;
+    flex:0 0 100%!important;order:0!important;position:relative!important;
+    margin:.35rem 0 0!important;padding:.55rem .1rem!important;
+    border-top:1px solid #dae6d5!important;
+    background:#fff!important;box-shadow:none!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.show{
+    max-height:min(72dvh,660px)!important;overflow-y:auto!important;overscroll-behavior:contain!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse .navbar-nav{
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    width:100%!important;min-width:0!important;margin:0!important;padding:0!important;gap:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse .nav-item,
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse .nav-link{width:100%!important;min-width:0!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse .nav-link{
+    display:flex!important;align-items:center!important;justify-content:space-between!important;
+    min-height:var(--gp-touch)!important;padding:.73rem .8rem!important;
+    font-size:.92rem!important;font-weight:650!important;white-space:normal!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .dropdown-menu{
+    max-width:100%!important;position:static!important;
+    box-shadow:none!important;border:0!important;
+    background:#f5f9f2!important;border-radius:10px!important;margin:.1rem .3rem .5rem!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .dropdown-menu .dropdown-item{
+    min-height:42px!important;display:flex!important;align-items:center!important;
+    white-space:normal!important;font-size:.9rem!important;padding:.65rem .85rem!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .gp-nav-idiomas-item,
+  #quarto-header .navbar.navbar-expand-lg .gp-nav-idiomas-desktop{display:none!important}
+}
+@media(max-width:960px){
+  main.content{width:calc(100% - 1.7rem)!important;max-width:100%!important;margin-inline:auto!important}
+  .gp-section-illustration{gap:1rem!important;padding:1rem 1.15rem!important}
+  .gp-section-illustration img{width:min(145px,26vw)!important;height:auto!important;max-height:130px!important}
+  .gp-tree-layout,.gp-project-hero,.gp-vi-hero{grid-template-columns:minmax(0,1fr)!important}
+  .gp-tree-detail{min-width:0}
+  .gp-project-steps,.gp-vi-topic-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gp-home-projects-grid,.gp-ext-projects{grid-template-columns:minmax(0,1fr)!important}
+  .gpensc-mapa-parcerias{max-width:100%!important}
+}
+@media(max-width:680px){
+  #quarto-header .navbar.navbar-expand-lg .navbar-container{padding:.34rem .65rem!important;gap:0 .2rem!important;grid-template-columns:44px minmax(38px,1fr) auto 42px!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-logo{height:40px!important;max-width:46px!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand .navbar-title{font-size:clamp(.72rem,3vw,.9rem)!important;max-width:92px!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  #quarto-header .navbar.navbar-expand-lg .gp-language-button{width:33px!important;min-width:33px!important;min-height:39px!important;height:39px!important}
+  main.content{width:calc(100% - 1.25rem)!important;min-width:0!important;padding-top:1.15rem!important}
+  #title-block-header.quarto-title-block{min-height:110px!important;padding:1.35rem 1rem!important;margin-bottom:1rem!important}
+  #title-block-header .quarto-title h1{font-size:clamp(1.45rem,6.5vw,2.05rem)!important;line-height:1.17!important;overflow-wrap:anywhere!important}
+  .gp-section-illustration{margin:.1rem 0 1.4rem!important;padding:1rem!important;gap:.7rem!important;border-radius:14px!important}
+  .gp-section-illustration img{width:82px!important;max-height:84px!important;height:auto!important}
+  .gp-section-illustration p{font-size:.9rem!important;line-height:1.48!important}
+  .hero,.home-arvore-destaque,.home-publicos,.intro,.faixa-agenda{min-width:0!important}
+  .intro,.home-frentes,.home-publicos,.home-publicos-links,.gp-acervo,.pesquisa-atalhos,
+  .linhas-pesquisa-grid,.equipe-grid,.sobre-cards,.impacto-eixos,.divulgacao-grade,
+  .ensino-eventos,.parcerias-catalogo,.contato-grade,.objetivos-grid,.pq-blocos{
+    grid-template-columns:minmax(0,1fr)!important
+  }
+  .home-arvore-destaque{grid-template-columns:minmax(0,1fr)!important;gap:1rem!important;padding:1.1rem!important}
+  .home-arvore-simbolo{min-height:125px!important}
+  .gp-home-projects{margin:1.5rem 0!important}
+  .gp-home-projects-header{align-items:flex-start!important;gap:.4rem!important}
+  .gp-home-project-card{grid-template-columns:minmax(0,1fr) 85px!important;gap:.7rem!important;padding:1rem!important}
+  .gp-home-project-card img{width:85px!important;height:75px!important;object-fit:contain!important}
+  .gp-home-project-card strong{font-size:.97rem!important;line-height:1.33!important}
+  .gp-home-project-card small{font-size:.76rem!important;line-height:1.42!important}
+  .gp-ext-text{padding:1.1rem!important}
+  .gp-ext-card{border-radius:16px!important}
+  .gp-project-hero,.gp-vi-hero{padding:1.1rem!important}
+  .gp-project-hero img,.gp-vi-art img{max-width:230px!important;max-height:180px!important}
+  .gp-project-steps,.gp-vi-topic-cards{grid-template-columns:minmax(0,1fr)!important}
+  .gp-tree-swipe-hint{display:block!important}
+  .gp-tree-map-card,.gp-tree-canvas-card{min-width:0!important}
+  .gp-tree-scroll{margin:0!important;max-width:100%!important;overflow-x:auto!important;scroll-behavior:smooth!important}
+  #gp-tree-canvas{min-width:700px!important}
+  .gp-tree-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .gp-tree-roots,.gp-tree-branches{grid-template-columns:minmax(0,1fr)!important}
+  .gp-tree-detail{padding:1rem!important}
+  .gp-tree-detail h2{font-size:1.24rem!important}
+  .gp-tree-controls button{min-width:var(--gp-touch)!important;min-height:var(--gp-touch)!important}
+  .gp-tree-index-head{display:block!important}
+  .gp-tree-search input{width:100%!important;min-height:var(--gp-touch)!important;font-size:16px!important}
+  .gp-tree-branch-button{min-height:var(--gp-touch)!important}
+  .gp-vi-brand{gap:.7rem!important}
+  .gp-vi-brand img{width:68px!important;height:68px!important;max-width:68px!important;max-height:68px!important}
+  .gp-vi-copy h2{font-size:clamp(1.55rem,7.5vw,2.05rem)!important}
+  .gp-vi-cta{padding:1.1rem!important;gap:1rem!important}
+  .gp-vi-cta a,.gp-project-button,.gp-vi-action{min-height:var(--gp-touch)!important}
+  .gp-section-illustration,.gp-home-project-card,.gp-vi-hero{overflow:visible}
+  .dataTables_wrapper .dataTables_length,.dataTables_wrapper .dataTables_filter{float:none!important;text-align:left!important;width:100%!important;margin:.4rem 0!important}
+  .dataTables_wrapper .dataTables_filter input{width:100%!important;max-width:100%!important;margin:.35rem 0!important;min-height:44px!important;font-size:16px!important}
+  .dataTables_wrapper .dataTables_length select{min-height:44px!important;font-size:16px!important}
+  .dataTables_wrapper .dataTables_info,.dataTables_wrapper .dataTables_paginate{float:none!important;width:100%!important;text-align:left!important;margin:.8rem 0!important}
+  .dataTables_wrapper .dataTables_scrollBody table{min-width:590px}
+  .gpensc-mapa-parcerias{height:min(370px,60vh)!important;max-height:400px}
+  .historia-item,.contato-item{min-width:0!important}
+  footer.footer .gp-footer-bottom,footer.footer .gp-footer-bottom>p{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;flex-wrap:nowrap!important;gap:.55rem!important}
+  footer.footer .gp-footer-copyright{min-width:0!important;flex:1 1 auto!important;font-size:.64rem!important;line-height:1.35!important}
+  footer.footer .gp-footer-admin-link{flex:0 0 auto!important;font-size:.68rem!important;min-height:32px!important;align-items:center!important}
+}
+@media(max-width:365px){
+  #quarto-header .navbar.navbar-expand-lg .navbar-container{gap:0 .1rem!important;padding:.3rem .4rem!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-logo{height:36px!important;max-width:39px!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand .navbar-title{display:none!important}
+  #quarto-header .navbar.navbar-expand-lg .gp-language-button{width:32px!important;min-width:32px!important;font-size:.68rem!important}
+  .gp-home-project-card{grid-template-columns:minmax(0,1fr) 72px!important}
+  .gp-home-project-card img{width:72px!important}
+  .gp-tree-metrics strong{font-size:1.5rem!important}
+}
+@media(prefers-reduced-motion:reduce){.gp-tree-scroll{scroll-behavior:auto!important}main.content *{scroll-behavior:auto!important}}
