@@ -6,7 +6,7 @@ A pesquisa é uma das frentes de atuação do GPENSC. O grupo desenvolve estudos
 
 ## Explore a produção científica
 
-::: {.pesquisa-atalhos}
+:::: {.pesquisa-atalhos}
 ::: {.pesquisa-atalho}
 <span>01</span>
 ### Linhas de pesquisa
@@ -14,7 +14,7 @@ A pesquisa é uma das frentes de atuação do GPENSC. O grupo desenvolve estudos
 Conheça os temas e as áreas de investigação cadastradas pelo grupo.
 
 [Explorar linhas](linhas.qmd)
-:::
+::::
 ::: {.pesquisa-atalho}
 <span>02</span>
 ### Projetos
