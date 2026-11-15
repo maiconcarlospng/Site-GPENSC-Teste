@@ -7,24 +7,13 @@ title: "Impacto social"
 ```
 
 
-A produção científica do GPENSC dialoga com questões concretas da alimentação, da nutrição e da saúde coletiva. O grupo busca aproximar pesquisa, formação e extensão das necessidades de diferentes populações e dos serviços e políticas públicas.
+O GPENSC reúne nesta área produtos e registros de ações que aproximam a pesquisa em nutrição e saúde coletiva dos serviços, dos profissionais e da comunidade.
 
-## Pesquisa, serviços e comunidade
+## Ações e resultados documentados
 
-A contribuição das pesquisas depende de como seus resultados são discutidos, compartilhados e utilizados. Por isso, o GPENSC organiza suas produções científicas e materiais de divulgação para públicos com necessidades diferentes.
-
-Na área de [Pesquisa](pesquisa.qmd), pesquisadores e estudantes podem consultar linhas de investigação, projetos, metodologias e publicações. As atividades de [Ensino](ensino.qmd) e [Extensão](extensao.qmd) aproximam esses temas da formação de profissionais e das ações voltadas à comunidade.
-
-Gestores e profissionais de saúde podem utilizar os resultados publicados como subsídio para discussões técnicas, considerando os limites de cada estudo. Para a população em geral, a área de [Divulgação científica](divulgacao.qmd) reúne materiais em linguagem acessível.
-
-## Da pesquisa à sociedade
-
-Nesta seção são apresentados produtos e registros de ações com informações confirmadas pelo grupo.
+Os registros publicados apresentam atividades e resultados confirmados pelo grupo. Para consultar as pesquisas que deram origem a esses trabalhos, acesse a área de [Pesquisa](pesquisa.qmd).
 
 ```{r}
 source("R/helpers.R")
 renderizar_acervo("impactos", "Ainda não há relatos de impacto publicados")
 ```
-
-[Conheça os projetos de extensão](extensao.qmd){.btn .btn-secondary}
-[Veja os materiais de divulgação científica](divulgacao.qmd){.btn .btn-secondary}
