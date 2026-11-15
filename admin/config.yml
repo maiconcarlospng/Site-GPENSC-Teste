@@ -290,6 +290,10 @@ collections:
                 - { label: "Nome da instituição", name: "nome", widget: "string" }
                 - { label: "Sigla", name: "sigla", widget: "string" }
                 - { label: "UF", name: "uf", widget: "string", hint: "Ex.: MG." }
+                - { label: "Cidade", name: "cidade", widget: "string", required: false }
+                - { label: "País", name: "pais", widget: "string", required: false, default: "Brasil" }
+                - { label: "Latitude", name: "latitude", widget: "string", required: false, hint: "Coordenada decimal aproximada do município ou campus." }
+                - { label: "Longitude", name: "longitude", widget: "string", required: false, hint: "Coordenada decimal aproximada do município ou campus." }
                 - { label: "Grupo de exibição", name: "grupo", widget: "select", options: ["Parcerias registradas no CNPq", "Vínculos institucionais"] }
                 - { label: "Logo", name: "logo", widget: "image", required: false, hint: "Opcional. Se não houver logo, o site exibirá a sigla da instituição." }
                 - { label: "Site institucional", name: "url", widget: "string", required: false, pattern: ['^https?://.+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
