@@ -181,9 +181,10 @@ collections:
               summary: "{{fields.nome}} — {{fields.categoria}}"
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
-                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Coordenação", "Docentes e pesquisadores", "Pós-graduandos", "Graduandos", "Colaboradores e egressos", "Outros integrantes"], required: false, hint: "Usada para agrupar os perfis na página pública." }
+                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Coordenação", "Docentes e pesquisadores", "Colaboradores", "Egressos", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos"], required: false, hint: "Usada para agrupar os perfis na página pública." }
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
+                - { label: "E-mail de contato", name: "email", widget: "string", required: false }
                 - { label: "Foto", name: "foto", widget: "image", required: false }
                 - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "ORCID", name: "orcid", widget: "string", required: false, hint: "Informe somente o identificador, sem https://orcid.org/.", pattern: ['^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$', 'Informe o ORCID no formato 0000-0002-1825-0097.'] }
