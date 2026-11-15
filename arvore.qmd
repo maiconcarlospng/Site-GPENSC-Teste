@@ -3,13 +3,35 @@ title: "Árvore do conhecimento"
 description: "Visualize as conexões entre o GPENSC, suas linhas, projetos, integrantes e produções."
 ---
 
+```{=html}
 <div class="gp-tree-hero">
   <div>
-    <span class="gp-tree-eyebrow">CONHECIMENTO QUE CRESCE EM REDE</span>
-    <p><strong>O GPENSC é o tronco</strong> que integra pesquisa, ensino e extensão. As linhas de pesquisa e seus projetos formam os galhos; as pessoas e as produções científicas representam os frutos desse trabalho coletivo.</p>
+    <span class="gp-tree-eyebrow">GPENSC · CONHECIMENTO EM REDE</span>
+    <h2>Uma árvore que conecta ideias, pessoas e produções</h2>
+    <p>Explore as linhas de pesquisa e suas conexões reais com projetos, integrantes e resultados. <strong>O GPENSC é o tronco</strong>; os galhos representam linhas e projetos, e os frutos são as pessoas e as produções científicas.</p>
   </div>
-  <img src="img/ilustracoes/arvore.svg" alt="" width="170" height="125">
+  <div class="gp-tree-hero-art" aria-hidden="true">
+    <svg viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M148 167V96m0 45-67-64m67 38 69-60m-70 30-20-44" stroke="#E7C18A" stroke-width="11" stroke-linecap="round"/>
+      <path d="M114 168q34-20 70 0" stroke="#C79058" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="80" cy="72" r="29" fill="#88BC66"/><circle cx="127" cy="46" r="33" fill="#A8CD78"/><circle cx="184" cy="50" r="36" fill="#6DA94F"/><circle cx="224" cy="82" r="27" fill="#9EC66F"/><circle cx="146" cy="84" r="39" fill="#5F9A3E"/>
+      <circle cx="80" cy="83" r="10" fill="#EDAB46"/><circle cx="183" cy="79" r="11" fill="#D9731F"/><circle cx="220" cy="97" r="10" fill="#F0B34B"/>
+      <circle cx="148" cy="96" r="25" fill="#F3ECDD" stroke="#E2B97A" stroke-width="4"/>
+      <path d="M138 95h20m-10-10v20" stroke="#1F4D2B" stroke-width="5" stroke-linecap="round"/>
+      <path d="M74 184h148" stroke="#D5E6BD" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+  </div>
 </div>
+<section class="gp-tree-overview" aria-label="Como funciona a Árvore do Conhecimento">
+  <div><span class="gp-tree-eyebrow">ENTENDA A REPRESENTAÇÃO</span><h2>Conhecimento que cria raízes e dá frutos</h2><p>A árvore é um mapa vivo das conexões registradas pelo GPENSC. Escolha um galho no desenho ou na lista para conhecer os vínculos efetivamente cadastrados. A visualização não atribui resultados ou integrantes a linhas sem um vínculo documentado.</p></div>
+  <div class="gp-tree-phases">
+    <div><span>01 · BASE</span><strong>Raízes</strong><small>Fundamentos científicos e compromisso social</small></div>
+    <div><span>02 · IDENTIDADE</span><strong>Tronco</strong><small>GPENSC e sua atuação integrada</small></div>
+    <div><span>03 · ATUAÇÃO</span><strong>Galhos</strong><small>Linhas de pesquisa e projetos associados</small></div>
+    <div><span>04 · RESULTADOS</span><strong>Frutos</strong><small>Pessoas e produções cadastradas</small></div>
+  </div>
+</section>
+```
 
 ```{r}
 source("R/helpers.R")
@@ -59,6 +81,7 @@ ramo <- function(i) {
   vinculos <- nrow(pr) + nrow(pu) + nrow(de) + nrow(pe)
   tags$li(
     class = "gp-tree-branch", "data-line-id" = id,
+    "data-has-links" = if (vinculos > 0) "1" else "0",
     tags$button(
       type = "button", class = "gp-tree-branch-button", "aria-expanded" = "false",
       span(class = "gp-tree-number", sprintf("%02d", i)),
@@ -92,6 +115,10 @@ div(
     div(strong(if (nrow(pubs_arvore)) nrow(pubs_arvore) else "—"), span("produções publicadas"))
   ),
   if (nrow(linhas_arvore)) tagList(
+    div(class = "gp-tree-feature-heading",
+        div(span(class = "gp-tree-eyebrow", "MAPA INTERATIVO"),
+            h2("Explore a Árvore do Conhecimento"),
+            p("Toque nos frutos numerados para explorar as linhas e suas conexões."))),
     div(
       class = "gp-tree-layout",
       div(
@@ -110,9 +137,10 @@ div(
         div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
         p(class = "gp-tree-swipe-hint", "No celular, deslize o desenho para os lados e toque nos ramos numerados. Você também pode usar a busca abaixo."),
         div(class = "gp-tree-legend",
+            span("Raízes: fundamentos"),
             span("Tronco: GPENSC"),
-            span("Galhos: linhas de pesquisa e projetos"),
-            span("Frutos: pessoas e produções científicas"))
+            span("Galhos: linhas de pesquisa"),
+            span("Frutos: pessoas e produções"))
       ),
       tags$aside(id = "gp-tree-detail", class = "gp-tree-detail",
                  "aria-live" = "polite",
@@ -136,10 +164,14 @@ div(
                          placeholder = "Ex.: Rotulagem, saúde mental…"))
       ),
       tags$p("Escolha uma linha para visualizar as conexões cadastradas."),
+      div(class = "gp-tree-filterbar", role = "group", "aria-label" = "Filtrar os galhos",
+          tags$button(type = "button", class = "is-active", "data-tree-filter" = "all", "aria-pressed" = "true", "Todas as linhas"),
+          tags$button(type = "button", "data-tree-filter" = "linked", "aria-pressed" = "false", "Com vínculos cadastrados"),
+          span(id = "gp-tree-count", "Carregando linhas…")),
       tags$ol(id = "gp-tree-branches", class = "gp-tree-branches",
               lapply(seq_len(nrow(linhas_arvore)), ramo)),
       tags$p(id = "gp-tree-no-results", class = "gp-tree-no-results",
-             "hidden" = "hidden", "Nenhuma linha encontrada para esta busca.")
+             "hidden" = "hidden", "Nenhuma linha encontrada para esta busca ou filtro.")
     )
   ) else estado_vazio("Linhas em atualização",
     "O desenho será preenchido quando as linhas forem revisadas pelo grupo."),
