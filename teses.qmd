@@ -3,7 +3,7 @@ title: "Teses e dissertações"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Percursos de formação e pesquisas desenvolvidas na pós-graduação.</p><img src="img/ilustracoes/teses.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Defesas e qualificações de mestrado e doutorado vinculadas ao GPENSC.</p><img src="img/ilustracoes/teses.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -14,7 +14,6 @@ defesas_publicadas <- registros_reais(defesas, "titulo")
 if (secao_ativa("mostrar_teses")) {
 div(
   class = "pagina-defesas",
-  p(class = "contato-intro", "Defesas e qualificações de mestrado e doutorado orientadas por integrantes do grupo."),
   if (nrow(defesas_publicadas) > 0) {
     defesas_publicadas |>
       arrange(desc(data)) |>
