@@ -7,8 +7,6 @@ title: "Pesquisa"
 ```
 
 
-Consulte as linhas de investigação, os projetos e a produção científica do GPENSC.
-
 ## Acervo de pesquisa
 
 ```{=html}
