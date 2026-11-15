@@ -349,13 +349,8 @@ div(
   },
 
   div(
-    class = "sobre-parcerias-link",
-    p("O GPENSC mantém vínculos com instituições e grupos de pesquisa. Conheça as parcerias e sua distribuição no mapa."),
-    tags$a(class = "btn btn-secondary", href = "parcerias.html", "Conhecer as parcerias")
-  ),
-  div(
     class = "sobre-cta",
-    p(cfg$texto_cta_sobre),
+    p("Registro institucional do GPENSC no CNPq."),
     tags$a(class = "btn btn-secondary", href = dgp_url, target = "_blank", rel = "noopener noreferrer",
            cfg$botao_dgp)
   )
