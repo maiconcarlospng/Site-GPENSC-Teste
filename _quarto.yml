@@ -26,36 +26,44 @@ website:
     right:
       - href: sobre.qmd
         text: Quem somos
-      - href: linhas.qmd
-        text: Linhas de pesquisa
+      - href: historia.qmd
+        text: Nossa história
+      - href: arvore.qmd
+        text: Árvore do conhecimento
       - text: Pesquisa
         menu:
+          - href: pesquisa.qmd
+            text: Visão geral
+          - href: linhas.qmd
+            text: Linhas de pesquisa
           - href: projetos.qmd
             text: Projetos
-          - href: publicacoes.qmd
-            text: Publicações
-      - text: Extensão
-        menu:
-          - href: extensao.qmd
-            text: Projetos de extensão
-          - href: podcasts.qmd
-            text: Podcasts
-      - href: disciplinas.qmd
-        text: Disciplinas
-      - text: Biblioteca virtual
-        menu:
           - href: teses.qmd
             text: Teses e dissertações
+          - href: publicacoes.qmd
+            text: Publicações
+      - href: extensao.qmd
+        text: Extensão
+      - href: ensino.qmd
+        text: Ensino
+      - text: Divulgação científica
+        menu:
+          - href: divulgacao.qmd
+            text: Todos os materiais
+          - href: podcasts.qmd
+            text: Podcasts
           - href: livros.qmd
-            text: Livros
+            text: Livros e e-books
           - href: videos.qmd
             text: Vídeos
-          - href: sites.qmd
-            text: Sites recomendados
-      - href: noticias.qmd
-        text: Notícias
       - href: agenda.qmd
         text: Agenda
+      - href: noticias.qmd
+        text: Notícias
+      - href: parcerias.qmd
+        text: Parcerias
+      - href: impacto.qmd
+        text: Impacto social
       - href: contato.qmd
         text: Contato
 
