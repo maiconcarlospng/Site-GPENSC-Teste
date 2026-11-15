@@ -52,7 +52,7 @@ secao_ativa <- function(chave) {
 COLUNAS <- list(
   noticias    = c("data", "categoria", "titulo", "resumo", "conteudo", "url", "imagem"),
   eventos     = c("data", "tipo", "titulo", "local", "url"),
-  equipe      = c("nome", "categoria", "papel", "formacao", "foto", "lattes", "orcid"),
+  equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
   projetos    = c("titulo", "tipo", "situacao", "coordenador", "inicio", "fim",
                   "linha_id", "financiamento"),
