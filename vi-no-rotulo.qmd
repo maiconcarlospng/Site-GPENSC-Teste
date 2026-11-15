@@ -1,36 +1,48 @@
 ---
 title: "Vi no Rótulo"
-description: "Conheça a iniciativa de extensão voltada à rotulagem e à informação sobre alimentos."
+description: "Pesquisa e extensão em rotulagem de alimentos e educação nutricional."
 ---
 
 [Extensão](extensao.qmd) / Vi no Rótulo
 
-<div class="gp-project-hero gp-project-hero-orange">
-  <div class="gp-project-hero-copy">
-    <span class="gp-project-eyebrow">INICIATIVA DE EXTENSÃO · UFOP</span>
-    <h2>Informação alimentar para compreender e fazer escolhas</h2>
-    <p>O Vi no Rótulo aproxima o tema da rotulagem de alimentos do cotidiano, valorizando a leitura crítica das informações apresentadas nas embalagens.</p>
-    <a class="gp-project-button" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Acompanhar o Vi no Rótulo no Instagram</a>
-  </div>
-  <img src="img/ilustracoes/rotulo-projeto.svg" alt="Ilustração temática de rotulagem, não uma reprodução do logotipo oficial." width="320" height="220">
+<div class="gp-vi-page">
+  <header class="gp-vi-hero">
+    <div class="gp-vi-copy">
+      <div class="gp-vi-brand">
+        <img src="img/marcas/vi-no-rotulo-perfil.png" alt="Marca do Vi no Rótulo exibida no perfil @vinorotulo" width="92" height="92">
+        <div><span>GRUPO DE PESQUISA E EXTENSÃO · UFOP</span><strong>VI NO RÓTULO</strong></div>
+      </div>
+      <h2>Olhar para o rótulo é entender melhor os alimentos.</h2>
+      <p>O Vi no Rótulo compartilha informações e conteúdos educativos sobre alimentos, embalagens e rotulagem nutricional, aproximando ciência e cotidiano.</p>
+      <a class="gp-vi-action" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Acompanhar @vinorotulo <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="gp-vi-art">
+      <img src="img/ilustracoes/rotulo-projeto.svg" alt="Ilustração editorial de lupa e rótulo nas cores turquesa e azul" width="350" height="260">
+      <span>ROTULAGEM · INFORMAÇÃO · EDUCAÇÃO</span>
+    </div>
+  </header>
+
+  <section class="gp-vi-about">
+    <span class="gp-vi-label">SOBRE O PROJETO</span>
+    <h2>Conhecimento para ler, comparar e compreender</h2>
+    <p>O perfil institucional apresenta o Vi no Rótulo como um grupo de pesquisa e extensão vinculado à Escola de Nutrição da UFOP e coordenado pela professora Dra. Camila Carvalho Menezes.</p>
+    <p>Entre as publicações divulgadas pelo projeto estão conteúdos de esclarecimento sobre rótulos de alimentos, informações nutricionais, apresentação da equipe e ações de pesquisa e extensão.</p>
+  </section>
+
+  <section class="gp-vi-topics">
+    <span class="gp-vi-label">CONTEÚDOS EM DESTAQUE</span>
+    <h2>Conheça os temas do Vi no Rótulo</h2>
+    <div class="gp-vi-topic-cards">
+      <article><span>01</span><h3>Decifrando o rótulo</h3><p>Leitura e interpretação das informações encontradas nas embalagens.</p></article>
+      <article><span>02</span><h3>Rotulagem nutricional</h3><p>Conceitos e conteúdos educativos para compreender rótulos de alimentos.</p></article>
+      <article><span>03</span><h3>Pesquisa e extensão</h3><p>Iniciativas, equipe e ações divulgadas nos canais do projeto.</p></article>
+    </div>
+  </section>
+
+  <aside class="gp-vi-cta">
+    <div><span>CANAL DO PROJETO</span><h2>Acompanhe o Vi no Rótulo</h2><p>Consulte o Instagram para verificar as publicações, a equipe e os eventos mais recentes.</p></div>
+    <a href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Abrir Instagram <span aria-hidden="true">↗</span></a>
+  </aside>
 </div>
 
-## Sobre a iniciativa
-
-A rotulagem é uma das formas de comunicar características dos alimentos. Compreender o que aparece nas embalagens pode favorecer o acesso à informação e discussões mais críticas sobre alimentação e nutrição.
-
-O projeto **Vi no Rótulo** tem seu próprio canal de divulgação, que deve ser utilizado como referência para materiais, equipe e atividades anunciadas oficialmente.
-
-<div class="gp-project-steps">
-  <div><span>01</span><h3>Conhecer</h3><p>Observar os elementos e informações apresentados nos rótulos.</p></div>
-  <div><span>02</span><h3>Compreender</h3><p>Explorar o significado das informações e alegações em linguagem acessível.</p></div>
-  <div><span>03</span><h3>Dialogar</h3><p>Compartilhar dúvidas e conteúdos educativos sobre rotulagem.</p></div>
-</div>
-
-## Acompanhe os canais do projeto
-
-Acesse o perfil [@vinorotulo](https://www.instagram.com/vinorotulo/) para conferir publicações e informações diretamente na fonte.
-
-**Identidade visual:** a ilustração desta página é um elemento editorial do site do GPENSC. Ela não substitui o logotipo oficial do Vi no Rótulo; a aplicação de sua marca deverá utilizar arquivos originais aprovados pela equipe.
-
-[Voltar à área de extensão](extensao.qmd){.btn .btn-secondary}
+[Voltar à Extensão](extensao.qmd){.btn .btn-secondary}

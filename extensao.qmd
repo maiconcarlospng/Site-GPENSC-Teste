@@ -11,7 +11,7 @@ A extensão conecta o conhecimento produzido na universidade às necessidades e 
 
 <div class="gp-ext-projects">
   <article class="gp-ext-card gp-ext-card-rotulo">
-    <div class="gp-ext-art"><img src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração editorial de um rótulo de alimentos com lupa. Não é o logotipo oficial do projeto." width="260" height="180"></div>
+    <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-perfil.png" alt="Marca exibida no perfil @vinorotulo" width="80" height="80"><img class="gp-ext-vi-art" src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração de rótulo e lupa" width="206" height="170"></div></div>
     <div class="gp-ext-text">
       <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
       <h3>Vi no Rótulo</h3>

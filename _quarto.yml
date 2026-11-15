@@ -108,6 +108,7 @@ format:
       - styles-direcao-v28.css
       - styles-arvore-v29.css
       - styles-projetos-v30.css
+      - styles-identidades-v31.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html

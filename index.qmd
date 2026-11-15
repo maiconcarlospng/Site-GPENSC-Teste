@@ -85,7 +85,7 @@ div(
     <a href="extensao.html">Conhecer a extensão</a>
   </div>
   <div class="gp-home-projects-grid">
-    <a href="vi-no-rotulo.html" class="gp-home-project-card">
+    <a href="vi-no-rotulo.html" class="gp-home-project-card gp-home-project-card--vi">
       <span><strong>Vi no Rótulo</strong><small>Informação e educação sobre rotulagem de alimentos</small></span>
       <img src="img/ilustracoes/rotulo-resumo.svg" width="130" height="105" loading="lazy" alt="">
     </a>
