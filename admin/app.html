@@ -7,7 +7,8 @@
   <meta name="theme-color" content="#202722">
   <title>Painel administrativo · GPENSC</title>
   <link rel="icon" href="../img/logo_gpensc.png">
-  <link rel="stylesheet" href="app.css?v=20261115-01">
+  <link rel="stylesheet" href="app.css?v=20261115-03"></link>
+  <link rel="stylesheet" href="app-melhorias.css?v=20261115-03">
 </head>
 <body>
   <main id="app" aria-live="polite">
@@ -35,6 +36,8 @@
     <section class="workspace" id="workspace" hidden>
       <aside class="sidebar">
         <a class="brand" href="#inicio"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Administração</small></span></a>
+        <div class="mobile-nav-head"><strong>Áreas de gerenciamento</strong><button type="button" id="mobile-menu-close" aria-label="Fechar escolha de seções">Fechar</button></div>
+        <div class="mobile-nav-search"><label for="mobile-collection-search">Buscar área de gerenciamento</label><input id="mobile-collection-search" type="search" placeholder="Ex.: Notícias, equipe, linhas" autocomplete="off"></div>
         <div class="side-caption">GERENCIAMENTO</div>
         <nav id="collection-nav" aria-label="Seções do painel"></nav>
         <div class="sidebar-bottom">
@@ -62,6 +65,6 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261115-01"></script>
+  <script src="app.js?v=20261115-03"></script>
 </body>
 </html>
