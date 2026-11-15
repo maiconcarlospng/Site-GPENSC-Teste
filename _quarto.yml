@@ -33,28 +33,32 @@ website:
             text: Nossa história
           - href: arvore.qmd
             text: Árvore do conhecimento
+          - href: parcerias.qmd
+            text: Parcerias
+          - href: impacto.qmd
+            text: Impacto social
       - text: Pesquisa
         menu:
           - href: pesquisa.qmd
-            text: Visão geral
+            text: Pesquisa — visão geral
           - href: linhas.qmd
             text: Linhas de pesquisa
-          - href: metodos.qmd
-            text: Metodologias
           - href: projetos.qmd
             text: Projetos
-          - href: teses.qmd
-            text: Teses e dissertações
           - href: publicacoes.qmd
             text: Publicações
+          - href: teses.qmd
+            text: Teses e dissertações
+          - href: metodos.qmd
+            text: Metodologias
       - href: extensao.qmd
         text: Extensão
       - href: ensino.qmd
         text: Ensino
-      - text: Conhecimento
+      - text: Divulgação
         menu:
           - href: divulgacao.qmd
-            text: Todos os materiais
+            text: Divulgação científica
           - href: materiais.qmd
             text: Materiais educativos
           - href: podcasts.qmd
@@ -63,18 +67,10 @@ website:
             text: Livros e e-books
           - href: videos.qmd
             text: Vídeos
-      - text: Agenda
-        menu:
-          - href: agenda.qmd
-            text: Agenda
-          - href: noticias.qmd
-            text: Notícias
-      - text: Rede e impacto
-        menu:
-          - href: parcerias.qmd
-            text: Parcerias
-          - href: impacto.qmd
-            text: Impacto social
+      - href: agenda.qmd
+        text: Agenda
+      - href: noticias.qmd
+        text: Notícias
       - href: contato.qmd
         text: Contato
 
