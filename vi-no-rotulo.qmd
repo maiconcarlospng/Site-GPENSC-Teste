@@ -30,22 +30,6 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
     <p>Entre as publicações divulgadas pelo projeto estão conteúdos de esclarecimento sobre rótulos de alimentos, informações nutricionais, apresentação da equipe e ações de pesquisa e extensão.</p>
   </section>
 
-  <section class="gp-vi-topics">
-    <span class="gp-vi-label">CONTEÚDOS EM DESTAQUE</span>
-    <h2>Conheça os temas do Vi no Rótulo</h2>
-    <div class="gp-vi-topic-cards">
-      <article><span>01</span><h3>Decifrando o rótulo</h3><p>Leitura e interpretação das informações encontradas nas embalagens.</p></article>
-      <article><span>02</span><h3>Rotulagem nutricional</h3><p>Conceitos e conteúdos educativos para compreender rótulos de alimentos.</p></article>
-      <article><span>03</span><h3>Pesquisa e extensão</h3><p>Iniciativas, equipe e ações divulgadas nos canais do projeto.</p></article>
-    </div>
-  </section>
-
-  <aside class="gp-vi-cta">
-    <div><span>CANAL DO PROJETO</span><h2>Acompanhe o Vi no Rótulo</h2><p>Consulte o Instagram para verificar as publicações, a equipe e os eventos mais recentes.</p></div>
-    <a href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Abrir Instagram <span aria-hidden="true">↗</span></a>
-  </aside>
 </div>
 ```
 
-
-[Voltar à Extensão](extensao.qmd){.btn .btn-secondary}
