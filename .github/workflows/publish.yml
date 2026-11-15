@@ -197,18 +197,18 @@ jobs:
               [[ -z "$path" ]] && continue
               case "$path" in
                 data/noticias.yml) pages="$pages index.qmd noticias.qmd noticia.qmd" ;;
-                data/eventos.yml) pages="$pages index.qmd agenda.qmd" ;;
-                data/projetos.yml) pages="$pages index.qmd projetos.qmd extensao.qmd" ;;
-                data/publicacoes.yml) pages="$pages publicacoes.qmd" ;;
-                data/defesas.yml) pages="$pages teses.qmd" ;;
+                data/eventos.yml) pages="$pages index.qmd agenda.qmd ensino.qmd" ;;
+                data/projetos.yml) pages="$pages index.qmd projetos.qmd extensao.qmd linhas.qmd arvore.qmd" ;;
+                data/publicacoes.yml) pages="$pages publicacoes.qmd linhas.qmd arvore.qmd" ;;
+                data/defesas.yml) pages="$pages agenda.qmd teses.qmd" ;;
                 data/livros.yml) pages="$pages livros.qmd" ;;
                 data/videos.yml) pages="$pages videos.qmd" ;;
                 data/sites.yml) pages="$pages sites.qmd" ;;
-                data/disciplinas.yml) pages="$pages disciplinas.qmd" ;;
-                data/linhas.yml) pages="$pages linhas.qmd" ;;
-                data/parcerias.yml) pages="$pages sobre.qmd" ;;
+                data/disciplinas.yml) pages="$pages ensino.qmd" ;;
+                data/linhas.yml) pages="$pages linhas.qmd arvore.qmd" ;;
+                data/parcerias.yml) pages="$pages parcerias.qmd" ;;
                 data/noar.yml) pages="$pages noar.qmd" ;;
-                data/equipe.yml) pages="$pages sobre.qmd" ;;
+                data/equipe.yml) pages="$pages sobre.qmd linhas.qmd" ;;
                 data/galeria.yml|data/apoio.yml) pages="$pages index.qmd" ;;
                 *) partial=false; break ;;
               esac
@@ -264,7 +264,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _site
-          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-navbar-v8.css', 'styles-busca-v9.css', 'styles-spotify-v10.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'styles-geral-v15.css', 'styles-menu-mobile-v16.css', 'styles-timeline-v12.css', 'styles-home-v17.css', 'styles-agenda-v18.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
+          key: quarto-site-${{ runner.os }}-${{ hashFiles('**.qmd', 'R/**', 'data/**', 'img/**', 'docs/**', 'styles.css', 'styles-mobile-v2.css', 'styles-mobile-v3.css', 'styles-mobile-v4.css', 'styles-mobile-v5.css', 'styles-navbar-v6.css', 'styles-navbar-v7.css', 'styles-navbar-v8.css', 'styles-busca-v9.css', 'styles-spotify-v10.css', 'styles-conteudo-v7.css', 'styles-timeline-v11.css', 'styles-geral-v15.css', 'styles-menu-mobile-v16.css', 'styles-timeline-v12.css', 'styles-home-v17.css', 'styles-agenda-v18.css', 'styles-gpensc-v26.css', 'styles-gpensc-v27.css', 'styles-direcao-v28.css', 'custom.scss', 'lupa.html', 'topo.html', '_quarto.yml', '_variables.yml', '_extensions/**') }}
 
       - name: Conferir o cache antes de publicar
         shell: bash
