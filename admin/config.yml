@@ -117,8 +117,7 @@ collections:
                 - { label: "Tipo", name: "tipo", widget: "select", options: ["Artigo", "Livro", "Capítulo de livro", "Resumo em evento", "Resumo expandido", "Trabalho completo em evento", "Dissertação/TCC", "Tese", "Outro"], hint: "Escolha a categoria da produção. “Artigo” mantém a contagem de artigos da página inicial." }
                 - { label: "Autores", name: "autores", widget: "string", required: false }
                 - { label: "Título", name: "titulo", widget: "string" }
-                - { label: "Veículo", name: "veiculo", widget: "string", required: false }
-                - { label: "DOI", name: "doi", widget: "string", required: false }
+                - { label: "Veículo", name: "veiculo", widget: "string", required: false }                - { label: "DOI", name: "doi", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - label: "Linha de pesquisa associada"
                   name: "linha_id"
@@ -237,8 +236,7 @@ collections:
           file: "data/videos.yml"
           fields:
             - label: "Vídeos publicados"
-              name: "itens"
-              widget: "list"
+              name: "itens"              widget: "list"
               collapsed: true
               label_singular: "vídeo"
               summary: "{{fields.titulo}}"
@@ -357,8 +355,7 @@ collections:
             - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
             - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
 
-        - label: "06 · Pesquisa, ensino e extensão"
-          name: "cfg_pesquisa_extensao"
+        - label: "06 · Pesquisa, ensino e extensão"          name: "cfg_pesquisa_extensao"
           file: "data/configuracoes/06-pesquisa-extensao.yml"
           fields:
             - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
@@ -435,8 +432,7 @@ collections:
           name: "cfg_rodape"
           file: "data/configuracoes/12-rodape.yml"
           fields:
-            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
-, 'Informe o ORCID no formato 0000-0002-1825-0097.'] }
+            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }, 'Informe o ORCID no formato 0000-0002-1825-0097.'] }
                 - label: "Linhas de pesquisa vinculadas"
                   name: "linhas_ids"
                   widget: "relation"
@@ -497,8 +493,7 @@ collections:
           file: "data/videos.yml"
           fields:
             - label: "Vídeos publicados"
-              name: "itens"
-              widget: "list"
+              name: "itens"              widget: "list"
               collapsed: true
               label_singular: "vídeo"
               summary: "{{fields.titulo}}"
@@ -617,8 +612,7 @@ collections:
             - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
             - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
 
-        - label: "06 · Pesquisa, ensino e extensão"
-          name: "cfg_pesquisa_extensao"
+        - label: "06 · Pesquisa, ensino e extensão"          name: "cfg_pesquisa_extensao"
           file: "data/configuracoes/06-pesquisa-extensao.yml"
           fields:
             - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
