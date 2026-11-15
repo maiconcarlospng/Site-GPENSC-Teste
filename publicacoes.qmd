@@ -67,7 +67,16 @@ if (nrow(publicacoes_publicadas) == 0) {
 
     h2("Lista de publicações"),
     publicacoes_publicadas |>
-      transmute(Ano = ano, Tipo = tipo, Referência = referencia, Linha = linha_id) |>
+      transmute(
+        Ano = ano,
+        Tipo = tipo,
+        Autores = autores,
+        Título = titulo,
+        Periódico = veiculo,
+        DOI = doi,
+        Link = url,
+        Linha = linha_id
+      ) |>
       datatable(
         rownames = FALSE,
         filter = "top",
