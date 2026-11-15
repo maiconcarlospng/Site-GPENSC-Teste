@@ -33,6 +33,13 @@ Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formaç
 :::
 :::
 
+## Comunicação para diferentes públicos
+
+- **Comunidade científica:** artigos, metodologias, resultados e discussões científicas.
+- **Estudantes:** explicações de conceitos, métodos e oportunidades de formação.
+- **Gestores e profissionais de saúde:** sínteses aplicadas, recomendações e *policy briefs* quando houver evidências e resultados que os fundamentem.
+- **População geral:** materiais educativos e explicações acessíveis sobre os resultados das pesquisas.
+
 ## Da pesquisa à sociedade
 
 O impacto social deve ser apresentado a partir de resultados, experiências e produtos efetivamente documentados. Por isso, esta área será alimentada com relatos de projetos, materiais educativos, notícias, parcerias e evidências de contribuição social, sem atribuir resultados que ainda não tenham sido avaliados.
