@@ -52,7 +52,7 @@ secao_ativa <- function(chave) {
 COLUNAS <- list(
   noticias    = c("data", "categoria", "titulo", "resumo", "conteudo", "url", "imagem"),
   eventos     = c("data", "tipo", "titulo", "local", "url"),
-  equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid"),
+  equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid", "linhas_ids"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
   projetos    = c("titulo", "tipo", "situacao", "coordenador", "inicio", "fim",
                   "linha_id", "financiamento"),
@@ -106,9 +106,18 @@ ler <- function(arq) {
     linhas_df <- lapply(itens, function(x) {
       vals <- lapply(colunas, function(col) {
         v <- x[[col]]
-        if (is.null(v) || length(v) == 0 || is.na(v[1])) return(NA_character_)
-        v <- trimws(as.character(v[1]))
-        if (nzchar(v)) v else NA_character_
+        if (is.null(v) || length(v) == 0) return(NA_character_)
+
+        # Relações múltiplas do CMS chegam como lista; são normalizadas
+        # para IDs separados por "|" sem perder a associação dos registros.
+        if (is.list(v)) v <- unlist(v, recursive = TRUE, use.names = FALSE)
+        if (length(v) == 0 || all(is.na(v))) return(NA_character_)
+
+        v <- trimws(as.character(v))
+        v <- v[!is.na(v) & nzchar(v)]
+        if (length(v) == 0) return(NA_character_)
+
+        paste(unique(v), collapse = "|")
       })
       names(vals) <- colunas
       dplyr::as_tibble(vals)
@@ -310,14 +319,29 @@ faixa_galeria <- function() {
 }
 
 bloco_intro <- function() {
-  # O texto de apresentação e o botão continuam, mas a foto grande da equipe
-  # foi removida daqui; as fotos ficam na faixa/carrossel acima.
   div(
     class = "intro reveal",
     div(
       class = "intro-texto",
+      span(class = "intro-kicker", "NUTRIÇÃO · EPIDEMIOLOGIA · SAÚDE COLETIVA"),
+      h1("Pesquisa, formação e diálogo com a sociedade."),
       p(cfg$resumo),
-      tags$a(class = "btn btn-secondary", href = "sobre.html", cfg$botao_sobre)
+      div(
+        class = "intro-acoes",
+        tags$a(class = "btn btn-secondary", href = "sobre.html", "Conheça o GPENSC"),
+        tags$a(class = "intro-link", href = "pesquisa.html", "Explore nossas pesquisas")
+      )
+    ),
+    div(
+      class = "intro-sinal",
+      div(class = "intro-sinal-cabecalho", "ATUAÇÃO INTEGRADA"),
+      div(
+        class = "intro-sinal-lista",
+        div(class = "intro-sinal-item", span("01"), div(strong("Pesquisa"), small("Produção de conhecimento e evidências"))),
+        div(class = "intro-sinal-item", span("02"), div(strong("Ensino"), small("Formação acadêmica e compartilhamento"))),
+        div(class = "intro-sinal-item", span("03"), div(strong("Extensão"), small("Diálogo com serviços e comunidades")))
+      ),
+      p(class = "intro-sinal-base", "Universidade Federal de Ouro Preto · UFOP")
     )
   )
 }

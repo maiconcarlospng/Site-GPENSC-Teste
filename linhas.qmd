@@ -8,6 +8,7 @@ source("R/helpers.R")
 linhas_publicadas <- registros_reais(linhas, "nome")
 projetos_publicados <- registros_reais(projetos, "titulo")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")
+integrantes_publicados <- registros_reais(equipe, "nome")
 
 filtrar_por_linha <- function(dados, id) {
   if (nrow(dados) == 0 || !("linha_id" %in% names(dados))) {
@@ -38,6 +39,19 @@ if (secao_ativa("mostrar_linhas")) {
           palavras <- valor_publico(linha$palavras_chave)
           projetos_linha <- filtrar_por_linha(projetos_publicados, id)
           publicacoes_linha <- filtrar_por_linha(publicacoes_publicadas, id)
+          ids_pessoa <- function(valor) {
+            if (!tem(valor)) return(character())
+            ids <- unlist(strsplit(as.character(valor), "[|,;]"))
+            trimws(ids[nzchar(trimws(ids))])
+          }
+          pessoas_linha <- if (nrow(integrantes_publicados) > 0 && "linhas_ids" %in% names(integrantes_publicados)) {
+            vinculados <- vapply(seq_len(nrow(integrantes_publicados)), function(j) {
+              cat <- valor_publico(integrantes_publicados$categoria[j])
+              !identical(cat, "Egressos") && id %in% ids_pessoa(integrantes_publicados$linhas_ids[j])
+            }, logical(1))
+            integrantes_publicados[vinculados, , drop = FALSE] |>
+              arrange(nome)
+          } else integrantes_publicados[0, , drop = FALSE]
 
           div(
             class = "linha-pesquisa-card",
@@ -63,23 +77,22 @@ if (secao_ativa("mostrar_linhas")) {
               )
             },
             div(
-              class = "linha-pesquisa-indicadores",
-              div(
-                class = "linha-pesquisa-indicador",
-                tags$i(class = "bi bi-diagram-3", "aria-hidden" = "true"),
-                tags$span(
-                  tags$strong(nrow(projetos_linha)),
-                  if (nrow(projetos_linha) == 1) " projeto" else " projetos"
-                )
-              ),
-              div(
-                class = "linha-pesquisa-indicador",
-                tags$i(class = "bi bi-journal-text", "aria-hidden" = "true"),
-                tags$span(
-                  tags$strong(nrow(publicacoes_linha)),
-                  if (nrow(publicacoes_linha) == 1) " publicação" else " publicações"
-                )
-              )
+              class = "linha-pesquisa-equipe",
+              h4("Integrantes vinculados"),
+              if (nrow(pessoas_linha) > 0) {
+                tags$ul(lapply(seq_len(nrow(pessoas_linha)), function(j) {
+                  pessoa <- pessoas_linha[j, , drop = FALSE]
+                  nome_pessoa <- as.character(pessoa$nome[1])
+                  lattes_pessoa <- valor_publico(pessoa$lattes)
+                  tags$li(if (!is.null(lattes_pessoa)) {
+                    tags$a(nome_pessoa, href = lattes_pessoa, target = "_blank", rel = "noopener noreferrer")
+                  } else {
+                    tags$span(nome_pessoa)
+                  })
+                }))
+              } else {
+                p("A relação de integrantes por linha será exibida à medida que os vínculos forem cadastrados no painel.")
+              }
             ),
             tags$details(
               class = "linha-pesquisa-detalhes",

@@ -24,7 +24,7 @@ website:
     background: light
     
     right:
-      - text: O GPENSC
+      - text: Grupo
         menu:
           - href: sobre.qmd
             text: Quem somos
@@ -48,7 +48,7 @@ website:
         text: Extensão
       - href: ensino.qmd
         text: Ensino
-      - text: Divulgação científica
+      - text: Conhecimento
         menu:
           - href: divulgacao.qmd
             text: Todos os materiais
@@ -58,13 +58,13 @@ website:
             text: Livros e e-books
           - href: videos.qmd
             text: Vídeos
-      - text: Agenda e notícias
+      - text: Agenda
         menu:
           - href: agenda.qmd
             text: Agenda
           - href: noticias.qmd
             text: Notícias
-      - text: Parcerias e impacto
+      - text: Rede e impacto
         menu:
           - href: parcerias.qmd
             text: Parcerias
@@ -100,6 +100,7 @@ format:
       - styles-agenda-v18.css
       - styles-gpensc-v26.css
       - styles-gpensc-v27.css
+      - styles-direcao-v28.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
