@@ -33,6 +33,22 @@ div(
       "noar.html"
     )
   },
+  h2("Iniciativas de extensão destacadas pelo grupo"),
+  div(
+    class = "extensao-iniciativas",
+    div(
+      class = "extensao-iniciativa",
+      span(class = "extensao-iniciativa-selo", "EXTENSÃO"),
+      h3("Vi no Rótulo"),
+      p("Iniciativa de extensão citada no planejamento do portfólio do GPENSC. A página poderá reunir objetivos, público participante, atividades realizadas, materiais e resultados confirmados.")
+    ),
+    div(
+      class = "extensao-iniciativa",
+      span(class = "extensao-iniciativa-selo", "FORMAÇÃO"),
+      h3("Capacitação em epidemiologia e análise de dados"),
+      p("Projeto de capacitação mencionado pelo grupo, com espaço para apresentar conteúdos, público atendido, metodologia e materiais de apoio.")
+    )
+  ),
   h2("Divulgação científica"),
   p("O GPENSC também divulga conversas e conteúdos de interesse público por meio de suas iniciativas de comunicação."),
   tags$a(class = "btn btn-secondary", href = "noar.html", "Conheça o GPENSC no Ar")
