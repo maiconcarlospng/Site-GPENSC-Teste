@@ -7,8 +7,6 @@ title: "Materiais educativos"
 ```
 
 
-Cartilhas, infográficos, sínteses para gestores e anuários: conhecimentos sobre alimentação e saúde em formatos acessíveis.
-
 ```{r}
 source("R/helpers.R")
 renderizar_acervo("materiais", "Ainda não há materiais disponíveis nesta seção")
