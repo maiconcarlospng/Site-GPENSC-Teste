@@ -25,16 +25,17 @@ categoria_integrante <- function(e) {
     "Pós-graduandos"
   } else if (grepl("graduand|gradua[cç][aã]o|estudante", papel)) {
     "Graduandos"
-  } else if (grepl("egresso|colaborador|ex-integrante", papel)) {
-    "Colaboradores e egressos"
+  } else if (grepl("egresso|ex-integrante", papel)) {
+    "Egressos"
+  } else if (grepl("colaborador", papel)) {
+    "Colaboradores"
   } else {
     "Outros integrantes"
   }
 }
 
-# Na página pública, manter apenas a liderança e os pesquisadores.
-# Estudantes, técnicos, colaboradores e egressos permanecem consultáveis
-# no Diretório dos Grupos de Pesquisa do CNPq.
+# A página apresenta as categorias previstas no planejamento institucional.
+# Registros antigos com categoria combinada são preservados até serem revisados no painel.
 if (nrow(integrantes) > 0) {
   integrantes$categoria_exibicao <- vapply(
     seq_len(nrow(integrantes)),
@@ -46,11 +47,6 @@ if (nrow(integrantes) > 0) {
     "Coordenação" = "Líderes",
     "Docentes e pesquisadores" = "Pesquisadores"
   )
-  integrantes <- integrantes[
-    integrantes$categoria_exibicao %in% c("Líderes", "Pesquisadores"),
-    ,
-    drop = FALSE
-  ]
 }
 
 dgp_url <- as.character(cfg$link_dgp)
@@ -103,6 +99,14 @@ div(
     linha_tempo_config <- yaml::read_yaml("data/linha_tempo.yml")
     linha_tempo_itens <- linha_tempo_config$itens
     if (is.null(linha_tempo_itens)) linha_tempo_itens <- list()
+    linha_tempo_itens <- Filter(function(evento) {
+      ano <- if (is.null(evento$ano)) "" else as.character(evento$ano)
+      titulo <- if (is.null(evento$titulo)) "" else trimws(as.character(evento$titulo))
+      descricao <- if (is.null(evento$descricao)) "" else trimws(as.character(evento$descricao))
+      grepl("^[0-9]{4}$", ano) &&
+        nzchar(titulo) &&
+        !grepl("conte aqui|registre|destaque|acrescente|20XX", paste(titulo, descricao), ignore.case = TRUE)
+    }, linha_tempo_itens)
 
     if (length(linha_tempo_itens) > 0) {
       tagList(
@@ -291,7 +295,7 @@ div(
   },
   h2(cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
-    ordem_categorias <- c("Líderes", "Pesquisadores")
+    ordem_categorias <- c("Líderes", "Pesquisadores", "Colaboradores", "Egressos", "Colaboradores e egressos", "Pós-graduandos", "Graduandos", "Outros integrantes")
     categorias_encontradas <- unique(integrantes$categoria_exibicao)
     categorias <- c(
       intersect(ordem_categorias, categorias_encontradas),
@@ -302,9 +306,12 @@ div(
       nome <- as.character(e$nome[1])
       categoria <- as.character(e$categoria_exibicao[1])
       papel <- valor_publico(e$papel)
+      egresso <- identical(categoria, "Egressos")
       formacao <- valor_publico(e$formacao)
+      email <- valor_publico(e$email)
       lattes <- valor_publico(e$lattes)
       orcid <- valor_publico(e$orcid)
+      if (egresso) { formacao <- NULL; email <- NULL; orcid <- NULL }
       orcid_url <- NULL
 
       if (!is.null(orcid)) {
@@ -320,6 +327,7 @@ div(
         nome, categoria,
         if (!is.null(papel)) papel else "",
         if (!is.null(formacao)) formacao else "",
+        if (!is.null(email)) email else "",
         if (!is.null(lattes)) lattes else "",
         if (!is.null(orcid)) orcid else "",
         collapse = " "
@@ -330,7 +338,7 @@ div(
         `data-busca` = texto_busca,
         div(
           class = "membro-identidade",
-          foto_pessoa(nome, e$foto),
+          if (!egresso) foto_pessoa(nome, e$foto),
           div(
             class = "membro-identidade-texto",
             if (!is.null(papel)) div(class = "membro-cargo", papel),
@@ -340,6 +348,11 @@ div(
         if (!is.null(formacao)) p(class = "membro-bio", formacao),
         div(
           class = "membro-links",
+          if (!is.null(email)) tags$a(
+            class = "membro-link",
+            href = paste0("mailto:", email),
+            "E-mail"
+          ),
           if (!is.null(lattes)) tags$a(
             class = "membro-link",
             href = lattes,
@@ -363,7 +376,7 @@ div(
         class = "equipe-diretorio",
         div(
           class = "equipe-diretorio-intro",
-          p("Nesta página, apresentamos as lideranças e os pesquisadores do GPENSC. A relação de estudantes e demais integrantes, que muda ao longo do tempo, pode ser consultada no Diretório dos Grupos de Pesquisa do CNPq pelo botão ao final desta página."),
+          p("Conheça as pessoas que constroem o GPENSC: lideranças, pesquisadores, colaboradores e integrantes egressos. Os perfis de egressos apresentam o nome e o Currículo Lattes; os demais perfis podem incluir e-mail e identificadores acadêmicos, conforme autorização."),
           span(
             class = "equipe-contagem",
             id = "equipe-contagem",
