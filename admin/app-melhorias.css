@@ -302,3 +302,48 @@ body{background:#f7f8f5}
   .sidebar.mobile-open .menu-section[hidden]{display:none!important}
   .sidebar.mobile-open #collection-nav button[hidden]{display:none!important}
 }
+
+
+/* Alinhamento definitivo da área de gestão em diferentes resoluções. */
+#app .main-area,#app .page-content,#app .page-heading,
+#app .collection-heading,#app .panel-grid,#app .dashboard-chart-grid{
+  box-sizing:border-box;min-width:0;max-width:100%
+}
+#app .page-heading>div,#app .collection-heading>div{min-width:0;flex:1 1 290px}
+#app .page-heading{align-items:flex-start;flex-wrap:wrap}
+#app .page-heading>button{flex:0 0 auto}
+#app .collection-heading .collection-tools{justify-content:flex-end}
+#app .collection-heading .collection-tools button{white-space:normal;line-height:1.3}
+#app .stats-grid>.stat-card,
+#app .dashboard-chart-grid>*,
+#app .dashboard-analytics-grid>*,
+#app .collection-grid>*{min-width:0}
+#app .stat-card :is(span,strong,small){overflow-wrap:anywhere}
+#app .dashboard-chart-card .donut-layout{min-width:0}
+#app .chart-legend{min-width:0}
+#app .chart-legend-item{min-width:0}
+#app .chart-legend-label{min-width:0;overflow-wrap:anywhere}
+#app .record-card{min-width:0;overflow-wrap:anywhere}
+#app .record-card-heading{flex-wrap:wrap}
+#app #modal-root .modal-foot button{white-space:normal}
+@media(min-width:701px) and (max-width:1100px){
+  #app .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #app .collection-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #app .page-heading>button{flex:0 0 auto}
+}
+@media(max-width:700px){
+  #app .topbar{min-width:0;gap:8px}
+  #app .topbar>div:first-child{min-width:0}
+  #app .topbar strong{overflow-wrap:anywhere}
+  #app .user-area{min-width:0;max-width:45%;text-align:right}
+  #app .collection-heading .collection-tools{justify-content:stretch}
+  #app .collection-heading .collection-tools button{min-height:46px;flex:1 1 calc(50% - 8px)}
+  #app .sidebar.mobile-open #collection-nav{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #app .sidebar.mobile-open #collection-nav button{min-width:0;overflow-wrap:anywhere}
+}
+@media(max-width:390px){
+  #app .sidebar.mobile-open #collection-nav{grid-template-columns:minmax(0,1fr)!important}
+  #app .sidebar.mobile-open #collection-nav>.summary-nav-item{grid-column:1!important}
+  #app .collection-heading .collection-tools button{flex-basis:100%}
+  #app .user-area{font-size:10px}
+}
