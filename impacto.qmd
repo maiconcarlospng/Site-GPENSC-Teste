@@ -1,0 +1,41 @@
+---
+title: "Impacto social"
+---
+
+A produção científica do GPENSC dialoga com questões concretas da alimentação, da nutrição e da saúde coletiva. O grupo busca aproximar pesquisa, formação e extensão das necessidades de diferentes populações e dos serviços e políticas públicas.
+
+## Como o conhecimento pode contribuir
+
+::: {.impacto-eixos}
+::: {.impacto-eixo}
+<span class="impacto-numero">01</span>
+### Evidências para políticas públicas
+
+Produção e compartilhamento de evidências que possam apoiar a formulação, o acompanhamento e o aprimoramento de políticas de alimentação, nutrição e saúde.
+:::
+::: {.impacto-eixo}
+<span class="impacto-numero">02</span>
+### Diálogo com serviços e profissionais
+
+Articulação com gestores e profissionais de saúde para aproximar resultados de pesquisa dos desafios presentes nos territórios e nos serviços.
+:::
+::: {.impacto-eixo}
+<span class="impacto-numero">03</span>
+### Conhecimento acessível à sociedade
+
+Tradução de conceitos, métodos e resultados científicos em materiais educativos, conteúdos de divulgação e atividades abertas à comunidade.
+:::
+::: {.impacto-eixo}
+<span class="impacto-numero">04</span>
+### Formação e participação social
+
+Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formação crítica e a participação de diferentes públicos.
+:::
+:::
+
+## Da pesquisa à sociedade
+
+O impacto social deve ser apresentado a partir de resultados, experiências e produtos efetivamente documentados. Por isso, esta área será alimentada com relatos de projetos, materiais educativos, notícias, parcerias e evidências de contribuição social, sem atribuir resultados que ainda não tenham sido avaliados.
+
+[Conheça os projetos de extensão](extensao.qmd){.btn .btn-secondary}
+[Veja os materiais de divulgação científica](divulgacao.qmd){.btn .btn-secondary}
