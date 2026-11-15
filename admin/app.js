@@ -140,7 +140,13 @@ async function loadAll(){
 }
 function entryList(entry){return Array.isArray(state.contents[entry.file]?.itens)?state.contents[entry.file].itens:[]}
 function isExampleRecord(item){
-  return Object.values(item||{}).some(value=>typeof value==='string'&&/\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]|\[Agência\/Edital\]|\[Nome\]/i.test(value));
+  return Object.entries(item||{}).some(([key,value])=>{
+    if(typeof value!=='string')return false;
+    const text=value.trim();
+    return /\[EXEMPLO\]|\[NOME\]|\[SOBRENOME|\[PERIÓDICO\]|\[EVENTO\]|\[Agência\/Edital\]|\[Nome\]|20XX/i.test(text)
+      || (/^ano$/i.test(key)&&text!==''&&!/^\d{4}$/.test(text))
+      || /^(Conte aqui|Registre encontros|Destaque projetos|Acrescente aqui)/i.test(text);
+  });
 }
 function summaryRecords(entry){return entryList(entry).filter(item=>item&&!isExampleRecord(item))}
 function isConfigCollection(entry){return entry?.group==='configuracoes'||String(entry?.file||'').startsWith('data/configuracoes/')}
@@ -152,9 +158,9 @@ function renderNav(){
   const content=state.collections.map((c,i)=>({c,i})).filter(({c})=>!isConfigCollection(c));
   const settings=state.collections.map((c,i)=>({c,i})).filter(({c})=>isConfigCollection(c));
   const button=({c,i})=>'<button type="button" data-index="'+i+'" class="'+(state.active===i?'active':'')+'">'+
-    '<span>'+esc(c.label)+'</span><span class="nav-count">'+(isConfigCollection(c)?'Editar':summaryRecords(c).length)+'</span></button>';
+    '<span>'+esc(c.label)+'</span>'+(isConfigCollection(c)?'':'<span class="nav-count">'+summaryRecords(c).length+'</span>')+'</button>';
   nav.innerHTML=
-    '<button type="button" data-summary class="summary-nav-item '+(state.active===null?'active':'')+'"><span>Painel de resumo</span><span class="nav-count">Resumo</span></button>'+
+    '<button type="button" data-summary class="summary-nav-item '+(state.active===null?'active':'')+'"><span>Painel de resumo</span></button>'+
     '<section class="menu-section menu-section-content" aria-label="Conteúdo do site">'+
       '<div class="menu-section-title">CONTEÚDO DO SITE</div>'+
       '<div class="menu-section-items">'+content.map(button).join('')+'</div>'+
