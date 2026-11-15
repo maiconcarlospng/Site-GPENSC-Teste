@@ -7,8 +7,6 @@ title: "Parcerias"
 ```
 
 
-A colaboração com instituições e grupos de pesquisa amplia as possibilidades de produção científica, formação e intercâmbio de conhecimentos. Esta página reúne os vínculos institucionais e as parcerias cadastradas pelo GPENSC.
-
 ```{r}
 source("R/helpers.R")
 parcerias_site <- registros_reais(parcerias, "nome")
