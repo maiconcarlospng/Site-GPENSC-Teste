@@ -1,4 +1,8 @@
 itens:
+  - ano: "2018"
+    titulo: "Formação do GPENSC"
+    descricao: "Ano de formação do grupo registrado no Diretório dos Grupos de Pesquisa do CNPq. Os demais marcos serão publicados após revisão e confirmação pelo GPENSC."
+    imagem: ""
   - ano: "2020"
     titulo: O início da trajetória
     descricao: Conte aqui como surgiu o GPENSC, quais foram os primeiros passos e quem participou da formação do grupo.
