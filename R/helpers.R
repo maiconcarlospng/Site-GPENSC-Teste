@@ -337,9 +337,9 @@ bloco_intro <- function() {
       div(class = "intro-sinal-cabecalho", "ATUAÇÃO INTEGRADA"),
       div(
         class = "intro-sinal-lista",
-        div(class = "intro-sinal-item", span("01"), div(strong("Pesquisa"), small("Produção de conhecimento e evidências"))),
-        div(class = "intro-sinal-item", span("02"), div(strong("Ensino"), small("Formação acadêmica e compartilhamento"))),
-        div(class = "intro-sinal-item", span("03"), div(strong("Extensão"), small("Diálogo com serviços e comunidades")))
+        div(class = "intro-sinal-item", span("01"), div(strong("Pesquisa"), tags$small("Produção de conhecimento e evidências"))),
+        div(class = "intro-sinal-item", span("02"), div(strong("Ensino"), tags$small("Formação acadêmica e compartilhamento"))),
+        div(class = "intro-sinal-item", span("03"), div(strong("Extensão"), tags$small("Diálogo com serviços e comunidades")))
       ),
       p(class = "intro-sinal-base", "Universidade Federal de Ouro Preto · UFOP")
     )
