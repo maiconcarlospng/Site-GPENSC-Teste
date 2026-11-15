@@ -1,0 +1,44 @@
+/* GPENSC — Portfólio de extensão, com ilustrações editoriais, não marcas oficiais. */
+.gp-ext-projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;margin:1.5rem 0 2.5rem}
+.gp-ext-card{min-width:0;overflow:hidden;border:1px solid #dae6d4;border-radius:20px;background:#fff;box-shadow:0 8px 28px rgba(31,77,43,.06);display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.gp-ext-card:hover{transform:translateY(-4px);border-color:#88b07d}
+.gp-ext-art{display:grid;place-items:center;min-height:205px;background:linear-gradient(130deg,#f7e8d8,#fff8ef)}
+.gp-ext-card-epi .gp-ext-art{background:linear-gradient(130deg,#e1efdf,#f5f8e9)}
+.gp-ext-art img{width:min(82%,285px);height:auto;max-height:190px;object-fit:contain}
+.gp-ext-text{padding:1.25rem 1.4rem 1.55rem;display:flex;flex-direction:column;align-items:flex-start;flex:1}
+.gp-ext-kicker,.gp-project-eyebrow{color:#ad571a;font-size:.72rem;letter-spacing:.12em;font-weight:850;text-transform:uppercase}
+.gp-ext-card-epi .gp-ext-kicker{color:#30744b}
+.gp-ext-card h3{font-size:clamp(1.24rem,2.4vw,1.6rem)!important;color:#1f4d2b!important;margin:.5rem 0 .7rem!important}
+.gp-ext-card p{color:#5b6e62!important;line-height:1.7;font-size:.95rem;flex:1}
+.gp-ext-link{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;border:1px solid #b9d0ad;border-radius:10px;color:#245836!important;padding:.7rem 1rem;font-weight:800;font-size:.9rem;background:#f0f7ec}
+.gp-ext-link:hover,.gp-ext-link:focus-visible{background:#1f4d2b;color:#fff!important}
+.gp-ext-footer{padding:1rem 1.2rem;background:#eff6e9;border-left:4px solid #d9731f;border-radius:9px;margin:1.5rem 0}
+.gp-project-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(200px,.85fr);gap:1.5rem;align-items:center;padding:clamp(1.3rem,3vw,2.4rem);margin:1rem 0 2.5rem;border-radius:24px;border:1px solid #e3e6d8}
+.gp-project-hero-orange{background:linear-gradient(110deg,#fff5e6,#e8f0dc)}
+.gp-project-hero-green{background:linear-gradient(110deg,#e9f3e7,#fff9e9)}
+.gp-project-hero-copy h2{font-size:clamp(1.6rem,3vw,2.5rem)!important;line-height:1.18!important;color:#1f4d2b!important;margin:.6rem 0 1rem!important;border:0!important}
+.gp-project-hero-copy p{color:#4c6552!important;font-size:1rem;line-height:1.7}
+.gp-project-hero img{width:100%;max-width:330px;max-height:240px;object-fit:contain;justify-self:center}
+.gp-project-button{display:inline-flex;align-items:center;justify-content:center;min-height:45px;background:#1f4d2b;color:#fff!important;padding:.7rem 1rem;border-radius:11px;font-weight:800;text-decoration:none;margin-top:.8rem}
+.gp-project-button:hover,.gp-project-button:focus-visible{background:#326b40;color:#fff!important}
+.gp-project-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin:1.5rem 0 2.5rem}
+.gp-project-steps>div{min-width:0;background:#fff;border:1px solid #dce6d9;border-radius:16px;padding:1.2rem}
+.gp-project-steps span{display:inline-grid;place-items:center;width:37px;height:37px;border-radius:10px;background:#e7f1df;color:#1f4d2b;font-weight:850}
+.gp-project-steps>div:nth-child(2) span{background:#fff0e0;color:#ab581c}
+.gp-project-steps>div:nth-child(3) span{background:#f9eae7;color:#ad4035}
+.gp-project-steps h3{margin:.8rem 0 .4rem!important;font-size:1.15rem!important;color:#1f4d2b!important}
+.gp-project-steps p{font-size:.92rem!important;color:#657167!important;line-height:1.65}
+.gp-home-projects{margin:2.5rem 0}
+.gp-home-projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.gp-home-projects-header h2{margin:.35rem 0!important;text-align:left!important}
+.gp-home-projects-header a{font-size:.86rem;font-weight:750;color:#275b36}
+.gp-home-projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.gp-home-project-card{display:grid;grid-template-columns:minmax(0,1fr) 132px;align-items:center;gap:1rem;padding:1.2rem 1.25rem;background:#f6f9f2;border-radius:16px;border:1px solid #dde8d7;color:#1f4d2b!important;text-decoration:none}
+.gp-home-project-card:nth-child(2){background:#faf6eb}
+.gp-home-project-card:hover,.gp-home-project-card:focus-visible{background:#e8f1e3;border-color:#8bad82;transform:translateY(-2px)}
+.gp-home-project-card strong{display:block;font-size:1.13rem;line-height:1.4}
+.gp-home-project-card small{display:block;font-size:.84rem;color:#657369;margin-top:.4rem}
+.gp-home-project-card img{width:100%;height:105px;object-fit:contain}
+@media(max-width:850px){.gp-ext-projects,.gp-home-projects-grid{grid-template-columns:1fr}.gp-project-hero{grid-template-columns:1fr}.gp-project-hero img{max-width:210px}}
+@media(max-width:650px){.gp-project-steps{grid-template-columns:1fr}.gp-ext-text{padding:1rem}.gp-home-project-card{grid-template-columns:minmax(0,1fr) 100px}.gp-home-project-card img{height:86px}.gp-home-projects-header{align-items:start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.gp-ext-card,.gp-home-project-card{transition:none!important}}

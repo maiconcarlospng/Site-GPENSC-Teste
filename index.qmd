@@ -79,6 +79,23 @@ div(
 )
 ```
 
+<section class="gp-home-projects" aria-labelledby="gp-home-projects-title">
+  <div class="gp-home-projects-header">
+    <div><span class="gp-tree-eyebrow">EXTENSÃO EM DESTAQUE</span><h2 id="gp-home-projects-title">Conhecimento que chega às pessoas</h2></div>
+    <a href="extensao.html">Conhecer a extensão</a>
+  </div>
+  <div class="gp-home-projects-grid">
+    <a href="vi-no-rotulo.html" class="gp-home-project-card">
+      <span><strong>Vi no Rótulo</strong><small>Informação e educação sobre rotulagem de alimentos</small></span>
+      <img src="img/ilustracoes/rotulo-editorial.svg" width="130" height="105" loading="lazy" alt="">
+    </a>
+    <a href="capacitacao-epidemiologia.html" class="gp-home-project-card">
+      <span><strong>Capacitação em Epidemiologia e Análise de Dados</strong><small>Formação para interpretar dados e evidências em saúde</small></span>
+      <img src="img/ilustracoes/epidemiologia-editorial.svg" width="130" height="105" loading="lazy" alt="">
+    </a>
+  </div>
+</section>
+
 ## {{< var titulo_home_pesquisas >}}
 
 ```{r}

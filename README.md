@@ -604,3 +604,8 @@ As estatísticas históricas dependem da propriedade Umami escolhida e da contin
 ## Licença e uso
 
 Este repositório foi desenvolvido como ambiente de trabalho para o GPENSC. Antes de definir uma licença pública ou permitir reutilização, o grupo deve decidir quem detém os direitos do código, dos textos, das fotografias, dos logotipos e dos demais materiais. A disponibilidade pública do repositório não significa que todas as imagens e marcas possam ser reutilizadas livremente.
+
+
+## Fluxo editorial do portfólio
+
+As sugestões do grupo sobre curadoria, atualização e divisão de responsabilidades estão organizadas em [ORGANIZACAO-EDITORIAL.md](ORGANIZACAO-EDITORIAL.md). Trata-se de uma proposta operacional, não de uma comissão já constituída.

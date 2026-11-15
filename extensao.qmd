@@ -1,83 +1,60 @@
 ---
-title: "Projetos de extensão"
+title: "Extensão"
+description: "Iniciativas de extensão e capacitação em alimentação, nutrição e saúde coletiva."
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Conhecimento em diálogo com a comunidade, os serviços e os territórios.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
-```
+<div class="gp-section-illustration"><p>Conhecimento que circula entre a universidade, os serviços e a sociedade.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
 
+A extensão conecta o conhecimento produzido na universidade às necessidades e aos saberes da comunidade. Conheça as iniciativas mencionadas no planejamento do GPENSC.
 
-O GPENSC desenvolve ações de extensão que aproximam conhecimentos sobre alimentação, nutrição e saúde coletiva das questões vividas pela sociedade, em diálogo com profissionais, gestores, estudantes e comunidade.
+## Iniciativas em destaque
+
+<div class="gp-ext-projects">
+  <article class="gp-ext-card gp-ext-card-rotulo">
+    <div class="gp-ext-art"><img src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração editorial de um rótulo de alimentos com lupa. Não é o logotipo oficial do projeto." width="260" height="180"></div>
+    <div class="gp-ext-text">
+      <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
+      <h3>Vi no Rótulo</h3>
+      <p>Iniciativa ligada à educação sobre rotulagem de alimentos e à compreensão das informações presentes nas embalagens.</p>
+      <a href="vi-no-rotulo.html" class="gp-ext-link">Conhecer o projeto <span aria-hidden="true">↗</span></a>
+    </div>
+  </article>
+  <article class="gp-ext-card gp-ext-card-epi">
+    <div class="gp-ext-art"><img src="img/ilustracoes/epidemiologia-editorial.svg" alt="Ilustração editorial de gráficos e pontos de dados. Não é a marca oficial do projeto." width="260" height="180"></div>
+    <div class="gp-ext-text">
+      <span class="gp-ext-kicker">FORMAÇÃO E MÉTODOS</span>
+      <h3>Capacitação em Epidemiologia e Análise de Dados</h3>
+      <p>Iniciativa de formação em métodos epidemiológicos e análise de dados, conforme o planejamento apresentado pelo grupo.</p>
+      <a href="capacitacao-epidemiologia.html" class="gp-ext-link">Conhecer a iniciativa <span aria-hidden="true">↗</span></a>
+    </div>
+  </article>
+</div>
+
+## Projetos cadastrados no portfólio
 
 ```{r}
 source("R/helpers.R")
-
 projetos_extensao <- registros_reais(projetos, "titulo") |>
-  filter(tipo == "Extensão")
+  dplyr::filter(tipo == "Extensão")
 
-div(
-  class = "pagina-extensao",
-  h2("Projetos cadastrados"),
-  if (nrow(projetos_extensao) > 0) {
-    projetos_extensao |>
-      transmute(
-        Projeto = titulo,
-        Situação = situacao,
-        Coordenação = coordenador,
-        Início = inicio
-      ) |>
-      datatable(
-        rownames = FALSE,
-        options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
-      )
-  } else {
-    estado_vazio(
-      "Projetos em atualização",
-      "O cadastro detalhado dos projetos será apresentado aqui à medida que as informações forem revisadas e publicadas pelo grupo."
+if (nrow(projetos_extensao)) {
+  projetos_extensao |>
+    dplyr::transmute(
+      Projeto = titulo,
+      Situação = situacao,
+      Coordenação = coordenador,
+      Início = inicio
+    ) |>
+    DT::datatable(
+      rownames = FALSE,
+      options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
     )
-  }
-)
-```
-
-## Iniciativas de extensão
-
-O portfólio do GPENSC destaca iniciativas de extensão relacionadas à informação sobre alimentos e à formação em epidemiologia e análise de dados.
-
-```{r}
-iniciativas_extensao <- list(
-  list(
-    titulo = "Vi no Rótulo",
-    selo = "PROJETO DE EXTENSÃO",
-    descricao = "Projeto de extensão do GPENSC voltado à rotulagem de alimentos. Entre em contato com o grupo para conhecer a iniciativa."
-  ),
-  list(
-    titulo = "Capacitação em epidemiologia e análise de dados",
-    selo = "FORMAÇÃO E CAPACITAÇÃO",
-    descricao = "Formação em epidemiologia e análise de dados. Consulte a agenda para acompanhar as atividades abertas e entre em contato para saber mais."
-  )
-)
-nomes_cadastrados <- if (nrow(projetos_extensao) > 0) {
-  tolower(trimws(as.character(projetos_extensao$titulo)))
-} else character()
-
-iniciativas_pendentes <- Filter(
-  function(item) !tolower(trimws(item$titulo)) %in% nomes_cadastrados,
-  iniciativas_extensao
-)
-
-if (length(iniciativas_pendentes) > 0) {
-  div(
-    class = "extensao-iniciativas",
-    lapply(iniciativas_pendentes, function(item) {
-      tags$article(
-        class = "extensao-iniciativa",
-        span(class = "extensao-iniciativa-selo", item$selo),
-        h3(item$titulo),
-        p(item$descricao)
-      )
-    })
-  )
+} else {
+  estado_vazio("Cadastros em revisão",
+    "Os dados detalhados de coordenação, período e situação aparecerão após sua confirmação pelo grupo.")
 }
 ```
 
-[Entre em contato com o GPENSC](contato.qmd){.btn .btn-secondary}
+::: {.gp-ext-footer}
+**Quer saber sobre as atividades abertas?** Consulte a [Agenda GPENSC](agenda.qmd) ou [entre em contato com o grupo](contato.qmd). A divulgação de datas e inscrições depende de programação confirmada.
+:::

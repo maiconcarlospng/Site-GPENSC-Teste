@@ -1,0 +1,34 @@
+---
+title: "Capacitação em Epidemiologia e Análise de Dados"
+description: "Conheça a iniciativa de formação em epidemiologia e análise de dados mencionada no portfólio do GPENSC."
+---
+
+[Extensão](extensao.qmd) / Capacitação em Epidemiologia e Análise de Dados
+
+<div class="gp-project-hero gp-project-hero-green">
+  <div class="gp-project-hero-copy">
+    <span class="gp-project-eyebrow">INICIATIVA DE FORMAÇÃO · GPENSC</span>
+    <h2>Formação para compreender dados e produzir evidências em saúde</h2>
+    <p>A capacitação em epidemiologia e análise de dados integra as iniciativas de extensão mencionadas no planejamento do GPENSC.</p>
+    <a class="gp-project-button" href="agenda.html">Consultar próximas atividades</a>
+  </div>
+  <img src="img/ilustracoes/epidemiologia-editorial.svg" alt="Ilustração temática de análise de dados, não o logotipo oficial do projeto." width="320" height="220">
+</div>
+
+## A proposta de formação
+
+A epidemiologia e a análise de dados oferecem ferramentas para formular perguntas, interpretar indicadores e compreender problemas de saúde coletiva. Esta página apresenta o tema da iniciativa enquanto são reunidas as informações oficiais de sua programação.
+
+<div class="gp-project-steps">
+  <div><span>01</span><h3>Investigação</h3><p>Perguntas de pesquisa, tipos de estudo e princípios da epidemiologia.</p></div>
+  <div><span>02</span><h3>Dados</h3><p>Organização, leitura e interpretação crítica de informações em saúde.</p></div>
+  <div><span>03</span><h3>Aplicação</h3><p>Uso responsável das evidências em pesquisa, formação e serviços.</p></div>
+</div>
+
+## Programação e participação
+
+Conteúdos, datas, público-alvo, inscrições e responsáveis serão apresentados quando confirmados pela coordenação. Até lá, consulte a [Agenda GPENSC](agenda.qmd) ou [entre em contato](contato.qmd).
+
+**Identidade visual:** esta página utiliza uma ilustração editorial temática. Não foi inserida uma marca supostamente oficial sem os arquivos de referência do projeto.
+
+[Voltar à área de extensão](extensao.qmd){.btn .btn-secondary}

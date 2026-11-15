@@ -1,0 +1,36 @@
+---
+title: "Vi no Rótulo"
+description: "Conheça a iniciativa de extensão voltada à rotulagem e à informação sobre alimentos."
+---
+
+[Extensão](extensao.qmd) / Vi no Rótulo
+
+<div class="gp-project-hero gp-project-hero-orange">
+  <div class="gp-project-hero-copy">
+    <span class="gp-project-eyebrow">INICIATIVA DE EXTENSÃO · UFOP</span>
+    <h2>Informação alimentar para compreender e fazer escolhas</h2>
+    <p>O Vi no Rótulo aproxima o tema da rotulagem de alimentos do cotidiano, valorizando a leitura crítica das informações apresentadas nas embalagens.</p>
+    <a class="gp-project-button" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Acompanhar o Vi no Rótulo no Instagram</a>
+  </div>
+  <img src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração temática de rotulagem, não uma reprodução do logotipo oficial." width="320" height="220">
+</div>
+
+## Sobre a iniciativa
+
+A rotulagem é uma das formas de comunicar características dos alimentos. Compreender o que aparece nas embalagens pode favorecer o acesso à informação e discussões mais críticas sobre alimentação e nutrição.
+
+O projeto **Vi no Rótulo** tem seu próprio canal de divulgação, que deve ser utilizado como referência para materiais, equipe e atividades anunciadas oficialmente.
+
+<div class="gp-project-steps">
+  <div><span>01</span><h3>Conhecer</h3><p>Observar os elementos e informações apresentados nos rótulos.</p></div>
+  <div><span>02</span><h3>Compreender</h3><p>Explorar o significado das informações e alegações em linguagem acessível.</p></div>
+  <div><span>03</span><h3>Dialogar</h3><p>Compartilhar dúvidas e conteúdos educativos sobre rotulagem.</p></div>
+</div>
+
+## Acompanhe os canais do projeto
+
+Acesse o perfil [@vinorotulo](https://www.instagram.com/vinorotulo/) para conferir publicações e informações diretamente na fonte.
+
+**Identidade visual:** a ilustração desta página é um elemento editorial do site do GPENSC. Ela não substitui o logotipo oficial do Vi no Rótulo; a aplicação de sua marca deverá utilizar arquivos originais aprovados pela equipe.
+
+[Voltar à área de extensão](extensao.qmd){.btn .btn-secondary}
