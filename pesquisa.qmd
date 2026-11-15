@@ -1,0 +1,42 @@
+---
+title: "Pesquisa"
+---
+
+A pesquisa é uma das frentes de atuação do GPENSC. O grupo desenvolve estudos em Nutrição e Saúde Coletiva, articulando linhas de investigação, projetos, formação acadêmica e produção científica.
+
+## Explore a produção científica
+
+::: {.pesquisa-atalhos}
+::: {.pesquisa-atalho}
+<span>01</span>
+### Linhas de pesquisa
+
+Conheça os temas e as áreas de investigação cadastradas pelo grupo.
+
+[Explorar linhas](linhas.qmd)
+:::
+::: {.pesquisa-atalho}
+<span>02</span>
+### Projetos
+
+Consulte projetos de pesquisa, sua situação, coordenação e vínculos temáticos.
+
+[Ver projetos](projetos.qmd)
+:::
+::: {.pesquisa-atalho}
+<span>03</span>
+### Teses e dissertações
+
+Acompanhe trabalhos de mestrado e doutorado orientados por integrantes do grupo.
+
+[Ver trabalhos](teses.qmd)
+:::
+::: {.pesquisa-atalho}
+<span>04</span>
+### Publicações
+
+Consulte artigos, livros, capítulos e trabalhos apresentados em eventos.
+
+[Ver publicações](publicacoes.qmd)
+:::
+:::
