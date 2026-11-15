@@ -36,32 +36,38 @@ A extensão conecta o conhecimento produzido na universidade às necessidades e 
 ```
 
 
-Acompanhe os projetos e seus canais oficiais para conhecer as atividades, os conteúdos produzidos e as oportunidades de participação. A [Agenda GPENSC](agenda.qmd) reúne a programação confirmada.
-
-
-
-## Projetos cadastrados no portfólio
-
 ```{r}
 source("R/helpers.R")
+
 projetos_extensao <- registros_reais(projetos, "titulo") |>
   dplyr::filter(tipo == "Extensão")
 
-if (nrow(projetos_extensao)) {
-  projetos_extensao |>
-    dplyr::transmute(
-      Projeto = titulo,
-      Situação = situacao,
-      Coordenação = coordenador,
-      Início = inicio
-    ) |>
+# As duas iniciativas já possuem cartões próprios logo acima.
+if (nrow(projetos_extensao) > 0) {
+  titulos <- iconv(as.character(projetos_extensao$titulo), to = "ASCII//TRANSLIT")
+  titulos[is.na(titulos)] <- ""
+  destacados <- c("vi no rotulo", "capacitacao em epidemiologia e analise de dados")
+  projetos_extensao <- projetos_extensao[
+    !(tolower(trimws(titulos)) %in% destacados),
+    , drop = FALSE
+  ]
+}
+
+if (nrow(projetos_extensao) > 0) {
+  tagList(
+    h2("Outros projetos de extensão"),
     DT::datatable(
+      dplyr::transmute(
+        projetos_extensao,
+        Projeto = titulo,
+        Situação = situacao,
+        Coordenação = coordenador,
+        Início = inicio
+      ),
       rownames = FALSE,
       options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
     )
-} else {
-  estado_vazio("Cadastros em revisão",
-    "Os dados detalhados de coordenação, período e situação aparecerão após sua confirmação pelo grupo.")
+  )
 }
 ```
 
