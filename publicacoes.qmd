@@ -65,30 +65,7 @@ if (nrow(publicacoes_publicadas) == 0) {
       p("Indicadores de citação e impacto bibliométrico só serão apresentados quando houver levantamento com fonte, data de consulta e método de contagem documentados.")
     ),
 
-    h2("Linha do tempo"),
-    {
-      anos <- sort(unique(publicacoes_publicadas$ano), decreasing = TRUE)
-      div(
-        class = "tl",
-        lapply(anos, function(a) {
-          d <- filter(publicacoes_publicadas, ano == a)
-          div(
-            class = "tl-bloco reveal",
-            div(class = "tl-ano", a),
-            lapply(seq_len(nrow(d)), function(i) {
-              div(
-                class = "tl-item",
-                if (tem(d$tipo[i])) span(class = "selo", d$tipo[i]),
-                p(d$referencia[i]),
-                link_pub(d$doi[i], d$url[i])
-              )
-            })
-          )
-        })
-      )
-    },
-
-    h2("Tabela completa"),
+    h2("Lista de publicações"),
     publicacoes_publicadas |>
       transmute(Ano = ano, Tipo = tipo, Referência = referencia, Linha = linha_id) |>
       datatable(

@@ -38,17 +38,41 @@ div(
 
 O portfólio do GPENSC destaca iniciativas de extensão relacionadas à informação sobre alimentos e à formação em epidemiologia e análise de dados.
 
-<div class="extensao-iniciativas">
-  <article class="extensao-iniciativa">
-    <span class="extensao-iniciativa-selo">PROJETO DE EXTENSÃO</span>
-    <h3>Vi no Rótulo</h3>
-    <p>Iniciativa de extensão do GPENSC. A página reunirá a apresentação do projeto, seus materiais e informações de participação quando esses conteúdos estiverem revisados.</p>
-  </article>
-  <article class="extensao-iniciativa">
-    <span class="extensao-iniciativa-selo">FORMAÇÃO E CAPACITAÇÃO</span>
-    <h3>Capacitação em epidemiologia e análise de dados</h3>
-    <p>Iniciativa de capacitação mencionada pelo grupo, com espaço para disponibilizar informações sobre atividades formativas e materiais de apoio.</p>
-  </article>
-</div>
+```{r}
+iniciativas_extensao <- list(
+  list(
+    titulo = "Vi no Rótulo",
+    selo = "PROJETO DE EXTENSÃO",
+    descricao = "Iniciativa de extensão do GPENSC. A página reunirá a apresentação do projeto, seus materiais e informações de participação quando esses conteúdos estiverem revisados."
+  ),
+  list(
+    titulo = "Capacitação em epidemiologia e análise de dados",
+    selo = "FORMAÇÃO E CAPACITAÇÃO",
+    descricao = "Iniciativa de capacitação mencionada pelo grupo, com espaço para disponibilizar informações sobre atividades formativas e materiais de apoio."
+  )
+)
+nomes_cadastrados <- if (nrow(projetos_extensao) > 0) {
+  tolower(trimws(as.character(projetos_extensao$titulo)))
+} else character()
+
+iniciativas_pendentes <- Filter(
+  function(item) !tolower(trimws(item$titulo)) %in% nomes_cadastrados,
+  iniciativas_extensao
+)
+
+if (length(iniciativas_pendentes) > 0) {
+  div(
+    class = "extensao-iniciativas",
+    lapply(iniciativas_pendentes, function(item) {
+      tags$article(
+        class = "extensao-iniciativa",
+        span(class = "extensao-iniciativa-selo", item$selo),
+        h3(item$titulo),
+        p(item$descricao)
+      )
+    })
+  )
+}
+```
 
 [Entre em contato com o GPENSC](contato.qmd){.btn .btn-secondary}

@@ -38,11 +38,7 @@ div(
 )
 ```
 
-<div class="home-frentes" aria-label="Frentes de atuação do GPENSC">
-  <a href="pesquisa.html"><span>01</span><strong>Pesquisa</strong><small>Linhas, projetos e produção científica</small></a>
-  <a href="extensao.html"><span>02</span><strong>Extensão</strong><small>Projetos e diálogo com a comunidade</small></a>
-  <a href="ensino.html"><span>03</span><strong>Ensino</strong><small>Formação, cursos e atividades acadêmicas</small></a>
-</div>
+
 
 ```{r}
 div(

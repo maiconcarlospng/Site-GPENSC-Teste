@@ -19,10 +19,6 @@ if (nrow(noticias_publicadas) == 0) {
   )
 } else {
   tagList(
-    div(class = "aviso-demonstracao",
-        tags$i(class = "bi bi-info-circle", `aria-hidden` = "true"),
-        strong("Página de demonstração. "),
-        "O conteúdo abaixo ilustra o formato do detalhamento de uma notícia."),
     div(
       id = "noticia-detalhe-vazio",
       class = "noticia-detalhe-vazio",

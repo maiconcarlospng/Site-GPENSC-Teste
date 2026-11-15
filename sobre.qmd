@@ -9,7 +9,6 @@ source("R/helpers.R")
 
 objetivos <- as.character(unlist(cfg[c("objetivo1", "objetivo2", "objetivo3", "objetivo4")]))
 integrantes <- registros_reais(equipe, "nome")
-parcerias_publicadas <- registros_reais(parcerias, "nome")
 
 # Usa a categoria escolhida no painel; para registros antigos, tenta inferir pelo papel.
 categoria_integrante <- function(e) {
@@ -296,49 +295,11 @@ div(
     )
   },
 
-  if (nrow(parcerias_publicadas) > 0) {
-    div(
-      class = "sobre-parcerias sobre-parcerias--somente-logos",
-      h2("Instituições parceiras e vínculos"),
-      div(
-        class = "sobre-parcerias-grid",
-        lapply(seq_len(nrow(parcerias_publicadas)), function(i) {
-          parceria <- parcerias_publicadas[i, , drop = FALSE]
-          nome_parceria <- as.character(parceria$nome[1])
-          logo_parceria <- valor_publico(parceria$logo)
-          link_parceria <- valor_publico(parceria$url)
-
-          if (is.null(logo_parceria)) return(NULL)
-
-          logo_item <- tags$img(
-            class = "sobre-parceria-logo",
-            src = caminho_img(logo_parceria),
-            alt = paste("Logo:", nome_parceria),
-            loading = "lazy"
-          )
-
-          conteudo_logo <- div(
-            class = "sobre-parceria-logo-only",
-            logo_item
-          )
-
-          if (!is.null(link_parceria)) {
-            tags$a(
-              class = "sobre-parceria-logo-link",
-              href = link_parceria,
-              target = "_blank",
-              rel = "noopener noreferrer",
-              aria_label = paste("Acessar", nome_parceria),
-              conteudo_logo
-            )
-          } else {
-            conteudo_logo
-          }
-        })
-      )
-    )
-  },
-
+  div(
+    class = "sobre-parcerias-link",
+    p("O GPENSC mantém vínculos com instituições e grupos de pesquisa. Conheça as parcerias e sua distribuição no mapa."),
+    tags$a(class = "btn btn-secondary", href = "parcerias.html", "Conhecer as parcerias")
+  ),
   div(
     class = "sobre-cta",
     p(cfg$texto_cta_sobre),
