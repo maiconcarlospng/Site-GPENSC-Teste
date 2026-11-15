@@ -6,7 +6,7 @@ description: "Visualize as conexões entre o GPENSC, suas linhas, projetos, inte
 <div class="gp-tree-hero">
   <div>
     <span class="gp-tree-eyebrow">CONHECIMENTO QUE CRESCE EM REDE</span>
-    <p><strong>O GPENSC é o tronco</strong> que integra pesquisa, ensino e extensão. As linhas de pesquisa formam os ramos; projetos, pessoas e produções representam os frutos desse trabalho coletivo.</p>
+    <p><strong>O GPENSC é o tronco</strong> que integra pesquisa, ensino e extensão. As linhas de pesquisa e seus projetos formam os galhos; as pessoas e as produções científicas representam os frutos desse trabalho coletivo.</p>
   </div>
   <img src="img/ilustracoes/arvore.svg" alt="" width="170" height="125">
 </div>
@@ -110,8 +110,8 @@ div(
         div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
         div(class = "gp-tree-legend",
             span("Tronco: GPENSC"),
-            span("Ramos: linhas de pesquisa"),
-            span("Frutos: pessoas, projetos e produções"))
+            span("Galhos: linhas de pesquisa e projetos"),
+            span("Frutos: pessoas e produções científicas"))
       ),
       tags$aside(id = "gp-tree-detail", class = "gp-tree-detail",
                  "aria-live" = "polite",
