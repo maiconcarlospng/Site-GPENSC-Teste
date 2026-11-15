@@ -423,9 +423,25 @@ body #quarto-content .faixa-agenda .agenda-sem-eventos{
   border-radius:0!important;
 }
 body #quarto-content .faixa-agenda .agenda-sem-eventos :is(strong,p,span){color:#47604d!important}
+body #quarto-content .faixa-agenda .agenda-chamada > p:has(.agenda-botao){
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:1rem 0 0!important;
+  padding:0!important;
+}
 body #quarto-content .faixa-agenda .agenda-botao{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:auto!important;
+  min-height:44px!important;
+  margin:0!important;
+  padding:.5rem 0!important;
+  line-height:1.3!important;
   border-radius:4px!important;
-  margin-top:.9rem!important;
   box-shadow:none!important;
 }
 body #quarto-content .gp-ext-guide,
