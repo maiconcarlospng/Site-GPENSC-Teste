@@ -53,7 +53,7 @@ GitHub API  ->  grava conteúdo em data/*.yml e imagens em img/
         v
 GitHub Actions
   1. valida configuração e arquivos
-  2. escolhe o caminho rápido do painel ou a compilação Quarto/R
+  2. valida os arquivos e compila Quarto/R sempre a partir do mesmo commit
   3. gera/atualiza _site/
         |
         v
@@ -344,15 +344,13 @@ A folha `styles.css` é mantida como referência/legado, mas não aparece na lis
 
 O repositório possui um workflow principal: [Publicar site Quarto](.github/workflows/publish.yml).
 
-### Como o workflow decide o que fazer
+### Como o workflow publica
 
-1. **Identificar a alteração:** compara os arquivos modificados.
-2. **Validar painel e conteúdo:** verifica configuração do Sveltia, caminhos de arquivos, YAML, campos, regras de conteúdo e CSS selecionados; também verifica a sintaxe do widget de galeria.
-3. **Alterações só em `admin/`:** usa o caminho rápido, restaura o último site compilado e substitui somente os arquivos do painel. Essa etapa não precisa reinstalar R nem recompilar o Quarto.
-4. **Alterações em páginas, R, dados, imagens, estilos ou Quarto:** executa o caminho de compilação do site. O workflow pode renderizar apenas páginas mapeadas para determinados YAML; alterações não mapeadas ou estruturais exigem renderização completa.
-5. **Publicar:** envia o artefato para o GitHub Pages.
+1. **Validar painel e conteúdo:** verifica configuração, links, caminhos de arquivos, YAML, CSS e sintaxe de componentes JavaScript.
+2. **Compilar todo o site:** recria os arquivos HTML, os dados de saída e o painel com Quarto/R, a partir do commit atual, sem reutilizar uma versão antiga de `_site` ou `_freeze`.
+3. **Publicar:** envia o artefato recém-gerado ao GitHub Pages, se a validação e a compilação forem concluídas com sucesso.
 
-O workflow usa cache para acelerar o processo e `concurrency` para cancelar uma publicação anterior quando uma nova alteração chega. O resultado que interessa é a execução correspondente ao commit mais recente.
+A publicação sempre inclui as alterações do site e do painel no mesmo commit, inclusive quando apenas `admin/` mudou. Isso evita que uma execução anterior cancelada deixe páginas antigas publicadas. O workflow usa `concurrency` para priorizar a execução do commit mais recente.
 
 **Não existe agendamento diário configurado.** A publicação é acionada por alterações relevantes na branch `main` ou manualmente em **Actions → Publicar site Quarto → Run workflow**.
 
@@ -365,9 +363,9 @@ No repositório atual, confirme:
 - Actions tem permissão para publicar no GitHub Pages.
 - O ambiente `github-pages` está disponível.
 
-### Sobre o cache e os estilos
+### Sobre estilos e atualização
 
-Os arquivos CSS carregados em `_quarto.yml` também precisam constar nos filtros de caminhos e nas chaves de cache de `.github/workflows/publish.yml`. Os estilos mais recentes da home e agenda (`styles-home-v17.css` e `styles-agenda-v18.css`) foram adicionados a essa lista para que futuras alterações sejam detectadas e recompiladas.
+O Quarto recompila as páginas em toda publicação, portanto novas alterações em CSS, configurações e dados não devem depender de HTML armazenado em cache. Os arquivos relevantes ainda precisam constar em `on.push.paths` no workflow para disparar uma execução automática. O navegador pode manter CSS/JS em cache; após a publicação, recarregue a página caso veja uma versão antiga.
 
 ### Investigar uma falha
 
