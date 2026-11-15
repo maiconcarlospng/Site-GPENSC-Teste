@@ -124,7 +124,6 @@ if (nrow(pontos_mapa) > 0) {
       "})();"
     )))
   )
-}
 } else {
   estado_vazio("Mapa em atualização", "Inclua cidade, país, latitude e longitude nos registros das instituições para posicioná-las no mapa.")
 }
