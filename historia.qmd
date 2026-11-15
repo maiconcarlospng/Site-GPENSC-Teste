@@ -43,7 +43,7 @@ if (length(historia) > 0) {
 } else {
   estado_vazio(
     "A história está sendo organizada",
-    "Os registros provisórios foram preservados no painel, mas só serão exibidos aqui quando ano, título e descrição forem revisados e confirmados pelo grupo."
+    "A linha do tempo será ampliada à medida que novos acontecimentos forem documentados e confirmados pelo grupo."
   )
 }
 ```
