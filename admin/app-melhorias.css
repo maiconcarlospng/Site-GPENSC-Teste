@@ -15,7 +15,7 @@
 #page-content a:focus-visible,#page-content button:focus-visible,.modal button:focus-visible{outline:3px solid var(--ad-orange);outline-offset:2px}
 #toast-root{z-index:130;max-width:calc(100vw - 24px)}
 .mobile-nav-head,.mobile-nav-search{display:none}
-@media(min-width:1200px){
+@media(min-width:1450px){
  body.editor-open .workspace .main-area{padding-right:clamp(415px,37vw,525px)}
  body.editor-open .page-content{max-width:none;padding-right:20px}
  body.editor-open #modal-root .modal-backdrop{
@@ -44,7 +44,7 @@
  body.editor-open #modal-root .field label{font-size:12px}
  body.editor-open #modal-root .field :is(input,select,textarea){font-size:14px;min-height:44px}
 }
-@media(min-width:701px) and (max-width:1199px){
+@media(min-width:701px) and (max-width:1449px){
  .workspace{grid-template-columns:minmax(0,220px) minmax(0,1fr)}
  .page-content{padding-inline:20px}
  .dashboard-chart-grid{grid-template-columns:1fr}
@@ -268,4 +268,37 @@ body{background:#f7f8f5}
   .sidebar.mobile-open #collection-nav button{border-radius:7px}
   .editorial-review{border-radius:7px}
   #modal-root .modal{border-radius:0}
+}
+
+
+/* Ajustes de legibilidade e alinhamento do painel. */
+.retry-loading{display:block;margin:12px auto 0;max-width:100%}
+.retry-loading[hidden]{display:none!important}
+.workspace,.main-area,.page-content{min-width:0;max-width:100%}
+.page-heading>div,.collection-heading>div,.collection-tools{min-width:0}
+#page-content :is(.stat-card,.collection-card,.dashboard-chart-card,.dashboard-activity-card,.panel-card){
+  min-width:0;overflow-wrap:anywhere
+}
+#page-content .data-table{width:100%;min-width:510px}
+#page-content .table-wrap{width:100%;max-width:100%;overflow-x:auto}
+#modal-root .modal{max-width:min(100%,960px)}
+#modal-root .modal-body{min-width:0;overflow-x:hidden}
+#modal-root .field{min-width:0}
+#modal-root .field :is(input,select,textarea){max-width:100%}
+.sidebar .side-caption{display:none}
+@media(min-width:701px) and (max-width:1449px){
+  .workspace{grid-template-columns:minmax(0,220px) minmax(0,1fr)}
+  .main-area{padding-right:0!important}
+  #modal-root .modal-backdrop{z-index:90}
+  #modal-root .modal{max-width:min(94vw,820px);max-height:min(94dvh,900px)}
+}
+@media(max-width:700px){
+  .workspace{grid-template-columns:minmax(0,1fr)}
+  .page-content{padding-inline:clamp(12px,3.2vw,18px)}
+  .page-heading,.collection-heading{align-items:flex-start}
+  .collection-tools{width:100%;display:flex;flex-wrap:wrap;gap:8px}
+  .collection-tools button{flex:1 1 auto;min-width:0}
+  #modal-root .modal{max-width:100%}
+  .sidebar.mobile-open .menu-section[hidden]{display:none!important}
+  .sidebar.mobile-open #collection-nav button[hidden]{display:none!important}
 }
