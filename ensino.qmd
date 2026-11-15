@@ -1,0 +1,56 @@
+---
+title: "Ensino"
+---
+
+O GPENSC contribui para a formação acadêmica e profissional por meio de atividades de ensino, formação e compartilhamento de conhecimentos em Nutrição e Saúde Coletiva.
+
+## Atividades formativas
+
+O planejamento do grupo contempla workshops para graduação e pós-graduação, palestras, cursos, simpósios e outras atividades formativas. A agenda de atividades abertas é atualizada na página de eventos.
+
+```{r}
+source("R/helpers.R")
+
+disciplinas_ensino <- registros_reais(disciplinas, "nome")
+eventos_ensino <- registros_reais(eventos, "titulo")
+tipos_ensino <- c("Workshop", "Palestra", "Curso", "Oficina", "Seminário", "Simpósio", "Aula aberta")
+eventos_formativos <- eventos_ensino[tolower(eventos_ensino$tipo) %in% tolower(tipos_ensino), , drop = FALSE]
+
+h2("Cursos, workshops e atividades abertas")
+if (nrow(eventos_formativos) > 0) {
+  eventos_formativos <- eventos_formativos[order(eventos_formativos$data, decreasing = TRUE, na.last = TRUE), , drop = FALSE]
+  div(
+    class = "ensino-eventos",
+    lapply(seq_len(nrow(eventos_formativos)), function(i) {
+      e <- eventos_formativos[i, , drop = FALSE]
+      div(
+        class = "ensino-evento",
+        span(class = "ensino-evento-tipo", valor_publico(e$tipo)),
+        h3(as.character(e$titulo[1])),
+        if (!is.na(e$data[1])) p(format(e$data[1], "%d/%m/%Y")),
+        if (tem(e$local)) p(as.character(e$local[1])),
+        if (tem(e$url)) tags$a("Mais informações", href = as.character(e$url[1]), target = "_blank", rel = "noopener noreferrer")
+      )
+    })
+  )
+} else {
+  estado_vazio("Programação em atualização", "As atividades formativas serão divulgadas nesta página e na Agenda GPENSC quando houver datas e informações confirmadas.", "Consultar agenda", "agenda.html")
+}
+
+h2("Disciplinas e conteúdos de formação")
+if (nrow(disciplinas_ensino) > 0) {
+  cartoes(disciplinas_ensino, function(d, i) {
+    div(
+      class = paste("ensino-disciplina", cor_de(i)),
+      h3(as.character(d$nome[1])),
+      if (tem(d$nivel)) span(class = "ensino-disciplina-nivel", as.character(d$nivel[1])),
+      if (tem(d$docente)) p(as.character(d$docente[1])),
+      if (tem(d$ementa)) p(as.character(d$ementa[1]))
+    )
+  })
+} else {
+  estado_vazio("Conteúdo de disciplinas em atualização", "As disciplinas e atividades curriculares serão incluídas após a confirmação das informações pelo grupo.")
+}
+```
+
+[Ver agenda de atividades](agenda.qmd){.btn .btn-secondary}
