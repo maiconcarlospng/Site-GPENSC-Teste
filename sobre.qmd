@@ -144,7 +144,6 @@ div(
 
   div(
     class = "sobre-historia-link",
-    p("A trajetória do GPENSC, seus projetos e acontecimentos institucionais estão reunidos em uma página própria."),
     tags$a(class = "btn btn-secondary", href = "historia.html", "Conhecer nossa história")
   ),
   h2(cfg$titulo_equipe),
