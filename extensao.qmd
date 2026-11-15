@@ -8,8 +8,6 @@ description: "Iniciativas de extensão e capacitação em alimentação, nutriç
 ```
 
 
-A extensão conecta o conhecimento produzido na universidade às necessidades e aos saberes da comunidade. Conheça as iniciativas mencionadas no planejamento do GPENSC.
-
 ## Iniciativas em destaque
 
 ```{=html}
