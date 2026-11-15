@@ -635,7 +635,7 @@ function canLeaveCurrentEditor(){
   if(form?.dataset.dirty==='true'&&!confirm('Existem alterações não salvas. Deseja descartá-las?'))return false;
   return true;
 }
-document.addEventListener('beforeunload',event=>{
+window.addEventListener('beforeunload',event=>{
   const form=$('#entry-form')||$('#config-form')||$('#gallery-form');
   if(form?.dataset.dirty==='true'){event.preventDefault();event.returnValue='';}
 });
