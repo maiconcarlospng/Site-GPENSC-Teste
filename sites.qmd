@@ -1,34 +1,15 @@
 ---
-title: "Sites recomendados"
+title: "Vínculos institucionais"
+pagetitle: "Vínculos institucionais – GPENSC"
+page-layout: custom
+title-block-banner: false
 ---
 
-```{r}
-source("R/helpers.R")
-sites_publicados <- registros_reais(sites, "nome")
-
-if (secao_ativa("mostrar_sites")) {
-if (nrow(sites_publicados) == 0) {
-  estado_vazio(
-    "Nenhum link disponível",
-    "No momento, não há links institucionais ou recursos externos disponíveis para consulta.",
-    "Entrar em contato",
-    "contato.html"
-  )
-} else {
-  cartoes(sites_publicados, function(s, i) {
-    descricao <- valor_publico(s$descricao)
-    url <- valor_publico(s$url)
-
-    div(
-      class = paste("cartao reveal", cor_de(i)),
-      h4(s$nome),
-      if (!is.null(descricao)) p(descricao),
-      if (!is.null(url)) tags$a("Visitar site »", href = url, target = "_blank", rel = "noopener noreferrer")
-    )
-  })
-}
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
+```{=html}
+<meta http-equiv="refresh" content="0; url=parcerias.html#v%C3%ADnculos-institucionais">
+<script>
+  window.location.replace("parcerias.html#v%C3%ADnculos-institucionais");
+</script>
+<p>Os vínculos institucionais e as parcerias do GPENSC estão reunidos na página de Parcerias.
+<a href="parcerias.html#v%C3%ADnculos-institucionais">Acessar Parcerias</a>.</p>
 ```

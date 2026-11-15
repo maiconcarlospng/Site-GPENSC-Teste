@@ -1,48 +1,15 @@
 ---
 title: "Disciplinas"
+pagetitle: "Disciplinas – GPENSC"
+page-layout: custom
+title-block-banner: false
 ---
 
-```{r}
-source("R/helpers.R")
-disciplinas_publicadas <- registros_reais(disciplinas, "nome")
-
-if (secao_ativa("mostrar_disciplinas")) {
-if (nrow(disciplinas_publicadas) == 0) {
-  estado_vazio(
-    "Nenhuma disciplina disponível",
-    "No momento, não há informações sobre disciplinas de graduação ou pós-graduação disponíveis para consulta.",
-    "Conheça o grupo",
-    "sobre.html"
-  )
-} else {
-  niveis <- unique(disciplinas_publicadas$nivel)
-  tagList(lapply(niveis, function(nivel_atual) {
-    dados_nivel <- filter(disciplinas_publicadas, nivel == nivel_atual)
-    nivel_texto <- valor_publico(nivel_atual)
-    if (is.null(nivel_texto)) nivel_texto <- "Disciplinas"
-
-    tagList(
-      h2(nivel_texto),
-      cartoes(dados_nivel, function(d, i) {
-        docente <- valor_publico(d$docente)
-        periodo <- valor_publico(d$periodo)
-        ementa <- valor_publico(d$ementa)
-        codigo <- valor_publico(d$codigo)
-        meta <- Filter(Negate(is.null), list(docente, periodo))
-
-        div(
-          class = paste("cartao reveal", cor_de(i)),
-          if (!is.null(codigo)) span(class = "cartao-num", codigo),
-          h4(d$nome),
-          if (length(meta) > 0) p(class = "kw", paste(meta, collapse = " · ")),
-          if (!is.null(ementa)) p(ementa)
-        )
-      })
-    )
-  }))
-}
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
+```{=html}
+<meta http-equiv="refresh" content="0; url=ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o">
+<script>
+  window.location.replace("ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o");
+</script>
+<p>As disciplinas e atividades curriculares do GPENSC estão reunidas na página de Ensino.
+<a href="ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o">Acessar Ensino</a>.</p>
 ```
