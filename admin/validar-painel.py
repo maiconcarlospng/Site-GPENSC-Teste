@@ -36,6 +36,13 @@ SITE_CSS_PATHS = (
     ROOT / "styles-menu-mobile-v16.css",
     ROOT / "styles-home-v17.css",
     ROOT / "styles-agenda-v18.css",
+    ROOT / "styles-gpensc-v26.css",
+    ROOT / "styles-gpensc-v27.css",
+    ROOT / "styles-direcao-v28.css",
+    ROOT / "styles-arvore-v29.css",
+    ROOT / "styles-projetos-v30.css",
+    ROOT / "styles-identidades-v31.css",
+    ROOT / "styles-revisao-mobile-v32.css",
 )
 PANEL_APP_CSS_PATH = ADMIN / "app.css"
 KNOWN_WIDGETS = {
@@ -405,6 +412,7 @@ def main() -> None:
     # Verifica também os estilos realmente usados no site público, não apenas o CSS do painel.
     inspect_css(CSS_PATH)
     inspect_css(PANEL_APP_CSS_PATH)
+    inspect_css(ADMIN / "app-melhorias.css")
     inspect_css(ADMIN / "planilhas.css")
     for site_css in SITE_CSS_PATHS:
         inspect_css(site_css)
