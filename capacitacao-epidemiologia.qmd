@@ -11,7 +11,6 @@ description: "Conheça a iniciativa de formação em epidemiologia e análise de
     <span class="gp-project-eyebrow">INICIATIVA DE FORMAÇÃO · GPENSC</span>
     <h2>Formação para compreender dados e produzir evidências em saúde</h2>
     <p>Uma frente de formação dedicada a métodos epidemiológicos, organização de dados e interpretação de indicadores em saúde.</p>
-    <a class="gp-project-button" href="agenda.html">Consultar próximas atividades</a>
   </div>
   <img src="img/ilustracoes/epidemiologia-projeto.svg" alt="Ilustração temática de análise de dados, não o logotipo oficial do projeto." width="320" height="220">
 </div>
@@ -28,4 +27,3 @@ Os conteúdos podem envolver desenho de estudos epidemiológicos, organização 
 
 A programação é divulgada conforme a confirmação das atividades. Consulte a [Agenda GPENSC](agenda.qmd) para verificar os próximos encontros ou [entre em contato](contato.qmd) para mais informações.
 
-[Voltar à área de extensão](extensao.qmd){.btn .btn-secondary}
