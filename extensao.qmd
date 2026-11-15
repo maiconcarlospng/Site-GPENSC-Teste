@@ -2,6 +2,11 @@
 title: "Projetos de extensão"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Conhecimento em diálogo com a comunidade, os serviços e os territórios.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
+```
+
+
 O GPENSC desenvolve ações de extensão que aproximam conhecimentos sobre alimentação, nutrição e saúde coletiva das questões vividas pela sociedade, em diálogo com profissionais, gestores, estudantes e comunidade.
 
 ```{r}
@@ -43,12 +48,12 @@ iniciativas_extensao <- list(
   list(
     titulo = "Vi no Rótulo",
     selo = "PROJETO DE EXTENSÃO",
-    descricao = "Iniciativa de extensão do GPENSC. A página reunirá a apresentação do projeto, seus materiais e informações de participação quando esses conteúdos estiverem revisados."
+    descricao = "Projeto de extensão do GPENSC voltado à rotulagem de alimentos. Entre em contato com o grupo para conhecer a iniciativa."
   ),
   list(
     titulo = "Capacitação em epidemiologia e análise de dados",
     selo = "FORMAÇÃO E CAPACITAÇÃO",
-    descricao = "Iniciativa de capacitação mencionada pelo grupo, com espaço para disponibilizar informações sobre atividades formativas e materiais de apoio."
+    descricao = "Formação em epidemiologia e análise de dados. Consulte a agenda para acompanhar as atividades abertas e entre em contato para saber mais."
   )
 )
 nomes_cadastrados <- if (nrow(projetos_extensao) > 0) {

@@ -2,6 +2,11 @@
 title: "Quem somos"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Pessoas, propósitos e trajetórias que constroem a identidade do grupo.</p><img src="img/ilustracoes/sobre.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 # A linha do tempo e seus registros são gerenciados pelo painel Sveltia CMS.
@@ -44,7 +49,10 @@ if (nrow(integrantes) > 0) {
   integrantes$categoria_exibicao <- dplyr::recode(
     integrantes$categoria_exibicao,
     "Coordenação" = "Líderes",
-    "Docentes e pesquisadores" = "Pesquisadores"
+    "Docentes e pesquisadores" = "Pesquisadores",
+    "Pós-graduandos" = "Pesquisadores",
+    "Graduandos" = "Pesquisadores",
+    "Outros integrantes" = "Pesquisadores"
   )
 }
 
@@ -177,7 +185,7 @@ div(
         class = "equipe-diretorio",
         div(
           class = "equipe-diretorio-intro",
-          p("Conheça as pessoas que constroem o GPENSC: lideranças, pesquisadores, colaboradores e integrantes egressos. A relação deve ser revisada periodicamente, preferencialmente a cada 12 meses. Os perfis de egressos apresentam o nome e o Currículo Lattes; os demais perfis podem incluir e-mail e identificadores acadêmicos, conforme autorização."),
+          p("Conheça as pessoas que constroem o GPENSC: líderes, pesquisadores, colaboradores e egressos. Acesse os currículos e os contatos disponíveis para conhecer suas trajetórias e áreas de atuação."),
           span(
             class = "equipe-contagem",
             id = "equipe-contagem",

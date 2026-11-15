@@ -59,9 +59,9 @@
       var container = document.createElement("div");
       container.className = "bandeiras-container";
       container.innerHTML = `
-        <img src="https://flagcdn.com/w40/br.png" class="bandeira-idioma" onclick="traduzirPagina('pt')" ontouchstart="traduzirPagina('pt')" alt="Português" title="Português">
-        <img src="https://flagcdn.com/w40/us.png" class="bandeira-idioma" onclick="traduzirPagina('en')" ontouchstart="traduzirPagina('en')" alt="English" title="English">
-        <img src="https://flagcdn.com/w40/es.png" class="bandeira-idioma" onclick="traduzirPagina('es')" ontouchstart="traduzirPagina('es')" alt="Español" title="Español">
+        <button type="button" class="gp-language-button" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
+        <button type="button" class="gp-language-button" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>
+        <button type="button" class="gp-language-button" onclick="traduzirPagina('es')" aria-label="Español — tradução automática" title="Español — tradução automática"><span lang="es">ES</span></button>
       `;
       navbarTitle.after(container);
     }

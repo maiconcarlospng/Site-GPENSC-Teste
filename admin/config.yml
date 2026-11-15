@@ -51,7 +51,7 @@ collections:
               summary: "{{fields.data}} - {{fields.titulo}}"
               fields:
                 - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
-                - { label: "Tipo", name: "tipo", widget: "select", options: ["Palestra", "Curso", "Oficina", "Seminário", "Congresso", "Workshop", "Aula aberta", "Reunião", "Outro"], required: false, hint: "Escolha uma categoria. Se não se aplicar, deixe sem seleção." }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Palestra", "Curso", "Oficina", "Seminário", "Congresso", "Workshop", "Aula aberta", "Reunião", "Simpósio", "Defesa", "Outro"], required: false, hint: "Escolha uma categoria. Se não se aplicar, deixe sem seleção." }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Local", name: "local", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
@@ -163,6 +163,7 @@ collections:
                 - { label: "Etapa", name: "etapa", widget: "select", options: ["Qualificação", "Defesa"], hint: "Indique se o registro é de qualificação ou defesa final." }
                 - { label: "Autor", name: "autor", widget: "string" }
                 - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Linha de pesquisa", name: "linha_id", widget: "relation", collection: "pesquisa", file: "linhas", value_field: "itens.*.id", display_fields: ["itens.*.nome"], search_fields: ["itens.*.nome"], required: false }
                 - { label: "Orientador", name: "orientador", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "ensino_equipe"
@@ -181,7 +182,8 @@ collections:
               summary: "{{fields.nome}} — {{fields.categoria}}"
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
-                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Coordenação", "Docentes e pesquisadores", "Colaboradores", "Egressos", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos"], required: false, hint: "Usada para agrupar os perfis na página pública." }
+                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Líderes", "Pesquisadores", "Colaboradores", "Egressos", "Coordenação", "Docentes e pesquisadores", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos"], required: false, hint: "Use Líderes (docentes da ENUT), Pesquisadores, Colaboradores ou Egressos. Opções antigas permanecem para compatibilidade. Egressos exibem somente nome e Lattes." }
+                - { label: "Última revisão do perfil", name: "revisado_em", widget: "date", required: false, hint: "Revise foto, contato e Lattes a cada 12 meses." }
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
                 - { label: "E-mail de contato", name: "email", widget: "string", required: false }
@@ -447,3 +449,134 @@ collections:
           file: "data/configuracoes/12-rodape.yml"
           fields:
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+
+  - name: editorial
+    label: Conhecimento e gestão editorial
+    files:
+    - name: materiais
+      label: Materiais educativos e anuários
+      file: data/materiais.yml
+      fields:
+      - name: itens
+        label: Materiais educativos e anuários
+        widget: list
+        fields:
+        - &id001
+          name: titulo
+          label: Título
+          widget: string
+        - &id002
+          name: resumo
+          label: Resumo em linguagem acessível
+          widget: text
+        - &id003
+          name: publico
+          label: Público
+          widget: select
+          options:
+          - Todos
+          - Comunidade científica
+          - Estudantes
+          - Gestores e profissionais
+          - População geral
+        - &id004
+          name: url
+          label: Link do material ou fonte
+          widget: string
+          required: false
+          pattern:
+          - ^https?://[^\s]+$
+          - Use um endereço http:// ou https://.
+        - &id005
+          name: data
+          label: Data
+          widget: date
+          required: false
+        - name: tipo
+          label: Formato
+          widget: select
+          options:
+          - Cartilha
+          - Infográfico
+          - E-book
+          - Podcast
+          - Vídeo
+          - Policy brief
+          - Anuário
+          - Outro
+    - name: metodos
+      label: Metodologias e portfólios
+      file: data/metodos.yml
+      fields:
+      - name: itens
+        label: Metodologias e portfólios
+        widget: list
+        fields:
+        - *id001
+        - *id002
+        - *id003
+        - *id004
+        - *id005
+        - name: aplicacao
+          label: Aplicação
+          widget: text
+          required: false
+    - name: impactos
+      label: Relatos de impacto social
+      file: data/impactos.yml
+      fields:
+      - name: itens
+        label: Relatos de impacto social
+        widget: list
+        fields:
+        - *id001
+        - *id002
+        - *id003
+        - *id004
+        - *id005
+        - name: resultado
+          label: Resultado documentado
+          widget: text
+        - name: parceiros
+          label: Parceiros envolvidos
+          widget: string
+          required: false
+    - name: planejamento
+      label: Planejamento semestral
+      file: data/planejamento.yml
+      fields:
+      - name: itens
+        label: Planejamento semestral
+        widget: list
+        fields:
+        - name: titulo
+          label: Ação ou pauta
+          widget: string
+        - name: data
+          label: Data prevista
+          widget: date
+          required: false
+        - name: resumo
+          label: Orientações
+          widget: text
+          required: false
+        - name: responsavel
+          label: Responsável
+          widget: string
+          required: false
+        - name: situacao
+          label: Situação
+          widget: select
+          options:
+          - A planejar
+          - Em preparação
+          - Em revisão
+          - Publicado
+        - name: semestre
+          label: Semestre
+          widget: string
+          required: false
+        - name: fonte
+          label: Pasta de contribuições
+          widget: string
+          required: false

@@ -2,6 +2,11 @@
 title: "Parcerias"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Conexões entre instituições para pesquisar, ensinar e transformar conhecimentos em ações.</p><img src="img/ilustracoes/parcerias.svg" alt="" width="240" height="180"></div>
+```
+
+
 A colaboração com instituições e grupos de pesquisa amplia as possibilidades de produção científica, formação e intercâmbio de conhecimentos. Esta página reúne os vínculos institucionais e as parcerias cadastradas pelo GPENSC.
 
 ```{r}

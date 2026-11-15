@@ -31,7 +31,7 @@ div(
   ),
   div(
     class = "home-arvore-simbolo",
-    tags$span(class = "home-arvore-copa", "✳"),
+    tags$img(class = "gp-tree-art", src = "img/ilustracoes/arvore.svg", alt = "", width = 240, height = 180),
     tags$span(class = "home-arvore-tronco", "GPENSC"),
     tags$span(class = "home-arvore-raizes", "PESQUISA · ENSINO · EXTENSÃO")
   )

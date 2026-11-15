@@ -2,6 +2,11 @@
 title: "Pesquisa"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Dos temas de investigação à produção científica: explore as conexões entre linhas, projetos e formação.</p><img src="img/ilustracoes/pesquisa.svg" alt="" width="240" height="180"></div>
+```
+
+
 A pesquisa é uma das frentes de atuação do GPENSC. O grupo desenvolve estudos em Nutrição e Saúde Coletiva, articulando linhas de investigação, projetos, formação acadêmica e produção científica.
 
 ## Explore a produção científica
@@ -43,4 +48,4 @@ Consulte artigos, livros, capítulos e trabalhos apresentados em eventos.
 
 ## Metodologias e indicadores
 
-O portfólio acadêmico também poderá reunir metodologias utilizadas nos estudos, materiais de apoio e portfólios de métodos. A apresentação de periódicos, métricas de citação e outros indicadores bibliométricos será incluída após levantamento e conferência das fontes e dos dados correspondentes.
+[Conheça as metodologias e os portfólios](metodos.qmd) utilizados na pesquisa e na formação. Consulte também a [produção científica](publicacoes.qmd), com a distribuição das publicações por ano e periódico. Indicadores de citações dependem de fontes bibliométricas verificadas.

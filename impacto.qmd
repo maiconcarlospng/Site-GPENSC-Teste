@@ -2,6 +2,11 @@
 title: "Impacto social"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Da pesquisa à sociedade: experiências, produtos e resultados documentados.</p><img src="img/ilustracoes/impacto.svg" alt="" width="240" height="180"></div>
+```
+
+
 A produção científica do GPENSC dialoga com questões concretas da alimentação, da nutrição e da saúde coletiva. O grupo busca aproximar pesquisa, formação e extensão das necessidades de diferentes populações e dos serviços e políticas públicas.
 
 ## Como o conhecimento pode contribuir
@@ -42,7 +47,12 @@ Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formaç
 
 ## Da pesquisa à sociedade
 
-O impacto social deve ser apresentado a partir de resultados, experiências e produtos efetivamente documentados. Por isso, esta área será alimentada com relatos de projetos, materiais educativos, notícias, parcerias e evidências de contribuição social, sem atribuir resultados que ainda não tenham sido avaliados.
+Aqui reunimos relatos, produtos e resultados documentados das ações do grupo.
+
+```{r}
+source("R/helpers.R")
+renderizar_acervo("impactos", "Ainda não há relatos de impacto publicados")
+```
 
 [Conheça os projetos de extensão](extensao.qmd){.btn .btn-secondary}
 [Veja os materiais de divulgação científica](divulgacao.qmd){.btn .btn-secondary}

@@ -1526,3 +1526,32 @@
     font-size: 16px;
   }
 }
+
+/* Painel GPENSC: edição acessível, busca e revisão editorial. */
+.admin-illustration {display:block;width:150px;height:112px;margin:0 auto 16px;}
+.login-card {border-top:4px solid #78a462;}
+.editorial-review {display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 24px;padding:24px;background:#edf3e8;border:1px solid #d9e5d3;border-radius:16px;}
+.editorial-review h2 {font-size:20px;color:#28583b;margin:8px 0;}
+.editorial-review p {max-width:650px;color:#52634f;line-height:1.6;margin:0;}
+.editorial-links {display:flex;flex-wrap:wrap;gap:8px;max-width:350px;}
+.collection-search {margin:0 0 18px;max-width:620px;}
+.collection-search label {display:block;font-weight:650;font-size:13px;margin-bottom:8px;}
+.collection-search input {width:100%;min-height:46px;background:#fff;border:1px solid #ccd8c9;border-radius:10px;padding:12px;font:inherit;}
+.collection-search p {font-size:12px;color:#5c6e5f;}
+.field select[multiple] {min-height:160px;line-height:1.8;}
+.field select[multiple] option {padding:8px;border-radius:4px;}
+.field input:focus-visible,.field textarea:focus-visible,.field select:focus-visible,button:focus-visible,a:focus-visible {outline:3px solid #c6833d;outline-offset:3px;}
+.data-table tr[hidden],.record-card[hidden] {display:none !important;}
+.modal-body {overflow-y:auto;min-height:0;overscroll-behavior:contain;}
+.modal-head,.modal-foot {flex-shrink:0;}
+.collection-heading h1,.record-card strong {overflow-wrap:anywhere;}
+@media(max-width:700px){
+  .editorial-review {flex-direction:column;align-items:stretch;padding:18px;gap:14px;}
+  .editorial-links {max-width:none;display:grid;grid-template-columns:1fr;}
+  .editorial-links button {min-height:44px;text-align:left;}
+  .collection-search {max-width:none;}
+  .collection-search input {font-size:16px;}
+  .admin-illustration {width:112px;height:84px;margin-bottom:8px;}
+  .modal-foot>div {display:flex;flex-wrap:wrap;gap:8px;}
+  .modal-foot button {min-height:44px;}
+}

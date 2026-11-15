@@ -2,6 +2,11 @@
 title: "Nossa história"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Acompanhe os marcos da trajetória do GPENSC ao longo do tempo.</p><img src="img/ilustracoes/historia.svg" alt="" width="240" height="180"></div>
+```
+
+
 A trajetória do GPENSC é construída por pessoas, parcerias, projetos e experiências de ensino, pesquisa e extensão. Esta linha do tempo reúne acontecimentos institucionais confirmados e será atualizada coletivamente.
 
 ```{r}

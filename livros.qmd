@@ -2,6 +2,11 @@
 title: "Livros"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Leituras para aprofundar conhecimentos sobre alimentação, nutrição e saúde.</p><img src="img/ilustracoes/livros.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 livros_publicados <- registros_reais(livros, "titulo")

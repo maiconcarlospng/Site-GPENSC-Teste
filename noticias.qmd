@@ -2,6 +2,11 @@
 title: "Notícias"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Novidades, participação em eventos, editais e GPENSC na mídia.</p><img src="img/ilustracoes/noticias.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 

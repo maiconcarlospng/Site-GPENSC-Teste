@@ -38,6 +38,8 @@ website:
             text: Visão geral
           - href: linhas.qmd
             text: Linhas de pesquisa
+          - href: metodos.qmd
+            text: Metodologias
           - href: projetos.qmd
             text: Projetos
           - href: teses.qmd
@@ -52,6 +54,8 @@ website:
         menu:
           - href: divulgacao.qmd
             text: Todos os materiais
+          - href: materiais.qmd
+            text: Materiais educativos
           - href: podcasts.qmd
             text: Podcasts
           - href: livros.qmd

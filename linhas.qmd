@@ -2,12 +2,18 @@
 title: "Linhas de pesquisa"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Explore os temas e conheça seus integrantes, projetos e trabalhos acadêmicos.</p><img src="img/ilustracoes/linhas.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 
 linhas_publicadas <- registros_reais(linhas, "nome")
 projetos_publicados <- registros_reais(projetos, "titulo")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")
+defesas_publicadas <- registros_reais(defesas, "titulo")
 integrantes_publicados <- registros_reais(equipe, "nome")
 
 filtrar_por_linha <- function(dados, id) {
@@ -39,6 +45,7 @@ if (secao_ativa("mostrar_linhas")) {
           palavras <- valor_publico(linha$palavras_chave)
           projetos_linha <- filtrar_por_linha(projetos_publicados, id)
           publicacoes_linha <- filtrar_por_linha(publicacoes_publicadas, id)
+          defesas_linha <- filtrar_por_linha(defesas_publicadas, id)
           ids_pessoa <- function(valor) {
             if (!tem(valor)) return(character())
             ids <- unlist(strsplit(as.character(valor), "[|,;]"))
@@ -92,7 +99,7 @@ if (secao_ativa("mostrar_linhas")) {
                   })
                 }))
               } else {
-                p("A relação de integrantes por linha será exibida à medida que os vínculos forem cadastrados no painel.")
+                p("Não há integrantes vinculados a esta linha para exibição no momento.")
               }
             ),
             tags$details(
@@ -119,6 +126,15 @@ if (secao_ativa("mostrar_linhas")) {
                   } else {
                     p("Nenhum projeto vinculado a esta linha no momento.")
                   }
+                ),
+                div(
+                  class = "linha-pesquisa-relacionados",
+                  h4("Teses e dissertações"),
+                  if (nrow(defesas_linha) > 0) tags$ul(lapply(seq_len(nrow(defesas_linha)), function(j) {
+                    trabalho <- defesas_linha[j, , drop = FALSE]
+                    url <- valor_publico(trabalho$url)
+                    tags$li(if (!is.null(url) && grepl("^https?://", url)) tags$a(as.character(trabalho$titulo[1]), href = url, target = "_blank", rel = "noopener noreferrer") else tags$span(as.character(trabalho$titulo[1])))
+                  })) else p("Nenhuma tese ou dissertação vinculada no momento.")
                 ),
                 div(
                   class = "linha-pesquisa-relacionados",

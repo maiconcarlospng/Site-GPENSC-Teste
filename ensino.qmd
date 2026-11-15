@@ -2,6 +2,11 @@
 title: "Ensino"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Encontros, cursos e experiências para aprender e compartilhar conhecimentos.</p><img src="img/ilustracoes/ensino.svg" alt="" width="240" height="180"></div>
+```
+
+
 O GPENSC contribui para a formação acadêmica e profissional por meio de atividades de ensino, formação e compartilhamento de conhecimentos em Nutrição e Saúde Coletiva.
 
 ## Atividades formativas

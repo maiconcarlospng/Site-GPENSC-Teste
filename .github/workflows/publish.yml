@@ -200,7 +200,7 @@ jobs:
                 data/eventos.yml) pages="$pages index.qmd agenda.qmd ensino.qmd" ;;
                 data/projetos.yml) pages="$pages index.qmd projetos.qmd extensao.qmd linhas.qmd arvore.qmd" ;;
                 data/publicacoes.yml) pages="$pages publicacoes.qmd linhas.qmd arvore.qmd" ;;
-                data/defesas.yml) pages="$pages agenda.qmd teses.qmd" ;;
+                data/defesas.yml) pages="$pages agenda.qmd teses.qmd linhas.qmd" ;;
                 data/livros.yml) pages="$pages livros.qmd" ;;
                 data/videos.yml) pages="$pages videos.qmd" ;;
                 data/sites.yml) pages="$pages sites.qmd" ;;

@@ -2,6 +2,11 @@
 title: "Vídeos"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Assista a conteúdos educativos e registros das atividades do grupo.</p><img src="img/ilustracoes/videos.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 videos_publicados <- registros_reais(videos, "titulo")

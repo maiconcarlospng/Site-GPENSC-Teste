@@ -968,3 +968,37 @@ table.dataTable { width:100% !important; }
     transition:none !important;
   }
 }
+
+/* Ilustrações de conteúdo: uma composição por tema, sem repetir o header. */
+#title-block-header.quarto-title-block {
+  background-image: linear-gradient(115deg,#173b22,#2d6140) !important;
+  min-height: 155px !important;
+  box-shadow: none !important;
+}
+.gp-section-illustration {
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  padding:1rem 2rem;margin:-.5rem 0 2rem;background:#edf2e8;
+  border:1px solid #dce6d6;border-radius:18px;
+}
+.gp-section-illustration p {max-width:690px;margin:0;color:#39533e !important;font-size:clamp(1rem,1.8vw,1.2rem);line-height:1.6;}
+.gp-section-illustration img {width:160px;height:120px;flex:0 0 auto;object-fit:contain;}
+.intro-sinal-item {grid-template-columns:64px minmax(0,1fr);align-items:center;}
+.gp-front-art {width:64px;height:48px;object-fit:contain;}
+.gp-tree-art {display:block;width:min(100%,240px);height:auto;margin:auto;}
+.gp-acervo {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;}
+.gp-acervo-card,.divulgacao-item {min-width:0;padding:1.5rem;background:#fff;border:1px solid var(--gp-line);border-radius:16px;}
+.gp-acervo-card h3 {margin:.6rem 0;font-size:1.15rem;}
+.gp-acervo-card p {font-size:.95rem;}
+.gp-acervo-tipo {color:#a34c15;font-size:.75rem;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
+.gp-acervo-publico {color:#637362 !important;font-size:.8rem !important;}
+.gp-language-button {border:1px solid #dbe5d7;border-radius:7px;background:#fff;color:#28583b;min-width:34px;min-height:34px;font-size:11px;font-weight:750;padding:5px;}
+.gp-language-button:hover,.gp-language-button:focus-visible {background:#e8efdf;}
+main.content :is(.gp-acervo-card,.membro-card,.linha-pesquisa-card) {overflow-wrap:anywhere;}
+@media(max-width:640px){
+  .gp-section-illustration {gap:.8rem;padding:1rem;margin-bottom:1.5rem;}
+  .gp-section-illustration img {width:96px;height:84px;}
+  .gp-section-illustration p {font-size:.9rem;line-height:1.5;}
+  .gp-acervo {grid-template-columns:minmax(0,1fr);}
+  main.content {width:calc(100% - 1.5rem) !important;}
+  .gp-language-button {min-width:38px;min-height:40px;}
+}

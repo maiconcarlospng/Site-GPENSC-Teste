@@ -52,13 +52,13 @@ secao_ativa <- function(chave) {
 COLUNAS <- list(
   noticias    = c("data", "categoria", "titulo", "resumo", "conteudo", "url", "imagem"),
   eventos     = c("data", "tipo", "titulo", "local", "url"),
-  equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid", "linhas_ids"),
+  equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid", "linhas_ids", "revisado_em"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
   projetos    = c("titulo", "tipo", "situacao", "coordenador", "inicio", "fim",
                   "linha_id", "financiamento"),
   publicacoes = c("ano", "tipo", "autores", "titulo", "veiculo", "doi", "url", "linha_id"),
   livros      = c("ano", "titulo", "autores", "editora", "url"),
-  defesas     = c("data", "nivel", "etapa", "autor", "titulo", "orientador", "url"),
+  defesas     = c("data", "nivel", "etapa", "autor", "titulo", "orientador", "url", "linha_id"),
   disciplinas = c("nivel", "codigo", "nome", "docente", "periodo", "ementa"),
   videos      = c("data", "titulo", "descricao", "url"),
   sites       = c("nome", "descricao", "url"),
@@ -337,9 +337,9 @@ bloco_intro <- function() {
       div(class = "intro-sinal-cabecalho", "ATUAÇÃO INTEGRADA"),
       div(
         class = "intro-sinal-lista",
-        div(class = "intro-sinal-item", span("01"), div(strong("Pesquisa"), tags$small("Produção de conhecimento e evidências"))),
-        div(class = "intro-sinal-item", span("02"), div(strong("Ensino"), tags$small("Formação acadêmica e compartilhamento"))),
-        div(class = "intro-sinal-item", span("03"), div(strong("Extensão"), tags$small("Diálogo com serviços e comunidades")))
+        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-pesquisa.svg", alt = "", width = 72, height = 54), div(strong("Pesquisa"), tags$small("Produção de conhecimento e evidências"))),
+        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-ensino.svg", alt = "", width = 72, height = 54), div(strong("Ensino"), tags$small("Formação acadêmica e compartilhamento"))),
+        div(class = "intro-sinal-item", tags$img(class = "gp-front-art", src = "img/ilustracoes/home-extensao.svg", alt = "", width = 72, height = 54), div(strong("Extensão"), tags$small("Diálogo com serviços e comunidades")))
       ),
       p(class = "intro-sinal-base", "Universidade Federal de Ouro Preto · UFOP")
     )
@@ -481,4 +481,22 @@ cartao_pesq <- function(e, i) {
       target = "_blank", rel = "noopener", style = "margin-left:.6rem"
     )
   )
+}
+
+
+# Acervos editoriais: texto escapado e links HTTP(S).
+renderizar_acervo <- function(nome, vazio) {
+  itens <- yaml::read_yaml(file.path("data", paste0(nome, ".yml")))$itens
+  if (is.null(itens) || !length(itens)) return(estado_vazio(vazio, "Consulte também as demais áreas do site ou entre em contato com o grupo.", "Fale com o GPENSC", "contato.html"))
+  div(class = "gp-acervo", lapply(itens, function(item) {
+    tags$article(class = "gp-acervo-card",
+      if (tem(item$tipo)) span(class = "gp-acervo-tipo", item$tipo),
+      h3(item$titulo), p(item$resumo),
+      if (tem(item$publico)) p(class = "gp-acervo-publico", paste("Para:", item$publico)),
+      if (tem(item$resultado)) p(item$resultado),
+      if (tem(item$aplicacao)) p(item$aplicacao),
+      if (tem(item$parceiros)) p(paste("Parcerias:", item$parceiros)),
+      if (tem(item$url) && grepl("^https?://", item$url)) tags$a("Acessar material e fonte", href = item$url, target = "_blank", rel = "noopener noreferrer")
+    )
+  }))
 }

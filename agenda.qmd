@@ -2,6 +2,11 @@
 title: "Agenda"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Reuniões, defesas, cursos e encontros: acompanhe a programação do grupo.</p><img src="img/ilustracoes/agenda.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 

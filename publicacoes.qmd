@@ -2,6 +2,11 @@
 title: "Publicações"
 ---
 
+```{=html}
+<div class="gp-section-illustration"><p>Consulte a produção científica e encontre os trabalhos por tema, autoria e ano.</p><img src="img/ilustracoes/publicacoes.svg" alt="" width="240" height="180"></div>
+```
+
+
 ```{r}
 source("R/helpers.R")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")

@@ -1,53 +1,69 @@
 itens:
-  - id: L1
-    nome: "Nutrição Clínica e Comportamento Alimentar"
-    descricao: ""
-    palavras_chave: ""
-  - id: L2
-    nome: "Alimentação sustentável"
-    descricao: ""
-    palavras_chave: ""
-  - id: L3
-    nome: "Ambiente Alimentar"
-    descricao: ""
-    palavras_chave: ""
-  - id: L4
-    nome: "Análise do Consumo Alimentar e Estado Nutricional de Populações"
-    descricao: ""
-    palavras_chave: ""
-  - id: L5
-    nome: "Comportamento dos consumidores"
-    descricao: ""
-    palavras_chave: ""
-  - id: L6
-    nome: "Comportamentos obesogênicos de populações vulneráveis"
-    descricao: ""
-    palavras_chave: ""
-  - id: L7
-    nome: "Cronobiologia e Distúrbios relacionados ao Sono"
-    descricao: ""
-    palavras_chave: ""
-  - id: L8
-    nome: "Epidemiologia do comportamento sedentário e da atividade física"
-    descricao: ""
-    palavras_chave: ""
-  - id: L9
-    nome: "Epidemiologia Nutricional e das Doenças Crônicas Não Transmissíveis"
-    descricao: ""
-    palavras_chave: ""
-  - id: L10
-    nome: "Genômica nutricional, obesidade e síndrome metabólica"
-    descricao: ""
-    palavras_chave: ""
-  - id: L11
-    nome: "Políticas de Alimentação e Nutrição e de Segurança Alimentar e Nutricional"
-    descricao: ""
-    palavras_chave: ""
-  - id: L12
-    nome: "Rotulagem de alimentos"
-    descricao: ""
-    palavras_chave: ""
-  - id: L13
-    nome: "Saúde da criança e do adolescente"
-    descricao: ""
-    palavras_chave: ""
+- id: L1
+  nome: Nutrição Clínica e Comportamento Alimentar
+  descricao: ''
+  palavras_chave: ''
+- id: L2
+  nome: Alimentação sustentável
+  descricao: ''
+  palavras_chave: ''
+- id: L3
+  nome: Ambiente Alimentar
+  descricao: ''
+  palavras_chave: ''
+- id: L4
+  nome: Análise do Consumo Alimentar e Estado Nutricional de Populações
+  descricao: ''
+  palavras_chave: ''
+- id: L5
+  nome: Comportamento dos consumidores
+  descricao: ''
+  palavras_chave: ''
+- id: L6
+  nome: Comportamentos obesogênicos de populações vulneráveis
+  descricao: ''
+  palavras_chave: ''
+- id: L7
+  nome: Cronobiologia e Distúrbios relacionados ao Sono
+  descricao: ''
+  palavras_chave: ''
+- id: L8
+  nome: Epidemiologia do comportamento sedentário e da atividade física
+  descricao: ''
+  palavras_chave: ''
+- id: L9
+  nome: Epidemiologia Nutricional e das Doenças Crônicas Não Transmissíveis
+  descricao: ''
+  palavras_chave: ''
+- id: L10
+  nome: Genômica nutricional, obesidade e síndrome metabólica
+  descricao: ''
+  palavras_chave: ''
+- id: L11
+  nome: Políticas de Alimentação e Nutrição e de Segurança Alimentar e Nutricional
+  descricao: ''
+  palavras_chave: ''
+- id: L12
+  nome: Rotulagem de alimentos
+  descricao: ''
+  palavras_chave: ''
+- id: L13
+  nome: Saúde da criança e do adolescente
+  descricao: ''
+  palavras_chave: ''
+- id: L16
+  nome: Crononutrição
+  descricao: ''
+  palavras_chave: ''
+- id: L17
+  nome: Saúde mental em populações vulneráveis
+  descricao: ''
+  palavras_chave: ''
+- id: L18
+  nome: Nutrição no contexto de emergências ambientais e sanitárias
+  descricao: ''
+  palavras_chave: ''
+- id: L19
+  nome: Intervenção em saúde e nutrição
+  descricao: ''
+  palavras_chave: ''
