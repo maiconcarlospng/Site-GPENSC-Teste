@@ -386,7 +386,12 @@ body #quarto-content .faixa-agenda{
   background-image:none!important;
   border-top:1px solid #dce6d9!important;
   border-bottom:1px solid #dce6d9!important;
-  margin:clamp(2rem,4vw,3.5rem) 0 0!important;
+  /* Preserva o cálculo de faixa de tela inteira definido no CSS-base.
+     O shorthand margin: ... 0 apagava margin-left:-50vw e movia a seção. */
+  margin-top:clamp(2rem,4vw,3.5rem)!important;
+  margin-right:0!important;
+  margin-bottom:0!important;
+  margin-left:-50vw!important;
   padding:clamp(2rem,4vw,3.7rem) 1rem!important;
   min-height:0!important;
 }
