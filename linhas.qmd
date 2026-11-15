@@ -31,10 +31,6 @@ if (secao_ativa("mostrar_linhas")) {
   if (nrow(linhas_publicadas) > 0) {
     div(
       class = "linhas-pesquisa-page",
-      p(
-        class = "linhas-pesquisa-intro",
-        "Conheça os temas que orientam a produção científica e as atividades do GPENSC. Cada linha reúne projetos e publicações relacionados."
-      ),
       div(
         class = "linhas-pesquisa-grid",
         lapply(seq_len(nrow(linhas_publicadas)), function(i) {
