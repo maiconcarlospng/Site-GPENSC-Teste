@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270" fill="none" role="img" aria-labelledby="arvore-home-t arvore-home-d">
+<title id="arvore-home-t">Árvore do conhecimento do GPENSC</title>
+<desc id="arvore-home-d">Tronco com três conjuntos de galhos e folhas em tons de verde, com frutos alaranjados que representam as pesquisas, o ensino e a extensão</desc>
+<ellipse cx="177" cy="251" rx="117" ry="10" fill="#D6E4BB" opacity=".35"/>
+<path d="M169 225c12-40 10-80 7-113l12-5c7 48 8 80-3 118l-16 1Z" fill="#D29A57"/>
+<path d="M174 224c3-37 7-77 8-108" stroke="#84522C" stroke-width="5" stroke-linecap="round"/>
+<path d="M177 156c-18-39-39-53-66-64M181 133c17-43 48-62 79-70M176 183c-29-29-64-36-98-39M184 174c18-25 47-37 78-38" stroke="#CE9958" stroke-width="10" stroke-linecap="round"/>
+<g fill="#93B96B">
+<path d="M111 91c-38-1-58-27-57-54 35 1 58 20 57 54Z"/>
+<path d="M111 91c-2-29 22-52 51-55 1 31-20 51-51 55Z"/>
+<path d="M261 66c-2-35 15-57 43-65 8 29-7 56-43 65Z"/>
+<path d="M260 64c-33-4-53-27-50-57 31 1 52 21 50 57Z"/>
+<path d="M79 147c-39 5-68-10-79-37 36-12 65 3 79 37Z"/>
+<path d="M81 148c6-36 30-56 60-54-1 34-24 54-60 54Z"/>
+</g>
+<g fill="#C4DC89">
+<path d="M170 99c-18-29-16-56 8-78 22 27 18 54-8 78Z"/>
+<path d="M182 105c2-40 26-63 59-65-2 36-19 61-59 65Z"/>
+<path d="M139 116c-31 0-53-18-59-43 30-9 57 12 59 43Z"/>
+<path d="M228 132c23-36 54-43 77-29-17 30-45 39-77 29Z"/>
+<path d="M252 137c-16 25-13 46 7 61 21-18 21-43-7-61Z"/>
+<path d="M113 168c-18 25-42 34-69 27 6-29 31-43 69-27Z"/>
+</g>
+<g fill="#5F9A3E">
+<path d="M144 60c-12-38 2-59 26-60 12 29 0 51-26 60Z"/>
+<path d="M222 91c10-38 34-51 61-41-13 31-32 46-61 41Z"/>
+<path d="M133 135c-28-17-34-44-17-68 27 15 34 40 17 68Z"/>
+<path d="M209 145c15-29 43-40 73-28-15 29-42 40-73 28Z"/>
+<path d="M177 78c-15-30-4-52 24-64 13 30 6 51-24 64Z"/>
+</g>
+<g fill="#D9731F" stroke="#E9B36B" stroke-width="2">
+<circle cx="119" cy="113" r="10"/><circle cx="223" cy="94" r="10"/><circle cx="262" cy="144" r="8"/><circle cx="85" cy="161" r="9"/>
+</g>
+<g stroke="#F2D79A" stroke-width="2" opacity=".8"><path d="M170 227c-27 6-47 11-74 24M181 226c20 8 39 14 64 24M175 226c-4 10-4 19-5 30" stroke-linecap="round"/></g>
+<g stroke="#274F34" stroke-width="2" opacity=".33">
+<path d="m54 38 56 53M161 37l-51 54M240 39l21 25M304 1l-43 64M0 110l80 38M140 94l-27 22M210 6l49 58"/>
+</g>
+</svg>
