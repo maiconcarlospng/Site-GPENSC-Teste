@@ -79,22 +79,46 @@ div(
 )
 ```
 
-<section class="gp-home-projects" aria-labelledby="gp-home-projects-title">
-  <div class="gp-home-projects-header">
-    <div><span class="gp-tree-eyebrow">EXTENSÃO EM DESTAQUE</span><h2 id="gp-home-projects-title">Conhecimento que chega às pessoas</h2></div>
-    <a href="extensao.html">Conhecer a extensão</a>
-  </div>
-  <div class="gp-home-projects-grid">
-    <a href="vi-no-rotulo.html" class="gp-home-project-card gp-home-project-card--vi">
-      <span><strong>Vi no Rótulo</strong><small>Informação e educação sobre rotulagem de alimentos</small></span>
-      <img src="img/ilustracoes/rotulo-resumo.svg" width="130" height="105" loading="lazy" alt="">
-    </a>
-    <a href="capacitacao-epidemiologia.html" class="gp-home-project-card">
-      <span><strong>Capacitação em Epidemiologia e Análise de Dados</strong><small>Formação para interpretar dados e evidências em saúde</small></span>
-      <img src="img/ilustracoes/epidemiologia-resumo.svg" width="130" height="105" loading="lazy" alt="">
-    </a>
-  </div>
-</section>
+```{r}
+tags$section(
+  class = "gp-home-projects reveal",
+  `aria-labelledby` = "gp-home-projects-title",
+  div(
+    class = "gp-home-projects-header",
+    div(
+      span(class = "gp-home-projects-eyebrow", "EXTENSÃO EM DESTAQUE"),
+      h2(id = "gp-home-projects-title", "Conhecimento que chega às pessoas"),
+      p(class = "gp-home-projects-subtitle", "Ciência, informação e formação em diálogo com a sociedade.")
+    ),
+    tags$a(href = "extensao.html", class = "gp-home-projects-all", "Conhecer a extensão")
+  ),
+  div(
+    class = "gp-home-projects-grid",
+    tags$a(
+      href = "vi-no-rotulo.html", class = "gp-home-project-card gp-home-project-card--vi",
+      span(
+        class = "gp-home-project-card-copy",
+        span(class = "gp-home-project-card-label", "EDUCAÇÃO ALIMENTAR"),
+        tags$strong("Vi no Rótulo"),
+        tags$small("Informação sobre rotulagem nutricional para compreender os alimentos."),
+        span(class = "gp-home-project-card-cta", "Conhecer o projeto", tags$span(`aria-hidden` = "true", "↗"))
+      ),
+      tags$img(src = "img/ilustracoes/rotulo-resumo.svg", width = 160, height = 120, loading = "lazy", alt = "")
+    ),
+    tags$a(
+      href = "capacitacao-epidemiologia.html", class = "gp-home-project-card gp-home-project-card--epi",
+      span(
+        class = "gp-home-project-card-copy",
+        span(class = "gp-home-project-card-label", "MÉTODOS E FORMAÇÃO"),
+        tags$strong("Capacitação em Epidemiologia e Análise de Dados"),
+        tags$small("Ferramentas para interpretar indicadores, dados e evidências em saúde."),
+        span(class = "gp-home-project-card-cta", "Conhecer a iniciativa", tags$span(`aria-hidden` = "true", "↗"))
+      ),
+      tags$img(src = "img/ilustracoes/epidemiologia-resumo.svg", width = 160, height = 120, loading = "lazy", alt = "")
+    )
+  )
+)
+```
 
 ## {{< var titulo_home_pesquisas >}}
 

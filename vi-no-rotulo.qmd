@@ -5,6 +5,7 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
 
 [Extensão](extensao.qmd) / Vi no Rótulo
 
+```{=html}
 <div class="gp-vi-page">
   <header class="gp-vi-hero">
     <div class="gp-vi-copy">
@@ -44,5 +45,7 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
     <a href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Abrir Instagram <span aria-hidden="true">↗</span></a>
   </aside>
 </div>
+```
+
 
 [Voltar à Extensão](extensao.qmd){.btn .btn-secondary}

@@ -110,6 +110,7 @@ format:
       - styles-projetos-v30.css
       - styles-identidades-v31.css
       - styles-revisao-mobile-v32.css
+      - styles-home-fix-v33.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html

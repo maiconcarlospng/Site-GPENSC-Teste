@@ -67,6 +67,11 @@ def check(path: Path, text: str) -> int:
 def main() -> None:
     if len(PAGES) < 20:
         errors.append("Número inesperadamente pequeno de páginas QMD.")
+    home = (ROOT / "index.qmd").read_text(encoding="utf-8")
+    if '<section class="gp-home-projects"' in home:
+        errors.append("index.qmd: HTML solto nos destaques de Extensão; use saída htmltools/R.")
+    if 'class = "gp-home-projects reveal"' not in home:
+        errors.append("index.qmd: componente de Extensão não localizado.")
     checked = 0
     for path in PAGES:
         content = path.read_text(encoding="utf-8")

@@ -3,12 +3,16 @@ title: "Extensão"
 description: "Iniciativas de extensão e capacitação em alimentação, nutrição e saúde coletiva."
 ---
 
+```{=html}
 <div class="gp-section-illustration"><p>Conhecimento que circula entre a universidade, os serviços e a sociedade.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
+```
+
 
 A extensão conecta o conhecimento produzido na universidade às necessidades e aos saberes da comunidade. Conheça as iniciativas mencionadas no planejamento do GPENSC.
 
 ## Iniciativas em destaque
 
+```{=html}
 <div class="gp-ext-projects">
   <article class="gp-ext-card gp-ext-card-rotulo">
     <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-perfil.png" alt="Marca exibida no perfil @vinorotulo" width="80" height="80"><img class="gp-ext-vi-art" src="img/ilustracoes/rotulo-editorial.svg" alt="Ilustração de rótulo e lupa" width="206" height="170"></div></div>
@@ -29,6 +33,8 @@ A extensão conecta o conhecimento produzido na universidade às necessidades e 
     </div>
   </article>
 </div>
+```
+
 
 ## Projetos cadastrados no portfólio
 
