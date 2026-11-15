@@ -40,3 +40,7 @@ Consulte artigos, livros, capítulos e trabalhos apresentados em eventos.
 [Ver publicações](publicacoes.qmd)
 :::
 ::::
+
+## Metodologias e indicadores
+
+O portfólio acadêmico também poderá reunir metodologias utilizadas nos estudos, materiais de apoio e portfólios de métodos. A apresentação de periódicos, métricas de citação e outros indicadores bibliométricos será incluída após levantamento e conferência das fontes e dos dados correspondentes.
