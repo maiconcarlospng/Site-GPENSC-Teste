@@ -9,41 +9,13 @@ title: "Impacto social"
 
 A produção científica do GPENSC dialoga com questões concretas da alimentação, da nutrição e da saúde coletiva. O grupo busca aproximar pesquisa, formação e extensão das necessidades de diferentes populações e dos serviços e políticas públicas.
 
-## Como o conhecimento pode contribuir
+## Pesquisa, serviços e comunidade
 
-:::: {.impacto-eixos}
-::: {.impacto-eixo}
-<span class="impacto-numero">01</span>
-### Evidências para políticas públicas
+A contribuição das pesquisas depende de como seus resultados são discutidos, compartilhados e utilizados. Por isso, o GPENSC organiza suas produções científicas e materiais de divulgação para públicos com necessidades diferentes.
 
-Produção e compartilhamento de evidências que possam apoiar a formulação, o acompanhamento e o aprimoramento de políticas de alimentação, nutrição e saúde.
-:::
-::: {.impacto-eixo}
-<span class="impacto-numero">02</span>
-### Diálogo com serviços e profissionais
+Na área de [Pesquisa](pesquisa.qmd), pesquisadores e estudantes podem consultar linhas de investigação, projetos, metodologias e publicações. As atividades de [Ensino](ensino.qmd) e [Extensão](extensao.qmd) aproximam esses temas da formação de profissionais e das ações voltadas à comunidade.
 
-Articulação com gestores e profissionais de saúde para aproximar resultados de pesquisa dos desafios presentes nos territórios e nos serviços.
-:::
-::: {.impacto-eixo}
-<span class="impacto-numero">03</span>
-### Conhecimento acessível à sociedade
-
-Tradução de conceitos, métodos e resultados científicos em materiais educativos, conteúdos de divulgação e atividades abertas à comunidade.
-:::
-::: {.impacto-eixo}
-<span class="impacto-numero">04</span>
-### Formação e participação social
-
-Ações de ensino e extensão que favoreçam a troca de conhecimentos, a formação crítica e a participação de diferentes públicos.
-:::
-::::
-
-## Comunicação para diferentes públicos
-
-- **Comunidade científica:** artigos, metodologias, resultados e discussões científicas.
-- **Estudantes:** explicações de conceitos, métodos e oportunidades de formação.
-- **Gestores e profissionais de saúde:** sínteses aplicadas, recomendações e *policy briefs* quando houver evidências e resultados que os fundamentem.
-- **População geral:** materiais educativos e explicações acessíveis sobre os resultados das pesquisas.
+Gestores e profissionais de saúde podem utilizar os resultados publicados como subsídio para discussões técnicas, considerando os limites de cada estudo. Para a população em geral, a área de [Divulgação científica](divulgacao.qmd) reúne materiais em linguagem acessível.
 
 ## Da pesquisa à sociedade
 
