@@ -516,3 +516,143 @@ html body a.pq:is(:hover, :focus, :focus-visible) .pq-titulo::after {
 
 
 /* Atualização de build: garante recompilação do site após correção dos estilos. */
+
+
+/* =========================================================
+   NOVO PORTFÓLIO INSTITUCIONAL — árvore, frentes e páginas
+   ========================================================= */
+.home-arvore-destaque {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, .65fr);
+  align-items: center;
+  gap: 2rem;
+  margin: 2.5rem 0 1.8rem;
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  border: 1px solid rgba(31,77,43,.13);
+  border-radius: 22px;
+  background: linear-gradient(125deg, #f5f8f1 0%, #edf4e8 100%);
+}
+.home-arvore-selo, .arvore-selo {
+  color: #b9560f;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+.home-arvore-texto h2 { margin: .55rem 0 .7rem; text-align: left; border: 0; }
+.home-arvore-texto p { max-width: 660px; color: #526253; }
+.home-arvore-simbolo {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  border-radius: 18px;
+  background: #1f4d2b;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+.home-arvore-copa { font-size: 4.8rem; line-height: 1; color: #dcebd3; }
+.home-arvore-tronco { font-size: 1.3rem; font-weight: 900; letter-spacing: .12em; }
+.home-arvore-raizes { color: #e7c7a7; font-size: .62rem; font-weight: 800; letter-spacing: .09em; }
+.home-frentes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: .9rem;
+  margin: 1.3rem 0 2.2rem;
+}
+.home-frentes a, .pesquisa-atalho, .divulgacao-item {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  padding: 1.25rem;
+  border: 1px solid #e3e9df;
+  border-radius: 15px;
+  background: #fff;
+  color: #1f4d2b;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.home-frentes a:hover, .pesquisa-atalho:hover, .divulgacao-item:hover {
+  color: #1f4d2b;
+  border-color: #a9c39b;
+  box-shadow: 0 10px 25px rgba(31,77,43,.10);
+  transform: translateY(-3px);
+}
+.home-frentes span, .pesquisa-atalho > span, .impacto-numero {
+  color: #d9731f;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.home-frentes strong { font-size: 1.15rem; }
+.home-frentes small { color: #667366; line-height: 1.45; }
+.arvore-conhecimento { margin: 1.5rem 0 2rem; }
+.arvore-copa-intro { max-width: 760px; margin: 0 auto 1.5rem; text-align: center; }
+.arvore-copa-intro h2 { margin: .5rem 0; }
+.arvore-galhos { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .8rem; }
+.arvore-galho {
+  position: relative;
+  min-height: 145px;
+  padding: 1.1rem;
+  border: 1px solid #dce7d6;
+  border-radius: 14px;
+  background: #f7faf5;
+}
+.arvore-galho:before { content: ""; position: absolute; left: 50%; bottom: -13px; height: 13px; border-left: 2px solid #8aa77d; }
+.arvore-galho-numero { color: #d9731f; font-size: .72rem; font-weight: 800; }
+.arvore-galho h3 { margin: .35rem 0; color: #1f4d2b; font-size: 1rem; }
+.arvore-galho p, .arvore-galho-dado { color: #617061; font-size: .82rem; }
+.arvore-galho-dado { display: inline-block; margin-top: .45rem; font-weight: 700; }
+.arvore-tronco {
+  position: relative;
+  width: min(100%, 620px);
+  margin: 1.3rem auto 0;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #1f4d2b;
+  color: #fff;
+  text-align: center;
+}
+.arvore-tronco-linha { width: 5px; height: 22px; margin: -1.5rem auto 1rem; background: #8aa77d; }
+.arvore-tronco-nome { font-size: 1.65rem; font-weight: 900; letter-spacing: .12em; }
+.arvore-tronco p { color: #e5eee1; margin: .35rem 0 .9rem; }
+.arvore-raizes { display: flex; justify-content: center; flex-wrap: wrap; gap: .55rem; }
+.arvore-raizes span { padding: .4rem .75rem; border: 1px solid rgba(255,255,255,.35); border-radius: 30px; color: #f3e9d9; font-size: .7rem; font-weight: 800; }
+.arvore-frutos { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .8rem; width: min(100%, 760px); margin: 1rem auto; }
+.arvore-fruto { display: flex; flex-direction: column; align-items: center; gap: .2rem; padding: 1rem; border-radius: 14px; background: #f3ecdd; color: #53634f; text-align: center; font-size: .82rem; }
+.arvore-fruto-numero { color: #1f4d2b; font-size: 1.8rem; font-weight: 900; }
+.arvore-nota { margin: 1rem 0; color: #687568; font-size: .85rem; }
+.historia-linha-tempo { position: relative; max-width: 900px; margin: 2rem auto; }
+.historia-item { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 1.3rem; padding: 1.2rem 0; border-bottom: 1px solid #e5eae2; }
+.historia-ano { color: #d9731f; font-size: 1.3rem; font-weight: 900; }
+.historia-conteudo h2 { margin: 0 0 .5rem; text-align: left; border: 0; }
+.historia-conteudo img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 14px; margin-top: .8rem; }
+.ensino-eventos, .parcerias-catalogo, .impacto-eixos, .divulgacao-grade, .pesquisa-atalhos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .9rem; margin: 1rem 0 2rem; }
+.ensino-evento, .parceria-instituicao, .impacto-eixo { padding: 1.2rem; border: 1px solid #e3e9df; border-radius: 15px; background: #fff; }
+.ensino-evento h3, .parceria-instituicao h3, .impacto-eixo h3 { margin: .45rem 0; color: #1f4d2b; font-size: 1.05rem; }
+.ensino-evento-tipo { color: #b9560f; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+.ensino-disciplina { padding: 1.2rem; border-radius: 14px; background: #f6f8f3; }
+.ensino-disciplina-nivel { color: #b9560f; font-size: .75rem; font-weight: 800; }
+.parceria-marca { display: flex; align-items: center; justify-content: center; height: 95px; margin-bottom: .7rem; }
+.parceria-marca img { max-width: 170px; max-height: 85px; object-fit: contain; }
+.parceria-sigla { color: #1f4d2b; font-size: 1.5rem; font-weight: 900; }
+.parceria-local { color: #657365; font-size: .82rem; }
+.impacto-eixos { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.impacto-eixo { background: #f7faf5; }
+.divulgacao-item h3, .divulgacao-item h2 { color: #1f4d2b; }
+.divulgacao-item a { margin-top: auto; color: #b9560f; font-weight: 700; }
+.pesquisa-atalhos { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.pesquisa-atalho h3 { margin: .25rem 0; color: #1f4d2b; font-size: 1.08rem; }
+.pesquisa-atalho p { color: #657365; font-size: .9rem; }
+.pesquisa-atalho a { margin-top: auto; color: #b9560f; font-weight: 700; }
+@media (max-width: 760px) {
+  .home-arvore-destaque { grid-template-columns: 1fr; gap: 1rem; }
+  .home-arvore-simbolo { min-height: 145px; }
+  .home-frentes, .arvore-galhos, .arvore-frutos, .ensino-eventos, .parcerias-catalogo, .impacto-eixos, .divulgacao-grade, .pesquisa-atalhos { grid-template-columns: 1fr; }
+  .historia-item { grid-template-columns: 1fr; gap: .25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-frentes a, .pesquisa-atalho, .divulgacao-item { transition: none; }
+}
