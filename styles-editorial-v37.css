@@ -457,6 +457,86 @@ body #quarto-content .gp-tree-phases div{border:0!important;border-left:2px soli
 body #quarto-content .gp-tree-branch-button{background:transparent!important}
 body #quarto-content .gp-tree-full-link{border-radius:4px!important}
 
+/* Quem somos: imagens do próprio grupo, sem mosaicos decorativos ou cortes artificiais. */
+body #quarto-content .gp-sobre-fotos{
+  margin:clamp(2.1rem,4vw,3.6rem) 0!important;
+  padding:1.45rem 0 1.25rem!important;
+  border-top:1px solid #dde5da!important;
+  border-bottom:1px solid #dde5da!important;
+  max-width:100%;
+}
+body #quarto-content .gp-sobre-fotos-cabecalho{
+  display:flex;align-items:end;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem 1.5rem;margin:0 0 1rem!important;
+}
+body #quarto-content .gp-sobre-fotos-cabecalho h2{
+  text-align:left!important;margin:0!important;padding:0!important;border:0!important;
+  color:#244e32!important;font-size:clamp(1.35rem,2.5vw,1.95rem)!important;
+}
+body #quarto-content .gp-sobre-fotos-cabecalho h2::before,
+body #quarto-content .gp-sobre-fotos-cabecalho h2::after{display:none!important;content:none!important}
+body #quarto-content .gp-sobre-fotos-cabecalho p{
+  margin:0!important;color:#627567!important;font-size:.91rem!important;
+}
+body #quarto-content .gp-sobre-fotos-navegacao{
+  display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;
+  gap:.75rem!important;align-items:center!important;min-width:0!important;
+}
+body #quarto-content .gp-sobre-fotos-janela{
+  overflow-x:auto!important;overflow-y:hidden!important;min-width:0!important;
+  scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
+  border:1px solid #dfe6dc;border-radius:4px;background:#f4f6f1;
+}
+body #quarto-content .gp-sobre-fotos-janela::-webkit-scrollbar{display:none}
+body #quarto-content .gp-sobre-fotos-trilha{display:flex!important;min-width:0!important}
+body #quarto-content figure.gp-sobre-foto{
+  position:relative;display:grid!important;place-items:center;
+  flex:0 0 100%!important;min-width:0!important;margin:0!important;
+  scroll-snap-align:start;background:#edf1e9;
+}
+body #quarto-content .gp-sobre-foto img{
+  display:block!important;width:100%!important;height:clamp(240px,40vw,470px)!important;
+  max-width:100%!important;max-height:470px!important;object-fit:contain!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body #quarto-content .gp-sobre-foto figcaption{
+  width:100%;padding:.6rem 1rem;color:#4d6254;background:#fff;font-size:.83rem;
+}
+body #quarto-content .gp-sobre-fotos-controle{
+  display:grid!important;place-items:center!important;width:44px!important;height:44px!important;
+  min-width:44px!important;padding:0!important;border:1px solid #cad9ca!important;
+  border-radius:4px!important;background:#fff!important;color:#28543a!important;
+  font-size:1.6rem!important;line-height:1!important;cursor:pointer;
+}
+body #quarto-content .gp-sobre-fotos-controle:hover:not(:disabled),
+body #quarto-content .gp-sobre-fotos-controle:focus-visible{
+  border-color:#28543a!important;background:#edf5ec!important;
+}
+body #quarto-content .gp-sobre-fotos-controle:disabled{opacity:.28;cursor:default}
+body #quarto-content .gp-sobre-fotos-contador{
+  margin:.65rem 0 0!important;text-align:center;color:#607366;font-size:.8rem!important;
+  font-variant-numeric:tabular-nums;
+}
+body #quarto-content .nt:is(:hover,:focus-within){
+  border-color:#a8c4ad!important;background:#f6faf5!important;
+  box-shadow:none!important;
+}
+@media(max-width:580px){
+  body #quarto-content .gp-sobre-fotos{margin:1.75rem 0!important}
+  body #quarto-content .gp-sobre-fotos-cabecalho{display:block}
+  body #quarto-content .gp-sobre-fotos-cabecalho p{margin:.35rem 0 .8rem!important}
+  body #quarto-content .gp-sobre-fotos-navegacao{
+    grid-template-columns:36px minmax(0,1fr) 36px!important;gap:.3rem!important;
+  }
+  body #quarto-content .gp-sobre-fotos-controle{
+    width:36px!important;height:42px!important;min-width:36px!important;
+    font-size:1.35rem!important;
+  }
+  body #quarto-content .gp-sobre-foto img{
+    height:clamp(230px,68vw,360px)!important;max-height:360px!important;
+  }
+}
+
 /* Rodapé enxuto: apenas instituição e acesso administrativo. */
 body footer.footer,body footer.nav-footer{
   background:#fff!important;
