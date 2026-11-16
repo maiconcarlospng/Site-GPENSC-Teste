@@ -1034,3 +1034,13 @@ body:has(.noticia-detalhe-vazio) #title-block-header.quarto-title-block{display:
 body #quarto-content .noticia-detalhe-item{max-width:100%;min-width:0}
 body #quarto-content .noticia-detalhe-item h1{font-size:clamp(1.65rem,3vw,2.5rem)!important;line-height:1.22!important;overflow-wrap:break-word}
 body #quarto-content .noticia-detalhe-imagem{display:block;max-width:100%;width:100%;height:auto;object-fit:contain}
+
+/* Ordem estável dos elementos de navegação no modo tablet. */
+@media(min-width:769px) and (max-width:991.98px){
+  #quarto-header .navbar.navbar-expand-lg .navbar-toggler{order:0!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand-container{order:1!important}
+  #quarto-header .navbar.navbar-expand-lg .quarto-navbar-tools{order:2!important;flex:0 0 auto}
+  #quarto-header .navbar.navbar-expand-lg .bandeiras-container{order:3!important;flex:0 0 auto!important;margin:0!important}
+  #quarto-header .navbar.navbar-expand-lg #quarto-search{order:4!important;flex:0 0 42px;margin-left:0!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse{order:5!important}
+}
