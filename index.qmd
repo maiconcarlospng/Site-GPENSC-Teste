@@ -40,9 +40,7 @@ tags$section(
   div(
     class = "gp-home-projects-header",
     div(
-      span(class = "gp-home-projects-eyebrow", "PROJETOS DE EXTENSÃO"),
-      h2(id = "gp-home-projects-title", "Projetos e iniciativas"),
-      p(class = "gp-home-projects-subtitle", "Conheça duas iniciativas de extensão vinculadas à atuação do grupo.")
+      h2(id = "gp-home-projects-title", "Projetos e iniciativas")
     ),
     tags$a(href = "extensao.html", class = "gp-home-projects-all", "Conhecer a extensão")
   ),
@@ -80,10 +78,9 @@ div(
   class = "home-arvore-destaque reveal",
   div(
     class = "home-arvore-texto",
-    span(class = "home-arvore-selo", "IDENTIDADE E CONHECIMENTO"),
     h2("Árvore do conhecimento"),
-    p("Conheça as linhas de pesquisa em um mapa interativo e explore os vínculos cadastrados com projetos, integrantes e produções científicas."),
-    tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar a árvore do conhecimento")
+    p("Explore as conexões entre os temas de pesquisa do grupo."),
+    tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar conexões")
   ),
   div(
     class = "home-arvore-simbolo",
