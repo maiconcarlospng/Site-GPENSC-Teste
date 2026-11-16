@@ -306,6 +306,10 @@ html body:has(#gp49) #quarto-content #gp49 #gp49-map > svg > .gp49-canopy-layer 
   transform-origin:initial!important;
   opacity:1!important;
 }
+html body:has(#gp49) #quarto-content #gp49 #gp49-map > svg > .gp49-canopy-layer > g:first-child{
+  transform:none!important;
+  transform-origin:initial!important;
+}
 html body:has(#gp49) #quarto-content #gp49 #gp49-map > svg .gp49-wood-body{
   fill:url(#gp49-bark)!important;
   stroke:rgba(53,36,29,.22)!important;
