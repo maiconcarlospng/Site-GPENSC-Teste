@@ -3,7 +3,7 @@ title: "Projetos"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Conheça os projetos, suas coordenações e as linhas às quais estão vinculados.</p><img src="img/ilustracoes/projetos.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Pesquisas e iniciativas cadastradas pelo grupo.</p><img src="img/ilustracoes/projetos.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -32,12 +32,7 @@ div(
         options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
       )
   } else {
-    estado_vazio(
-      "Nenhum projeto disponível",
-      "No momento, não há projetos de pesquisa ou extensão disponíveis para consulta.",
-      "Entrar em contato",
-      "contato.html"
-    )
+    estado_vazio("Projetos em atualização", NULL)
   }
 )
 } else {
