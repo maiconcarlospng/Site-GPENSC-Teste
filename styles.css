@@ -20511,3 +20511,115 @@ html body #quarto-content main.content .gp-initiative:is(:hover, :focus-visible)
     transition: none !important;
   }
 }
+
+
+/* GPENSC | COPA ORGANICA E ROTULOS SEM SOBREPOSICAO — 2026-11-16 */
+/* Última camada específica do explorador: os textos permanecem na listagem
+   e no tooltip contextual, não repetidos simultaneamente sobre a copa. */
+html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-layer {
+  pointer-events:none!important;
+  opacity:.88;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-wood-layer {
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node-count,
+html body:has(#gp49) #gp49 #gp49-map .gp49-leaf-label {
+  display:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-bud {
+  display:block!important;
+  opacity:1!important;
+  stroke:#547c4d!important;
+  stroke-width:.8;
+  stroke-linejoin:round;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-node-halo {
+  fill:#bed4a8;
+  opacity:.46;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-node-disc {
+  fill:#356946;
+  stroke:#e7f0df;
+  stroke-width:2.5;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-node-ring {
+  stroke:#b5d4a3;
+  stroke-width:1.3;
+  fill:none;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node.gp49-terminal .gp49-node-disc {
+  fill:#568144;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node:is(:hover,:focus-visible) .gp49-node-disc {
+  fill:#638d4c;
+  stroke:#d9731f;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node:is(:hover,:focus-visible) .gp49-node-halo {
+  opacity:.77;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-trunk-label {
+  font:800 25px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.11em;
+  fill:#f8f2df;
+  stroke:#4c4732;
+  stroke-width:1.1;
+  paint-order:stroke fill;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-project-twig {
+  stroke:#79745a;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-fruit {
+  filter:drop-shadow(0 2px 2px rgba(34,67,40,.14));
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-map-tooltip {
+  position:absolute;
+  z-index:5;
+  width:max-content;
+  max-width:min(310px,calc(100% - 30px));
+  box-sizing:border-box;
+  padding:10px 14px;
+  border:1px solid #d4e0cd;
+  border-radius:9px;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 7px 22px rgba(31,77,43,.16);
+  color:#264d32;
+  font:650 13px/1.45 Inter,system-ui,sans-serif;
+  text-align:center;
+  white-space:normal;
+  overflow-wrap:break-word;
+  pointer-events:none;
+  transform:translate(-50%,-100%);
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-map-tooltip[hidden] {
+  display:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map svg .gp49-node:focus-visible {
+  outline:none;
+}
+html body:has(#gp49) #gp49 #gp49-map svg .gp49-node:focus-visible > .gp49-node-disc {
+  stroke:#d9731f;
+  stroke-width:4;
+}
+@media(max-width:767px){
+  html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-layer {
+    opacity:.70;
+  }
+  html body:has(#gp49) #gp49 #gp49-map .gp49-trunk-label {
+    font-size:27px;
+  }
+  html body:has(#gp49) #gp49 #gp49-map .gp49-map-tooltip {
+    max-width:calc(100% - 24px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body:has(#gp49) #gp49 #gp49-map .gp49-map-tooltip {
+    transition:none!important;
+    animation:none!important;
+  }
+}
