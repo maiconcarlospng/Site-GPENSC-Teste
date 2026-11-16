@@ -4,7 +4,7 @@ pagetitle: "Podcasts – GPENSC"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Conhecimentos e conversas para ouvir no seu tempo.</p><img src="img/ilustracoes/podcasts.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Produções em áudio do GPENSC e da UFOP.</p><img src="img/ilustracoes/podcasts.svg" alt="" width="240" height="180"></div>
 ```
 
 
