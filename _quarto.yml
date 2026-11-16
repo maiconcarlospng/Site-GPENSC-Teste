@@ -32,8 +32,10 @@ website:
         text: Grupo
       - href: pesquisa.qmd
         text: Pesquisa
-      - href: ensino-extensao.qmd
-        text: Ensino e Extensão
+      - href: ensino.qmd
+        text: Ensino
+      - href: extensao.qmd
+        text: Extensão
       - href: conteudos.qmd
         text: Conteúdos
       - href: atualizacoes.qmd
