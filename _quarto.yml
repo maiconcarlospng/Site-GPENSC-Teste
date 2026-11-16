@@ -5,7 +5,8 @@
 project:
   type: website
   render:
-    - "*.qmd"                 # só renderiza páginas .qmd (ignora README.md e COMO-EDITAR.md)
+    - "*.qmd"
+    - "!partials/**"            # trechos incluídos nas páginas, nunca páginas independentes
   resources:
     - img/**                  # copia TODAS as imagens para o site
     - "js/**"
