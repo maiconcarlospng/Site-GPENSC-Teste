@@ -6,7 +6,7 @@ const WORKER='https://sveltia-cms-auth.maicon-carlos.workers.dev';
 const ACCESS_WORKER='https://gpensc-admin-access.maicon-carlos.workers.dev';
 const API='https://api.github.com';
 const $=s=>document.querySelector(s);
-const state={token:sessionStorage.getItem('gpen_admin_token')||'',authMode:sessionStorage.getItem('gpen_admin_auth_mode')||'github',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:'',analyticsConfig:null,analyticsData:null,analyticsLoading:false,analyticsError:'',analyticsDays:30};
+const state={token:sessionStorage.getItem('gpen_admin_token')||'',authMode:sessionStorage.getItem('gpen_admin_auth_mode')||'github',user:null,config:null,collections:[],active:null,contents:{},sha:{},editing:null,activity:[],activityLoaded:false,activityPromise:null,activityError:'',analyticsConfig:null,analyticsData:null,analyticsLoading:false,analyticsError:'',analyticsDays:30,view:'summary',mediaFiles:[],mediaLoading:false,mediaError:''};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const toast=(message,error=false)=>{const el=document.createElement('div');el.className='toast'+(error?' error':'');el.textContent=message;$('#toast-root').append(el);setTimeout(()=>el.remove(),3800)};
 const apiHeaders=()=>({'Authorization':'Bearer '+state.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
@@ -191,12 +191,16 @@ function renderNav(){
       '<div class="menu-section-items">'+matches.map(button).join('')+'</div></section>';
   }).join('');
   const settings=entries.filter(({c})=>isConfigCollection(c));
-  nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.active===null?'active':'')+'"><span>Visão geral</span></button>'+
+  nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.view==='summary'?'active':'')+'"><span>Visão geral</span></button>'+
+    '<button type="button" data-settings-home class="summary-nav-item '+(state.view==='settings'?'active':'')+'"><span>Configurações do site</span></button>'+
+    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+state.mediaFiles.length+'</span></button>'+
     content+
     '<section class="menu-section menu-section-settings" aria-label="Configurações">'+
       '<div class="menu-section-title">CONFIGURAÇÕES DO SITE</div>'+
       '<div class="menu-section-items">'+settings.map(button).join('')+'</div></section>';
   nav.querySelector('[data-summary]').addEventListener('click',()=>{renderHome();closeMobileMenu()});
+  nav.querySelector('[data-settings-home]').addEventListener('click',()=>{openSettingsHub();closeMobileMenu()});
+  nav.querySelector('[data-media-home]').addEventListener('click',()=>{openMediaLibrary();closeMobileMenu()});
   nav.querySelectorAll('[data-index]').forEach(b=>b.addEventListener('click',()=>{openCollection(Number(b.dataset.index));closeMobileMenu()}));
 }
 function donutSegment(items){
@@ -417,10 +421,12 @@ function quickActionsMarkup(){
   ];
   return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><span class="eyebrow">ACESSO RÁPIDO</span><h2>Editar o que aparece no site</h2><p>Escolha uma área para cadastrar, revisar ou atualizar conteúdos.</p></div>'+
     '<div class="admin-shortcut-grid">'+actions.filter(([name])=>state.collections.some(c=>c.name===name)).map(([name,title,description])=>
-      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></button>').join('')+'</div></section>';
+      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></button>').join('')+'</div>'+
+    '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></button><button type="button" class="admin-tool-shortcut" id="admin-media-open"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></button></div></section>';
 }
 function renderHome(){
   if(!canLeaveCurrentEditor())return;
+  state.view='summary';
   state.active=null;
   updateMobileTabs();
   $('#page-crumb').textContent='Painel de resumo';
@@ -444,6 +450,8 @@ function renderHome(){
     '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
   document.querySelectorAll('[data-editorial]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.editorial);if(index>=0)openCollection(index)});
    document.querySelectorAll('[data-quick]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.quick);if(index>=0)openCollection(index)});
+  $('#admin-settings-open')?.addEventListener('click',openSettingsHub);
+  $('#admin-media-open')?.addEventListener('click',()=>openMediaLibrary());
   $('#refresh-button').onclick=async()=>{
     const button=$('#refresh-button');
     button.disabled=true;button.textContent='Atualizando…';
@@ -466,8 +474,34 @@ function renderHome(){
   loadRecentActivity();
   loadAnalytics();
 }
-function openCollection(index){if(!canLeaveCurrentEditor())return;state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p></div>'+table+mobile;$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
+function openCollection(index){if(!canLeaveCurrentEditor())return;state.view='collection';state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p></div>'+table+mobile;$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
+function openSettingsHub(){
+  if(!canLeaveCurrentEditor())return;
+  state.view='settings';
+  state.active=null;
+  updateMobileTabs();
+  renderNav();
+  $('#page-crumb').textContent='Configurações do site';
+  const descriptions={
+    cfg_identidade:'Nome do grupo, instituição e unidade.',
+    cfg_vinculos:'Links para UFOP, Escola de Nutrição, PPGSN e CNPq.',
+    cfg_institucional:'Resumo, histórico, missão, visão e objetivos.',
+    cfg_home:'Títulos, avisos e chamadas da página inicial.',
+    cfg_quem_somos:'Títulos e chamadas da apresentação do grupo.',
+    cfg_pesquisa_extensao:'Textos introdutórios de pesquisa, ensino e extensão.',
+    cfg_agenda:'Apresentação e rótulos da agenda.',
+    cfg_contato:'E-mail, telefone e redes sociais.',
+    cfg_endereco:'Endereço e tópicos exibidos na página de contato.',
+    cfg_visibilidade:'Controle das seções exibidas no site.',
+    cfg_rodape:'Texto de direitos autorais e informações do rodapé.'
+  };
+  const cards=state.collections.map((c,i)=>({c,i})).filter(({c})=>isConfigCollection(c));
+  $('#page-content').innerHTML=
+    '<div class="page-heading"><div><span class="eyebrow">PREFERÊNCIAS E CONTEÚDO INSTITUCIONAL</span><h1>Configurações do site</h1><p>Edite a identidade do GPENSC, os textos institucionais, as redes e as seções visíveis no site.</p></div></div>'+
+    '<div class="settings-hub-grid">'+cards.map(({c,i})=>'<button type="button" class="settings-hub-card" data-setting-index="'+i+'"><span class="settings-hub-number">'+esc((c.label.match(/^\\d+/)||[''])[0])+'</span><span class="settings-hub-copy"><strong>'+esc(c.label.replace(/^\\d+\\s*[·.-]\\s*/,''))+'</strong><small>'+esc(descriptions[c.name]||'Preferências e informações do site.')+'</small></span><span class="settings-hub-arrow" aria-hidden="true">→</span></button>').join('')+'</div>';
+  $('#page-content').querySelectorAll('[data-setting-index]').forEach(button=>button.addEventListener('click',()=>openCollection(Number(button.dataset.settingIndex))));
+}
 function renderConfigControl(field,value,attribute='data-config-field'){
   const name=esc(field.name),label=esc(field.label||field.name),hint=field.hint?'<small>'+esc(field.hint)+'</small>':'';
   const required=field.required?'required':'';
@@ -496,6 +530,7 @@ function renderConfigField(field,value){
   return '<div class="field full config-list-field"><div class="config-list-heading"><label>'+esc(field.label||field.name)+'</label><button type="button" class="secondary-button" data-add-config-row="'+esc(field.name)+'">Adicionar item</button></div><div class="config-list-rows" data-config-list="'+esc(field.name)+'">'+rows.map(item=>renderConfigListRow(field,item)).join('')+'</div>'+(field.hint?'<small>'+esc(field.hint)+'</small>':'')+'</div>';
 }
 function openConfigCollection(index){
+  state.view='config';
   state.active=index;
   const c=state.collections[index];
   const fields=Array.isArray(c.fields)?c.fields:[];
@@ -599,6 +634,7 @@ function galleryPreviewUrl(path){
   return '../'+value.replace(/^\/+/,'');
 }
 function openGalleryCollection(index){
+  state.view='collection';
   state.active=index;
   const c=state.collections[index];
   const items=entryList(c);
@@ -684,6 +720,120 @@ document.addEventListener('keydown',event=>{
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus()}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus()}
 });
+const MEDIA_EXTENSIONS=new Set(['png','jpg','jpeg','webp','gif','svg','avif','ico','pdf','mp4','webm','mov','mp3','wav','ogg','doc','docx','ppt','pptx','xls','xlsx']);
+const MEDIA_ACCEPT='.png,.jpg,.jpeg,.webp,.gif,.svg,.avif,.ico,.pdf,.mp4,.webm,.mov,.mp3,.wav,.ogg,.doc,.docx,.ppt,.pptx,.xls,.xlsx';
+function mediaExtension(path){return String(path||'').split('.').pop().toLowerCase()}
+function mediaCategory(path){
+  const ext=mediaExtension(path);
+  if(['png','jpg','jpeg','webp','gif','svg','avif','ico'].includes(ext))return 'image';
+  if(['mp4','webm','mov','mp3','wav','ogg'].includes(ext))return 'audiovisual';
+  return 'document';
+}
+function mediaSize(bytes){
+  const value=Number(bytes||0);
+  if(value<1024)return value+' B';
+  if(value<1024*1024)return (value/1024).toFixed(1)+' KB';
+  return (value/(1024*1024)).toFixed(1)+' MB';
+}
+function mediaFileUrl(path){return 'https://maiconcarlospng.github.io/Site-GPENSC-Teste/'+String(path).split('/').map(encodeURIComponent).join('/')}
+function openMediaLibrary(){
+  if(!canLeaveCurrentEditor())return;
+  state.view='media';state.active=null;updateMobileTabs();renderNav();
+  $('#page-crumb').textContent='Materiais do site';
+  $('#page-content').innerHTML=
+    '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual e as páginas que o utilizam continuam vinculadas.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar material</button></div></div>'+
+    '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><span id="media-status" role="status"></span></div>'+
+    '<div id="media-grid" class="media-grid" aria-live="polite"></div>';
+  $('#media-search').addEventListener('input',renderMediaFiles);
+  $('#media-type').addEventListener('change',renderMediaFiles);
+  $('#media-refresh').addEventListener('click',()=>loadMediaFiles());
+  $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
+  $('#media-upload-new').addEventListener('change',async event=>{
+    const file=event.target.files?.[0];if(!file)return;
+    await saveMediaFile(file,null);event.target.value='';
+  });
+  if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
+}
+async function loadMediaFiles(){
+  state.mediaLoading=true;state.mediaError='';
+  const status=$('#media-status'),grid=$('#media-grid');
+  if(status)status.textContent='Atualizando a lista…';
+  if(grid)grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';
+  try{
+    const branch=await api('/repos/'+REPO+'/branches/'+encodeURIComponent(BRANCH));
+    const treeSha=branch.commit?.commit?.tree?.sha;
+    if(!treeSha)throw new Error('Não foi possível localizar a árvore atual do repositório.');
+    const tree=await api('/repos/'+REPO+'/git/trees/'+treeSha+'?recursive=1');
+    if(tree.truncated)throw new Error('A lista de arquivos do repositório foi truncada; atualize a página e tente novamente.');
+    state.mediaFiles=(tree.tree||[]).filter(file=>{
+      if(file.type!=='blob'||!String(file.path).startsWith('img/'))return false;
+      return MEDIA_EXTENSIONS.has(mediaExtension(file.path));
+    }).map(file=>({path:file.path,sha:file.sha,size:file.size||0,category:mediaCategory(file.path)}))
+      .sort((a,b)=>a.path.localeCompare(b.path,'pt-BR',{sensitivity:'base'}));
+  }catch(error){state.mediaError=error.message||'Falha ao listar materiais.'}
+  finally{state.mediaLoading=false}
+  const statusEl=$('#media-status');
+  if(statusEl)statusEl.textContent=state.mediaError?state.mediaError:state.mediaFiles.length+' arquivos em img/';
+  renderMediaFiles();
+  renderNav();
+}
+function renderMediaFiles(){
+  const grid=$('#media-grid');if(!grid)return;
+  if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
+  if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
+  const term=String($('#media-search')?.value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();
+  const type=$('#media-type')?.value||'all';
+  const files=state.mediaFiles.filter(file=>{
+    const matchesName=file.path.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().includes(term);
+    return matchesName&&(type==='all'||file.category===type);
+  });
+  if(!files.length){grid.innerHTML='<div class="panel-card empty-state">Nenhum material encontrado com esses filtros.</div>';return}
+  grid.innerHTML=files.map(file=>{
+    const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
+    const preview=kind==='image'?'<img src="'+esc(mediaFileUrl(file.path))+'" alt="'+esc(name)+'" loading="lazy">':'<div class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Arquivo para consulta')+'</small></div>';
+    const accept='.'+mediaExtension(name);
+    return '<article class="media-card"><div class="media-card-preview">'+preview+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small><div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button></div><label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label></div></article>';
+  }).join('');
+  grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(button.dataset.mediaCopy);toast('Caminho copiado.')}catch(error){toast('Não foi possível copiar o caminho neste navegador.',true)}
+  }));
+  grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
+    const file=event.target.files?.[0];if(!file)return;
+    await saveMediaFile(file,input.dataset.mediaReplace);event.target.value='';
+  }));
+}
+async function saveMediaFile(file,replacePath){
+  const sizeLimit=20*1024*1024;
+  const extension=mediaExtension(file.name);
+  if(!MEDIA_EXTENSIONS.has(extension)){toast('Formato de arquivo não permitido.',true);return}
+  if(file.size>sizeLimit){toast('O arquivo deve ter até 20 MB.',true);return}
+  if(replacePath&&extension!==mediaExtension(replacePath)){toast('Para manter os vínculos do site, substitua o arquivo por outro com a mesma extensão.',true);return}
+  let target=replacePath;
+  if(replacePath&&!confirm('Substituir “'+replacePath+'” por “'+file.name+'”? O caminho usado pelo site será mantido.'))return;
+  if(!target){
+    const safe=file.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'-');
+    target='img/materiais/'+Date.now()+'-'+safe;
+  }
+  let content;
+  try{
+    content=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(new Error('Não foi possível ler o arquivo.'));reader.readAsDataURL(file);
+    });
+  }catch(error){toast(error.message||'Falha ao ler o arquivo.',true);return}
+  const current=replacePath?state.mediaFiles.find(item=>item.path===replacePath):null;
+  const encodedPath=target.split('/').map(encodeURIComponent).join('/');
+  const button=replacePath?document.querySelector('[data-media-replace="'+CSS.escape(replacePath)+'"]'):$('#media-add');
+  if(button){button.disabled=true;button.dataset.originalLabel=button.tagName==='INPUT'?'':button.textContent;if(button.tagName!=='INPUT')button.textContent='Enviando…'}
+  try{
+    await api('/repos/'+REPO+'/contents/'+encodedPath,{
+      method:'PUT',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:(replacePath?'Substitui material':'Adiciona material')+' pelo painel GPENSC: '+target,content,branch:BRANCH,...(current?.sha?{sha:current.sha}:{})})
+    });
+    toast(replacePath?'Material substituído.':'Material adicionado em img/materiais/.');
+    await loadMediaFiles();
+  }catch(error){toast(error.message||'Falha ao salvar o material.',true)}
+  finally{if(button){button.disabled=false;if(button.tagName!=='INPUT')button.textContent=button.dataset.originalLabel||'Adicionar material'}}
+}
 function defaultItem(fields){const item={};fields.forEach(f=>{if(f.widget==='list')item[f.name]=[];else if(f.widget==='object')item[f.name]=defaultItem(f.fields||[]);else if(f.widget==='boolean')item[f.name]=false;else item[f.name]=''});return item}
 function editItem(index){if(!canLeaveCurrentEditor())return;const c=state.collections[state.active];const schema=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const original=index===null?defaultItem(schema):structuredClone(entryList(c)[index]);state.editing={index,original};const fields=schema.map(f=>renderField(f,original[f.name])).join('');$('#modal-root').innerHTML='<div class="modal-backdrop"><form class="modal" id="entry-form" role="dialog" aria-modal="true" aria-label="Editar conteúdo"><div class="modal-head"><h2>'+(index===null?'Novo registro':'Editar registro')+'</h2><button type="button" class="small-button" id="close-modal">Fechar</button></div><div class="modal-body">'+fields+'</div><div class="modal-foot"><span class="eyebrow">ALTERAÇÕES SALVAS NO GITHUB</span><div><button type="button" class="secondary-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button" id="save-entry">Salvar alterações</button></div></div></form></div>';$('#close-modal').onclick=$('#cancel-modal').onclick=()=>closeModal();$('#entry-form').onsubmit=e=>saveEntry(e,schema);const form=$('#entry-form');form.setAttribute('aria-modal',String(window.matchMedia('(max-width:1449px)').matches));form.dataset.dirty='false';form.addEventListener('input',()=>{form.dataset.dirty='true'});form.addEventListener('change',()=>{form.dataset.dirty='true'});document.body.classList.add('editor-open');form.querySelector('input,select,textarea,button')?.focus()}
 function renderField(f,value){
