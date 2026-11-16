@@ -84,6 +84,7 @@ collections:
               label_singular: "projeto"
               summary: "{{fields.titulo}} — {{fields.situacao}}"
               fields:
+                - { label: "ID do projeto", name: "id", widget: "string", hint: "Código único do projeto (ex.: PR01). Use este código para vincular integrantes e produções." }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Tipo", name: "tipo", widget: "select", options: ["Pesquisa", "Extensão"], hint: "Define em qual área o projeto será apresentado." }
                 - { label: "Situação", name: "situacao", widget: "select", options: ["Em andamento", "Em planejamento", "Concluído", "Suspenso"], hint: "Use “Em andamento” para projetos ativos." }
@@ -134,6 +135,17 @@ collections:
                   multiple: false
                   required: false
                   hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
+                - label: "Projeto vinculado"
+                  name: "projeto_id"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "projetos"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.titulo"]
+                  search_fields: ["itens.*.titulo", "itens.*.id"]
+                  multiple: false
+                  required: false
+                  hint: "Vincule esta produção ao projeto correspondente. O produto aparecerá como fruto no ramo do projeto."
         - label: "Livros"
           name: "livros"
           file: "data/livros.yml"
@@ -167,6 +179,7 @@ collections:
                 - { label: "Autor", name: "autor", widget: "string" }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Linha de pesquisa", name: "linha_id", widget: "relation", collection: "pesquisa", file: "linhas", value_field: "itens.*.id", display_fields: ["itens.*.nome"], search_fields: ["itens.*.nome"], required: false }
+                - { label: "Projeto vinculado", name: "projeto_id", widget: "relation", collection: "pesquisa", file: "projetos", value_field: "itens.*.id", display_fields: ["itens.*.titulo"], search_fields: ["itens.*.titulo", "itens.*.id"], required: false, hint: "Vincule a defesa ou banca ao projeto; ela aparecerá como produto do ramo." }
                 - { label: "Orientador", name: "orientador", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
   - name: "ensino_equipe"
@@ -203,7 +216,18 @@ collections:
                   search_fields: ["itens.*.nome", "itens.*.id"]
                   multiple: true
                   required: false
-                  hint: "Selecione todas as linhas em que a pessoa atua. Esses vínculos aparecerão na página pública de Linhas de pesquisa."
+                  hint: "Selecione todas as linhas em que a pessoa atua. A pessoa aparecerá como fruto nos ramos correspondentes."
+                - label: "Projetos vinculados"
+                  name: "projetos_ids"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "projetos"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.titulo"]
+                  search_fields: ["itens.*.titulo", "itens.*.id"]
+                  multiple: true
+                  required: false
+                  hint: "Selecione os projetos em que a pessoa participa. Os vínculos aparecerão como frutos no ramo do projeto."
         - label: "Disciplinas e ensino"
           name: "disciplinas"
           file: "data/disciplinas.yml"
