@@ -2,17 +2,15 @@
 title: "Pesquisa"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Da investigação à produção científica.</p><img src="img/ilustracoes/pesquisa.svg" alt="" width="240" height="180"></div>
-```
-
+Linhas de investigação e produção científica do GPENSC.
 
 ```{=html}
-<nav class="gp-indice-pesquisa" aria-label="Seções de pesquisa">
-  <a href="linhas.html"><strong>Linhas de pesquisa</strong><span>Temas de investigação e integrantes vinculados</span></a>
-  <a href="projetos.html"><strong>Projetos</strong><span>Pesquisas, coordenação e situação dos registros</span></a>
-  <a href="publicacoes.html"><strong>Publicações</strong><span>Artigos e outras produções científicas</span></a>
-  <a href="teses.html"><strong>Teses e dissertações</strong><span>Trabalhos acadêmicos e orientações</span></a>
-  <a href="metodos.html"><strong>Metodologias</strong><span>Métodos e materiais relacionados às pesquisas</span></a>
+<nav class="gp-research-index" aria-label="Áreas de pesquisa">
+<a href="linhas.html"><strong>Linhas de pesquisa</strong><span>Temas de investigação</span></a>
+<a href="arvore.html"><strong>Árvore do conhecimento</strong><span>Conexões entre linhas, pessoas e produções</span></a>
+<a href="publicacoes.html"><strong>Publicações</strong><span>Artigos e produção científica</span></a>
+<a href="teses.html"><strong>Teses e dissertações</strong><span>Trabalhos acadêmicos e orientações</span></a>
+<a href="metodos.html"><strong>Metodologias</strong><span>Métodos e recursos de pesquisa</span></a>
+<a href="ensino-extensao.html#projetos"><strong>Projetos</strong><span>Iniciativas e pesquisas em andamento</span></a>
 </nav>
 ```

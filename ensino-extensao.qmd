@@ -1,0 +1,21 @@
+---
+title: "Ensino e Extensão"
+---
+
+Formação acadêmica e ações junto à comunidade.
+
+```{=html}
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#iniciativas">Iniciativas</a><a href="#ensino">Ensino</a><a href="#projetos">Projetos</a></nav>
+```
+
+## Iniciativas {#iniciativas}
+
+{{< include partials/extensao.qmd >}}
+
+## Ensino {#ensino}
+
+{{< include partials/ensino.qmd >}}
+
+## Projetos {#projetos}
+
+{{< include partials/projetos.qmd >}}

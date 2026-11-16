@@ -12,7 +12,7 @@ import sys
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = sorted(ROOT.glob("*.qmd"))
+PAGES = sorted(ROOT.glob("*.qmd")) + sorted((ROOT / "partials").glob("*.qmd"))
 APP = ROOT / "admin" / "app.html"
 QUARTO = ROOT / "_quarto.yml"
 
@@ -34,7 +34,8 @@ def resolve_link(source: Path, value: str) -> Path | None:
     if parsed.scheme or not parsed.path:
         return None
     path = unquote(parsed.path)
-    target = ROOT / path.lstrip("/") if path.startswith("/") else source.parent / path
+    base = ROOT if source.parent.name == "partials" else source.parent
+    target = ROOT / path.lstrip("/") if path.startswith("/") else base / path
     if target.suffix.lower() == ".html":
         qmd = target.with_suffix(".qmd")
         if qmd.is_file():
@@ -75,7 +76,7 @@ def main() -> None:
     checked = 0
     for path in PAGES:
         content = path.read_text(encoding="utf-8")
-        if not content.startswith("---\n"):
+        if path.parent == ROOT and not content.startswith("---\n"):
             errors.append(f"{path.name}: metadados YAML ausentes na abertura.")
         checked += check(path, content)
     config = yaml.safe_load(QUARTO.read_text(encoding="utf-8"))

@@ -1,0 +1,17 @@
+---
+title: "Atualizações"
+---
+
+Agenda e notícias do GPENSC.
+
+```{=html}
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#agenda">Agenda</a><a href="#noticias">Notícias</a></nav>
+```
+
+## Agenda {#agenda}
+
+{{< include partials/agenda.qmd >}}
+
+## Notícias {#noticias}
+
+{{< include partials/noticias.qmd >}}

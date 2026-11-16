@@ -2,11 +2,6 @@
 title: "Linhas de pesquisa"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Explore os temas e conheça seus integrantes, projetos e trabalhos acadêmicos.</p><img src="img/ilustracoes/linhas.svg" alt="" width="240" height="180"></div>
-```
-
-
 ```{r}
 source("R/helpers.R")
 
@@ -160,7 +155,7 @@ if (secao_ativa("mostrar_linhas")) {
       "Nenhuma linha de pesquisa disponível",
       "As linhas cadastradas serão exibidas aqui.",
       "Fale com o grupo",
-      "contato.html"
+      "grupo.html#contato"
     )
   }
 } else {

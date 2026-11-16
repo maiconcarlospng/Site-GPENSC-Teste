@@ -1,71 +1,9 @@
 ---
-title: "Extensão"
-description: "Iniciativas de extensão e capacitação em alimentação, nutrição e saúde coletiva."
+title: "GPENSC"
+search: false
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Projetos e ações junto à comunidade.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
+<meta http-equiv="refresh" content="0; url=ensino-extensao.html#iniciativas">
+<p><a href="ensino-extensao.html#iniciativas">Ir para a seção</a></p>
 ```
-
-
-## Iniciativas em destaque
-
-```{=html}
-<div class="gp-ext-projects">
-  <article class="gp-ext-card gp-ext-card-rotulo">
-    <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-oficial.png" alt="Logotipo oficial do Vi no Rótulo" width="138" height="91"></div></div>
-    <div class="gp-ext-text">
-      <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
-      <h3>Vi no Rótulo</h3>
-      <p>Educação e comunicação sobre rotulagem de alimentos.</p>
-      <a href="vi-no-rotulo.html" class="gp-ext-link">Conhecer o projeto <span aria-hidden="true">↗</span></a>
-    </div>
-  </article>
-  <article class="gp-ext-card gp-ext-card-epi">
-    <div class="gp-ext-art"><img src="img/ilustracoes/epidemiologia-editorial.svg" alt="Ilustração editorial de gráficos e pontos de dados. Não é a marca oficial do projeto." width="260" height="180"></div>
-    <div class="gp-ext-text">
-      <span class="gp-ext-kicker">FORMAÇÃO E MÉTODOS</span>
-      <h3>Capacitação em Epidemiologia e Análise de Dados</h3>
-      <p>Capacitação em epidemiologia, indicadores e análise de dados.</p>
-      <a href="capacitacao-epidemiologia.html" class="gp-ext-link">Conhecer a iniciativa <span aria-hidden="true">↗</span></a>
-    </div>
-  </article>
-</div>
-```
-
-
-```{r}
-source("R/helpers.R")
-
-projetos_extensao <- registros_reais(projetos, "titulo") |>
-  dplyr::filter(tipo == "Extensão")
-
-# As duas iniciativas já possuem cartões próprios logo acima.
-if (nrow(projetos_extensao) > 0) {
-  titulos <- iconv(as.character(projetos_extensao$titulo), to = "ASCII//TRANSLIT")
-  titulos[is.na(titulos)] <- ""
-  destacados <- c("vi no rotulo", "capacitacao em epidemiologia e analise de dados")
-  projetos_extensao <- projetos_extensao[
-    !(tolower(trimws(titulos)) %in% destacados),
-    , drop = FALSE
-  ]
-}
-
-if (nrow(projetos_extensao) > 0) {
-  tagList(
-    h2("Outros projetos de extensão"),
-    DT::datatable(
-      dplyr::transmute(
-        projetos_extensao,
-        Projeto = titulo,
-        Situação = situacao,
-        Coordenação = coordenador,
-        Início = inicio
-      ),
-      rownames = FALSE,
-      options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
-    )
-  )
-}
-```
-

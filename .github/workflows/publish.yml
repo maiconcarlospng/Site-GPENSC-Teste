@@ -9,6 +9,7 @@ on:
     paths:
       - "**.qmd"
       - "R/**"
+      - "partials/**"
       - "data/**"
       - "img/**"
       - "docs/**"

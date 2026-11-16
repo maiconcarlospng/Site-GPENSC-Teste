@@ -1,0 +1,33 @@
+---
+title: "Conteúdos"
+---
+
+Produções do grupo para a comunidade acadêmica e a sociedade.
+
+```{=html}
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
+```
+
+## Materiais educativos {#materiais}
+
+{{< include partials/materiais.qmd >}}
+
+## Vídeos {#videos}
+
+{{< include partials/videos.qmd >}}
+
+## Podcasts {#podcasts}
+
+{{< include partials/podcasts.qmd >}}
+
+## Livros e e-books {#livros}
+
+{{< include partials/livros.qmd >}}
+
+## Ciência para a sociedade {#resultados}
+
+{{< include partials/resultados.qmd >}}
+
+## Impacto social {#impacto}
+
+{{< include partials/impacto.qmd >}}

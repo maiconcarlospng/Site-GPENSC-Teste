@@ -1,42 +1,9 @@
 ---
-title: "Divulgação científica"
+title: "GPENSC"
+search: false
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Da pesquisa à comunicação pública.</p><img src="img/ilustracoes/divulgacao.svg" alt="" width="240" height="180"></div>
+<meta http-equiv="refresh" content="0; url=conteudos.html#materiais">
+<p><a href="conteudos.html#materiais">Ir para a seção</a></p>
 ```
-
-
-Veja também os [resultados explicados](resultados.qmd) e os registros de [impacto social](impacto.qmd).
-
-:::: {.divulgacao-grade}
-::: {.divulgacao-item}
-### Podcasts
-
-Conversas sobre nutrição e saúde coletiva.
-
-[Conhecer os podcasts](podcasts.qmd)
-:::
-::: {.divulgacao-item}
-### Livros e e-books
-
-Leituras e produções do grupo.
-
-[Consultar livros](livros.qmd)
-:::
-::: {.divulgacao-item}
-### Vídeos
-
-Aulas, registros e conteúdos audiovisuais.
-
-[Assistir aos vídeos](videos.qmd)
-:::
-::: {.divulgacao-item}
-### Materiais educativos e anuário
-
-Cartilhas, infográficos e outros materiais de consulta.
-
-[Consultar materiais](materiais.qmd)
-:::
-::::
-

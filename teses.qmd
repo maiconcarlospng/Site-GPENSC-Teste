@@ -2,11 +2,6 @@
 title: "Teses e dissertações"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Trabalhos acadêmicos e orientações.</p><img src="img/ilustracoes/teses.svg" alt="" width="240" height="180"></div>
-```
-
-
 ```{r}
 source("R/helpers.R")
 defesas_publicadas <- registros_reais(defesas, "titulo")

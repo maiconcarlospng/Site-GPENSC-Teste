@@ -2,11 +2,6 @@
 title: "Metodologias e portfólios"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Abordagens e instrumentos utilizados nas pesquisas.</p><img src="img/ilustracoes/metodos.svg" alt="" width="240" height="180"></div>
-```
-
-
 ```{r}
 source("R/helpers.R")
 renderizar_acervo("metodos", "Metodologias em atualização")

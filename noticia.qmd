@@ -14,7 +14,7 @@ if (nrow(noticias_publicadas) == 0) {
     id = "noticia-detalhe-vazio",
     class = "noticia-detalhe-vazio",
     h1("Nenhuma notícia publicada"),
-    tags$a(class = "btn btn-secondary", href = "noticias.html", "Voltar às notícias")
+    tags$a(class = "btn btn-secondary", href = "atualizacoes.html#noticias", "Voltar às notícias")
   )
 } else {
   tagList(
@@ -23,7 +23,7 @@ if (nrow(noticias_publicadas) == 0) {
       class = "noticia-detalhe-vazio",
       h1("Detalhamento da notícia"),
       p("Selecione uma notícia pela página inicial ou pela lista de notícias."),
-      tags$a(class = "btn btn-secondary", href = "noticias.html", "Ver todas as notícias")
+      tags$a(class = "btn btn-secondary", href = "atualizacoes.html#noticias", "Ver todas as notícias")
     ),
     lapply(seq_len(nrow(noticias_publicadas)), function(i) {
       n <- noticias_publicadas[i, , drop = FALSE]
@@ -60,7 +60,7 @@ if (nrow(noticias_publicadas) == 0) {
         ),
         tags$a(
           class = "btn btn-secondary",
-          href = "noticias.html",
+          href = "atualizacoes.html#noticias",
           "Voltar às notícias"
         )
       )

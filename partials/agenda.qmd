@@ -1,0 +1,110 @@
+```{r}
+source("R/helpers.R")
+
+eventos_publicados <- registros_reais(eventos, "titulo")
+eventos_futuros <- eventos_publicados[
+  !is.na(eventos_publicados$data) & eventos_publicados$data >= Sys.Date(),
+  , drop = FALSE
+] |>
+  arrange(data)
+eventos_passados <- eventos_publicados[
+  !is.na(eventos_publicados$data) & eventos_publicados$data < Sys.Date(),
+  , drop = FALSE
+] |>
+  arrange(desc(data))
+eventos_sem_data <- eventos_publicados[is.na(eventos_publicados$data), , drop = FALSE]
+
+# Defesas e qualificações também integram a agenda acadêmica do grupo.
+defesas_publicadas <- registros_reais(defesas, "titulo")
+defesas_futuras <- defesas_publicadas[
+  !is.na(defesas_publicadas$data) & defesas_publicadas$data >= Sys.Date(),
+  , drop = FALSE
+] |>
+  arrange(data)
+
+renderizar_eventos <- function(dados) {
+  div(
+    class = "tl",
+    lapply(seq_len(nrow(dados)), function(i) {
+      e <- dados[i, , drop = FALSE]
+      tipo <- valor_publico(e$tipo)
+      local <- valor_publico(e$local)
+      url <- valor_publico(e$url)
+      data_texto <- if (!is.na(e$data[1])) format(e$data[1], "%d/%m/%Y") else "Data a confirmar"
+      div(
+        class = "tl-bloco reveal",
+        div(class = "tl-ano", data_texto),
+        div(
+          class = "tl-item",
+          if (!is.null(tipo)) span(class = "selo", tipo),
+          h3(e$titulo),
+          if (!is.null(local)) p(local),
+          if (!is.null(url)) tags$a("Mais informações", href = url, target = "_blank", rel = "noopener noreferrer")
+        )
+      )
+    })
+  )
+}
+
+renderizar_defesas <- function(dados) {
+  div(
+    class = "agenda-defesas",
+    lapply(seq_len(nrow(dados)), function(i) {
+      d <- dados[i, , drop = FALSE]
+      nome <- valor_publico(d$autor)
+      orientador <- valor_publico(d$orientador)
+      url <- valor_publico(d$url)
+      tipo <- paste(
+        c(valor_publico(d$nivel), valor_publico(d$etapa)),
+        collapse = " · "
+      )
+      div(
+        class = "agenda-defesa",
+        div(
+          class = "agenda-defesa-data",
+          span("DATA"),
+          strong(format(d$data[1], "%d/%m/%Y"))
+        ),
+        div(
+          class = "agenda-defesa-conteudo",
+          span(class = "agenda-defesa-tipo", tipo),
+          h3(as.character(d$titulo[1])),
+          if (!is.null(nome)) p(paste("Autor(a):", nome)),
+          if (!is.null(orientador)) p(paste("Orientação:", orientador)),
+          if (!is.null(url)) tags$a("Informações da defesa", href = url, target = "_blank", rel = "noopener noreferrer")
+        )
+      )
+    })
+  )
+}
+
+if (secao_ativa("mostrar_agenda")) {
+  div(
+    class = "pagina-agenda",
+    h2("Próximas atividades"),
+    if (nrow(eventos_futuros) > 0) {
+      renderizar_eventos(eventos_futuros)
+    } else {
+      estado_vazio(
+        "Nenhuma atividade programada",
+        NULL
+      )
+    },
+    if (nrow(defesas_futuras) > 0) {
+      tagList(h2("Defesas e qualificações"), renderizar_defesas(defesas_futuras))
+    },
+    if (nrow(eventos_sem_data) > 0) {
+      tagList(h2("Atividades com data a confirmar"), renderizar_eventos(eventos_sem_data))
+    },
+    if (nrow(eventos_passados) > 0) {
+      tags$details(
+        class = "eventos-anteriores",
+        tags$summary("Consultar atividades anteriores"),
+        renderizar_eventos(eventos_passados)
+      )
+    }
+  )
+} else {
+  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+}
+```

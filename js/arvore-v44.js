@@ -44,27 +44,41 @@
     el(svg, "desc", {}, "O tronco surge do canto inferior esquerdo. Galhos e folhas numeradas podem ser explorados com zoom, arraste, teclado ou pela lista de linhas.");
     const defs = el(svg, "defs");
     let g = el(defs, "linearGradient", { id: "gp44-trunk-gradient", x1: "0%", y1: "100%", x2: "100%", y2: "0%" });
-    el(g, "stop", { offset: "0%", "stop-color": "#557962" });
-    el(g, "stop", { offset: "65%", "stop-color": "#91bd8d" });
-    el(g, "stop", { offset: "100%", "stop-color": "#c3dcc0" });
+    el(g, "stop", { offset: "0%", "stop-color": "#59402d" });
+    el(g, "stop", { offset: "65%", "stop-color": "#97704b" });
+    el(g, "stop", { offset: "100%", "stop-color": "#c4a27a" });
     g = el(defs, "linearGradient", { id: "gp44-branch-gradient", x1: "0%", y1: "70%", x2: "100%", y2: "20%" });
-    el(g, "stop", { offset: "0%", "stop-color": "#83ad83" });
-    el(g, "stop", { offset: "100%", "stop-color": "#c0dabb" });
+    el(g, "stop", { offset: "0%", "stop-color": "#876443" });
+    el(g, "stop", { offset: "100%", "stop-color": "#b18c60" });
     const world = el(svg, "g", { class: "gp44-world" });
-    const ambience = el(world, "g", { class: "gp44-ambience", "aria-hidden": "true" });
-    [
-      [145, 110, 120], [520, 100, 90], [840, 625, 170],
-      [275, 690, 90], [1160, 160, 130]
-    ].forEach(([x, y, r]) => el(ambience, "circle", {
-      cx: x, cy: y, r, class: "gp44-ambience-halo"
-    }));
     const boughLayer = el(world, "g", { class: "gp44-boughs", "aria-hidden": "true" });
-    const baseD = "M -144 850 C -52 757 43 661 144 573 C 184 542 214 524 271 507";
-    svgPath(boughLayer, baseD, "gp44-trunk-shade");
-    svgPath(boughLayer, baseD, "gp44-trunk");
-    const trunkLabel = el(world, "g", { class: "gp44-root-label", "aria-hidden": "true" });
-    el(trunkLabel, "rect", { x: 15, y: 678, width: 156, height: 55, rx: 14 });
-    el(trunkLabel, "text", { x: 93, y: 713, "text-anchor": "middle" }, "GPENSC");
+    // Filled silhouettes taper from the base to the tip. Fine longitudinal
+    // curves follow the same geometry, giving bark grain without raster noise.
+    function wood(d, width, endWidth) {
+      const guide = svgNode("path", {d});
+      svg.appendChild(guide);
+      const length = guide.getTotalLength();
+      const left = [], right = [], grain = [];
+      for (let i=0; i<=64; i++) {
+        const t=i/64, at=length*t;
+        const pt=guide.getPointAtLength(at);
+        const prev=guide.getPointAtLength(Math.max(0,at-.5));
+        const next=guide.getPointAtLength(Math.min(length,at+.5));
+        const dx=next.x-prev.x, dy=next.y-prev.y, norm=Math.hypot(dx,dy)||1;
+        const w=(width*(1-t)**1.15+endWidth*t)/2;
+        const nx=-dy/norm, ny=dx/norm;
+        left.push(`${pt.x+nx*w},${pt.y+ny*w}`);
+        right.push(`${pt.x-nx*w},${pt.y-ny*w}`);
+        grain.push({x:pt.x,y:pt.y,nx,ny,w,t});
+      }
+      guide.remove();
+      el(boughLayer,"path",{d:"M"+left.join(" L")+" L"+right.reverse().join(" L")+" Z",class:"gp-wood"});
+      [-.65,-.35,.08,.42,.7].forEach((offset,k)=>{
+        const points=grain.map(pt=>`${pt.x+pt.nx*pt.w*(offset+.06*Math.sin(pt.t*19+k))},${pt.y+pt.ny*pt.w*(offset+.06*Math.sin(pt.t*19+k))}`);
+        el(boughLayer,"path",{d:"M"+points.join(" L"),class:"gp-bark",opacity:.25+(k%2)*.15});
+      });
+    }
+    wood("M -144 850 C -52 757 43 661 144 573 C 184 542 214 524 271 507",116,42);
 
     const groupCount = Math.min(5, Math.max(1, Math.ceil(lines.length / 4)));
     const groups = Array.from({ length: groupCount }, () => []);
@@ -81,9 +95,7 @@
       const branchD = "M 271 507 C 346 502 " +
         (hub.x - 158).toFixed(1) + " " + (hub.y + (507 - hub.y) * 0.38).toFixed(1) +
         " " + hub.x.toFixed(1) + " " + hub.y.toFixed(1);
-      svgPath(boughLayer, branchD, "gp44-main-bough-outline");
-      svgPath(boughLayer, branchD, "gp44-main-bough");
-      el(boughLayer, "circle", { cx: hub.x, cy: hub.y, r: 7, class: "gp44-fork" });
+      wood(branchD, 43 - groupIndex * 3, 12);
       members.forEach((index, inGroup) => {
         const dy = (inGroup - (members.length - 1) / 2) * 42;
         const x = 776 + (inGroup % 2) * 226 + (groupIndex % 2) * 25;
@@ -93,7 +105,7 @@
           " C " + (hub.x + 115).toFixed(1) + " " + (hub.y + dy * .12).toFixed(1) +
           " " + (x - 126).toFixed(1) + " " + (y - 17).toFixed(1) +
           " " + x.toFixed(1) + " " + y.toFixed(1);
-        svgPath(boughLayer, d, "gp44-twig-under");
+        wood(d, 13, 1.8);
         branches[index] = svgPath(boughLayer, d, "gp44-twig");
         // Small lateral leaves follow the actual line, not random decoration.
         const lx = hub.x + (x - hub.x) * .63;
@@ -117,12 +129,13 @@
       el(tip, "title", {}, name);
       el(tip, "circle", { cx: x, cy: y, r: 32, class: "gp44-tip-target" });
       el(tip, "ellipse", {
-        cx: x, cy: y, rx: 28, ry: 22,
+        cx: x, cy: y, rx: 23, ry: 9,
         transform: "rotate(-16 " + x + " " + y + ")", class: "gp44-tip-shape"
       });
       el(tip, "text", {
         x, y: y + 5, class: "gp44-tip-text", "text-anchor": "middle"
-      }, String(index + 1).padStart(2, "0"));
+      }, "");
+      el(tip, "text", { x: x - 10, y: y + 31, class: "gp-branch-name", "text-anchor": "middle" }, short(name));
       if (hasLinks) el(tip, "circle", {
         cx: x + 21, cy: y - 17, r: 6, class: "gp44-tip-related"
       });
@@ -176,8 +189,8 @@
     }
     function resetCamera() {
       mobileView();
-      camera.scale = isMobile() ? .95 : 1.05;
-      camera.x = isMobile() ? -148 : 12;
+      camera.scale = isMobile() ? .65 : .94;
+      camera.x = isMobile() ? -80 : 12;
       camera.y = isMobile() ? -12 : -12;
       applyCamera();
     }
@@ -268,7 +281,7 @@
         branches[i].classList.toggle("is-active", i === index);
       });
       drawSelectedLabel(index);
-      renderRelated(index);
+      connectionLayer.replaceChildren();
       const line = lines[index];
       const kicker = document.createElement("span");
       kicker.className = "gp44-detail-kicker";

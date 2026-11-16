@@ -1,40 +1,9 @@
 ---
-title: "Notícias"
+title: "GPENSC"
+search: false
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Participações, editais e presença na mídia.</p><img src="img/ilustracoes/noticias.svg" alt="" width="240" height="180"></div>
-```
-
-
-```{r}
-source("R/helpers.R")
-
-noticias_publicadas <- registros_reais(noticias, "titulo")
-
-if (secao_ativa("mostrar_noticias")) {
-if (nrow(noticias_publicadas) == 0) {
-  estado_vazio(
-    "Nenhuma notícia publicada",
-    "As atualizações do grupo aparecerão aqui.",
-    "Acompanhe o Instagram",
-    cfg$instagram
-  )
-} else {
-  categorias <- ifelse(
-    is.na(noticias_publicadas$categoria) | !nzchar(trimws(noticias_publicadas$categoria)),
-    "Notícias",
-    noticias_publicadas$categoria
-  )
-
-  tagList(lapply(unique(categorias), function(categoria) {
-    itens <- noticias_publicadas[categorias == categoria, , drop = FALSE] |>
-      arrange(desc(data))
-    tagList(if (categoria != "Notícias") h2(categoria), cartoes(itens, cartao_noticia))
-  }))
-}
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
+<meta http-equiv="refresh" content="0; url=atualizacoes.html#noticias">
+<p><a href="atualizacoes.html#noticias">Ir para a seção</a></p>
 ```

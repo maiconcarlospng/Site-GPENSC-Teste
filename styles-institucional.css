@@ -1,0 +1,61 @@
+/* Shared institutional layout. Component-specific functional rules remain intact. */
+html body {background:#fff!important;color:#293b30;}
+html body #quarto-content main.content {min-width:0;}
+html body #title-block-header.quarto-title-block {background:none!important;box-shadow:none!important;border:0!important;text-align:left!important;padding-block:2.7rem 1rem!important;}
+html body #title-block-header h1.title {font-size:clamp(1.9rem,3.4vw,2.8rem)!important;letter-spacing:-.025em!important;font-weight:650!important;text-align:left!important;color:#1f4d2b!important;}
+html body #title-block-header::before,html body #title-block-header::after {display:none!important;}
+html body main.content :is(h2,h3) {text-align:left!important;letter-spacing:-.015em!important;}
+html body main.content h2 {font-size:1.55rem!important;margin-top:2.8rem!important;line-height:1.3!important;}
+html body main.content h3 {font-size:1.16rem!important;line-height:1.4!important;}
+html body main.content p {line-height:1.7;}
+html body main.content :is(.sobre-card,.objetivo-item,.contato-card,.membro-card,.divulgacao-item,.gp-ext-card,.gp-home-project-card,.estado-vazio,.home-arvore-destaque) {box-shadow:none!important;background:#fff!important;border-radius:3px!important;border:0!important;border-bottom:1px solid #dfe5df!important;transform:none!important;}
+html body main.content :is(.sobre-card-icone,.contato-card-icone,.objetivo-numero,.gp-ext-kicker,.gp-home-project-card-label,.gp-home-project-card-cta,.gp44-placeholder-symbol) {display:none!important;}
+html body main.content .gp-ext-card-epi .gp-ext-art,html body main.content .gp-home-project-card--epi>img {display:none!important;}
+html body main.content .gp-ext-card-epi {grid-template-columns:1fr!important;}
+html body main.content .home-arvore-destaque {display:block!important;padding:1.5rem 0!important;}
+html body main.content .home-arvore-destaque h2 {margin-top:0!important;}
+html body main.content .gp-section-index {display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:1.5rem 0 3rem;padding:1rem 0;border-block:1px solid #dfe5df;}
+html body main.content .gp-section-index a {font-size:.95rem;color:#1f4d2b;text-decoration:none;padding:.35rem 0;}
+html body main.content .gp-section-index a:hover {text-decoration:underline;}
+html body main.content .gp-research-index {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 3rem;margin-top:2rem;}
+html body main.content .gp-research-index a {display:flex;flex-direction:column;gap:.4rem;padding:1.5rem 0;border-bottom:1px solid #dfe5df;text-decoration:none;color:#1f4d2b;}
+html body main.content .gp-research-index span {color:#657268;font-size:.95rem;}
+html body main.content .gp-research-index a:hover strong {text-decoration:underline;}
+html body main.content :is(a,button,input,select):focus-visible {outline:3px solid #b9560f;outline-offset:4px;}
+html body main.content section[id] {scroll-margin-top:8rem;}
+html body main.content :is(.sobre-cards,.objetivos-grid,.contato-grade,.equipe-grid) {gap:1.5rem!important;}
+html body main.content .parceria-instituicao {border:0!important;box-shadow:none!important;background:none!important;}
+html body main.content .gp44-explorer,html body main.content .gp44-detail {box-shadow:none!important;border-radius:3px!important;background:#fff!important;}
+html body #quarto-content .gp44-map-wrap,html body #quarto-content #gp44-map {background:#fcfbf7!important;}
+html body #quarto-content .gp44-map-wrap::before,html body #quarto-content .gp44-map-wrap::after {display:none!important;}
+html body #quarto-content .gp44-twig {stroke:transparent!important;}
+html body #quarto-content .gp44-twig.is-active {stroke:#b9560f!important;stroke-width:2!important;}
+html body #quarto-content .gp-wood {fill:url(#gp44-trunk-gradient);stroke:#735437;stroke-width:.6;}
+html body #quarto-content .gp-bark {fill:none;stroke:#49331f;stroke-width:.8;}
+html body #quarto-content .gp44-tip-shape {fill:#547749!important;stroke:#365732!important;stroke-width:1!important;}
+html body #quarto-content .gp44-tip.is-active .gp44-tip-shape {fill:#b9560f!important;}
+html body #quarto-content .gp-branch-name {font-family:Georgia,serif;font-size:14px;fill:#29452d;paint-order:stroke;stroke:#fcfbf7;stroke-width:4px;stroke-linejoin:round;}
+html body #quarto-content .gp44-small-foliage {opacity:.5;}
+html body #quarto-content .gp44-world {transition:transform .24s ease-out;}
+html body #quarto-content .is-dragging .gp44-world {transition:none;}
+html body #quarto-content .gp44-explorer-header h2 {margin:0!important;font-size:1rem!important;}
+html body #quarto-content .gp44-explorer-footer {background:#fff!important;}
+html body #quarto-content .gp44-detail-placeholder {min-height:0!important;}
+html body #quarto-content .gp44-detail {position:static!important;}
+html body #quarto-content .gp44-directory {border:0!important;background:#fff!important;box-shadow:none!important;}
+html body #quarto-content .gp44-line {border-radius:0!important;box-shadow:none!important;}
+@media(min-width:1100px){html body .navbar .navbar-nav {gap:.15rem!important;}html body .navbar .nav-link {font-size:.95rem!important;padding-inline:.65rem!important;}}
+@media(max-width:767px){
+ html body #title-block-header.quarto-title-block {padding-block:1.6rem .7rem!important;}
+ html body main.content .gp-research-index {grid-template-columns:1fr;}
+ html body main.content .gp-section-index {gap:.35rem 1rem;margin-bottom:1.8rem;}
+ html body main.content :is(.sobre-cards,.objetivos-grid,.contato-grade,.equipe-grid,.gp-ext-projects) {grid-template-columns:1fr!important;}
+ html body main.content h2 {font-size:1.35rem!important;margin-top:2rem!important;}
+ html body main.content :is(.sobre-card,.contato-card,.membro-card,.objetivo-item) {padding:1rem 0!important;}
+ html body #quarto-content .gp44-workspace {grid-template-columns:1fr!important;}
+ html body #quarto-content #gp44-map {height:58svh!important;min-height:340px!important;max-height:560px!important;}
+ html body #quarto-content .gp44-detail {padding:1rem!important;}
+ html body main.content :is(input,select,textarea) {font-size:16px!important;max-width:100%;}
+ html body main.content .dataTables_wrapper {max-width:100%;overflow-x:auto;}
+}
+@media(prefers-reduced-motion:reduce){html body #quarto-content .gp44-world {transition:none;}}

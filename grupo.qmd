@@ -1,0 +1,25 @@
+---
+title: "Grupo"
+---
+
+Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
+
+```{=html}
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#sobre">Quem somos</a><a href="#historia">Nossa história</a><a href="#parcerias">Parcerias</a><a href="#contato">Contato</a></nav>
+```
+
+## Quem somos {#sobre}
+
+{{< include partials/sobre.qmd >}}
+
+## Nossa história {#historia}
+
+{{< include partials/historia.qmd >}}
+
+## Parcerias {#parcerias}
+
+{{< include partials/parcerias.qmd >}}
+
+## Contato {#contato}
+
+{{< include partials/contato.qmd >}}

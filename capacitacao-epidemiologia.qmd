@@ -3,7 +3,7 @@ title: "Capacitação em Epidemiologia e Análise de Dados"
 description: "Conheça a iniciativa de formação em epidemiologia e análise de dados mencionada no portfólio do GPENSC."
 ---
 
-[Extensão](extensao.qmd) / Capacitação em Epidemiologia e Análise de Dados
+[Extensão](ensino-extensao.qmd#iniciativas) / Capacitação em Epidemiologia e Análise de Dados
 
 ```{=html}
 <div class="gp-project-hero gp-project-hero-green">
@@ -23,5 +23,5 @@ As atividades podem abordar desenho de estudos, organização de bases de dados,
 
 ## Programação
 
-Consulte a [Agenda](agenda.qmd) para verificar as atividades confirmadas ou [entre em contato](contato.qmd).
+Consulte a [Agenda](atualizacoes.qmd#agenda) para verificar as atividades confirmadas ou [entre em contato](grupo.qmd#contato).
 

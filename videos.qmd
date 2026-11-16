@@ -1,35 +1,9 @@
 ---
-title: "Vídeos"
+title: "GPENSC"
+search: false
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Registros audiovisuais de projetos e atividades.</p><img src="img/ilustracoes/videos.svg" alt="" width="240" height="180"></div>
-```
-
-
-```{r}
-source("R/helpers.R")
-videos_publicados <- registros_reais(videos, "titulo")
-
-if (secao_ativa("mostrar_videos")) {
-if (nrow(videos_publicados) == 0) {
-  estado_vazio("Vídeos em atualização", NULL)
-} else {
-  cartoes(arrange(videos_publicados, desc(data)), function(v, i) {
-    descricao <- valor_publico(v$descricao)
-    url <- valor_publico(v$url)
-
-    div(
-      class = paste("cartao reveal", cor_de(i)),
-      if (!is.na(v$data)) span(class = "cartao-data", format(v$data, "%d/%m/%Y")),
-      h4(v$titulo),
-      if (!is.null(descricao)) p(descricao),
-      if (!is.null(url)) tags$a("Assistir »", href = url, target = "_blank", rel = "noopener noreferrer")
-    )
-  })
-}
-} else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
-}
-
+<meta http-equiv="refresh" content="0; url=conteudos.html#videos">
+<p><a href="conteudos.html#videos">Ir para a seção</a></p>
 ```

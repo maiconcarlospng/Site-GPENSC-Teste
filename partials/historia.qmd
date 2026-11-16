@@ -1,0 +1,35 @@
+```{r}
+source("R/helpers.R")
+
+historia <- yaml::read_yaml("data/linha_tempo.yml")$itens
+if (is.null(historia)) historia <- list()
+
+historia <- Filter(function(item) {
+  ano <- if (is.null(item$ano)) "" else as.character(item$ano)
+  titulo <- if (is.null(item$titulo)) "" else trimws(as.character(item$titulo))
+  descricao <- if (is.null(item$descricao)) "" else trimws(as.character(item$descricao))
+  ano_valido <- grepl("^[0-9]{4}$", ano)
+  texto_provisorio <- grepl("conte aqui|registre|destaque|acrescente|20XX", paste(titulo, descricao), ignore.case = TRUE)
+  ano_valido && nzchar(titulo) && !texto_provisorio
+}, historia)
+
+if (length(historia) > 0) {
+  div(
+    class = "historia-linha-tempo",
+    lapply(historia, function(item) {
+      div(
+        class = "historia-item",
+        span(class = "historia-ano", as.character(item$ano)),
+        div(
+          class = "historia-conteudo",
+          h2(as.character(item$titulo)),
+          if (!is.null(item$descricao) && nzchar(trimws(as.character(item$descricao)))) p(as.character(item$descricao)),
+          if (!is.null(item$imagem) && nzchar(as.character(item$imagem))) tags$img(src = caminho_img(item$imagem), alt = paste("Registro:", item$titulo), loading = "lazy")
+        )
+      )
+    })
+  )
+} else {
+  estado_vazio("Registros históricos em atualização", NULL)
+}
+```

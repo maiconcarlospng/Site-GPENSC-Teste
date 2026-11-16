@@ -27,7 +27,7 @@ bloco_intro()
 div(
   class = "pq-blocos reveal",
   card_pesq("Linhas de pesquisa", "linhas.html", "projetos.png", "cor-1", icone = "bi-diagram-3"),
-  card_pesq("Projetos", "projetos.html", "projetos.png", "cor-2", icone = "bi-folder2-open"),
+  card_pesq("Projetos", "ensino-extensao.html#projetos", "projetos.png", "cor-2", icone = "bi-folder2-open"),
   card_pesq("Teses e dissertações", "teses.html", "teses.png", "cor-3", icone = "bi-mortarboard"),
   card_pesq("Publicações", "publicacoes.html", "publicacoes.png", "cor-1", icone = "bi-journal-text")
 )
@@ -42,7 +42,7 @@ tags$section(
     div(
       h2(id = "gp-home-projects-title", "Projetos e iniciativas")
     ),
-    tags$a(href = "extensao.html", class = "gp-home-projects-all", "Conhecer a extensão")
+    tags$a(href = "ensino-extensao.html#iniciativas", class = "gp-home-projects-all", "Ensino e Extensão")
   ),
   div(
     class = "gp-home-projects-grid",
@@ -53,7 +53,7 @@ tags$section(
         span(class = "gp-home-project-card-label", "EDUCAÇÃO ALIMENTAR"),
         tags$strong("Vi no Rótulo"),
         tags$small("Informação sobre rotulagem nutricional para compreender os alimentos."),
-        span(class = "gp-home-project-card-cta", "Conhecer o projeto", tags$span(`aria-hidden` = "true", "↗"))
+        span(class = "gp-home-project-card-cta", "Vi no Rótulo", tags$span(`aria-hidden` = "true", "↗"))
       ),
       tags$img(src = "img/marcas/vi-no-rotulo-oficial.png", width = 138, height = 91, loading = "lazy", alt = "Vi no Rótulo")
     ),
@@ -64,7 +64,7 @@ tags$section(
         span(class = "gp-home-project-card-label", "MÉTODOS E FORMAÇÃO"),
         tags$strong("Capacitação em Epidemiologia e Análise de Dados"),
         tags$small("Ferramentas para interpretar indicadores, dados e evidências em saúde."),
-        span(class = "gp-home-project-card-cta", "Conhecer a iniciativa", tags$span(`aria-hidden` = "true", "↗"))
+        span(class = "gp-home-project-card-cta", "Sobre a capacitação", tags$span(`aria-hidden` = "true", "↗"))
       ),
       tags$img(src = "img/ilustracoes/epidemiologia-resumo.svg", width = 160, height = 120, loading = "lazy", alt = "")
     )
@@ -82,12 +82,7 @@ div(
     p("Explore as conexões entre os temas de pesquisa do grupo."),
     tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar conexões")
   ),
-  div(
-    class = "home-arvore-simbolo",
-    tags$img(class = "gp-tree-art", src = "img/ilustracoes/arvore-home.svg", alt = "", width = 240, height = 180),
-    tags$span(class = "home-arvore-tronco", "GPENSC"),
-    tags$span(class = "home-arvore-raizes", "PESQUISA · ENSINO · EXTENSÃO")
-  )
+  NULL
 )
 ```
 
@@ -104,7 +99,7 @@ if (nrow(noticias_recentes) > 0) {
     cartoes(noticias_recentes, cartao_noticia),
     div(
       class = "centro",
-      tags$a(class = "btn btn-secondary", href = "noticias.html", "Todas as notícias")
+      tags$a(class = "btn btn-secondary", href = "atualizacoes.html#noticias", "Todas as notícias")
     )
   )
 }
@@ -115,7 +110,7 @@ if (nrow(noticias_recentes) > 0) {
 ::: agenda-chamada
 <p class="agenda-selo">AGENDA GPENSC</p>
 
-## {{< var titulo_home_agenda >}}
+## Próximas atividades
 
 ```{r}
 eventos_home_publicados <- registros_reais(eventos, "titulo")
@@ -169,7 +164,7 @@ if (nrow(eventos_home_futuros) > 0) {
 }
 ```
 
-[Ver agenda completa](agenda.qmd){.btn .btn-secondary .agenda-botao}
+[Ver agenda completa](atualizacoes.qmd#agenda){.btn .btn-secondary .agenda-botao}
 :::
 ::::
 

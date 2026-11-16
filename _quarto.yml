@@ -25,56 +25,18 @@ website:
     background: light
     
     right:
-      - text: Grupo
-        menu:
-          - href: sobre.qmd
-            text: Quem somos
-          - href: historia.qmd
-            text: Nossa história
-          - href: arvore.qmd
-            text: Árvore do conhecimento
-          - href: parcerias.qmd
-            text: Parcerias
-          - href: impacto.qmd
-            text: Impacto social
-      - text: Pesquisa
-        menu:
-          - href: pesquisa.qmd
-            text: Pesquisa — visão geral
-          - href: linhas.qmd
-            text: Linhas de pesquisa
-          - href: projetos.qmd
-            text: Projetos
-          - href: publicacoes.qmd
-            text: Publicações
-          - href: teses.qmd
-            text: Teses e dissertações
-          - href: metodos.qmd
-            text: Metodologias
-      - href: extensao.qmd
-        text: Extensão
-      - href: ensino.qmd
-        text: Ensino
-      - text: Divulgação
-        menu:
-          - href: divulgacao.qmd
-            text: Divulgação científica
-          - href: resultados.qmd
-            text: Ciência para a sociedade
-          - href: materiais.qmd
-            text: Materiais educativos
-          - href: podcasts.qmd
-            text: Podcasts
-          - href: livros.qmd
-            text: Livros e e-books
-          - href: videos.qmd
-            text: Vídeos
-      - href: agenda.qmd
-        text: Agenda
-      - href: noticias.qmd
-        text: Notícias
-      - href: contato.qmd
-        text: Contato
+      - href: index.qmd
+        text: Início
+      - href: grupo.qmd
+        text: Grupo
+      - href: pesquisa.qmd
+        text: Pesquisa
+      - href: ensino-extensao.qmd
+        text: Ensino e Extensão
+      - href: conteudos.qmd
+        text: Conteúdos
+      - href: atualizacoes.qmd
+        text: Atualizações
 
   page-footer:
     left: |
@@ -116,6 +78,7 @@ format:
       - styles-galeria-v42.css
       - styles-mobile-v43.css
       - styles-arvore-v44.css
+      - styles-institucional.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html

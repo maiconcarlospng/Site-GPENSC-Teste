@@ -4,10 +4,10 @@ pagetitle: "Podcasts – GPENSC"
 ---
 
 ```{=html}
-<meta http-equiv="refresh" content="0; url=podcasts.html">
+<meta http-equiv="refresh" content="0; url=conteudos.html#podcasts">
 <script>
-  window.location.replace("podcasts.html");
+  window.location.replace("conteudos.html#podcasts");
 </script>
 <p>O acervo de podcasts do GPENSC está na nova página.
-<a href="podcasts.html">Acessar Podcasts</a>.</p>
+<a href="conteudos.html#podcasts">Acessar Podcasts</a>.</p>
 ```

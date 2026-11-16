@@ -6,7 +6,6 @@ description: "Explore as linhas de pesquisa do GPENSC e seus vínculos científi
 
 ```{=html}
 <div class="gp44-page-intro">
-  <p class="gp44-intro-kicker">GPENSC · CONEXÕES DE PESQUISA</p>
   <p>Linhas, projetos e pessoas reunidos em um mapa de conexões.</p>
 </div>
 ```
@@ -80,10 +79,10 @@ ramo <- function(i) {
       if (nrow(pu)) tags$section(h4("Produções científicas"), lista_de_vinculos(pu, "titulo", "publicacoes")),
       if (nrow(de)) tags$section(h4("Teses, dissertações e bancas"), lista_de_vinculos(de, "titulo")),
       if (!vinculos) p(class = "gp44-no-links",
-        "Os vínculos desta linha aparecerão aqui quando forem cadastrados."),
+        "Sem vínculos publicados."),
       tags$a(
         class = "gp44-full-link", href = paste0("linhas.html#linha-", id),
-        "Conhecer esta linha de pesquisa"
+        "Página da linha"
       )
     )
   )
@@ -99,8 +98,8 @@ div(
         div(
           class = "gp44-explorer-header",
           div(
-            span(class = "gp44-eyebrow", "EXPLORADOR INTERATIVO"),
-            h2("Siga as ramificações")
+
+            h2("Linhas de pesquisa")
           ),
           div(
             class = "gp44-tools", role = "group",

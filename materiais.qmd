@@ -1,13 +1,9 @@
 ---
-title: "Materiais educativos"
+title: "GPENSC"
+search: false
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Cartilhas, infográficos e recursos educativos.</p><img src="img/ilustracoes/materiais.svg" alt="" width="240" height="180"></div>
-```
-
-
-```{r}
-source("R/helpers.R")
-renderizar_acervo("materiais", "Materiais educativos em atualização")
+<meta http-equiv="refresh" content="0; url=conteudos.html#materiais">
+<p><a href="conteudos.html#materiais">Ir para a seção</a></p>
 ```

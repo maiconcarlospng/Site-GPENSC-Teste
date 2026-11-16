@@ -340,7 +340,7 @@ bloco_intro <- function() {
       p(cfg$resumo),
       div(
         class = "intro-acoes",
-        tags$a(class = "btn btn-secondary", href = "sobre.html", "Conheça o GPENSC")
+        tags$a(class = "btn btn-secondary", href = "grupo.html#sobre", "Conheça o GPENSC")
       )
     ),
     div(
@@ -349,8 +349,8 @@ bloco_intro <- function() {
       div(
         class = "intro-sinal-lista",
         frente("01", "Pesquisa", "Linhas, projetos e publicações", "pesquisa.html"),
-        frente("02", "Ensino", "Formação e atividades acadêmicas", "ensino.html"),
-        frente("03", "Extensão", "Projetos e ações com a comunidade", "extensao.html")
+        frente("02", "Ensino", "Formação e atividades acadêmicas", "ensino-extensao.html#ensino"),
+        frente("03", "Extensão", "Projetos e ações com a comunidade", "ensino-extensao.html#iniciativas")
       )
     )
   )

@@ -3,7 +3,7 @@ title: "Vi no Rótulo"
 description: "Pesquisa e extensão em rotulagem de alimentos e educação nutricional."
 ---
 
-[Extensão](extensao.qmd) / Vi no Rótulo
+[Extensão](ensino-extensao.qmd#iniciativas) / Vi no Rótulo
 
 ```{=html}
 <div class="gp-vi-page">

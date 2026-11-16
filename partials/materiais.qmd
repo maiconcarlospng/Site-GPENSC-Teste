@@ -1,0 +1,4 @@
+```{r}
+source("R/helpers.R")
+renderizar_acervo("materiais", "Materiais educativos em atualização")
+```

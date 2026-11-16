@@ -2,12 +2,7 @@
 title: "Publicações"
 ---
 
-```{=html}
-<div class="gp-section-illustration"><p>Artigos e outras produções científicas.</p><img src="img/ilustracoes/publicacoes.svg" alt="" width="240" height="180"></div>
-```
-
-
-Os estudos com sínteses para o público geral estão em [Ciência para a sociedade](resultados.qmd).
+Os estudos com sínteses para o público geral estão em [Ciência para a sociedade](conteudos.qmd#resultados).
 
 ```{r}
 source("R/helpers.R")

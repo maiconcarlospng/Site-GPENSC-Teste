@@ -620,3 +620,8 @@ As sugestões do grupo sobre curadoria, atualização e divisão de responsabili
 A conferência requisito por requisito, incluindo os dados que ainda precisam ser aprovados pelo grupo, está em [CHECKLIST-DOCUMENTO-GPENSC.md](CHECKLIST-DOCUMENTO-GPENSC.md).
 
 A Árvore do Conhecimento utiliza agora o explorador de ramificações em `js/arvore-explorador.js`, com foco parcial em vez de exibir a copa inteira. A página [Ciência para a sociedade](resultados.qmd) recebe apenas sínteses de publicações com fonte e revisão, cadastradas no painel.
+
+
+### Organização institucional — novembro de 2026
+
+O menu público reúne Início, Grupo, Pesquisa, Ensino e Extensão, Conteúdos e Atualizações. As páginas consolidadas usam trechos em `partials/`, mantendo os mesmos dados e coleções do painel. URLs antigas redirecionam para a seção correspondente; edite os trechos, não as páginas de redirecionamento. A árvore mantém busca, teclado, arraste e zoom, com galhos SVG afilados e veios longitudinais. `styles-institucional.css` centraliza o acabamento compartilhado e as adaptações para telas pequenas.
