@@ -214,3 +214,33 @@ body:has(.gp-tree-shell) #title-block-header.quarto-title-block{
     margin-top:1.9rem!important;
   }
 }
+
+/* Árvore relacional — frutos só aparecem quando há um vínculo cadastrado. */
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fruits{pointer-events:none}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fruit-item{filter:drop-shadow(0 2px 2px rgba(31,77,43,.18))}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fruit-text{
+  fill:#fff;font-family:Inter,Arial,sans-serif;font-weight:800;font-size:16px;
+  stroke:rgba(0,0,0,.08);stroke-width:.4px;paint-order:stroke;pointer-events:none
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-node-ring{filter:drop-shadow(0 1px 2px rgba(25,62,31,.16))}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branch.is-active .gp-tree-branch-button{background:#f6f9f3!important}
+@media(max-width:720px){
+  /* Não esconder os galhos no celular: manter tamanho suficiente para toque
+     e rolagem horizontal nativa, com lista de pesquisa acessível como apoio. */
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-markers{display:block!important}
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-scroll{
+    overflow-x:auto!important;overflow-y:hidden!important;
+    overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:#9cb799 #f4f7f1;
+  }
+  body:has(.gp-tree-shell) #quarto-content #gp-tree-canvas{
+    box-sizing:border-box!important;min-width:760px!important;
+    width:760px!important;max-width:none!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-svg{
+    display:block!important;width:100%!important;max-width:100%!important;
+    height:auto!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-controls{display:flex!important}
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar{align-items:start!important}
+}
