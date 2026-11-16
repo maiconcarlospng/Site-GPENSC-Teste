@@ -3,11 +3,9 @@ title: "Pesquisa"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Dos temas de investigação à produção científica: explore as conexões entre linhas, projetos e formação.</p><img src="img/ilustracoes/pesquisa.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Da investigação à produção científica.</p><img src="img/ilustracoes/pesquisa.svg" alt="" width="240" height="180"></div>
 ```
 
-
-## Acervo de pesquisa
 
 ```{=html}
 <nav class="gp-indice-pesquisa" aria-label="Seções de pesquisa">
