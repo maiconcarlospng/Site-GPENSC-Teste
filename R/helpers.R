@@ -211,7 +211,7 @@ estado_vazio <- function(titulo, descricao, link_texto = NULL, link_href = NULL)
     div(
       class = "estado-vazio-texto",
       h3(titulo),
-      p(descricao),
+      if (tem(descricao)) p(descricao),
       link
     )
   )
@@ -336,8 +336,7 @@ bloco_intro <- function() {
     class = "intro reveal",
     div(
       class = "intro-texto",
-      span(class = "intro-kicker", "UNIVERSIDADE FEDERAL DE OURO PRETO"),
-      h1("Nutrição e saúde coletiva: pesquisa, ensino e extensão."),
+      h1("Pesquisa em nutrição e saúde coletiva."),
       p(cfg$resumo),
       div(
         class = "intro-acoes",
@@ -497,7 +496,7 @@ cartao_pesq <- function(e, i) {
 # Acervos editoriais: texto escapado e links HTTP(S).
 renderizar_acervo <- function(nome, vazio) {
   itens <- yaml::read_yaml(file.path("data", paste0(nome, ".yml")))$itens
-  if (is.null(itens) || !length(itens)) return(estado_vazio(vazio, "Consulte também as demais áreas do site ou entre em contato com o grupo.", "Fale com o GPENSC", "contato.html"))
+  if (is.null(itens) || !length(itens)) return(estado_vazio(vazio, NULL))
   div(class = "gp-acervo", lapply(itens, function(item) {
     tags$article(class = "gp-acervo-card",
       if (tem(item$tipo)) span(class = "gp-acervo-tipo", item$tipo),
