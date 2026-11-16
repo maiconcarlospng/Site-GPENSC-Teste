@@ -20572,3 +20572,62 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
   html body:has(#gp49) #gp49 #gp49-map .gp49-leaf-spray,
   html body:has(#gp49) #gp49 #gp49-map .gp49-wood-layer {transition:none!important}
 }
+
+
+/* ---------- 9. CELULAR — CORREÇÃO DO TOPO E DAS BORDAS (2026-11-16) ---------- */
+/* Mantém o conteúdo na largura visual do iPhone, sem deslocamentos de 100vw. */
+@media (max-width: 767.98px) {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+  html body #quarto-header {
+    top: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    transform: none !important;
+  }
+  html body #quarto-header .navbar {
+    margin-top: 0 !important;
+    top: 0 !important;
+  }
+  html body #quarto-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  html body #quarto-content .hero,
+  html body #quarto-content .faixa-agenda,
+  html body #quarto-content .coords-band,
+  html body #quarto-content .column-screen {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  html body #quarto-content .hero {
+    margin-top: 0 !important;
+  }
+  html body #quarto-content .galeria,
+  html body #quarto-content .galeria-faixa,
+  html body #quarto-content .secao,
+  html body #quarto-content .pq-blocos {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  html body #quarto-content .galeria-faixa {
+    overscroll-behavior-x: contain;
+  }
+  html body #quarto-content .galeria-faixa .galeria-item {
+    min-width: 0 !important;
+  }
+}
