@@ -387,3 +387,6 @@ body{background:#f7f8f5}
   #app .admin-shortcut-grid{grid-template-columns:minmax(0,1fr)}
   #app .collection-tools .collection-site-link{flex-basis:100%}
 }
+
+/* A busca do menu móvel deve ocultar também os grupos sem resultados. */
+@media (max-width:700px){#app .sidebar.mobile-open #collection-nav .menu-section[hidden]{display:none!important}}
