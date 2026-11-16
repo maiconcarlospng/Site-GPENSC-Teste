@@ -3,11 +3,11 @@ title: "Materiais educativos"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Recursos para estudar, compartilhar e aproximar a ciência do cotidiano.</p><img src="img/ilustracoes/materiais.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Cartilhas, infográficos e recursos educativos.</p><img src="img/ilustracoes/materiais.svg" alt="" width="240" height="180"></div>
 ```
 
 
 ```{r}
 source("R/helpers.R")
-renderizar_acervo("materiais", "Ainda não há materiais disponíveis nesta seção")
+renderizar_acervo("materiais", "Materiais educativos em atualização")
 ```
