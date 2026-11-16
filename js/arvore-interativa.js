@@ -103,12 +103,43 @@
     }));
     search?.addEventListener("input",filterList);
     branches.forEach((b,i)=>b.querySelector("button")?.addEventListener("click",()=>select(i,true)));
-    function zoom(delta){
-      scale=Math.max(1,Math.min(1.6,Math.round((scale+delta)*10)/10));
-      scene.setAttribute("transform","translate("+(500-500*scale)+","+(410-410*scale)+") scale("+scale+")");
+    // Ampliação com deslocamento limitado às bordas da imagem.
+    // Ao ampliar, o usuário pode arrastar o desenho sem perder os nós laterais.
+    let panX=0,panY=0,drag=null;
+    function renderZoom(){
+      const maxX=(scale-1)*500,maxY=(scale-1)*410;
+      panX=Math.max(-maxX,Math.min(maxX,panX));
+      panY=Math.max(-maxY,Math.min(maxY,panY));
+      scene.setAttribute("transform","translate("+(500-500*scale+panX)+","+(410-410*scale+panY)+") scale("+scale+")");
+      svg.classList.toggle("is-zoomed",scale>1);
       document.getElementById("gp-tree-plus")?.toggleAttribute("disabled",scale>=1.6);
       document.getElementById("gp-tree-minus")?.toggleAttribute("disabled",scale<=1);
     }
+    function zoom(delta){
+      scale=Math.max(1,Math.min(1.6,Math.round((scale+delta)*10)/10));
+      if(scale===1){panX=0;panY=0;}
+      renderZoom();
+    }
+    svg.addEventListener("pointerdown",event=>{
+      if(scale<=1||event.button!==0||event.target.closest(".gp-tree-node"))return;
+      drag={id:event.pointerId,x:event.clientX,y:event.clientY,panX,panY};
+      svg.setPointerCapture(event.pointerId);
+    });
+    svg.addEventListener("pointermove",event=>{
+      if(!drag||drag.id!==event.pointerId)return;
+      const box=svg.getBoundingClientRect();
+      if(!box.width||!box.height)return;
+      panX=drag.panX+(event.clientX-drag.x)*1000/box.width;
+      panY=drag.panY+(event.clientY-drag.y)*820/box.height;
+      renderZoom();
+    });
+    const stopDrag=event=>{
+      if(!drag||drag.id!==event.pointerId)return;
+      drag=null;
+      if(svg.hasPointerCapture(event.pointerId))svg.releasePointerCapture(event.pointerId);
+    };
+    svg.addEventListener("pointerup",stopDrag);
+    svg.addEventListener("pointercancel",stopDrag);
     document.getElementById("gp-tree-plus")?.addEventListener("click",()=>zoom(.2));
     document.getElementById("gp-tree-minus")?.addEventListener("click",()=>zoom(-.2));
     document.getElementById("gp-tree-reset")?.addEventListener("click",()=>zoom(1-scale));
