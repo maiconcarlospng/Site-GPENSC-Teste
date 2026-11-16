@@ -270,7 +270,15 @@ faixa_galeria <- function(exibir = c("ambos", "hero", "fotos")) {
       class = "hero-texto",
       span(class = "hero-sigla", cfg$sigla),
       div(class = "hero-titulo", cfg$nome_completo),
-      div(class = "hero-inst", cfg$instituicao)
+      div(class = "hero-inst", cfg$instituicao),
+      div(
+        class = "hero-botoes",
+        tags$a(
+          href = "grupo.html#sobre",
+          class = "btn hero-quem-somos",
+          "Quem somos"
+        )
+      )
     )
   )
 
