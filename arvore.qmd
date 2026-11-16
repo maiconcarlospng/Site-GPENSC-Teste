@@ -273,7 +273,7 @@ div(id = "gp49", class = "gp49-shell",
 #gp49 .gp49-project-parent{padding:.55rem .7rem;border-left:3px solid #5f9a3e;background:#f4f7f0}
 #gp49 .gp49-no-links{color:#65715f;font-style:italic}
 @media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
-</style>
+\n#gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}\n</style>
 ```
 
 <script src="js/arvore.js" defer></script>
