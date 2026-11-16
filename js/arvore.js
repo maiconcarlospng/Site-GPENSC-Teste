@@ -30,25 +30,34 @@
   window.addEventListener('resize', adaptViewport, {passive:true});
   adaptViewport();
   const defs = make('defs', {}, svg);
-  const bark = make('linearGradient', {id: 'gp49-bark', x1: '0', y1: '0', x2: '1', y2: '.28'}, defs);
-  [['0','#4b4632'],['.30','#846647'],['.56','#a3835e'],['.78','#786347'],['1','#474c35']]
-    .forEach(([offset,color]) => make('stop', {offset, 'stop-color': color}, bark));
-  // Folhagem em camadas, sempre atrás do desenho dos galhos.
+  // Gradiente com coordenadas globais: a textura não reinicia a cada galho.
+  const bark=make('linearGradient',{id:'gp49-bark',gradientUnits:'userSpaceOnUse',
+    x1:120,y1:0,x2:1260,y2:110},defs);
+  [['0','#63533c'],['.24','#866647'],['.5','#967552'],['.76','#816647'],['1','#63573d']]
+    .forEach(([offset,color])=>make('stop',{offset,'stop-color':color},bark));
+  // A copa é composta de transparências radiais sobrepostas: sem bordas de
+  // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
-  const colors=['#679262','#93ae7c','#b8cda5','#47774d','#d3e2bd','#779c62'];
-  for(let i=0;i<46;i++){
-    const a=i*2.39996323,r=Math.sqrt((i+.5)/46);
-    const x=700+Math.cos(a)*r*580,y=300+Math.sin(a)*r*235;
-    make('ellipse',{cx:x.toFixed(2),cy:y.toFixed(2),rx:75+i%5*18,ry:51+i%4*14,
+  const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
+  shades.forEach((tone,i)=>{
+    const crown=make('radialGradient',{id:'gp49-crown-'+i},defs);
+    make('stop',{offset:'0','stop-color':tone,'stop-opacity':'.48'},crown);
+    make('stop',{offset:'.60','stop-color':tone,'stop-opacity':'.26'},crown);
+    make('stop',{offset:'1','stop-color':tone,'stop-opacity':'0'},crown);
+  });
+  for(let i=0;i<52;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/52);
+    const x=700+Math.cos(a)*r*575,y=305+Math.sin(a)*r*235;
+    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:105+i%5*16,ry:76+i%4*12,
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
-      fill:colors[i%colors.length],opacity:.17+(i%4)*.032},canopyLayer);
+      fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
-  for(let i=0;i<160;i++){
-    const a=i*2.39996323,r=Math.sqrt((i+.5)/160);
-    const x=700+Math.cos(a)*r*577,y=300+Math.sin(a)*r*232;
-    make('ellipse',{cx:x.toFixed(2),cy:y.toFixed(2),rx:8+i%5*2,ry:4+i%3*1.5,
+  for(let i=0;i<180;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/180);
+    const x=700+Math.cos(a)*r*565,y=305+Math.sin(a)*r*225;
+    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:6+i%5*1.8,ry:3+i%3*1.5,
       transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
-      fill:colors[(i+2)%colors.length],opacity:.20+(i%3)*.055},canopyLayer);
+      fill:shades[(i+2)%shades.length],opacity:.17+(i%3)*.05},canopyLayer);
   }
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
@@ -98,51 +107,87 @@
     const heights=[725,540,366,205,89,25,15];
     return {x:100+1200*center, y:heights[Math.min(depth,heights.length-1)]};
   }
-  function limb(from,to,begin,end) {
+  // A madeira usa tangentes compartilhadas: os filhos nascem na direção do
+  // galho anterior, sem quinas ou emendas retas no ponto de bifurcação.
+  const direction=(x,y)=>{
+    const size=Math.hypot(x,y)||1;
+    return {x:x/size,y:y/size};
+  };
+  const fmt=n=>n.toFixed(2);
+  function limb(from,to,begin,end,incoming) {
     const group=make('g',{class:'gp49-limb'},woodLayer);
-    const dx=to.x-from.x,dy=to.y-from.y;
-    const c1={x:from.x+dx*.22,y:from.y+dy*.47};
-    const c2={x:to.x-dx*.31,y:to.y-dy*.27};
-    const curve='M'+from.x+','+from.y+' C'+c1.x+','+c1.y+' '+c2.x+','+c2.y+' '+to.x+','+to.y;
+    const dx=to.x-from.x,dy=to.y-from.y,reach=Math.hypot(dx,dy)||1;
+    const entry=incoming||direction(dx,dy);
+    const exit=direction(dx*.70,dy);
+    // O início fica parcialmente dentro do galho-mãe; isso integra as
+    // silhuetas antes de aplicar a sombra única à madeira inteira.
+    const overlap=Math.min(begin*.22,reach*.17,25);
+    const base={x:from.x-entry.x*overlap,y:from.y-entry.y*overlap};
+    const c1={x:from.x+entry.x*reach*.34,y:from.y+entry.y*reach*.34};
+    const c2={x:to.x-exit.x*reach*.32,y:to.y-exit.y*reach*.32};
+    const curve='M'+fmt(base.x)+','+fmt(base.y)+' C'+fmt(c1.x)+','+fmt(c1.y)+
+      ' '+fmt(c2.x)+','+fmt(c2.y)+' '+fmt(to.x)+','+fmt(to.y);
     const guide=make('path',{d:curve,fill:'none'},group);
-    const len=guide.getTotalLength(), left=[],right=[];
+    const len=guide.getTotalLength(),left=[],right=[];
     function offset(t,sign,factor=1) {
       const at=guide.getPointAtLength(len*t);
-      const before=guide.getPointAtLength(Math.max(0,len*t-1));
-      const after=guide.getPointAtLength(Math.min(len,len*t+1));
+      const before=guide.getPointAtLength(Math.max(0,len*t-.65));
+      const after=guide.getPointAtLength(Math.min(len,len*t+.65));
       const vx=after.x-before.x,vy=after.y-before.y,dist=Math.hypot(vx,vy)||1;
-      const width=(begin+(end-begin)*t)*factor*.5;
+      const smooth=t*t*(3-2*t);
+      const width=(begin+(end-begin)*smooth)*factor*.5;
       return [at.x-vy/dist*width*sign,at.y+vx/dist*width*sign];
     }
-    for (let i=0;i<=40;i++) left.push(offset(i/40,1));
-    for (let i=40;i>=0;i--) right.push(offset(i/40,-1));
-    const polygon='M'+left.concat(right).map(p=>p.map(x=>x.toFixed(2)).join(',')).join(' L')+' Z';
-    make('path',{d:polygon,class:'gp49-wood-body',style:'fill:url(#gp49-bark)'},group);
-    for (let k=-2;k<=2;k++) {
+    for(let i=0;i<=40;i++)left.push(offset(i/40,1));
+    for(let i=40;i>=0;i--)right.push(offset(i/40,-1));
+    const pointString=p=>fmt(p[0])+','+fmt(p[1]);
+    // Pontas arredondadas substituem as terminações planas dos polígonos.
+    const endCap=[to.x+exit.x*end*.20,to.y+exit.y*end*.20];
+    const baseCap=[base.x-entry.x*begin*.10,base.y-entry.y*begin*.10];
+    const outline='M'+pointString(left[0])+' L'+left.slice(1).map(pointString).join(' L')+
+      ' Q'+pointString(endCap)+' '+pointString(right[0])+
+      ' L'+right.slice(1).map(pointString).join(' L')+
+      ' Q'+pointString(baseCap)+' '+pointString(left[0])+' Z';
+    make('path',{d:outline,class:'gp49-wood-body',fill:'url(#gp49-bark)'},group);
+    // Veios discretos seguem a curva, em vez de parecerem faixas coladas.
+    for(let k=-2;k<=2;k++){
       const grain=[];
-      for (let i=3;i<=36;i++) {
-        const t=i/40,curvePos=offset(t,k/3+Math.sin(i*.46+k)*.045,.90);
-        grain.push(curvePos.map(x=>x.toFixed(2)).join(','));
+      for(let i=4;i<=36;i++){
+        const t=i/40;
+        grain.push(pointString(offset(t,k/3+Math.sin(i*.32+k)*.023,.87)));
       }
       make('path',{d:'M'+grain.join(' L'),class:'gp49-wood-grain',
-        style:'fill:none;stroke:'+(k%2?'#352d24':'#e3c29a')+';stroke-width:'+(begin>70?2:1)+';opacity:.29'},group);
+        fill:'none',stroke:k%2?'#41392a':'#e0bc8a',
+        'stroke-width':begin>70?1.6:.9,'stroke-opacity':.19,'stroke-linecap':'round'},group);
     }
     guide.remove();
-    if (!reduced) {
-      try {group.animate([{opacity:0},{opacity:1}],{duration:420,easing:'ease-out'});} catch (_) {}
+    if(!reduced){
+      try{group.animate([{opacity:0},{opacity:1}],{duration:520,easing:'ease-out'});}catch(_){}
     }
-    return group;
+    return {group,heading:exit};
   }
-  function leaves(p,index) {
+  // Folhas com pecíolo e ponta afinada, ligadas ao ramo (não discos soltos).
+  function leaves(p,index){
     const group=make('g',{class:'gp49-leaf-spray',
       transform:'translate('+p.x+' '+p.y+')'},foliageLayer);
-    const colors=['#547d48','#719759','#86a66a','#3f6e49','#adc18a'];
+    const shades=['#557e48','#73975b','#88a970','#49724d','#a0b884'];
     for(let i=0;i<7;i++){
-      const theta=(i*2.39996+index*.72),distance=24+8*(i%3);
-      const x=Math.cos(theta)*distance,y=Math.sin(theta)*distance*.76;
-      make('ellipse',{cx:x.toFixed(1),cy:y.toFixed(1),rx:12+(i%3)*3,ry:6+(i%2)*2,
-        fill:colors[(i+index)%colors.length],opacity:'.88',
-        transform:'rotate('+(theta*180/Math.PI+28).toFixed(2)+' '+x.toFixed(1)+' '+y.toFixed(1)+')'},group);
+      const angle=i*2.399963+index*.69;
+      const dx=Math.cos(angle),dy=Math.sin(angle)*.78;
+      const len=23+(i%3)*8;
+      const x=dx*len,y=dy*len;
+      make('path',{d:'M0,0 Q'+fmt(x*.36)+','+fmt(y*.62)+' '+fmt(x)+','+fmt(y),
+        fill:'none',stroke:'#667c50','stroke-width':1.25,'stroke-linecap':'round',opacity:.78},group);
+      const b=[x-dx*9,y-dy*9],tip=[x+dx*10,y+dy*10];
+      const side=[-dy,dx],span=5+(i%3)*1.3;
+      const left=[x+side[0]*span,y+side[1]*span];
+      const right=[x-side[0]*span,y-side[1]*span];
+      make('path',{
+        d:'M'+fmt(b[0])+','+fmt(b[1])+
+          ' Q'+fmt(left[0])+','+fmt(left[1])+' '+fmt(tip[0])+','+fmt(tip[1])+
+          ' Q'+fmt(right[0])+','+fmt(right[1])+' '+fmt(b[0])+','+fmt(b[1])+' Z',
+        fill:shades[(i+index)%shades.length],opacity:.85+(i%2)*.08
+      },group);
     }
     return group;
   }
@@ -184,9 +229,10 @@
     const h=width*H/W;
     move({x:center.x-width/2,y:center.y-h*.72,w:width,h},850);
   }
-  function branch(start,count,depth,parent,fromWidth,toWidth) {
+  function branch(start,count,depth,parent,fromWidth,toWidth,incoming) {
     const p=point(start,count,depth);
-    const stem=limb(parent,p,fromWidth,toWidth);
+    const drawn=limb(parent,p,fromWidth,toWidth,incoming);
+    const stem=drawn.group;
     const terminal=count===1;
     const spray=terminal?leaves(p,start):null;
     const linked=terminal?linkedLife(p,start):null;
@@ -219,8 +265,8 @@
         bubble.classList.remove('is-open');
       } else {
         const left=Math.ceil(count/2),right=count-left;
-        kids=[branch(start,left,depth+1,p,toWidth,Math.max(4,toWidth*.57))];
-        if(right)kids.push(branch(start+left,right,depth+1,p,toWidth,Math.max(4,toWidth*.57)));
+        kids=[branch(start,left,depth+1,p,toWidth,Math.max(4,toWidth*.57),drawn.heading)];
+        if(right)kids.push(branch(start+left,right,depth+1,p,toWidth,Math.max(4,toWidth*.57),drawn.heading));
         bubble.setAttribute('aria-expanded','true');
         bubble.classList.add('is-open');
       }
@@ -251,7 +297,7 @@
     if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},160,78);
+  branch(0,total,0,{x:700,y:970},160,78,{x:0,y:-1});
   const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
