@@ -59,6 +59,10 @@ ramo <- function(i) {
   tags$li(
     class = "gp-tree-branch", "data-line-id" = id,
     "data-has-links" = if (vinculos > 0) "1" else "0",
+    "data-projects" = as.character(nrow(pr)),
+    "data-people" = as.character(nrow(pe)),
+    "data-publications" = as.character(nrow(pu)),
+    "data-theses" = as.character(nrow(de)),
     tags$button(
       type = "button", class = "gp-tree-branch-button", "aria-expanded" = "false",
       span(class = "gp-tree-number", sprintf("%02d", i)),
@@ -102,7 +106,7 @@ div(
             class = "gp-tree-toolbar-heading",
             span(class = "gp-tree-eyebrow", "MAPA INTERATIVO"),
             h2("Explore os galhos"),
-            p("Clique em um número na copa para conhecer a linha de pesquisa correspondente.")
+            p("Selecione uma linha na copa para descobrir suas conexões cadastradas.")
           ),
           div(
             class = "gp-tree-controls",
@@ -112,7 +116,7 @@ div(
           )
         ),
         div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
-        p(class = "gp-tree-swipe-hint", "No celular, escolha uma linha na lista abaixo para consultar seus vínculos."),
+        p(class = "gp-tree-swipe-hint", "Deslize o mapa para explorar os galhos e toque nos números. A lista de linhas está disponível logo abaixo."),
         div(class = "gp-tree-legend",
             span("Raízes: fundamentos"),
             span("Tronco: GPENSC"),
