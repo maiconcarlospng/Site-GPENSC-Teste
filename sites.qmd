@@ -6,10 +6,10 @@ title-block-banner: false
 ---
 
 ```{=html}
-<meta http-equiv="refresh" content="0; url=parcerias.html#v%C3%ADnculos-institucionais">
+<meta http-equiv="refresh" content="0; url=parcerias.html">
 <script>
-  window.location.replace("parcerias.html#v%C3%ADnculos-institucionais");
+  window.location.replace("parcerias.html");
 </script>
-<p>Os vínculos institucionais e as parcerias do GPENSC estão reunidos na página de Parcerias.
-<a href="parcerias.html#v%C3%ADnculos-institucionais">Acessar Parcerias</a>.</p>
+<p>Os vínculos institucionais estão na página de Parcerias.
+<a href="parcerias.html">Acessar Parcerias</a>.</p>
 ```
