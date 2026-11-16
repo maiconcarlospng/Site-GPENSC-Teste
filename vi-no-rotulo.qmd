@@ -89,6 +89,60 @@ div(class="vi-site vi-publications", id="vi-publicacoes",
       <div class="vi-team-contact"><span>CONTATO E ATUALIZAÇÕES</span><a href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">@vinorotulo <span aria-hidden="true">↗</span></a><p>Informações sobre equipe, publicações e atividades.</p></div>
     </div>
   </section>
+</div>
+```
+
+```{r}
+# Perfis cadastrados na área Vi no Rótulo do painel. Sem dados, não há lista vazia.
+vi_equipe_dados <- yaml::read_yaml("data/vi-no-rotulo-equipe.yml")
+vi_equipe_itens <- vi_equipe_dados$itens
+if (is.null(vi_equipe_itens)) vi_equipe_itens <- list()
+vi_equipe_itens <- Filter(function(pessoa) {
+  is.list(pessoa) && !is.null(pessoa$nome) &&
+    nzchar(trimws(as.character(pessoa$nome[1])))
+}, vi_equipe_itens)
+
+if (length(vi_equipe_itens) > 0) {
+  div(
+    class = "vi-site vi-members",
+    div(
+      class = "vi-members-inner",
+      h3("Integrantes do projeto"),
+      div(
+        class = "vi-members-grid",
+        lapply(vi_equipe_itens, function(pessoa) {
+          nome <- trimws(as.character(pessoa$nome[1]))
+          funcao <- valor_publico(pessoa$funcao)
+          vinculo <- valor_publico(pessoa$vinculo)
+          foto <- valor_publico(pessoa$foto)
+          lattes <- valor_publico(pessoa$lattes)
+          div(
+            class = "vi-member",
+            if (!is.null(foto)) {
+              tags$img(class = "vi-member-photo", src = caminho_img(foto),
+                       alt = paste("Foto de", nome), loading = "lazy")
+            } else {
+              span(class = "vi-member-initials", `aria-hidden` = "true", iniciais(nome))
+            },
+            div(
+              class = "vi-member-text",
+              tags$strong(nome),
+              if (!is.null(funcao)) p(class = "vi-member-role", funcao),
+              if (!is.null(vinculo)) p(class = "vi-member-affiliation", vinculo),
+              if (!is.null(lattes) && grepl("^https?://", lattes)) {
+                tags$a(href = lattes, target = "_blank", rel = "noopener noreferrer", "Currículo Lattes ↗")
+              }
+            )
+          )
+        })
+      )
+    )
+  )
+}
+```
+
+```{=html}
+<div class="vi-site">
   <footer class="vi-footer">
     <div class="vi-footer-brand"><img src="img/marcas/vi-no-rotulo-oficial.png" alt="" width="68" height="68"><div><strong>Vi no Rótulo</strong><small>Educação alimentar e informação</small></div></div>
     <div class="vi-footer-links"><a href="#vi-inicio">Voltar ao topo ↑</a><a href="extensao.html#iniciativas">Projetos de extensão</a><a href="index.html">GPENSC</a></div>
