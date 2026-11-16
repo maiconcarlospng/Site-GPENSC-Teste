@@ -20091,3 +20091,43 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
     display:flex!important;align-items:center!important;order:998!important;flex:0 0 auto!important;
   }
 }
+
+/* ---------- 9. MOBILE — RESPIRO LATERAL INSTITUCIONAL (2026-11-16) ---------- */
+/* Fundo em largura total; conteúdo textual alinhado a uma margem comum. */
+@media (max-width: 767.98px) {
+  html body #quarto-content {
+    --gp-mobile-gutter: clamp(16px, 4.5vw, 20px);
+  }
+  html body #quarto-content main.content > .secao,
+  html body #quarto-content main.content > section.secao,
+  html body #quarto-content .secao:not(.column-screen) {
+    box-sizing: border-box !important;
+    padding-left: var(--gp-mobile-gutter) !important;
+    padding-right: var(--gp-mobile-gutter) !important;
+  }
+  html body #quarto-content main.content > h1,
+  html body #quarto-content main.content > h2,
+  html body #quarto-content main.content > h3,
+  html body #quarto-content main.content > p,
+  html body #quarto-content #title-block-header {
+    box-sizing: border-box !important;
+    padding-left: var(--gp-mobile-gutter) !important;
+    padding-right: var(--gp-mobile-gutter) !important;
+  }
+  /* Elementos de destaque mantêm a cor até a borda, com texto protegido. */
+  html body #quarto-content .hero {
+    padding-left: var(--gp-mobile-gutter) !important;
+    padding-right: var(--gp-mobile-gutter) !important;
+  }
+  html body #quarto-content .faixa-agenda,
+  html body #quarto-content .coords-band {
+    padding-left: var(--gp-mobile-gutter) !important;
+    padding-right: var(--gp-mobile-gutter) !important;
+  }
+  /* A galeria continua deslizando de ponta a ponta, sem recorte das fotos. */
+  html body #quarto-content .galeria,
+  html body #quarto-content .galeria-faixa {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
