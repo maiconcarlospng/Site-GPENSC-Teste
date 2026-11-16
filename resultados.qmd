@@ -1,0 +1,74 @@
+---
+title: "Conhecimento para a sociedade"
+description: "Resultados científicos do GPENSC explicados em linguagem acessível, com suas fontes e limites."
+page-layout: full
+---
+
+```{=html}
+<section class="gp-publico-intro" aria-label="Como ler os resultados">
+  <p class="gp-publico-selo">CIÊNCIA E SOCIEDADE</p>
+  <p>Esta página aproxima os resultados das pesquisas do cotidiano. Cada síntese publicada deve ter uma fonte verificável e explicar o que foi investigado, o que se encontrou e quais são os limites do estudo. Informações de pesquisa não substituem uma avaliação profissional individual.</p>
+  <div class="gp-publico-rotas" aria-label="Encontre o conteúdo mais útil">
+    <a href="publicacoes.html"><strong>Comunidade científica</strong><span>Artigos, produções e fontes originais</span></a>
+    <a href="impacto.html"><strong>Gestores e profissionais</strong><span>Ações documentadas e aplicações práticas</span></a>
+    <a href="materiais.html"><strong>População e estudantes</strong><span>Cartilhas, infográficos e materiais educativos</span></a>
+  </div>
+</section>
+```
+
+## Resultados explicados
+
+```{r}
+source("R/helpers.R")
+publicacoes_reais <- registros_reais(pubs, "titulo")
+publicacoes_explicadas <- publicacoes_reais[
+  !is.na(publicacoes_reais$resumo_publico) &
+  nzchar(trimws(publicacoes_reais$resumo_publico)),
+  , drop = FALSE
+]
+
+if (nrow(publicacoes_explicadas)) {
+  div(
+    class = "gp-resultados-grid",
+    lapply(seq_len(nrow(publicacoes_explicadas)), function(i) {
+      estudo <- publicacoes_explicadas[i, , drop = FALSE]
+      titulo <- as.character(estudo$titulo[1])
+      resumo <- as.character(estudo$resumo_publico[1])
+      aplicacao <- valor_publico(estudo$aplicacao)
+      fonte_divulgacao <- valor_publico(estudo$fonte_divulgacao)
+      url_original <- valor_publico(estudo$url)
+      doi <- valor_publico(estudo$doi)
+      if (is.null(url_original) && !is.null(doi)) {
+        url_original <- if (grepl("^https?://", doi)) doi else paste0("https://doi.org/", doi)
+      }
+      tags$article(
+        class = "gp-resultado-card",
+        span(class = "gp-resultado-tipo", paste("PESQUISA", if (tem(estudo$ano)) paste("·", estudo$ano[1]))),
+        h3(titulo),
+        p(resumo),
+        if (!is.null(aplicacao)) tags$section(
+          h4("O que estes resultados podem contribuir?"),
+          p(aplicacao)
+        ),
+        div(class = "gp-resultado-links",
+          if (!is.null(url_original) && grepl("^https?://", url_original))
+            tags$a(href = url_original, target = "_blank", rel = "noopener noreferrer", "Consultar publicação original"),
+          if (!is.null(fonte_divulgacao) && grepl("^https?://", fonte_divulgacao))
+            tags$a(href = fonte_divulgacao, target = "_blank", rel = "noopener noreferrer", "Ver divulgação relacionada")
+        )
+      )
+    })
+  )
+} else {
+  estado_vazio(
+    "Sínteses científicas em preparação",
+    "As explicações de resultados serão exibidas após a revisão do grupo e a inclusão das fontes no painel. Os artigos cadastrados podem ser consultados na área de Publicações.",
+    "Consultar publicações",
+    "publicacoes.html"
+  )
+}
+```
+
+## Outros caminhos para conhecer as ações do GPENSC
+
+O grupo reúne atividades de pesquisa, ensino e extensão. Consulte [Impacto social](impacto.qmd) para os resultados documentados de ações, [Extensão](extensao.qmd) para conhecer as iniciativas e [Agenda](agenda.qmd) para verificar as atividades abertas.
