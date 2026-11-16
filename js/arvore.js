@@ -22,6 +22,13 @@
     viewBox: '0 0 1400 920', preserveAspectRatio: 'xMidYMid meet',
     role: 'group', 'aria-label': 'Explorador da árvore do conhecimento do GPENSC'
   }, map);
+  // No celular, a tela se comporta como um mapa explorável, sem miniaturizar a árvore.
+  function adaptViewport() {
+    svg.setAttribute('preserveAspectRatio',
+      window.matchMedia('(max-width: 767px)').matches ? 'xMidYMid slice' : 'xMidYMid meet');
+  }
+  window.addEventListener('resize', adaptViewport, {passive:true});
+  adaptViewport();
   const defs = make('defs', {}, svg);
   const bark = make('linearGradient', {id: 'gp49-bark', x1: '0', y1: '0', x2: '1', y2: '.28'}, defs);
   [['0','#4b4632'],['.30','#846647'],['.56','#a3835e'],['.78','#786347'],['1','#474c35']]
