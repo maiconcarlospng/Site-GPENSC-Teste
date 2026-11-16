@@ -227,7 +227,9 @@ if (nrow(noticias_recentes) > 0) {
 ::: agenda-chamada
 <p class="agenda-selo">AGENDA GPENSC</p>
 
-## Próximas atividades
+<!-- HTML evita que o Quarto envolva todos os elementos da agenda em section.level2,
+     preservando cada elemento como item independente do grid. -->
+<h2 class="gp-agenda-title">Próximas atividades</h2>
 
 ```{r}
 eventos_home_publicados <- registros_reais(eventos, "titulo")
