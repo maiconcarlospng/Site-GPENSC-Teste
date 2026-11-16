@@ -902,8 +902,8 @@ $('#retry-loading')?.addEventListener('click',()=>initialize());
 $('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loginWithCode()}});
 function updateMobileTabs(){
   const menuOpen=$('.sidebar').classList.contains('mobile-open');
-  $('#mobile-home').classList.toggle('active',state.active===null&&!menuOpen);
-  $('#mobile-sections').classList.toggle('active',state.active!==null||menuOpen);
+  $('#mobile-home').classList.toggle('active',state.view==='summary'&&!menuOpen);
+  $('#mobile-sections').classList.toggle('active',state.view!=='summary'||menuOpen);
 }
 function closeMobileMenu(){
   const side=$('.sidebar');
