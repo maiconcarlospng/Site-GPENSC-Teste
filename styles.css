@@ -19548,3 +19548,163 @@ html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-d
     opacity:.12!important;
   }
 }
+
+/* GPENSC | Agenda da home — composição compacta com estado de programação.
+   Mesma estrutura e mesmas condições dinâmicas geradas pelo R. */
+html body:has(.home-arvore-destaque) #quarto-content .secao:has(.home-arvore-destaque) {
+  margin-bottom:0!important;
+  padding-bottom:clamp(4px,1vw,14px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  box-sizing:border-box!important;
+  width:calc(100% - 36px)!important;
+  max-width:1240px!important;
+  min-height:0!important;
+  margin:clamp(14px,1.9vw,24px) auto clamp(26px,3.2vw,44px)!important;
+  padding:clamp(24px,3.1vw,42px)!important;
+  border:1px solid #d9e6d7!important;
+  border-radius:12px!important;
+  background:#eff5ed!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda::before,
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda::after {
+  content:none!important;
+  display:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(245px,.84fr)!important;
+  grid-template-rows:auto auto auto!important;
+  grid-template-areas:"selo evento" "titulo evento" "acao evento"!important;
+  align-items:start!important;
+  column-gap:clamp(24px,4vw,64px)!important;
+  row-gap:10px!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .agenda-selo {
+  grid-area:selo!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#99541e!important;
+  font-size:.7rem!important;
+  font-weight:800!important;
+  letter-spacing:.095em!important;
+  line-height:1.4!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-selo::before {
+  content:""!important;
+  display:block!important;
+  flex:0 0 7px!important;
+  width:7px!important;
+  height:7px!important;
+  margin:0!important;
+  border-radius:50%!important;
+  background:#d9731f!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > h2 {
+  grid-area:titulo!important;
+  margin:0!important;
+  padding:0!important;
+  width:100%!important;
+  border:0!important;
+  color:#1f4d2b!important;
+  font-size:clamp(1.6rem,2.8vw,2.2rem)!important;
+  line-height:1.2!important;
+  letter-spacing:-.03em!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > h2::before {
+  content:none!important;
+  display:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell {
+  grid-area:evento!important;
+  align-self:center!important;
+  min-width:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-sem-eventos {
+  display:flex!important;
+  align-items:center!important;
+  min-height:72px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:16px 18px!important;
+  border:1px solid #d9e5d6!important;
+  border-left:3px solid #d9731f!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-sem-eventos p {
+  color:#3e5844!important;
+  margin:0!important;
+  font-size:.94rem!important;
+  font-weight:650!important;
+  line-height:1.5!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-proximo-evento {
+  min-height:0!important;
+  margin:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > p:has(.agenda-botao) {
+  grid-area:acao!important;
+  justify-self:start!important;
+  display:block!important;
+  margin:4px 0 0!important;
+  padding:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-botao {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  min-height:44px!important;
+  width:auto!important;
+  padding:.68rem 1.08rem!important;
+  border-radius:6px!important;
+  margin:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-botao::after {
+  margin-left:8px!important;
+}
+@media(max-width:850px) {
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-areas:"selo" "titulo" "evento" "acao"!important;
+    grid-template-rows:auto!important;
+    gap:10px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell {
+    margin:5px 0!important;
+  }
+}
+@media(max-width:640px) {
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+    width:calc(100% - 32px)!important;
+    margin:14px auto 28px!important;
+    padding:22px 18px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-sem-eventos {
+    min-height:0!important;
+    padding:13px 15px!important;
+  }
+}
