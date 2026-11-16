@@ -178,4 +178,4 @@ div(
 
 ```
 
-<script src="js/arvore-v44.js" defer></script>
+<script src="js/arvore-v44.js?v=46" defer></script>
