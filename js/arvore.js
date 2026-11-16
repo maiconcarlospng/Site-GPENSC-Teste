@@ -244,6 +244,8 @@
       ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
     const radius=terminal?17:clamp(12+count/total*9,13,21);
+    // Área de toque invisível e acessível, independente das folhas decorativas.
+    make('circle',{r:radius+9,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
