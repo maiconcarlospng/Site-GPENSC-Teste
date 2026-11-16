@@ -19708,3 +19708,191 @@ html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-botao
     padding:13px 15px!important;
   }
 }
+
+/* GPENSC | Agenda mensal — calendário real, compacto, acessível e responsivo. */
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+  background:#f3f7f0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+  grid-template-columns:minmax(0,1fr) minmax(310px,.92fr)!important;
+  grid-template-rows:auto auto auto 1fr!important;
+  grid-template-areas:"selo calendario" "titulo calendario" "evento calendario" "acao calendario"!important;
+  column-gap:clamp(26px,4.6vw,68px)!important;
+  align-items:start!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell:has(.gp-month-calendar) {
+  grid-area:calendario!important;
+  align-self:start!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell:has(.agenda-proximo-evento),
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell:has(.agenda-sem-eventos) {
+  grid-area:evento!important;
+  align-self:start!important;
+  margin:6px 0 0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell:has(.agenda-sem-eventos) .agenda-sem-eventos {
+  width:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-sem-eventos p {
+  font-weight:500!important;
+  color:#526a56!important;
+  font-size:.95rem!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-calendar {
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  padding:clamp(16px,2.1vw,24px)!important;
+  border:1px solid #d8e5d6!important;
+  border-radius:13px!important;
+  background:#fff!important;
+  box-shadow:0 3px 15px rgba(31,77,43,.045)!important;
+  color:#1f4d2b!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-head {
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+  margin:0 0 14px!important;
+  padding-bottom:12px!important;
+  border-bottom:1px solid #e3ebe0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-kicker {
+  font-size:.65rem!important;
+  font-weight:800!important;
+  letter-spacing:.11em!important;
+  color:#789079!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-head strong {
+  display:block!important;
+  font-size:clamp(1.08rem,1.5vw,1.28rem)!important;
+  font-weight:750!important;
+  line-height:1.25!important;
+  color:#1f4d2b!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-weekdays,
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-grid {
+  display:grid!important;
+  grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  gap:3px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-weekdays {
+  margin:0 0 4px!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-weekdays span {
+  display:grid!important;
+  place-items:center!important;
+  height:28px!important;
+  font-size:.72rem!important;
+  font-weight:700!important;
+  color:#6b806d!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-cell,
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-blank {
+  position:relative!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  min-width:0!important;
+  min-height:41px!important;
+  aspect-ratio:1.1!important;
+  padding:5px 2px!important;
+  border:1px solid transparent!important;
+  border-radius:8px!important;
+  color:#36583f!important;
+  font-size:.85rem!important;
+  font-weight:550!important;
+  text-decoration:none!important;
+  line-height:1.25!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-blank {
+  visibility:hidden!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-cell time {
+  font-variant-numeric:tabular-nums!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-cell.is-today {
+  border-color:#5f9a3e!important;
+  background:#edf5e9!important;
+  font-weight:800!important;
+  color:#1f4d2b!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda a.gp-month-cell.has-event {
+  border-color:#d5e5d2!important;
+  background:#f4f8f1!important;
+  color:#1f4d2b!important;
+  font-weight:750!important;
+  cursor:pointer!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda a.gp-month-cell.has-event:is(:hover,:focus-visible) {
+  background:#e1efdc!important;
+  border-color:#78a26d!important;
+  outline-offset:2px!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-dot {
+  position:absolute!important;
+  left:50%!important;
+  bottom:4px!important;
+  width:5px!important;
+  height:5px!important;
+  transform:translateX(-50%)!important;
+  border-radius:50%!important;
+  background:#d9731f!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-footnote {
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:13px 0 0!important;
+  color:#667969!important;
+  font-size:.72rem!important;
+  line-height:1.4!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-legend-swatch {
+  display:block!important;
+  flex:0 0 7px!important;
+  width:7px!important;
+  height:7px!important;
+  border-radius:50%!important;
+  background:#d9731f!important;
+}
+@media (max-width:850px) {
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto!important;
+    grid-template-areas:"selo" "titulo" "calendario" "evento" "acao"!important;
+    gap:12px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada > .cell:has(.gp-month-calendar) {
+    margin:7px 0 0!important;
+  }
+}
+@media (max-width:420px) {
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-calendar {
+    padding:14px 11px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-cell,
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-blank {
+    min-height:36px!important;
+    padding:4px 1px!important;
+    font-size:.78rem!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-weekdays span {
+    font-size:.65rem!important;
+  }
+}
