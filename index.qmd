@@ -19,6 +19,8 @@ faixa_galeria("ambos")
 ```{=html}
 <!-- Ajustes de densidade da página inicial em telas pequenas. -->
 <style>
+/* Retira o filete decorativo abaixo do cabeçalho da home. */
+body.page-index #quarto-content .galeria--faixa::before { content: none !important; display: none !important; }
 @media (max-width: 767.98px) {
   /* Apenas a home: retirar alturas herdadas de grades e wrappers do Quarto. */
   body.page-index #quarto-content .secao {
@@ -92,7 +94,6 @@ div(
 ```
 
 ```{=html}
-<style>
 <style>
 /* Cartões editoriais para as iniciativas da página inicial. */
 html body .gp-initiatives{width:100%;margin:clamp(28px,4vw,48px) 0;padding:0}
