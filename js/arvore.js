@@ -40,11 +40,15 @@
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
+  const canopyBase=make('linearGradient',{id:'gp49-canopy-base',x1:'0%',y1:'0%',x2:'0%',y2:'100%'},defs);
+  [['0%','#bfd9ae','.96'],['48%','#a9cb98','.94'],['100%','#88ae75','.88']]
+    .forEach(([offset,color,opacity])=>make('stop',{offset,'stop-color':color,'stop-opacity':opacity},canopyBase));
+  make('path',{class:'gp49-canopy-base',d:'M92 335 C112 274 168 226 260 214 C258 146 340 91 430 120 C455 48 574 34 640 91 C688 32 812 39 847 112 C929 59 1045 97 1051 182 C1162 157 1263 222 1304 310 C1280 380 1202 421 1116 402 C1005 431 895 402 804 414 C702 436 581 427 481 412 C362 438 241 423 154 397 C112 383 93 361 92 335 Z',fill:'url(#gp49-canopy-base)',stroke:'#698d5d','stroke-opacity':'.32','stroke-width':'4','stroke-linejoin':'round'},canopyLayer);
   const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
   shades.forEach((tone,i)=>{
     const crown=make('radialGradient',{id:'gp49-crown-'+i},defs);
-    make('stop',{offset:'0','stop-color':tone,'stop-opacity':'.48'},crown);
-    make('stop',{offset:'.60','stop-color':tone,'stop-opacity':'.26'},crown);
+    make('stop',{offset:'0','stop-color':tone,'stop-opacity':'.25'},crown);
+    make('stop',{offset:'.60','stop-color':tone,'stop-opacity':'.12'},crown);
     make('stop',{offset:'1','stop-color':tone,'stop-opacity':'0'},crown);
   });
   for(let i=0;i<52;i++){
@@ -54,12 +58,12 @@
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
       fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
-  for(let i=0;i<180;i++){
-    const a=i*2.39996323,r=Math.sqrt((i+.5)/180);
+  for(let i=0;i<112;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/112);
     const x=700+Math.cos(a)*r*565,y=305+Math.sin(a)*r*225;
     make('ellipse',{cx:fmt(x),cy:fmt(y),rx:6+i%5*1.8,ry:3+i%3*1.5,
       transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
-      fill:shades[(i+2)%shades.length],opacity:.17+(i%3)*.05},canopyLayer);
+      fill:shades[(i+2)%shades.length],opacity:.10+(i%3)*.025},canopyLayer);
   }
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
@@ -92,6 +96,11 @@
     svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
     svg.classList.toggle('gp49-detailed',camera.w < 740);
     svg.classList.toggle('gp49-very-detailed',camera.w < 430);
+    const labelSize=camera.w/(map.clientWidth||W)*12;
+    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
+      label.style.fontSize=labelSize+'px';
+      label.style.strokeWidth=Math.max(.7,labelSize*.22)+'px';
+    });
   }
   function move(target, duration=700) {
     cancelAnimationFrame(animation);
