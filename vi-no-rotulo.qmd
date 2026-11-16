@@ -13,8 +13,8 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
         <img src="img/marcas/vi-no-rotulo-oficial.png" alt="Logotipo Vi no Rótulo: o que os consumidores precisam saber?" width="138" height="91">
         <div><span>PESQUISA E EXTENSÃO · UFOP</span><strong>Vi no Rótulo</strong></div>
       </div>
-      <h2>Olhar para o rótulo é entender melhor os alimentos.</h2>
-      <p>O Vi no Rótulo compartilha informações e conteúdos educativos sobre alimentos, embalagens e rotulagem nutricional, aproximando ciência e cotidiano.</p>
+      <h2>Informação para compreender os rótulos.</h2>
+      <p>Conteúdos educativos sobre embalagens, composição dos alimentos e rotulagem nutricional.</p>
       <a class="gp-vi-action" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer">Acompanhar @vinorotulo <span aria-hidden="true">↗</span></a>
     </div>
     <div class="gp-vi-art">
@@ -25,9 +25,8 @@ description: "Pesquisa e extensão em rotulagem de alimentos e educação nutric
 
   <section class="gp-vi-about">
     <span class="gp-vi-label">SOBRE O PROJETO</span>
-    <h2>Conhecimento para ler, comparar e compreender</h2>
-    <p>O perfil institucional apresenta o Vi no Rótulo como um grupo de pesquisa e extensão vinculado à Escola de Nutrição da UFOP e coordenado pela professora Dra. Camila Carvalho Menezes.</p>
-    <p>Entre as publicações divulgadas pelo projeto estão conteúdos de esclarecimento sobre rótulos de alimentos, informações nutricionais, apresentação da equipe e ações de pesquisa e extensão.</p>
+    <h2>Equipe e atividades</h2>
+    <p>O perfil institucional identifica a iniciativa como vinculada à Escola de Nutrição da UFOP, sob coordenação da professora Dra. Camila Carvalho Menezes. Suas publicações apresentam a equipe e ações de pesquisa e extensão.</p>
   </section>
 
 </div>
