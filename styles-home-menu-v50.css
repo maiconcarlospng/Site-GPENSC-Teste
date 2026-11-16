@@ -87,3 +87,70 @@ body #quarto-content .ensino-evento {
   #gp-institutional-footer a,
   #gp-institutional-footer p {overflow-wrap:anywhere;}
 }
+
+/* Revisão mobile: preserva o menu existente e o comportamento das galerias. */
+@media (max-width:767.98px) {
+  /* Estados vazios: impedir palavras em colunas estreitas e quebra por letra. */
+  body:has(.ensino-eventos) main.content,
+  body:has(.ensino-disciplina) main.content {
+    min-width:0!important;
+  }
+  body main.content :is(.estado-vazio,.empty-state,.gp-empty-state) {
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+    white-space:normal!important;
+  }
+  body main.content :is(.estado-vazio,.empty-state,.gp-empty-state) :is(h2,h3,p,span) {
+    max-width:100%!important;
+    overflow-wrap:break-word!important;
+    word-break:normal!important;
+    writing-mode:horizontal-tb!important;
+    letter-spacing:normal!important;
+  }
+  /* Lista da árvore: manter nomes completos legíveis, sem truncar dados. */
+  #gp49 .gp49-directory-heading {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:.45rem!important;
+    min-width:0!important;
+  }
+  #gp49 .gp49-directory-heading h2 {margin:0 0 .6rem!important;}
+  #gp49 #gp49-search {width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;}
+  #gp49-lines .gp49-line-button {min-width:0!important;max-width:100%!important;box-sizing:border-box!important;}
+  #gp49 .gp49-line-name {min-width:0!important;overflow-wrap:break-word!important;word-break:normal!important;}
+  #gp49 .gp49-line-index,#gp49 .gp49-line-arrow {flex-shrink:0!important;}
+  /* Rodapé com largura segura e links legíveis. */
+  html body footer.footer #gp-institutional-footer .gp-footer-main {
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    gap:1.15rem!important;width:100%!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-links {
+    display:flex!important;flex-wrap:wrap!important;gap:.5rem 1.15rem!important;
+    justify-content:flex-start!important;width:100%!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-identity {
+    width:100%!important;min-width:0!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-base {
+    display:flex!important;flex-wrap:wrap!important;gap:.65rem!important;
+    align-items:center!important;justify-content:space-between!important;
+  }
+  /* Setas do acervo: área de toque acessível. */
+  body #quarto-content .galeria--faixa .galeria-controle {
+    min-width:44px!important;min-height:44px!important;
+    width:44px!important;height:44px!important;
+  }
+  /* Projetos em uma coluna, mantendo proporção natural das imagens. */
+  body main.content .gp-home-projects-grid,
+  body main.content .gp-ext-projects {
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    gap:1rem!important;
+  }
+  body main.content .gp-home-project-card {min-width:0!important;max-width:100%!important;box-sizing:border-box!important;}
+  body main.content .gp-home-project-card img {max-width:100%!important;object-fit:contain;}
+}
