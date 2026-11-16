@@ -3,42 +3,38 @@ title: "Divulgação científica"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Ciência em diferentes linguagens, para diferentes momentos da vida.</p><img src="img/ilustracoes/divulgacao.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Da pesquisa à comunicação pública.</p><img src="img/ilustracoes/divulgacao.svg" alt="" width="240" height="180"></div>
 ```
 
 
-## Conhecimento para diferentes públicos
-
-O GPENSC reúne pesquisas acadêmicas e iniciativas com aplicações na sociedade. A área [**Ciência para a sociedade**](resultados.qmd) apresenta sínteses de estudos publicados em linguagem acessível, sempre vinculadas à fonte original. Para orientações dirigidas a serviços e gestores, consulte também os [registros de impacto social](impacto.qmd).
-
-## Materiais e conteúdos
+Veja também os [resultados explicados](resultados.qmd) e os registros de [impacto social](impacto.qmd).
 
 :::: {.divulgacao-grade}
 ::: {.divulgacao-item}
 ### Podcasts
 
-Conversas e conteúdos em áudio sobre temas relacionados à Nutrição e à Saúde Coletiva.
+Conversas sobre nutrição e saúde coletiva.
 
 [Conhecer os podcasts](podcasts.qmd)
 :::
 ::: {.divulgacao-item}
 ### Livros e e-books
 
-Publicações e materiais de apoio produzidos ou recomendados pelo grupo.
+Leituras e produções do grupo.
 
 [Consultar livros](livros.qmd)
 :::
 ::: {.divulgacao-item}
 ### Vídeos
 
-Conteúdos audiovisuais, registros de atividades e materiais educativos.
+Aulas, registros e conteúdos audiovisuais.
 
 [Assistir aos vídeos](videos.qmd)
 :::
 ::: {.divulgacao-item}
 ### Materiais educativos e anuário
 
-Cartilhas, infográficos e outros recursos. O anuário do GPENSC está previsto a partir de 2027.
+Cartilhas, infográficos e outros materiais de consulta.
 
 [Consultar materiais](materiais.qmd)
 :::
