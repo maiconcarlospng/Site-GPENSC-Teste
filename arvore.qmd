@@ -251,7 +251,7 @@ div(id = "gp49", class = "gp49-shell",
         tags$button(id = "gp49-in", type = "button", "Ampliar")
       ),
       p(class = "gp49-hint", paste0("GPENSC no tronco · ", nrow(linhas_arvore), " linhas e ", nrow(projetos_arvore), " projetos nos galhos · integrantes e produções vinculados aparecem como frutos.")),
-      p(class = "gp49-link-note", paste0(nrow(pessoas_arvore), " integrantes cadastrados. A árvore só os associa a linhas ou projetos quando o vínculo é informado no painel."))
+      p(class = "gp49-link-note", paste0("As faixas numeradas correspondem à lista abaixo; amplie para ler o nome em cada galho. ", nrow(pessoas_arvore), " integrantes cadastrados. A árvore associa integrantes e produções às linhas ou aos projetos quando esses vínculos são informados no painel."))
     ),
     do.call(tags$aside, c(list(id = "gp49-detail"), list("aria-live" = "polite"), list(hidden = "hidden"))),
     tags$section(id = "gp49-directory",
