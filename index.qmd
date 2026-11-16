@@ -6,7 +6,7 @@ title-block-banner: false
 ---
 
 ```{=html}
-<!-- Página inicial: identidade institucional, galeria, apresentação, pesquisa, notícias e apoio. -->
+<!-- Home: identidade e fotografias, apresentação, pesquisas, extensão, árvore, notícias e agenda. -->
 ```
 
 ```{r}
@@ -17,25 +17,6 @@ faixa_galeria()
 ::::: secao
 ```{r}
 bloco_intro()
-```
-
-```{r}
-div(
-  class = "home-arvore-destaque reveal",
-  div(
-    class = "home-arvore-texto",
-    span(class = "home-arvore-selo", "IDENTIDADE E CONHECIMENTO"),
-    h2("Conheça a árvore do GPENSC"),
-    p("O grupo é o tronco; as linhas de pesquisa formam os galhos; os projetos conectam ideias e investigações; e as pessoas e produções científicas dão frutos a esse trabalho coletivo."),
-    tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar a árvore do conhecimento")
-  ),
-  div(
-    class = "home-arvore-simbolo",
-    tags$img(class = "gp-tree-art", src = "img/ilustracoes/arvore-home.svg", alt = "", width = 240, height = 180),
-    tags$span(class = "home-arvore-tronco", "GPENSC"),
-    tags$span(class = "home-arvore-raizes", "PESQUISA · ENSINO · EXTENSÃO")
-  )
-)
 ```
 
 
@@ -92,6 +73,27 @@ tags$section(
   )
 )
 ```
+
+
+```{r}
+div(
+  class = "home-arvore-destaque reveal",
+  div(
+    class = "home-arvore-texto",
+    span(class = "home-arvore-selo", "IDENTIDADE E CONHECIMENTO"),
+    h2("Árvore do conhecimento"),
+    p("Conheça as linhas de pesquisa em um mapa interativo e explore os vínculos cadastrados com projetos, integrantes e produções científicas."),
+    tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar a árvore do conhecimento")
+  ),
+  div(
+    class = "home-arvore-simbolo",
+    tags$img(class = "gp-tree-art", src = "img/ilustracoes/arvore-home.svg", alt = "", width = 240, height = 180),
+    tags$span(class = "home-arvore-tronco", "GPENSC"),
+    tags$span(class = "home-arvore-raizes", "PESQUISA · ENSINO · EXTENSÃO")
+  )
+)
+```
+
 
 ```{r}
 noticias_recentes <- registros_reais(noticias, "titulo") |>
