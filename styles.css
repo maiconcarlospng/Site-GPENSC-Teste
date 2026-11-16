@@ -20173,31 +20173,37 @@ html body #quarto-content main.content .estado-vazio-texto {
 html body:has(#gp49) #quarto-content #gp49 .gp49-landscape {
   isolation:isolate!important;
   background:
-    radial-gradient(ellipse at 50% 42%,rgba(236,243,228,.72) 0%,rgba(236,243,228,.30) 43%,transparent 78%),
-    linear-gradient(180deg,#f6f6ef 0%,#f0f3e9 52%,#f6f4eb 100%)!important;
+    radial-gradient(ellipse at 50% 43%,rgba(246,248,236,.48) 0%,rgba(228,238,220,.76) 57%,rgba(243,240,229,.52) 100%),
+    linear-gradient(180deg,#e9f0e3 0%,#e6eedf 58%,#f3efe4 100%)!important;
 }
-html body:has(#gp49) #gp49 #gp49-map {
+html body:has(#gp49) #quarto-content #gp49 #gp49-map {
   background:transparent!important;
 }
-html body:has(#gp49) #gp49 #gp49-map::before {
+html body:has(#gp49) #quarto-content #gp49 #gp49-map::before {
   content:""!important;
   display:block!important;
   position:absolute!important;
   inset:0!important;
   z-index:0!important;
   pointer-events:none!important;
-  opacity:.82!important;
+  opacity:1!important;
   background:
-    radial-gradient(ellipse at 8% 30%,rgba(103,145,90,.16) 0%,transparent 27%),
-    radial-gradient(ellipse at 94% 26%,rgba(126,157,102,.15) 0%,transparent 29%),
-    radial-gradient(ellipse at 17% 68%,rgba(140,168,118,.09) 0%,transparent 23%),
-    radial-gradient(ellipse at 84% 70%,rgba(140,168,118,.10) 0%,transparent 25%),
-    radial-gradient(ellipse at 50% 38%,rgba(250,251,244,.92) 0%,rgba(250,251,244,.48) 39%,transparent 73%),
-    repeating-linear-gradient(118deg,rgba(78,101,65,.018) 0 1px,transparent 1px 9px)!important;
-  -webkit-mask-image:radial-gradient(ellipse at 50% 48%,#000 58%,rgba(0,0,0,.82) 76%,transparent 100%)!important;
-  mask-image:radial-gradient(ellipse at 50% 48%,#000 58%,rgba(0,0,0,.82) 76%,transparent 100%)!important;
+    radial-gradient(ellipse 18px 7px at 7% 18%,rgba(69,112,61,.22) 0 68%,transparent 75%),
+    radial-gradient(ellipse 15px 6px at 15% 25%,rgba(105,146,87,.20) 0 68%,transparent 75%),
+    radial-gradient(ellipse 17px 7px at 5% 45%,rgba(91,131,73,.17) 0 68%,transparent 75%),
+    radial-gradient(ellipse 16px 6px at 12% 69%,rgba(107,145,84,.17) 0 68%,transparent 75%),
+    radial-gradient(ellipse 16px 6px at 92% 18%,rgba(85,125,70,.18) 0 68%,transparent 75%),
+    radial-gradient(ellipse 18px 7px at 97% 37%,rgba(111,148,89,.19) 0 68%,transparent 75%),
+    radial-gradient(ellipse 15px 6px at 88% 58%,rgba(82,125,69,.17) 0 68%,transparent 75%),
+    radial-gradient(ellipse 17px 7px at 95% 76%,rgba(104,143,81,.16) 0 68%,transparent 75%),
+    radial-gradient(ellipse at 3% 38%,rgba(91,132,76,.18) 0%,transparent 25%),
+    radial-gradient(ellipse at 97% 35%,rgba(114,148,91,.17) 0%,transparent 27%),
+    radial-gradient(ellipse at 50% 37%,rgba(255,252,237,.75) 0%,rgba(255,252,237,.45) 42%,transparent 74%),
+    repeating-linear-gradient(118deg,rgba(78,101,65,.022) 0 1px,transparent 1px 9px)!important;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 48%,#000 63%,rgba(0,0,0,.84) 82%,transparent 100%)!important;
+  mask-image:radial-gradient(ellipse at 50% 48%,#000 63%,rgba(0,0,0,.84) 82%,transparent 100%)!important;
 }
-html body:has(#gp49) #gp49 #gp49-map::after {
+html body:has(#gp49) #quarto-content #gp49 #gp49-map::after {
   content:""!important;
   display:block!important;
   position:absolute!important;
@@ -20205,25 +20211,22 @@ html body:has(#gp49) #gp49 #gp49-map::after {
   z-index:0!important;
   pointer-events:none!important;
   background:
-    radial-gradient(ellipse at 50% 102%,rgba(145,119,76,.20) 0%,rgba(145,119,76,.08) 24%,transparent 58%),
-    linear-gradient(180deg,transparent 68%,rgba(111,132,84,.075) 100%)!important;
+    radial-gradient(ellipse 82% 21% at 50% 105%,rgba(139,111,68,.28) 0%,rgba(157,132,87,.14) 36%,transparent 75%),
+    linear-gradient(180deg,transparent 67%,rgba(108,126,78,.11) 100%)!important;
 }
-html body:has(#gp49) #gp49 #gp49-map > svg {
+html body:has(#gp49) #quarto-content #gp49 #gp49-map > svg {
   z-index:1!important;
 }
 @media(max-width:767px) {
-  html body:has(#gp49) #gp49 #gp49-map::before {
-    opacity:.68!important;
+  html body:has(#gp49) #quarto-content #gp49 #gp49-map::before {
     background:
-      radial-gradient(ellipse at 5% 31%,rgba(103,145,90,.13) 0%,transparent 28%),
-      radial-gradient(ellipse at 96% 28%,rgba(126,157,102,.12) 0%,transparent 30%),
-      radial-gradient(ellipse at 50% 38%,rgba(250,251,244,.82) 0%,rgba(250,251,244,.36) 42%,transparent 76%),
-      repeating-linear-gradient(118deg,rgba(78,101,65,.014) 0 1px,transparent 1px 9px)!important;
-  }
-}
-@media(prefers-reduced-motion:reduce) {
-  html body:has(#gp49) #gp49 #gp49-map::before,
-  html body:has(#gp49) #gp49 #gp49-map::after {
-    scroll-behavior:auto!important;
+      radial-gradient(ellipse 14px 6px at 5% 20%,rgba(69,112,61,.18) 0 68%,transparent 75%),
+      radial-gradient(ellipse 14px 6px at 13% 31%,rgba(105,146,87,.16) 0 68%,transparent 75%),
+      radial-gradient(ellipse 14px 6px at 95% 22%,rgba(85,125,70,.16) 0 68%,transparent 75%),
+      radial-gradient(ellipse 15px 6px at 90% 48%,rgba(111,148,89,.16) 0 68%,transparent 75%),
+      radial-gradient(ellipse at 3% 38%,rgba(91,132,76,.15) 0%,transparent 27%),
+      radial-gradient(ellipse at 97% 35%,rgba(114,148,91,.14) 0%,transparent 28%),
+      radial-gradient(ellipse at 50% 37%,rgba(255,252,237,.67) 0%,rgba(255,252,237,.36) 44%,transparent 76%),
+      repeating-linear-gradient(118deg,rgba(78,101,65,.018) 0 1px,transparent 1px 9px)!important;
   }
 }
