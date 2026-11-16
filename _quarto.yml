@@ -26,8 +26,6 @@ website:
     background: light
     
     right:
-      - href: index.qmd
-        text: Início
       - text: O GPENSC
         menu:
           - text: Quem somos
