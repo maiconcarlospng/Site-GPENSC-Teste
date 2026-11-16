@@ -347,3 +347,43 @@ body{background:#f7f8f5}
   #app .collection-heading .collection-tools button{flex-basis:100%}
   #app .user-area{font-size:10px}
 }
+
+
+/* Estrutura editorial em sintonia com as seções do site público. */
+#app #collection-nav .menu-section{min-width:0}
+#app #collection-nav .menu-section-title{font-size:10px;letter-spacing:.075em}
+#app .admin-shortcuts{margin:22px 0 26px;min-width:0}
+#app .dashboard-shortcut-heading{margin-bottom:14px}
+#app .dashboard-shortcut-heading h2{margin:4px 0 5px;color:#28523a;font-size:19px;letter-spacing:-.025em}
+#app .dashboard-shortcut-heading p{margin:0;color:#6c7e70;font-size:12px;line-height:1.5}
+#app .admin-shortcut-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#app .admin-shortcut{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-width:0;min-height:84px;padding:14px 16px;border:1px solid #dce5dc;border-radius:10px;background:#fff;color:#284934;text-align:left;cursor:pointer;transition:border-color .15s,background-color .15s}
+#app .admin-shortcut strong{font-size:13px;line-height:1.35}
+#app .admin-shortcut small{font-size:11px;line-height:1.4;color:#758477}
+#app .admin-shortcut:hover{border-color:#8cae86;background:#f6faf4}
+#app .admin-shortcut:focus-visible{outline:3px solid #d9731f;outline-offset:2px}
+#app .collection-tools .collection-site-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border:1px solid #cfdccc;border-radius:9px;color:#255338;background:#fff;font-size:12px;font-weight:750;text-decoration:none;white-space:normal;text-align:center}
+#app .collection-tools .collection-site-link:hover{background:#f0f7ec;border-color:#91af84}
+#app .collection-tools .collection-site-link:focus-visible{outline:3px solid #d9731f;outline-offset:2px}
+@media (min-width:701px) and (max-width:1180px){
+  #app .admin-shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:700px){
+  /* A tela de escolha mantém grupos visíveis e botões grandes, sem lista contínua. */
+  #app .sidebar.mobile-open #collection-nav .menu-section{display:grid!important;grid-column:1/-1;gap:6px;margin:4px 0 8px}
+  #app .sidebar.mobile-open #collection-nav .menu-section-title{display:block!important;padding:10px 3px 6px;border-top:1px solid rgba(255,255,255,.2);font-size:10px;color:#d4e5d1}
+  #app .sidebar.mobile-open #collection-nav .menu-section-items{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #app .sidebar.mobile-open #collection-nav .menu-section-items button{width:100%;max-width:none}
+  #app .admin-shortcuts{margin:20px 0 22px}
+  #app .dashboard-shortcut-heading h2{font-size:17px}
+  #app .admin-shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #app .admin-shortcut{min-height:79px;padding:13px 12px;border-radius:9px}
+  #app .admin-shortcut strong{font-size:12px}
+  #app .admin-shortcut small{font-size:10px}
+  #app .collection-tools .collection-site-link{flex:1 1 calc(50% - 8px);min-width:0;min-height:46px}
+}
+@media (max-width:390px){
+  #app .sidebar.mobile-open #collection-nav .menu-section-items{grid-template-columns:minmax(0,1fr)}
+  #app .admin-shortcut-grid{grid-template-columns:minmax(0,1fr)}
+  #app .collection-tools .collection-site-link{flex-basis:100%}
+}
