@@ -53,6 +53,22 @@
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
+  // Uma única legenda flutuante substitui os títulos longos sobrepostos.
+  const tooltip=document.createElement('div');
+  tooltip.className='gp49-map-tooltip';
+  tooltip.setAttribute('role','tooltip');
+  tooltip.hidden=true;
+  map.appendChild(tooltip);
+  function showTip(node,label){
+    if(window.matchMedia('(hover: none)').matches)return;
+    const area=map.getBoundingClientRect(),at=node.getBoundingClientRect();
+    const x=at.left+at.width/2-area.left;
+    tooltip.textContent=label;
+    tooltip.style.left=Math.min(Math.max(x,120),Math.max(120,area.width-120))+'px';
+    tooltip.style.top=Math.max(62,at.top-area.top-10)+'px';
+    tooltip.hidden=false;
+  }
+  function hideTip(){tooltip.hidden=true;}
   let camera = {x: 0, y: 0, w: W, h: H};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
@@ -179,7 +195,12 @@
       bubble.remove();
       if(spray)spray.remove();
     }
-    bubble.addEventListener('click',event=>{
+    const tipLabel=terminal?nodeNames[start]:'Explorar '+count+' linhas de pesquisa';
+    bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
+    bubble.addEventListener('pointerleave',hideTip);
+    bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
+    bubble.addEventListener('blur',hideTip);
+    bubble.addEventListener('click',event=>{hideTip();
       event.stopPropagation();
       expand();
     });
