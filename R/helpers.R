@@ -261,8 +261,8 @@ faixa_galeria <- function() {
     , drop = FALSE
   ]
 
-  # A faixa verde institucional permanece na página inicial mesmo quando
-  # a galeria contém fotos; a sequência de imagens fica logo abaixo dela.
+  # A apresentação institucional vem após a galeria fotográfica.
+  # Sem fotos públicas, a página mantém apenas a faixa institucional.
   hero <- div(
     class = "hero lupa-area",
     div(
