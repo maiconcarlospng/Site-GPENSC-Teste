@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#214e35" />
+    <title>Editor de conteúdo · GPENSC</title>
+    <link rel="icon" href="../img/logo_gpensc.png" />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://sveltia-cms-auth.maicon-carlos.workers.dev" crossorigin />
+    <link rel="cms-config-url" type="application/yaml" href="config.yml?revision=painel-gpensc-20261112-2" />
+
+    <link rel="stylesheet" href="painel.css?v=20261111-8" />
+        <link rel="stylesheet" href="dashboard.css?v=20261112-7" />
+  </head>
+  <body class="gpen-cms-active">
+    
+
+
+    <!-- Mantém a sequência de inicialização testada do Sveltia e registra os widgets antes do CMS.init(). -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
+    <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
+    <script src="galeria-multipla.js?v=20261023-3"></script>
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="excel-button.js?v=20261111-1"></script>
+    <script src="dashboard.js?v=20261112-7" defer></script>
+    <script src="preview.js?v=20261111-1" defer></script>
+    <script>
+      // Inicia diretamente a autenticação do Sveltia ao abrir /admin/.
+      // O widget personalizado já foi registrado no script anterior.
+      document.title = "Painel Administrativo GPENSC";
+
+      // Marca a coleção de configurações para separá-la visualmente das áreas de uso diário.
+      const markConfigCollection = () => {
+        document.querySelectorAll('.primary-sidebar [role="listbox"] button').forEach((button) => {
+          if ((button.innerText || '').includes('Configurações avançadas') || (button.innerText || '').includes('Configurações do site')) {
+            button.classList.add('gpen-config-collection');
+          }
+        });
+      };
+
+      // O link para o site público fica disponível na área de edição, não na tela de login.
+      const syncEntranceState = () => {
+        const loginVisible = Boolean(document.querySelector(".container > .inner .buttons"));
+        document.body.classList.toggle("gpen-login-active", loginVisible);
+        markConfigCollection();
+      };
+      const entranceObserver = new MutationObserver(syncEntranceState);
+      entranceObserver.observe(document.body, { childList: true, subtree: true });
+      syncEntranceState();
+      // O Sveltia administra a preferência claro/escuro e a persiste nas configurações do usuário.
+      CMS.init();
+    </script>
+  </body>
+</html>

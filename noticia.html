@@ -30,8 +30,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<link href="./img/logo_gpensc.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./img/logo_gpensc.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
@@ -42,8 +47,20 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-54e336701007797405051929a858b720.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7e31b1f2a09a5de902ceb913150967d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Nenhum resultado",
     "search-matching-documents-text": "documentos correspondentes",
@@ -59,21 +76,170 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- Umami Analytics · GPENSC -->
+<script defer="" src="https://cloud.umami.is/script.js" data-website-id="1591f591-4f93-4697-8457-60c32ded8eac"></script>
 
 
-<link rel="stylesheet" href="experimental.css">
-<link rel="stylesheet" href="onezoom.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="vi-no-rotulo.css">
 </head>
 
-<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-content">Pular para o conteúdo principal</a>
+<body class="nav-fixed fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-content">Pular para o conteúdo principal</a>
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./img/logo_gpensc.png" alt="" class="navbar-logo light-content">
+    <img src="./img/logo_gpensc.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">GPENSC</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sobre" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sobre</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sobre">    
+        <li>
+    <a class="dropdown-item" href="./grupo.html#sobre">
+ <span class="dropdown-text">Quem somos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./grupo.html#historia">
+ <span class="dropdown-text">Nossa história</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./grupo.html#equipe">
+ <span class="dropdown-text">Equipe e integrantes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./grupo.html#parcerias">
+ <span class="dropdown-text">Parcerias</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-pesquisa" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Pesquisa</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-pesquisa">    
+        <li>
+    <a class="dropdown-item" href="./pesquisa.html">
+ <span class="dropdown-text">Visão geral</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./linhas.html">
+ <span class="dropdown-text">Linhas de pesquisa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projetos.html">
+ <span class="dropdown-text">Projetos de pesquisa</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./publicacoes.html">
+ <span class="dropdown-text">Publicações</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./teses.html">
+ <span class="dropdown-text">Teses e dissertações</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./arvore.html">
+ <span class="dropdown-text">Árvore do conhecimento</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extensão-e-formação" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extensão e formação</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-extensão-e-formação">    
+        <li>
+    <a class="dropdown-item" href="./extensao.html">
+ <span class="dropdown-text">Projetos de extensão</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./vi-no-rotulo.html">
+ <span class="dropdown-text">Vi no Rótulo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ensino.html">
+ <span class="dropdown-text">Ensino e formação</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./capacitacao-epidemiologia.html">
+ <span class="dropdown-text">Capacitação em Epidemiologia e Análise de Dados</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conteúdos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Conteúdos</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-conteúdos">    
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#materiais">
+ <span class="dropdown-text">Materiais educativos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#videos">
+ <span class="dropdown-text">Vídeos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#podcasts">
+ <span class="dropdown-text">Podcasts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#livros">
+ <span class="dropdown-text">Livros e e-books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#resultados">
+ <span class="dropdown-text">Ciência para a sociedade</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-atualizações" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Atualizações</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-atualizações">    
+        <li>
+    <a class="dropdown-item" href="./atualizacoes.html#noticias">
+ <span class="dropdown-text">Notícias</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./atualizacoes.html#agenda">
+ <span class="dropdown-text">Agenda</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./grupo.html#contato"> 
+<span class="menu-text">Contato</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-layout-custom" tabindex="-1">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar" tabindex="-1">
 <!-- sidebar -->
 <!-- margin-sidebar -->
 <!-- main -->
-<header class="tree-nav"><a class="tree-nav-brand" href="index.html"><img src="img/logo_gpensc.png" alt=""><span>GPENSC<small>Nutrição e Saúde Coletiva · UFOP</small></span></a><a class="tree-nav-home" href="index.html">← Explorar a árvore</a></header>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -98,8 +264,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div id="noticia-detalhe-vazio" class="noticia-detalhe-vazio">
 <h1>Nenhuma notícia publicada</h1>
-<p>Cadastre ou selecione uma notícia para visualizar seu detalhamento. Os registros atuais são exemplos de demonstração.</p>
-<a class="btn btn-secondary" href="noticias.html">Voltar às notícias</a>
+<a class="btn btn-secondary" href="atualizacoes.html#noticias">Voltar às notícias</a>
 </div>
 </div>
 </div>
@@ -137,8 +302,221 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="tree-interactions.js" defer=""></script>
-<script src="onezoom.js" defer=""></script>
+<!-- MOTOR DE TRADUÇÃO AUTOMÁTICA E BANDEIRAS OTIMIZADAS PARA MOBILE -->
+<div id="google_translate_element" style="position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none;"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'pt',
+      includedLanguages: 'pt,en,es',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function aplicarIdiomaVisual(langCode) {
+    var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
+    document.documentElement.setAttribute('data-gp-current-language', ['pt','en','es'].includes(idioma) ? idioma : 'pt');
+    document.querySelectorAll('.gp-language-button').forEach(function(botao) {
+      var ativo = botao.getAttribute('data-lang') === idioma;
+      botao.setAttribute('aria-pressed', String(ativo));
+      botao.classList.toggle('is-active', ativo);
+    });
+    if (idioma === 'es') {
+      document.documentElement.setAttribute('data-gp-language', 'es');
+    } else {
+      document.documentElement.removeAttribute('data-gp-language');
+    }
+  }
+
+  function recuperarIdiomaSalvo() {
+    var correspondencia = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/);
+    if (!correspondencia) {
+      aplicarIdiomaVisual('pt');
+      return;
+    }
+
+    try {
+      var partes = decodeURIComponent(correspondencia[1]).split('/').filter(Boolean);
+      aplicarIdiomaVisual(partes.length ? partes[partes.length - 1] : 'pt');
+    } catch (erro) {
+      aplicarIdiomaVisual('pt');
+    }
+  }
+
+  function traduzirPagina(langCode) {
+    aplicarIdiomaVisual(langCode);
+    var langPair = '/pt/' + langCode;
+    document.cookie = 'googtrans=' + langPair + '; path=/;';
+    if (window.location.hostname.includes('.')) document.cookie = 'googtrans=' + langPair + '; path=/; domain=' + window.location.hostname;
+
+    var select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = langCode;
+      select.dispatchEvent(new Event('change'));
+    } else {
+      window.location.reload();
+    }
+  }
+
+  // Injeção com eventos otimizados para touch no celular
+  document.addEventListener("DOMContentLoaded", function() {
+    recuperarIdiomaSalvo();
+
+    var navbarTitle = document.querySelector(".navbar-brand .navbar-title") || document.querySelector(".navbar-brand");
+    
+    if (navbarTitle && !document.querySelector(".bandeiras-container")) {
+      var container = document.createElement("div");
+      container.className = "bandeiras-container";
+      container.innerHTML = `
+        <button type="button" class="gp-language-button" data-lang="pt" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
+        <button type="button" class="gp-language-button" data-lang="en" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>
+        <button type="button" class="gp-language-button" data-lang="es" onclick="traduzirPagina('es')" aria-label="Español — tradução automática" title="Español — tradução automática"><span lang="es">ES</span></button>
+      `;
+      navbarTitle.after(container);
+      aplicarIdiomaVisual((document.documentElement.getAttribute("data-gp-current-language") || "pt"));
+    }
+
+    // Mobile: idiomas na primeira linha. Tablet: dentro do menu.
+    // Desktop amplo: idiomas ao lado da busca, fora da lista de navegação.
+    function ajustarOrdemNavbarMobile() {
+      var navContainer = document.querySelector(".navbar .navbar-container");
+      var navList = document.querySelector(".navbar .navbar-nav");
+      var search = navContainer && navContainer.querySelector("#quarto-search");
+      var flags = document.querySelector(".bandeiras-container");
+      if (!navContainer || !flags) return;
+
+      var desktopItem = document.querySelector(".gp-nav-idiomas-item");
+      var desktopWrapper = document.querySelector(".gp-nav-idiomas-desktop");
+
+      if (window.matchMedia("(max-width: 1099px)").matches) {
+        if (desktopItem) desktopItem.remove();
+        if (flags.parentElement !== navContainer) navContainer.appendChild(flags);
+        if (desktopWrapper) desktopWrapper.remove();
+      } else if (window.matchMedia("(min-width: 1100px)").matches) {
+        if (desktopItem) desktopItem.remove();
+        if (!desktopWrapper) {
+          desktopWrapper = document.createElement("div");
+          desktopWrapper.className = "gp-nav-idiomas-desktop";
+        }
+        if (flags.parentElement !== desktopWrapper) desktopWrapper.appendChild(flags);
+        if (desktopWrapper.parentElement !== navContainer ||
+            (search && desktopWrapper.nextElementSibling !== search)) {
+          navContainer.insertBefore(desktopWrapper, search || null);
+        }
+
+        // A ordem visual é definida no próprio elemento para prevalecer
+        // sobre regras antigas do Bootstrap/Quarto em páginas internas.
+        var brand = navContainer.querySelector(".navbar-brand-container");
+        var collapse = navContainer.querySelector(".navbar-collapse");
+        var tools = navContainer.querySelector(".quarto-navbar-tools");
+        desktopWrapper.style.setProperty("order", "998", "important");
+        desktopWrapper.style.setProperty("display", "flex", "important");
+        desktopWrapper.style.setProperty("flex", "0 0 auto", "important");
+        desktopWrapper.style.setProperty("align-items", "center", "important");
+        if (brand) brand.style.setProperty("order", "2", "important");
+        if (collapse) collapse.style.setProperty("order", "20", "important");
+        if (tools) tools.style.setProperty("order", "900", "important");
+        if (search) {
+          search.style.setProperty("order", "999", "important");
+          search.style.setProperty("margin-left", ".15rem", "important");
+        }
+      } else {
+        if (!navList) return;
+        if (!desktopItem) {
+          desktopItem = document.createElement("li");
+          desktopItem.className = "nav-item gp-nav-idiomas-item";
+          navList.appendChild(desktopItem);
+        }
+        if (flags.parentElement !== desktopItem) desktopItem.appendChild(flags);
+        if (desktopWrapper) desktopWrapper.remove();
+      }
+    }
+
+    ajustarOrdemNavbarMobile();
+    window.addEventListener("resize", ajustarOrdemNavbarMobile, { passive: true });
+
+    // O campo Algolia/Quarto é criado sob demanda ao abrir a busca.
+    // O observador garante placeholder e rótulo também no modal flutuante.
+    var scrollAntesDaBusca = 0;
+    var buscaEstavaAberta = false;
+
+    function prepararCampoBusca() {
+      var buscaAberta = document.body.classList.contains("aa-Detached");
+
+      if (buscaAberta && !buscaEstavaAberta) {
+        scrollAntesDaBusca = window.scrollY || window.pageYOffset || 0;
+      }
+
+      document.querySelectorAll(".aa-Input").forEach(function(campo) {
+        if (!campo.getAttribute("placeholder")) {
+          campo.setAttribute("placeholder", "Buscar no site...");
+        }
+        campo.setAttribute("aria-label", "Buscar no site do GPENSC");
+        // iOS amplia a página automaticamente quando o campo tem fonte menor que 16px.
+        campo.style.setProperty("font-size", "16px", "important");
+        campo.style.setProperty("-webkit-text-size-adjust", "100%", "important");
+        campo.style.setProperty("transform", "none", "important");
+      });
+
+      if (!buscaAberta && buscaEstavaAberta) {
+        var campoAtivo = document.activeElement;
+        if (campoAtivo && campoAtivo.matches && campoAtivo.matches(".aa-Input")) {
+          campoAtivo.blur();
+        }
+        window.requestAnimationFrame(function() {
+          window.scrollTo({ top: scrollAntesDaBusca, left: 0, behavior: "auto" });
+        });
+      }
+      buscaEstavaAberta = buscaAberta;
+    }
+
+    prepararCampoBusca();
+    var observadorBusca = new MutationObserver(prepararCampoBusca);
+    observadorBusca.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });  });
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+  /* Esconde popups e barras nativas do Google */
+  body { top: 0 !important; }
+  .goog-te-banner-frame, .skiptranslate, #goog-gt-tt, .goog-te-spinner-pos { display: none !important; }
+  font { background-color: transparent !important; box-shadow: none !important; }
+
+  /* Ajustes de alinhamento e sensibilidade ao toque (Touch) */
+  .bandeiras-container {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    margin-left: 0.4rem !important;
+    margin-right: 0.2rem !important;
+    z-index: 1050 !important; /* Garante prioridade na camada de clique/toque no celular */
+    position: relative !important;
+    pointer-events: auto !important;
+  }
+
+  .bandeira-idioma {
+    width: 22px !important;
+    height: 15px !important;
+    object-fit: cover !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    touch-action: manipulation !important; /* Remove atrasos de clique em navegadores mobile */
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+    padding: 2px !important; /* Expande a área clicável sem alterar o tamanho visual */
+  }
+
+  .bandeira-idioma:active,
+  .bandeira-idioma:hover {
+    transform: scale(1.15) !important;
+    opacity: 0.85;
+  }
+</style>
+
+<!-- Faixa fotográfica da home: avanço automático, deslize e controles discretos. -->
+<script defer="" src="js/galeria-home.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -619,11 +997,29 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
-    </div>   
-    <div class="nav-footer-center">
-<p><span>GPENSC · Universidade Federal de Ouro Preto</span></p>
+<div id="gp-institutional-footer">
+<div class="gp-footer-main">
+<div class="gp-footer-identity">
+<a class="gp-footer-name" href="index.html" aria-label="GPENSC — página inicial">GPENSC</a>
+<p>
+Grupo de Pesquisa e Ensino em<br class="gp-footer-break"> Nutrição e Saúde Coletiva
+</p>
+<p class="gp-footer-affiliation">
+Escola de Nutrição · Universidade Federal de Ouro Preto
+</p>
 </div>
+<nav class="gp-footer-links" aria-label="Links do rodapé">
+<a href="grupo.html#sobre">O grupo</a><a href="pesquisa.html">Pesquisa</a><a href="atualizacoes.html#agenda">Agenda</a><a href="grupo.html#contato">Contato</a>
+</nav>
+</div>
+<div class="gp-footer-base">
+<span>© GPENSC · UFOP</span><a class="gp-footer-admin" href="admin/" aria-label="Acessar o painel administrativo">Admin</a>
+</div>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

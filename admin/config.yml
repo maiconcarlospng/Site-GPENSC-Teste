@@ -1,0 +1,665 @@
+app_title: "Painel Administrativo GPENSC"
+site_url: "https://maiconcarlospng.github.io/Site-GPENSC-Teste/"
+display_url: "https://maiconcarlospng.github.io/Site-GPENSC-Teste/"
+logo:
+  src: "../img/logo_gpensc.png"
+
+backend:
+  name: github
+  repo: maiconcarlospng/Site-GPENSC-Teste
+  branch: main
+  base_url: https://sveltia-cms-auth.maicon-carlos.workers.dev
+
+locale: "pt"
+
+media_folder: "img"
+public_folder: "img"
+
+collections:
+  - name: "comunicacao"
+    label: "01 · Conteúdo e comunicação"
+    files:
+        - label: "Notícias"
+          name: "noticias"
+          file: "data/noticias.yml"
+          fields:
+            - label: "Notícias"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "notícia"
+              hint: "Cadastre notícias reais, com título, data e resumo. Se não houver notícias, deixe a lista vazia."
+              summary: "{{fields.titulo}} — {{fields.data}}"
+              fields:
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Categoria", name: "categoria", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Resumo", name: "resumo", widget: "text", hint: "Escreva uma síntese objetiva. Esse texto aparece nos cartões e ajuda na busca." }
+                - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
+                - { label: "Link da fonte original", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "Imagem", name: "imagem", widget: "image", required: false }
+        - label: "Agenda e eventos"
+          name: "eventos"
+          file: "data/eventos.yml"
+          fields:
+            - label: "Agenda e eventos"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "evento"
+              hint: "Use a data no formato AAAA-MM-DD. Eventos passados deixam de aparecer em próximos eventos."
+              summary: "{{fields.data}} - {{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Palestra", "Curso", "Oficina", "Seminário", "Congresso", "Workshop", "Aula aberta", "Reunião", "Simpósio", "Defesa", "Outro"], required: false, hint: "Escolha uma categoria. Se não se aplicar, deixe sem seleção." }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Local", name: "local", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+  - name: "pesquisa"
+    label: "02 · Pesquisa e produção científica"
+    files:
+        - label: "Linhas de pesquisa"
+          name: "linhas"
+          file: "data/linhas.yml"
+          fields:
+            - label: "Linhas"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "linha de pesquisa"
+              summary: "{{fields.nome}} — ID {{fields.id}}"
+              fields:
+                - { label: "ID", name: "id", widget: "string", hint: "Código curto, usado em Projetos e Publicações. Não mude depois de criado." }
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Palavras-chave", name: "palavras_chave", widget: "string", required: false }
+        - label: "Projetos"
+          name: "projetos"
+          file: "data/projetos.yml"
+          fields:
+            - label: "Projetos"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "projeto"
+              summary: "{{fields.titulo}} — {{fields.situacao}}"
+              fields:
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Pesquisa", "Extensão"], hint: "Define em qual área o projeto será apresentado." }
+                - { label: "Situação", name: "situacao", widget: "select", options: ["Em andamento", "Em planejamento", "Concluído", "Suspenso"], hint: "Use “Em andamento” para projetos ativos." }
+                - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
+                - { label: "Início", name: "inicio", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
+                - { label: "Fim", name: "fim", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
+                - label: "Linha de pesquisa associada"
+                  name: "linha_id"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "linhas"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.nome"]
+                  search_fields: ["itens.*.nome", "itens.*.id"]
+                  multiple: false
+                  required: false
+                  hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
+                - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
+        - label: "Publicações"
+          name: "publicacoes"
+          file: "data/publicacoes.yml"
+          fields:
+            - label: "Publicações"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "publicação"
+              summary: "{{fields.titulo}} — {{fields.ano}}"
+              fields:
+                - { label: "Ano", name: "ano", widget: "string", hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["Artigo", "Livro", "Capítulo de livro", "Resumo em evento", "Resumo expandido", "Trabalho completo em evento", "Dissertação/TCC", "Tese", "Outro"], hint: "Escolha a categoria da produção. “Artigo” mantém a contagem de artigos da página inicial." }
+                - { label: "Autores", name: "autores", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Veículo", name: "veiculo", widget: "string", required: false }
+                - { label: "DOI", name: "doi", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "Resultado explicado para o público geral", name: "resumo_publico", widget: "text", required: false, hint: "Explique em linguagem simples apenas resultados confirmados no artigo. Evite afirmar causalidade sem evidência." }
+                - { label: "Possíveis implicações para profissionais e gestores", name: "aplicacao", widget: "text", required: false, hint: "Informe aplicações ou recomendações apoiadas na publicação, com seus limites." }
+                - { label: "Link para notícia ou divulgação", name: "fonte_divulgacao", widget: "string", required: false, hint: "Informe o endereço completo da fonte, começando com https://" }
+                - label: "Linha de pesquisa associada"
+                  name: "linha_id"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "linhas"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.nome"]
+                  search_fields: ["itens.*.nome", "itens.*.id"]
+                  multiple: false
+                  required: false
+                  hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
+        - label: "Livros"
+          name: "livros"
+          file: "data/livros.yml"
+          fields:
+            - label: "Livros"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "livro"
+              summary: "{{fields.ano}} - {{fields.titulo}}"
+              fields:
+                - { label: "Ano", name: "ano", widget: "string", hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Autores", name: "autores", widget: "string", required: false }
+                - { label: "Editora", name: "editora", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Defesas e bancas"
+          name: "defesas"
+          file: "data/defesas.yml"
+          fields:
+            - label: "Defesas e bancas"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "defesa"
+              summary: "{{fields.titulo}} — {{fields.autor}}"
+              fields:
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Nível", name: "nivel", widget: "select", options: ["Mestrado", "Doutorado"], hint: "Selecione o nível acadêmico." }
+                - { label: "Etapa", name: "etapa", widget: "select", options: ["Qualificação", "Defesa"], hint: "Indique se o registro é de qualificação ou defesa final." }
+                - { label: "Autor", name: "autor", widget: "string" }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Linha de pesquisa", name: "linha_id", widget: "relation", collection: "pesquisa", file: "linhas", value_field: "itens.*.id", display_fields: ["itens.*.nome"], search_fields: ["itens.*.nome"], required: false }
+                - { label: "Orientador", name: "orientador", widget: "string", required: false }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+  - name: "ensino_equipe"
+    label: "03 · Ensino e equipe"
+    files:
+        - label: "Equipe e integrantes"
+          name: "equipe"
+          file: "data/equipe.yml"
+          fields:
+            - label: "Membros"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "membro"
+              hint: "Cadastre integrantes reais e mantenha a categoria atualizada. Divulgue fotos e links apenas com autorização."
+              summary: "{{fields.nome}} — {{fields.categoria}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Líderes", "Pesquisadores", "Colaboradores", "Egressos", "Coordenação", "Docentes e pesquisadores", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos"], required: false, hint: "Use Líderes (docentes da ENUT), Pesquisadores, Colaboradores ou Egressos. Opções antigas permanecem para compatibilidade. Egressos exibem somente nome e Lattes." }
+                - { label: "Última revisão do perfil", name: "revisado_em", widget: "date", required: false, hint: "Revise foto, contato e Lattes a cada 12 meses." }
+                - { label: "Papel", name: "papel", widget: "string", required: false }
+                - { label: "Formação", name: "formacao", widget: "string", required: false }
+                - { label: "E-mail de contato", name: "email", widget: "string", required: false }
+                - { label: "Foto", name: "foto", widget: "image", required: false }
+                - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "ORCID", name: "orcid", widget: "string", required: false, hint: "Informe somente o identificador, sem https://orcid.org/.", pattern: ['^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$', 'Informe o ORCID no formato 0000-0002-1825-0097.'] }
+                - label: "Linhas de pesquisa vinculadas"
+                  name: "linhas_ids"
+                  widget: "relation"
+                  collection: "pesquisa"
+                  file: "linhas"
+                  value_field: "itens.*.id"
+                  display_fields: ["itens.*.nome"]
+                  search_fields: ["itens.*.nome", "itens.*.id"]
+                  multiple: true
+                  required: false
+                  hint: "Selecione todas as linhas em que a pessoa atua. Esses vínculos aparecerão na página pública de Linhas de pesquisa."
+        - label: "Disciplinas e ensino"
+          name: "disciplinas"
+          file: "data/disciplinas.yml"
+          fields:
+            - label: "Disciplinas e ensino"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "disciplina"
+              summary: "{{fields.nome}} — {{fields.codigo}}"
+              fields:
+                - { label: "Nível", name: "nivel", widget: "select", options: ["Graduação", "Pós-graduação"], required: false }
+                - { label: "Código", name: "codigo", widget: "string", required: false }
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Docente", name: "docente", widget: "string", required: false }
+                - { label: "Período", name: "periodo", widget: "string", required: false }
+                - { label: "Ementa", name: "ementa", widget: "text", required: false }
+  - name: "midia_parcerias"
+    label: "04 · Mídia, galeria e parcerias"
+    files:
+        - label: "Linha do tempo · Quem somos"
+          name: "linha_tempo"
+          file: "data/linha_tempo.yml"
+          fields:
+            - label: "Acontecimentos da trajetória"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "acontecimento"
+              hint: "Edite as linhas diretamente, importe Excel/CSV, exporte uma cópia e reordene os acontecimentos. Organize do mais antigo para o mais recente."
+              summary: "{{fields.ano}} — {{fields.titulo}}"
+              fields:
+                - { label: "Ano", name: "ano", widget: "string", hint: "Informe o ano com quatro dígitos (ex.: 2024)." }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Legenda", name: "descricao", widget: "text", required: false }
+                - { label: "Foto", name: "imagem", widget: "image", required: false, hint: "Informe o caminho da imagem já enviada à pasta img/." }
+        - label: "Galeria de fotos"
+          name: "galeria"
+          file: "data/galeria.yml"
+          fields:
+            - label: "Fotos (seleção múltipla)"
+              name: "itens"
+              widget: "galeria-multipla-v2"
+              hint: "Selecione várias fotos, abra Ajustar recorte em cada foto para mudar o foco/zoom e confira a prévia antes de salvar."
+        - label: "Vídeos publicados"
+          name: "videos"
+          file: "data/videos.yml"
+          fields:
+            - label: "Vídeos publicados"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "vídeo"
+              summary: "{{fields.titulo}}"
+              fields:
+                - { label: "Data", name: "data", widget: "datetime", type: "date", picker_utc: true, hint: "Escolha a data no calendário; o site mantém o formato AAAA-MM-DD.", required: false, pattern: ['^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', 'Use o formato AAAA-MM-DD (ex.: 2026-10-23).'] }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Podcasts e episódios"
+          name: "noar"
+          file: "data/noar.yml"
+          fields:
+            - label: "Episódios"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "episódio"
+              summary: "{{fields.titulo}}"
+              fields:
+                - { label: "Número do episódio", name: "episodio", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Convidado(a)", name: "convidado", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "date", required: false }
+                - { label: "Link de acesso", name: "link", widget: "string", required: false }
+                - { label: "Observações", name: "obs", widget: "text", required: false }
+        - label: "Sites recomendados"
+          name: "sites"
+          file: "data/sites.yml"
+          fields:
+            - label: "Sites"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "site"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Descrição", name: "descricao", widget: "text", required: false }
+                - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Instituições parceiras"
+          name: "apoio"
+          file: "data/apoio.yml"
+          fields:
+            - label: "Instituições"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "instituição"
+              summary: "{{fields.nome}}"
+              fields:
+                - { label: "Nome", name: "nome", widget: "string" }
+                - { label: "Logo", name: "logo", widget: "image" }
+                - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Parcerias registradas no CNPq"
+          name: "parcerias"
+          file: "data/parcerias.yml"
+          fields:
+            - label: "Instituições parceiras"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "parceria"
+              hint: "Separe instituições parceiras registradas no CNPq dos vínculos institucionais do GPENSC. Logos são opcionais; UFV e UFMG podem receber seus arquivos depois."
+              summary: "{{fields.sigla}} — {{fields.nome}}"
+              fields:
+                - { label: "Nome da instituição", name: "nome", widget: "string" }
+                - { label: "Sigla", name: "sigla", widget: "string" }
+                - { label: "UF", name: "uf", widget: "string", hint: "Ex.: MG." }
+                - { label: "Cidade", name: "cidade", widget: "string", required: false }
+                - { label: "País", name: "pais", widget: "string", required: false, default: "Brasil" }
+                - { label: "Latitude", name: "latitude", widget: "string", required: false, hint: "Coordenada decimal aproximada do município ou campus." }
+                - { label: "Longitude", name: "longitude", widget: "string", required: false, hint: "Coordenada decimal aproximada do município ou campus." }
+                - { label: "Grupo de exibição", name: "grupo", widget: "select", options: ["Parcerias registradas no CNPq", "Vínculos institucionais"] }
+                - { label: "Logo", name: "logo", widget: "image", required: false, hint: "Opcional. Se não houver logo, o site exibirá a sigla da instituição." }
+                - { label: "Site institucional", name: "url", widget: "string", required: false, pattern: ['^https?://.+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+  - name: "configuracoes"
+    label: "Configurações avançadas"
+    files:
+        - label: "01 · Identidade"
+          name: "cfg_identidade"
+          file: "data/configuracoes/01-identidade.yml"
+          fields:
+            - { label: "Sigla", name: "sigla", widget: "string" }
+            - { label: "Nome completo do grupo", name: "nome_completo", widget: "string" }
+            - { label: "Instituição", name: "instituicao", widget: "string" }
+            - { label: "Unidade", name: "unidade", widget: "string" }
+            - { label: "Departamento", name: "departamento", widget: "string" }
+
+        - label: "02 · Vínculos institucionais"
+          name: "cfg_vinculos"
+          file: "data/configuracoes/02-vinculos-institucionais.yml"
+          fields:
+            - { label: "Link PPGSN", name: "link_ppgsn", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link Escola de Nutrição", name: "link_escola", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link UFOP", name: "link_ufop", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Link Diretório CNPq", name: "link_dgp", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+
+        - label: "03 · História, missão e objetivos"
+          name: "cfg_institucional"
+          file: "data/configuracoes/03-institucional.yml"
+          fields:
+            - { label: "Resumo da página inicial", name: "resumo", widget: "text" }
+            - { label: "Histórico", name: "historico", widget: "text" }
+            - { label: "Missão", name: "missao", widget: "text" }
+            - { label: "Visão", name: "visao", widget: "text" }
+            - { label: "Objetivo 1", name: "objetivo1", widget: "text" }
+            - { label: "Objetivo 2", name: "objetivo2", widget: "text" }
+            - { label: "Objetivo 3", name: "objetivo3", widget: "text" }
+            - { label: "Objetivo 4", name: "objetivo4", widget: "text" }
+
+        - label: "04 · Página inicial"
+          name: "cfg_home"
+          file: "data/configuracoes/04-pagina-inicial.yml"
+          fields:
+            - { label: "Título: pesquisas na página inicial", name: "titulo_home_pesquisas", widget: "string" }
+            - { label: "Título: notícias na página inicial", name: "titulo_home_noticias", widget: "string" }
+            - { label: "Aviso: título das notícias de demonstração", name: "texto_aviso_noticias_home_titulo", widget: "string" }
+            - { label: "Aviso: texto das notícias de demonstração", name: "texto_aviso_noticias_home", widget: "text" }
+            - { label: "Chamada da agenda na página inicial", name: "titulo_home_agenda", widget: "string" }
+            - { label: "Texto do botão Sobre nós", name: "botao_sobre", widget: "string" }
+
+        - label: "05 · Página Quem somos"
+          name: "cfg_quem_somos"
+          file: "data/configuracoes/05-quem-somos.yml"
+          fields:
+            - { label: "Título da missão", name: "titulo_missao", widget: "string" }
+            - { label: "Título da visão", name: "titulo_visao", widget: "string" }
+            - { label: "Título dos objetivos", name: "titulo_objetivos", widget: "string" }
+            - { label: "Título dos vínculos", name: "titulo_vinculos", widget: "string" }
+            - { label: "Título da equipe", name: "titulo_equipe", widget: "string" }
+            - { label: "Aviso: título da equipe", name: "texto_aviso_equipe_titulo", widget: "string" }
+            - { label: "Aviso: texto da equipe", name: "texto_aviso_equipe", widget: "text" }
+            - { label: "Chamada final da página Quem somos", name: "texto_cta_sobre", widget: "text" }
+            - { label: "Botão Diretório CNPq", name: "botao_dgp", widget: "string" }
+
+        - label: "06 · Pesquisa, ensino e extensão"
+          name: "cfg_pesquisa_extensao"
+          file: "data/configuracoes/06-pesquisa-extensao.yml"
+          fields:
+            - { label: "Introdução da página Projetos", name: "intro_projetos", widget: "text" }
+            - { label: "Introdução da página Extensão", name: "intro_extensao", widget: "text" }
+
+        - label: "07 · Agenda"
+          name: "cfg_agenda"
+          file: "data/configuracoes/07-agenda.yml"
+          fields:
+            - { label: "Introdução da Agenda", name: "intro_agenda", widget: "text" }
+            - { label: "Título Próximos eventos", name: "titulo_proximos_eventos", widget: "string" }
+            - { label: "Título Eventos sem data", name: "titulo_eventos_sem_data", widget: "string" }
+            - { label: "Botão Eventos anteriores", name: "botao_eventos_anteriores", widget: "string" }
+
+        - label: "08 · Contato e redes"
+          name: "cfg_contato"
+          file: "data/configuracoes/09-contato-redes.yml"
+          fields:
+            - { label: "E-mail", name: "email", widget: "string", pattern: ['^[^\s@]+@[^\s@]+\.[^\s@]+$', 'Informe um e-mail válido.'] }
+            - { label: "Telefone", name: "telefone", widget: "string" }
+            - { label: "Instagram (URL)", name: "instagram", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - { label: "Usuário Instagram", name: "instagram_user", widget: "string" }
+            - { label: "YouTube", name: "youtube", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+            - label: "Link do Spotify (ícone flutuante e UFOP Cast)"
+              name: "spotify"
+              widget: "string"
+              required: false
+              hint: "Endereço usado pelo ícone flutuante da página inicial e pelo botão UFOP Cast na página Podcasts. Informe uma URL completa iniciada por https://."
+              pattern: ['^https?://.+$', 'Informe uma URL completa iniciada por http:// ou https://.']
+            - { label: "Introdução Contato", name: "intro_contato", widget: "text" }
+            - { label: "Título do cartão E-mail", name: "titulo_email", widget: "string" }
+            - { label: "Título do cartão Instagram", name: "titulo_instagram", widget: "string" }
+            - { label: "Título do cartão Localização", name: "titulo_localizacao", widget: "string" }
+            - { label: "Título do cartão Telefone", name: "titulo_telefone", widget: "string" }
+            - { label: "Botão Enviar e-mail", name: "botao_enviar_email", widget: "string" }
+            - { label: "Botão Instagram", name: "botao_instagram", widget: "string" }
+            - { label: "Botão mapa", name: "botao_mapa", widget: "string" }
+
+        - label: "09 · Endereço"
+          name: "cfg_endereco"
+          file: "data/configuracoes/10-endereco.yml"
+          fields:
+            - { label: "Endereço completo (exibido no site e usado no mapa)", name: "endereco_completo", widget: "string", hint: "Concentre aqui o endereço inteiro, incluindo cidade/UF e CEP quando necessário." }
+            - label: "Tópicos adicionais do endereço"
+              name: "topicos_endereco"
+              widget: "list"
+              collapsed: true
+              required: false
+              label_singular: "tópico"
+              summary: "{{fields.titulo}}"
+              hint: "Use para adicionar informações extras, como sala, horário de atendimento ou referência. Cada tópico pode ser removido individualmente."
+              fields:
+                - { label: "Nome do tópico", name: "titulo", widget: "string" }
+                - { label: "Informação", name: "valor", widget: "string" }
+
+        - label: "10 · Visibilidade das páginas"
+          name: "cfg_visibilidade"
+          file: "data/configuracoes/11-visibilidade.yml"
+          fields:
+            - { label: "Ativar conteúdo da página Agenda", name: "mostrar_agenda", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Linhas de pesquisa", name: "mostrar_linhas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Projetos", name: "mostrar_projetos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Publicações", name: "mostrar_publicacoes", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Extensão", name: "mostrar_extensao", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Notícias", name: "mostrar_noticias", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Contato", name: "mostrar_contato", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Disciplinas", name: "mostrar_disciplinas", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Teses e dissertações", name: "mostrar_teses", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Livros", name: "mostrar_livros", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Vídeos", name: "mostrar_videos", widget: "boolean", default: true }
+            - { label: "Ativar conteúdo da página Sites recomendados", name: "mostrar_sites", widget: "boolean", default: true }
+
+        - label: "11 · Rodapé"
+          name: "cfg_rodape"
+          file: "data/configuracoes/12-rodape.yml"
+          fields:
+            - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
+
+  - name: editorial
+    label: Conhecimento e gestão editorial
+    files:
+    - name: materiais
+      label: Materiais educativos e anuários
+      file: data/materiais.yml
+      fields:
+      - name: itens
+        label: Materiais educativos e anuários
+        widget: list
+        fields:
+        - &id001
+          name: titulo
+          label: Título
+          widget: string
+        - &id002
+          name: resumo
+          label: Resumo em linguagem acessível
+          widget: text
+        - &id003
+          name: publico
+          label: Público
+          widget: select
+          options:
+          - Todos
+          - Comunidade científica
+          - Estudantes
+          - Gestores e profissionais
+          - População geral
+        - &id004
+          name: url
+          label: Link do material ou fonte
+          widget: string
+          required: false
+          pattern:
+          - ^https?://[^\s]+$
+          - Use um endereço http:// ou https://.
+        - &id005
+          name: data
+          label: Data
+          widget: date
+          required: false
+        - name: tipo
+          label: Formato
+          widget: select
+          options:
+          - Cartilha
+          - Infográfico
+          - E-book
+          - Podcast
+          - Vídeo
+          - Policy brief
+          - Anuário
+          - Outro
+    - name: metodos
+      label: Metodologias e portfólios
+      file: data/metodos.yml
+      fields:
+      - name: itens
+        label: Metodologias e portfólios
+        widget: list
+        fields:
+        - *id001
+        - *id002
+        - *id003
+        - *id004
+        - *id005
+        - name: aplicacao
+          label: Aplicação
+          widget: text
+          required: false
+    - name: impactos
+      label: Relatos de impacto social
+      file: data/impactos.yml
+      fields:
+      - name: itens
+        label: Relatos de impacto social
+        widget: list
+        fields:
+        - *id001
+        - *id002
+        - *id003
+        - *id004
+        - *id005
+        - name: resultado
+          label: Resultado documentado
+          widget: text
+        - name: parceiros
+          label: Parceiros envolvidos
+          widget: string
+          required: false
+    - name: planejamento
+      label: Planejamento semestral
+      file: data/planejamento.yml
+      fields:
+      - name: itens
+        label: Planejamento semestral
+        widget: list
+        fields:
+        - name: titulo
+          label: Ação ou pauta
+          widget: string
+        - name: data
+          label: Data prevista
+          widget: date
+          required: false
+        - name: resumo
+          label: Orientações
+          widget: text
+          required: false
+        - name: responsavel
+          label: Responsável
+          widget: string
+          required: false
+        - name: situacao
+          label: Situação
+          widget: select
+          options:
+          - A planejar
+          - Em preparação
+          - Em revisão
+          - Publicado
+        - name: semestre
+          label: Semestre
+          widget: string
+          required: false
+        - name: fonte
+          label: Pasta de contribuições
+          widget: string
+          required: false
+
+  - name: "vi_no_rotulo"
+    label: "Vi no Rótulo · Minissite"
+    files:
+      - label: "Conteúdos e publicações"
+        name: "conteudos_vi_no_rotulo"
+        file: "data/vi-no-rotulo.yml"
+        fields:
+          - label: "Publicações selecionadas"
+            name: "conteudos"
+            widget: "list"
+            collapsed: true
+            required: false
+            label_singular: "conteúdo"
+            hint: "Adicione publicações reais do projeto. Sem registros, o site mostra um convite discreto para o Instagram."
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Categoria", name: "categoria", widget: "select", options: ["Educação alimentar", "Rotulagem nutricional", "Dicas de leitura", "Notícias do projeto", "Pesquisa", "Evento", "Outro"], required: false }
+              - { label: "Resumo", name: "resumo", widget: "text", required: false }
+              - { label: "Imagem do conteúdo", name: "imagem", widget: "image", required: false, hint: "Use uma imagem autorizada do material publicado." }
+              - { label: "Link da publicação", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use um link completo com https://.'] }
+
+      - label: "Equipe do Vi no Rótulo"
+        name: "equipe_vi_no_rotulo"
+        file: "data/vi-no-rotulo-equipe.yml"
+        fields:
+          - label: "Integrantes do projeto"
+            name: "itens"
+            widget: "list"
+            collapsed: true
+            required: false
+            label_singular: "integrante"
+            summary: "{{fields.nome}} — {{fields.funcao}}"
+            hint: "Cadastre somente integrantes confirmados. Fotos e dados pessoais exigem autorização; sem registros, o site não exibe lista vazia."
+            fields:
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Função no projeto", name: "funcao", widget: "string", required: false, hint: "Ex.: Coordenação, pesquisador(a) ou bolsista." }
+              - { label: "Vínculo institucional", name: "vinculo", widget: "string", required: false }
+              - { label: "Foto autorizada", name: "foto", widget: "image", required: false }
+              - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://\S+$', 'Use uma URL completa iniciada por https://.'] }
+
+  - name: "capacitacao"
+    label: "Capacitação em Epidemiologia e Análise de Dados"
+    files:
+      - label: "Atividades da capacitação"
+        name: "capacitacao_atividades"
+        file: "data/capacitacao-epidemiologia.yml"
+        fields:
+          - label: "Atividades cadastradas"
+            name: "itens"
+            widget: "list"
+            collapsed: true
+            label_singular: "atividade"
+            summary: "{{fields.titulo}} — {{fields.data}}"
+            hint: "Cadastre somente atividades confirmadas. A lista vazia não gera eventos fictícios no site."
+            fields:
+              - { label: "Título da atividade", name: "titulo", widget: "string" }
+              - { label: "Data", name: "data", widget: "date", required: false }
+              - { label: "Modalidade", name: "modalidade", widget: "select", options: ["Presencial", "Remoto", "Híbrido"], required: false }
+              - { label: "Descrição", name: "resumo", widget: "text", required: false }
+              - { label: "Local ou plataforma", name: "local", widget: "string", required: false }
+              - { label: "Link da atividade", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
