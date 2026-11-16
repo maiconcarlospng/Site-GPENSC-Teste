@@ -4,7 +4,7 @@ description: "Iniciativas de extensão e capacitação em alimentação, nutriç
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Conhecimento que circula entre a universidade, os serviços e a sociedade.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Projetos e ações junto à comunidade.</p><img src="img/ilustracoes/extensao.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -17,7 +17,7 @@ description: "Iniciativas de extensão e capacitação em alimentação, nutriç
     <div class="gp-ext-text">
       <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
       <h3>Vi no Rótulo</h3>
-      <p>Iniciativa ligada à educação sobre rotulagem de alimentos e à compreensão das informações presentes nas embalagens.</p>
+      <p>Educação e comunicação sobre rotulagem de alimentos.</p>
       <a href="vi-no-rotulo.html" class="gp-ext-link">Conhecer o projeto <span aria-hidden="true">↗</span></a>
     </div>
   </article>
@@ -26,7 +26,7 @@ description: "Iniciativas de extensão e capacitação em alimentação, nutriç
     <div class="gp-ext-text">
       <span class="gp-ext-kicker">FORMAÇÃO E MÉTODOS</span>
       <h3>Capacitação em Epidemiologia e Análise de Dados</h3>
-      <p>Iniciativa de formação em métodos epidemiológicos e análise de dados, conforme o planejamento apresentado pelo grupo.</p>
+      <p>Capacitação em epidemiologia, indicadores e análise de dados.</p>
       <a href="capacitacao-epidemiologia.html" class="gp-ext-link">Conhecer a iniciativa <span aria-hidden="true">↗</span></a>
     </div>
   </article>
