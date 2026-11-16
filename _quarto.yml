@@ -112,6 +112,7 @@ format:
       - styles-refino-v36.css
       - styles-editorial-v37.css
       - styles-arvore-v38.css
+      - styles-galeria-v39.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
