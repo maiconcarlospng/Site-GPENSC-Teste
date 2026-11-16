@@ -154,3 +154,47 @@ body #quarto-content .ensino-evento {
   body main.content .gp-home-project-card {min-width:0!important;max-width:100%!important;box-sizing:border-box!important;}
   body main.content .gp-home-project-card img {max-width:100%!important;object-fit:contain;}
 }
+
+/* Correção da captura mobile 16/11: faixa vazia entre título e cards,
+   e texto ilegível sobre fundo escuro na introdução. */
+@media(max-width:767.98px){
+  html body #quarto-content main.content .gp-home-projects{
+    display:block!important;height:auto!important;min-height:0!important;
+    margin:18px 0 24px!important;padding:0!important;
+  }
+  html body #quarto-content main.content .gp-home-projects-header{
+    display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+    justify-content:space-between!important;align-items:center!important;
+    align-content:start!important;gap:8px 12px!important;
+    height:auto!important;min-height:0!important;max-height:none!important;
+    margin:0 0 12px!important;padding:0 0 10px!important;
+  }
+  html body #quarto-content main.content .gp-home-projects-header>div{
+    flex:1 1 180px!important;width:auto!important;min-width:0!important;
+    height:auto!important;min-height:0!important;margin:0!important;padding:0!important;
+  }
+  html body #quarto-content main.content .gp-home-projects-header h2{
+    margin:0!important;padding:0!important;font-size:1.35rem!important;
+    line-height:1.3!important;
+  }
+  html body #quarto-content main.content .gp-home-projects-all{
+    flex:0 0 auto!important;margin:0!important;min-height:36px!important;
+    padding:7px 10px!important;
+  }
+  html body #quarto-content main.content .gp-home-projects-grid{
+    margin:0!important;padding:0!important;gap:10px!important;
+  }
+  html body #quarto-content main.content .intro--simples{
+    background:#f7f9f5!important;color:#23432d!important;
+    padding:18px 16px 22px!important;
+    margin:0!important;max-width:100%!important;
+  }
+  html body #quarto-content main.content .intro--simples .intro-resumo,
+  html body #quarto-content main.content .intro--simples .intro-texto p{
+    color:#294733!important;opacity:1!important;
+    font-size:.96rem!important;line-height:1.55!important;
+  }
+  html body #quarto-content main.content .intro--simples .intro-acoes{
+    margin-top:12px!important;
+  }
+}
