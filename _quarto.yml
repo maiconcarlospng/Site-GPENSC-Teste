@@ -26,7 +26,7 @@ website:
     background: light
     
     right:
-      - text: O GPENSC
+      - text: Sobre
         menu:
           - text: Quem somos
             href: grupo.qmd#sobre
