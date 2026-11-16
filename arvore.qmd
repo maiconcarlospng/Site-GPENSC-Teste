@@ -59,9 +59,7 @@ ramo <- function(i) {
     "data-theses" = as.character(nrow(de)),
     tags$button(
       type = "button", class = "gp49-line-button", "aria-pressed" = "false",
-      span(class = "gp49-line-index", sprintf("%02d", i)),
       span(class = "gp49-line-name", as.character(l$nome[1])),
-      if (vinculos > 0) span(class = "gp49-linked-count", paste0(vinculos, if (vinculos == 1) " vínculo" else " vínculos")),
       span(class = "gp49-line-arrow", "↗")
     ),
     div(
