@@ -20527,3 +20527,48 @@ html body #quarto-content main.content .gp-ensino-conteudo .ensino-disciplina {
     margin-bottom: 10px !important;
   }
 }
+
+/* ACABAMENTO ORGANICO DAS JUNCOES - 2026-11-16
+   Uma única sombra para a silhueta da madeira elimina os contornos que
+   denunciavam a sobreposição de trechos desenhados separadamente. */
+html body:has(#gp49) #gp49 #gp49-map .gp49-wood-layer {
+  filter:drop-shadow(0 3px 2px rgba(48,40,29,.17));
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-wood-layer > .gp49-limb {
+  filter:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-limb > .gp49-wood-body {
+  stroke:none!important;
+  stroke-width:0!important;
+  stroke-linejoin:round;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-limb > .gp49-wood-grain {
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-leaf-spray {
+  opacity:.88;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-node-halo {
+  opacity:.23!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node .gp49-node-disc {
+  stroke:#acc69d!important;
+  stroke-width:1.5!important;
+  filter:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node:is(:hover,:focus-visible) .gp49-node-disc {
+  stroke:#d9731f!important;
+  stroke-width:3!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-node:is(:hover,:focus-visible) .gp49-node-halo {
+  opacity:.46!important;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
+  fill:transparent;
+  pointer-events:all;
+}
+@media(prefers-reduced-motion:reduce){
+  html body:has(#gp49) #gp49 #gp49-map .gp49-leaf-spray,
+  html body:has(#gp49) #gp49 #gp49-map .gp49-wood-layer {transition:none!important}
+}
