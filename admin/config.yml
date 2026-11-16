@@ -263,6 +263,23 @@ collections:
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Descrição", name: "descricao", widget: "text", required: false }
                 - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+        - label: "Podcasts e episódios"
+          name: "noar"
+          file: "data/noar.yml"
+          fields:
+            - label: "Episódios"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "episódio"
+              summary: "{{fields.titulo}}"
+              fields:
+                - { label: "Número do episódio", name: "episodio", widget: "string", required: false }
+                - { label: "Título", name: "titulo", widget: "string" }
+                - { label: "Convidado(a)", name: "convidado", widget: "string", required: false }
+                - { label: "Data", name: "data", widget: "date", required: false }
+                - { label: "Link de acesso", name: "link", widget: "string", required: false }
+                - { label: "Observações", name: "obs", widget: "text", required: false }
         - label: "Sites recomendados"
           name: "sites"
           file: "data/sites.yml"
@@ -605,3 +622,25 @@ collections:
               - { label: "Resumo", name: "resumo", widget: "text", required: false }
               - { label: "Imagem do conteúdo", name: "imagem", widget: "image", required: false, hint: "Use uma imagem autorizada do material publicado." }
               - { label: "Link da publicação", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use um link completo com https://.'] }
+
+  - name: "capacitacao"
+    label: "Capacitação em Epidemiologia e Análise de Dados"
+    files:
+      - label: "Atividades da capacitação"
+        name: "capacitacao_atividades"
+        file: "data/capacitacao-epidemiologia.yml"
+        fields:
+          - label: "Atividades cadastradas"
+            name: "itens"
+            widget: "list"
+            collapsed: true
+            label_singular: "atividade"
+            summary: "{{fields.titulo}} — {{fields.data}}"
+            hint: "Cadastre somente atividades confirmadas. A lista vazia não gera eventos fictícios no site."
+            fields:
+              - { label: "Título da atividade", name: "titulo", widget: "string" }
+              - { label: "Data", name: "data", widget: "date", required: false }
+              - { label: "Modalidade", name: "modalidade", widget: "select", options: ["Presencial", "Remoto", "Híbrido"], required: false }
+              - { label: "Descrição", name: "resumo", widget: "text", required: false }
+              - { label: "Local ou plataforma", name: "local", widget: "string", required: false }
+              - { label: "Link da atividade", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
