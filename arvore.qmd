@@ -285,4 +285,4 @@ div(id = "gp49", class = "gp49-shell",
 \n#gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}\n</style>
 ```
 
-<script src="js/arvore.js?v=canopy-46f0159" defer></script>
+<script src="js/arvore.js?v=folhas-e-etiquetas-20261116" defer></script>
