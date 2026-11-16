@@ -18995,7 +18995,7 @@ html body:has(#gp49) #quarto-header .navbar.navbar-expand-lg .navbar-container,
 html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block,
 html body:has(#gp49) #gp49 {
   box-sizing:border-box!important;
-  width:calc(100% - 2 * var(--gp49-gutter))!important;
+  width:calc(100% - var(--gp49-gutter) - var(--gp49-gutter))!important;
   max-width:var(--gp49-max-width)!important;
   margin-left:auto!important;
   margin-right:auto!important;
@@ -19010,14 +19010,14 @@ html body:has(#gp49) #gp49-directory {
 }
 html body:has(#gp49) footer.footer #gp-institutional-footer {
   box-sizing:border-box!important;
-  width:calc(100% - 2 * var(--gp49-gutter))!important;
+  width:calc(100% - var(--gp49-gutter) - var(--gp49-gutter))!important;
   max-width:var(--gp49-max-width)!important;
   margin-inline:auto!important;
 }
 @media (max-width:767px) {
   html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block,
   html body:has(#gp49) #gp49 {
-    width:calc(100% - 2 * var(--gp49-gutter))!important;
+    width:calc(100% - var(--gp49-gutter) - var(--gp49-gutter))!important;
   }
 }
 
