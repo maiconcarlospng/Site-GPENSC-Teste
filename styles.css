@@ -20139,3 +20139,31 @@ html body #quarto-content main.content .estado-vazio-texto {
   width: 100% !important;
   min-width: 0 !important;
 }
+
+
+/* Ajuste fino mobile: navegação por seções com alvos confortáveis e alinhados. */
+@media (max-width: 520px) {
+  html body #quarto-content main.content .gp-section-index {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:stretch!important;
+    gap:2px 8px!important;
+    padding:8px 0!important;
+  }
+  html body #quarto-content main.content .gp-section-index a {
+    display:flex!important;
+    align-items:center!important;
+    min-width:0!important;
+    min-height:44px!important;
+    padding:6px 8px!important;
+    border-radius:6px!important;
+    line-height:1.3!important;
+    overflow-wrap:anywhere!important;
+  }
+}
+@media (max-width: 359px) {
+  html body #quarto-content main.content .gp-section-index {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:0!important;
+  }
+}
