@@ -1,14 +1,8 @@
 ---
 title: "Árvore do conhecimento"
 page-layout: full
-description: "Explore as linhas de pesquisa do GPENSC e seus vínculos científicos."
+description: "Linhas de pesquisa e vínculos científicos do GPENSC."
 ---
-
-```{=html}
-<div class="gp44-page-intro">
-  <p>Linhas, projetos e pessoas reunidos em um mapa de conexões.</p>
-</div>
-```
 
 ```{r}
 source("R/helpers.R")

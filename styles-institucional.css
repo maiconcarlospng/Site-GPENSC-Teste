@@ -70,3 +70,21 @@ html body #quarto-content .gp44-line {border-radius:0!important;box-shadow:none!
  html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container {order:998!important;flex:0 0 auto!important;}
  html body #quarto-header .navbar.navbar-expand-lg #quarto-search {order:999!important;}
 }
+/* Explicit placement prevents Quarto's named publication columns from
+   being inherited by the interactive SVG workspace and its aside. */
+html body #quarto-content .gp44-shell {display:block!important;}
+html body #quarto-content .gp44-workspace {display:grid!important;grid-template-columns:minmax(0,1fr) 290px!important;gap:1.5rem!important;}
+html body #quarto-content .gp44-workspace > .gp44-explorer,
+html body #quarto-content .gp44-workspace > .gp44-detail {grid-column:auto!important;grid-row:auto!important;width:100%!important;min-width:0!important;}
+html body #quarto-content .gp44-directory {grid-column:auto!important;}
+html body #quarto-content main.content #title-block-header.quarto-title-block {display:block!important;width:100%!important;max-width:none!important;margin:0 0 1.5rem!important;padding:2rem 0 .5rem!important;min-height:0!important;}
+html body #quarto-content main.content #title-block-header .quarto-title {margin:0!important;padding:0!important;}
+html body #quarto-content main.content #title-block-header h1.title {margin:0!important;padding:0!important;font-size:clamp(1.9rem,3.4vw,2.8rem)!important;}
+html body #quarto-content main.content #title-block-header .description {margin-top:.8rem!important;}
+@media(min-width:1100px){
+ html body #quarto-header #navbarCollapse.navbar-collapse:not(.show):not(.collapsing),
+ html body #quarto-header #navbarCollapse.navbar-collapse {display:flex!important;}
+}
+@media(max-width:900px){
+ html body #quarto-content .gp44-workspace {grid-template-columns:minmax(0,1fr)!important;}
+}
