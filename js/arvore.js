@@ -78,6 +78,39 @@
     canopyBranch(end.x,end.y,angle+fork,next,width*.68,depth-1,key*2+2);
   }
   // Os ramos de copa serão ligados às pontas da própria árvore de dados.
+  // Copa em folhas soltas, usada como textura de fundo para os galhos.
+  const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
+  const canopyColors=['#1d5726','#2f7130','#438535','#63983b','#82a744','#b0bf55'];
+  const canopyNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
+  function backgroundLeaf(x,y,angle,size,tone,opacity){
+    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle)+') scale('+fmt(size)+')',
+      opacity:opacity},canopyLayer);
+    make('path',{d:'M0,0 C4,-7 12,-9 18,-5 C23,-1 20,5 14,8 C7,10 2,5 0,0 Z',
+      fill:tone,stroke:'#356b31','stroke-width':'.7','stroke-linejoin':'round'},leaf);
+    make('path',{d:'M1,0 Q9,-1 19,-5',fill:'none',stroke:'#d5e7a0',
+      'stroke-width':'.8','stroke-linecap':'round',opacity:.72},leaf);
+  }
+  const canopyClusters=[
+    [300,105],[500,88],[700,105],[900,88],[1100,115],
+    [120,220],[320,205],[520,195],[720,210],[920,195],[1120,210],[1290,235],
+    [110,350],[310,335],[510,320],[710,335],[910,320],[1110,340],[1300,365],
+    [220,465],[420,450],[620,440],[820,455],[1020,445],[1210,470],
+    [430,555],[700,545],[970,555]
+  ];
+  canopyClusters.forEach(([cx,cy],clusterIndex)=>{
+    for(let i=0;i<24;i++){
+      const seed=clusterIndex*37+i*11;
+      const angle=canopyNoise(seed)*Math.PI*2;
+      const radius=Math.sqrt(canopyNoise(seed+1));
+      const x=cx+Math.cos(angle)*radius*(38+canopyNoise(seed+2)*23);
+      const y=cy+Math.sin(angle)*radius*(27+canopyNoise(seed+3)*18);
+      const rotation=-25+canopyNoise(seed+4)*150;
+      const size=.58+canopyNoise(seed+5)*.55;
+      const color=canopyColors[Math.floor(canopyNoise(seed+6)*canopyColors.length)];
+      const opacity=.28+canopyNoise(seed+7)*.26;
+      backgroundLeaf(x,y,rotation,size,color,opacity);
+    }
+  });
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
