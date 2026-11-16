@@ -839,3 +839,192 @@ body #quarto-content .faixa-agenda .agenda-chamada > p:has(.agenda-botao){
   body #quarto-content .faixa-agenda{padding:1.3rem 1.1rem!important}
   body #quarto-content .faixa-agenda .agenda-chamada > h2{font-size:clamp(1.45rem,6vw,1.8rem)!important}
 }
+
+
+/* ======================================================================
+   AUDITORIA TRANSVERSAL DE LAYOUT — 15/11/2026
+   Ajustes sobre os componentes realmente usados nas páginas Quarto/R.
+   Evita remendar o problema com overflow-x:hidden em novos seletores.
+   ====================================================================== */
+
+/* A saída dos chunks R e seus filhos precisam respeitar a coluna de leitura. */
+body #quarto-content main.content :is(.cell,.cell-output,.cell-output-display),
+body #quarto-content main.content :is(.pagina-institucional,.pagina-sobre,.pagina-agenda,.pagina-contato,.pagina-projetos,.pagina-defesas,.pagina-publicacoes),
+body #quarto-content main.content :is(.gp-vi-page,.gp-project-hero,.gp-ext-projects,.gp-home-projects,.gp-tree-shell){
+  box-sizing:border-box;
+  min-width:0!important;
+  max-width:100%;
+}
+body #quarto-content main.content :is(.contato-grade,.sobre-cards,.objetivos-grid,.equipe-grid,.linhas-pesquisa-grid,.parcerias-catalogo,.ensino-eventos,.impacto-eixos,.divulgacao-grade,.pesquisa-atalhos,.podcasts-grade,.cartoes,.grade,.gp-ext-projects,.gp-home-projects-grid)>*{
+  box-sizing:border-box;
+  min-width:0!important;
+  max-width:100%;
+  overflow-wrap:break-word;
+}
+body #quarto-content main.content :is(.membro-identidade,.membro-identidade-texto,.membro-links,.nt-corpo,.contato-card,.parceria-instituicao,.gp-ext-text,.gp-home-project-card-copy){
+  min-width:0!important;
+  overflow-wrap:break-word;
+}
+body #quarto-content main.content :is(img,video,iframe){max-width:100%}
+body #quarto-content main.content :is(pre,.sourceCode){max-width:100%;overflow-x:auto}
+body #quarto-content main.content :is(.html-widget,.leaflet-container,.plotly,.dataTables_wrapper){
+  min-width:0;
+  max-width:100%!important;
+}
+body #quarto-content .dataTables_wrapper{
+  max-width:100%!important;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+body #quarto-content .dataTables_wrapper .dataTables_filter input{max-width:min(100%,260px)!important}
+body #quarto-content .dataTables_wrapper table.dataTable{width:100%!important}
+body #quarto-content .podcast-player iframe,
+body #quarto-content .gpensc-mapa-parcerias iframe{display:block;width:100%;max-width:100%;border:0}
+
+/* A home agora começa pelas fotografias, seguidas do título institucional. */
+body #quarto-content .galeria{margin-top:0!important;margin-bottom:0!important}
+body #quarto-content .galeria + .hero,
+body #quarto-content .cell-output-display .galeria + .hero{margin-top:0!important}
+body #quarto-content .galeria-faixa{min-width:0;max-width:100%;scroll-padding-inline:1rem}
+body #quarto-content .hero{box-sizing:border-box;max-width:100%}
+body #quarto-content .intro,
+body #quarto-content .home-arvore-destaque{width:100%!important;min-width:0!important}
+body #quarto-content .home-arvore-destaque .home-arvore-texto{min-width:0}
+body #quarto-content .home-arvore-simbolo img{object-fit:contain!important}
+body #quarto-content .gp-home-project-card-copy :is(strong,small){overflow-wrap:break-word}
+body #quarto-content .gp-home-project-card img{object-fit:contain!important}
+body #quarto-content .faixa-agenda .agenda-chamada{min-width:0!important}
+body #quarto-content .faixa-agenda .agenda-proximo-evento{min-width:0;max-width:100%;box-shadow:none!important}
+body #quarto-content .faixa-agenda .agenda-proximo-conteudo{min-width:0;overflow-wrap:break-word}
+body #quarto-content .faixa-agenda .agenda-botao{display:inline-flex;align-items:center;justify-content:center;max-width:100%;white-space:normal;text-align:center}
+
+/* Contato: endereço real como texto, não como mapa de 260 px de altura. */
+body #quarto-content .pagina-contato .contato-endereco{
+  display:block!important;
+  min-height:0!important;
+  height:auto!important;
+  width:100%;
+  margin:.55rem 0 1rem!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#455f4c!important;
+  font-size:.92rem;
+  line-height:1.65;
+  overflow-wrap:anywhere;
+}
+body #quarto-content .pagina-contato .contato-mapa-btn{max-width:100%;white-space:normal;text-align:center}
+body #quarto-content .contato-info-adicionais{min-width:0;max-width:100%}
+body #quarto-content .contato-info-adicional{min-width:0;overflow-wrap:anywhere}
+
+/* Diretórios e listas: impedir que nomes, títulos e URLs saiam dos cartões. */
+body #quarto-content :is(.membro-card,.linha-pesquisa-card,.agenda-defesa,.tl-item,.historia-conteudo,.divulgacao-item,.gp-acervo-card){
+  min-width:0;
+  overflow-wrap:break-word;
+}
+body #quarto-content :is(.membro-links,.membro-identidade,.equipe-diretorio-intro){flex-wrap:wrap}
+body #quarto-content :is(.membro-link,.gp-ext-link,.nt-titulo-link,.contato-endereco,.agenda-evento-link){overflow-wrap:anywhere}
+body #quarto-content .eventos-anteriores{max-width:100%;min-width:0}
+body #quarto-content .eventos-anteriores > summary{cursor:pointer;padding:.85rem 1rem;line-height:1.45}
+body #quarto-content .estado-vazio{width:100%;max-width:min(100%,860px)!important;min-width:0;align-items:start}
+body #quarto-content .estado-vazio-texto{min-width:0}
+
+/* Rodapé sem quebra da informação institucional nem links sobrepostos. */
+body footer .gp-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:.75rem 1.5rem;flex-wrap:wrap}
+body footer .gp-footer-copyright{min-width:0;line-height:1.5}
+body footer .gp-footer-admin-link{flex:0 0 auto}
+
+/* O Bootstrap recolhe a navegação abaixo de 992px: a interface intermediária
+   também precisa de uma barra funcional, não só o CSS de até 768px. */
+@media(min-width:769px) and (max-width:991.98px){
+  #quarto-header .navbar.navbar-expand-lg .navbar-container{
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:wrap!important;
+    gap:.45rem .75rem!important;
+    min-width:0;
+    max-width:100%;
+    padding:.4rem .85rem!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-toggler{
+    flex:0 0 44px!important;
+    width:44px!important;
+    height:44px!important;
+    margin:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-brand-container{
+    flex:1 1 auto!important;
+    min-width:0!important;
+    max-width:calc(100% - 125px);
+    margin:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg #quarto-search{margin-left:auto!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse{
+    flex:1 0 100%!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  #quarto-header .navbar.navbar-expand-lg .navbar-collapse.show{
+    padding:.65rem .35rem!important;
+    border-top:1px solid #e2e9df;
+    background:#fff;
+  }
+  #quarto-header .navbar.navbar-expand-lg .dropdown-menu{
+    position:static!important;
+    max-width:100%!important;
+    box-shadow:none!important;
+  }
+}
+@media(max-width:991.98px){
+  #quarto-header .navbar-collapse{max-width:100%;min-width:0}
+  #quarto-header .navbar-collapse .nav-link,
+  #quarto-header .navbar-collapse .dropdown-item{
+    min-height:40px;
+    white-space:normal!important;
+    overflow-wrap:break-word;
+    line-height:1.4;
+  }
+  #quarto-header .navbar-collapse .dropdown-menu{max-width:100%;overflow-wrap:break-word}
+  body #quarto-content .contato-grade,
+  body #quarto-content .ensino-eventos,
+  body #quarto-content .divulgacao-grade,
+  body #quarto-content .podcasts-grade{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body #quarto-content .gp-home-projects-header{align-items:flex-start!important}
+}
+@media(max-width:700px){
+  body #quarto-content .contato-grade,
+  body #quarto-content .sobre-cards,
+  body #quarto-content .objetivos-grid,
+  body #quarto-content .equipe-grid,
+  body #quarto-content .linhas-pesquisa-grid,
+  body #quarto-content .parcerias-catalogo,
+  body #quarto-content .ensino-eventos,
+  body #quarto-content .impacto-eixos,
+  body #quarto-content .divulgacao-grade,
+  body #quarto-content .pesquisa-atalhos,
+  body #quarto-content .podcasts-grade,
+  body #quarto-content .cartoes,
+  body #quarto-content .grade,
+  body #quarto-content .gp-ext-projects,
+  body #quarto-content .gp-home-projects-grid{grid-template-columns:minmax(0,1fr)!important}
+  body #quarto-content .pagina-agenda :is(.tl-bloco,.agenda-defesa){min-width:0;max-width:100%}
+  body #quarto-content .gp-home-project-card{min-height:0!important}
+  body #quarto-content .gp-home-project-card strong{font-size:clamp(1.02rem,4.7vw,1.25rem)!important}
+  body #quarto-content .gp-home-projects-header > a{max-width:100%}
+  body #quarto-content .gp-section-illustration{margin-bottom:1.2rem!important}
+  body #quarto-content main.content :is(.cell,.cell-output,.cell-output-display){width:100%;max-width:100%}
+  body footer .gp-footer-bottom{align-items:flex-start;flex-direction:column;gap:.5rem}
+}
+@media(max-width:430px){
+  #quarto-header .navbar.navbar-expand-lg{padding-inline:.35rem!important}
+  #quarto-header .navbar.navbar-expand-lg .navbar-container{column-gap:.15rem!important}
+  body #quarto-content .intro-texto h1{hyphens:auto}
+  body #quarto-content .contato-card{padding:1rem!important}
+  body #quarto-content .gp-home-project-card{grid-template-columns:minmax(0,1fr) 58px!important;gap:.65rem!important}
+  body #quarto-content .gp-home-project-card img{max-width:58px!important;max-height:67px!important}
+  body #quarto-content .gp-home-project-card-copy{gap:.25rem}
+}
+@media(prefers-reduced-motion:reduce){
+  body #quarto-content :is(.galeria-faixa,.gp-home-project-card,.intro-sinal-item){scroll-behavior:auto!important;transition:none!important}
+}
