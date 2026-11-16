@@ -62,22 +62,22 @@
   // distribuídos na copa sem cobrir os nós de navegação.
   const leafPalette=['#5f884f','#739963','#88a874','#4f7951','#a1bb83','#6d925e'];
   const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
-  for(let i=0;i<92;i++){
+  for(let i=0;i<56;i++){
     const angle=i*2.39996323;
-    const radius=Math.sqrt((i+.5)/92);
-    const cx=700+Math.cos(angle)*radius*510;
-    const cy=305+Math.sin(angle)*radius*118;
-    const scale=.78+(i%5)*.10;
-    const rotation=(i*47)%48-24;
+    const radius=Math.sqrt((i+.5)/56);
+    const cx=700+Math.cos(angle)*radius*500;
+    const cy=305+Math.sin(angle)*radius*112;
+    const scale=.94+(i%4)*.13;
+    const rotation=(i*47)%54-27;
     const cluster=make('g',{transform:'translate('+fmt(cx)+' '+fmt(cy)+') rotate('+rotation+') scale('+scale+')'},leafTexture);
-    make('path',{d:'M-15,9 Q0,0 15,-9',fill:'none',stroke:'#506d45','stroke-width':1.25,'stroke-linecap':'round',opacity:.64},cluster);
-    for(let j=0;j<4;j++){
-      const x=-9+j*6, y=5-j*3;
+    make('path',{d:'M-20,12 Q0,0 20,-12',fill:'none',stroke:'#4f7044','stroke-width':1.6,'stroke-linecap':'round',opacity:.74},cluster);
+    for(let j=0;j<3;j++){
+      const x=-13+j*13, y=8-j*7.8;
       for(const side of [-1,1]){
-        const leaf=make('g',{transform:'translate('+x+' '+(y+side*1.5)+') rotate('+(side*-38)+')'},cluster);
+        const leaf=make('g',{transform:'translate('+x+' '+(y+side*2)+') rotate('+(side*56-28)+')'},cluster);
         const color=leafPalette[(i+j+(side===1?2:0))%leafPalette.length];
-        make('path',{d:'M0,0 Q5,-5.2 13,0 Q5,5.2 0,0 Z',fill:color,opacity:.9},leaf);
-        make('path',{d:'M1,0 Q6,0 11.2,0',fill:'none',stroke:'#e6efdc','stroke-width':.72,'stroke-linecap':'round',opacity:.52},leaf);
+        make('path',{d:'M0,0 C6,-7.5 17,-7.5 23,0 C17,7.5 6,7.5 0,0 Z',fill:color,opacity:.94},leaf);
+        make('path',{d:'M1,0 Q10,0 19,0',fill:'none',stroke:'#f0f4e8','stroke-width':.9,'stroke-linecap':'round',opacity:.66},leaf);
       }
     }
   }
@@ -270,16 +270,18 @@
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
-    const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 '+(terminal?34:31)+')'},bubble);
-    const tagWidth=count>1?48:32;
-    make('rect',{x:-tagWidth/2,y:-11,width:tagWidth,height:21,rx:7,class:'gp49-branch-label-plate',
-      fill:'#f8faf3',stroke:'#71896a','stroke-opacity':'.62','stroke-width':1},labelGroup);
-    const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
-    labelText.textContent=branchRange(start,count);
-    labelText.style.stroke='none';
-    labelText.style.paintOrder='normal';
-    make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
-    // O nome completo fica no diretório/tooltip, evitando que os nós se sobreponham.
+    if(!terminal && depth>0){
+      const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 34)'},bubble);
+      const tagWidth=count>9?52:46;
+      make('rect',{x:-tagWidth/2,y:-11,width:tagWidth,height:21,rx:7,class:'gp49-branch-label-plate',
+        fill:'#f8faf3',stroke:'#71896a','stroke-opacity':'.62','stroke-width':1},labelGroup);
+      const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
+      labelText.textContent=branchRange(start,count);
+      labelText.style.stroke='none';
+      labelText.style.paintOrder='normal';
+      make('title',{},labelGroup).textContent='Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
+    }
+    // Os nomes e números individuais ficam na lista, evitando texto amontoado nos nós.
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
       make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
