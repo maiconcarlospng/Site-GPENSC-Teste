@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Extensão"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=ensino-extensao.html#iniciativas">
-<p><a href="ensino-extensao.html#iniciativas">Ir para a seção</a></p>
-```
+Projetos e ações extensionistas do GPENSC junto à comunidade.
+
+## Projetos e iniciativas de extensão {#iniciativas}
+
+{{< include partials/extensao.qmd >}}
