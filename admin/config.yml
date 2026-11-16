@@ -134,18 +134,6 @@ collections:
                   multiple: false
                   required: false
                   hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
-, 'Informe URL completa começando com http:// ou https://.'] }
-                - label: "Linha de pesquisa associada"
-                  name: "linha_id"
-                  widget: "relation"
-                  collection: "pesquisa"
-                  file: "linhas"
-                  value_field: "itens.*.id"
-                  display_fields: ["itens.*.nome"]
-                  search_fields: ["itens.*.nome", "itens.*.id"]
-                  multiple: false
-                  required: false
-                  hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
         - label: "Livros"
           name: "livros"
           file: "data/livros.yml"
