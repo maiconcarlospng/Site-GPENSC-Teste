@@ -41,7 +41,7 @@
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
   // Copa aberta, formada por ramos e folhas individuais; sem uma placa oval.
-  const leafPalette=['#2f7833','#438b3a','#5d9b42','#77a84b','#8fb654','#356f32'];
+  const leafPalette=['#163b19','#1f4b20','#2b6428','#39782e','#5d8d36','#93aa43','#274f20'];
   const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
   const foliageNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
   function canopyLeaf(x,y,angle,size,tone,parent){
@@ -224,7 +224,7 @@
   function leaves(p,index){
     const group=make('g',{class:'gp49-leaf-spray',
       transform:'translate('+p.x+' '+p.y+')'},foliageLayer);
-    const shades=['#557e48','#73975b','#88a970','#49724d','#a0b884'];
+    const shades=['#173e1b','#255b25','#37702b','#588632','#87a441'];
     for(let i=0;i<7;i++){
       const angle=i*2.399963+index*.69;
       const dx=Math.cos(angle),dy=Math.sin(angle)*.78;
