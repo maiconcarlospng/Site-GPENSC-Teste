@@ -3658,3 +3658,77 @@ body.page-index .pq-titulo::after { display: none !important; }
     max-height: min(72dvh, 540px) !important;
   }
 }
+
+
+/* ---------- HOME: CORREÇÃO ESTRUTURAL DOS PROJETOS NO MOBILE ---------- */
+/* Mantém título, atalho e cartões no fluxo normal, sem alturas herdadas. */
+body.page-index .gp-home-projects {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 1.5rem 0 2rem !important;
+  padding: 0 !important;
+}
+body.page-index .gp-home-projects-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: .75rem 1rem !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 0 1rem !important;
+  padding: 0 !important;
+}
+body.page-index .gp-home-projects-header > div {
+  flex: 1 1 240px;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body.page-index #gp-home-projects-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.25 !important;
+}
+body.page-index .gp-home-projects-all {
+  margin: 0 !important;
+  align-self: center !important;
+}
+body.page-index .gp-home-projects-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+@media (max-width: 767.98px) {
+  body.page-index .gp-home-projects { margin: 1.1rem 0 1.75rem !important; }
+  body.page-index .gp-home-projects-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: .65rem !important;
+    margin-bottom: .9rem !important;
+  }
+  body.page-index .gp-home-projects-header > div { flex: 1 1 100% !important; }
+  body.page-index #gp-home-projects-title { font-size: clamp(1.4rem, 5.6vw, 1.75rem) !important; }
+  body.page-index .gp-home-projects-all { padding: .5rem .85rem !important; }
+  body.page-index .gp-home-projects-grid { grid-template-columns: minmax(0, 1fr) !important; gap: .8rem !important; }
+  body.page-index .gp-home-project-card {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 1.1rem !important;
+    gap: .8rem !important;
+  }
+  body.page-index .gp-home-project-card img {
+    max-width: 95px !important;
+    max-height: 82px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+}
