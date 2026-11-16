@@ -18986,3 +18986,38 @@ html body:has(#gp49) #quarto-header { margin-top:0!important; }
   background:linear-gradient(180deg,rgba(243,236,221,0),rgba(243,236,221,.86) 88%,#f3ecdd 100%);
 }
 
+/* Árvore — 6. Um mesmo eixo de alinhamento horizontal nesta página. */
+html body:has(#gp49) {
+  --gp49-max-width:1160px;
+  --gp49-gutter:clamp(16px,3vw,34px);
+}
+html body:has(#gp49) #quarto-header .navbar.navbar-expand-lg .navbar-container,
+html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block,
+html body:has(#gp49) #gp49 {
+  box-sizing:border-box!important;
+  width:calc(100% - 2 * var(--gp49-gutter))!important;
+  max-width:var(--gp49-max-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html body:has(#gp49) #gp49-detail,
+html body:has(#gp49) #gp49-directory {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+html body:has(#gp49) footer.footer #gp-institutional-footer {
+  box-sizing:border-box!important;
+  width:calc(100% - 2 * var(--gp49-gutter))!important;
+  max-width:var(--gp49-max-width)!important;
+  margin-inline:auto!important;
+}
+@media (max-width:767px) {
+  html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block,
+  html body:has(#gp49) #gp49 {
+    width:calc(100% - 2 * var(--gp49-gutter))!important;
+  }
+}
+
