@@ -7,6 +7,10 @@ title: "Divulgação científica"
 ```
 
 
+## Conhecimento para diferentes públicos
+
+O GPENSC reúne pesquisas acadêmicas e iniciativas com aplicações na sociedade. A área [**Ciência para a sociedade**](resultados.qmd) apresenta sínteses de estudos publicados em linguagem acessível, sempre vinculadas à fonte original. Para orientações dirigidas a serviços e gestores, consulte também os [registros de impacto social](impacto.qmd).
+
 ## Materiais e conteúdos
 
 :::: {.divulgacao-grade}
