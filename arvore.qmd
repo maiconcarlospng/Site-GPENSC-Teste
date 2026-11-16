@@ -1,5 +1,6 @@
 ---
 title: "Árvore do conhecimento"
+page-layout: full
 description: "Visualize as conexões entre o GPENSC, suas linhas, projetos, integrantes e produções."
 ---
 
