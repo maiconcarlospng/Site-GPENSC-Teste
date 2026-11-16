@@ -1,13 +1,14 @@
 ---
 title: "Árvore do conhecimento"
 page-layout: full
-description: "Visualize as conexões entre o GPENSC, suas linhas, projetos, integrantes e produções."
+description: "Explore as linhas de pesquisa do GPENSC e seus vínculos científicos."
 ---
 
 ```{=html}
-<section class="gp-tree-intro" aria-label="Como explorar a árvore">
-  <p>Uma árvore de relações científicas: o GPENSC é o tronco, as linhas de pesquisa são os galhos, e as conexões documentadas com pessoas, projetos e produções aparecem como frutos. Navegue pelo mapa ou consulte a lista acessível de linhas.</p>
-</section>
+<div class="gp44-page-intro">
+  <p class="gp44-intro-kicker">GPENSC · CONEXÕES DE PESQUISA</p>
+  <p>Uma forma de percorrer as linhas de pesquisa do grupo e descobrir os projetos, integrantes e produções associados a cada uma delas.</p>
+</div>
 ```
 
 ```{r}
@@ -36,7 +37,7 @@ pessoas_por_linha <- function(id) {
 }
 lista_de_vinculos <- function(df, campo, tipo = "") {
   if (nrow(df) == 0) return(NULL)
-  tags$ul(class = "gp-tree-links", lapply(seq_len(nrow(df)), function(j) {
+  tags$ul(class = "gp44-related-links", lapply(seq_len(nrow(df)), function(j) {
     titulo <- as.character(df[[campo]][j])
     url <- if (tipo == "pessoas") valor_publico(df$lattes[j]) else
       if (tipo == "publicacoes") valor_publico(df$url[j]) else NULL
@@ -57,29 +58,31 @@ ramo <- function(i) {
   pe <- pessoas_por_linha(id)
   vinculos <- nrow(pr) + nrow(pu) + nrow(de) + nrow(pe)
   tags$li(
-    class = "gp-tree-branch", "data-line-id" = id,
+    class = "gp44-line", "data-line-id" = id,
     "data-has-links" = if (vinculos > 0) "1" else "0",
     "data-projects" = as.character(nrow(pr)),
     "data-people" = as.character(nrow(pe)),
     "data-publications" = as.character(nrow(pu)),
     "data-theses" = as.character(nrow(de)),
     tags$button(
-      type = "button", class = "gp-tree-branch-button", "aria-expanded" = "false",
-      span(class = "gp-tree-number", sprintf("%02d", i)),
-      span(class = "gp-tree-name", as.character(l$nome[1])),
-      span(class = "gp-tree-arrow", "›")
+      type = "button", class = "gp44-line-button", "aria-pressed" = "false",
+      span(class = "gp44-line-index", sprintf("%02d", i)),
+      span(class = "gp44-line-name", as.character(l$nome[1])),
+      if (vinculos > 0) span(class = "gp44-linked-count", paste0(vinculos, if (vinculos == 1) " vínculo" else " vínculos")),
+      span(class = "gp44-line-arrow", "↗")
     ),
     div(
-      class = "gp-tree-body",
+      class = "gp44-line-body",
       if (tem(l$descricao)) p(as.character(l$descricao[1])),
+      if (tem(l$palavras_chave)) p(class = "gp44-keywords", paste("Temas:", as.character(l$palavras_chave[1]))),
       if (nrow(pr)) tags$section(h4("Projetos vinculados"), lista_de_vinculos(pr, "titulo")),
       if (nrow(pe)) tags$section(h4("Integrantes vinculados"), lista_de_vinculos(pe, "nome", "pessoas")),
       if (nrow(pu)) tags$section(h4("Produções científicas"), lista_de_vinculos(pu, "titulo", "publicacoes")),
       if (nrow(de)) tags$section(h4("Teses, dissertações e bancas"), lista_de_vinculos(de, "titulo")),
-      if (!vinculos) p(class = "gp-tree-note",
+      if (!vinculos) p(class = "gp44-no-links",
         "Ainda não há vínculos detalhados no cadastro público desta linha; isso não significa ausência de atividade."),
       tags$a(
-        class = "gp-tree-full-link", href = paste0("linhas.html#linha-", id),
+        class = "gp44-full-link", href = paste0("linhas.html#linha-", id),
         "Conhecer esta linha de pesquisa"
       )
     )
@@ -87,72 +90,104 @@ ramo <- function(i) {
 }
 
 div(
-  class = "gp-tree-shell",
-  div(
-    class = "gp-tree-metrics",
-    div(strong(nrow(linhas_arvore)), span("linhas de pesquisa")),
-    div(strong(nrow(pessoas_arvore)), span("integrantes cadastrados")),
-    if (nrow(projetos_arvore) > 0) div(strong(nrow(projetos_arvore)), span("projetos publicados")),
-    if (nrow(pubs_arvore) > 0) div(strong(nrow(pubs_arvore)), span("produções publicadas"))
-  ),
+  class = "gp-tree-shell gp44-shell",
   if (nrow(linhas_arvore)) tagList(
     div(
-      class = "gp-tree-layout",
+      class = "gp44-workspace",
       div(
-        class = "gp-tree-canvas-card",
+        class = "gp44-explorer",
         div(
-          class = "gp-tree-toolbar",
+          class = "gp44-explorer-header",
           div(
-            class = "gp-tree-toolbar-heading",
-            span(class = "gp-tree-eyebrow", "MAPA INTERATIVO"),
-            h2("Explore as ramificações"),
-            p("O tronco começa no canto do mapa. Amplie, arraste e selecione um ramo para explorar suas conexões.")
+            span(class = "gp44-eyebrow", "EXPLORADOR INTERATIVO"),
+            h2("Siga as ramificações"),
+            p("Cada folha representa uma linha de pesquisa do GPENSC.")
           ),
           div(
-            class = "gp-tree-controls",
-            tags$button(id = "gp-tree-minus", type = "button", "aria-label" = "Diminuir zoom", "−"),
-            tags$button(id = "gp-tree-plus", type = "button", "aria-label" = "Aumentar zoom", "+"),
-            tags$button(id = "gp-tree-reset", type = "button", "aria-label" = "Voltar à visão geral", "Visão geral")
+            class = "gp44-tools", role = "group",
+            `aria-label` = "Controles do mapa",
+            tags$button(id = "gp44-zoom-out", type = "button",
+              `aria-label` = "Reduzir o mapa", "−"),
+            tags$button(id = "gp44-zoom-in", type = "button",
+              `aria-label` = "Ampliar o mapa", "+"),
+            tags$button(id = "gp44-home", type = "button",
+              `aria-label` = "Retornar à visão inicial", "Início")
           )
         ),
-        div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
-        p(class = "gp-tree-swipe-hint", "Explore por toque e arraste, ou selecione uma linha na lista abaixo. Os botões ampliam o mapa."),
-        div(class = "gp-tree-legend",
-            span("Raízes: fundamentos"),
-            span("Tronco: GPENSC"),
-            span("Galhos: linhas de pesquisa"),
-            span("Frutos: vínculos registrados com projetos, integrantes e produções"))
+        div(
+          class = "gp44-map-wrap",
+          div(
+            id = "gp44-map", class = "gp44-map",
+            role = "region", tabindex = "0",
+            `aria-label` = "Mapa interativo das linhas de pesquisa. Arraste para explorar ou selecione um ramo."
+          ),
+          div(class = "gp44-map-mark", `aria-hidden` = "true", "GPENSC")
+        ),
+        div(
+          class = "gp44-explorer-footer",
+          span(class = "gp44-swatch gp44-swatch--line", "Linhas de pesquisa"),
+          span(class = "gp44-swatch gp44-swatch--link", "Vínculos cadastrados"),
+          span(class = "gp44-map-help", "Arraste para explorar · Use + e − para ampliar")
+        )
       ),
-      tags$aside(id = "gp-tree-detail", class = "gp-tree-detail",
-                 "aria-live" = "polite",
-                 h2("Selecione um ramo"),
-                 p("Escolha um ramo numerado no mapa ou uma linha na lista."))
+      tags$aside(
+        id = "gp44-detail", class = "gp44-detail",
+        `aria-live` = "polite", `aria-atomic` = "false",
+        span(class = "gp44-detail-kicker", "EM FOCO"),
+        div(class = "gp44-detail-placeholder",
+          span(class = "gp44-placeholder-symbol", `aria-hidden` = "true", "↗"),
+          h2("Escolha uma linha"),
+          p("Toque em uma folha do mapa ou selecione uma linha na lista para ver seus vínculos."),
+          tags$a(href = "#gp44-directory", class = "gp44-jump-link", "Explorar por nome")
+        )
+      )
     ),
-    div(
-      class = "gp-tree-index",
-      div(class = "gp-tree-index-head",
-          div(span(class = "gp-tree-eyebrow", "EXPLORAÇÃO ACESSÍVEL"),
-              h2("Consulte as linhas")),
-          div(class = "gp-tree-search",
-              tags$label("for" = "gp-tree-filter", "Buscar um tema"),
-              tags$input(id = "gp-tree-filter", type = "search",
-                         placeholder = "Ex.: Rotulagem, saúde mental…"))
+    tags$section(
+      id = "gp44-directory", class = "gp44-directory",
+      div(
+        class = "gp44-directory-header",
+        div(
+          span(class = "gp44-eyebrow", "PESQUISA"),
+          h2("Linhas de pesquisa"),
+          p("Explore por nome ou encontre um assunto de interesse.")
+        ),
+        div(
+          class = "gp44-search",
+          tags$label(`for` = "gp44-search", "Buscar uma linha"),
+          tags$input(id = "gp44-search", type = "search",
+            placeholder = "Pesquise por nome, tema ou vínculo…",
+            autocomplete = "off")
+        )
       ),
-      tags$p("Escolha uma linha para visualizar as conexões cadastradas."),
-      div(class = "gp-tree-filterbar", role = "group", "aria-label" = "Filtrar os galhos",
-          tags$button(type = "button", class = "is-active", "data-tree-filter" = "all", "aria-pressed" = "true", "Todas as linhas"),
-          tags$button(type = "button", "data-tree-filter" = "linked", "aria-pressed" = "false", "Com vínculos cadastrados"),
-          span(id = "gp-tree-count", "Carregando linhas…")),
-      tags$ol(id = "gp-tree-branches", class = "gp-tree-branches",
-              lapply(seq_len(nrow(linhas_arvore)), ramo)),
-      tags$p(id = "gp-tree-no-results", class = "gp-tree-no-results",
-             "hidden" = "hidden", "Nenhuma linha encontrada para esta busca ou filtro.")
+      div(
+        class = "gp44-filters", role = "group",
+        `aria-label` = "Exibir linhas",
+        tags$button(type = "button", class = "is-active",
+          `data-gp44-filter` = "all", `aria-pressed` = "true", "Todas"),
+        tags$button(type = "button",
+          `data-gp44-filter` = "linked", `aria-pressed` = "false", "Com vínculos"),
+        span(id = "gp44-count", class = "gp44-count",
+          paste(nrow(linhas_arvore), "linhas"))
+      ),
+      tags$ol(
+        id = "gp44-lines", class = "gp44-lines",
+        lapply(seq_len(nrow(linhas_arvore)), ramo)
+      ),
+      tags$p(
+        id = "gp44-empty", class = "gp44-empty",
+        hidden = "hidden", "Nenhuma linha corresponde à busca."
+      )
+    ),
+    p(
+      class = "gp44-footnote",
+      "As conexões exibidas correspondem aos registros públicos cadastrados pelo grupo."
     )
-  ) else estado_vazio("Linhas em atualização",
-    "O desenho será preenchido quando as linhas forem revisadas pelo grupo."),
-  p(class = "gp-tree-footnote",
-    "Os vínculos são exibidos somente quando registrados publicamente. A falta de um vínculo no cadastro não significa ausência de atividade.")
+  ) else estado_vazio(
+    "Linhas de pesquisa em atualização",
+    "Esta área apresentará as ramificações quando o cadastro público estiver disponível."
+  )
 )
+
 ```
 
-<script src="js/arvore-explorador.js" defer></script>
+<script src="js/arvore-v44.js" defer></script>
