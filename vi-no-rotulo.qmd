@@ -77,7 +77,7 @@ vi_post_card <- function(item) {
   img_path <- if (!is.null(imagem)) caminho_img(imagem) else NULL
   div(class="vi-post-card",
     if (!is.null(img_path)) div(class="vi-post-image", tags$img(src=img_path, alt=paste("Imagem de",titulo), loading="lazy"))
-    else div(class="vi-post-placeholder", span("VI", class="vi-post-monogram"), span("NO RÓTULO")))
+    else div(class="vi-post-placeholder", span("VI", class="vi-post-monogram"), span("NO RÓTULO")),
     div(class="vi-post-info",
       if (!is.null(categoria)) span(class="vi-post-category", categoria),
       h3(titulo),
