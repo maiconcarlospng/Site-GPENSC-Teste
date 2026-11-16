@@ -7,7 +7,7 @@ page-layout: full
 ```{=html}
 <section class="gp-publico-intro" aria-label="Como ler os resultados">
   <p class="gp-publico-selo">CIÊNCIA E SOCIEDADE</p>
-  <p>Esta página aproxima os resultados das pesquisas do cotidiano. Cada síntese publicada deve ter uma fonte verificável e explicar o que foi investigado, o que se encontrou e quais são os limites do estudo. Informações de pesquisa não substituem uma avaliação profissional individual.</p>
+  <p>Resultados de estudos apresentados em linguagem acessível, com fontes e limites identificados. As informações não substituem orientação profissional individual.</p>
   <div class="gp-publico-rotas" aria-label="Encontre o conteúdo mais útil">
     <a href="publicacoes.html"><strong>Comunidade científica</strong><span>Artigos, produções e fontes originais</span></a>
     <a href="impacto.html"><strong>Gestores e profissionais</strong><span>Ações documentadas e aplicações práticas</span></a>
@@ -62,13 +62,10 @@ if (nrow(publicacoes_explicadas)) {
 } else {
   estado_vazio(
     "Sínteses científicas em preparação",
-    "As explicações de resultados serão exibidas após a revisão do grupo e a inclusão das fontes no painel. Os artigos cadastrados podem ser consultados na área de Publicações.",
+    "Os resultados revisados aparecerão aqui conforme forem publicados pelo grupo.",
     "Consultar publicações",
     "publicacoes.html"
   )
 }
 ```
 
-## Outros caminhos para conhecer as ações do GPENSC
-
-O grupo reúne atividades de pesquisa, ensino e extensão. Consulte [Impacto social](impacto.qmd) para os resultados documentados de ações, [Extensão](extensao.qmd) para conhecer as iniciativas e [Agenda](agenda.qmd) para verificar as atividades abertas.
