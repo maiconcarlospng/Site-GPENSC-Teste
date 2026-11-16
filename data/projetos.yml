@@ -1,1 +1,13 @@
-itens: []
+itens:
+  - id: PR-VR
+    titulo: Vi no Rótulo
+    tipo: Extensão
+    situacao: Não informado
+    linha_id: ""
+    url: vi-no-rotulo.html
+  - id: PR-CEP
+    titulo: Capacitação em Epidemiologia e Análise de Dados
+    tipo: Extensão
+    situacao: Não informado
+    linha_id: ""
+    url: capacitacao-epidemiologia.html
