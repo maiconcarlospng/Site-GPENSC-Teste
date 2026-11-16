@@ -3,7 +3,7 @@ title: "Nossa história"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Acompanhe os marcos da trajetória do GPENSC ao longo do tempo.</p><img src="img/ilustracoes/historia.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Marcos e registros da trajetória do grupo.</p><img src="img/ilustracoes/historia.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -39,9 +39,6 @@ if (length(historia) > 0) {
     })
   )
 } else {
-  estado_vazio(
-    "A história está sendo organizada",
-    "A linha do tempo será ampliada à medida que novos acontecimentos forem documentados e confirmados pelo grupo."
-  )
+  estado_vazio("Registros históricos em atualização", NULL)
 }
 ```
