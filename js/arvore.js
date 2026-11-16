@@ -178,7 +178,7 @@
     const center=point(start,count,depth);
     const width=clamp(210+count/total*1310,290,1400);
     const h=width*H/W;
-    move({x:center.x-width/2,y:center.y-h*.48,w:width,h},850);
+    move({x:center.x-width/2,y:center.y-h*.72,w:width,h},850);
   }
   function branch(start,count,depth,parent,fromWidth,toWidth) {
     const p=point(start,count,depth);
