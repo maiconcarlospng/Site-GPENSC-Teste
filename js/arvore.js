@@ -58,10 +58,6 @@
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
       fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
-  // Textura de folhagem: pequenos ramos com folhas lanceoladas e nervuras,
-  // distribuídos na copa sem cobrir os nós de navegação.
-  const leafPalette=['#5f884f','#739963','#88a874','#4f7951','#a1bb83','#6d925e'];
-  const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
   // Ramos finos e folhas individuais criam uma copa botânica, com silhueta
   // contínua no fundo e ramificações variadas em vez de carimbos repetidos.
   const leafPalette=['#577d42','#668c43','#789c49','#89a94a','#a6bd55','#b7ca69','#6d914c'];
