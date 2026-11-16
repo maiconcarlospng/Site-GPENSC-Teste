@@ -158,7 +158,7 @@ function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo
 const SITE_AREAS=[
   {title:'Grupo',names:['equipe','linha_tempo','galeria','parcerias','apoio']},
   {title:'Pesquisa',names:['linhas','projetos','publicacoes','defesas','metodos']},
-  {title:'Extensão e formação',names:['conteudos_vi_no_rotulo','capacitacao_atividades','disciplinas','impactos']},
+  {title:'Extensão e formação',names:['conteudos_vi_no_rotulo','equipe_vi_no_rotulo','capacitacao_atividades','disciplinas','impactos']},
   {title:'Conteúdos',names:['materiais','videos','livros','noar','sites']},
   {title:'Atualizações',names:['noticias','eventos']},
   {title:'Gestão editorial',names:['planejamento']}
@@ -171,7 +171,7 @@ const SITE_PAGES={
   equipe:'grupo.html#equipe',linha_tempo:'grupo.html#historia',galeria:'index.html',
   parcerias:'grupo.html#parcerias',apoio:'grupo.html#parcerias',
   linhas:'linhas.html',projetos:'projetos.html',publicacoes:'publicacoes.html',defesas:'teses.html',
-  metodos:'pesquisa.html',conteudos_vi_no_rotulo:'vi-no-rotulo.html#vi-publicacoes',
+  metodos:'pesquisa.html',conteudos_vi_no_rotulo:'vi-no-rotulo.html#vi-publicacoes',equipe_vi_no_rotulo:'vi-no-rotulo.html#vi-equipe',
   capacitacao_atividades:'capacitacao-epidemiologia.html',disciplinas:'ensino.html',impactos:'pesquisa.html',
   materiais:'conteudos.html#materiais',videos:'conteudos.html#videos',livros:'conteudos.html#livros',
   noar:'conteudos.html#podcasts',sites:'conteudos.html',noticias:'atualizacoes.html#noticias',
