@@ -95,7 +95,6 @@ div(
 
 ```{=html}
 <style>
-<style>
 /* Cartões editoriais para as iniciativas da página inicial. */
 html body .gp-initiatives{width:100%;margin:clamp(28px,4vw,48px) 0;padding:0}
 html body .gp-initiatives .gp-initiatives-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px 20px;margin:0 0 18px;padding:0}
@@ -103,23 +102,23 @@ html body .gp-initiatives .gp-initiatives-header h2{margin:0;color:#1f4d2b;font-
 html body .gp-initiatives a.gp-initiatives-all{color:#286139;text-decoration:none;font-size:.9rem;font-weight:650;border-bottom:1px solid #9bad98;padding-bottom:3px}
 html body .gp-initiatives a.gp-initiatives-all:hover{border-bottom-color:#1f4d2b}
 html body .gp-initiatives .gp-initiatives-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
-html body .gp-initiatives a.gp-initiative{--gp-accent:#0b6175;--gp-art:#e8f3f4;display:grid;grid-template-columns:minmax(145px,38%) minmax(0,1fr);min-width:0;min-height:228px;overflow:hidden;border:1px solid #dfe7dd;border-radius:16px;background:#fff;color:#254c34;text-decoration:none;box-shadow:0 5px 20px rgba(31,77,43,.07);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+html body .gp-initiatives a.gp-initiative{--gp-accent:#0b6175;--gp-art:#e8f3f4;display:grid;grid-template-columns:minmax(145px,38%) minmax(0,1fr);min-width:0;min-height:228px;overflow:hidden;border:1px solid color-mix(in srgb,var(--gp-accent) 30%,#dfe7dd);border-radius:18px;background:#fff;box-shadow:0 10px 24px rgba(31,77,43,.08);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;text-decoration:none;position:relative}
 html body .gp-initiatives a.gp-initiative--vi{--gp-accent:#08758b;--gp-art:#e6f3f5}
 html body .gp-initiatives a.gp-initiative--epi{--gp-accent:#b9560f;--gp-art:#f6eee4}
 html body .gp-initiatives a.gp-initiative:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--gp-accent) 35%,#dfe7dd);box-shadow:0 12px 28px rgba(31,77,43,.13)}
 html body .gp-initiatives a.gp-initiative:focus-visible{outline:3px solid var(--gp-accent);outline-offset:3px}
 html body .gp-initiatives .gp-initiative-art{position:relative;display:grid;place-items:center;min-width:0;min-height:100%;padding:18px;background:var(--gp-art);overflow:hidden}
-html body .gp-initiatives .gp-initiative-art::after{content:"";position:absolute;inset:auto -18px -27px auto;width:95px;height:95px;border:1px solid color-mix(in srgb,var(--gp-accent) 16%,transparent);border-radius:50%;pointer-events:none}
+html body .gp-initiatives .gp-initiative-art::after{content:"";position:absolute;inset:auto -18px -27px auto;width:95px;height:95px;border:1px solid color-mix(in srgb,var(--gp-accent) 16%,transparent);border-radius:50%;background:color-mix(in srgb,var(--gp-accent) 8%,transparent)}
 html body .gp-initiatives .gp-initiative-art img{position:relative;z-index:1;display:block;width:100%;height:100%;max-width:190px;max-height:175px;object-fit:contain;border-radius:10px}
 html body .gp-initiatives .gp-initiative--vi .gp-initiative-art img{padding:8px;background:#fff;box-shadow:0 3px 12px rgba(12,62,75,.08)}
 html body .gp-initiatives .gp-initiative-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:23px 24px 20px}
 html body .gp-initiatives .gp-initiative-kicker{color:var(--gp-accent);font-size:.72rem;font-weight:760;line-height:1.4;letter-spacing:.075em;text-transform:uppercase}
-html body .gp-initiatives .gp-initiative-copy strong{display:block;margin:11px 0 0;color:#214e35;font-size:clamp(1.22rem,1.7vw,1.55rem);font-weight:740;line-height:1.25;letter-spacing:-.025em;text-wrap:pretty}
+html body .gp-initiatives .gp-initiative-copy strong{display:block;margin:11px 0 0;color:#214e35;font-size:clamp(1.22rem,1.7vw,1.55rem);font-weight:740;line-height:1.25;letter-spacing:-.025em;text-wrap:balance}
 html body .gp-initiatives .gp-initiative-description{display:block;margin:10px 0 0;color:#56665a;font-size:.93rem;line-height:1.55}
 html body .gp-initiatives .gp-initiative-arrow{display:inline-flex;align-items:center;gap:7px;margin:auto 0 0;padding-top:16px;color:var(--gp-accent);font-size:.86rem;font-weight:700}
 html body .gp-initiatives .gp-initiative-arrow::before{content:none}html body .gp-initiatives .gp-initiative-arrow::after{content:"→";font-family:Arial,sans-serif;font-size:1.1rem;line-height:1}
-@media(max-width:900px){html body .gp-initiatives .gp-initiatives-list{grid-template-columns:minmax(0,1fr);gap:13px}html body .gp-initiatives a.gp-initiative{grid-template-columns:minmax(140px,32%) minmax(0,1fr);min-height:190px}html body .gp-initiatives .gp-initiative-art{padding:14px}html body .gp-initiatives .gp-initiative-copy{padding:20px 22px}}
-@media(max-width:480px){html body .gp-initiatives{margin:24px 0 32px}html body .gp-initiatives .gp-initiatives-header{align-items:center;margin-bottom:14px}html body .gp-initiatives .gp-initiatives-header h2{font-size:1.4rem}html body .gp-initiatives a.gp-initiative{grid-template-columns:100px minmax(0,1fr);min-height:170px;border-radius:12px}html body .gp-initiatives .gp-initiative-art{padding:10px}html body .gp-initiatives .gp-initiative-art img{max-height:130px}html body .gp-initiatives .gp-initiative-copy{padding:16px 15px}html body .gp-initiatives .gp-initiative-kicker{font-size:.63rem}html body .gp-initiatives .gp-initiative-copy strong{margin-top:8px;font-size:1.05rem}html body .gp-initiatives .gp-initiative-description{margin-top:7px;font-size:.82rem;line-height:1.42}html body .gp-initiatives .gp-initiative-arrow{padding-top:10px;font-size:.78rem}}
+@media(max-width:900px){html body .gp-initiatives .gp-initiatives-list{grid-template-columns:minmax(0,1fr);gap:13px}html body .gp-initiatives a.gp-initiative{grid-template-columns:minmax(140px,32%) minmax(0,1fr);min-height:180px}}
+@media(max-width:480px){html body .gp-initiatives{margin:24px 0 32px}html body .gp-initiatives .gp-initiatives-header{align-items:center;margin-bottom:14px}html body .gp-initiatives .gp-initiatives-header h2{font-size:1.5rem}html body .gp-initiatives a.gp-initiative{grid-template-columns:minmax(0,1fr);min-height:0}html body .gp-initiatives .gp-initiative-art{min-height:150px}html body .gp-initiatives .gp-initiative-copy{padding:18px 16px 16px}html body .gp-initiatives .gp-initiative-arrow{padding-top:12px}}
 @media(prefers-reduced-motion:reduce){html body .gp-initiatives a.gp-initiative{transition:none}html body .gp-initiatives a.gp-initiative:hover{transform:none}}
 </style>
 ```
@@ -170,7 +169,6 @@ tags$section(
 )
 ```
 
-
 ```{r}
 div(
   class = "home-arvore-destaque reveal",
@@ -191,14 +189,11 @@ div(
 )
 ```
 
-
-
 ```{r}
 noticias_recentes <- registros_reais(noticias, "titulo") |>
   arrange(desc(data)) |>
   head(3)
 
-# Não mostrar chamada vazia na home: a página Notícias continua acessível pelo menu.
 if (nrow(noticias_recentes) > 0) {
   tagList(
     h2(as.character(cfg$titulo_home_noticias)),
@@ -275,391 +270,12 @@ if (nrow(eventos_home_futuros) > 0) {
 ```{r}
 # Mês exibido na página inicial, a partir dos mesmos eventos reais do painel.
 hoje_home <- Sys.Date()
-inicio_mes_home <- as.Date(format(hoje_home, "%Y-%m-01"))
-inicio_proximo_mes_home <- seq(inicio_mes_home, by = "month", length.out = 2)[2]
-qtd_dias_home <- as.integer(format(inicio_proximo_mes_home - 1, "%d"))
-inicio_semana_home <- (as.POSIXlt(inicio_mes_home)$wday + 6L) %% 7L
-total_casas_home <- ceiling((inicio_semana_home + qtd_dias_home) / 7) * 7L
-meses_pt_home <- c("janeiro", "fevereiro", "março", "abril", "maio", "junho",
-                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
-mes_nome_home <- meses_pt_home[as.integer(format(inicio_mes_home, "%m"))]
-mes_rotulo_home <- paste0(toupper(substr(mes_nome_home, 1, 1)),
-                           substring(mes_nome_home, 2),
-                           " de ", format(inicio_mes_home, "%Y"))
-eventos_mes_home <- eventos_home_publicados[
-  !is.na(eventos_home_publicados$data) &
-    eventos_home_publicados$data >= inicio_mes_home &
-    eventos_home_publicados$data < inicio_proximo_mes_home,
-  ,
-  drop = FALSE
-]
-
-casa_mes_home <- function(posicao) {
-  dia <- posicao - inicio_semana_home
-  if (dia < 1L || dia > qtd_dias_home) {
-    return(tags$span(class = "gp-month-blank", `aria-hidden` = "true"))
-  }
-
-  data_dia <- inicio_mes_home + (dia - 1L)
-  data_iso <- format(data_dia, "%Y-%m-%d")
-  hoje <- data_dia == hoje_home
-  quais <- which(eventos_mes_home$data == data_dia)
-  titulos <- unique(as.character(eventos_mes_home$titulo[quais]))
-  tem_atividade <- length(quais) > 0
-  classe <- paste(c("gp-month-cell", if (hoje) "is-today",
-                    if (tem_atividade) "has-event"), collapse = " ")
-  numero <- tags$time(datetime = data_iso, as.character(dia))
-  acessivel <- paste0(dia, " de ", mes_nome_home,
-                       if (hoje) ", hoje" else "",
-                       if (tem_atividade) paste0(": ", paste(titulos, collapse = "; ")) else "")
-
-  if (tem_atividade) {
-    tags$a(
-      class = classe,
-      href = "atualizacoes.html#agenda",
-      title = paste(titulos, collapse = " · "),
-      `aria-label` = acessivel,
-      numero,
-      tags$span(class = "gp-month-dot", `aria-hidden` = "true")
-    )
-  } else {
-    tags$span(class = classe, `aria-label` = acessivel, numero)
-  }
-}
-
-div(
-  class = "gp-month-calendar",
-  `aria-label` = paste("Calendário de", mes_rotulo_home),
-  div(
-    class = "gp-month-head",
-    tags$span("CALENDÁRIO DO MÊS", class = "gp-month-kicker"),
-    tags$strong(mes_rotulo_home)
-  ),
-  div(
-    class = "gp-month-weekdays",
-    lapply(c("Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"),
-           function(dia) tags$span(dia))
-  ),
-  div(
-    class = "gp-month-grid",
-    lapply(seq_len(total_casas_home), casa_mes_home)
-  ),
-  div(
-    class = "gp-month-footnote",
-    tags$span(class = "gp-month-legend-swatch", `aria-hidden` = "true"),
-    "Dia com atividade cadastrada"
-  ),
-  # Fonte de dados para atualizar o mês no navegador sem mexer nos registros.
-  div(
-    class = "gp-month-data",
-    style = "display:none",
-    lapply(seq_len(nrow(eventos_home_publicados)), function(i) {
-      dia_evento <- eventos_home_publicados$data[i]
-      if (is.na(dia_evento)) return(NULL)
-      tags$time(
-        datetime = format(dia_evento, "%Y-%m-%d"),
-        `data-title` = as.character(eventos_home_publicados$titulo[i])
-      )
-    })
-  )
-)
+inicio_mes_home <- as.Date(format(hoje_home, "%Y-%m-%d"))
 ```
 
 [Ver agenda completa](atualizacoes.qmd#agenda){.btn .btn-secondary .agenda-botao}
 :::
-::::
-
-```{=html}
-<style>
-/* GPENSC: correção visual isolada da agenda mensal.
-   Regras locais mantêm o calendário legível mesmo com CSS antigo em cache.
-   O :is() preserva a especificidade da folha principal sem depender da
-   presença da árvore ou de uma estrutura particular de wrappers do Quarto. */
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) {
-  box-sizing: border-box !important;
-  width: min(1180px, calc(100% - 36px)) !important;
-  max-width: 1180px !important;
-  margin: 20px auto 28px !important;
-  padding: clamp(22px, 3.2vw, 38px) !important;
-  background: #f1f6ef !important;
-  border: 1px solid #dbe7d7 !important;
-  border-radius: 16px !important;
-  overflow: visible !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(325px, 440px) !important;
-  grid-template-rows: auto auto 1fr auto !important;
-  grid-template-areas: "selo calendario" "titulo calendario" "evento calendario" "acao calendario" !important;
-  align-items: start !important;
-  column-gap: clamp(25px, 4vw, 56px) !important;
-  row-gap: 12px !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > .agenda-selo {
-  grid-area: selo !important;
-  align-self: end !important;
-  margin: 2px 0 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > h2 {
-  grid-area: titulo !important;
-  margin: 2px 0 4px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  text-align: left !important;
-  font-size: clamp(1.65rem, 2.65vw, 2.4rem) !important;
-  line-height: 1.18 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > h2::before {
-  display: none !important;
-  content: none !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > .cell:has(.agenda-sem-eventos),
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > .cell:has(.agenda-proximo-evento) {
-  grid-area: evento !important;
-  align-self: start !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  margin: 4px 0 0 !important;
-  padding: 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-sem-eventos {
-  display: block !important;
-  width: 100% !important;
-  min-height: 0 !important;
-  padding: 12px 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-sem-eventos p {
-  margin: 0 !important;
-  color: #506958 !important;
-  font-size: .96rem !important;
-  font-weight: 500 !important;
-  line-height: 1.5 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > .cell:has(.gp-month-calendar) {
-  grid-area: calendario !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  align-self: start !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > p:has(.agenda-botao) {
-  grid-area: acao !important;
-  justify-self: start !important;
-  margin: 8px 0 0 !important;
-  padding: 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-calendar {
-  box-sizing: border-box !important;
-  display: block !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  padding: clamp(16px, 2.3vw, 24px) !important;
-  background: #fff !important;
-  border: 1px solid #d7e3d3 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 3px 13px rgba(31,77,43,.05) !important;
-  color: #1f4d2b !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-head {
-  position: static !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  grid-template-areas: "kicker controles" "mes controles" !important;
-  align-items: center !important;
-  column-gap: 12px !important;
-  row-gap: 3px !important;
-  min-height: 0 !important;
-  margin: 0 0 12px !important;
-  padding: 0 0 14px !important;
-  border-bottom: 1px solid #e5ece1 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-kicker {
-  grid-area: kicker !important;
-  color: #778877 !important;
-  font-size: .67rem !important;
-  font-weight: 750 !important;
-  line-height: 1.3 !important;
-  letter-spacing: .08em !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-head strong {
-  grid-area: mes !important;
-  color: #234e30 !important;
-  font-size: clamp(1.05rem, 1.7vw, 1.26rem) !important;
-  font-weight: 750 !important;
-  line-height: 1.35 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-controls {
-  grid-area: controles !important;
-  position: static !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  margin: 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-nav-button {
-  box-sizing: border-box !important;
-  display: grid !important;
-  place-items: center !important;
-  width: 36px !important;
-  height: 36px !important;
-  min-width: 36px !important;
-  min-height: 36px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 1px solid #d7e4d4 !important;
-  border-radius: 8px !important;
-  background: #f8faf7 !important;
-  color: #1f4d2b !important;
-  font: 700 22px/1 Inter,system-ui,sans-serif !important;
-  cursor: pointer !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-nav-button:is(:hover,:focus-visible) {
-  background: #eaf3e7 !important;
-  border-color: #77a268 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-weekdays,
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-grid {
-  box-sizing: border-box !important;
-  display: grid !important;
-  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
-  gap: 4px !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-weekdays {
-  margin-bottom: 5px !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-weekdays span {
-  display: grid !important;
-  place-items: center !important;
-  height: 26px !important;
-  color: #6f826f !important;
-  font-size: .69rem !important;
-  font-weight: 700 !important;
-  text-align: center !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-cell,
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-blank {
-  position: relative !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-width: 0 !important;
-  min-height: 38px !important;
-  aspect-ratio: auto !important;
-  margin: 0 !important;
-  padding: 7px 0 !important;
-  border: 1px solid transparent !important;
-  border-radius: 8px !important;
-  background: #f8faf7 !important;
-  color: #395841 !important;
-  font-size: .87rem !important;
-  font-weight: 550 !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  line-height: 1.25 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-blank {
-  visibility: hidden !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-cell time {
-  display: block !important;
-  font-variant-numeric: tabular-nums !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-cell.is-today {
-  border-color: #77a364 !important;
-  background: #eaf3e4 !important;
-  color: #1f4d2b !important;
-  font-weight: 800 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) a.gp-month-cell.has-event {
-  border-color: #efd4bd !important;
-  background: #fff5eb !important;
-  color: #8b4818 !important;
-  font-weight: 750 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) a.gp-month-cell.has-event:is(:hover,:focus-visible) {
-  border-color: #d9731f !important;
-  background: #ffe9d6 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-dot {
-  position: absolute !important;
-  left: 50% !important;
-  bottom: 2px !important;
-  width: 5px !important;
-  height: 5px !important;
-  border-radius: 50% !important;
-  transform: translateX(-50%) !important;
-  background: #d9731f !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-footnote {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  margin: 12px 0 0 !important;
-  color: #637768 !important;
-  font-size: .74rem !important;
-  line-height: 1.4 !important;
-}
-:is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-legend-swatch {
-  box-sizing: border-box !important;
-  display: block !important;
-  flex: 0 0 7px !important;
-  width: 7px !important;
-  height: 7px !important;
-  border-radius: 50% !important;
-  background: #d9731f !important;
-}
-@media (max-width: 850px) {
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada {
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-template-rows: auto !important;
-    grid-template-areas: "selo" "titulo" "evento" "calendario" "acao" !important;
-    gap: 12px !important;
-  }
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .agenda-chamada > .cell:has(.gp-month-calendar) {
-    margin-top: 8px !important;
-  }
-}
-@media (max-width: 480px) {
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) {
-    width: calc(100% - 24px) !important;
-    margin: 14px auto 22px !important;
-    padding: 18px 14px !important;
-  }
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-calendar {
-    padding: 13px 10px !important;
-  }
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-head {
-    column-gap: 6px !important;
-  }
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-weekdays,
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-grid {
-    gap: 2px !important;
-  }
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-cell,
-  :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) .gp-month-blank {
-    min-height: 35px !important;
-    padding: 6px 0 !important;
-    font-size: .8rem !important;
-  }
-}
-</style>
-```
+:::::
 
 ```{=html}
 <script defer src="js/agenda-home.js"></script>
