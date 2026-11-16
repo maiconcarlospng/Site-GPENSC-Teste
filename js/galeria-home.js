@@ -1,6 +1,5 @@
-/* GPENSC — faixa de fotografias: navegação automática discreta.
-   Preserva fotos, foco e zoom cadastrados no painel.
-   Sem título, contador ou instruções visíveis. */
+/* GPENSC — faixa de fotografias: centralizada no primeiro quadro e contínua
+   nos dois sentidos. Pausa ao receber foco, hover ou interação manual. */
 (() => {
   "use strict";
   const iniciar = () => {
@@ -13,17 +12,34 @@
       if (fotos.length < 2) return;
 
       const total = fotos.length;
-      const clones = fotos.slice(0, Math.min(3, total)).map(foto => {
+      const quantidadeClones = Math.min(3, total);
+      const clonar = foto => {
         const copia = foto.cloneNode(true);
         copia.setAttribute("aria-hidden", "true");
         copia.dataset.galeriaClone = "1";
         copia.querySelectorAll("img").forEach(img => {
           img.alt = "";
           img.loading = "eager";
+          img.removeAttribute("id");
         });
-        faixa.appendChild(copia);
         return copia;
-      });
+      };
+      // Moldura anterior e posterior: os dois extremos podem fazer a volta
+      // sem mostrar espaço vazio nem inverter a direção do movimento.
+      const clonesInicio = fotos.slice(-quantidadeClones).map(clonar);
+      [...clonesInicio].reverse().forEach(copia => faixa.insertBefore(copia, faixa.firstChild));
+      const clonesFim = fotos.slice(0, quantidadeClones).map(clonar);
+      clonesFim.forEach(copia => faixa.appendChild(copia));
+      const itensTrilho = [...clonesInicio, ...fotos, ...clonesFim];
+      const deslocamento = foto => {
+        const fr = faixa.getBoundingClientRect();
+        const ir = foto.getBoundingClientRect();
+        let destino = faixa.scrollLeft + ir.left - fr.left;
+        if (matchMedia("(max-width:767.98px)").matches) {
+          destino -= (fr.width - ir.width) / 2;
+        }
+        return Math.max(0, destino);
+      };
 
       const criarControle = (classe, simbolo, texto) => {
         const botao = document.createElement("button");
@@ -44,25 +60,20 @@
       let programaticoAte = 0;
       const limparTempo = id => { if (id !== null) clearTimeout(id); };
       const parar = () => { if (timer !== null) clearInterval(timer); timer = null; };
-      const deslocamento = (foto) => {
-        const fr = faixa.getBoundingClientRect();
-        const ir = foto.getBoundingClientRect();
-        let destino = faixa.scrollLeft + ir.left - fr.left;
-        if (emCelular()) destino -= (fr.width - ir.width) / 2;
-        return Math.max(0, destino);
-      };
       const ir = (foto, suave = true) => {
         if (!foto) return;
-        programaticoAte = Date.now() + (suave ? 850 : 100);
-        faixa.scrollTo({ left: deslocamento(foto), behavior: suave && !reduzir.matches ? "smooth" : "auto" });
+        programaticoAte = Date.now() + (suave ? 900 : 120);
+        faixa.scrollTo({
+          left: deslocamento(foto),
+          behavior: suave && !reduzir.matches ? "smooth" : "auto"
+        });
       };
-
-      // Um salto invisível após a foto clonada mantém o efeito de faixa contínua.
-      const voltarAoInicio = () => {
-        programaticoAte = Date.now() + 200;
+      const voltarAoOriginal = foto => {
+        if (!foto) return;
+        programaticoAte = Date.now() + 240;
         faixa.style.setProperty("scroll-behavior", "auto", "important");
         faixa.style.setProperty("scroll-snap-type", "none", "important");
-        faixa.scrollLeft = deslocamento(fotos[0]);
+        faixa.scrollLeft = deslocamento(foto);
         requestAnimationFrame(() => {
           faixa.style.removeProperty("scroll-behavior");
           faixa.style.removeProperty("scroll-snap-type");
@@ -77,10 +88,14 @@
         limparTempo(saltar);
         if (i >= total) {
           atual = 0;
-          ir(clones[0], true);
-          saltar = setTimeout(voltarAoInicio, reduzir.matches ? 80 : 750);
+          ir(clonesFim[0], true);
+          saltar = setTimeout(() => voltarAoOriginal(fotos[0]), reduzir.matches ? 80 : 800);
+        } else if (i < 0) {
+          atual = total - 1;
+          ir(clonesInicio[clonesInicio.length - 1], true);
+          saltar = setTimeout(() => voltarAoOriginal(fotos[total - 1]), reduzir.matches ? 80 : 800);
         } else {
-          atual = Math.max(0, i);
+          atual = i;
           ir(fotos[atual], true);
         }
       };
@@ -105,7 +120,7 @@
       };
 
       anterior.addEventListener("click", () => {
-        mover(atual === 0 ? total - 1 : atual - 1, true);
+        mover(atual - 1, true);
         anterior.blur();
       });
       proximo.addEventListener("click", () => {
@@ -130,14 +145,22 @@
           const viewport = faixa.getBoundingClientRect();
           const centro = emCelular() ? viewport.left + viewport.width / 2 : viewport.left + 16;
           let melhor = 0, distanciaMinima = Infinity;
-          [...fotos, ...clones].forEach((item, i) => {
+          itensTrilho.forEach((item, i) => {
             const r = item.getBoundingClientRect();
             const x = emCelular() ? r.left + r.width / 2 : r.left;
             const distancia = Math.abs(x - centro);
             if (distancia < distanciaMinima) { distanciaMinima = distancia; melhor = i; }
           });
-          atual = melhor % total;
-          if (melhor >= total) voltarAoInicio();
+          const base = clonesInicio.length;
+          if (melhor < base) {
+            atual = (total - base + melhor + total) % total;
+            voltarAoOriginal(fotos[atual]);
+          } else if (melhor >= base + total) {
+            atual = (melhor - base - total) % total;
+            voltarAoOriginal(fotos[atual]);
+          } else {
+            atual = melhor - base;
+          }
           pausarTemporariamente();
         }, 160);
       }, { passive: true });
@@ -150,7 +173,12 @@
         ir(fotos[atual], false);
         iniciarAutomatico();
       }, { passive: true });
-      iniciarAutomatico();
+
+      // Ajusta a posição no primeiro frame, quando larguras e padding já existem.
+      requestAnimationFrame(() => {
+        voltarAoOriginal(fotos[0]);
+        iniciarAutomatico();
+      });
     });
   };
   if (document.readyState === "loading")
