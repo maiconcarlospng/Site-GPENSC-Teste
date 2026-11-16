@@ -28,7 +28,7 @@
       return child;
     };
     const svgPath = (parent, d, className) => el(parent, "path", { d, class: className });
-    const short = text => text.length > 45 ? text.slice(0, 43).trimEnd() + "…" : text;
+    const short = text => text.length > 27 ? text.slice(0, 25).trimEnd() + "…" : text;
     const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = () => window.matchMedia("(max-width: 720px)").matches;
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
