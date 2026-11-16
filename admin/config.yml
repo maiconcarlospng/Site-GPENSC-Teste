@@ -583,3 +583,25 @@ collections:
           label: Pasta de contribuições
           widget: string
           required: false
+
+  - name: "vi_no_rotulo"
+    label: "Vi no Rótulo · Minissite"
+    files:
+      - label: "Conteúdos e publicações"
+        name: "conteudos_vi_no_rotulo"
+        file: "data/vi-no-rotulo.yml"
+        fields:
+          - label: "Publicações selecionadas"
+            name: "conteudos"
+            widget: "list"
+            collapsed: true
+            required: false
+            label_singular: "conteúdo"
+            hint: "Adicione publicações reais do projeto. Sem registros, o site mostra um convite discreto para o Instagram."
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título", name: "titulo", widget: "string" }
+              - { label: "Categoria", name: "categoria", widget: "select", options: ["Educação alimentar", "Rotulagem nutricional", "Dicas de leitura", "Notícias do projeto", "Pesquisa", "Evento", "Outro"], required: false }
+              - { label: "Resumo", name: "resumo", widget: "text", required: false }
+              - { label: "Imagem do conteúdo", name: "imagem", widget: "image", required: false, hint: "Use uma imagem autorizada do material publicado." }
+              - { label: "Link da publicação", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use um link completo com https://.'] }
