@@ -142,6 +142,38 @@
     }
     return group;
   }
+  // Galhos secundários representam projetos; frutos representam pessoas e produtos.
+  // Apenas contagens positivas que vieram do CMS geram elementos.
+  function linkedLife(point,index){
+    const data=rows[index].dataset;
+    const projects=Number(data.projects||0);
+    const kinds=[
+      ['people','Integrantes','#99b25b'],
+      ['publications','Produções científicas','#d9731f'],
+      ['theses','Teses e dissertações','#b35c49']
+    ].filter(([key])=>Number(data[key]||0)>0);
+    if(!projects&&!kinds.length)return null;
+    const life=make('g',{class:'gp49-linked-life','pointer-events':'none','aria-hidden':'true'},foliageLayer);
+    if(projects){
+      const direction=index%2?1:-1;
+      const x=point.x,y=point.y;
+      make('path',{d:'M'+x+','+(y+5)+' Q'+(x+direction*23)+','+(y-4)+' '+(x+direction*39)+','+(y-23),
+        class:'gp49-project-twig',fill:'none',stroke:'#7d7650','stroke-width':3,'stroke-linecap':'round'},life);
+      make('ellipse',{cx:x+direction*39,cy:y-23,rx:10,ry:5,
+        transform:'rotate('+(direction*25)+' '+(x+direction*39)+' '+(y-23)+')',
+        fill:'#668c49',class:'gp49-project-leaf'},life);
+    }
+    kinds.forEach(([key,label,color],k)=>{
+      const angle=(k*2.22)+(index*.35);
+      const x=point.x+Math.cos(angle)*35;
+      const y=point.y+Math.sin(angle)*22-9;
+      make('path',{d:'M'+x+','+(y-6)+' q-4 -6 0 -10',class:'gp49-fruit-stem',
+        fill:'none',stroke:'#68734c','stroke-width':2},life);
+      make('ellipse',{cx:x,cy:y,rx:6.8,ry:9,fill:color,class:'gp49-fruit'},life);
+      make('ellipse',{cx:x-2,cy:y-3,rx:1.6,ry:3,fill:'#fff',opacity:.3},life);
+    });
+    return life;
+  }
   function focusOn(start,count,depth) {
     const center=point(start,count,depth);
     const width=clamp(210+count/total*1310,290,1400);
@@ -153,6 +185,7 @@
     const stem=limb(parent,p,fromWidth,toWidth);
     const terminal=count===1;
     const spray=terminal?leaves(p,start):null;
+    const linked=terminal?linkedLife(p,start):null;
     const bubble=make('g',{
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
@@ -194,6 +227,7 @@
       stem.remove();
       bubble.remove();
       if(spray)spray.remove();
+      if(linked)linked.remove();
     }
     const tipLabel=terminal?nodeNames[start]:'Explorar '+count+' linhas de pesquisa';
     bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
