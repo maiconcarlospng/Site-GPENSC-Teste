@@ -144,38 +144,44 @@ div(
 
 ```{r}
 tags$section(
-  class = "gp-home-projects",
-  `aria-labelledby` = "gp-home-projects-title",
+  class = "gp-initiatives",
+  `aria-labelledby` = "gp-initiatives-title",
   div(
-    class = "gp-home-projects-header",
-    div(
-      h2(id = "gp-home-projects-title", "Projetos e iniciativas")
-    ),
-    tags$a(href = "extensao.html#iniciativas", class = "gp-home-projects-all", "Extensão")
+    class = "gp-initiatives-header",
+    tags$h2(id = "gp-initiatives-title", "Projetos e iniciativas"),
+    tags$a(href = "extensao.html#iniciativas", class = "gp-initiatives-all", "Extensão")
   ),
   div(
-    class = "gp-home-projects-grid",
+    class = "gp-initiatives-list",
     tags$a(
-      href = "vi-no-rotulo.html", class = "gp-home-project-card gp-home-project-card--vi",
+      href = "vi-no-rotulo.html",
+      class = "gp-initiative gp-initiative--vi",
+      span(class = "gp-initiative-number", `aria-hidden` = "true", "01"),
       span(
-        class = "gp-home-project-card-copy",
-        span(class = "gp-home-project-card-label", "EDUCAÇÃO ALIMENTAR"),
-        tags$strong("Vi no Rótulo"),
-        tags$small("Informação sobre rotulagem nutricional para compreender os alimentos."),
-        span(class = "gp-home-project-card-cta", "Vi no Rótulo", tags$span(`aria-hidden` = "true", "↗"))
+        class = "gp-initiative-name",
+        span(class = "gp-initiative-kicker", "Educação alimentar"),
+        tags$strong("Vi no Rótulo")
       ),
-      tags$img(src = "img/marcas/vi-no-rotulo-oficial.png", width = 138, height = 91, loading = "lazy", alt = "Vi no Rótulo")
+      span(
+        class = "gp-initiative-description",
+        "Informação sobre rotulagem nutricional para compreender os alimentos."
+      ),
+      span(class = "gp-initiative-arrow", `aria-hidden` = "true", "↗")
     ),
     tags$a(
-      href = "capacitacao-epidemiologia.html", class = "gp-home-project-card gp-home-project-card--epi",
+      href = "capacitacao-epidemiologia.html",
+      class = "gp-initiative gp-initiative--epi",
+      span(class = "gp-initiative-number", `aria-hidden` = "true", "02"),
       span(
-        class = "gp-home-project-card-copy",
-        span(class = "gp-home-project-card-label", "MÉTODOS E FORMAÇÃO"),
-        tags$strong("Capacitação em Epidemiologia e Análise de Dados"),
-        tags$small("Ferramentas para interpretar indicadores, dados e evidências em saúde."),
-        span(class = "gp-home-project-card-cta", "Sobre a capacitação", tags$span(`aria-hidden` = "true", "↗"))
+        class = "gp-initiative-name",
+        span(class = "gp-initiative-kicker", "Métodos e formação"),
+        tags$strong("Capacitação em Epidemiologia e Análise de Dados")
       ),
-      tags$img(src = "img/ilustracoes/epidemiologia-resumo.svg", width = 160, height = 120, loading = "lazy", alt = "")
+      span(
+        class = "gp-initiative-description",
+        "Ferramentas para interpretar indicadores, dados e evidências em saúde."
+      ),
+      span(class = "gp-initiative-arrow", `aria-hidden` = "true", "↗")
     )
   )
 )
