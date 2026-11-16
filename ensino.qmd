@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Ensino"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=ensino-extensao.html#ensino">
-<p><a href="ensino-extensao.html#ensino">Ir para a seção</a></p>
-```
+Formação acadêmica, cursos, palestras, workshops e atividades de ensino do GPENSC.
+
+## Atividades de ensino
+
+{{< include partials/ensino.qmd >}}
