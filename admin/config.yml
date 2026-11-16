@@ -87,7 +87,7 @@ collections:
                 - { label: "ID do projeto", name: "id", widget: "string", hint: "Código único do projeto (ex.: PR01). Use este código para vincular integrantes e produções." }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Tipo", name: "tipo", widget: "select", options: ["Pesquisa", "Extensão"], hint: "Define em qual área o projeto será apresentado." }
-                - { label: "Situação", name: "situacao", widget: "select", options: ["Em andamento", "Em planejamento", "Concluído", "Suspenso"], hint: "Use “Em andamento” para projetos ativos." }
+                - { label: "Situação", name: "situacao", widget: "select", options: ["Em andamento", "Em planejamento", "Concluído", "Suspenso", "Não informado"], required: false, hint: "Escolha apenas uma situação confirmada; use “Não informado” quando o estado atual não estiver confirmado." }
                 - { label: "Coordenador", name: "coordenador", widget: "string", required: false }
                 - { label: "Início", name: "inicio", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
                 - { label: "Fim", name: "fim", widget: "string", required: false, hint: "Use o ano com quatro dígitos (ex.: 2026).", pattern: ['^[0-9]{4}$', 'Informe somente o ano com quatro dígitos.'] }
@@ -103,6 +103,7 @@ collections:
                   required: false
                   hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
                 - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
+                - { label: "Página do projeto", name: "url", widget: "string", required: false, hint: "Use o caminho de uma página do site (ex.: vi-no-rotulo.html) ou uma URL completa." }
         - label: "Publicações"
           name: "publicacoes"
           file: "data/publicacoes.yml"
