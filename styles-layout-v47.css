@@ -1,0 +1,97 @@
+/* GPENSC: predictable gutters and spacing at phone/tablet widths.
+   Keep this layer last. It resolves legacy navbar selectors by ID. */
+html body #quarto-content #title-block-header .quarto-title-meta:not(:has(*)) {display:none!important;}
+html body #quarto-content #title-block-header {height:auto!important;}
+@media(min-width:1100px){
+ html body #quarto-header #navbarCollapse.navbar-collapse {display:flex!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav {display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;justify-content:flex-end!important;align-items:center!important;flex:1 1 auto!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;gap:0!important;overflow:visible!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav>.nav-item {display:block!important;flex:0 0 auto!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav>.nav-item>.nav-link {display:block!important;width:auto!important;min-height:44px!important;padding:.7rem .6rem!important;line-height:1.4!important;text-align:left!important;font-size:.9rem!important;border:0!important;white-space:nowrap!important;}
+}
+@media(max-width:1099px){
+ html body #quarto-header {position:relative!important;top:auto!important;transform:none!important;}
+ html body #quarto-header .navbar.navbar-expand-lg {min-height:64px!important;padding:6px 12px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-container {display:grid!important;grid-template-columns:44px minmax(0,1fr) auto 40px!important;grid-template-rows:52px auto!important;width:100%!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;gap:0 6px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-toggler {display:flex!important;grid-column:1!important;grid-row:1!important;order:0!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;margin:0!important;padding:8px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-brand-container {grid-column:2!important;grid-row:1!important;order:1!important;min-width:0!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;justify-content:flex-start!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-brand {gap:4px!important;min-width:0!important;margin:0!important;padding:0!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-logo {width:28px!important;max-height:32px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-title {font-size:.85rem!important;line-height:1.2!important;letter-spacing:0!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-container>.bandeiras-container {display:flex!important;grid-column:3!important;grid-row:1!important;gap:1px!important;margin:0!important;padding:0!important;position:static!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button {width:28px!important;min-width:28px!important;height:44px!important;padding:0!important;font-size:.65rem!important;}
+ html body #quarto-header .navbar.navbar-expand-lg #quarto-search {grid-column:4!important;grid-row:1!important;width:40px!important;min-width:40px!important;height:44px!important;margin:0!important;padding:0!important;}
+ html body #quarto-header .navbar.navbar-expand-lg #quarto-search .aa-DetachedSearchButton {width:40px!important;min-width:40px!important;height:44px!important;padding:8px!important;}
+ html body #quarto-header #navbarCollapse.navbar-collapse {grid-column:1/-1!important;grid-row:2!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0!important;position:static!important;order:4!important;flex:none!important;border:0!important;}
+ html body #quarto-header #navbarCollapse:not(.show):not(.collapsing) {display:none!important;}
+ html body #quarto-header #navbarCollapse.show {display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;padding:8px 0!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav {display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;width:100%!important;margin:0!important;padding:0!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav>.nav-item {display:block!important;width:100%!important;margin:0!important;padding:0!important;}
+ html body #quarto-header #navbarCollapse .navbar-nav>.nav-item>.nav-link {display:flex!important;align-items:center!important;min-height:46px!important;padding:10px 12px!important;width:100%!important;line-height:1.4!important;text-align:left!important;white-space:normal!important;font-size:1rem!important;}
+}
+@media(max-width:767px){
+ html body #quarto-content {padding:0!important;}
+ html body #quarto-content :is(main.content,main#quarto-document-content.content) {box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0 18px 32px!important;}
+ html body #quarto-content #quarto-document-content .cell,
+ html body #quarto-content #quarto-document-content .cell-output,
+ html body #quarto-content #quarto-document-content .cell-output-display {display:block!important;min-width:0!important;max-width:100%!important;width:100%!important;margin-inline:0!important;padding-inline:0!important;}
+ html body #quarto-content main.content #title-block-header.quarto-title-block {width:100%!important;height:auto!important;min-height:0!important;margin:0 0 12px!important;padding:24px 0 0!important;}
+ html body #quarto-content main.content #title-block-header h1.title {font-size:clamp(1.7rem,7vw,2.1rem)!important;line-height:1.15!important;margin:0!important;letter-spacing:-.025em!important;}
+ html body #quarto-content main.content #title-block-header .description {font-size:1rem!important;line-height:1.55!important;margin:12px 0 0!important;}
+ html body #quarto-content main.content :is(h2,h3,h4,p,li) {overflow-wrap:break-word;}
+ html body #quarto-content main.content h2 {font-size:1.35rem!important;line-height:1.3!important;margin:28px 0 12px!important;padding:0 0 8px!important;}
+ html body #quarto-content main.content h3 {font-size:1.1rem!important;line-height:1.4!important;margin:0 0 8px!important;}
+ html body #quarto-content main.content p {font-size:1rem!important;line-height:1.6!important;margin-bottom:14px;}
+ html body #quarto-content main.content .gp-section-index {display:flex!important;flex-wrap:wrap!important;gap:4px 18px!important;padding:10px 0!important;margin:20px 0 24px!important;}
+ html body #quarto-content main.content .gp-section-index a {min-height:40px;display:flex;align-items:center;font-size:.9rem!important;padding:6px 0!important;}
+ html body #quarto-content main.content :is(.sobre-cards,.objetivos-grid,.contato-grade,.equipe-grid,.gp-ext-projects,.gp-home-projects-grid,.cartoes,.linhas-pesquisa-grid,.gp-resultados-grid,.gp-research-index) {display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:18px!important;width:100%!important;min-width:0!important;margin-inline:0!important;}
+ html body #quarto-content main.content :is(.sobre-card,.objetivo-item,.contato-card,.membro-card,.gp-ext-card,.gp-home-project-card,.gp-acervo-card,.gp-resultado-card) {height:auto!important;min-height:0!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:16px 0!important;}
+ html body #quarto-content main.content :is(.sobre-abertura,.sobre-cta,.contato-intro) {margin:0 0 20px!important;padding:0!important;border:0!important;background:transparent!important;}
+ html body #quarto-content main.content .gp-ext-card {display:flex!important;flex-direction:column!important;gap:14px!important;}
+ html body #quarto-content main.content .gp-ext-card .gp-ext-art {height:140px!important;min-height:0!important;padding:16px!important;}
+ html body #quarto-content main.content .gp-ext-card .gp-ext-text {padding:0!important;}
+ html body #quarto-content main.content .gp-ext-card-epi .gp-ext-art {display:none!important;}
+ html body #quarto-content main.content .gp-home-project-card {grid-template-columns:minmax(0,1fr) 70px!important;gap:12px!important;}
+ html body #quarto-content main.content .gp-home-project-card--epi {grid-template-columns:minmax(0,1fr)!important;}
+ html body #quarto-content main.content :is(.gp-home-projects-header,.equipe-filtros) {display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;}
+ html body #quarto-content main.content :is(input,select,textarea) {box-sizing:border-box!important;min-width:0!important;max-width:100%!important;font-size:16px!important;}
+ html body #quarto-content main.content :is(.equipe-filtro-campo,.equipe-busca,.equipe-categoria-filtro) {width:100%!important;}
+ html body #quarto-content main.content :is(.btn,.gp-ext-link,.membro-link) {min-height:44px!important;max-width:100%!important;white-space:normal!important;line-height:1.4!important;}
+ html body #quarto-content main.content :is(.gp-home-projects,.home-arvore-destaque,.faixa-agenda) {margin-block:28px!important;padding:16px 0!important;}
+ html body #quarto-content main.content .agenda-chamada {padding:0!important;}
+ html body #quarto-content main.content .agenda-chamada h2 {margin-top:8px!important;}
+ html body #quarto-content main.content .parcerias-catalogo {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px 14px!important;}
+ html body #quarto-content main.content .parceria-instituicao {padding:0!important;min-width:0!important;}
+ html body #quarto-content main.content .parceria-instituicao h3 {font-size:.9rem!important;}
+ html body #quarto-content main.content .parceria-marca {height:80px!important;min-height:0!important;}
+ html body #quarto-content main.content .parceria-marca img {max-width:100%!important;max-height:70px!important;object-fit:contain;}
+ html body #quarto-content main.content .historia-item {grid-template-columns:minmax(0,1fr)!important;gap:8px!important;padding:0!important;margin-bottom:24px!important;}
+ html body #quarto-content main.content .historia-conteudo {padding:0!important;}
+ html body #quarto-content main.content .historia-conteudo h2 {margin-top:0!important;}
+ html body #quarto-content .gp44-shell {display:block!important;width:100%!important;margin:0!important;}
+ html body #quarto-content .gp44-shell .gp44-workspace {display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important;}
+ html body #quarto-content .gp44-shell .gp44-explorer-header {display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:12px!important;padding:14px!important;}
+ html body #quarto-content .gp44-shell .gp44-explorer-header h2 {margin:0!important;padding:0!important;font-size:1rem!important;}
+ html body #quarto-content .gp44-shell .gp44-tools {display:flex!important;gap:6px!important;margin-left:auto!important;}
+ html body #quarto-content .gp44-shell .gp44-tools button {min-width:44px!important;min-height:44px!important;}
+ html body #quarto-content .gp44-shell #gp44-map,
+ html body #quarto-content .gp44-shell .gp44-svg {width:100%!important;height:390px!important;min-height:0!important;max-height:none!important;}
+ html body #quarto-content .gp44-shell .gp44-explorer-footer {display:flex!important;flex-wrap:wrap!important;gap:8px!important;padding:12px!important;}
+ html body #quarto-content .gp44-shell .gp44-explorer-footer .gp44-swatch {display:none!important;}
+ html body #quarto-content .gp44-shell .gp44-detail {padding:16px!important;min-height:0!important;}
+ html body #quarto-content .gp44-shell .gp44-detail h2 {font-size:1.2rem!important;margin:8px 0 12px!important;padding:0!important;}
+ html body #quarto-content .gp44-shell .gp44-directory {margin-top:24px!important;padding:0!important;}
+ html body #quarto-content .gp44-shell .gp44-directory-header {display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;}
+ html body #quarto-content .gp44-shell .gp44-lines {grid-template-columns:minmax(0,1fr)!important;gap:8px!important;}
+ html body #quarto-content .gp44-shell .gp44-line-button {padding:12px!important;min-height:60px!important;gap:10px!important;}
+ html body #quarto-content .gp44-shell .gp44-line-name {font-size:.95rem!important;line-height:1.45!important;}
+ html body .gp-footer-bottom {display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:12px!important;padding:16px 18px!important;}
+ html body .gp-footer-copyright {flex:1 1 230px!important;font-size:.78rem!important;line-height:1.5!important;}
+ html body .gp-footer-admin-link {min-height:44px!important;display:flex!important;align-items:center!important;}
+}
+@media(max-width:359px){
+ html body #quarto-content :is(main.content,main#quarto-document-content.content) {padding-inline:14px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg {padding-inline:8px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-container {gap:0 3px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-title {font-size:.75rem!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button {width:25px!important;min-width:25px!important;}
+}

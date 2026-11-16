@@ -80,6 +80,7 @@ format:
       - styles-mobile-v43.css
       - styles-arvore-v44.css
       - styles-institucional-v46.css
+      - styles-layout-v47.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
