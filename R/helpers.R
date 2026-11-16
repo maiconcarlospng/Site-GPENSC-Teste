@@ -323,17 +323,9 @@ faixa_galeria <- function() {
 }
 
 bloco_intro <- function() {
-  # A página inicial apresenta as três frentes e oferece acesso direto a cada uma.
-  frente <- function(numero, titulo, descricao, href) {
-    tags$a(
-      class = "intro-sinal-item",
-      href = href,
-      span(class = "gp-activity-numeral", numero),
-      span(class = "intro-sinal-copy", strong(titulo), tags$small(descricao))
-    )
-  }
+  # Apresentação única na home; as frentes de atuação ficam nas páginas internas.
   div(
-    class = "intro reveal",
+    class = "intro intro--simples reveal",
     div(
       class = "intro-texto",
       h1("Pesquisa em nutrição e saúde coletiva."),
@@ -341,16 +333,6 @@ bloco_intro <- function() {
       div(
         class = "intro-acoes",
         tags$a(class = "btn btn-secondary", href = "grupo.html#sobre", "Conheça o GPENSC")
-      )
-    ),
-    div(
-      class = "intro-sinal",
-      div(class = "intro-sinal-cabecalho", "ÁREAS DE ATUAÇÃO"),
-      div(
-        class = "intro-sinal-lista",
-        frente("01", "Pesquisa", "Linhas, projetos e publicações", "pesquisa.html"),
-        frente("02", "Ensino", "Formação e atividades acadêmicas", "ensino-extensao.html#ensino"),
-        frente("03", "Extensão", "Projetos e ações com a comunidade", "ensino-extensao.html#iniciativas")
       )
     )
   )
