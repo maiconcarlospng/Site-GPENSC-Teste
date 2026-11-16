@@ -175,8 +175,9 @@ projeto_completo <- function(i) {
   periodo <- paste(c(campo_texto(projetos_arvore, "inicio", i),
     campo_texto(projetos_arvore, "fim", i)), collapse = "–")
   periodo <- gsub("(^–|–$)", "", periodo)
-  metadados <- c(campo_texto(projetos_arvore, "tipo", i),
-    campo_texto(projetos_arvore, "situacao", i), periodo,
+  situacao <- campo_texto(projetos_arvore, "situacao", i)
+  if (tolower(situacao) %in% c("não informado", "nao informado")) situacao <- ""
+  metadados <- c(campo_texto(projetos_arvore, "tipo", i), situacao, periodo,
     campo_texto(projetos_arvore, "coordenador", i))
   metadados <- metadados[nzchar(metadados)]
   conteudo <- tagList(
@@ -215,11 +216,13 @@ projeto_completo <- function(i) {
       span(class = "gp49-line-arrow", "↗")
     )
   ))
-  body <- div(class = "gp49-line-body",
-    conteudo,
-    tags$a(class = "gp49-full-link", href = "projetos.html",
-      "Abrir cadastro de projetos")
-  )
+  destino <- campo_texto(projetos_arvore, "url", i)
+  if (!nzchar(destino)) destino <- "projetos.html"
+  link_projeto <- tags$a(class = "gp49-full-link", href = destino,
+    if (grepl("^https?://", destino)) target = "_blank",
+    if (grepl("^https?://", destino)) rel = "noopener noreferrer",
+    if (nzchar(campo_texto(projetos_arvore, "url", i))) "Abrir página do projeto" else "Abrir cadastro de projetos")
+  body <- div(class = "gp49-line-body", conteudo, link_projeto)
   do.call(tags$li, c(attrs, list(button, body)))
 }
 
@@ -243,7 +246,8 @@ div(id = "gp49", class = "gp49-shell",
         tags$button(id = "gp49-out", type = "button", "Diminuir"),
         tags$button(id = "gp49-in", type = "button", "Ampliar")
       ),
-      p(class = "gp49-hint", "GPENSC no tronco · linhas e projetos nos galhos · pessoas e produções nos frutos")
+      p(class = "gp49-hint", paste0("GPENSC no tronco · ", nrow(linhas_arvore), " linhas e ", nrow(projetos_arvore), " projetos nos galhos · integrantes e produções vinculados aparecem como frutos.")),
+      p(class = "gp49-link-note", paste0(nrow(pessoas_arvore), " integrantes cadastrados. A árvore só os associa a linhas ou projetos quando o vínculo é informado no painel."))
     ),
     do.call(tags$aside, c(list(id = "gp49-detail"), list("aria-live" = "polite"), list(hidden = "hidden"))),
     tags$section(id = "gp49-directory",
@@ -272,6 +276,7 @@ div(id = "gp49", class = "gp49-shell",
 #gp49 .gp49-project-meta{color:#65715f;font-size:.9rem;font-weight:650}
 #gp49 .gp49-project-parent{padding:.55rem .7rem;border-left:3px solid #5f9a3e;background:#f4f7f0}
 #gp49 .gp49-no-links{color:#65715f;font-style:italic}
+#gp49 .gp49-link-note{max-width:78ch;margin:.4rem 0 0;color:#667969;font-size:.78rem;line-height:1.45}
 @media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
 \n#gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}\n</style>
 ```
