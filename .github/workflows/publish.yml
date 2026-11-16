@@ -28,7 +28,7 @@ on:
 
 # Permissões mínimas necessárias para compilar e publicar no GitHub Pages.
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -102,6 +102,14 @@ jobs:
           rm -rf _site _freeze
           quarto render
           rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py
+
+      - name: Sincronizar o site compilado com o Render
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: render-published
+          commit_message: "deploy: sync main @ ${{ github.sha }}"
 
       - name: Empacotar o site gerado para o GitHub Pages
         uses: actions/upload-pages-artifact@v3
