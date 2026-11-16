@@ -623,6 +623,45 @@ collections:
               - { label: "Imagem do conteúdo", name: "imagem", widget: "image", required: false, hint: "Use uma imagem autorizada do material publicado." }
               - { label: "Link da publicação", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use um link completo com https://.'] }
 
+      - label: "Equipe do Vi no Rótulo"
+        name: "equipe_vi_no_rotulo"
+        file: "data/vi-no-rotulo-equipe.yml"
+        fields:
+          - label: "Integrantes do projeto"
+            name: "itens"
+            widget: "list"
+            collapsed: true
+            required: false
+            label_singular: "integrante"
+            summary: "{{fields.nome}} — {{fields.funcao}}"
+            hint: "Cadastre somente integrantes confirmados. Fotos e dados pessoais exigem autorização; sem registros, o site não exibe lista vazia."
+            fields:
+              - { label: "Nome", name: "nome", widget: "string" }
+              - { label: "Função no projeto", name: "funcao", widget: "string", required: false, hint: "Ex.: Coordenação, pesquisador(a) ou bolsista." }
+              - { label: "Vínculo institucional", name: "vinculo", widget: "string", required: false }
+              - { label: "Foto autorizada", name: "foto", widget: "image", required: false }
+              - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://[^\\s]+
+    files:
+      - label: "Atividades da capacitação"
+        name: "capacitacao_atividades"
+        file: "data/capacitacao-epidemiologia.yml"
+        fields:
+          - label: "Atividades cadastradas"
+            name: "itens"
+            widget: "list"
+            collapsed: true
+            label_singular: "atividade"
+            summary: "{{fields.titulo}} — {{fields.data}}"
+            hint: "Cadastre somente atividades confirmadas. A lista vazia não gera eventos fictícios no site."
+            fields:
+              - { label: "Título da atividade", name: "titulo", widget: "string" }
+              - { label: "Data", name: "data", widget: "date", required: false }
+              - { label: "Modalidade", name: "modalidade", widget: "select", options: ["Presencial", "Remoto", "Híbrido"], required: false }
+              - { label: "Descrição", name: "resumo", widget: "text", required: false }
+              - { label: "Local ou plataforma", name: "local", widget: "string", required: false }
+              - { label: "Link da atividade", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+, 'Use uma URL completa iniciada por https://.'] }
+
   - name: "capacitacao"
     label: "Capacitação em Epidemiologia e Análise de Dados"
     files:
