@@ -3,7 +3,7 @@ title: "Agenda"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Reuniões, defesas, cursos e encontros: acompanhe a programação do grupo.</p><img src="img/ilustracoes/agenda.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Datas das atividades do grupo.</p><img src="img/ilustracoes/agenda.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -96,7 +96,7 @@ if (secao_ativa("mostrar_agenda")) {
     } else {
       estado_vazio(
         "Nenhuma atividade programada",
-        "No momento, não há eventos futuros cadastrados. A agenda será atualizada quando novas atividades forem confirmadas.",
+        "As próximas atividades aparecerão aqui quando forem confirmadas.",
         "Acompanhe o Instagram",
         cfg$instagram
       )
