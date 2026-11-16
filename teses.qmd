@@ -3,7 +3,7 @@ title: "Teses e dissertações"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Defesas e qualificações de mestrado e doutorado vinculadas ao GPENSC.</p><img src="img/ilustracoes/teses.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Trabalhos acadêmicos e orientações.</p><img src="img/ilustracoes/teses.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -44,12 +44,7 @@ div(
         options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
       )
   } else {
-    estado_vazio(
-      "Nenhuma defesa ou qualificação disponível",
-      "No momento, não há defesas ou qualificações disponíveis para consulta.",
-      "Entrar em contato",
-      "contato.html"
-    )
+    estado_vazio("Trabalhos acadêmicos em atualização", NULL)
   }
 )
 } else {
