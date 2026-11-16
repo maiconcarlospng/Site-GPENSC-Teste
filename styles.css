@@ -18970,3 +18970,19 @@ html body:has(#gp49) #quarto-header { margin-top:0!important; }
   #gp49 .gp49-tools { bottom:75px; }
 }
 
+/* Árvore — 5. Acabamento contínuo do painel e paisagem, sem trocar cores. */
+#gp49 .gp49-landscape {
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(31,77,43,.08);
+  background:linear-gradient(180deg,#f8fbf5 0%,#f0f6eb 62%,#f3ecdd 100%);
+}
+#gp49 #gp49-map::before { background-size:cover; }
+#gp49 #gp49-map::after {
+  bottom:0;
+  height:clamp(44px,6vw,78px);
+  border-bottom-left-radius:inherit;
+  border-bottom-right-radius:inherit;
+  background:linear-gradient(180deg,rgba(243,236,221,0),rgba(243,236,221,.86) 88%,#f3ecdd 100%);
+}
+
