@@ -303,17 +303,6 @@
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
-    if(!terminal && depth>0){
-      const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 34)'},bubble);
-      const tagWidth=count>9?52:46;
-      make('rect',{x:-tagWidth/2,y:-11,width:tagWidth,height:21,rx:7,class:'gp49-branch-label-plate',
-        fill:'#f8faf3',stroke:'#71896a','stroke-opacity':'.62','stroke-width':1},labelGroup);
-      const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
-      labelText.textContent=branchRange(start,count);
-      labelText.style.stroke='none';
-      labelText.style.paintOrder='normal';
-      make('title',{},labelGroup).textContent='Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
-    }
     // Os nomes e números individuais ficam na lista, evitando texto amontoado nos nós.
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
@@ -366,7 +355,7 @@
     if(!terminal)expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},160,78,{x:0,y:-1});
+  branch(0,total,0,{x:700,y:970},112,52,{x:0,y:-1});
   const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
