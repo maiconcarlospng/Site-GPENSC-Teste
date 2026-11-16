@@ -7,14 +7,13 @@ title-block-banner: false
 
 ```{r}
 source("R/helpers.R")
-noticias_publicadas <- noticias
+noticias_publicadas <- registros_reais(noticias, "titulo")
 
 if (nrow(noticias_publicadas) == 0) {
   div(
     id = "noticia-detalhe-vazio",
     class = "noticia-detalhe-vazio",
     h1("Nenhuma notícia publicada"),
-    p("Não há notícias publicadas no momento. Consulte a página de notícias para acompanhar as próximas atualizações."),
     tags$a(class = "btn btn-secondary", href = "noticias.html", "Voltar às notícias")
   )
 } else {
@@ -31,7 +30,7 @@ if (nrow(noticias_publicadas) == 0) {
       titulo <- as.character(n$titulo[1])
       conteudo <- valor_publico(n$conteudo)
       if (is.null(conteudo)) conteudo <- valor_publico(n$resumo)
-      if (is.null(conteudo)) conteudo <- "O detalhamento desta notícia ainda não foi preenchido."
+      if (is.null(conteudo)) conteudo <- "Conteúdo em atualização."
 
       categoria <- valor_publico(n$categoria)
       data_texto <- if (!is.na(n$data[1])) format(n$data[1], "%d/%m/%Y") else ""
@@ -51,10 +50,7 @@ if (nrow(noticias_publicadas) == 0) {
           alt = titulo
         ),
         div(class = "noticia-detalhe-texto", p(conteudo)),
-        if (is.null(valor_publico(n$conteudo))) p(
-          class = "noticia-detalhe-aviso",
-          "O conteúdo completo desta notícia não está disponível no momento."
-        ),
+        
         if (!is.null(fonte)) tags$a(
           class = "btn btn-secondary",
           href = fonte,
