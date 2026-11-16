@@ -35,7 +35,7 @@ website:
           - text: Nossa história
             href: grupo.qmd#historia
           - text: Equipe e integrantes
-            href: equipe.qmd
+            href: grupo.qmd#equipe
           - text: Parcerias
             href: grupo.qmd#parcerias
       - text: Pesquisa
