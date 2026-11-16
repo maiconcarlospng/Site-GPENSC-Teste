@@ -35,53 +35,32 @@
   // Gradiente com coordenadas globais: a textura não reinicia a cada galho.
   const bark=make('linearGradient',{id:'gp49-bark',gradientUnits:'userSpaceOnUse',
     x1:120,y1:0,x2:1260,y2:110},defs);
-  [['0','#3b241b'],['.24','#5b3525'],['.5','#75452d'],['.76','#583221'],['1','#35241d']]
+  [['0','#63533c'],['.24','#866647'],['.5','#967552'],['.76','#816647'],['1','#63573d']]
     .forEach(([offset,color])=>make('stop',{offset,'stop-color':color},bark));
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
-  // Folhas pequenas acompanham apenas os galhos estruturais do mapa.
-  function smallBranchLeaf(x,y,angle,tone,parent){
-    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+')'},parent);
-    make('path',{d:'M0,0 C3,-5 8,-7 13,-4 C16,-1 14,3 10,5 C6,7 2,4 0,0 Z',
-      fill:tone,stroke:'#1d4824','stroke-width':'.55','stroke-linejoin':'round'},leaf);
-    make('path',{d:'M1,0 Q7,-1 13,-4',fill:'none',stroke:'#d7e7a1','stroke-width':'.7',
-      'stroke-linecap':'round',opacity:.8},leaf);
-  }
-  function canopyBranch(x,y,angle,length,width,depth,key){
-    const bend=(foliageNoise(key)-.5)*.42;
-    const c1={x:x+Math.cos(angle+bend)*length*.34,y:y+Math.sin(angle+bend)*length*.34};
-    const c2={x:x+Math.cos(angle-bend*.55)*length*.72,y:y+Math.sin(angle-bend*.55)*length*.72};
-    const end={x:x+Math.cos(angle+bend*.08)*length,y:y+Math.sin(angle+bend*.08)*length};
-    const d='M'+fmt(x)+','+fmt(y)+' C'+fmt(c1.x)+','+fmt(c1.y)+' '+fmt(c2.x)+','+fmt(c2.y)+' '+fmt(end.x)+','+fmt(end.y);
-    make('path',{d,fill:'none',stroke:depth>1?'#624329':'#5b4529',
-      'stroke-width':fmt(width),'stroke-linecap':'round','stroke-linejoin':'round',
-      'stroke-opacity':depth>1?'.78':'.66'},leafTexture);
-    for(let j=0;j<4;j++){
-      const t=.20+j*.19, u=1-t;
-      const px=u*u*u*x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*end.x;
-      const py=u*u*u*y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*end.y;
-      const tangent=Math.atan2(
-        3*u*u*(c1.y-y)+6*u*t*(c2.y-c1.y)+3*t*t*(end.y-c2.y),
-        3*u*u*(c1.x-x)+6*u*t*(c2.x-c1.x)+3*t*t*(end.x-c2.x)
-      );
-      for(const side of [-1,1]){
-        const offset=(side*1.02)+(foliageNoise(key+j*9+side)*.16-.08);
-        const size=.64+foliageNoise(key+j*13+side*5)*.42;
-        const tone=leafPalette[Math.floor(foliageNoise(key+j*19+side*7)*leafPalette.length)];
-        canopyLeaf(px,py,tangent+offset,size,tone,leafTexture);
-      }
-    }
-    if(depth<=0)return;
-    const fork=.34+foliageNoise(key+31)*.29;
-    const next=length*(.69+foliageNoise(key+17)*.06);
-    canopyBranch(end.x,end.y,angle-fork,next,width*.68,depth-1,key*2+1);
-    canopyBranch(end.x,end.y,angle+fork,next,width*.68,depth-1,key*2+2);
-  }
-  // Os ramos de copa serão ligados às pontas da própria árvore de dados.
-  // Uma única imagem fotográfica de copa, atrás dos galhos interativos.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
-  make('image',{href:'img/copa-fotografica.svg',x:0,y:0,width:1400,height:920,
-    opacity:.48,preserveAspectRatio:'xMidYMid slice',class:'gp49-canopy-photo'},canopyLayer);
+  const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
+  shades.forEach((tone,i)=>{
+    const crown=make('radialGradient',{id:'gp49-crown-'+i},defs);
+    make('stop',{offset:'0','stop-color':tone,'stop-opacity':'.48'},crown);
+    make('stop',{offset:'.60','stop-color':tone,'stop-opacity':'.26'},crown);
+    make('stop',{offset:'1','stop-color':tone,'stop-opacity':'0'},crown);
+  });
+  for(let i=0;i<52;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/52);
+    const x=700+Math.cos(a)*r*575,y=305+Math.sin(a)*r*235;
+    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:105+i%5*16,ry:76+i%4*12,
+      transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
+      fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
+  }
+  for(let i=0;i<180;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/180);
+    const x=700+Math.cos(a)*r*565,y=305+Math.sin(a)*r*225;
+    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:6+i%5*1.8,ry:3+i%3*1.5,
+      transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
+      fill:shades[(i+2)%shades.length],opacity:.17+(i%3)*.05},canopyLayer);
+  }
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
@@ -105,7 +84,7 @@
     tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
-  let camera = {x: 145, y: 95, w: 1110, h: 730};
+  let camera = {x: 0, y: 0, w: W, h: H};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
@@ -113,11 +92,6 @@
     svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
     svg.classList.toggle('gp49-detailed',camera.w < 740);
     svg.classList.toggle('gp49-very-detailed',camera.w < 430);
-    const labelSize=camera.w/(map.clientWidth||W)*12;
-    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label,.gp49-terminal-index').forEach(label=>{
-      label.style.fontSize=labelSize+'px';
-      label.style.strokeWidth=Math.max(.7,labelSize*.22)+'px';
-    });
   }
   function move(target, duration=700) {
     cancelAnimationFrame(animation);
@@ -132,7 +106,7 @@
   }
   function point(start,count,depth) {
     const center=(start+count/2)/total;
-    const heights=[725,545,390,270,180,135,115];
+    const heights=[725,540,366,205,89,25,15];
     return {x:100+1200*center, y:heights[Math.min(depth,heights.length-1)]};
   }
   // A madeira usa tangentes compartilhadas: os filhos nascem na direção do
@@ -187,26 +161,6 @@
         fill:'none',stroke:k%2?'#41392a':'#e0bc8a',
         'stroke-width':begin>70?1.6:.9,'stroke-opacity':.19,'stroke-linecap':'round'},group);
     }
-    // Pequenas folhas nas próprias bifurcações do desenho de dados.
-    if(begin<100 && reach>68){
-      const sprigs=make('g',{class:'gp49-limb-sprigs','pointer-events':'none','aria-hidden':'true'},group);
-      const sprigTones=['#1d5426','#347a32','#5b9639','#8eae43'];
-      for(let j=0;j<3;j++){
-        const t=.25+j*.24, at=guide.getPointAtLength(len*t);
-        const before=guide.getPointAtLength(Math.max(0,len*t-.8));
-        const after=guide.getPointAtLength(Math.min(len,len*t+.8));
-        const tangent=Math.atan2(after.y-before.y,after.x-before.x);
-        const distance=(begin+(end-begin)*t)*.32+5;
-        for(const side of [-1,1]){
-          const nx=Math.cos(tangent+Math.PI/2),ny=Math.sin(tangent+Math.PI/2);
-          const bx=at.x+nx*distance*side,by=at.y+ny*distance*side;
-          make('path',{d:'M'+fmt(at.x)+','+fmt(at.y)+' Q'+fmt((at.x+bx)/2)+','+fmt((at.y+by)/2)+' '+fmt(bx)+','+fmt(by),
-            fill:'none',stroke:'#68452b','stroke-width':1.25,'stroke-linecap':'round'},sprigs);
-          const tone=sprigTones[(j+(side===1?1:0))%sprigTones.length];
-          smallBranchLeaf(bx,by,tangent+side*.88,tone,sprigs);
-        }
-      }
-    }
     guide.remove();
     if(!reduced){
       try{group.animate([{opacity:0},{opacity:1}],{duration:520,easing:'ease-out'});}catch(_){}
@@ -217,7 +171,7 @@
   function leaves(p,index){
     const group=make('g',{class:'gp49-leaf-spray',
       transform:'translate('+p.x+' '+p.y+')'},foliageLayer);
-    const shades=['#173e1b','#255b25','#37702b','#588632','#87a441'];
+    const shades=['#557e48','#73975b','#88a970','#49724d','#a0b884'];
     for(let i=0;i<7;i++){
       const angle=i*2.399963+index*.69;
       const dx=Math.cos(angle),dy=Math.sin(angle)*.78;
@@ -281,24 +235,32 @@
     const bubble=make('g',{
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
-      ...(terminal?{
-        role:'button',tabindex:0,
-        'aria-label':(rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start],
-        'aria-pressed':'false'
-      }:{'aria-hidden':'true'})
+      role:'button',tabindex:0,
+      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '),
+      ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
-    const radius=terminal?8:4;
-    // Apenas as pontas recebem número; a área de toque continua acessível.
-    make('circle',{r:19,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
+    const radius=terminal?17:clamp(12+count/total*9,13,21);
+    // Área de toque invisível e acessível, independente das folhas decorativas.
+    make('circle',{r:radius+9,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
+    make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
+    make('circle',{r:radius,class:'gp49-node-disc'},bubble);
+    make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
+    const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 '+(terminal?31:29)+')'},bubble);
+    const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
+    labelText.textContent=branchRange(start,count);
+    make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
     if(terminal){
-      make('circle',{r:3.5,fill:'#315d32',stroke:'#f5f5eb','stroke-width':1.4},bubble);
-      const indexLabel=make('text',{x:0,y:radius+20,'text-anchor':'middle',
-        class:'gp49-terminal-index','aria-hidden':'true'},bubble);
-      indexLabel.textContent=String(start+1).padStart(2,'0');
-      make('title',{},bubble).textContent=nodeNames[start];
+      const shortName=nodeNames[start].length>27?nodeNames[start].slice(0,26).trimEnd()+'…':nodeNames[start];
+      const nameLabel=make('text',{x:0,y:23,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
+      nameLabel.textContent=shortName;
+    }
+    if (!terminal) {
+      make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
+      make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
     } else {
-      make('circle',{r:2.6,fill:'#755037',opacity:.8},bubble);
-      make('title',{},bubble).textContent=count+' linhas ou projetos conectados';
+      make('circle',{r:5,class:'gp49-node-seed'},bubble);
+      // Long labels appear only on demand, never together over the foliage.
+      make('title',{},bubble).textContent=nodeNames[start];
     }
     let kids=[];
     function expand(auto=false) {
@@ -325,24 +287,25 @@
       if(linked)linked.remove();
     }
     const tipLabel=terminal?nodeNames[start]:'Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
-    if(terminal){
-      bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
-      bubble.addEventListener('pointerleave',hideTip);
-      bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
-      bubble.addEventListener('blur',hideTip);
-      bubble.addEventListener('click',event=>{hideTip();event.stopPropagation();select(start);focusOn(start,1,depth);});
-      bubble.addEventListener('keydown',event=>{
-        if(event.key==='Enter'||event.key===' ') {
-          event.preventDefault();event.stopPropagation();select(start);focusOn(start,1,depth);
-        }
-      });
-    }
-    // Toda a estrutura fica visível; não há galhos que precisem ser abertos.
-    if(!terminal)expand(true);
+    bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
+    bubble.addEventListener('pointerleave',hideTip);
+    bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
+    bubble.addEventListener('blur',hideTip);
+    bubble.addEventListener('click',event=>{hideTip();
+      event.stopPropagation();
+      expand();
+    });
+    bubble.addEventListener('keydown',event=>{
+      if(event.key==='Enter'||event.key===' ') {
+        event.preventDefault();event.stopPropagation();expand();
+      }
+    });
+    // No panorama, as duas primeiras bifurcações já são visíveis.
+    if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:900},145,78,{x:0,y:-1});
-  const trunkLabel=make('text',{x:700,y:790,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  branch(0,total,0,{x:700,y:970},160,78,{x:0,y:-1});
+  const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
