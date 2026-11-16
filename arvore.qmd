@@ -1,7 +1,7 @@
 ---
 title: "Árvore do conhecimento"
 page-layout: full
-description: "Linhas de pesquisa e vínculos científicos do GPENSC."
+description: "Pessoas, projetos e produções conectados ao GPENSC."
 ---
 
 ```{r}
@@ -12,96 +12,268 @@ pubs_arvore <- registros_reais(pubs, "titulo")
 defesas_arvore <- registros_reais(defesas, "titulo")
 pessoas_arvore <- registros_reais(equipe, "nome")
 
-por_linha <- function(dados, id) {
-  if (nrow(dados) == 0 || !("linha_id" %in% names(dados))) return(dados[0, , drop = FALSE])
-  dados[!is.na(dados$linha_id) & as.character(dados$linha_id) == id, , drop = FALSE]
+campo_texto <- function(df, campo, i) {
+  if (nrow(df) == 0 || !(campo %in% names(df)) || i < 1 || i > nrow(df)) return("")
+  valor <- if (is.list(df[[campo]])) df[[campo]][[i]] else df[[campo]][i]
+  valor <- as.character(unlist(valor, use.names = FALSE))
+  valor <- valor[!is.na(valor)]
+  if (!length(valor)) return("")
+  trimws(valor[1])
 }
-pessoas_por_linha <- function(id) {
-  if (nrow(pessoas_arvore) == 0 || !("linhas_ids" %in% names(pessoas_arvore))) {
-    return(pessoas_arvore[0, , drop = FALSE])
-  }
-  mask <- vapply(seq_len(nrow(pessoas_arvore)), function(j) {
-    raw <- pessoas_arvore$linhas_ids[j]
-    if (!tem(raw)) return(FALSE)
-    ids <- trimws(unlist(strsplit(as.character(raw), "[|,;]")))
-    id %in% ids && !identical(valor_publico(pessoas_arvore$categoria[j]), "Egressos")
+
+campo_ids <- function(df, campo, i) {
+  if (nrow(df) == 0 || !(campo %in% names(df)) || i < 1 || i > nrow(df)) return(character())
+  valor <- if (is.list(df[[campo]])) df[[campo]][[i]] else df[[campo]][i]
+  valores <- as.character(unlist(valor, use.names = FALSE))
+  valores <- valores[!is.na(valores) & nzchar(trimws(valores))]
+  if (!length(valores)) return(character())
+  unique(trimws(unlist(strsplit(paste(valores, collapse = "|"), "[|,;]"))))
+}
+
+por_ids <- function(df, campo, ids) {
+  if (nrow(df) == 0 || !length(ids) || !(campo %in% names(df))) return(df[0, , drop = FALSE])
+  manter <- vapply(seq_len(nrow(df)), function(i) {
+    length(intersect(campo_ids(df, campo, i), as.character(ids))) > 0
   }, logical(1))
-  pessoas_arvore[mask, , drop = FALSE]
+  df[manter, , drop = FALSE]
 }
-lista_de_vinculos <- function(df, campo, tipo = "") {
+
+juntar_registros <- function(a, b) {
+  if (nrow(a) == 0) return(b)
+  if (nrow(b) == 0) return(a)
+  unique(rbind(a, b))
+}
+
+id_projeto <- function(i) {
+  id <- campo_texto(projetos_arvore, "id", i)
+  if (nzchar(id)) id else paste0("PR-", sprintf("%03d", i))
+}
+
+url_registro <- function(df, i, tipo) {
+  if (tipo == "pessoas") return(campo_texto(df, "lattes", i))
+  url <- campo_texto(df, "url", i)
+  if (tipo == "publicacoes" && !nzchar(url)) {
+    doi <- campo_texto(df, "doi", i)
+    if (nzchar(doi)) return(paste0("https://doi.org/", doi))
+  }
+  url
+}
+
+lista_de_frutos <- function(df, campo, tipo) {
   if (nrow(df) == 0) return(NULL)
-  tags$ul(class = "gp49-related-links", lapply(seq_len(nrow(df)), function(j) {
-    titulo <- as.character(df[[campo]][j])
-    url <- if (tipo == "pessoas") valor_publico(df$lattes[j]) else
-      if (tipo == "publicacoes") valor_publico(df$url[j]) else NULL
-    if (tipo == "publicacoes" && is.null(url) && tem(df$doi[j])) {
-      url <- paste0("https://doi.org/", df$doi[j])
-    }
-    tags$li(if (!is.null(url) && grepl("^https?://", url)) {
-      tags$a(href = url, target = "_blank", rel = "noopener noreferrer", titulo)
-    } else titulo)
-  }))
-}
-ramo <- function(i) {
-  l <- linhas_arvore[i, , drop = FALSE]
-  id <- as.character(l$id[1])
-  pr <- por_linha(projetos_arvore, id)
-  pu <- por_linha(pubs_arvore, id)
-  de <- por_linha(defesas_arvore, id)
-  pe <- pessoas_por_linha(id)
-  vinculos <- nrow(pr) + nrow(pu) + nrow(de) + nrow(pe)
-  tags$li(
-    class = "gp49-line", "data-line-id" = id,
-    "data-has-links" = if (vinculos > 0) "1" else "0",
-    "data-projects" = as.character(nrow(pr)),
-    "data-people" = as.character(nrow(pe)),
-    "data-publications" = as.character(nrow(pu)),
-    "data-theses" = as.character(nrow(de)),
-    tags$button(
-      type = "button", class = "gp49-line-button", "aria-pressed" = "false",
-      span(class = "gp49-line-name", as.character(l$nome[1])),
-      span(class = "gp49-line-arrow", "↗")
-    ),
-    div(
-      class = "gp49-line-body",
-      if (tem(l$descricao)) p(as.character(l$descricao[1])),
-      if (tem(l$palavras_chave)) p(class = "gp49-keywords", paste("Temas:", as.character(l$palavras_chave[1]))),
-      if (nrow(pr)) tags$section(h4("Projetos vinculados"), lista_de_vinculos(pr, "titulo")),
-      if (nrow(pe)) tags$section(h4("Integrantes vinculados"), lista_de_vinculos(pe, "nome", "pessoas")),
-      if (nrow(pu)) tags$section(h4("Produções científicas"), lista_de_vinculos(pu, "titulo", "publicacoes")),
-      if (nrow(de)) tags$section(h4("Teses, dissertações e bancas"), lista_de_vinculos(de, "titulo")),
-      if (!vinculos) p(class = "gp49-no-links",
-        "Sem vínculos publicados."),
-      tags$a(
-        class = "gp49-full-link", href = paste0("linhas.html#linha-", id),
-        "Página da linha"
+  tags$ul(class = paste("gp49-related-links", paste0("gp49-fruits-", tipo)),
+    lapply(seq_len(nrow(df)), function(i) {
+      titulo <- campo_texto(df, campo, i)
+      url <- url_registro(df, i, tipo)
+      conteudo <- if (nzchar(url) && grepl("^https?://", url)) {
+        tags$a(href = url, target = "_blank", rel = "noopener noreferrer", titulo)
+      } else titulo
+      tags$li(class = paste("gp49-fruit-row", paste0("gp49-fruit-row--", tipo)),
+        span(class = "gp49-fruit-dot"),
+        span(class = "gp49-fruit-name", conteudo)
       )
-    )
+    })
   )
 }
 
-div(id = "gp49", class = "gp49-shell",
-  if (nrow(linhas_arvore)) tagList(
-    div(class = "gp49-landscape",
-      div(id = "gp49-map", tabindex = "0", role = "region",
-          `aria-label` = "Árvore interativa. Selecione uma ramificação para abrir suas linhas de pesquisa."),
-      div(class = "gp49-tools", role = "group", `aria-label` = "Controles da árvore",
-        tags$button(id = "gp49-home", type = "button", "Árvore completa"),
-        tags$button(id = "gp49-out", type = "button", `aria-label` = "Diminuir", "−"),
-        tags$button(id = "gp49-in", type = "button", `aria-label` = "Ampliar", "+")
-      ),
-      p(class = "gp49-hint", "Toque nos brotos para explorar · Arraste para navegar · Amplie para ver mais")
-    ),
-    tags$aside(id = "gp49-detail", `aria-live` = "polite", hidden = "hidden"),
-    tags$section(id = "gp49-directory",
-      div(class = "gp49-directory-heading", h2("Linhas de pesquisa"),
-        tags$label(`for` = "gp49-search", "Buscar por nome ou tema"),
-        tags$input(id = "gp49-search", type = "search", placeholder = "Buscar uma linha…")),
-      tags$ol(id = "gp49-lines", lapply(seq_len(nrow(linhas_arvore)), ramo)),
-      p(id = "gp49-empty", hidden = "hidden", "Nenhuma linha corresponde à busca.")
+frutos_para_mapa <- function(pessoas, publicacoes, bancas) {
+  pessoas_json <- lapply(seq_len(nrow(pessoas)), function(i) {
+    list(tipo = "pessoa", nome = campo_texto(pessoas, "nome", i))
+  })
+  publicacoes_json <- lapply(seq_len(nrow(publicacoes)), function(i) {
+    list(tipo = "produção", nome = campo_texto(publicacoes, "titulo", i))
+  })
+  bancas_json <- lapply(seq_len(nrow(bancas)), function(i) {
+    list(tipo = "defesa", nome = campo_texto(bancas, "titulo", i))
+  })
+  as.character(jsonlite::toJSON(c(pessoas_json, publicacoes_json, bancas_json),
+    auto_unbox = TRUE, null = "null"))
+}
+
+linha_nome <- function(id) {
+  if (!nzchar(id) || nrow(linhas_arvore) == 0) return("")
+  i <- which(as.character(linhas_arvore$id) == id)
+  if (!length(i)) return("")
+  campo_texto(linhas_arvore, "nome", i[1])
+}
+
+linha_completa <- function(i) {
+  linha <- linhas_arvore[i, , drop = FALSE]
+  id <- campo_texto(linhas_arvore, "id", i)
+  titulo <- campo_texto(linhas_arvore, "nome", i)
+  projetos_linha <- por_ids(projetos_arvore, "linha_id", id)
+  projetos_ids <- if (nrow(projetos_linha)) {
+    vapply(seq_len(nrow(projetos_linha)), id_projeto, character(1))
+  } else character()
+  pessoas <- juntar_registros(
+    por_ids(pessoas_arvore, "linhas_ids", id),
+    por_ids(pessoas_arvore, "projetos_ids", projetos_ids)
+  )
+  publicacoes <- juntar_registros(
+    por_ids(pubs_arvore, "linha_id", id),
+    por_ids(pubs_arvore, "projeto_id", projetos_ids)
+  )
+  bancas <- juntar_registros(
+    por_ids(defesas_arvore, "linha_id", id),
+    por_ids(defesas_arvore, "projeto_id", projetos_ids)
+  )
+  total_frutos <- nrow(pessoas) + nrow(publicacoes) + nrow(bancas)
+  conteudo <- tagList(
+    if (nzchar(campo_texto(linha, "descricao", 1))) p(campo_texto(linha, "descricao", 1)),
+    if (nzchar(campo_texto(linha, "palavras_chave", 1)))
+      p(class = "gp49-keywords", paste("Temas:", campo_texto(linha, "palavras_chave", 1))),
+    if (nrow(projetos_linha)) tags$section(h4("Projetos vinculados"),
+      lista_de_frutos(projetos_linha, "titulo", "projetos")),
+    if (nrow(pessoas)) tags$section(h4("Integrantes vinculados"),
+      lista_de_frutos(pessoas, "nome", "pessoas")),
+    if (nrow(publicacoes)) tags$section(h4("Produções científicas"),
+      lista_de_frutos(publicacoes, "titulo", "publicacoes")),
+    if (nrow(bancas)) tags$section(h4("Teses, dissertações e bancas"),
+      lista_de_frutos(bancas, "titulo", "defesas")),
+    if (!total_frutos) p(class = "gp49-no-links",
+      "Ainda não há pessoas ou produtos vinculados a esta linha.")
+  )
+  attrs <- list(
+    class = "gp49-line",
+    "data-branch-type" = "linha",
+    "data-branch-id" = id,
+    "data-line-id" = id,
+    "data-project-id" = "",
+    "data-has-links" = if (total_frutos + nrow(projetos_linha) > 0) "1" else "0",
+    "data-projects" = as.character(nrow(projetos_linha)),
+    "data-people" = as.character(nrow(pessoas)),
+    "data-publications" = as.character(nrow(publicacoes)),
+    "data-theses" = as.character(nrow(bancas)),
+    "data-fruits" = frutos_para_mapa(pessoas, publicacoes, bancas)
+  )
+  button <- do.call(tags$button, c(
+    list(type = "button", class = "gp49-line-button"),
+    list("aria-pressed" = "false"),
+    list(
+      span(class = "gp49-kind", "Linha de pesquisa"),
+      span(class = "gp49-line-name", titulo),
+      span(class = "gp49-line-arrow", "↗")
     )
-  ) else p("Linhas de pesquisa em atualização.")
+  ))
+  body <- div(class = "gp49-line-body",
+    conteudo,
+    tags$a(class = "gp49-full-link", href = paste0("linhas.html#linha-", id),
+      "Abrir linha de pesquisa")
+  )
+  do.call(tags$li, c(attrs, list(button, body)))
+}
+
+projeto_completo <- function(i) {
+  id <- id_projeto(i)
+  titulo <- campo_texto(projetos_arvore, "titulo", i)
+  linha_id <- campo_texto(projetos_arvore, "linha_id", i)
+  linha <- linha_nome(linha_id)
+  pessoas <- por_ids(pessoas_arvore, "projetos_ids", id)
+  publicacoes <- por_ids(pubs_arvore, "projeto_id", id)
+  bancas <- por_ids(defesas_arvore, "projeto_id", id)
+  total_frutos <- nrow(pessoas) + nrow(publicacoes) + nrow(bancas)
+  periodo <- paste(c(campo_texto(projetos_arvore, "inicio", i),
+    campo_texto(projetos_arvore, "fim", i)), collapse = "–")
+  periodo <- gsub("(^–|–$)", "", periodo)
+  metadados <- c(campo_texto(projetos_arvore, "tipo", i),
+    campo_texto(projetos_arvore, "situacao", i), periodo,
+    campo_texto(projetos_arvore, "coordenador", i))
+  metadados <- metadados[nzchar(metadados)]
+  conteudo <- tagList(
+    if (length(metadados)) p(class = "gp49-project-meta", paste(metadados, collapse = " · ")),
+    if (nzchar(linha)) p(class = "gp49-project-parent", paste("Linha de pesquisa:", linha)),
+    if (nzchar(campo_texto(projetos_arvore, "financiamento", i)))
+      p(paste("Financiamento:", campo_texto(projetos_arvore, "financiamento", i))),
+    if (nrow(pessoas)) tags$section(h4("Integrantes vinculados"),
+      lista_de_frutos(pessoas, "nome", "pessoas")),
+    if (nrow(publicacoes)) tags$section(h4("Produções científicas"),
+      lista_de_frutos(publicacoes, "titulo", "publicacoes")),
+    if (nrow(bancas)) tags$section(h4("Teses, dissertações e bancas"),
+      lista_de_frutos(bancas, "titulo", "defesas")),
+    if (!total_frutos) p(class = "gp49-no-links",
+      "Ainda não há pessoas ou produtos vinculados a este projeto.")
+  )
+  attrs <- list(
+    class = "gp49-line gp49-line--project",
+    "data-branch-type" = "projeto",
+    "data-branch-id" = id,
+    "data-line-id" = linha_id,
+    "data-project-id" = id,
+    "data-has-links" = if (total_frutos > 0) "1" else "0",
+    "data-projects" = "0",
+    "data-people" = as.character(nrow(pessoas)),
+    "data-publications" = as.character(nrow(publicacoes)),
+    "data-theses" = as.character(nrow(bancas)),
+    "data-fruits" = frutos_para_mapa(pessoas, publicacoes, bancas)
+  )
+  button <- do.call(tags$button, c(
+    list(type = "button", class = "gp49-line-button"),
+    list("aria-pressed" = "false"),
+    list(
+      span(class = "gp49-kind gp49-kind--project", "Projeto"),
+      span(class = "gp49-line-name", titulo),
+      span(class = "gp49-line-arrow", "↗")
+    )
+  ))
+  body <- div(class = "gp49-line-body",
+    conteudo,
+    tags$a(class = "gp49-full-link", href = "projetos.html",
+      "Abrir cadastro de projetos")
+  )
+  do.call(tags$li, c(attrs, list(button, body)))
+}
+
+ramos_linhas <- if (nrow(linhas_arvore)) {
+  lapply(seq_len(nrow(linhas_arvore)), linha_completa)
+} else list()
+ramos_projetos <- if (nrow(projetos_arvore)) {
+  lapply(seq_len(nrow(projetos_arvore)), projeto_completo)
+} else list()
+ramos <- c(ramos_linhas, ramos_projetos)
+
+div(id = "gp49", class = "gp49-shell",
+  if (length(ramos)) tagList(
+    div(class = "gp49-landscape",
+      do.call(tags$div, c(
+        list(id = "gp49-map", tabindex = "0", role = "region"),
+        list("aria-label" = "Árvore interativa do GPENSC: linhas, projetos, integrantes e produções.")
+      )),
+      div(class = "gp49-tools", role = "group",
+        tags$button(id = "gp49-home", type = "button", "Árvore completa"),
+        tags$button(id = "gp49-out", type = "button", "Diminuir"),
+        tags$button(id = "gp49-in", type = "button", "Ampliar")
+      ),
+      p(class = "gp49-hint", "GPENSC no tronco · linhas e projetos nos galhos · pessoas e produções nos frutos")
+    ),
+    do.call(tags$aside, c(list(id = "gp49-detail"), list("aria-live" = "polite"), list(hidden = "hidden"))),
+    tags$section(id = "gp49-directory",
+      div(class = "gp49-directory-heading", h2("Linhas e projetos"),
+        do.call(tags$label, c(list("for" = "gp49-search"), list("Buscar por nome ou tema"))),
+        tags$input(id = "gp49-search", type = "search", placeholder = "Buscar linha ou projeto…")),
+      tags$ol(id = "gp49-lines", ramos),
+      p(id = "gp49-empty", hidden = "hidden", "Nenhuma linha ou projeto corresponde à busca.")
+    )
+  ) else p("Linhas e projetos em atualização.")
 )
+```
+
+```{=html}
+<style>
+#gp49 .gp49-kind{flex:0 0 auto;padding:.28rem .55rem;border-radius:999px;background:#e7efe3;color:#356241;font-size:.68rem;font-weight:750;letter-spacing:.025em}
+#gp49 .gp49-kind--project{background:#f5eadb;color:#99500f}
+#gp49 .gp49-line--project .gp49-line-button{border-left:3px solid #d9731f;padding-left:14px}
+#gp49 .gp49-related-links{list-style:none;padding:0;margin:.45rem 0 0;display:grid;gap:.5rem}
+#gp49 .gp49-fruit-row{display:flex;align-items:flex-start;gap:.55rem}
+#gp49 .gp49-fruit-dot{flex:0 0 .65rem;width:.65rem;height:.65rem;margin-top:.48rem;border-radius:50%;background:#5f9a3e;box-shadow:0 0 0 3px #eaf2e5}
+#gp49 .gp49-fruit-row--publicacoes .gp49-fruit-dot{background:#d9731f;box-shadow:0 0 0 3px #f8eee2}
+#gp49 .gp49-fruit-row--defesas .gp49-fruit-dot{background:#b9560f;box-shadow:0 0 0 3px #f7e9de}
+#gp49 .gp49-fruit-row--projetos .gp49-fruit-dot{background:#638653;box-shadow:0 0 0 3px #edf2e8}
+#gp49 .gp49-fruit-name{min-width:0}
+#gp49 .gp49-project-meta{color:#65715f;font-size:.9rem;font-weight:650}
+#gp49 .gp49-project-parent{padding:.55rem .7rem;border-left:3px solid #5f9a3e;background:#f4f7f0}
+#gp49 .gp49-no-links{color:#65715f;font-style:italic}
+@media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
+</style>
 ```
 
 <script src="js/arvore.js" defer></script>
