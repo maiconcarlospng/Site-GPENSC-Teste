@@ -40,3 +40,50 @@ body:has(.intro--simples) .intro--simples .intro-acoes {margin:0!important;}
   body:has(.intro--simples) .intro--simples .intro-acoes {justify-content:flex-start!important;}
   body:has(.intro--simples) .intro--simples .intro-acoes .btn {max-width:100%!important;font-size:.83rem!important;padding:.75rem 1rem!important;}
 }
+
+/* Refinamentos identificados na auditoria de desktop e celular.
+   Não modifica a lógica do menu nem esconde conteúdos futuros. */
+#quarto-content .gp-sobre-fotos {
+  margin-top:clamp(1.2rem,2.5vw,2rem)!important;
+  margin-bottom:clamp(1.25rem,3vw,2.5rem)!important;
+}
+#quarto-content .gp-sobre-fotos-cabecalho {
+  margin:0 0 .85rem!important;
+  padding:0!important;
+}
+#quarto-content .gp-sobre-fotos-cabecalho h2 {
+  margin:0!important;
+  padding-bottom:.55rem!important;
+}
+#quarto-content .gp-sobre-fotos-navegacao {
+  margin-top:0!important;
+}
+#quarto-content .gp-sobre-fotos-janela {
+  margin-top:0!important;
+}
+#quarto-content .gp-sobre-fotos-contador {
+  margin:.65rem 0 0!important;
+}
+body #quarto-content .ensino-eventos,
+body #quarto-content .ensino-disciplina {
+  max-width:100%;
+  box-sizing:border-box;
+}
+body #quarto-content .ensino-evento {
+  overflow-wrap:anywhere;
+}
+@media(max-width:767.98px) {
+  #quarto-content .gp-sobre-fotos {margin-top:1rem!important;margin-bottom:1.5rem!important;}
+  #quarto-content .gp-sobre-fotos-cabecalho {margin-bottom:.55rem!important;}
+  #quarto-content .gp-sobre-fotos-navegacao {gap:.5rem!important;}
+  #quarto-content .gp-sobre-fotos-janela {min-width:0!important;}
+  #quarto-content .gp-sobre-fotos-contador {margin-top:.5rem!important;}
+  #quarto-content .gp-footer-main,
+  #quarto-content .gp-footer-links,
+  #gp-institutional-footer .gp-footer-main,
+  #gp-institutional-footer .gp-footer-links {
+    min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+  }
+  #gp-institutional-footer a,
+  #gp-institutional-footer p {overflow-wrap:anywhere;}
+}
