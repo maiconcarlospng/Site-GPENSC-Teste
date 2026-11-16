@@ -78,11 +78,11 @@
       var desktopItem = document.querySelector(".gp-nav-idiomas-item");
       var desktopWrapper = document.querySelector(".gp-nav-idiomas-desktop");
 
-      if (window.matchMedia("(max-width: 1450px)").matches) {
+      if (window.matchMedia("(max-width: 1099px)").matches) {
         if (desktopItem) desktopItem.remove();
         if (flags.parentElement !== navContainer) navContainer.appendChild(flags);
         if (desktopWrapper) desktopWrapper.remove();
-      } else if (window.matchMedia("(min-width: 1451px)").matches) {
+      } else if (window.matchMedia("(min-width: 1100px)").matches) {
         if (desktopItem) desktopItem.remove();
         if (!desktopWrapper) {
           desktopWrapper = document.createElement("div");

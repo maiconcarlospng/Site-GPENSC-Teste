@@ -59,3 +59,14 @@ html body #quarto-content .gp44-line {border-radius:0!important;box-shadow:none!
  html body main.content .dataTables_wrapper {max-width:100%;overflow-x:auto;}
 }
 @media(prefers-reduced-motion:reduce){html body #quarto-content .gp44-world {transition:none;}}
+/* Six primary destinations fit a normal desktop without the old 1450px cutoff. */
+@media(min-width:1100px){
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-container {display:flex!important;flex-wrap:nowrap!important;gap:1rem!important;padding-inline:1.5rem!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-toggler {display:none!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-collapse {display:flex!important;position:static!important;flex:1 1 auto!important;width:auto!important;height:auto!important;max-height:none!important;overflow:visible!important;order:20!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-nav {display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;gap:0!important;margin-left:auto!important;width:auto!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-nav .nav-link {padding:.65rem .6rem!important;font-size:.92rem!important;white-space:nowrap!important;border:0!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .navbar-brand-container {order:2!important;flex:0 0 auto!important;max-width:180px!important;}
+ html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container {order:998!important;flex:0 0 auto!important;}
+ html body #quarto-header .navbar.navbar-expand-lg #quarto-search {order:999!important;}
+}
