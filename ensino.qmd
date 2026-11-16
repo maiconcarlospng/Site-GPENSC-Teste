@@ -4,6 +4,4 @@ title: "Ensino"
 
 Formação acadêmica, cursos, palestras, workshops e atividades de ensino do GPENSC.
 
-## Atividades de ensino
-
 {{< include partials/ensino.qmd >}}
