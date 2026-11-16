@@ -1,0 +1,347 @@
+/* GPENSC — Explorador de ramificações (v40).
+   Uma visão parcial, em vez de outra ilustração de árvore completa.
+   Escopo restrito à página /arvore.html; sem mudar a navegação do site. */
+
+body:has(.gp-tree-shell) #quarto-content main.content{
+  width:min(1320px,calc(100% - 2.5rem))!important;
+  max-width:1320px!important;
+  margin-inline:auto!important;
+}
+body:has(.gp-tree-shell) #title-block-header.quarto-title-block{
+  width:min(1320px,calc(100% - 2.5rem))!important;
+  max-width:1320px!important;
+  margin-inline:auto!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-intro{
+  width:100%!important;
+  max-width:930px!important;
+  margin:0 0 1.5rem!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-intro p{
+  max-width:86ch;
+  line-height:1.7;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-shell{
+  max-width:100%!important;width:100%!important;min-width:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(290px,330px)!important;
+  align-items:start!important;
+  gap:1.15rem!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-canvas-card{
+  position:relative!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;
+  border-radius:10px!important;
+  border:1px solid #d8e4d5!important;
+  background:#f9faf5!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:.9rem!important;
+  flex-wrap:wrap!important;
+  padding:1.15rem 1.3rem!important;
+  border-bottom:1px solid #e1e9df!important;
+  background:#fff!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar-heading{
+  flex:1 1 240px;min-width:0;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar h2{
+  margin:.2rem 0 .35rem!important;
+  font-size:clamp(1.3rem,2.1vw,1.7rem)!important;
+  line-height:1.17!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar p{
+  margin:0!important;
+  max-width:64ch;
+  font-size:.82rem!important;
+  line-height:1.55!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-controls{
+  display:flex!important;gap:.35rem;align-items:center;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-controls button{
+  min-width:42px!important;min-height:42px!important;
+  height:42px!important;padding:.45rem .65rem!important;
+  background:#fff!important;color:#245336!important;
+  border:1px solid #cddaca!important;border-radius:7px!important;
+  box-shadow:none!important;font-weight:750!important;
+  cursor:pointer;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-controls button:hover:not(:disabled){
+  background:#edf4ea!important;border-color:#96b99b!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-controls button:disabled{
+  opacity:.42!important;cursor:not-allowed;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-scroll{
+  width:100%!important;max-width:100%!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(ellipse at 86% 12%,rgba(231,243,222,.9),transparent 42%),
+    radial-gradient(ellipse at 13% 87%,rgba(229,236,219,.76),transparent 45%),
+    #f6f9f2!important;
+}
+body:has(.gp-tree-shell) #quarto-content #gp-tree-canvas{
+  display:block!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-svg.gp-tree-zoom-explorer{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:1260/810!important;
+  overflow:hidden!important;
+  cursor:grab;
+  user-select:none;
+  touch-action:pan-y;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-svg.gp-tree-zoom-explorer:active{
+  cursor:grabbing;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-world{
+  transform-origin:0 0;
+  transition:transform .35s cubic-bezier(.2,.75,.28,1);
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-svg.is-dragging .gp-tree-world{
+  transition:none!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-organic-branches,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branch-lines{
+  fill:none!important;
+  pointer-events:none!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-wood{
+  stroke-linecap:round;stroke-linejoin:round;fill:none;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-wood-root{
+  stroke:#6d8756;stroke-width:67;
+  opacity:.24;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-wood-inner{
+  stroke:#486e3e;stroke-width:35;
+  opacity:.96;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-main-bough{
+  stroke:#537c46;stroke-width:17;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+  opacity:.9;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fine-bough{
+  stroke:#79a36b;stroke-width:6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:opacity .2s,stroke .2s,stroke-width .2s;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fine-bough.is-active{
+  stroke:#bd712d;stroke-width:10;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fine-bough.is-dimmed{
+  opacity:.11;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fork{
+  fill:#507e48;stroke:#f5f9f2;stroke-width:4;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-corner-label rect{
+  fill:#1f4d2b;stroke:#f7faf4;stroke-width:3;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-corner-label text{
+  fill:#fff;stroke:none;font-family:Inter,Arial,sans-serif;
+  font-size:23px;font-weight:840;letter-spacing:.045em;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip-nodes{
+  isolation:isolate;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip{
+  cursor:pointer;outline:none;
+  transition:opacity .16s ease;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-node-hit{
+  fill:transparent!important;stroke:none!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip-leaf{
+  fill:#f6fbf3;stroke:#4e804d;stroke-width:3;
+  filter:drop-shadow(0 3px 3px rgba(40,75,42,.12));
+  transition:fill .18s,stroke .18s;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip-number{
+  fill:#2a583a;
+  font:800 17px Inter,Arial,sans-serif;
+  pointer-events:none;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip:is(:hover,:focus-visible) .gp-tree-tip-leaf{
+  fill:#e0f0d8;stroke:#255b36;stroke-width:5;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip:focus-visible{
+  outline:none;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip.is-active .gp-tree-tip-leaf{
+  fill:#d9731f;stroke:#fff;stroke-width:5;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip.is-active .gp-tree-tip-number{
+  fill:#fff;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-tip.is-dimmed{
+  opacity:.12;pointer-events:none;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fruit-links{
+  pointer-events:none;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-fruit-stem{
+  fill:none;stroke:#94ac71;stroke-width:3;
+  stroke-linecap:round;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-visual-fruit circle{
+  stroke:#fff;stroke-width:4;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-visual-fruit text{
+  fill:#fff;font:800 17px Inter,Arial,sans-serif;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-swipe-hint{
+  display:block!important;
+  margin:0!important;
+  padding:.6rem 1.3rem .85rem!important;
+  color:#58715f;font-size:.78rem!important;line-height:1.5;
+  border-top:1px solid #e4eadf;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-legend{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center;
+  gap:.45rem 1.1rem!important;
+  padding:.7rem 1.3rem 1rem!important;
+  grid-template-columns:none!important;
+  background:#f1f5ee!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-legend span{
+  font-size:.75rem;line-height:1.4;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-detail{
+  position:sticky!important;
+  top:90px!important;
+  width:100%!important;max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  border:1px solid #dae5d7!important;
+  border-top:3px solid #d9731f!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  padding:1.3rem!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-detail h2{
+  margin:.45rem 0 .9rem!important;
+  font-size:clamp(1.15rem,1.6vw,1.42rem)!important;
+  line-height:1.3!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-detail .gp-tree-note{
+  background:#f8f9f5!important;border:1px solid #e5eae0!important;
+  border-radius:6px!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-index{
+  width:100%!important;max-width:100%!important;
+  min-width:0!important;
+  margin:clamp(2rem,4vw,3rem) 0 2rem!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branches{
+  width:100%!important;max-width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:.7rem!important;
+  margin:1rem 0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branch{
+  border-radius:7px!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branch-button{
+  min-height:62px!important;
+}
+@media(max-width:1000px){
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-layout{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-detail{
+    position:static!important;top:auto!important;
+    margin:0!important;
+  }
+}
+@media(max-width:720px){
+  body:has(.gp-tree-shell) #quarto-content main.content,
+  body:has(.gp-tree-shell) #title-block-header.quarto-title-block{
+    width:calc(100% - 1.3rem)!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-canvas-card{
+    border-radius:8px!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar{
+    padding:.9rem!important;gap:.7rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar-heading{
+    flex-basis:100%;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-toolbar p{
+    font-size:.79rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-controls{
+    display:flex!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-controls button{
+    min-height:44px!important;height:44px!important;min-width:44px!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-scroll{
+    overflow:hidden!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content #gp-tree-canvas{
+    display:block!important;
+    width:100%!important;min-width:0!important;max-width:100%!important;
+    height:420px!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-svg.gp-tree-zoom-explorer{
+    display:block!important;
+    height:420px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    aspect-ratio:auto!important;
+    touch-action:pan-y;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-legend{
+    gap:.45rem .8rem!important;
+    padding:.75rem .85rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-legend span{
+    flex:1 1 150px;
+    font-size:.72rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-swipe-hint{
+    padding:.55rem .85rem!important;
+    font-size:.76rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-branches{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-index-head{
+    display:block!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-world{
+    transition:none!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-fine-bough,
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-tip{
+    transition:none!important;
+  }
+}
