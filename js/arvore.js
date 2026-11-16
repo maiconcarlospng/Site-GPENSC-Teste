@@ -88,10 +88,7 @@
     canopyBranch(end.x,end.y,angle-fork,next,width*.68,depth-1,key*2+1);
     canopyBranch(end.x,end.y,angle+fork,next,width*.68,depth-1,key*2+2);
   }
-  const canopyRoots=[
-    [390,392,-2.48],[535,410,-2.05],[700,420,-1.57],[865,410,-1.08],[1010,392,-.66]
-  ];
-  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,178+(i%3)*14,2.35,2,41+i*23));
+  // Os ramos de copa serão ligados às pontas da própria árvore de dados.
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
@@ -142,7 +139,7 @@
   }
   function point(start,count,depth) {
     const center=(start+count/2)/total;
-    const heights=[725,540,366,205,89,25,15];
+    const heights=[725,545,390,270,180,135,115];
     return {x:100+1200*center, y:heights[Math.min(depth,heights.length-1)]};
   }
   // A madeira usa tangentes compartilhadas: os filhos nascem na direção do
@@ -286,6 +283,11 @@
     const drawn=limb(parent,p,fromWidth,toWidth,incoming);
     const stem=drawn.group;
     const terminal=count===1;
+    if(terminal){
+      const crownAngle=-Math.PI/2+((p.x-700)/700)*.78;
+      canopyBranch(p.x,p.y,crownAngle-.48,72,1.55,1,61+start*17);
+      canopyBranch(p.x,p.y,crownAngle+.46,68,1.5,1,89+start*19);
+    }
     const spray=terminal?leaves(p,start):null;
     const linked=terminal?linkedLife(p,start):null;
     const bubble=make('g',{
@@ -297,22 +299,18 @@
         'aria-pressed':'false'
       }:{'aria-hidden':'true'})
     },nodeLayer);
-    const radius=terminal?17:clamp(12+count/total*9,13,21);
-    // Área de toque invisível e acessível, independente das folhas decorativas.
-    make('circle',{r:radius+9,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
-    make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
-    make('circle',{r:radius,class:'gp49-node-disc'},bubble);
-    make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
-    // Os nomes e números individuais ficam na lista, evitando texto amontoado nos nós.
-    if (!terminal) {
-      make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
-      make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
-    } else {
-      make('circle',{r:5,class:'gp49-node-seed'},bubble);
-      const indexLabel=make('text',{x:0,y:radius+23,'text-anchor':'middle',
+    const radius=terminal?8:4;
+    // Apenas as pontas recebem número; a área de toque continua acessível.
+    make('circle',{r:19,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
+    if(terminal){
+      make('circle',{r:3.5,fill:'#315d32',stroke:'#f5f5eb','stroke-width':1.4},bubble);
+      const indexLabel=make('text',{x:0,y:radius+20,'text-anchor':'middle',
         class:'gp49-terminal-index','aria-hidden':'true'},bubble);
       indexLabel.textContent=String(start+1).padStart(2,'0');
       make('title',{},bubble).textContent=nodeNames[start];
+    } else {
+      make('circle',{r:2.6,fill:'#755037',opacity:.8},bubble);
+      make('title',{},bubble).textContent=count+' linhas ou projetos conectados';
     }
     let kids=[];
     function expand(auto=false) {
@@ -355,7 +353,7 @@
     if(!terminal)expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},112,52,{x:0,y:-1});
+  branch(0,total,0,{x:700,y:970},145,78,{x:0,y:-1});
   const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
