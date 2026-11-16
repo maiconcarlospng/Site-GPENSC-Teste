@@ -20094,3 +20094,210 @@ html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-nav
     width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;
   }
 }
+
+
+/* GPENSC — EXPLORADOR FRACTAL DA ÁRVORE (OneZoom-inspired, 2026-11) */
+/* Estilos restritos à página da árvore: a floresta ilustrativa foi substituída
+   por uma tela de exploração contínua com madeira, bifurcações e folhas vetoriais. */
+html body:has(#gp49) #quarto-content #gp49 {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  color:#244830;
+}
+html body:has(#gp49) #quarto-content #gp49 .gp49-landscape {
+  position:relative;
+  width:100%;
+  max-width:none;
+  overflow:hidden;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:linear-gradient(180deg,#fafbf7 0%,#f4f8f0 72%,#f0f3e9 100%)!important;
+}
+html body:has(#gp49) #quarto-content #gp49 #gp49-map {
+  position:relative;
+  width:100%;
+  box-sizing:border-box!important;
+  height:clamp(570px,78svh,870px)!important;
+  min-height:570px!important;
+  max-height:none!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(ellipse at 53% 62%,rgba(207,225,199,.30),transparent 58%),
+    linear-gradient(180deg,#fbfcf9 0%,#f4f8f1 100%)!important;
+}
+html body:has(#gp49) #gp49 #gp49-map::before,
+html body:has(#gp49) #gp49 #gp49-map::after {
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map > svg {
+  display:block;
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  overflow:hidden!important;
+  touch-action:none;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+html body:has(#gp49) #gp49 #gp49-map > svg:active {cursor:grabbing}
+html body:has(#gp49) #gp49 #gp49-map > svg > .gp49-wood-layer > .gp49-limb {
+  transform:none!important;
+  transform-origin:initial!important;
+  filter:drop-shadow(0 1px 1px rgba(52,47,33,.14));
+}
+#gp49 #gp49-map .gp49-limb > .gp49-wood-body {
+  stroke:rgba(58,58,43,.19);
+  stroke-width:1px;
+  stroke-linejoin:round;
+}
+#gp49 #gp49-map .gp49-limb > .gp49-wood-grain {
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+#gp49 #gp49-map .gp49-node {
+  cursor:pointer;
+  outline:none;
+  transition:opacity .2s ease;
+}
+#gp49 #gp49-map .gp49-node-halo {
+  fill:#cce1c2;
+  opacity:.48;
+  transition:opacity .18s ease;
+}
+#gp49 #gp49-map .gp49-node-disc {
+  fill:#2e5a3e;
+  stroke:#e8f0de;
+  stroke-width:3;
+  transition:fill .18s ease,stroke .18s ease;
+  filter:drop-shadow(0 2px 3px rgba(31,77,43,.16));
+}
+#gp49 #gp49-map .gp49-node-ring {
+  fill:none;
+  stroke:rgba(217,233,191,.48);
+  stroke-width:1.5;
+  pointer-events:none;
+}
+#gp49 #gp49-map .gp49-terminal .gp49-node-disc {fill:#5d8947}
+#gp49 #gp49-map .gp49-node-seed {fill:#e6f1d3;pointer-events:none}
+#gp49 #gp49-map .gp49-node.is-open > .gp49-node-disc {fill:#3e7248}
+#gp49 #gp49-map .gp49-node:hover .gp49-node-disc,
+#gp49 #gp49-map .gp49-node:focus-visible .gp49-node-disc {
+  fill:#648c45;
+  stroke:#d9731f;
+  stroke-width:4;
+}
+#gp49 #gp49-map .gp49-node:hover .gp49-node-halo,
+#gp49 #gp49-map .gp49-node:focus-visible .gp49-node-halo {opacity:.84}
+#gp49 #gp49-map .gp49-node-count {
+  display:block!important;
+  fill:#fff!important;
+  font:700 19px/1 Inter,system-ui,sans-serif!important;
+  stroke:none!important;
+  pointer-events:none;
+}
+#gp49 #gp49-map .gp49-leaf-label {
+  display:block;
+  opacity:0;
+  fill:#244830!important;
+  stroke:#f7faf3!important;
+  stroke-width:5px!important;
+  paint-order:stroke fill;
+  stroke-linejoin:round;
+  font:600 15px/1.3 Inter,system-ui,sans-serif!important;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+#gp49 #gp49-map svg.gp49-detailed .gp49-leaf-label,
+#gp49 #gp49-map .gp49-terminal:focus .gp49-leaf-label,
+#gp49 #gp49-map .gp49-terminal:hover .gp49-leaf-label {opacity:1}
+#gp49 #gp49-map .gp49-leaf-spray {opacity:.85}
+html body:has(#gp49) #gp49 .gp49-hint {
+  position:absolute!important;
+  top:18px!important;
+  bottom:auto!important;
+  left:clamp(15px,3vw,52px)!important;
+  right:auto!important;
+  width:auto!important;
+  max-width:calc(100% - 32px)!important;
+  margin:0!important;
+  padding:7px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#586d59!important;
+  font:500 13px/1.4 Inter,system-ui,sans-serif!important;
+  text-align:left!important;
+  pointer-events:none;
+  z-index:3;
+}
+html body:has(#gp49) #gp49 .gp49-tools {
+  position:absolute;
+  z-index:3;
+  bottom:clamp(16px,3vw,34px)!important;
+  right:clamp(16px,3vw,45px)!important;
+  gap:3px;
+  border:1px solid #d7e2d0;
+  border-radius:12px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 6px 20px rgba(31,77,43,.10);
+}
+#gp49 .gp49-tools button:focus-visible {
+  outline:2px solid #d9731f;
+  outline-offset:2px;
+}
+html body:has(#gp49) #gp49 #gp49-detail,
+html body:has(#gp49) #gp49 #gp49-directory {
+  width:calc(100% - 40px)!important;
+  max-width:1040px!important;
+  padding-inline:0!important;
+}
+html body:has(#gp49) #gp49 #gp49-detail {
+  margin-block:30px!important;
+  padding-top:24px!important;
+}
+html body:has(#gp49) #gp49 #gp49-directory {
+  margin-top:clamp(26px,3vw,42px)!important;
+}
+@media(max-width:767px) {
+  html body:has(#gp49) #quarto-content #gp49 #gp49-map {
+    height:clamp(440px,64svh,680px)!important;
+    min-height:440px!important;
+  }
+  html body:has(#gp49) #gp49 .gp49-hint {
+    top:12px!important;
+    left:14px!important;
+    right:14px!important;
+    max-width:calc(100% - 28px)!important;
+    font-size:11px!important;
+  }
+  html body:has(#gp49) #gp49 .gp49-tools {
+    bottom:14px!important;
+    right:14px!important;
+  }
+  html body:has(#gp49) #gp49 .gp49-tools button {
+    min-width:44px;
+    min-height:44px;
+    padding:9px;
+    font-size:12px;
+  }
+  html body:has(#gp49) #gp49 #gp49-detail,
+  html body:has(#gp49) #gp49 #gp49-directory {
+    width:calc(100% - 36px)!important;
+  }
+  #gp49 #gp49-map .gp49-leaf-label {font-size:17px!important}
+}
+@media(prefers-reduced-motion:reduce) {
+  #gp49 #gp49-map .gp49-node,
+  #gp49 #gp49-map .gp49-leaf-label,
+  #gp49 #gp49-map .gp49-node-disc,
+  #gp49 #gp49-map .gp49-node-halo {transition:none!important}
+}
