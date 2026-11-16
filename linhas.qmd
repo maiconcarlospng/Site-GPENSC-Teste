@@ -65,14 +65,7 @@ if (secao_ativa("mostrar_linhas")) {
               span(class = "linha-pesquisa-selo", "PESQUISA")
             ),
             h3(nome),
-            if (!is.null(descricao)) {
-              p(class = "linha-pesquisa-descricao", descricao)
-            } else {
-              p(
-                class = "linha-pesquisa-descricao linha-pesquisa-descricao-vazia",
-                "Esta linha reúne estudos e investigações desenvolvidos pelo grupo."
-              )
-            },
+            if (!is.null(descricao)) p(class = "linha-pesquisa-descricao", descricao),
             if (!is.null(palavras)) {
               div(
                 class = "linha-pesquisa-palavras",
@@ -80,25 +73,21 @@ if (secao_ativa("mostrar_linhas")) {
                 palavras
               )
             },
-            div(
+            if (nrow(pessoas_linha) > 0) div(
               class = "linha-pesquisa-equipe",
               h4("Integrantes vinculados"),
-              if (nrow(pessoas_linha) > 0) {
-                tags$ul(lapply(seq_len(nrow(pessoas_linha)), function(j) {
-                  pessoa <- pessoas_linha[j, , drop = FALSE]
-                  nome_pessoa <- as.character(pessoa$nome[1])
-                  lattes_pessoa <- valor_publico(pessoa$lattes)
-                  tags$li(if (!is.null(lattes_pessoa)) {
-                    tags$a(nome_pessoa, href = lattes_pessoa, target = "_blank", rel = "noopener noreferrer")
-                  } else {
-                    tags$span(nome_pessoa)
-                  })
-                }))
-              } else {
-                p("Não há integrantes vinculados a esta linha para exibição no momento.")
-              }
+              tags$ul(lapply(seq_len(nrow(pessoas_linha)), function(j) {
+                pessoa <- pessoas_linha[j, , drop = FALSE]
+                nome_pessoa <- as.character(pessoa$nome[1])
+                lattes_pessoa <- valor_publico(pessoa$lattes)
+                tags$li(if (!is.null(lattes_pessoa)) {
+                  tags$a(nome_pessoa, href = lattes_pessoa, target = "_blank", rel = "noopener noreferrer")
+                } else {
+                  tags$span(nome_pessoa)
+                })
+              }))
             ),
-            tags$details(
+            if (nrow(projetos_linha) + nrow(defesas_linha) + nrow(publicacoes_linha) > 0) tags$details(
               class = "linha-pesquisa-detalhes",
               tags$summary(
                 "Ver estudos e publicações",
@@ -106,7 +95,7 @@ if (secao_ativa("mostrar_linhas")) {
               ),
               div(
                 class = "linha-pesquisa-detalhes-conteudo",
-                div(
+                if (nrow(projetos_linha) > 0) div(
                   class = "linha-pesquisa-relacionados",
                   h4("Projetos"),
                   if (nrow(projetos_linha) > 0) {
@@ -119,20 +108,18 @@ if (secao_ativa("mostrar_linhas")) {
                         }
                       )
                     }))
-                  } else {
-                    p("Nenhum projeto vinculado a esta linha no momento.")
                   }
                 ),
-                div(
+                if (nrow(defesas_linha) > 0) div(
                   class = "linha-pesquisa-relacionados",
                   h4("Teses e dissertações"),
                   if (nrow(defesas_linha) > 0) tags$ul(lapply(seq_len(nrow(defesas_linha)), function(j) {
                     trabalho <- defesas_linha[j, , drop = FALSE]
                     url <- valor_publico(trabalho$url)
                     tags$li(if (!is.null(url) && grepl("^https?://", url)) tags$a(as.character(trabalho$titulo[1]), href = url, target = "_blank", rel = "noopener noreferrer") else tags$span(as.character(trabalho$titulo[1])))
-                  })) else p("Nenhuma tese ou dissertação vinculada no momento.")
+                  }))
                 ),
-                div(
+                if (nrow(publicacoes_linha) > 0) div(
                   class = "linha-pesquisa-relacionados",
                   h4("Publicações"),
                   if (nrow(publicacoes_linha) > 0) {
@@ -160,8 +147,6 @@ if (secao_ativa("mostrar_linhas")) {
                         ))
                       )
                     }))
-                  } else {
-                    p("Nenhuma publicação vinculada a esta linha no momento.")
                   }
                 )
               )
@@ -173,7 +158,7 @@ if (secao_ativa("mostrar_linhas")) {
   } else {
     estado_vazio(
       "Nenhuma linha de pesquisa disponível",
-      "No momento, não há linhas de pesquisa disponíveis para consulta.",
+      "As linhas cadastradas serão exibidas aqui.",
       "Fale com o grupo",
       "contato.html"
     )
