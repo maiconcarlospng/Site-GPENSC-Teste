@@ -6,7 +6,7 @@ description: "Visualize as conexões entre o GPENSC, suas linhas, projetos, inte
 
 ```{=html}
 <section class="gp-tree-intro" aria-label="Como explorar a árvore">
-  <p>A árvore representa a atuação do GPENSC: raízes são os fundamentos, o tronco é o grupo, os galhos são suas linhas de pesquisa e os frutos simbolizam as conexões com pessoas, projetos e produções. Selecione um ponto numerado ou utilize a lista de linhas para explorar os vínculos registrados.</p>
+  <p>Uma árvore de relações científicas: o GPENSC é o tronco, as linhas de pesquisa são os galhos, e as conexões documentadas com pessoas, projetos e produções aparecem como frutos. Navegue pelo mapa ou consulte a lista acessível de linhas.</p>
 </section>
 ```
 
@@ -105,28 +105,28 @@ div(
           div(
             class = "gp-tree-toolbar-heading",
             span(class = "gp-tree-eyebrow", "MAPA INTERATIVO"),
-            h2("Explore os galhos"),
-            p("Selecione uma linha na copa para descobrir suas conexões cadastradas.")
+            h2("Explore as ramificações"),
+            p("O tronco começa no canto do mapa. Amplie, arraste e selecione um ramo para explorar suas conexões.")
           ),
           div(
             class = "gp-tree-controls",
             tags$button(id = "gp-tree-minus", type = "button", "aria-label" = "Diminuir zoom", "−"),
             tags$button(id = "gp-tree-plus", type = "button", "aria-label" = "Aumentar zoom", "+"),
-            tags$button(id = "gp-tree-reset", type = "button", "Redefinir")
+            tags$button(id = "gp-tree-reset", type = "button", "aria-label" = "Voltar à visão geral", "Visão geral")
           )
         ),
         div(class = "gp-tree-scroll", div(id = "gp-tree-canvas")),
-        p(class = "gp-tree-swipe-hint", "Deslize o mapa para explorar os galhos e toque nos números. A lista de linhas está disponível logo abaixo."),
+        p(class = "gp-tree-swipe-hint", "Explore por toque e arraste, ou selecione uma linha na lista abaixo. Os botões ampliam o mapa."),
         div(class = "gp-tree-legend",
             span("Raízes: fundamentos"),
             span("Tronco: GPENSC"),
             span("Galhos: linhas de pesquisa"),
-            span("Frutos: conexões com pessoas, projetos e produções"))
+            span("Frutos: vínculos registrados com projetos, integrantes e produções"))
       ),
       tags$aside(id = "gp-tree-detail", class = "gp-tree-detail",
                  "aria-live" = "polite",
                  h2("Selecione um ramo"),
-                 p("Clique em uma folha numerada ou escolha uma linha na lista."))
+                 p("Escolha um ramo numerado no mapa ou uma linha na lista."))
     ),
     div(
       class = "gp-tree-index",
@@ -155,4 +155,4 @@ div(
 )
 ```
 
-<script src="js/arvore-interativa.js" defer></script>
+<script src="js/arvore-explorador.js" defer></script>
