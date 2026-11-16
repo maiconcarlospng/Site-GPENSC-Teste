@@ -19896,3 +19896,157 @@ html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .gp-month-leg
     font-size:.65rem!important;
   }
 }
+
+/* GPENSC | Rodapé institucional — acabamento, hierarquia e largura consistente.
+   A marca, os links e o acesso ao painel permanecem intactos. */
+html body footer.footer:has(#gp-institutional-footer) {
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  min-height:0!important;
+  margin-top:clamp(20px,3vw,36px)!important;
+  padding:0!important;
+  border:0!important;
+  border-top:1px solid #d8e3d6!important;
+  background:#f3f5f0!important;
+  box-shadow:none!important;
+}
+html body footer.footer:has(#gp-institutional-footer)::before {
+  content:""!important;
+  display:block!important;
+  width:100%!important;
+  height:3px!important;
+  background:linear-gradient(90deg,#5f9a3e 0 48%,#d9731f 48% 76%,#d43a2f 76% 100%)!important;
+  pointer-events:none!important;
+}
+html body footer.footer:has(#gp-institutional-footer) .nav-footer,
+html body footer.footer:has(#gp-institutional-footer) .nav-footer-left {
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+}
+html body footer.footer #gp-institutional-footer {
+  width:calc(100% - 48px)!important;
+  max-width:1240px!important;
+  margin:0 auto!important;
+  padding:clamp(28px,3.4vw,46px) 0 0!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-main {
+  display:grid!important;
+  grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr)!important;
+  align-items:start!important;
+  justify-content:space-between!important;
+  gap:clamp(26px,5vw,90px)!important;
+  margin:0!important;
+  padding:0 0 clamp(24px,3vw,38px)!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-identity {
+  min-width:0!important;
+  max-width:620px!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-name {
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:40px!important;
+  margin:0 0 6px!important;
+  padding:0!important;
+  color:#1f4d2b!important;
+  font-size:clamp(1.3rem,1.7vw,1.6rem)!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:-.018em!important;
+  text-decoration:none!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-identity > p {
+  max-width:46ch!important;
+  margin:0!important;
+  color:#354e3d!important;
+  font-size:clamp(.89rem,1.1vw,.98rem)!important;
+  line-height:1.55!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-affiliation {
+  display:block!important;
+  margin-top:12px!important;
+  color:#657569!important;
+  font-size:.82rem!important;
+  line-height:1.5!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-links {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:clamp(12px,2.2vw,32px)!important;
+  row-gap:3px!important;
+  align-items:start!important;
+  justify-content:end!important;
+  min-width:0!important;
+  margin:0!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-links a {
+  display:inline-flex!important;
+  align-items:center!important;
+  width:max-content!important;
+  max-width:100%!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:6px 0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#254833!important;
+  font-size:.88rem!important;
+  font-weight:650!important;
+  line-height:1.45!important;
+  text-decoration:none!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-links a:is(:hover,:focus-visible) {
+  color:#a45418!important;
+  text-decoration:underline!important;
+  text-underline-offset:4px!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-base {
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px 28px!important;
+  min-height:58px!important;
+  margin:0!important;
+  padding:10px 0!important;
+  border-top:1px solid #d7dfd3!important;
+  color:#667568!important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-admin {
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:38px!important;
+  padding:4px 0!important;
+  color:#526456!important;
+  font-weight:600!important;
+}
+@media (max-width:760px) {
+  html body footer.footer #gp-institutional-footer {
+    width:calc(100% - 36px)!important;
+    padding-top:28px!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-main {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:18px!important;
+    padding-bottom:23px!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-identity {
+    max-width:none!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-links {
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:flex-start!important;
+    gap:3px 20px!important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-base {
+    min-height:50px!important;
+  }
+}
