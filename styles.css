@@ -15638,10 +15638,6 @@ body #quarto-content .galeria--faixa {
   border-radius:0!important;
   box-shadow:none!important;
 }
-body #quarto-content .galeria--faixa::before{
-  content:"";position:absolute;top:0;right:0;left:0;height:3px;z-index:1;
-  background:linear-gradient(90deg,#5f9a3e 0%,#1f4d2b 53%,#d9731f 83%,#d43a2f);
-}
 body #quarto-content .galeria--faixa .galeria-faixa{
   display:flex!important;align-items:stretch!important;
   gap:clamp(.6rem,1.2vw,1rem)!important;

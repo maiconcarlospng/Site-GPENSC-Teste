@@ -101,6 +101,7 @@ async function initialize(){
     $('#workspace').hidden=false;
     renderNav();
     renderHome();
+    loadMediaFiles();
   }catch(error){
     const expired=error.status===401;
     if(expired){
@@ -193,7 +194,7 @@ function renderNav(){
   const settings=entries.filter(({c})=>isConfigCollection(c));
   nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.view==='summary'?'active':'')+'"><span>Visão geral</span></button>'+
     '<button type="button" data-settings-home class="summary-nav-item '+(state.view==='settings'?'active':'')+'"><span>Configurações do site</span></button>'+
-    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+state.mediaFiles.length+'</span></button>'+
+    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+(state.mediaLoading?'…':state.mediaError?'—':state.mediaFiles.length)+'</span></button>'+
     content+
     '<section class="menu-section menu-section-settings" aria-label="Configurações">'+
       '<div class="menu-section-title">CONFIGURAÇÕES DO SITE</div>'+
@@ -355,7 +356,7 @@ function analyticsContentMarkup(){
     return '<div class="analytics-setup"><div class="analytics-setup-icon" aria-hidden="true">↗</div><div><strong>Rastreamento ainda não ativado</strong><p>Ative o rastreador do Umami para começar a contabilizar as visitas ao site.</p><a href="https://cloud.umami.is/" target="_blank" rel="noopener">Abrir Umami Cloud ↗</a></div></div>';
   }
   if(!config.apiUrl){
-    return '<div class="analytics-setup"><div class="analytics-setup-icon" aria-hidden="true">✓</div><div><strong>Coleta de acessos ativada no site</strong><p>O rastreador do Umami já está instalado. Para exibir os indicadores aqui no painel, falta publicar o proxy protegido no Cloudflare e informar a URL dele em <code>data/analytics.json</code>. A chave da API deve ficar somente como Secret no Cloudflare.</p><a href="https://github.com/maiconcarlospng/Site-GPENSC-Teste/blob/main/analytics-worker/README.md" target="_blank" rel="noopener">Ver instruções da integração ↗</a></div></div>';
+    return '<div class="analytics-setup"><div class="analytics-setup-icon" aria-hidden="true">✓</div><div><strong>Rastreamento instalado; painel aguardando integração</strong><p>O rastreador do Umami já está instalado. Para exibir os indicadores aqui no painel, falta publicar o proxy protegido no Cloudflare e informar a URL dele em <code>data/analytics.json</code>. A chave da API deve ficar somente como Secret no Cloudflare.</p><a href="https://github.com/maiconcarlospng/Site-GPENSC-Teste/blob/main/analytics-worker/README.md" target="_blank" rel="noopener">Ver instruções da integração ↗</a></div></div>';
   }
   if(state.analyticsLoading)return '<div class="analytics-loading"><span class="activity-loader"></span> Consultando os dados de acesso…</div>';
   if(state.analyticsError)return '<div class="analytics-error"><strong>Não foi possível consultar as estatísticas.</strong><span>'+esc(state.analyticsError)+'</span><button type="button" class="secondary-button" id="analytics-retry">Tentar novamente</button></div>';
@@ -756,6 +757,7 @@ function openMediaLibrary(){
 }
 async function loadMediaFiles(){
   state.mediaLoading=true;state.mediaError='';
+  renderNav();
   const status=$('#media-status'),grid=$('#media-grid');
   if(status)status.textContent='Atualizando a lista…';
   if(grid)grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';
