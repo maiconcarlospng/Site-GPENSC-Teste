@@ -195,3 +195,141 @@ body #quarto-content .vi-site .vi-team h3 {font-size:clamp(1.3rem,2.4vw,1.85rem)
  .vi-site .vi-button,.vi-learn-card{transition:none!important;}
  .vi-site .vi-button:hover,.vi-learn-card:hover{transform:none!important;}
 }
+
+/* Vi no Rótulo | ocupação integral da página.
+   Os fundos são de largura total; margens internas garantem legibilidade. */
+html body:has(#vi-site) .quarto-container,
+html body:has(#vi-site) #quarto-content,
+html body:has(#vi-site) #quarto-content.page-columns {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+html body:has(#vi-site) #quarto-content main.content,
+html body:has(#vi-site) #quarto-content #quarto-document-content {
+  box-sizing:border-box!important;
+  grid-column:1 / -1!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body:has(#vi-site) #quarto-content .cell,
+html body:has(#vi-site) #quarto-content .cell-output,
+html body:has(#vi-site) #quarto-content .cell-output-display {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-inline:0!important;
+  padding-inline:0!important;
+}
+html body:has(#vi-site) #quarto-content .vi-site {
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:0!important;
+}
+html body:has(#vi-site) #quarto-content {
+  overflow-x:clip!important;
+}
+html body:has(#vi-site) #quarto-content .vi-nav {
+  width:100%!important;
+  max-width:none!important;
+  padding-inline:clamp(20px,5vw,112px)!important;
+}
+html body:has(#vi-site) #quarto-content .vi-hero {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  padding-inline:clamp(22px,6.5vw,136px)!important;
+  gap:clamp(24px,4vw,86px)!important;
+}
+html body:has(#vi-site) #quarto-content .vi-hero-copy {
+  max-width:790px!important;
+}
+html body:has(#vi-site) #quarto-content .vi-intro,
+html body:has(#vi-site) #quarto-content .vi-learn,
+html body:has(#vi-site) #quarto-content .vi-publications,
+html body:has(#vi-site) #quarto-content .vi-team,
+html body:has(#vi-site) #quarto-content .vi-feature,
+html body:has(#vi-site) #quarto-content .vi-footer {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-inline:clamp(22px,6.5vw,136px)!important;
+}
+html body:has(#vi-site) #quarto-content .vi-intro-layout {
+  grid-template-columns:minmax(0,1.25fr) minmax(245px,.75fr)!important;
+  gap:clamp(28px,5vw,100px)!important;
+}
+html body:has(#vi-site) #quarto-content .vi-learn-grid,
+html body:has(#vi-site) #quarto-content .vi-post-grid {
+  width:100%!important;
+  max-width:none!important;
+}
+html body:has(#vi-site) #quarto-content .vi-section-heading {
+  max-width:900px!important;
+}
+/* Evita dois rodapés consecutivos: a página Vi no Rótulo mantém seu próprio. */
+html body:has(#vi-site) footer.footer:has(#gp-institutional-footer) {
+  display:none!important;
+}
+@media (min-width:1600px) {
+  html body:has(#vi-site) #quarto-content .vi-hero {
+    min-height:clamp(570px,70vh,780px)!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-hero-art {
+    min-height:430px!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-post-image,
+  html body:has(#vi-site) #quarto-content .vi-post-placeholder {
+    height:clamp(225px,16vw,310px)!important;
+  }
+}
+@media (max-width:850px) {
+  html body:has(#vi-site) #quarto-content .vi-hero {
+    grid-template-columns:minmax(0,1fr)!important;
+    min-height:0!important;
+    padding-inline:clamp(20px,5vw,38px)!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-intro-layout {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:25px!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-intro,
+  html body:has(#vi-site) #quarto-content .vi-learn,
+  html body:has(#vi-site) #quarto-content .vi-publications,
+  html body:has(#vi-site) #quarto-content .vi-team,
+  html body:has(#vi-site) #quarto-content .vi-feature,
+  html body:has(#vi-site) #quarto-content .vi-footer {
+    padding-inline:clamp(20px,5vw,38px)!important;
+  }
+}
+@media (max-width:560px) {
+  html body:has(#vi-site) #quarto-content .vi-nav {
+    padding-inline:16px!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-hero {
+    padding-inline:20px!important;
+  }
+  html body:has(#vi-site) #quarto-content .vi-intro,
+  html body:has(#vi-site) #quarto-content .vi-learn,
+  html body:has(#vi-site) #quarto-content .vi-publications,
+  html body:has(#vi-site) #quarto-content .vi-team,
+  html body:has(#vi-site) #quarto-content .vi-feature,
+  html body:has(#vi-site) #quarto-content .vi-footer {
+    padding-inline:20px!important;
+  }
+}
