@@ -210,7 +210,7 @@ estado_vazio <- function(titulo, descricao, link_texto = NULL, link_href = NULL)
     div(class = "estado-vazio-icone", tags$i(class = "bi bi-info-circle", `aria-hidden` = "true")),
     div(
       class = "estado-vazio-texto",
-      h3(titulo),
+      p(class = "estado-vazio-titulo", titulo),
       if (tem(descricao)) p(descricao),
       link
     )

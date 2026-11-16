@@ -1,17 +1,3 @@
-```{=html}
-<section class="gp-publico-intro" aria-label="Como ler os resultados">
-  <p class="gp-publico-selo">CIÊNCIA E SOCIEDADE</p>
-  <p>Resultados de estudos apresentados em linguagem acessível, com fontes e limites identificados. As informações não substituem orientação profissional individual.</p>
-  <div class="gp-publico-rotas" aria-label="Encontre o conteúdo mais útil">
-    <a href="publicacoes.html"><strong>Comunidade científica</strong><span>Artigos, produções e fontes originais</span></a>
-    <a href="conteudos.html#impacto"><strong>Gestores e profissionais</strong><span>Ações documentadas e aplicações práticas</span></a>
-    <a href="conteudos.html#materiais"><strong>População e estudantes</strong><span>Cartilhas, infográficos e materiais educativos</span></a>
-  </div>
-</section>
-```
-
-## Resultados explicados
-
 ```{r}
 source("R/helpers.R")
 publicacoes_reais <- registros_reais(pubs, "titulo")
@@ -55,10 +41,7 @@ if (nrow(publicacoes_explicadas)) {
   )
 } else {
   estado_vazio(
-    "Sínteses científicas em preparação",
-    "Os resultados revisados aparecerão aqui conforme forem publicados pelo grupo.",
-    "Consultar publicações",
-    "publicacoes.html"
+    "Nenhuma síntese publicada.", NULL
   )
 }
 ```

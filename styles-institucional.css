@@ -88,3 +88,7 @@ html body #quarto-content main.content #title-block-header .description {margin-
 @media(max-width:900px){
  html body #quarto-content .gp44-workspace {grid-template-columns:minmax(0,1fr)!important;}
 }
+
+html body #quarto-content main.content .estado-vazio {padding:.5rem 0!important;margin:0!important;border:0!important;background:none!important;box-shadow:none!important;min-height:0!important;}
+html body #quarto-content main.content .estado-vazio-icone {display:none!important;}
+html body #quarto-content main.content .estado-vazio-titulo {font-size:.95rem!important;font-weight:400!important;margin:0!important;color:#657268!important;}
