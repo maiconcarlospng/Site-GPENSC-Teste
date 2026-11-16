@@ -127,24 +127,16 @@
       'aria-label':terminal?nodeNames[start]:'Explorar '+count+' linhas de pesquisa',
       ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
-    const radius=terminal?22:clamp(25+count/total*20,26,45);
+    const radius=terminal?17:clamp(12+count/total*9,13,21);
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
     if (!terminal) {
-      make('text',{y:6,'text-anchor':'middle',class:'gp49-node-count'},bubble).textContent=count;
+      make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
       make('title',{},bubble).textContent=count+' linhas de pesquisa — clique para expandir ou recolher';
     } else {
       make('circle',{r:5,class:'gp49-node-seed'},bubble);
-      const text=make('text',{x:0,y:radius+25,'text-anchor':'middle',class:'gp49-leaf-label'},bubble);
-      const words=nodeNames[start].split(/\s+/);
-      const lines=[];let line='';
-      words.forEach(word=>{
-        if ((line+' '+word).length>25 && line) {lines.push(line);line=word;}
-        else line+=(line?' ':'')+word;
-      });
-      if (line) lines.push(line);
-      lines.forEach((piece,i)=>make('tspan',{x:0,dy:i?'1.17em':0},text).textContent=piece);
+      // Long labels appear only on demand, never together over the foliage.
       make('title',{},bubble).textContent=nodeNames[start];
     }
     let kids=[];
@@ -183,7 +175,9 @@
     if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:1110},160,78);
+  branch(0,total,0,{x:700,y:970},160,78);
+  const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
   let selected=-1;
