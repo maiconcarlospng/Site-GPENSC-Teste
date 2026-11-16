@@ -25,16 +25,22 @@
     put(trunkLabel,"rect",{x:428,y:610,width:144,height:53,rx:12,fill:"#214d30",stroke:"#f8f5e9","stroke-width":3});
     put(trunkLabel,"text",{x:500,y:643,"text-anchor":"middle",class:"gp-tree-trunk-label"},"GPENSC");
     const nodes=[],stems=[];
-    // Pontos distribuídos na copa (viewBox original 1000 × 820).
-    const positions=[
-      [245,384],[240,296],[315,216],[360,359],[376,275],
-      [430,146],[473,252],[520,121],[542,349],[601,194],
-      [666,146],[690,285],[753,217],[786,330],[711,412],
-      [598,434],[437,440]
-    ];
+    // Distribuição responsiva ao número REAL de linhas, sem pontos fixos
+    // ou elementos de demonstração. Mantém cada ponto dentro da copa.
+    const columns=Math.max(1,Math.ceil(Math.sqrt(branches.length*1.6)));
+    const rows=Math.ceil(branches.length/columns);
+    const stepX=columns>1?480/(columns-1):0;
+    const positions=branches.map((_,i)=>{
+      const row=Math.floor(i/columns);
+      const col=i%columns;
+      const rowCount=Math.min(columns,branches.length-row*columns);
+      const x=500+(col-(rowCount-1)/2)*stepX+(row%2?12:-12);
+      const y=rows===1?285:165+row*(275/(rows-1));
+      return [Math.round(x),Math.round(y)];
+    });
     const badges=put(scene,"g",{class:"gp-tree-markers"});
     branches.forEach((branch,i)=>{
-      const point=positions[i]||[240+((i*73)%520),175+((i*113)%240)];
+      const point=positions[i];
       const [x,y]=point;
       const name=branch.querySelector(".gp-tree-name")?.textContent?.trim()||"Linha "+(i+1);
       const g=put(badges,"g",{class:"gp-tree-node",role:"button",tabindex:0,
@@ -48,6 +54,29 @@
       g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(i,true);}});
       nodes.push(g);
     });
+    // Frutos visíveis somente para vínculos reais da linha selecionada.
+    const fruitLayer=put(scene,"g",{class:"gp-tree-fruits","aria-hidden":"true"});
+    function desenharVinculos(i){
+      fruitLayer.replaceChildren();
+      const dados=branches[i]?.dataset;
+      if(!dados)return;
+      const categorias=[
+        ["projects","P","#d9731f","projetos"],
+        ["people","I","#5f9a3e","integrantes"],
+        ["publications","C","#be7643","produções"],
+        ["theses","T","#51776b","teses e dissertações"]
+      ].filter(([id])=>Number(dados[id]||0)>0);
+      const [x,y]=positions[i];
+      const esquerda=x>570;
+      categorias.forEach(([id,letra,cor,nome],j)=>{
+        const cx=x+(esquerda?-1:1)*(48+(j%2)*45);
+        const cy=y-35+Math.floor(j/2)*49;
+        const grupo=put(fruitLayer,"g",{class:"gp-tree-fruit-item"});
+        put(grupo,"title",{},dados[id]+" "+nome+" vinculados");
+        put(grupo,"circle",{cx,cy,r:18,fill:cor,stroke:"#fff","stroke-width":4});
+        put(grupo,"text",{x:cx,y:cy+5,"text-anchor":"middle",class:"gp-tree-fruit-text"},letra);
+      });
+    }
     canvas.replaceChildren(svg);
     let active=0,scale=1,filter="all";
     const status=document.getElementById("gp-tree-count");
@@ -57,7 +86,9 @@
     panelHeading.className="gp-tree-eyebrow";
     function visible(i){
       const line=branches[i];
-      const matchesQuery=!search?.value||normal(line.querySelector(".gp-tree-name")?.textContent||"").includes(normal(search.value));
+      const buscavel=[line.querySelector(".gp-tree-name")?.textContent||"",
+        line.querySelector(".gp-tree-body")?.textContent||""].join(" ");
+      const matchesQuery=!search?.value||normal(buscavel).includes(normal(search.value));
       const matchesKind=filter!=="linked"||line.dataset.hasLinks==="1";
       return matchesQuery&&matchesKind;
     }
@@ -70,6 +101,7 @@
         line.querySelector("button")?.setAttribute("aria-expanded",String(selected));
       });
       nodes.forEach((node,k)=>{node.classList.toggle("is-active",k===i);node.setAttribute("aria-pressed",String(k===i))});
+      desenharVinculos(i);
       stems.forEach((stem,k)=>stem.classList.toggle("is-active",k===i));
       const title=document.createElement("h2");title.textContent=branches[i].querySelector(".gp-tree-name")?.textContent||"Linha de pesquisa";
       panelHeading.textContent="GALHO "+String(i+1).padStart(2,"0")+" · PESQUISA";
