@@ -3,11 +3,11 @@ title: "Publicações"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Consulte a produção científica e encontre os trabalhos por tema, autoria e ano.</p><img src="img/ilustracoes/publicacoes.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Artigos e outras produções científicas.</p><img src="img/ilustracoes/publicacoes.svg" alt="" width="240" height="180"></div>
 ```
 
 
-Acesse também [Ciência para a sociedade](resultados.qmd) para ler sínteses de resultados em linguagem acessível, disponíveis apenas quando revisadas e acompanhadas de suas fontes.
+Os estudos com sínteses para o público geral estão em [Ciência para a sociedade](resultados.qmd).
 
 ```{r}
 source("R/helpers.R")
@@ -21,12 +21,7 @@ artigos_periodicos <- publicacoes_publicadas |>
 
 if (secao_ativa("mostrar_publicacoes")) {
 if (nrow(publicacoes_publicadas) == 0) {
-  estado_vazio(
-    "Nenhuma publicação disponível",
-    "No momento, não há publicações científicas disponíveis para consulta nesta seção.",
-    "Consultar teses e dissertações",
-    "teses.html"
-  )
+  estado_vazio("Publicações em atualização", NULL)
 } else {
   tagList(
     h2("Produção por ano"),
