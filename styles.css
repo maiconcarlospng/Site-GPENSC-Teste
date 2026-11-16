@@ -19021,3 +19021,59 @@ html body:has(#gp49) footer.footer #gp-institutional-footer {
   }
 }
 
+/* Árvore — 7. Sublinhados completos e busca alinhada à linha de base do título. */
+@media (min-width:768px) {
+  html body:has(#gp49) #gp49 .gp49-directory-heading {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(255px,340px)!important;
+    grid-template-rows:auto!important;
+    align-items:baseline!important;
+    column-gap:clamp(18px,3vw,40px)!important;
+  }
+  html body:has(#gp49) #gp49 .gp49-directory-heading h2 {
+    grid-column:1!important;
+    grid-row:1!important;
+    align-self:baseline!important;
+  }
+  html body:has(#gp49) #gp49 #gp49-search {
+    grid-column:2!important;
+    grid-row:1!important;
+    align-self:baseline!important;
+  }
+}
+html body:has(#gp49) #gp49 #gp49-detail h2,
+html body:has(#gp49) #gp49 #gp49-directory .gp49-directory-heading h2 {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  border-bottom:1px solid #d9d5cb!important;
+  padding-bottom:.8rem!important;
+}
+html body:has(#gp49) #gp49 #gp49-detail h2 {
+  padding-right:clamp(90px,12vw,120px)!important;
+}
+html body:has(#gp49) #gp49 .gp49-directory-heading label {
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  clip-path:inset(50%)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+@media (max-width:767px) {
+  html body:has(#gp49) #gp49 .gp49-directory-heading {
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:.55rem!important;
+  }
+  html body:has(#gp49) #gp49 #gp49-detail h2 {
+    padding-right:0!important;
+  }
+}
+
