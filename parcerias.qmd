@@ -3,7 +3,7 @@ title: "Parcerias"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Conexões entre instituições para pesquisar, ensinar e transformar conhecimentos em ações.</p><img src="img/ilustracoes/parcerias.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Instituições e redes de colaboração.</p><img src="img/ilustracoes/parcerias.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -35,7 +35,7 @@ if (nrow(parcerias_site) > 0) {
     )
   }))
 } else {
-  estado_vazio("Parcerias em atualização", "As instituições parceiras serão apresentadas aqui após a conferência dos registros.")
+  estado_vazio("Parcerias em atualização", NULL)
 }
 ```
 
