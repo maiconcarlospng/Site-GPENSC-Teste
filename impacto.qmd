@@ -9,7 +9,7 @@ title: "Impacto social"
 
 ## Ações e resultados documentados
 
-Os registros publicados apresentam atividades e resultados confirmados pelo grupo. Para consultar as pesquisas que deram origem a esses trabalhos, acesse a área de [Pesquisa](pesquisa.qmd).
+Esta página apresenta ações e resultados documentados do grupo, incluindo articulações com serviços, gestores e comunidades. Para conhecer as pesquisas que fundamentam essas atividades, acesse [Pesquisa](pesquisa.qmd). Para explicações acessíveis de estudos com fontes identificadas, consulte [Ciência para a sociedade](resultados.qmd).
 
 ```{r}
 source("R/helpers.R")
