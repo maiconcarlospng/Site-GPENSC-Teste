@@ -28,18 +28,60 @@ website:
     right:
       - href: index.qmd
         text: Início
-      - href: grupo.qmd
-        text: Grupo
-      - href: pesquisa.qmd
-        text: Pesquisa
-      - href: ensino.qmd
-        text: Ensino
-      - href: extensao.qmd
-        text: Extensão
-      - href: conteudos.qmd
-        text: Conteúdos
-      - href: atualizacoes.qmd
-        text: Atualizações
+      - text: O GPENSC
+        menu:
+          - text: Quem somos
+            href: grupo.qmd#sobre
+          - text: Nossa história
+            href: grupo.qmd#historia
+          - text: Equipe e integrantes
+            href: equipe.qmd
+          - text: Parcerias
+            href: grupo.qmd#parcerias
+      - text: Pesquisa
+        menu:
+          - text: Visão geral
+            href: pesquisa.qmd
+          - text: Linhas de pesquisa
+            href: linhas.qmd
+          - text: Projetos de pesquisa
+            href: projetos.qmd
+          - text: Publicações
+            href: publicacoes.qmd
+          - text: Teses e dissertações
+            href: teses.qmd
+          - text: Árvore do conhecimento
+            href: arvore.qmd
+      - text: Extensão e formação
+        menu:
+          - text: Projetos de extensão
+            href: extensao.qmd
+          - text: Vi no Rótulo
+            href: vi-no-rotulo.qmd
+          - text: Ensino e formação
+            href: ensino.qmd
+          - text: Capacitação em Epidemiologia e Análise de Dados
+            href: capacitacao-epidemiologia.qmd
+      - text: Conteúdos
+        menu:
+          - text: Materiais educativos
+            href: conteudos.qmd#materiais
+          - text: Vídeos
+            href: conteudos.qmd#videos
+          - text: Podcasts
+            href: conteudos.qmd#podcasts
+          - text: Livros e e-books
+            href: conteudos.qmd#livros
+          - text: Ciência para a sociedade
+            href: conteudos.qmd#resultados
+      - text: Atualizações
+        menu:
+          - text: Notícias
+            href: atualizacoes.qmd#noticias
+          - text: Agenda
+            href: atualizacoes.qmd#agenda
+      - href: grupo.qmd#contato
+        text: Contato
 
   page-footer:
     left: |
