@@ -31,7 +31,7 @@
 
     const svg = svgEl("svg", {
       viewBox: "0 0 " + W + " " + H,
-      preserveAspectRatio: "xMidYMid meet",
+      preserveAspectRatio: matchMedia("(max-width:720px)").matches ? "xMidYMid slice" : "xMidYMid meet",
       role: "group",
       class: "gp-tree-svg gp-tree-zoom-explorer",
       "aria-label": "Explorador de conexões: " + linhas.length + " linhas de pesquisa"
@@ -279,6 +279,7 @@
         id: event.pointerId, x: event.clientX, y: event.clientY,
         oldX: camera.x, oldY: camera.y
       };
+      svg.classList.add("is-dragging");
       svg.setPointerCapture(event.pointerId);
     });
     svg.addEventListener("pointermove", event => {
@@ -292,10 +293,16 @@
     const soltar = event => {
       if (!dragging || dragging.id !== event.pointerId) return;
       dragging = null;
+      svg.classList.remove("is-dragging");
       if (svg.hasPointerCapture(event.pointerId)) svg.releasePointerCapture(event.pointerId);
     };
     svg.addEventListener("pointerup", soltar);
     svg.addEventListener("pointercancel", soltar);
+    window.addEventListener("resize", () => {
+      svg.setAttribute("preserveAspectRatio",
+        matchMedia("(max-width:720px)").matches ? "xMidYMid slice" : "xMidYMid meet");
+      aplicarCamera();
+    }, { passive: true });
 
     lista.closest(".gp-tree-shell")?.classList.add("is-ready");
     aplicarFiltros();
