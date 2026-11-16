@@ -7,19 +7,6 @@ title-block-banner: false
 
 ```{=html}
 <div class="vi-site" id="vi-site">
-  <nav class="vi-nav" aria-label="Navegação do Vi no Rótulo">
-    <a class="vi-nav-brand" href="#vi-inicio" aria-label="Vi no Rótulo - voltar ao início desta página">
-      <img src="img/marcas/vi-no-rotulo-oficial.png" alt="" width="48" height="48">
-      <span>Vi no Rótulo<small>Um projeto vinculado à UFOP</small></span>
-    </a>
-    <div class="vi-nav-links">
-      <a href="#vi-sobre">O projeto</a>
-      <a href="#vi-aprenda">Aprenda</a>
-      <a href="#vi-publicacoes">Conteúdos</a>
-      <a href="#vi-equipe">Equipe</a>
-    </div>
-    <a class="vi-nav-instagram" href="https://www.instagram.com/vinorotulo/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram do Vi no Rótulo">Instagram <span aria-hidden="true">↗</span></a>
-  </nav>
   <header class="vi-hero" id="vi-inicio">
     <div class="vi-hero-copy">
       <p class="vi-eyebrow"><span class="vi-eyebrow-mark"></span> EDUCAÇÃO ALIMENTAR · ROTULAGEM NUTRICIONAL</p>
