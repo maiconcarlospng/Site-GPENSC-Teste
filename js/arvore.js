@@ -40,13 +40,6 @@
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   // Folhas pequenas acompanham apenas os galhos estruturais do mapa.
-  function smallBranchLeaf(x,y,angle,tone,parent){
-    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+')'},parent);
-    make('path',{d:'M0,0 C3,-5 8,-7 13,-4 C16,-1 14,3 10,5 C6,7 2,4 0,0 Z',
-      fill:tone,stroke:'#1d4824','stroke-width':'.55','stroke-linejoin':'round'},leaf);
-    make('path',{d:'M1,0 Q7,-1 13,-4',fill:'none',stroke:'#d7e7a1','stroke-width':'.7',
-      'stroke-linecap':'round',opacity:.8},leaf);
-  }
   function canopyBranch(x,y,angle,length,width,depth,key){
     const bend=(foliageNoise(key)-.5)*.42;
     const c1={x:x+Math.cos(angle+bend)*length*.34,y:y+Math.sin(angle+bend)*length*.34};
@@ -81,7 +74,7 @@
   // Uma única imagem fotográfica de copa, atrás dos galhos interativos.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
   make('image',{href:'img/copa-fotografica.svg',x:0,y:0,width:1400,height:920,
-    opacity:.48,preserveAspectRatio:'xMidYMid slice',class:'gp49-canopy-photo'},canopyLayer);
+    opacity:.34,preserveAspectRatio:'xMidYMid slice',class:'gp49-canopy-photo'},canopyLayer);
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
@@ -187,26 +180,6 @@
         fill:'none',stroke:k%2?'#41392a':'#e0bc8a',
         'stroke-width':begin>70?1.6:.9,'stroke-opacity':.19,'stroke-linecap':'round'},group);
     }
-    // Pequenas folhas nas próprias bifurcações do desenho de dados.
-    if(begin<100 && reach>68){
-      const sprigs=make('g',{class:'gp49-limb-sprigs','pointer-events':'none','aria-hidden':'true'},group);
-      const sprigTones=['#1d5426','#347a32','#5b9639','#8eae43'];
-      for(let j=0;j<3;j++){
-        const t=.25+j*.24, at=guide.getPointAtLength(len*t);
-        const before=guide.getPointAtLength(Math.max(0,len*t-.8));
-        const after=guide.getPointAtLength(Math.min(len,len*t+.8));
-        const tangent=Math.atan2(after.y-before.y,after.x-before.x);
-        const distance=(begin+(end-begin)*t)*.32+5;
-        for(const side of [-1,1]){
-          const nx=Math.cos(tangent+Math.PI/2),ny=Math.sin(tangent+Math.PI/2);
-          const bx=at.x+nx*distance*side,by=at.y+ny*distance*side;
-          make('path',{d:'M'+fmt(at.x)+','+fmt(at.y)+' Q'+fmt((at.x+bx)/2)+','+fmt((at.y+by)/2)+' '+fmt(bx)+','+fmt(by),
-            fill:'none',stroke:'#68452b','stroke-width':1.25,'stroke-linecap':'round'},sprigs);
-          const tone=sprigTones[(j+(side===1?1:0))%sprigTones.length];
-          smallBranchLeaf(bx,by,tangent+side*.88,tone,sprigs);
-        }
-      }
-    }
     guide.remove();
     if(!reduced){
       try{group.animate([{opacity:0},{opacity:1}],{duration:520,easing:'ease-out'});}catch(_){}
@@ -217,8 +190,8 @@
   function leaves(p,index){
     const group=make('g',{class:'gp49-leaf-spray',
       transform:'translate('+p.x+' '+p.y+')'},foliageLayer);
-    const shades=['#173e1b','#255b25','#37702b','#588632','#87a441'];
-    for(let i=0;i<7;i++){
+    const shades=['#24552a','#397436','#58863a','#779849'];
+    for(let i=0;i<5;i++){
       const angle=i*2.399963+index*.69;
       const dx=Math.cos(angle),dy=Math.sin(angle)*.78;
       const len=23+(i%3)*8;
