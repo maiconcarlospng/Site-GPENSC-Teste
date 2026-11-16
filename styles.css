@@ -18937,3 +18937,11 @@ html body:has(#gp49) #quarto-header { margin-top:0!important; }
   }
 }
 
+/* Árvore — 2. Ajustar apenas o primeiro segmento de madeira, ancorado em (600,735).
+   Os grupos de galhos e nós preservam suas coordenadas e eventos SVG originais. */
+#gp49 #gp49-map > svg > g:first-of-type > g:first-child {
+  transform-box:view-box;
+  transform-origin:600px 735px;
+  transform:matrix(.85,0,1.10,.48,0,0);
+}
+
