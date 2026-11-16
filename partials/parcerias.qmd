@@ -86,6 +86,7 @@ if (nrow(pontos_mapa) > 0) {
     tags$script(htmltools::HTML(paste0(
       "(function(){",
       "const pontos=", as.character(json_mapa), ";",
+      "const listaPontos=Array.isArray(pontos)?pontos:Object.values(pontos||{});",
       "function iniciar(){",
       "const el=document.getElementById('gpensc-mapa-parcerias');",
       "if(!el||!window.L||el.dataset.iniciado==='1')return;",
@@ -93,7 +94,7 @@ if (nrow(pontos_mapa) > 0) {
       "const mapa=L.map(el,{scrollWheelZoom:false}).setView([-19.95,-43.7],8);",
       "L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(mapa);",
       "const marcadores=[];",
-      "pontos.forEach(p=>{",
+      "listaPontos.forEach(p=>{",
       "const m=L.marker([p.latitude,p.longitude]).addTo(mapa);",
       "const popup=document.createElement('div');",
       "const local=document.createElement('div');",
