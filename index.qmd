@@ -11,7 +11,8 @@ title-block-banner: false
 
 ```{r}
 source("R/helpers.R")
-faixa_galeria("hero")
+# A apresentação institucional e a faixa de fotos abrem a página, nessa ordem.
+faixa_galeria("ambos")
 ```
 
 ::::: secao
@@ -80,10 +81,6 @@ div(
 )
 ```
 
-
-```{r}
-faixa_galeria("fotos")
-```
 
 
 ```{r}
