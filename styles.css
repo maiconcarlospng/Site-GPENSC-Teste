@@ -18921,3 +18921,19 @@ html body:has(.home-arvore-destaque) #quarto-content main.content .faixa-agenda 
     margin-top: .4rem !important;
   }
 }
+
+/* Árvore — 1. Área segura para o título abaixo do cabeçalho (somente nesta página). */
+html body:has(#gp49) #quarto-header { margin-top:0!important; }
+@media (min-width:1100px) {
+  html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block {
+    padding-top:clamp(4.75rem,5vw,5.75rem)!important;
+    scroll-margin-top:6rem;
+  }
+}
+@media (max-width:1099px) {
+  html body:has(#gp49) #quarto-content main.content #title-block-header.quarto-title-block {
+    padding-top:clamp(1.15rem,3vw,1.65rem)!important;
+    scroll-margin-top:5rem;
+  }
+}
+
