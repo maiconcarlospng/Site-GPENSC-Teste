@@ -499,7 +499,7 @@ function openSettingsHub(){
   const cards=state.collections.map((c,i)=>({c,i})).filter(({c})=>isConfigCollection(c));
   $('#page-content').innerHTML=
     '<div class="page-heading"><div><span class="eyebrow">PREFERÊNCIAS E CONTEÚDO INSTITUCIONAL</span><h1>Configurações do site</h1><p>Edite a identidade do GPENSC, os textos institucionais, as redes e as seções visíveis no site.</p></div></div>'+
-    '<div class="settings-hub-grid">'+cards.map(({c,i})=>'<button type="button" class="settings-hub-card" data-setting-index="'+i+'"><span class="settings-hub-number">'+esc((c.label.match(/^\\d+/)||[''])[0])+'</span><span class="settings-hub-copy"><strong>'+esc(c.label.replace(/^\\d+\\s*[·.-]\\s*/,''))+'</strong><small>'+esc(descriptions[c.name]||'Preferências e informações do site.')+'</small></span><span class="settings-hub-arrow" aria-hidden="true">→</span></button>').join('')+'</div>';
+    '<div class="settings-hub-grid">'+cards.map(({c,i})=>'<button type="button" class="settings-hub-card" data-setting-index="'+i+'"><span class="settings-hub-number">'+esc((c.label.match(/^\d+/)||[''])[0])+'</span><span class="settings-hub-copy"><strong>'+esc(c.label.replace(/^\d+\s*[·.-]\s*/,''))+'</strong><small>'+esc(descriptions[c.name]||'Preferências e informações do site.')+'</small></span><span class="settings-hub-arrow" aria-hidden="true">→</span></button>').join('')+'</div>';
   $('#page-content').querySelectorAll('[data-setting-index]').forEach(button=>button.addEventListener('click',()=>openCollection(Number(button.dataset.settingIndex))));
 }
 function renderConfigControl(field,value,attribute='data-config-field'){
@@ -750,7 +750,7 @@ function openMediaLibrary(){
   $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
   $('#media-upload-new').addEventListener('change',async event=>{
     const file=event.target.files?.[0];if(!file)return;
-    await saveMediaFile(file,null);event.target.value='';
+    await saveMediaFile(file,null,event.target);event.target.value='';
   });
   if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
 }
@@ -781,10 +781,10 @@ function renderMediaFiles(){
   const grid=$('#media-grid');if(!grid)return;
   if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
   if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
-  const term=String($('#media-search')?.value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();
+  const term=String($('#media-search')?.value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
   const type=$('#media-type')?.value||'all';
   const files=state.mediaFiles.filter(file=>{
-    const matchesName=file.path.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().includes(term);
+    const matchesName=file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);
     return matchesName&&(type==='all'||file.category===type);
   });
   if(!files.length){grid.innerHTML='<div class="panel-card empty-state">Nenhum material encontrado com esses filtros.</div>';return}
@@ -799,10 +799,10 @@ function renderMediaFiles(){
   }));
   grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
     const file=event.target.files?.[0];if(!file)return;
-    await saveMediaFile(file,input.dataset.mediaReplace);event.target.value='';
+    await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
   }));
 }
-async function saveMediaFile(file,replacePath){
+async function saveMediaFile(file,replacePath,sourceElement){
   const sizeLimit=20*1024*1024;
   const extension=mediaExtension(file.name);
   if(!MEDIA_EXTENSIONS.has(extension)){toast('Formato de arquivo não permitido.',true);return}
@@ -811,7 +811,7 @@ async function saveMediaFile(file,replacePath){
   let target=replacePath;
   if(replacePath&&!confirm('Substituir “'+replacePath+'” por “'+file.name+'”? O caminho usado pelo site será mantido.'))return;
   if(!target){
-    const safe=file.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'-');
+    const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'-');
     target='img/materiais/'+Date.now()+'-'+safe;
   }
   let content;
@@ -822,7 +822,7 @@ async function saveMediaFile(file,replacePath){
   }catch(error){toast(error.message||'Falha ao ler o arquivo.',true);return}
   const current=replacePath?state.mediaFiles.find(item=>item.path===replacePath):null;
   const encodedPath=target.split('/').map(encodeURIComponent).join('/');
-  const button=replacePath?document.querySelector('[data-media-replace="'+CSS.escape(replacePath)+'"]'):$('#media-add');
+  const button=sourceElement||$('#media-add');
   if(button){button.disabled=true;button.dataset.originalLabel=button.tagName==='INPUT'?'':button.textContent;if(button.tagName!=='INPUT')button.textContent='Enviando…'}
   try{
     await api('/repos/'+REPO+'/contents/'+encodedPath,{
