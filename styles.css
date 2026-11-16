@@ -19077,3 +19077,14 @@ html body:has(#gp49) #gp49 .gp49-directory-heading label {
   }
 }
 
+/* Árvore — 8. Números tabulares com início de texto invariável. */
+#gp49 #gp49-lines .gp49-line-button > .gp49-line-index {
+  box-sizing:border-box;
+  flex:0 0 3ch!important;
+  inline-size:3ch!important;
+  min-inline-size:3ch!important;
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+}
+
