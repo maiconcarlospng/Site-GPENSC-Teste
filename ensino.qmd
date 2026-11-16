@@ -36,7 +36,7 @@ if (nrow(eventos_formativos) > 0) {
   estado_vazio("Programação em atualização", NULL)
 }
 
-h2("Disciplinas")
+h2(id = "gp-ensino-disciplinas", "Disciplinas")
 if (nrow(disciplinas_ensino) > 0) {
   cartoes(disciplinas_ensino, function(d, i) {
     div(
