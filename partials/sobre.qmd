@@ -12,10 +12,13 @@ fotos_sobre <- galeria[
 
 # Usa a categoria escolhida no painel; para registros antigos, tenta inferir pelo papel.
 categoria_integrante <- function(e) {
+  # A função registrada prevalece sobre uma categoria antiga no YAML.
+  # Isso mantém as líderes do grupo na seção correta, mesmo após migrações.
+  papel <- if (tem(e$papel)) tolower(as.character(e$papel[1])) else ""
+  if (grepl("l[ií]der|coordena", papel)) return("Líderes")
   categoria <- valor_publico(e$categoria)
   if (!is.null(categoria)) return(categoria)
 
-  papel <- if (tem(e$papel)) tolower(as.character(e$papel[1])) else ""
   if (grepl("coordena", papel)) {
     "Coordenação"
   } else if (grepl("docente|professor|pesquisador", papel)) {
