@@ -35,40 +35,33 @@
   // Gradiente com coordenadas globais: a textura não reinicia a cada galho.
   const bark=make('linearGradient',{id:'gp49-bark',gradientUnits:'userSpaceOnUse',
     x1:120,y1:0,x2:1260,y2:110},defs);
-  [['0','#63533c'],['.24','#866647'],['.5','#967552'],['.76','#816647'],['1','#63573d']]
+  [['0','#3b241b'],['.24','#5b3525'],['.5','#75452d'],['.76','#583221'],['1','#35241d']]
     .forEach(([offset,color])=>make('stop',{offset,'stop-color':color},bark));
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
   const canopyBase=make('linearGradient',{id:'gp49-canopy-base',x1:'0%',y1:'0%',x2:'0%',y2:'100%'},defs);
-  [['0%','#bfd9ae','.96'],['48%','#a9cb98','.94'],['100%','#88ae75','.88']]
+  [['0%','#245b2c','1'],['48%','#347a35','1'],['100%','#245d2a','1']]
     .forEach(([offset,color,opacity])=>make('stop',{offset,'stop-color':color,'stop-opacity':opacity},canopyBase));
-  make('path',{class:'gp49-canopy-base',d:'M92 335 C112 274 168 226 260 214 C258 146 340 91 430 120 C455 48 574 34 640 91 C688 32 812 39 847 112 C929 59 1045 97 1051 182 C1162 157 1263 222 1304 310 C1280 380 1202 421 1116 402 C1005 431 895 402 804 414 C702 436 581 427 481 412 C362 438 241 423 154 397 C112 383 93 361 92 335 Z',fill:'url(#gp49-canopy-base)',stroke:'#698d5d','stroke-opacity':'.32','stroke-width':'4','stroke-linejoin':'round'},canopyLayer);
-  const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
-  shades.forEach((tone,i)=>{
-    const crown=make('radialGradient',{id:'gp49-crown-'+i},defs);
-    make('stop',{offset:'0','stop-color':tone,'stop-opacity':'.25'},crown);
-    make('stop',{offset:'.60','stop-color':tone,'stop-opacity':'.12'},crown);
-    make('stop',{offset:'1','stop-color':tone,'stop-opacity':'0'},crown);
-  });
-  for(let i=0;i<52;i++){
-    const a=i*2.39996323,r=Math.sqrt((i+.5)/52);
-    const x=700+Math.cos(a)*r*575,y=305+Math.sin(a)*r*235;
-    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:105+i%5*16,ry:76+i%4*12,
-      transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
-      fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
-  }
+  make('path',{class:'gp49-canopy-base',d:'M92 335 C112 274 168 226 260 214 C258 146 340 91 430 120 C455 48 574 34 640 91 C688 32 812 39 847 112 C929 59 1045 97 1051 182 C1162 157 1263 222 1304 310 C1280 380 1202 421 1116 402 C1005 431 895 402 804 414 C702 436 581 427 481 412 C362 438 241 423 154 397 C112 383 93 361 92 335 Z',fill:'url(#gp49-canopy-base)',stroke:'#183f20','stroke-opacity':'.78','stroke-width':'5','stroke-linejoin':'round'},canopyLayer);
   // Ramos finos e folhas individuais criam uma copa botânica, com silhueta
   // contínua no fundo e ramificações variadas em vez de carimbos repetidos.
-  const leafPalette=['#577d42','#668c43','#789c49','#89a94a','#a6bd55','#b7ca69','#6d914c'];
+  const leafPalette=['#174b22','#21612a','#2f7833','#3f8b38','#64a33f','#91b845','#285e2b'];
   const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
   const foliageNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
   function canopyLeaf(x,y,angle,size,tone,parent){
     const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+') scale('+fmt(size)+')'},parent);
     make('path',{d:'M0,0 C5,-7 13,-10 19,-5 C22,-2 21,2 17,5 C10,9 3,5 0,0 Z',
-      fill:tone,opacity:.96},leaf);
-    make('path',{d:'M1,0 Q9,-1 18,-5',fill:'none',stroke:'#e2edbd','stroke-width':.85,
+      fill:tone,stroke:'#214b27','stroke-width':'.5',opacity:.98},leaf);
+    make('path',{d:'M1,0 Q9,-1 18,-5',fill:'none',stroke:'#d9eaa7','stroke-width':.9,
       'stroke-linecap':'round',opacity:.72},leaf);
+  }
+  function smallBranchLeaf(x,y,angle,tone,parent){
+    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+')'},parent);
+    make('path',{d:'M0,0 C3,-5 8,-7 13,-4 C16,-1 14,3 10,5 C6,7 2,4 0,0 Z',
+      fill:tone,stroke:'#1d4824','stroke-width':'.55','stroke-linejoin':'round'},leaf);
+    make('path',{d:'M1,0 Q7,-1 13,-4',fill:'none',stroke:'#d7e7a1','stroke-width':'.7',
+      'stroke-linecap':'round',opacity:.8},leaf);
   }
   function canopyBranch(x,y,angle,length,width,depth,key){
     const bend=(foliageNoise(key)-.5)*.42;
@@ -76,7 +69,7 @@
     const c2={x:x+Math.cos(angle-bend*.55)*length*.72,y:y+Math.sin(angle-bend*.55)*length*.72};
     const end={x:x+Math.cos(angle+bend*.08)*length,y:y+Math.sin(angle+bend*.08)*length};
     const d='M'+fmt(x)+','+fmt(y)+' C'+fmt(c1.x)+','+fmt(c1.y)+' '+fmt(c2.x)+','+fmt(c2.y)+' '+fmt(end.x)+','+fmt(end.y);
-    make('path',{d,fill:'none',stroke:depth>1?'#876444':'#78904e',
+    make('path',{d,fill:'none',stroke:depth>1?'#624329':'#5b4529',
       'stroke-width':fmt(width),'stroke-linecap':'round','stroke-linejoin':'round',
       'stroke-opacity':depth>1?'.78':'.66'},leafTexture);
     for(let j=0;j<5;j++){
@@ -209,6 +202,26 @@
       make('path',{d:'M'+grain.join(' L'),class:'gp49-wood-grain',
         fill:'none',stroke:k%2?'#41392a':'#e0bc8a',
         'stroke-width':begin>70?1.6:.9,'stroke-opacity':.19,'stroke-linecap':'round'},group);
+    }
+    // Pequenas folhas nas próprias bifurcações do desenho de dados.
+    if(begin<100 && reach>68){
+      const sprigs=make('g',{class:'gp49-limb-sprigs','pointer-events':'none','aria-hidden':'true'},group);
+      const sprigTones=['#1d5426','#347a32','#5b9639','#8eae43'];
+      for(let j=0;j<3;j++){
+        const t=.25+j*.24, at=guide.getPointAtLength(len*t);
+        const before=guide.getPointAtLength(Math.max(0,len*t-.8));
+        const after=guide.getPointAtLength(Math.min(len,len*t+.8));
+        const tangent=Math.atan2(after.y-before.y,after.x-before.x);
+        const distance=(begin+(end-begin)*t)*.32+5;
+        for(const side of [-1,1]){
+          const nx=Math.cos(tangent+Math.PI/2),ny=Math.sin(tangent+Math.PI/2);
+          const bx=at.x+nx*distance*side,by=at.y+ny*distance*side;
+          make('path',{d:'M'+fmt(at.x)+','+fmt(at.y)+' Q'+fmt((at.x+bx)/2)+','+fmt((at.y+by)/2)+' '+fmt(bx)+','+fmt(by),
+            fill:'none',stroke:'#68452b','stroke-width':1.25,'stroke-linecap':'round'},sprigs);
+          const tone=sprigTones[(j+(side===1?1:0))%sprigTones.length];
+          smallBranchLeaf(bx,by,tangent+side*.88,tone,sprigs);
+        }
+      }
     }
     guide.remove();
     if(!reduced){
