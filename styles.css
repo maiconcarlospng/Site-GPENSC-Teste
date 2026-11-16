@@ -18692,3 +18692,80 @@ body #quarto-content .cell-output-display:has(> .hero) > .galeria--faixa {
     transition:none!important;
   }
 }
+
+
+/* Home GPENSC | chamada da arvore: layout editorial compacto (2026-11-16) */
+html body #quarto-content main.content .home-arvore-destaque {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  min-height: 0 !important;
+  margin: clamp(1.6rem, 3vw, 2.5rem) auto !important;
+  padding: clamp(1.4rem, 2.6vw, 1.9rem) clamp(1.2rem, 3vw, 2rem) !important;
+  background: #f5f8f2 !important;
+  border: 0 !important;
+  border-left: 4px solid var(--gp-folha) !important;
+  border-bottom: 1px solid #dce6d5 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-areas: "titulo acao" "descricao acao" !important;
+  align-items: center !important;
+  gap: .35rem clamp(1rem, 3vw, 2.8rem) !important;
+  min-width: 0 !important;
+}
+html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto h2 {
+  grid-area: titulo;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  text-align: left !important;
+  font-size: clamp(1.4rem, 2.35vw, 1.95rem) !important;
+  line-height: 1.22 !important;
+}
+html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto h2::before {
+  content: none !important;
+  display: none !important;
+}
+html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto p {
+  grid-area: descricao;
+  margin: 0 !important;
+  max-width: 65ch !important;
+  color: #526253 !important;
+  line-height: 1.55 !important;
+}
+html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto a.btn {
+  grid-area: acao;
+  justify-self: end;
+  align-self: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: .7rem 1.2rem !important;
+  border-radius: 6px !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+@media (max-width: 700px) {
+  html body #quarto-content main.content .home-arvore-destaque {
+    margin: 1.4rem auto !important;
+    padding: 1.3rem 1rem !important;
+  }
+  html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas: "titulo" "descricao" "acao" !important;
+    row-gap: .7rem !important;
+  }
+  html body #quarto-content main.content .home-arvore-destaque .home-arvore-texto a.btn {
+    justify-self: start;
+    margin-top: .25rem !important;
+  }
+}
