@@ -79,8 +79,8 @@
     make('path',{d,fill:'none',stroke:depth>1?'#876444':'#78904e',
       'stroke-width':fmt(width),'stroke-linecap':'round','stroke-linejoin':'round',
       'stroke-opacity':depth>1?'.78':'.66'},leafTexture);
-    for(let j=0;j<3;j++){
-      const t=.28+j*.22, u=1-t;
+    for(let j=0;j<5;j++){
+      const t=.18+j*.16, u=1-t;
       const px=u*u*u*x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*end.x;
       const py=u*u*u*y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*end.y;
       const tangent=Math.atan2(
@@ -104,7 +104,7 @@
     [390,392,-2.52],[500,406,-2.22],[600,416,-1.93],[700,420,-1.59],
     [800,416,-1.27],[900,406,-.98],[1010,392,-.62]
   ];
-  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,152+(i%3)*12,3.1,3,41+i*23));
+  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,152+(i%3)*12,3.1,4,41+i*23));
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
