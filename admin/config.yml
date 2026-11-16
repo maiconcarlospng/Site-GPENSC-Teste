@@ -122,7 +122,8 @@ collections:
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
                 - { label: "Resultado explicado para o público geral", name: "resumo_publico", widget: "text", required: false, hint: "Explique em linguagem simples apenas resultados confirmados no artigo. Evite afirmar causalidade sem evidência." }
                 - { label: "Possíveis implicações para profissionais e gestores", name: "aplicacao", widget: "text", required: false, hint: "Informe aplicações ou recomendações apoiadas na publicação, com seus limites." }
-                - { label: "Link para divulgação ou notícia relacionada", name: "fonte_divulgacao", widget: "string", required: false, pattern: ['^https?://[^\\s]+
+                - { label: "Link para notícia ou divulgação", name: "fonte_divulgacao", widget: "string", required: false, hint: "Informe o endereço completo da fonte, começando com https://" }
+                - label: "Linha de pesquisa associada"
                   name: "linha_id"
                   widget: "relation"
                   collection: "pesquisa"
