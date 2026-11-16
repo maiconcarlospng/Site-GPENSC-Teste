@@ -20623,3 +20623,8 @@ html body:has(#gp49) #gp49 #gp49-map svg .gp49-node:focus-visible > .gp49-node-d
     animation:none!important;
   }
 }
+
+/* Tooltip da árvore: deslocar para baixo quando o nó está no topo. */
+html body:has(#gp49) #gp49 #gp49-map .gp49-map-tooltip[data-side="below"] {
+  transform:translate(-50%,0);
+}
