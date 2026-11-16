@@ -256,13 +256,14 @@ grade <- function(df, fn) {
 # A galeria continua sendo controlada por data/galeria.yml no Sveltia CMS.
 # Cada item tem os campos "arquivo" e "legenda".
 # Se não houver fotos cadastradas, mostra o bloco verde institucional.
-faixa_galeria <- function() {
+faixa_galeria <- function(exibir = c("ambos", "hero", "fotos")) {
+  exibir <- match.arg(exibir)
   fotos <- galeria[
     !is.na(galeria$arquivo) & nzchar(trimws(galeria$arquivo)),
     , drop = FALSE
   ]
 
-  # A faixa fotográfica vem antes da apresentação, sem textos extras no carrossel.
+  # A apresentação abre a home; as fotos podem ser exibidas mais abaixo.
   hero <- div(
     class = "hero lupa-area",
     div(
@@ -273,6 +274,7 @@ faixa_galeria <- function() {
     )
   )
 
+  if (exibir == "hero") return(hero)
   if (nrow(fotos) > 0) {
     faixa_fotos <- div(
       class = "galeria galeria--faixa lupa-area",
@@ -316,8 +318,10 @@ faixa_galeria <- function() {
       )
     )
 
-    htmltools::tagList(faixa_fotos, hero)
+    if (exibir == "fotos") return(faixa_fotos)
+    htmltools::tagList(hero, faixa_fotos)
   } else {
+    if (exibir == "fotos") return(NULL)
     hero
   }
 }
