@@ -25,3 +25,37 @@ As atividades podem abordar desenho de estudos, organização de bases de dados,
 
 Consulte a [Agenda](atualizacoes.qmd#agenda) para verificar as atividades confirmadas ou [entre em contato](grupo.qmd#contato).
 
+```{r}
+source("R/helpers.R")
+cap_data <- yaml::read_yaml("data/capacitacao-epidemiologia.yml")
+cap_atividades <- if (is.null(cap_data$itens)) list() else cap_data$itens
+
+if (length(cap_atividades)) {
+  htmltools::div(
+    id = "cap-atividades",
+    class = "gp-cap-programacao",
+    htmltools::h2("Atividades da capacitação"),
+    htmltools::div(class = "gp-cap-lista", lapply(cap_atividades, function(item) {
+      titulo <- valor_publico(item$titulo)
+      if (is.null(titulo)) return(NULL)
+      data <- valor_publico(item$data)
+      modalidade <- valor_publico(item$modalidade)
+      resumo <- valor_publico(item$resumo)
+      local <- valor_publico(item$local)
+      url <- valor_publico(item$url)
+      htmltools::div(
+        class = "gp-cap-atividade",
+        htmltools::div(class = "gp-cap-atividade-meta",
+          if (!is.null(data)) htmltools::span(format(as.Date(data), "%d/%m/%Y")),
+          if (!is.null(modalidade)) htmltools::span(modalidade)
+        ),
+        htmltools::h3(titulo),
+        if (!is.null(resumo)) htmltools::p(resumo),
+        if (!is.null(local)) htmltools::p(paste("Local:", local)),
+        if (!is.null(url) && grepl("^https?://", url))
+          htmltools::tags$a(href = url, target = "_blank", rel = "noopener noreferrer", "Saiba mais")
+      )
+    }))
+  )
+}
+```
