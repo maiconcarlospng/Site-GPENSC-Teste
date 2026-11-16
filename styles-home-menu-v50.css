@@ -198,3 +198,55 @@ body #quarto-content .ensino-evento {
     margin-top:12px!important;
   }
 }
+
+/* Home: chamada institucional no cabeçalho verde, com galeria imediatamente abaixo. */
+body #quarto-content .hero {
+  margin-bottom: 0 !important;
+}
+body #quarto-content .hero .hero-botoes {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: .75rem !important;
+  margin: 1.3rem 0 0 !important;
+  padding: 0 !important;
+}
+html body #quarto-content .hero .hero-botoes .hero-quem-somos {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  padding: .65rem 1.3rem !important;
+  border: 1px solid rgba(255,255,255,.82) !important;
+  border-radius: 7px !important;
+  background: rgba(255,255,255,.08) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-size: .83rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  transition: background-color .2s ease, color .2s ease !important;
+}
+html body #quarto-content .hero .hero-botoes .hero-quem-somos:hover,
+html body #quarto-content .hero .hero-botoes .hero-quem-somos:focus-visible {
+  background: #fff !important;
+  color: #1f4d2b !important;
+}
+body #quarto-content .cell-output-display:has(> .hero) > .galeria--faixa {
+  margin-top: 0 !important;
+}
+@media (max-width:767.98px) {
+  body #quarto-content .hero .hero-botoes { margin-top: 1rem !important; }
+  html body #quarto-content .hero .hero-botoes .hero-quem-somos {
+    width: auto !important;
+    max-width: 100% !important;
+    min-height: 44px !important;
+    padding: .7rem 1.15rem !important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html body #quarto-content .hero .hero-botoes .hero-quem-somos { transition: none !important; }
+}
