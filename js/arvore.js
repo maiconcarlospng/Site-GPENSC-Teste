@@ -353,7 +353,7 @@
     if(!terminal)expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},145,78,{x:0,y:-1});
+  branch(0,total,0,{x:700,y:900},145,78,{x:0,y:-1});
   const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
