@@ -20245,3 +20245,31 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-detailed .gp49-node.gp49-terminal .gp
   html body:has(#gp49) #gp49 #gp49-map .gp49-branch-label-text{font-size:12px;}
   html body:has(#gp49) #gp49 #gp49-map .gp49-branch-name-label{font-size:10px;}
 }
+
+
+/* Árvore: copa contínua, com textura discreta e rótulos proporcionais ao zoom. */
+html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-layer{opacity:1!important;}
+html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-base{stroke-width:3px;stroke-linejoin:round;}
+html body:has(#gp49) #gp49 #gp49-map .gp49-branch-label-text,
+html body:has(#gp49) #gp49 #gp49-map .gp49-branch-name-label{
+  paint-order:stroke fill;
+  stroke:#f6f8ee;
+  stroke-linejoin:round;
+  pointer-events:none;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-branch-label-text{
+  font-weight:800;
+  fill:#214c2e;
+  stroke-width:1.4px;
+}
+html body:has(#gp49) #gp49 #gp49-map .gp49-branch-name-label{
+  font-weight:700;
+  fill:#233f2b;
+  stroke-width:1.7px;
+}
+@media(max-width:767px){
+  html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-layer{opacity:.96!important;}
+}
+@media(prefers-reduced-motion:reduce){
+  html body:has(#gp49) #gp49 #gp49-map .gp49-canopy-base{transition:none!important;}
+}
