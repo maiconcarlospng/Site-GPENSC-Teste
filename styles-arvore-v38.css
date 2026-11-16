@@ -27,6 +27,8 @@ body #quarto-content .gp-tree-controls button:not(:disabled):hover{background:#e
 body #quarto-content .gp-tree-scroll{width:100%;max-width:100%;overflow:hidden!important;background:radial-gradient(ellipse at 50% 44%,#ffffff 22%,#f5f8f0 80%)}
 body #quarto-content #gp-tree-canvas{display:block;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important}
 body #quarto-content .gp-tree-svg{display:block;width:100%!important;height:auto!important;max-width:100%;aspect-ratio:1000/820!important;overflow:hidden}
+body #quarto-content .gp-tree-svg.is-zoomed{cursor:grab;touch-action:none}
+body #quarto-content .gp-tree-svg.is-zoomed:active{cursor:grabbing}
 body #quarto-content .gp-tree-trunk-label{font-family:Inter,Arial,sans-serif;font-size:21px;font-weight:800;fill:#fff;letter-spacing:.06em}
 body #quarto-content .gp-tree-node{cursor:pointer;transition:opacity .18s}
 body #quarto-content .gp-tree-node-hit{fill:transparent;stroke:none}
