@@ -105,6 +105,7 @@ div(
   if (nrow(fotos_sobre) > 0) {
     div(
       class = "gp-sobre-fotos",
+      id = "gp-sobre-fotos",
       div(
         class = "gp-sobre-fotos-cabecalho",
         h2("Registros em imagens"),
