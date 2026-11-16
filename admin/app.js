@@ -101,6 +101,7 @@ async function initialize(){
     $('#workspace').hidden=false;
     renderNav();
     renderHome();
+    loadMediaFiles();
   }catch(error){
     const expired=error.status===401;
     if(expired){
@@ -193,7 +194,7 @@ function renderNav(){
   const settings=entries.filter(({c})=>isConfigCollection(c));
   nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.view==='summary'?'active':'')+'"><span>Visão geral</span></button>'+
     '<button type="button" data-settings-home class="summary-nav-item '+(state.view==='settings'?'active':'')+'"><span>Configurações do site</span></button>'+
-    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+state.mediaFiles.length+'</span></button>'+
+    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+(state.mediaLoading?'…':state.mediaError?'—':state.mediaFiles.length)+'</span></button>'+
     content+
     '<section class="menu-section menu-section-settings" aria-label="Configurações">'+
       '<div class="menu-section-title">CONFIGURAÇÕES DO SITE</div>'+
@@ -756,6 +757,7 @@ function openMediaLibrary(){
 }
 async function loadMediaFiles(){
   state.mediaLoading=true;state.mediaError='';
+  renderNav();
   const status=$('#media-status'),grid=$('#media-grid');
   if(status)status.textContent='Atualizando a lista…';
   if(grid)grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';
