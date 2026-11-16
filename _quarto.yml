@@ -88,41 +88,8 @@ format:
   html:
     theme: [default, custom.scss]
     css:
-      - styles-mobile-v4.css
-      - styles-mobile-v5.css
-      - styles-navbar-v6.css
-      - styles-conteudo-v7.css
-      - styles-navbar-v7.css
-      - styles-navbar-v8.css
-      - styles-busca-v9.css
-      - styles-spotify-v10.css
-      - styles-timeline-v12.css
-      - styles-parcerias-v13.css
-      - styles-linhas-v14.css
-      - styles-geral-v15.css
-      - styles-menu-mobile-v16.css
-      - styles-home-v17.css
-      - styles-agenda-v18.css
-      - styles-gpensc-v26.css
-      - styles-gpensc-v27.css
-      - styles-direcao-v28.css
-      - styles-projetos-v30.css
-      - styles-identidades-v31.css
-      - styles-revisao-mobile-v32.css
-      - styles-home-fix-v33.css
-      - styles-identidade-v34.css
-      - styles-refino-v36.css
-      - styles-editorial-v37.css
-      - styles-galeria-v39.css
-      - styles-resultados-v41.css
-      - styles-galeria-v42.css
-      - styles-mobile-v43.css
-      - styles-arvore-v44.css
-      - styles-institucional-v46.css
-      - styles-layout-v47.css
-      - styles-rodape-v48.css
-      - styles-arvore-v49.css
-      - styles-home-menu-v50.css
+      - styles.css
+      - vi-no-rotulo.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html

@@ -222,7 +222,7 @@ A página inicial lê `data/eventos.yml`, remove registros de demonstração, co
 
 A página `agenda.qmd` continua apresentando os próximos eventos em ordem cronológica, registros sem data em uma seção própria e eventos passados em uma área recolhível. A atualização depende da compilação do site; não é uma consulta dinâmica a cada visita.
 
-O arquivo `styles-agenda-v18.css` controla o cartão e os ajustes responsivos dessa chamada. A inclusão está declarada em `_quarto.yml`.
+O arquivo `styles.css` controla o cartão e os ajustes responsivos dessa chamada. A inclusão está declarada em `_quarto.yml`.
 
 ---
 
@@ -313,15 +313,15 @@ Para alterações de domínio ou portabilidade para o GPENSC, revise também o d
 | `admin/excel-button.js`, `admin/planilhas.js` | Recursos relacionados a planilhas/importação e exportação. |
 | `_quarto.yml` | Recursos, navegação, estilos, inclusão do rastreador e rodapé. |
 | `_variables.yml` | Variáveis gerais legadas e compatibilidade. |
-| `styles.css` | Folha legada mantida no repositório; não está carregada diretamente pelo Quarto no momento. Alterações nela, isoladamente, não mudam a aparência publicada. |
-| `styles-mobile-v4.css` e `styles-*.css` listados em `_quarto.yml` | Camadas ativas de identidade visual, responsividade, menu, páginas, linha do tempo e agenda. A ordem em `_quarto.yml` define qual regra prevalece. |
+| `styles.css` | Folha principal consolidada do site, carregada diretamente pelo Quarto. |
+| `vi-no-rotulo.css` | Identidade visual específica do minissite Vi no Rótulo, sem afetar as demais páginas. |
 | `custom.scss` | Paleta e tipografia do tema Quarto/Bootstrap. |
 | `topo.html`, `lupa.html` | Elementos auxiliares do site. |
 | `.github/workflows/publish.yml` | Validação, compilação e publicação. |
 | `README.md` | Documentação de arquitetura, operação e migração. |
 | `COMO-EDITAR.md` | Guia complementar de edição. |
 
-A folha `styles.css` é mantida como referência/legado, mas não aparece na lista `format.html.css` do `_quarto.yml`. O site publicado carrega as 15 folhas de estilo versionadas listadas ali. Antes de alterar um estilo, confira em qual arquivo ativo a regra está definida; não crie uma nova folha de estilo apenas para sobrescrever outra sem necessidade.
+A identidade visual do site está consolidada em `styles.css`; o minissite Vi no Rótulo utiliza `vi-no-rotulo.css`. Não crie novos arquivos CSS com sufixos de versão: atualize as folhas existentes.
 
 ### Onde alterar cada parte
 
@@ -334,7 +334,7 @@ A folha `styles.css` é mantida como referência/legado, mas não aparece na lis
 | Como os dados são lidos ou apresentados | `R/helpers.R` e página `.qmd` relacionada. |
 | Estrutura da página inicial | `index.qmd`. |
 | Menu, recursos e rodapé | `_quarto.yml`. |
-| Estilos da home e agenda | `styles-home-v17.css`, `styles-agenda-v18.css`. |
+| Estilos da home e agenda | `styles.css`, `styles.css`. |
 | Rastreamento e relatórios de acesso | `analytics.html`, `data/analytics.json`, `analytics-worker/`. |
 | Compilação e publicação | `.github/workflows/publish.yml`. |
 
@@ -624,4 +624,9 @@ A Árvore do Conhecimento utiliza agora o explorador de ramificações em `js/ar
 
 ### Organização institucional — novembro de 2026
 
-O menu público reúne Início, Grupo, Pesquisa, Ensino e Extensão, Conteúdos e Atualizações. As páginas consolidadas usam trechos em `partials/`, mantendo os mesmos dados e coleções do painel. URLs antigas redirecionam para a seção correspondente; edite os trechos, não as páginas de redirecionamento. A árvore mantém busca, teclado, arraste e zoom, com galhos SVG afilados e veios longitudinais. `styles-institucional.css` centraliza o acabamento compartilhado e as adaptações para telas pequenas.
+O menu público reúne Sobre, Pesquisa, Extensão e formação, Conteúdos, Atualizações e Contato. As páginas consolidadas usam trechos em `partials/`, mantendo os mesmos dados e coleções do painel. URLs antigas redirecionam para a seção correspondente; edite os trechos, não as páginas de redirecionamento. A árvore mantém busca, teclado, arraste e zoom, com galhos SVG afilados e veios longitudinais. `styles.css` centraliza o acabamento compartilhado e as adaptações para telas pequenas.
+
+
+## Minissite Vi no Rótulo
+
+A página `vi-no-rotulo.qmd` possui identidade visual própria em `vi-no-rotulo.css`, navegação interna e conteúdos educativos. A área de publicações é editável no painel administrativo, em **Vi no Rótulo · Minissite**, salvando em `data/vi-no-rotulo.yml`. Os conteúdos não são importados automaticamente do Instagram: somente registros cadastrados e autorizados aparecem no site. O canal oficial permanece em https://www.instagram.com/vinorotulo/.

@@ -15,28 +15,7 @@ on:
       - "docs/**"
       - "admin/**"
       - "styles.css"
-      - "styles-mobile-v2.css"
-      - "styles-mobile-v3.css"
-      - "styles-mobile-v4.css"
-      - "styles-mobile-v5.css"
-      - "styles-navbar-v6.css"
-      - "styles-navbar-v7.css"
-      - "styles-navbar-v8.css"
-      - "styles-busca-v9.css"
-      - "styles-spotify-v10.css"
-      - "styles-conteudo-v7.css"
-      - "styles-timeline-v11.css"
-      - "styles-parcerias-v13.css"
-      - "styles-linhas-v14.css"
-      - "styles-geral-v15.css"
-      - "styles-menu-mobile-v16.css"
-      - "styles-timeline-v12.css"
-      - "styles-home-v17.css"
-      - "styles-agenda-v18.css"
-      - "styles-gpensc-v26.css"
-      - "styles-gpensc-v27.css"
-      - "styles-direcao-v28.css"
-      - "styles-*.css"
+      - "vi-no-rotulo.css"
       - "js/**"
       - "custom.scss"
       - "lupa.html"
@@ -81,7 +60,7 @@ jobs:
       - name: Verificar links, páginas e recursos estáticos
         run: python admin/auditar-site.py
       - name: Validar sintaxe do painel, árvore e Workers
-        run: node --check admin/galeria-multipla.js && node --check admin/app.js && node --check js/arvore-v44.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
+        run: node --check admin/galeria-multipla.js && node --check admin/app.js && node --check js/arvore.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
 
   build:
     name: Compilar site (Quarto + R)

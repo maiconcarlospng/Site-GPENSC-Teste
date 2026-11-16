@@ -21,33 +21,8 @@ CONFIG_PATH = ADMIN / "config.yml"
 CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
 SITE_CSS_PATHS = (
-    ROOT / "styles-mobile-v4.css",
-    ROOT / "styles-mobile-v5.css",
-    ROOT / "styles-navbar-v6.css",
-    ROOT / "styles-conteudo-v7.css",
-    ROOT / "styles-navbar-v7.css",
-    ROOT / "styles-navbar-v8.css",
-    ROOT / "styles-busca-v9.css",
-    ROOT / "styles-spotify-v10.css",
-    ROOT / "styles-timeline-v12.css",
-    ROOT / "styles-parcerias-v13.css",
-    ROOT / "styles-linhas-v14.css",
-    ROOT / "styles-geral-v15.css",
-    ROOT / "styles-menu-mobile-v16.css",
-    ROOT / "styles-home-v17.css",
-    ROOT / "styles-agenda-v18.css",
-    ROOT / "styles-gpensc-v26.css",
-    ROOT / "styles-gpensc-v27.css",
-    ROOT / "styles-direcao-v28.css",
-    ROOT / "styles-arvore-v29.css",
-    ROOT / "styles-projetos-v30.css",
-    ROOT / "styles-identidades-v31.css",
-    ROOT / "styles-revisao-mobile-v32.css",
-    ROOT / "styles-arvore-v35.css",
-    ROOT / "styles-refino-v36.css",
-    ROOT / "styles-home-fix-v33.css",
-    ROOT / "styles-identidade-v34.css",
-    ROOT / "styles-editorial-v37.css",
+    ROOT / "styles.css",
+    ROOT / "vi-no-rotulo.css",
 )
 PANEL_APP_CSS_PATH = ADMIN / "app.css"
 KNOWN_WIDGETS = {
