@@ -64,9 +64,13 @@
     const area=map.getBoundingClientRect(),at=node.getBoundingClientRect();
     const x=at.left+at.width/2-area.left;
     tooltip.textContent=label;
-    tooltip.style.left=Math.min(Math.max(x,120),Math.max(120,area.width-120))+'px';
-    tooltip.style.top=Math.max(62,at.top-area.top-10)+'px';
     tooltip.hidden=false;
+    const half=Math.min(tooltip.offsetWidth/2,area.width/2-10);
+    tooltip.style.left=Math.min(Math.max(x,half+10),area.width-half-10)+'px';
+    const upper=at.top-area.top-12;
+    const below=upper<Math.max(90,tooltip.offsetHeight+12);
+    tooltip.dataset.side=below?'below':'above';
+    tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
   let camera = {x: 0, y: 0, w: W, h: H};
