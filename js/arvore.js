@@ -40,13 +40,8 @@
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
-  const canopyBase=make('linearGradient',{id:'gp49-canopy-base',x1:'0%',y1:'0%',x2:'0%',y2:'100%'},defs);
-  [['0%','#245b2c','1'],['48%','#347a35','1'],['100%','#245d2a','1']]
-    .forEach(([offset,color,opacity])=>make('stop',{offset,'stop-color':color,'stop-opacity':opacity},canopyBase));
-  make('path',{class:'gp49-canopy-base',d:'M92 335 C112 274 168 226 260 214 C258 146 340 91 430 120 C455 48 574 34 640 91 C688 32 812 39 847 112 C929 59 1045 97 1051 182 C1162 157 1263 222 1304 310 C1280 380 1202 421 1116 402 C1005 431 895 402 804 414 C702 436 581 427 481 412 C362 438 241 423 154 397 C112 383 93 361 92 335 Z',fill:'url(#gp49-canopy-base)',stroke:'#183f20','stroke-opacity':'.78','stroke-width':'5','stroke-linejoin':'round'},canopyLayer);
-  // Ramos finos e folhas individuais criam uma copa botânica, com silhueta
-  // contínua no fundo e ramificações variadas em vez de carimbos repetidos.
-  const leafPalette=['#174b22','#21612a','#2f7833','#3f8b38','#64a33f','#91b845','#285e2b'];
+  // Copa aberta, formada por ramos e folhas individuais; sem uma placa oval.
+  const leafPalette=['#2f7833','#438b3a','#5d9b42','#77a84b','#8fb654','#356f32'];
   const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
   const foliageNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
   function canopyLeaf(x,y,angle,size,tone,parent){
@@ -72,8 +67,8 @@
     make('path',{d,fill:'none',stroke:depth>1?'#624329':'#5b4529',
       'stroke-width':fmt(width),'stroke-linecap':'round','stroke-linejoin':'round',
       'stroke-opacity':depth>1?'.78':'.66'},leafTexture);
-    for(let j=0;j<5;j++){
-      const t=.18+j*.16, u=1-t;
+    for(let j=0;j<4;j++){
+      const t=.20+j*.19, u=1-t;
       const px=u*u*u*x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*end.x;
       const py=u*u*u*y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*end.y;
       const tangent=Math.atan2(
@@ -94,10 +89,9 @@
     canopyBranch(end.x,end.y,angle+fork,next,width*.68,depth-1,key*2+2);
   }
   const canopyRoots=[
-    [390,392,-2.52],[500,406,-2.22],[600,416,-1.93],[700,420,-1.59],
-    [800,416,-1.27],[900,406,-.98],[1010,392,-.62]
+    [390,392,-2.48],[535,410,-2.05],[700,420,-1.57],[865,410,-1.08],[1010,392,-.66]
   ];
-  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,152+(i%3)*12,3.1,4,41+i*23));
+  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,178+(i%3)*14,2.35,2,41+i*23));
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
@@ -130,7 +124,7 @@
     svg.classList.toggle('gp49-detailed',camera.w < 740);
     svg.classList.toggle('gp49-very-detailed',camera.w < 430);
     const labelSize=camera.w/(map.clientWidth||W)*12;
-    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
+    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label,.gp49-terminal-index').forEach(label=>{
       label.style.fontSize=labelSize+'px';
       label.style.strokeWidth=Math.max(.7,labelSize*.22)+'px';
     });
@@ -297,9 +291,11 @@
     const bubble=make('g',{
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
-      role:'button',tabindex:0,
-      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '),
-      ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
+      ...(terminal?{
+        role:'button',tabindex:0,
+        'aria-label':(rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start],
+        'aria-pressed':'false'
+      }:{'aria-hidden':'true'})
     },nodeLayer);
     const radius=terminal?17:clamp(12+count/total*9,13,21);
     // Área de toque invisível e acessível, independente das folhas decorativas.
@@ -307,24 +303,15 @@
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
-    if(!terminal && depth>0){
-      const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 34)'},bubble);
-      const tagWidth=count>9?52:46;
-      make('rect',{x:-tagWidth/2,y:-11,width:tagWidth,height:21,rx:7,class:'gp49-branch-label-plate',
-        fill:'#f8faf3',stroke:'#71896a','stroke-opacity':'.62','stroke-width':1},labelGroup);
-      const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
-      labelText.textContent=branchRange(start,count);
-      labelText.style.stroke='none';
-      labelText.style.paintOrder='normal';
-      make('title',{},labelGroup).textContent='Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
-    }
     // Os nomes e números individuais ficam na lista, evitando texto amontoado nos nós.
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
       make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
     } else {
       make('circle',{r:5,class:'gp49-node-seed'},bubble);
-      // Long labels appear only on demand, never together over the foliage.
+      const indexLabel=make('text',{x:0,y:radius+23,'text-anchor':'middle',
+        class:'gp49-terminal-index','aria-hidden':'true'},bubble);
+      indexLabel.textContent=String(start+1).padStart(2,'0');
       make('title',{},bubble).textContent=nodeNames[start];
     }
     let kids=[];
@@ -352,24 +339,23 @@
       if(linked)linked.remove();
     }
     const tipLabel=terminal?nodeNames[start]:'Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
-    bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
-    bubble.addEventListener('pointerleave',hideTip);
-    bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
-    bubble.addEventListener('blur',hideTip);
-    bubble.addEventListener('click',event=>{hideTip();
-      event.stopPropagation();
-      expand();
-    });
-    bubble.addEventListener('keydown',event=>{
-      if(event.key==='Enter'||event.key===' ') {
-        event.preventDefault();event.stopPropagation();expand();
-      }
-    });
-    // No panorama, as duas primeiras bifurcações já são visíveis.
-    if (!terminal && depth<2) expand(true);
+    if(terminal){
+      bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
+      bubble.addEventListener('pointerleave',hideTip);
+      bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
+      bubble.addEventListener('blur',hideTip);
+      bubble.addEventListener('click',event=>{hideTip();event.stopPropagation();select(start);});
+      bubble.addEventListener('keydown',event=>{
+        if(event.key==='Enter'||event.key===' ') {
+          event.preventDefault();event.stopPropagation();select(start);
+        }
+      });
+    }
+    // Toda a estrutura fica visível; não há galhos que precisem ser abertos.
+    if(!terminal)expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},160,78,{x:0,y:-1});
+  branch(0,total,0,{x:700,y:970},112,52,{x:0,y:-1});
   const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
