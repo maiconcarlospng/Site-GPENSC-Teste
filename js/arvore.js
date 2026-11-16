@@ -58,29 +58,53 @@
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
       fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
-  // Textura de folhagem: pequenos ramos com folhas lanceoladas e nervuras,
-  // distribuídos na copa sem cobrir os nós de navegação.
-  const leafPalette=['#5f884f','#739963','#88a874','#4f7951','#a1bb83','#6d925e'];
+  // Ramos finos e folhas individuais criam uma copa botânica, com silhueta
+  // contínua no fundo e ramificações variadas em vez de carimbos repetidos.
+  const leafPalette=['#577d42','#668c43','#789c49','#89a94a','#a6bd55','#b7ca69','#6d914c'];
   const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
-  for(let i=0;i<56;i++){
-    const angle=i*2.39996323;
-    const radius=Math.sqrt((i+.5)/56);
-    const cx=700+Math.cos(angle)*radius*500;
-    const cy=305+Math.sin(angle)*radius*112;
-    const scale=.94+(i%4)*.13;
-    const rotation=(i*47)%54-27;
-    const cluster=make('g',{transform:'translate('+fmt(cx)+' '+fmt(cy)+') rotate('+rotation+') scale('+scale+')'},leafTexture);
-    make('path',{d:'M-20,12 Q0,0 20,-12',fill:'none',stroke:'#4f7044','stroke-width':1.6,'stroke-linecap':'round',opacity:.74},cluster);
+  const foliageNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
+  function canopyLeaf(x,y,angle,size,tone,parent){
+    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+') scale('+fmt(size)+')'},parent);
+    make('path',{d:'M0,0 C5,-7 13,-10 19,-5 C22,-2 21,2 17,5 C10,9 3,5 0,0 Z',
+      fill:tone,opacity:.96},leaf);
+    make('path',{d:'M1,0 Q9,-1 18,-5',fill:'none',stroke:'#e2edbd','stroke-width':.85,
+      'stroke-linecap':'round',opacity:.72},leaf);
+  }
+  function canopyBranch(x,y,angle,length,width,depth,key){
+    const bend=(foliageNoise(key)-.5)*.42;
+    const c1={x:x+Math.cos(angle+bend)*length*.34,y:y+Math.sin(angle+bend)*length*.34};
+    const c2={x:x+Math.cos(angle-bend*.55)*length*.72,y:y+Math.sin(angle-bend*.55)*length*.72};
+    const end={x:x+Math.cos(angle+bend*.08)*length,y:y+Math.sin(angle+bend*.08)*length};
+    const d='M'+fmt(x)+','+fmt(y)+' C'+fmt(c1.x)+','+fmt(c1.y)+' '+fmt(c2.x)+','+fmt(c2.y)+' '+fmt(end.x)+','+fmt(end.y);
+    make('path',{d,fill:'none',stroke:depth>1?'#876444':'#78904e',
+      'stroke-width':fmt(width),'stroke-linecap':'round','stroke-linejoin':'round',
+      'stroke-opacity':depth>1?'.78':'.66'},leafTexture);
     for(let j=0;j<3;j++){
-      const x=-13+j*13, y=8-j*7.8;
+      const t=.28+j*.22, u=1-t;
+      const px=u*u*u*x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*end.x;
+      const py=u*u*u*y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*end.y;
+      const tangent=Math.atan2(
+        3*u*u*(c1.y-y)+6*u*t*(c2.y-c1.y)+3*t*t*(end.y-c2.y),
+        3*u*u*(c1.x-x)+6*u*t*(c2.x-c1.x)+3*t*t*(end.x-c2.x)
+      );
       for(const side of [-1,1]){
-        const leaf=make('g',{transform:'translate('+x+' '+(y+side*2)+') rotate('+(side*56-28)+')'},cluster);
-        const color=leafPalette[(i+j+(side===1?2:0))%leafPalette.length];
-        make('path',{d:'M0,0 C6,-7.5 17,-7.5 23,0 C17,7.5 6,7.5 0,0 Z',fill:color,opacity:.94},leaf);
-        make('path',{d:'M1,0 Q10,0 19,0',fill:'none',stroke:'#f0f4e8','stroke-width':.9,'stroke-linecap':'round',opacity:.66},leaf);
+        const offset=(side*1.02)+(foliageNoise(key+j*9+side)*.16-.08);
+        const size=.64+foliageNoise(key+j*13+side*5)*.42;
+        const tone=leafPalette[Math.floor(foliageNoise(key+j*19+side*7)*leafPalette.length)];
+        canopyLeaf(px,py,tangent+offset,size,tone,leafTexture);
       }
     }
+    if(depth<=0)return;
+    const fork=.34+foliageNoise(key+31)*.29;
+    const next=length*(.69+foliageNoise(key+17)*.06);
+    canopyBranch(end.x,end.y,angle-fork,next,width*.68,depth-1,key*2+1);
+    canopyBranch(end.x,end.y,angle+fork,next,width*.68,depth-1,key*2+2);
   }
+  const canopyRoots=[
+    [390,392,-2.52],[500,406,-2.22],[600,416,-1.93],[700,420,-1.59],
+    [800,416,-1.27],[900,406,-.98],[1010,392,-.62]
+  ];
+  canopyRoots.forEach(([x,y,angle],i)=>canopyBranch(x,y,angle,152+(i%3)*12,3.1,3,41+i*23));
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
