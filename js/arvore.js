@@ -33,6 +33,23 @@
   const bark = make('linearGradient', {id: 'gp49-bark', x1: '0', y1: '0', x2: '1', y2: '.28'}, defs);
   [['0','#4b4632'],['.30','#846647'],['.56','#a3835e'],['.78','#786347'],['1','#474c35']]
     .forEach(([offset,color]) => make('stop', {offset, 'stop-color': color}, bark));
+  // Folhagem em camadas, sempre atrás do desenho dos galhos.
+  const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
+  const colors=['#679262','#93ae7c','#b8cda5','#47774d','#d3e2bd','#779c62'];
+  for(let i=0;i<46;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/46);
+    const x=700+Math.cos(a)*r*580,y=300+Math.sin(a)*r*235;
+    make('ellipse',{cx:x.toFixed(2),cy:y.toFixed(2),rx:75+i%5*18,ry:51+i%4*14,
+      transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
+      fill:colors[i%colors.length],opacity:.17+(i%4)*.032},canopyLayer);
+  }
+  for(let i=0;i<160;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/160);
+    const x=700+Math.cos(a)*r*577,y=300+Math.sin(a)*r*232;
+    make('ellipse',{cx:x.toFixed(2),cy:y.toFixed(2),rx:8+i%5*2,ry:4+i%3*1.5,
+      transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
+      fill:colors[(i+2)%colors.length],opacity:.20+(i%3)*.055},canopyLayer);
+  }
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
