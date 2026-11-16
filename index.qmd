@@ -357,6 +357,19 @@ div(
     class = "gp-month-footnote",
     tags$span(class = "gp-month-legend-swatch", `aria-hidden` = "true"),
     "Dia com atividade cadastrada"
+  ),
+  # Fonte de dados para atualizar o mês no navegador sem mexer nos registros.
+  div(
+    class = "gp-month-data",
+    style = "display:none",
+    lapply(seq_len(nrow(eventos_home_publicados)), function(i) {
+      dia_evento <- eventos_home_publicados$data[i]
+      if (is.na(dia_evento)) return(NULL)
+      tags$time(
+        datetime = format(dia_evento, "%Y-%m-%d"),
+        `data-title` = as.character(eventos_home_publicados$titulo[i])
+      )
+    })
   )
 )
 ```
@@ -364,6 +377,10 @@ div(
 [Ver agenda completa](atualizacoes.qmd#agenda){.btn .btn-secondary .agenda-botao}
 :::
 ::::
+
+```{=html}
+<script defer src="js/agenda-home.js"></script>
+```
 
 ```{r}
 if (tem(cfg$spotify)) {
