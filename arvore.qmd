@@ -218,10 +218,14 @@ projeto_completo <- function(i) {
   ))
   destino <- campo_texto(projetos_arvore, "url", i)
   if (!nzchar(destino)) destino <- "projetos.html"
-  link_projeto <- tags$a(class = "gp49-full-link", href = destino,
-    if (grepl("^https?://", destino)) target = "_blank",
-    if (grepl("^https?://", destino)) rel = "noopener noreferrer",
-    if (nzchar(campo_texto(projetos_arvore, "url", i))) "Abrir página do projeto" else "Abrir cadastro de projetos")
+  atributos_link <- list(class = "gp49-full-link", href = destino)
+  if (grepl("^https?://", destino)) {
+    atributos_link <- c(atributos_link, list(target = "_blank", rel = "noopener noreferrer"))
+  }
+  rotulo_link <- if (nzchar(campo_texto(projetos_arvore, "url", i))) {
+    "Abrir página do projeto"
+  } else "Abrir cadastro de projetos"
+  link_projeto <- do.call(tags$a, c(atributos_link, list(rotulo_link)))
   body <- div(class = "gp49-line-body", conteudo, link_projeto)
   do.call(tags$li, c(attrs, list(button, body)))
 }
