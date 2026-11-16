@@ -11,16 +11,10 @@ title-block-banner: false
 
 ```{r}
 source("R/helpers.R")
-faixa_galeria()
+faixa_galeria("hero")
 ```
 
 ::::: secao
-```{r}
-bloco_intro()
-```
-
-
-
 ## {{< var titulo_home_pesquisas >}}
 
 ```{r}
@@ -84,6 +78,11 @@ div(
   ),
   NULL
 )
+```
+
+
+```{r}
+faixa_galeria("fotos")
 ```
 
 
