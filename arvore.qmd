@@ -7,7 +7,7 @@ description: "Explore as linhas de pesquisa do GPENSC e seus vínculos científi
 ```{=html}
 <div class="gp44-page-intro">
   <p class="gp44-intro-kicker">GPENSC · CONEXÕES DE PESQUISA</p>
-  <p>Uma forma de percorrer as linhas de pesquisa do grupo e descobrir os projetos, integrantes e produções associados a cada uma delas.</p>
+  <p>Linhas, projetos e pessoas reunidos em um mapa de conexões.</p>
 </div>
 ```
 
@@ -80,7 +80,7 @@ ramo <- function(i) {
       if (nrow(pu)) tags$section(h4("Produções científicas"), lista_de_vinculos(pu, "titulo", "publicacoes")),
       if (nrow(de)) tags$section(h4("Teses, dissertações e bancas"), lista_de_vinculos(de, "titulo")),
       if (!vinculos) p(class = "gp44-no-links",
-        "Ainda não há vínculos detalhados no cadastro público desta linha; isso não significa ausência de atividade."),
+        "Os vínculos desta linha aparecerão aqui quando forem cadastrados."),
       tags$a(
         class = "gp44-full-link", href = paste0("linhas.html#linha-", id),
         "Conhecer esta linha de pesquisa"
@@ -100,8 +100,7 @@ div(
           class = "gp44-explorer-header",
           div(
             span(class = "gp44-eyebrow", "EXPLORADOR INTERATIVO"),
-            h2("Siga as ramificações"),
-            p("Cada folha representa uma linha de pesquisa do GPENSC.")
+            h2("Siga as ramificações")
           ),
           div(
             class = "gp44-tools", role = "group",
@@ -137,7 +136,7 @@ div(
         div(class = "gp44-detail-placeholder",
           span(class = "gp44-placeholder-symbol", `aria-hidden` = "true", "↗"),
           h2("Escolha uma linha"),
-          p("Toque em uma folha do mapa ou selecione uma linha na lista para ver seus vínculos."),
+          p("Selecione uma folha ou escolha uma linha na lista."),
           tags$a(href = "#gp44-directory", class = "gp44-jump-link", "Explorar por nome")
         )
       )
@@ -148,8 +147,7 @@ div(
         class = "gp44-directory-header",
         div(
           span(class = "gp44-eyebrow", "PESQUISA"),
-          h2("Linhas de pesquisa"),
-          p("Explore por nome ou encontre um assunto de interesse.")
+          h2("Linhas de pesquisa")
         ),
         div(
           class = "gp44-search",
@@ -178,10 +176,7 @@ div(
         hidden = "hidden", "Nenhuma linha corresponde à busca."
       )
     ),
-    p(
-      class = "gp44-footnote",
-      "As conexões exibidas correspondem aos registros públicos cadastrados pelo grupo."
-    )
+    NULL
   ) else estado_vazio(
     "Linhas de pesquisa em atualização",
     "Esta área apresentará as ramificações quando o cadastro público estiver disponível."
