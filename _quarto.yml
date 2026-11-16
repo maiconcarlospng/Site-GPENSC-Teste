@@ -41,9 +41,24 @@ website:
 
   page-footer:
     left: |
-      <div class="gp-footer-bottom">
-      <span class="gp-footer-copyright">© GPENSC · Universidade Federal de Ouro Preto. Todos os direitos reservados.</span>
-      <a class="gp-footer-admin-link" href="admin/">Admin</a>
+      <div id="gp-institutional-footer">
+        <div class="gp-footer-main">
+          <div class="gp-footer-identity">
+            <a class="gp-footer-name" href="index.html" aria-label="GPENSC — página inicial">GPENSC</a>
+            <p>Grupo de Pesquisa e Ensino em<br class="gp-footer-break"> Nutrição e Saúde Coletiva</p>
+            <p class="gp-footer-affiliation">Escola de Nutrição · Universidade Federal de Ouro Preto</p>
+          </div>
+          <nav class="gp-footer-links" aria-label="Links do rodapé">
+            <a href="grupo.html#sobre">O grupo</a>
+            <a href="pesquisa.html">Pesquisa</a>
+            <a href="atualizacoes.html#agenda">Agenda</a>
+            <a href="grupo.html#contato">Contato</a>
+          </nav>
+        </div>
+        <div class="gp-footer-base">
+          <span>© GPENSC · UFOP</span>
+          <a class="gp-footer-admin" href="admin/" aria-label="Acessar o painel administrativo">Admin</a>
+        </div>
       </div>
 format:
   html:
@@ -81,6 +96,7 @@ format:
       - styles-arvore-v44.css
       - styles-institucional-v46.css
       - styles-layout-v47.css
+      - styles-rodape-v48.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
