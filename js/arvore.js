@@ -20,6 +20,13 @@
     if (parent) parent.appendChild(item);
     return item;
   };
+  function addLabelBackground(label,parent) {
+    const background=make('rect',{
+      class:'gp49-label-background',x:0,y:0,width:0,height:0,rx:5,
+      fill:'#f7f8f2',stroke:'#d5dfcf','stroke-width':'.9',opacity:'.97'
+    },parent);
+    parent.insertBefore(background,label);
+  }
   const svg = make('svg', {
     viewBox: '0 0 1400 920', preserveAspectRatio: 'xMidYMid meet',
     role: 'group', 'aria-label': 'Árvore do GPENSC com linhas, projetos, pessoas e produções'
@@ -92,6 +99,36 @@
     svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
     svg.classList.toggle('gp49-detailed',camera.w < 740);
     svg.classList.toggle('gp49-very-detailed',camera.w < 430);
+    const unit=camera.w/(map.clientWidth||W);
+    const labelSize=unit*12;
+    svg.querySelectorAll('.gp49-branch-label').forEach(group=>{
+      const terminal=group.getAttribute('data-terminal')==='1';
+      const side=group.getAttribute('data-side');
+      group.setAttribute('transform','translate(0 '+(unit*(terminal?14:14))+')');
+      const range=group.querySelector('.gp49-branch-label-text');
+      if(range) range.setAttribute('y',String(unit*4));
+      const name=group.querySelector('.gp49-branch-name-label');
+      if(name){
+        name.setAttribute('x',String(unit*(side==='left'?-20:20)));
+        name.setAttribute('y',String(unit*24));
+        name.setAttribute('text-anchor',side==='left'?'end':'start');
+      }
+    });
+    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
+      label.style.fontSize=labelSize+'px';
+      label.style.strokeWidth=Math.max(.6,labelSize*.12)+'px';
+    });
+    svg.querySelectorAll('.gp49-label-background').forEach(background=>{
+      const label=background.nextElementSibling;
+      if(!label||typeof label.getBBox!=='function') return;
+      try {
+        const box=label.getBBox(),padX=unit*6,padY=unit*3;
+        background.setAttribute('x',String(box.x-padX));
+        background.setAttribute('y',String(box.y-padY));
+        background.setAttribute('width',String(box.width+padX*2));
+        background.setAttribute('height',String(box.height+padY*2));
+      } catch(_) {}
+    });
   }
   function move(target, duration=700) {
     cancelAnimationFrame(animation);
@@ -245,14 +282,19 @@
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
-    const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 '+(terminal?31:29)+')'},bubble);
-    const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
+    const labelGroup=make('g',{
+      class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',
+      'data-terminal':terminal?'1':'0','data-side':p.x<W/2?'left':'right'
+    },bubble);
+    const labelText=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
     labelText.textContent=branchRange(start,count);
+    addLabelBackground(labelText,labelGroup);
     make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
     if(terminal){
-      const shortName=nodeNames[start].length>27?nodeNames[start].slice(0,26).trimEnd()+'…':nodeNames[start];
-      const nameLabel=make('text',{x:0,y:23,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
+      const shortName=nodeNames[start].length>19?nodeNames[start].slice(0,18).trimEnd()+'…':nodeNames[start];
+      const nameLabel=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
       nameLabel.textContent=shortName;
+      addLabelBackground(nameLabel,labelGroup);
     }
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
