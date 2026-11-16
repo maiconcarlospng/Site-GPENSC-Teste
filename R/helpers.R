@@ -274,17 +274,47 @@ faixa_galeria <- function() {
   )
 
   if (nrow(fotos) > 0) {
-    faixa_fotos <- div(
-      class = "galeria lupa-area",
+    faixa_fotos <- tags$section(
+      class = "galeria galeria--editorial lupa-area",
+      `aria-label` = "Acervo fotográfico do GPENSC",
+      div(
+        class = "galeria-cabecalho",
+        div(
+          class = "galeria-cabecalho-texto",
+          span(class = "galeria-kicker", "ACERVO FOTOGRÁFICO"),
+          span(class = "galeria-titulo", "GPENSC em imagens")
+        ),
+        div(
+          class = "galeria-ferramentas",
+          span(class = "galeria-contador", `aria-live` = "polite",
+               paste0("01 / ", sprintf("%02d", nrow(fotos)))),
+          if (nrow(fotos) > 1) div(
+            class = "galeria-navegacao",
+            tags$button(
+              type = "button", class = "galeria-controle galeria-controle--anterior",
+              `aria-controls` = "gp-home-galeria-faixa",
+              `aria-label` = "Foto anterior", disabled = "disabled", "‹"
+            ),
+            tags$button(
+              type = "button", class = "galeria-controle galeria-controle--proximo",
+              `aria-controls` = "gp-home-galeria-faixa",
+              `aria-label` = "Próxima foto", "›"
+            )
+          )
+        )
+      ),
       div(
         class = "galeria-faixa",
+        id = "gp-home-galeria-faixa",
+        tabindex = "0",
+        `aria-label` = "Fotografias do GPENSC. Use as setas ou deslize para navegar.",
         lapply(seq_len(nrow(fotos)), function(i) {
           arquivo <- caminho_img(fotos$arquivo[i], "galeria")
-          legenda <- fotos$legenda[i]
-          alt_texto <- if (tem(legenda)) as.character(legenda) else "Foto do grupo GPENSC"
+          legenda <- valor_publico(fotos$legenda[i])
+          alt_texto <- if (!is.null(legenda)) legenda else
+            paste("Fotografia", i, "do acervo do GPENSC")
 
-          # O painel salva o ponto focal (0–100) e o zoom (100–200%).
-          # Fotos antigas sem esses campos continuam centralizadas por padrão.
+          # Preserva os recortes e a ampliação definidos pelo painel do grupo.
           foco_x <- suppressWarnings(as.numeric(fotos$foco_x[i]))
           foco_y <- suppressWarnings(as.numeric(fotos$foco_y[i]))
           zoom <- suppressWarnings(as.numeric(fotos$zoom[i]))
@@ -295,7 +325,7 @@ faixa_galeria <- function() {
           foco_y <- min(100, max(0, foco_y))
           zoom <- min(200, max(100, zoom))
 
-          div(
+          tags$figure(
             class = "galeria-item",
             tags$img(
               src = arquivo,
@@ -307,9 +337,17 @@ faixa_galeria <- function() {
               ),
               loading = if (i == 1) "eager" else "lazy",
               decoding = "async"
+            ),
+            if (!is.null(legenda)) tags$figcaption(
+              class = "galeria-legenda", legenda
             )
           )
         })
+      ),
+      div(
+        class = "galeria-rodape",
+        span("Deslize pelas fotografias ou use as setas para navegar."),
+        tags$a(href = "sobre.html#gp-sobre-fotos", "Conheça o acervo do grupo")
       )
     )
 
