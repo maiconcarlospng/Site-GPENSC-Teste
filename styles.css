@@ -18945,3 +18945,28 @@ html body:has(#gp49) #quarto-header { margin-top:0!important; }
   transform:matrix(.85,0,1.10,.48,0,0);
 }
 
+/* Árvore — 4. Área de respiro acima do SVG, sem alterar a câmera ou os nós. */
+#gp49 #gp49-map {
+  box-sizing:content-box;
+  padding-top:clamp(42px,5vw,76px);
+}
+#gp49 #gp49-map > svg { overflow:visible!important; }
+/* A dica permanece no painel, mas fora da superfície dos galhos. */
+#gp49 .gp49-hint {
+  position:relative!important;
+  inset:auto!important;
+  width:max-content!important;
+  max-width:calc(100% - 32px)!important;
+  margin:8px auto 12px!important;
+}
+#gp49 .gp49-tools { bottom:78px; }
+@media (max-width:767px) {
+  #gp49 #gp49-map { padding-top:50px; }
+  #gp49 .gp49-hint {
+    width:calc(100% - 24px)!important;
+    max-width:none!important;
+    margin:8px 12px 12px!important;
+  }
+  #gp49 .gp49-tools { bottom:75px; }
+}
+
