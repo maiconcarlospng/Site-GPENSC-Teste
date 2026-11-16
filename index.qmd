@@ -15,6 +15,120 @@ source("R/helpers.R")
 faixa_galeria("ambos")
 ```
 
+
+```{=html}
+<!-- Ajustes de densidade da página inicial em telas pequenas. -->
+<style>
+@media (max-width: 767.98px) {
+  /* Apenas a home: retirar alturas herdadas de grades e wrappers do Quarto. */
+  body.page-index #quarto-content .secao {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  body.page-index #quarto-content .secao > h2 {
+    margin: 12px 0 8px !important;
+    padding: 0 0 9px !important;
+    line-height: 1.3 !important;
+  }
+  body.page-index #quarto-content .pq-blocos {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0 !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+  }
+  body.page-index #quarto-content .pq-blocos .pq {
+    min-height: 54px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  body.page-index #quarto-content .pq-blocos .pq-conteudo {
+    min-height: 54px !important;
+    height: auto !important;
+    padding: 9px 0 !important;
+    gap: 10px !important;
+  }
+  body.page-index #quarto-content .gp-home-projects {
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 8px 0 18px !important;
+    padding: 0 !important;
+  }
+  body.page-index #quarto-content .gp-home-projects-header {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    align-content: start !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+    gap: 8px !important;
+  }
+  body.page-index #quarto-content .gp-home-projects-header > div {
+    flex: 1 1 155px !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body.page-index #quarto-content .gp-home-projects-header h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    line-height: 1.25 !important;
+  }
+  body.page-index #quarto-content .gp-home-projects-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-rows: auto !important;
+    align-content: start !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 10px !important;
+  }
+  body.page-index #quarto-content .gp-home-project-card {
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+  body.page-index #quarto-content .home-arvore-destaque {
+    min-height: 0 !important;
+    margin: 16px 0 !important;
+    padding: 16px !important;
+  }
+  body.page-index #quarto-content .home-arvore-destaque h2 {
+    margin: 0 0 8px !important;
+  }
+  body.page-index #quarto-content .faixa-agenda {
+    margin-top: 12px !important;
+    padding: 20px 16px !important;
+  }
+  body.page-index #quarto-content .agenda-chamada {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body.page-index #quarto-content .agenda-chamada h2 {
+    margin: 8px 0 12px !important;
+  }
+  body.page-index #quarto-content .agenda-sem-eventos {
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+  }
+}
+</style>
+```
+
 ::::: secao
 ## {{< var titulo_home_pesquisas >}}
 
