@@ -11,6 +11,6 @@ Linhas de investigação e produção científica do GPENSC.
 <a href="publicacoes.html"><strong>Publicações</strong><span>Artigos e produção científica</span></a>
 <a href="teses.html"><strong>Teses e dissertações</strong><span>Trabalhos acadêmicos e orientações</span></a>
 <a href="metodos.html"><strong>Metodologias</strong><span>Métodos e recursos de pesquisa</span></a>
-<a href="ensino-extensao.html#projetos"><strong>Projetos</strong><span>Iniciativas e pesquisas em andamento</span></a>
+<a href="projetos.html"><strong>Projetos</strong><span>Iniciativas e pesquisas em andamento</span></a>
 </nav>
 ```
