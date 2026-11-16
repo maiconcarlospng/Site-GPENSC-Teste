@@ -19456,3 +19456,95 @@ html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-proje
     transform:none!important;
   }
 }
+
+/* GPENSC | Chamada da Árvore — destaque horizontal compacto e legível. */
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) clamp(144px,17vw,210px)!important;
+  gap:clamp(20px,3.2vw,48px)!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:1240px!important;
+  margin:clamp(14px,1.8vw,22px) auto clamp(18px,2vw,24px)!important;
+  padding:clamp(22px,2.7vw,36px) clamp(24px,3.3vw,46px)!important;
+  min-height:0!important;
+  border:1px solid #dce7d8!important;
+  border-left:4px solid #5f9a3e!important;
+  border-radius:12px!important;
+  background:#f5f8f2!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:clamp(9px,1vw,12px)!important;
+  max-width:100%!important;
+  padding:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto h2 {
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  max-width:100%!important;
+  font-size:clamp(1.5rem,2.2vw,2rem)!important;
+  font-weight:750!important;
+  line-height:1.22!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto p {
+  margin:0!important;
+  max-width:55ch!important;
+  font-size:clamp(.92rem,1.15vw,1rem)!important;
+  line-height:1.55!important;
+  color:#526253!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto a.btn {
+  display:inline-flex!important;
+  align-items:center!important;
+  align-self:flex-start!important;
+  justify-self:start!important;
+  min-height:44px!important;
+  margin:5px 0 0!important;
+  padding:.72rem 1.15rem!important;
+  border-radius:6px!important;
+  font-size:.79rem!important;
+  line-height:1.25!important;
+  white-space:normal!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque > .home-arvore-arte {
+  display:block!important;
+  position:static!important;
+  width:100%!important;
+  max-width:210px!important;
+  max-height:180px!important;
+  height:auto!important;
+  object-fit:contain!important;
+  justify-self:center!important;
+  align-self:center!important;
+  opacity:.9!important;
+  pointer-events:none!important;
+}
+@media(max-width:640px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+    position:relative!important;
+    display:block!important;
+    margin:12px auto 16px!important;
+    padding:22px 20px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+    position:relative!important;
+    z-index:1!important;
+    max-width:100%!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque > .home-arvore-arte {
+    position:absolute!important;
+    z-index:0!important;
+    right:-13px!important;
+    bottom:-16px!important;
+    width:128px!important;
+    max-width:128px!important;
+    opacity:.12!important;
+  }
+}
