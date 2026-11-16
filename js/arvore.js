@@ -10,6 +10,7 @@
   if (!map || !rows.length) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const NS = 'http://www.w3.org/2000/svg';
+  const fmt=n=>n.toFixed(2);
   const W = 1400, H = 920, total = rows.length;
   const nodeNames = rows.map(row => row.querySelector('.gp49-line-name').textContent.trim());
   const make = (tag, attrs, parent) => {
@@ -113,7 +114,6 @@
     const size=Math.hypot(x,y)||1;
     return {x:x/size,y:y/size};
   };
-  const fmt=n=>n.toFixed(2);
   function limb(from,to,begin,end,incoming) {
     const group=make('g',{class:'gp49-limb'},woodLayer);
     const dx=to.x-from.x,dy=to.y-from.y,reach=Math.hypot(dx,dy)||1;
