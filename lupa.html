@@ -12,6 +12,12 @@
 
   function aplicarIdiomaVisual(langCode) {
     var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
+    document.documentElement.setAttribute('data-gp-current-language', ['pt','en','es'].includes(idioma) ? idioma : 'pt');
+    document.querySelectorAll('.gp-language-button').forEach(function(botao) {
+      var ativo = botao.getAttribute('data-lang') === idioma;
+      botao.setAttribute('aria-pressed', String(ativo));
+      botao.classList.toggle('is-active', ativo);
+    });
     if (idioma === 'es') {
       document.documentElement.setAttribute('data-gp-language', 'es');
     } else {
@@ -38,7 +44,7 @@
     aplicarIdiomaVisual(langCode);
     var langPair = '/pt/' + langCode;
     document.cookie = 'googtrans=' + langPair + '; path=/;';
-    document.cookie = 'googtrans=' + langPair + '; path=/; domain=' + window.location.hostname;
+    if (window.location.hostname.includes('.')) document.cookie = 'googtrans=' + langPair + '; path=/; domain=' + window.location.hostname;
 
     var select = document.querySelector('.goog-te-combo');
     if (select) {
@@ -59,11 +65,12 @@
       var container = document.createElement("div");
       container.className = "bandeiras-container";
       container.innerHTML = `
-        <button type="button" class="gp-language-button" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
-        <button type="button" class="gp-language-button" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>
-        <button type="button" class="gp-language-button" onclick="traduzirPagina('es')" aria-label="Español — tradução automática" title="Español — tradução automática"><span lang="es">ES</span></button>
+        <button type="button" class="gp-language-button" data-lang="pt" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
+        <button type="button" class="gp-language-button" data-lang="en" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>
+        <button type="button" class="gp-language-button" data-lang="es" onclick="traduzirPagina('es')" aria-label="Español — tradução automática" title="Español — tradução automática"><span lang="es">ES</span></button>
       `;
       navbarTitle.after(container);
+      aplicarIdiomaVisual((document.documentElement.getAttribute("data-gp-current-language") || "pt"));
     }
 
     // Mobile: idiomas na primeira linha. Tablet: dentro do menu.
