@@ -10,20 +10,18 @@ description: "Conheça a iniciativa de formação em epidemiologia e análise de
   <div class="gp-project-hero-copy">
     <span class="gp-project-eyebrow">INICIATIVA DE FORMAÇÃO · GPENSC</span>
     <h2>Formação para compreender dados e produzir evidências em saúde</h2>
-    <p>Uma frente de formação dedicada a métodos epidemiológicos, organização de dados e interpretação de indicadores em saúde.</p>
+    <p>Formação em métodos epidemiológicos e análise de dados aplicados à saúde.</p>
   </div>
   <img src="img/ilustracoes/epidemiologia-projeto.svg" alt="Ilustração temática de análise de dados, não o logotipo oficial do projeto." width="320" height="220">
 </div>
 ```
 
 
-## Sobre a capacitação
+## Temas da formação
 
-A iniciativa de Capacitação em Epidemiologia e Análise de Dados integra as ações de formação e extensão mencionadas pelo GPENSC. Seu foco é a leitura crítica de informações em saúde e o uso de métodos que ajudam a transformar perguntas de pesquisa em análises fundamentadas.
+As atividades podem abordar desenho de estudos, organização de bases de dados, interpretação de indicadores e apresentação de resultados. Os conteúdos e os requisitos variam conforme a programação.
 
-Os conteúdos podem envolver desenho de estudos epidemiológicos, organização de bases de dados, interpretação de indicadores e apresentação de resultados. Os temas, as turmas e os requisitos de participação dependem da programação de cada atividade.
+## Programação
 
-## Programação e participação
-
-A programação é divulgada conforme a confirmação das atividades. Consulte a [Agenda GPENSC](agenda.qmd) para verificar os próximos encontros ou [entre em contato](contato.qmd) para mais informações.
+Consulte a [Agenda](agenda.qmd) para verificar as atividades confirmadas ou [entre em contato](contato.qmd).
 
