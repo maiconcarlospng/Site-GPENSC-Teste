@@ -19286,3 +19286,173 @@ html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-selo:
     transition:none!important;
   }
 }
+
+/* GPENSC | Projetos e iniciativas — cartões editoriais em duas colunas.
+   O cartão inteiro continua sendo o link, sem repetir uma segunda chamada. */
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects {
+  width:100%!important;
+  max-width:1240px!important;
+  margin:clamp(24px,3vw,42px) auto clamp(18px,2vw,27px)!important;
+  padding:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-header {
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:space-between!important;
+  flex-wrap:wrap!important;
+  gap:10px 24px!important;
+  margin:0 0 18px!important;
+  padding:0 0 12px!important;
+  border-bottom:1px solid #dce6d9!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-header h2 {
+  width:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  font-size:clamp(1.55rem,2.3vw,2rem)!important;
+  line-height:1.22!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-all {
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:38px!important;
+  padding:6px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#1f4d2b!important;
+  font-size:.87rem!important;
+  font-weight:700!important;
+  text-decoration:underline!important;
+  text-underline-offset:4px!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-grid {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:clamp(14px,1.8vw,22px)!important;
+  align-items:stretch!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card {
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) clamp(92px,10vw,142px)!important;
+  align-items:center!important;
+  gap:clamp(14px,2vw,24px)!important;
+  min-height:208px!important;
+  height:100%!important;
+  padding:clamp(22px,2.4vw,32px)!important;
+  border:1px solid #dce6d9!important;
+  border-top:3px solid #148d9a!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  color:#1f4d2b!important;
+  box-shadow:0 2px 14px rgba(31,77,43,.035)!important;
+  text-decoration:none!important;
+  transform:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card--epi {
+  border-top-color:#5f9a3e!important;
+  background:#fff!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card:is(:hover,:focus-visible) {
+  border-color:#a8c4b3!important;
+  box-shadow:0 9px 24px rgba(31,77,43,.08)!important;
+  transform:translateY(-2px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card--vi:is(:hover,:focus-visible) {
+  border-color:#8ccacb!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card-copy {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+  min-width:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card-label {
+  display:block!important;
+  margin:0!important;
+  color:#0d7082!important;
+  font-size:.68rem!important;
+  font-weight:800!important;
+  letter-spacing:.085em!important;
+  line-height:1.45!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card--epi .gp-home-project-card-label {
+  color:#8b571e!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card strong {
+  margin:0!important;
+  font-size:clamp(1.2rem,1.65vw,1.5rem)!important;
+  line-height:1.22!important;
+  font-weight:750!important;
+  letter-spacing:-.025em!important;
+  color:#1f4d2b!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card--vi strong {
+  color:#0a4466!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card small {
+  margin:0!important;
+  max-width:43ch!important;
+  font-size:.91rem!important;
+  line-height:1.55!important;
+  color:#536858!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card-cta {
+  display:none!important; /* O próprio cartão já é o link: evita texto duplicado. */
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card img {
+  display:block!important;
+  width:100%!important;
+  max-width:142px!important;
+  height:auto!important;
+  max-height:105px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  justify-self:center!important;
+  margin:0!important;
+}
+@media (max-width:920px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-grid {
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card {
+    grid-template-columns:minmax(0,1fr) minmax(90px,22%)!important;
+    min-height:0!important;
+  }
+}
+@media (max-width:560px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects {
+    margin:18px auto!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-projects-header {
+    gap:8px!important;
+    margin-bottom:12px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card {
+    grid-template-columns:minmax(0,1fr) 75px!important;
+    gap:12px!important;
+    padding:16px!important;
+    border-radius:10px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card img {
+    max-width:75px!important;
+    max-height:80px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card strong {
+    font-size:1.13rem!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card small {
+    font-size:.84rem!important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card {
+    transition:none!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .gp-home-project-card:is(:hover,:focus-visible) {
+    transform:none!important;
+  }
+}
