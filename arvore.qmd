@@ -92,7 +92,7 @@ div(id = "gp49", class = "gp49-shell",
         tags$button(id = "gp49-out", type = "button", `aria-label` = "Diminuir", "−"),
         tags$button(id = "gp49-in", type = "button", `aria-label` = "Ampliar", "+")
       ),
-      p(class = "gp49-hint", "Toque nos ramos para abrir · Arraste para explorar")
+      p(class = "gp49-hint", "Toque nos brotos para explorar · Arraste para navegar · Amplie para ver mais")
     ),
     tags$aside(id = "gp49-detail", `aria-live` = "polite", hidden = "hidden"),
     tags$section(id = "gp49-directory",
