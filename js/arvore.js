@@ -21,7 +21,7 @@
   };
   const svg = make('svg', {
     viewBox: '0 0 1400 920', preserveAspectRatio: 'xMidYMid meet',
-    role: 'group', 'aria-label': 'Explorador da árvore do conhecimento do GPENSC'
+    role: 'group', 'aria-label': 'Árvore do GPENSC com linhas, projetos, pessoas e produções'
   }, map);
   // No celular, a tela se comporta como um mapa explorável, sem miniaturizar a árvore.
   function adaptViewport() {
@@ -193,34 +193,29 @@
   }
   // Galhos secundários representam projetos; frutos representam pessoas e produtos.
   // Apenas contagens positivas que vieram do CMS geram elementos.
-  function linkedLife(point,index){
-    const data=rows[index].dataset;
-    const projects=Number(data.projects||0);
-    const kinds=[
-      ['people','Integrantes','#99b25b'],
-      ['publications','Produções científicas','#d9731f'],
-      ['theses','Teses e dissertações','#b35c49']
-    ].filter(([key])=>Number(data[key]||0)>0);
-    if(!projects&&!kinds.length)return null;
+  function linkedLife(point,index) {
+    let frutos=[];
+    try { frutos=JSON.parse(rows[index].dataset.fruits||'[]'); } catch (_) {}
+    if(!Array.isArray(frutos)||!frutos.length)return null;
     const life=make('g',{class:'gp49-linked-life','pointer-events':'none','aria-hidden':'true'},foliageLayer);
-    if(projects){
-      const direction=index%2?1:-1;
-      const x=point.x,y=point.y;
-      make('path',{d:'M'+x+','+(y+5)+' Q'+(x+direction*23)+','+(y-4)+' '+(x+direction*39)+','+(y-23),
-        class:'gp49-project-twig',fill:'none',stroke:'#7d7650','stroke-width':3,'stroke-linecap':'round'},life);
-      make('ellipse',{cx:x+direction*39,cy:y-23,rx:10,ry:5,
-        transform:'rotate('+(direction*25)+' '+(x+direction*39)+' '+(y-23)+')',
-        fill:'#668c49',class:'gp49-project-leaf'},life);
-    }
-    kinds.forEach(([key,label,color],k)=>{
-      const angle=(k*2.22)+(index*.35);
+    const visible=frutos.slice(0,5);
+    visible.forEach((fruto,k)=>{
+      const angle=-Math.PI/2+k*2.399963;
       const x=point.x+Math.cos(angle)*35;
-      const y=point.y+Math.sin(angle)*22-9;
+      const y=point.y+Math.sin(angle)*25-8;
+      const color=fruto.tipo==='pessoa'?'#66934c':fruto.tipo==='defesa'?'#b9560f':'#d9731f';
       make('path',{d:'M'+x+','+(y-6)+' q-4 -6 0 -10',class:'gp49-fruit-stem',
         fill:'none',stroke:'#68734c','stroke-width':2},life);
-      make('ellipse',{cx:x,cy:y,rx:6.8,ry:9,fill:color,class:'gp49-fruit'},life);
-      make('ellipse',{cx:x-2,cy:y-3,rx:1.6,ry:3,fill:'#fff',opacity:.3},life);
+      const berry=make('ellipse',{cx:x,cy:y,rx:7.2,ry:9.2,fill:color,class:'gp49-fruit'},life);
+      make('title',{},berry).textContent=(fruto.tipo||'Fruto')+': '+(fruto.nome||'');
+      make('ellipse',{cx:x-2,cy:y-3,rx:1.6,ry:3,fill:'#fff',opacity:.34},life);
     });
+    if(frutos.length>visible.length){
+      const x=point.x+30,y=point.y+29;
+      const more=make('g',{class:'gp49-fruit-more'},life);
+      make('circle',{cx:x,cy:y,r:11,fill:'#f7f4e9',stroke:'#8b815e','stroke-width':1.5},more);
+      make('text',{x,y:y+3,'text-anchor':'middle'},more).textContent='+'+(frutos.length-visible.length);
+    }
     return life;
   }
   function focusOn(start,count,depth) {
@@ -240,7 +235,7 @@
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
       role:'button',tabindex:0,
-      'aria-label':terminal?nodeNames[start]:'Explorar '+count+' linhas de pesquisa',
+      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar '+count+' frentes de pesquisa ou projeto',
       ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
     const radius=terminal?17:clamp(12+count/total*9,13,21);
@@ -251,7 +246,7 @@
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
-      make('title',{},bubble).textContent=count+' linhas de pesquisa — clique para expandir ou recolher';
+      make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
     } else {
       make('circle',{r:5,class:'gp49-node-seed'},bubble);
       // Long labels appear only on demand, never together over the foliage.
@@ -281,7 +276,7 @@
       if(spray)spray.remove();
       if(linked)linked.remove();
     }
-    const tipLabel=terminal?nodeNames[start]:'Explorar '+count+' linhas de pesquisa';
+    const tipLabel=terminal?nodeNames[start]:'Explorar '+count+' frentes de pesquisa ou projeto';
     bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
     bubble.addEventListener('pointerleave',hideTip);
     bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
@@ -314,11 +309,14 @@
     const close=document.createElement('button');
     close.type='button';close.className='gp49-close';close.textContent='Fechar';
     close.addEventListener('click',()=>{panel.hidden=true;row.querySelector('button').focus();});
+    const eyebrow=document.createElement('p');
+    eyebrow.className='gp49-detail-kind';
+    eyebrow.textContent=row.dataset.branchType==='projeto'?'PROJETO':'LINHA DE PESQUISA';
     const heading=document.createElement('h2');
     heading.textContent=nodeNames[i];
     const detail=row.querySelector('.gp49-line-body').cloneNode(true);
     detail.classList.add('gp49-detail-body');
-    panel.append(close,heading,detail);
+    panel.append(close,eyebrow,heading,detail);
     panel.hidden=false;
     if (!reduced) [...panel.children].forEach((item,index)=>{
       if(item.animate)item.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],
