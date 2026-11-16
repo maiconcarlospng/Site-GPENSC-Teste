@@ -13,6 +13,7 @@
   const fmt=n=>n.toFixed(2);
   const W = 1400, H = 920, total = rows.length;
   const nodeNames = rows.map(row => row.querySelector('.gp49-line-name').textContent.trim());
+  const branchRange=(start,count)=>String(start+1).padStart(2,'0')+(count>1?'–'+String(start+count).padStart(2,'0'):'');
   const make = (tag, attrs, parent) => {
     const item = document.createElementNS(NS, tag);
     Object.entries(attrs || {}).forEach(([name, value]) => item.setAttribute(name, String(value)));
@@ -235,7 +236,7 @@
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
       role:'button',tabindex:0,
-      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar '+count+' frentes de pesquisa ou projeto',
+      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '),
       ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
     const radius=terminal?17:clamp(12+count/total*9,13,21);
@@ -244,6 +245,15 @@
     make('circle',{r:radius+9,class:'gp49-node-halo'},bubble);
     make('circle',{r:radius,class:'gp49-node-disc'},bubble);
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
+    const labelGroup=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',transform:'translate(0 '+(terminal?31:29)+')'},bubble);
+    const labelText=make('text',{x:0,y:4,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
+    labelText.textContent=branchRange(start,count);
+    make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
+    if(terminal){
+      const shortName=nodeNames[start].length>27?nodeNames[start].slice(0,26).trimEnd()+'…':nodeNames[start];
+      const nameLabel=make('text',{x:0,y:23,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
+      nameLabel.textContent=shortName;
+    }
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
       make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
@@ -276,7 +286,7 @@
       if(spray)spray.remove();
       if(linked)linked.remove();
     }
-    const tipLabel=terminal?nodeNames[start]:'Explorar '+count+' frentes de pesquisa ou projeto';
+    const tipLabel=terminal?nodeNames[start]:'Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
     bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
     bubble.addEventListener('pointerleave',hideTip);
     bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
@@ -324,7 +334,15 @@
     });
     panel.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});
   }
-  rows.forEach((row,index)=>row.querySelector('button').addEventListener('click',()=>select(index)));
+  rows.forEach((row,index)=>{
+    const button=row.querySelector('button');
+    const indexTag=document.createElement('span');
+    indexTag.className='gp49-directory-index';
+    indexTag.setAttribute('aria-hidden','true');
+    indexTag.textContent=String(index+1).padStart(2,'0');
+    button.prepend(indexTag);
+    button.addEventListener('click',()=>select(index));
+  });
   const home=root.querySelector('#gp49-home');
   const plus=root.querySelector('#gp49-in'),minus=root.querySelector('#gp49-out');
   home.addEventListener('click',()=>move({x:0,y:0,w:W,h:H}));
