@@ -442,3 +442,5 @@ body{background:#f7f8f5}
   .media-toolbar span{grid-column:auto}
   .media-card-actions{display:grid;grid-template-columns:1fr 1fr}
 }
+
+#app [hidden]{display:none!important}
