@@ -39,18 +39,7 @@
     .forEach(([offset,color])=>make('stop',{offset,'stop-color':color},bark));
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
-  const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
-  // Copa aberta, formada por ramos e folhas individuais; sem uma placa oval.
-  const leafPalette=['#163b19','#1f4b20','#2b6428','#39782e','#5d8d36','#93aa43','#274f20'];
-  const leafTexture=make('g',{class:'gp49-canopy-texture','pointer-events':'none','aria-hidden':'true'},canopyLayer);
-  const foliageNoise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
-  function canopyLeaf(x,y,angle,size,tone,parent){
-    const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+') scale('+fmt(size)+')'},parent);
-    make('path',{d:'M0,0 C5,-7 13,-10 19,-5 C22,-2 21,2 17,5 C10,9 3,5 0,0 Z',
-      fill:tone,stroke:'#214b27','stroke-width':'.5',opacity:.98},leaf);
-    make('path',{d:'M1,0 Q9,-1 18,-5',fill:'none',stroke:'#d9eaa7','stroke-width':.9,
-      'stroke-linecap':'round',opacity:.72},leaf);
-  }
+  // Folhas pequenas acompanham apenas os galhos estruturais do mapa.
   function smallBranchLeaf(x,y,angle,tone,parent){
     const leaf=make('g',{transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+fmt(angle*180/Math.PI)+')'},parent);
     make('path',{d:'M0,0 C3,-5 8,-7 13,-4 C16,-1 14,3 10,5 C6,7 2,4 0,0 Z',
@@ -112,7 +101,7 @@
     tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
-  let camera = {x: 0, y: 0, w: W, h: H};
+  let camera = {x: 145, y: 95, w: 1110, h: 730};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
@@ -283,11 +272,6 @@
     const drawn=limb(parent,p,fromWidth,toWidth,incoming);
     const stem=drawn.group;
     const terminal=count===1;
-    if(terminal){
-      const crownAngle=-Math.PI/2+((p.x-700)/700)*.78;
-      canopyBranch(p.x,p.y,crownAngle-.48,72,1.55,1,61+start*17);
-      canopyBranch(p.x,p.y,crownAngle+.46,68,1.5,1,89+start*19);
-    }
     const spray=terminal?leaves(p,start):null;
     const linked=terminal?linkedLife(p,start):null;
     const bubble=make('g',{
@@ -342,10 +326,10 @@
       bubble.addEventListener('pointerleave',hideTip);
       bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
       bubble.addEventListener('blur',hideTip);
-      bubble.addEventListener('click',event=>{hideTip();event.stopPropagation();select(start);});
+      bubble.addEventListener('click',event=>{hideTip();event.stopPropagation();select(start);focusOn(start,1,depth);});
       bubble.addEventListener('keydown',event=>{
         if(event.key==='Enter'||event.key===' ') {
-          event.preventDefault();event.stopPropagation();select(start);
+          event.preventDefault();event.stopPropagation();select(start);focusOn(start,1,depth);
         }
       });
     }
@@ -354,7 +338,7 @@
     return {destroy};
   }
   branch(0,total,0,{x:700,y:900},145,78,{x:0,y:-1});
-  const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  const trunkLabel=make('text',{x:700,y:790,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
