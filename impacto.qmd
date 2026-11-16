@@ -3,15 +3,12 @@ title: "Impacto social"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Da pesquisa à sociedade: experiências, produtos e resultados documentados.</p><img src="img/ilustracoes/impacto.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Ações do grupo em serviços e comunidades.</p><img src="img/ilustracoes/impacto.svg" alt="" width="240" height="180"></div>
 ```
 
 
-## Ações e resultados documentados
-
-Esta página apresenta ações e resultados documentados do grupo, incluindo articulações com serviços, gestores e comunidades. Para conhecer as pesquisas que fundamentam essas atividades, acesse [Pesquisa](pesquisa.qmd). Para explicações acessíveis de estudos com fontes identificadas, consulte [Ciência para a sociedade](resultados.qmd).
 
 ```{r}
 source("R/helpers.R")
-renderizar_acervo("impactos", "Ainda não há relatos de impacto publicados")
+renderizar_acervo("impactos", "Registros de impacto em preparação")
 ```
