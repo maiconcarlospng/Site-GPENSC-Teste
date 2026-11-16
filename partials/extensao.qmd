@@ -1,5 +1,3 @@
-## Iniciativas em destaque
-
 ```{=html}
 <div class="gp-ext-projects">
   <article class="gp-ext-card gp-ext-card-rotulo">
