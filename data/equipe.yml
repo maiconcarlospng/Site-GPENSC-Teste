@@ -1,70 +1,71 @@
 itens:
-  - nome: "Ariene Silva do Carmo"
-    categoria: "Coordenação"
-    papel: "Líder do grupo"
+  - nome: Ariene Silva do Carmo
+    categoria: Docentes e pesquisadores
+    papel: Líder do grupo
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Raquel de Deus Mendonça"
-    categoria: "Coordenação"
-    papel: "Líder do grupo"
+    linhas_ids: []
+  - nome: Raquel de Deus Mendonça
+    categoria: Coordenação
+    papel: Líder do grupo
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Adriana Lúcia Meireles"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Adriana Lúcia Meireles
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Camila Carvalho Menezes Salierno"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Camila Carvalho Menezes Salierno
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Erica Costa Rodrigues"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Erica Costa Rodrigues
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Júlia Cristina Cardoso Carraro"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Júlia Cristina Cardoso Carraro
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Luiz Antônio Alves de Menezes Júnior"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisador"
+  - nome: Luiz Antônio Alves de Menezes Júnior
+    categoria: Docentes e pesquisadores
+    papel: Pesquisador
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Samara Silva de Moura"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Samara Silva de Moura
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Sandhi Maria Barreto"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Sandhi Maria Barreto
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
     orcid: ""
-  - nome: "Thais da Silva Sabião"
-    categoria: "Docentes e pesquisadores"
-    papel: "Pesquisadora"
+  - nome: Thais da Silva Sabião
+    categoria: Docentes e pesquisadores
+    papel: Pesquisadora
     formacao: ""
     foto: ""
     lattes: ""
