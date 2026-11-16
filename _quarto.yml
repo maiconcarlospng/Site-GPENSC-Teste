@@ -59,6 +59,8 @@ website:
         menu:
           - href: divulgacao.qmd
             text: Divulgação científica
+          - href: resultados.qmd
+            text: Ciência para a sociedade
           - href: materiais.qmd
             text: Materiais educativos
           - href: podcasts.qmd
@@ -113,6 +115,7 @@ format:
       - styles-editorial-v37.css
       - styles-arvore-v38.css
       - styles-galeria-v39.css
+      - styles-arvore-v40.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
