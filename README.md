@@ -616,3 +616,7 @@ Este repositório foi desenvolvido como ambiente de trabalho para o GPENSC. Ante
 ## Fluxo editorial do portfólio
 
 As sugestões do grupo sobre curadoria, atualização e divisão de responsabilidades estão organizadas em [ORGANIZACAO-EDITORIAL.md](ORGANIZACAO-EDITORIAL.md). Trata-se de uma proposta operacional, não de uma comissão já constituída.
+
+A conferência requisito por requisito, incluindo os dados que ainda precisam ser aprovados pelo grupo, está em [CHECKLIST-DOCUMENTO-GPENSC.md](CHECKLIST-DOCUMENTO-GPENSC.md).
+
+A Árvore do Conhecimento utiliza agora o explorador de ramificações em `js/arvore-explorador.js`, com foco parcial em vez de exibir a copa inteira. A página [Ciência para a sociedade](resultados.qmd) recebe apenas sínteses de publicações com fonte e revisão, cadastradas no painel.
