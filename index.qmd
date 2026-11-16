@@ -191,7 +191,14 @@ div(
     p("Explore as conexões entre os temas de pesquisa do grupo."),
     tags$a(class = "btn btn-secondary", href = "arvore.html", "Explorar conexões")
   ),
-  NULL
+  tags$img(
+    class = "home-arvore-arte",
+    src = "img/ilustracoes/arvore-home.svg",
+    alt = "",
+    loading = "lazy",
+    width = 360,
+    height = 270
+  )
 )
 ```
 
