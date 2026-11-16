@@ -6,10 +6,10 @@ title-block-banner: false
 ---
 
 ```{=html}
-<meta http-equiv="refresh" content="0; url=ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o">
+<meta http-equiv="refresh" content="0; url=ensino.html#gp-ensino-disciplinas">
 <script>
-  window.location.replace("ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o");
+  window.location.replace("ensino.html#gp-ensino-disciplinas");
 </script>
 <p>As disciplinas e atividades curriculares do GPENSC estão reunidas na página de Ensino.
-<a href="ensino.html#disciplinas-e-conte%C3%BAdos-de-forma%C3%A7%C3%A3o">Acessar Ensino</a>.</p>
+<a href="ensino.html#gp-ensino-disciplinas">Acessar Ensino</a>.</p>
 ```
