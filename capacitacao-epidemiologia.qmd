@@ -25,17 +25,31 @@ As atividades podem abordar desenho de estudos, organização de bases de dados,
 
 Consulte a [Agenda](atualizacoes.qmd#agenda) para verificar as atividades confirmadas ou [entre em contato](grupo.qmd#contato).
 
+```{=html}
+<style>
+.gp-cap-programacao{max-width:1120px;margin:38px auto 30px;padding:0 18px}
+.gp-cap-programacao>h2{color:#1f4d2b;margin-bottom:20px}
+.gp-cap-lista{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:14px}
+.gp-cap-atividade{padding:20px;border:1px solid #dce6da;border-left:4px solid #5f9a3e;border-radius:10px;background:#fff}
+.gp-cap-atividade-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#707d70;font-weight:650}
+.gp-cap-atividade h3{font-size:1.05rem;color:#1f4d2b;margin:9px 0}
+.gp-cap-atividade p{font-size:.94rem;line-height:1.55;margin:6px 0}
+.gp-cap-atividade a{color:#b9560f;font-weight:750}
+@media(max-width:700px){.gp-cap-programacao{margin-top:24px;padding:0 12px}.gp-cap-atividade{padding:16px}}
+</style>
+```
+
 ```{r}
 source("R/helpers.R")
 cap_data <- yaml::read_yaml("data/capacitacao-epidemiologia.yml")
 cap_atividades <- if (is.null(cap_data$itens)) list() else cap_data$itens
 
 if (length(cap_atividades)) {
-  htmltools::div(
+  htmltools::tags$div(
     id = "cap-atividades",
     class = "gp-cap-programacao",
-    htmltools::h2("Atividades da capacitação"),
-    htmltools::div(class = "gp-cap-lista", lapply(cap_atividades, function(item) {
+    htmltools::tags$h2("Atividades da capacitação"),
+    htmltools::tags$div(class = "gp-cap-lista", lapply(cap_atividades, function(item) {
       titulo <- valor_publico(item$titulo)
       if (is.null(titulo)) return(NULL)
       data <- valor_publico(item$data)
@@ -43,15 +57,15 @@ if (length(cap_atividades)) {
       resumo <- valor_publico(item$resumo)
       local <- valor_publico(item$local)
       url <- valor_publico(item$url)
-      htmltools::div(
+      htmltools::tags$div(
         class = "gp-cap-atividade",
-        htmltools::div(class = "gp-cap-atividade-meta",
-          if (!is.null(data)) htmltools::span(format(as.Date(data), "%d/%m/%Y")),
-          if (!is.null(modalidade)) htmltools::span(modalidade)
+        htmltools::tags$div(class = "gp-cap-atividade-meta",
+          if (!is.null(data)) htmltools::tags$span(format(as.Date(data), "%d/%m/%Y")),
+          if (!is.null(modalidade)) htmltools::tags$span(modalidade)
         ),
-        htmltools::h3(titulo),
-        if (!is.null(resumo)) htmltools::p(resumo),
-        if (!is.null(local)) htmltools::p(paste("Local:", local)),
+        htmltools::tags$h3(titulo),
+        if (!is.null(resumo)) htmltools::tags$p(resumo),
+        if (!is.null(local)) htmltools::tags$p(paste("Local:", local)),
         if (!is.null(url) && grepl("^https?://", url))
           htmltools::tags$a(href = url, target = "_blank", rel = "noopener noreferrer", "Saiba mais")
       )
