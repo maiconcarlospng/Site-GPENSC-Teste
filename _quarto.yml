@@ -117,6 +117,8 @@ format:
       - styles-galeria-v39.css
       - styles-arvore-v40.css
       - styles-resultados-v41.css
+      - styles-galeria-v42.css
+      - styles-mobile-v43.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
