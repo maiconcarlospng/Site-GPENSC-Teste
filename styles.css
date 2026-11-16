@@ -19116,3 +19116,173 @@ html body:has(#gp49) footer.footer {
 #gp49 #gp49-map > svg > g:first-of-type > g > path[stroke-width="1"] {
   opacity:0!important;
 }
+
+/* HOME GPENSC — ritmo editorial das iniciativas, árvore e agenda.
+   Restrito à página inicial; não muda projetos, conteúdo, links ou dados. */
+html body:has(.home-arvore-destaque) #quarto-content .secao:has(.home-arvore-destaque) {
+  padding-bottom:clamp(14px,2.2vw,30px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-projects {
+  margin-bottom:clamp(12px,2vw,24px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-projects-grid {
+  gap:clamp(12px,1.6vw,20px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card {
+  box-sizing:border-box!important;
+  min-height:198px!important;
+  height:auto!important;
+  padding:clamp(18px,2vw,28px)!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+  transition:background-color .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card--vi {
+  border-top:3px solid #148d9a!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card--epi {
+  border-top:3px solid #5f9a3e!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card img {
+  object-fit:contain!important;
+  max-width:100%!important;
+}
+/* O destaque usa a ilustração já presente no acervo visual GPENSC. */
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) clamp(155px,19vw,225px)!important;
+  align-items:center!important;
+  gap:clamp(16px,3vw,40px)!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:1240px!important;
+  min-height:0!important;
+  margin:clamp(12px,1.6vw,22px) auto!important;
+  padding:clamp(20px,2.6vw,32px) clamp(22px,3.2vw,42px)!important;
+  border:1px solid #dce6d5!important;
+  border-left:4px solid var(--gp-folha)!important;
+  border-radius:12px!important;
+  background:#f5f8f2!important;
+  box-shadow:none!important;
+  overflow:hidden;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:clamp(8px,1.1vw,14px)!important;
+  min-width:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto h2 {
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto p {
+  margin:0!important;
+  max-width:57ch!important;
+  line-height:1.5!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto a.btn {
+  margin:4px 0 0!important;
+  align-self:flex-start!important;
+  justify-self:start!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque > .home-arvore-arte {
+  display:block!important;
+  width:100%!important;
+  max-width:225px!important;
+  height:auto!important;
+  max-height:174px!important;
+  object-fit:contain!important;
+  justify-self:end!important;
+  opacity:.96;
+}
+/* Agenda na mesma coluna institucional, sem o vazio de uma faixa independente. */
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  transform:none!important;
+  box-sizing:border-box!important;
+  width:calc(100% - 36px)!important;
+  max-width:1240px!important;
+  min-height:0!important;
+  margin:clamp(12px,2vw,24px) auto clamp(22px,3vw,42px)!important;
+  padding:clamp(20px,2.5vw,32px)!important;
+  border:1px solid #d9e5d4!important;
+  border-radius:12px!important;
+  background:#edf3e9!important;
+  box-shadow:none!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+  max-width:100%!important;
+  gap:8px clamp(16px,3vw,38px)!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-sem-eventos {
+  min-height:74px!important;
+  border-radius:8px!important;
+}
+html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-selo::before {
+  content:""!important;
+  display:inline-block!important;
+  width:7px!important;
+  height:7px!important;
+  margin-right:7px!important;
+  border-radius:50%!important;
+  background:var(--gp-laranja)!important;
+  vertical-align:middle!important;
+}
+@media (max-width:850px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+    grid-template-columns:minmax(0,1fr) minmax(115px,29%)!important;
+    gap:12px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chamada {
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-areas:"selo" "titulo" "evento" "acao"!important;
+  }
+}
+@media (max-width:640px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+    position:relative!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    min-height:0!important;
+    padding:20px!important;
+    margin:12px auto!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque .home-arvore-texto {
+    position:relative;
+    z-index:1;
+    align-items:flex-start!important;
+    padding:0!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque > .home-arvore-arte {
+    position:absolute!important;
+    z-index:0;
+    right:-18px!important;
+    bottom:-22px!important;
+    width:130px!important;
+    max-width:130px!important;
+    height:auto!important;
+    opacity:.15;
+    pointer-events:none;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card {
+    min-height:0!important;
+    padding:16px!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+    width:calc(100% - 32px)!important;
+    max-width:100%!important;
+    padding:20px 16px!important;
+    margin-top:12px!important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html body:has(.home-arvore-destaque) #quarto-content .gp-home-project-card {
+    transition:none!important;
+  }
+}
