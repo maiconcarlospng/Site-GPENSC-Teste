@@ -328,8 +328,7 @@ bloco_intro <- function() {
     class = "intro intro--simples reveal",
     div(
       class = "intro-texto",
-      h1("Pesquisa em nutrição e saúde coletiva."),
-      p(cfg$resumo),
+      p(class = "intro-resumo", cfg$resumo),
       div(
         class = "intro-acoes",
         tags$a(class = "btn btn-secondary", href = "grupo.html#sobre", "Conheça o GPENSC")
