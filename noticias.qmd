@@ -3,7 +3,7 @@ title: "Notícias"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Novidades, participação em eventos, editais e GPENSC na mídia.</p><img src="img/ilustracoes/noticias.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Participações, editais e presença na mídia.</p><img src="img/ilustracoes/noticias.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -16,7 +16,7 @@ if (secao_ativa("mostrar_noticias")) {
 if (nrow(noticias_publicadas) == 0) {
   estado_vazio(
     "Nenhuma notícia publicada",
-    "No momento, não há notícias disponíveis. Acompanhe os canais oficiais do GPENSC para ficar por dentro das novidades.",
+    "As atualizações do grupo aparecerão aqui.",
     "Acompanhe o Instagram",
     cfg$instagram
   )
