@@ -3,7 +3,7 @@ title: "Vídeos"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Assista a conteúdos educativos e registros das atividades do grupo.</p><img src="img/ilustracoes/videos.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Registros audiovisuais de projetos e atividades.</p><img src="img/ilustracoes/videos.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -13,12 +13,7 @@ videos_publicados <- registros_reais(videos, "titulo")
 
 if (secao_ativa("mostrar_videos")) {
 if (nrow(videos_publicados) == 0) {
-  estado_vazio(
-    "Nenhum vídeo disponível",
-    "No momento, não há vídeos ou materiais audiovisuais disponíveis para consulta.",
-    "Acompanhe o Instagram",
-    cfg$instagram
-  )
+  estado_vazio("Vídeos em atualização", NULL)
 } else {
   cartoes(arrange(videos_publicados, desc(data)), function(v, i) {
     descricao <- valor_publico(v$descricao)
