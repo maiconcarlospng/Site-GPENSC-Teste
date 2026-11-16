@@ -7,6 +7,8 @@ title: "Publicações"
 ```
 
 
+Acesse também [Ciência para a sociedade](resultados.qmd) para ler sínteses de resultados em linguagem acessível, disponíveis apenas quando revisadas e acompanhadas de suas fontes.
+
 ```{r}
 source("R/helpers.R")
 publicacoes_publicadas <- registros_reais(pubs, "titulo")
