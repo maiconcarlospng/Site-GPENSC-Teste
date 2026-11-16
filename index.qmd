@@ -29,7 +29,7 @@ div(
 
 ```{r}
 tags$section(
-  class = "gp-home-projects reveal",
+  class = "gp-home-projects",
   `aria-labelledby` = "gp-home-projects-title",
   div(
     class = "gp-home-projects-header",
