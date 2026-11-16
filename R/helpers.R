@@ -305,14 +305,15 @@ faixa_galeria <- function() {
                 "transform: scale(", zoom / 100, "); ",
                 "transform-origin: ", foco_x, "% ", foco_y, "%;"
               ),
-              loading = "lazy"
+              loading = if (i == 1) "eager" else "lazy",
+              decoding = "async"
             )
           )
         })
       )
     )
 
-    htmltools::tagList(hero, faixa_fotos)
+    htmltools::tagList(faixa_fotos, hero)
   } else {
     hero
   }
