@@ -44,8 +44,8 @@ juntar_registros <- function(a, b) {
   unique(rbind(a, b))
 }
 
-id_projeto <- function(i) {
-  id <- campo_texto(projetos_arvore, "id", i)
+id_projeto <- function(df, i) {
+  id <- campo_texto(df, "id", i)
   if (nzchar(id)) id else paste0("PR-", sprintf("%03d", i))
 }
 
@@ -103,7 +103,7 @@ linha_completa <- function(i) {
   titulo <- campo_texto(linhas_arvore, "nome", i)
   projetos_linha <- por_ids(projetos_arvore, "linha_id", id)
   projetos_ids <- if (nrow(projetos_linha)) {
-    vapply(seq_len(nrow(projetos_linha)), id_projeto, character(1))
+    vapply(seq_len(nrow(projetos_linha)), function(j) id_projeto(projetos_linha, j), character(1))
   } else character()
   pessoas <- juntar_registros(
     por_ids(pessoas_arvore, "linhas_ids", id),
@@ -164,7 +164,7 @@ linha_completa <- function(i) {
 }
 
 projeto_completo <- function(i) {
-  id <- id_projeto(i)
+  id <- id_projeto(projetos_arvore, i)
   titulo <- campo_texto(projetos_arvore, "titulo", i)
   linha_id <- campo_texto(projetos_arvore, "linha_id", i)
   linha <- linha_nome(linha_id)
