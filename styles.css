@@ -20131,3 +20131,15 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
     padding-right: 0 !important;
   }
 }
+
+
+/* Estado vazio sem ícone: usa toda a largura disponível. */
+html body #quarto-content main.content .estado-vazio {
+  display: block !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html body #quarto-content main.content .estado-vazio-texto {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}

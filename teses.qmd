@@ -39,7 +39,7 @@ div(
         options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
       )
   } else {
-    estado_vazio("Trabalhos acadêmicos em atualização", NULL)
+    estado_vazio("Nenhuma tese ou dissertação cadastrada no momento.", NULL)
   }
 )
 } else {
