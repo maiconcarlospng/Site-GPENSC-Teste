@@ -1028,3 +1028,9 @@ body footer .gp-footer-admin-link{flex:0 0 auto}
 @media(prefers-reduced-motion:reduce){
   body #quarto-content :is(.galeria-faixa,.gp-home-project-card,.intro-sinal-item){scroll-behavior:auto!important;transition:none!important}
 }
+
+/* A página de detalhe já apresenta o título dinâmico da notícia; evitar H1 duplo. */
+body:has(.noticia-detalhe-vazio) #title-block-header.quarto-title-block{display:none!important}
+body #quarto-content .noticia-detalhe-item{max-width:100%;min-width:0}
+body #quarto-content .noticia-detalhe-item h1{font-size:clamp(1.65rem,3vw,2.5rem)!important;line-height:1.22!important;overflow-wrap:break-word}
+body #quarto-content .noticia-detalhe-imagem{display:block;max-width:100%;width:100%;height:auto;object-fit:contain}
