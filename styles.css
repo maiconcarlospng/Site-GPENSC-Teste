@@ -19102,3 +19102,17 @@ html body:has(#gp49) footer.footer {
   margin-top:0!important;
 }
 
+/* Árvore interativa — madeira contínua no mesmo tom, sem alterar a geometria SVG.
+   O grupo inicial é o tronco e os grupos seguintes são os galhos gerados pelo JS. */
+#gp49 #gp49-map > svg > g:first-of-type > g {
+  filter:none!important;
+}
+#gp49 #gp49-map > svg > g:first-of-type > g > path[stroke] {
+  stroke:#806044!important;
+}
+#gp49 #gp49-map > svg > g:first-of-type > g > path[fill^="url("] {
+  fill:#806044!important;
+}
+#gp49 #gp49-map > svg > g:first-of-type > g > path[stroke-width="1"] {
+  opacity:0!important;
+}
