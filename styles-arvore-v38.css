@@ -106,3 +106,111 @@ body #quarto-content .gp-tree-footnote{margin:1.5rem 0!important;padding:.35rem 
   body #quarto-content .gp-tree-node-ring,
   body #quarto-content .gp-tree-node-center{transition:none!important}
 }
+
+
+/* Refinamento de composição: mapa e conteúdo usam a mesma coluna.
+   A página Quarto recebe page-layout: full para evitar o estreitamento
+   automático da coluna de texto, sem tocar no menu ou nas demais páginas. */
+body:has(.gp-tree-shell) #quarto-content main.content{
+  box-sizing:border-box!important;
+  display:block!important;
+  width:min(1060px,calc(100% - 2.5rem))!important;
+  max-width:1060px!important;
+  min-width:0!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content :is(.cell,.cell-output,.cell-output-display){
+  box-sizing:border-box!important;
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-inline:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-intro,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-shell{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-intro{
+  margin-bottom:clamp(1.25rem,2vw,1.8rem)!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-intro p{
+  max-width:78ch;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-layout{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  justify-items:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  gap:1rem!important;
+  margin:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-canvas-card,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-detail{
+  display:block!important;
+  justify-self:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-canvas-card{
+  overflow:hidden!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-scroll,
+body:has(.gp-tree-shell) #quarto-content #gp-tree-canvas,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-svg{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-detail{
+  position:static!important;
+  padding:clamp(1rem,2.5vw,1.5rem)!important;
+  border-left:3px solid #d9731f!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-index,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-metrics,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branches,
+body:has(.gp-tree-shell) #quarto-content .gp-tree-footnote{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-index{
+  margin-top:clamp(2rem,3.8vw,3rem)!important;
+}
+body:has(.gp-tree-shell) #quarto-content .gp-tree-branches{
+  gap:.75rem!important;
+}
+body:has(.gp-tree-shell) #title-block-header.quarto-title-block{
+  box-sizing:border-box!important;
+  width:min(1060px,calc(100% - 2.5rem))!important;
+  max-width:1060px!important;
+  margin-inline:auto!important;
+}
+@media(max-width:720px){
+  body:has(.gp-tree-shell) #quarto-content main.content,
+  body:has(.gp-tree-shell) #title-block-header.quarto-title-block{
+    width:calc(100% - 1.4rem)!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-layout{
+    gap:.8rem!important;
+  }
+  body:has(.gp-tree-shell) #quarto-content .gp-tree-index{
+    margin-top:1.9rem!important;
+  }
+}
