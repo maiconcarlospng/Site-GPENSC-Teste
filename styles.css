@@ -20631,3 +20631,64 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
     min-width: 0 !important;
   }
 }
+
+/* ---------- 9. SELETOR DE IDIOMAS — VISUAL COMPACTO E ESTADO ATIVO ---------- */
+html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container {
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:0!important;
+  padding:2px!important;
+  border:1px solid #d5e0d3!important;
+  border-radius:10px!important;
+  background:#f6f8f4!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button {
+  appearance:none!important;
+  display:inline-grid!important;
+  place-items:center!important;
+  width:36px!important;
+  min-width:36px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#28543a!important;
+  box-shadow:none!important;
+  font-size:12px!important;
+  font-weight:750!important;
+  line-height:1!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  transform:none!important;
+  transition:background-color .15s ease,color .15s ease!important;
+}
+html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button:is(.is-active,[aria-pressed="true"]) {
+  background:#1f4d2b!important;
+  color:#fff!important;
+}
+html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button:hover:not(.is-active) {
+  background:#e3ecdf!important;
+}
+html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button:focus-visible {
+  outline:2px solid #d9731f!important;
+  outline-offset:2px!important;
+}
+@media(max-width:767.98px) {
+  html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container {
+    gap:0!important;
+    margin:0!important;
+    padding:2px!important;
+  }
+  html body #quarto-header .navbar.navbar-expand-lg .bandeiras-container .gp-language-button {
+    width:29px!important;
+    min-width:29px!important;
+    height:34px!important;
+    min-height:34px!important;
+    font-size:10.5px!important;
+  }
+}
