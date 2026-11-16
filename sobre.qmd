@@ -3,7 +3,7 @@ title: "Quem somos"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Pessoas, propósitos e trajetórias que constroem a identidade do grupo.</p><img src="img/ilustracoes/sobre.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Nossa equipe, princípios e trajetória.</p><img src="img/ilustracoes/sobre.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -108,8 +108,7 @@ div(
       id = "gp-sobre-fotos",
       div(
         class = "gp-sobre-fotos-cabecalho",
-        h2("Registros em imagens"),
-        p("Fotografias do acervo do GPENSC.")
+        h2("Registros em imagens")
       ),
       div(
         class = "gp-sobre-fotos-navegacao",
