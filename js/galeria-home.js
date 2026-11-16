@@ -174,11 +174,23 @@
         iniciarAutomatico();
       }, { passive: true });
 
-      // Ajusta a posição no primeiro frame, quando larguras e padding já existem.
-      requestAnimationFrame(() => {
+      // Recentraliza no início depois que layout e fotos estiverem prontos.
+      // O segundo frame e o evento load evitam que celulares mostrem o trilho
+      // na posição zero enquanto imagens ainda estão carregando.
+      const ajustarInicio = () => {
+        if (atual !== 0) return;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          voltarAoOriginal(fotos[0]);
+        }));
+      };
+      faixa.querySelectorAll("img").forEach(img => {
+        if (!img.complete) img.addEventListener("load", ajustarInicio, { once: true });
+      });
+      window.addEventListener("pageshow", ajustarInicio, { once: true });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
         voltarAoOriginal(fotos[0]);
         iniciarAutomatico();
-      });
+      }));
     });
   };
   if (document.readyState === "loading")
