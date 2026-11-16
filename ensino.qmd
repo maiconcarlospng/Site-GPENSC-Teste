@@ -3,11 +3,9 @@ title: "Ensino"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Encontros, cursos e experiências para aprender e compartilhar conhecimentos.</p><img src="img/ilustracoes/ensino.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Formação acadêmica e atividades abertas.</p><img src="img/ilustracoes/ensino.svg" alt="" width="240" height="180"></div>
 ```
 
-
-As próximas datas são divulgadas na [Agenda](agenda.qmd).
 
 ```{r}
 source("R/helpers.R")
@@ -17,7 +15,7 @@ eventos_ensino <- registros_reais(eventos, "titulo")
 tipos_ensino <- c("Workshop", "Palestra", "Curso", "Oficina", "Seminário", "Simpósio", "Aula aberta")
 eventos_formativos <- eventos_ensino[tolower(eventos_ensino$tipo) %in% tolower(tipos_ensino), , drop = FALSE]
 
-h2("Cursos, workshops e atividades abertas")
+h2("Atividades formativas")
 if (nrow(eventos_formativos) > 0) {
   eventos_formativos <- eventos_formativos[order(eventos_formativos$data, decreasing = TRUE, na.last = TRUE), , drop = FALSE]
   div(
@@ -35,10 +33,10 @@ if (nrow(eventos_formativos) > 0) {
     })
   )
 } else {
-  estado_vazio("Sem atividades formativas cadastradas", "A programação aparecerá aqui quando houver informações confirmadas.")
+  estado_vazio("Programação em atualização", NULL)
 }
 
-h2("Disciplinas e conteúdos de formação")
+h2("Disciplinas")
 if (nrow(disciplinas_ensino) > 0) {
   cartoes(disciplinas_ensino, function(d, i) {
     div(
@@ -50,7 +48,7 @@ if (nrow(disciplinas_ensino) > 0) {
     )
   })
 } else {
-  estado_vazio("Conteúdo de disciplinas em atualização", "As disciplinas e atividades curriculares serão incluídas após a confirmação das informações pelo grupo.")
+  estado_vazio("Disciplinas em atualização", NULL)
 }
 ```
 
