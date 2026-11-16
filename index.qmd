@@ -51,57 +51,6 @@ faixa_galeria("ambos")
     padding: 9px 0 !important;
     gap: 10px !important;
   }
-  body.page-index #quarto-content .gp-home-projects {
-    display: block !important;
-    position: relative !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 8px 0 18px !important;
-    padding: 0 !important;
-  }
-  body.page-index #quarto-content .gp-home-projects-header {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    align-content: start !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    margin: 0 0 10px !important;
-    padding: 0 !important;
-    gap: 8px !important;
-  }
-  body.page-index #quarto-content .gp-home-projects-header > div {
-    flex: 1 1 155px !important;
-    width: auto !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  body.page-index #quarto-content .gp-home-projects-header h2 {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    line-height: 1.25 !important;
-  }
-  body.page-index #quarto-content .gp-home-projects-grid {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-auto-rows: auto !important;
-    align-content: start !important;
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 10px !important;
-  }
-  body.page-index #quarto-content .gp-home-project-card {
-    min-height: 0 !important;
-    margin: 0 !important;
-  }
   body.page-index #quarto-content .home-arvore-destaque {
     min-height: 0 !important;
     margin: 16px 0 !important;
