@@ -19088,3 +19088,17 @@ html body:has(#gp49) #gp49 .gp49-directory-heading label {
   font-feature-settings:"tnum" 1;
 }
 
+/* Árvore — 9. Fechar o espaço vazio abaixo da listagem sem reduzir legibilidade. */
+html body:has(#gp49) #gp49 #gp49-directory {
+  margin-top:clamp(26px,3vw,42px)!important;
+  margin-bottom:clamp(18px,2vw,28px)!important;
+}
+html body:has(#gp49) #quarto-content main.content {
+  min-height:0!important;
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+html body:has(#gp49) footer.footer {
+  margin-top:0!important;
+}
+
