@@ -281,6 +281,86 @@ if (nrow(eventos_home_futuros) > 0) {
 }
 ```
 
+```{r}
+# Mês exibido na página inicial, a partir dos mesmos eventos reais do painel.
+hoje_home <- Sys.Date()
+inicio_mes_home <- as.Date(format(hoje_home, "%Y-%m-01"))
+inicio_proximo_mes_home <- seq(inicio_mes_home, by = "month", length.out = 2)[2]
+qtd_dias_home <- as.integer(format(inicio_proximo_mes_home - 1, "%d"))
+inicio_semana_home <- (as.POSIXlt(inicio_mes_home)$wday + 6L) %% 7L
+total_casas_home <- ceiling((inicio_semana_home + qtd_dias_home) / 7) * 7L
+meses_pt_home <- c("janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+mes_nome_home <- meses_pt_home[as.integer(format(inicio_mes_home, "%m"))]
+mes_rotulo_home <- paste0(toupper(substr(mes_nome_home, 1, 1)),
+                           substring(mes_nome_home, 2),
+                           " de ", format(inicio_mes_home, "%Y"))
+eventos_mes_home <- eventos_home_publicados[
+  !is.na(eventos_home_publicados$data) &
+    eventos_home_publicados$data >= inicio_mes_home &
+    eventos_home_publicados$data < inicio_proximo_mes_home,
+  ,
+  drop = FALSE
+]
+
+casa_mes_home <- function(posicao) {
+  dia <- posicao - inicio_semana_home
+  if (dia < 1L || dia > qtd_dias_home) {
+    return(tags$span(class = "gp-month-blank", `aria-hidden` = "true"))
+  }
+
+  data_dia <- inicio_mes_home + (dia - 1L)
+  data_iso <- format(data_dia, "%Y-%m-%d")
+  hoje <- data_dia == hoje_home
+  quais <- which(eventos_mes_home$data == data_dia)
+  titulos <- unique(as.character(eventos_mes_home$titulo[quais]))
+  tem_atividade <- length(quais) > 0
+  classe <- paste(c("gp-month-cell", if (hoje) "is-today",
+                    if (tem_atividade) "has-event"), collapse = " ")
+  numero <- tags$time(datetime = data_iso, as.character(dia))
+  acessivel <- paste0(dia, " de ", mes_nome_home,
+                       if (hoje) ", hoje" else "",
+                       if (tem_atividade) paste0(": ", paste(titulos, collapse = "; ")) else "")
+
+  if (tem_atividade) {
+    tags$a(
+      class = classe,
+      href = "atualizacoes.html#agenda",
+      title = paste(titulos, collapse = " · "),
+      `aria-label` = acessivel,
+      numero,
+      tags$span(class = "gp-month-dot", `aria-hidden` = "true")
+    )
+  } else {
+    tags$span(class = classe, `aria-label` = acessivel, numero)
+  }
+}
+
+div(
+  class = "gp-month-calendar",
+  `aria-label` = paste("Calendário de", mes_rotulo_home),
+  div(
+    class = "gp-month-head",
+    tags$span("CALENDÁRIO DO MÊS", class = "gp-month-kicker"),
+    tags$strong(mes_rotulo_home)
+  ),
+  div(
+    class = "gp-month-weekdays",
+    lapply(c("Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"),
+           function(dia) tags$span(dia))
+  ),
+  div(
+    class = "gp-month-grid",
+    lapply(seq_len(total_casas_home), casa_mes_home)
+  ),
+  div(
+    class = "gp-month-footnote",
+    tags$span(class = "gp-month-legend-swatch", `aria-hidden` = "true"),
+    "Dia com atividade cadastrada"
+  )
+)
+```
+
 [Ver agenda completa](atualizacoes.qmd#agenda){.btn .btn-secondary .agenda-botao}
 :::
 ::::
