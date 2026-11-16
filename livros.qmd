@@ -3,7 +3,7 @@ title: "Livros"
 ---
 
 ```{=html}
-<div class="gp-section-illustration"><p>Leituras para aprofundar conhecimentos sobre alimentação, nutrição e saúde.</p><img src="img/ilustracoes/livros.svg" alt="" width="240" height="180"></div>
+<div class="gp-section-illustration"><p>Produções bibliográficas do grupo.</p><img src="img/ilustracoes/livros.svg" alt="" width="240" height="180"></div>
 ```
 
 
@@ -13,12 +13,7 @@ livros_publicados <- registros_reais(livros, "titulo")
 
 if (secao_ativa("mostrar_livros")) {
 if (nrow(livros_publicados) == 0) {
-  estado_vazio(
-    "Nenhum livro ou capítulo disponível",
-    "No momento, não há livros ou capítulos de autoria ou organização de integrantes do GPENSC disponíveis para consulta.",
-    "Ver publicações",
-    "publicacoes.html"
-  )
+  estado_vazio("Livros e capítulos em atualização", NULL)
 } else {
   cartoes(arrange(livros_publicados, desc(ano)), function(l, i) {
     autores <- valor_publico(l$autores)
