@@ -235,7 +235,7 @@
       class:'gp49-node'+(terminal?' gp49-terminal':' gp49-fork'),
       transform:'translate('+p.x+' '+p.y+')',
       role:'button',tabindex:0,
-      'aria-label':terminal?nodeNames[start]:'Explorar '+count+' frentes de pesquisa ou projeto',
+      'aria-label':terminal?((rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start]):'Explorar '+count+' frentes de pesquisa ou projeto',
       ...(terminal?{'aria-pressed':'false'}:{'aria-expanded':'false'})
     },nodeLayer);
     const radius=terminal?17:clamp(12+count/total*9,13,21);
