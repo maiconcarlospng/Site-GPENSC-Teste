@@ -19,6 +19,8 @@ faixa_galeria("ambos")
 ```{=html}
 <!-- Ajustes de densidade da página inicial em telas pequenas. -->
 <style>
+/* Remove o filete decorativo acima das fotos da home, inclusive em caches antigos. */
+body.page-index #quarto-content .galeria--faixa::before { content: none !important; display: none !important; }
 @media (max-width: 767.98px) {
   /* Apenas a home: retirar alturas herdadas de grades e wrappers do Quarto. */
   body.page-index #quarto-content .secao {
