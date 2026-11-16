@@ -18487,3 +18487,208 @@ body #quarto-content .cell-output-display:has(> .hero) > .galeria--faixa {
 @media (prefers-reduced-motion:reduce) {
   html body #quarto-content .hero .hero-botoes .hero-quem-somos { transition: none !important; }
 }
+
+/* =====================================================================
+   ÁRVORE DO CONHECIMENTO — CENÁRIO BOTÂNICO (apenas #gp49)
+   A geometria, o zoom, os eventos e os dados continuam em js/arvore.js.
+   Os SVGs são paisagens de fundo, sem cliques ou novas camadas de lógica.
+   ===================================================================== */
+#gp49 .gp49-landscape {
+  background:linear-gradient(180deg,#f8fbf5 0%,#f0f6eb 62%,#f3ecdd 100%);
+  border-block:1px solid rgba(31,77,43,.08);
+}
+#gp49 #gp49-map {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  height:clamp(650px,88svh,910px);
+  min-height:650px;
+  background:radial-gradient(ellipse at 50% 40%,#f5f9ef,#e9f2e5);
+}
+#gp49 #gp49-map::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:url("img/tree-environment.svg") center center / contain no-repeat;
+}
+#gp49 #gp49-map::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:max(0px,calc((100% - min(100%,75vw)) / 2));
+  height:clamp(28px,5vw,62px);
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(243,236,221,0),rgba(243,236,221,.86) 88%);
+}
+#gp49 #gp49-map > svg {
+  position:relative;
+  z-index:1;
+  background:transparent;
+}
+#gp49 #gp49-map > svg > g:first-of-type > g {
+  filter:drop-shadow(0 3px 2px rgba(51,39,24,.13));
+}
+#gp49 #gp49-map .gp49-canopy {opacity:.92}
+#gp49 #gp49-map .gp49-node {cursor:pointer}
+#gp49 #gp49-map .gp49-node > ellipse {
+  fill:#5f9a3e;
+  stroke:rgba(31,77,43,.003);
+  stroke-width:26px;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 5px 5px rgba(24,69,37,.25));
+  transition:fill .22s ease,filter .22s ease;
+}
+#gp49 #gp49-map .gp49-node[aria-expanded] > ellipse {
+  fill:#1f4d2b;
+  filter:drop-shadow(0 5px 7px rgba(24,69,37,.24));
+}
+#gp49 #gp49-map .gp49-node[aria-expanded="true"] > ellipse {fill:#367a46}
+#gp49 #gp49-map .gp49-node:hover > ellipse,
+#gp49 #gp49-map .gp49-node:focus-visible > ellipse {
+  fill:#76a94e;
+  stroke:rgba(31,77,43,.003);
+  stroke-width:26px;
+  filter:drop-shadow(0 0 8px rgba(95,154,62,.48)) drop-shadow(0 4px 5px rgba(31,77,43,.16));
+}
+#gp49 #gp49-map .gp49-node[aria-expanded="true"]:hover > ellipse,
+#gp49 #gp49-map .gp49-node[aria-expanded="true"]:focus-visible > ellipse {fill:#448651}
+#gp49 #gp49-map .gp49-node > path {opacity:0}
+#gp49 #gp49-map .gp49-node-count {display:none!important}
+#gp49 #gp49-map .gp49-leaf-label {
+  font-family:Inter,system-ui,sans-serif;
+  font-size:14px;
+  font-weight:600;
+  fill:#1f4d2b;
+  stroke:#f7faf2;
+  stroke-width:6px;
+  stroke-linejoin:round;
+  paint-order:stroke fill;
+}
+#gp49 .gp49-hint {
+  position:absolute;
+  top:18px;
+  bottom:auto;
+  left:clamp(16px,3vw,50px);
+  right:auto;
+  width:max-content;
+  max-width:min(440px,calc(100% - 32px));
+  margin:0;
+  padding:10px 15px;
+  border:1px solid rgba(31,77,43,.17);
+  border-radius:9px;
+  background:rgba(250,252,247,.94);
+  box-shadow:0 3px 13px rgba(31,77,43,.06);
+  color:#31553a;
+  font:500 13px/1.5 Inter,system-ui,sans-serif;
+  text-align:left;
+  pointer-events:none;
+  z-index:3;
+}
+#gp49 .gp49-tools {
+  z-index:3;
+  right:clamp(16px,4vw,62px);
+  bottom:clamp(24px,4vh,46px);
+  display:flex;
+  align-items:center;
+  gap:3px;
+  padding:5px;
+  background:rgba(250,252,247,.94);
+  border:1px solid rgba(31,77,43,.2);
+  border-radius:13px;
+  box-shadow:0 5px 20px rgba(31,77,43,.1);
+}
+#gp49 .gp49-tools button {
+  min-width:44px;
+  min-height:44px;
+  border:0;
+  border-radius:9px;
+  padding:10px 13px;
+  color:#1f4d2b;
+  background:transparent;
+  font:600 14px/1.25 Inter,system-ui,sans-serif;
+  transition:background-color .2s ease,color .2s ease;
+}
+#gp49 .gp49-tools button:hover {
+  background:#dcebd3;
+  color:#1f4d2b;
+}
+#gp49 .gp49-tools button:active {background:#c6e2b5}
+#gp49 #gp49-directory {
+  margin-top:clamp(36px,5vw,68px);
+}
+#gp49 #gp49-lines .gp49-line-button {
+  border-radius:8px;
+  transition:background-color .18s ease,color .18s ease;
+}
+#gp49 #gp49-lines .gp49-line-button:hover {
+  background:rgba(220,235,211,.32);
+  color:#1f4d2b;
+}
+#gp49 #gp49-lines .gp49-line-button[aria-pressed="true"] {
+  color:#1f4d2b;
+  background:rgba(220,235,211,.45);
+}
+@media (min-width:768px) and (max-width:1023px) {
+  #gp49 #gp49-map {height:clamp(620px,78svh,790px);min-height:620px}
+}
+@media (max-width:767px) {
+  #gp49 #gp49-map {
+    height:clamp(390px,55svh,480px);
+    min-height:390px;
+  }
+  #gp49 #gp49-map::before {
+    background-image:url("img/tree-environment-mobile.svg");
+  }
+  #gp49 #gp49-map::after {
+    height:35px;
+  }
+  #gp49 #gp49-map .gp49-node > ellipse,
+  #gp49 #gp49-map .gp49-node:hover > ellipse,
+  #gp49 #gp49-map .gp49-node:focus-visible > ellipse {
+    stroke:rgba(31,77,43,.003);
+    stroke-width:44px;
+    vector-effect:non-scaling-stroke;
+  }
+  #gp49 #gp49-map .gp49-leaf-label {
+    font-size:16px;
+    stroke-width:6px;
+  }
+  #gp49 .gp49-hint {
+    top:12px;
+    left:12px;
+    right:12px;
+    max-width:none;
+    width:auto;
+    padding:9px 11px;
+    font-size:12px;
+    line-height:1.4;
+    text-align:center;
+  }
+  #gp49 .gp49-tools {
+    left:auto;
+    right:12px;
+    bottom:12px;
+    gap:2px;
+    padding:4px;
+    border-radius:12px;
+  }
+  #gp49 .gp49-tools button {
+    min-width:44px;
+    min-height:44px;
+    padding:10px;
+    font-size:13px;
+  }
+  #gp49 #gp49-home {white-space:nowrap}
+  #gp49 #gp49-directory {margin-top:32px}
+}
+@media (prefers-reduced-motion:reduce) {
+  #gp49 #gp49-map .gp49-node > ellipse,
+  #gp49 .gp49-tools button,
+  #gp49 #gp49-lines .gp49-line-button {
+    transition:none!important;
+  }
+}
