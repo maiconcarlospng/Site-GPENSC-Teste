@@ -1,6 +1,6 @@
 itens:
-- ano: '2024'
-  titulo: '[EXEMPLO] Título do livro ou capítulo'
-  autores: '[SOBRENOME, N.]'
-  editora: '[Editora]'
-  url: ''
+  - ano: "2023"
+    titulo: "Atenção Primária à Saúde: interação entre a população, a universidade e o serviço"
+    autores: "Equipe do projeto HipertenSUS"
+    editora: ""
+    url: "https://www.instagram.com/p/CuknbWAPeks/"

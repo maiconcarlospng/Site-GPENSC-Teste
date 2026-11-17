@@ -266,6 +266,7 @@ collections:
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Legenda", name: "descricao", widget: "text", required: false }
                 - { label: "Foto", name: "imagem", widget: "image", required: false, hint: "Informe o caminho da imagem já enviada à pasta img/." }
+                - { label: "Link do registro ou documento", name: "url", widget: "string", required: false, hint: "Use a fonte histórica da informação, quando disponível." }
         - label: "Galeria de fotos"
           name: "galeria"
           file: "data/galeria.yml"
