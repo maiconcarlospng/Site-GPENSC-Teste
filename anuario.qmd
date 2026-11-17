@@ -1,0 +1,9 @@
+---
+title: "Anuário GPENSC"
+---
+
+<div class="gp-illustrated-lead"><p>Memória anual das atividades, dos projetos e das produções do grupo.</p><img src="img/ilustracoes/livros.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Anuário do GPENSC {#anuario}
+
+O anuário do GPENSC tem início previsto para 2027. As edições serão reunidas nesta página conforme forem disponibilizadas.
