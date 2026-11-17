@@ -37,7 +37,7 @@ collections:
                 - { label: "Resumo", name: "resumo", widget: "text", hint: "Escreva uma síntese objetiva. Esse texto aparece nos cartões e ajuda na busca." }
                 - { label: "Conteúdo completo", name: "conteudo", widget: "text", required: false, hint: "Texto que aparece no detalhamento. Se ficar vazio, o site usa o resumo." }
                 - { label: "Link da fonte original", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
-                - { label: "Imagem", name: "imagem", widget: "image", required: false }
+                - { label: "Imagem", name: "imagem", widget: "image", required: false, hint: "A imagem de posts importados do Instagram pode expirar; envie a foto para a biblioteca de mídia para preservá-la." }
         - label: "Agenda e eventos"
           name: "eventos"
           file: "data/eventos.yml"
@@ -105,6 +105,7 @@ collections:
                 - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
                 - { label: "Descrição do projeto", name: "resumo", widget: "text", required: false }
                 - { label: "Link externo do projeto (opcional)", name: "url", widget: "string", required: false, hint: "O projeto é apresentado na lista de Extensão ou Pesquisa. Informe uma URL externa apenas se houver um canal oficial." }
+                - { label: "Imagem do projeto", name: "imagem", widget: "image", required: false, hint: "Prefira guardar a imagem permanentemente na mídia do site; links do Instagram podem expirar." }
         - label: "Publicações"
           name: "publicacoes"
           file: "data/publicacoes.yml"
@@ -164,6 +165,7 @@ collections:
                 - { label: "Autores", name: "autores", widget: "string", required: false }
                 - { label: "Editora", name: "editora", widget: "string", required: false }
                 - { label: "Link", name: "url", widget: "string", required: false, pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "Capa do livro", name: "imagem", widget: "image", required: false, hint: "Prefira guardar a imagem permanentemente na mídia do site; links do Instagram podem expirar." }
         - label: "Defesas e bancas"
           name: "defesas"
           file: "data/defesas.yml"
@@ -290,6 +292,7 @@ collections:
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Descrição", name: "descricao", widget: "text", required: false }
                 - { label: "Link", name: "url", widget: "string", pattern: ['^https?://[^\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }
+                - { label: "Capa do vídeo", name: "imagem", widget: "image", required: false, hint: "Prefira guardar a imagem permanentemente na mídia do site; links do Instagram podem expirar." }
         - label: "Podcasts e episódios"
           name: "noar"
           file: "data/noar.yml"
@@ -581,6 +584,11 @@ collections:
           - Policy brief
           - Anuário
           - Outro
+        - name: imagem
+          label: Imagem do material
+          widget: image
+          required: false
+          hint: Prefira enviar a foto para a mídia do site; links do Instagram podem expirar.
     - name: metodos
       label: Metodologias e portfólios
       file: data/metodos.yml
