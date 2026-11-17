@@ -20741,3 +20741,26 @@ html body #quarto-content .gp-conteudo-capa img {
 @media (max-width: 560px) {
   html body #quarto-content .gp-conteudo-capa { height: 156px; }
 }
+
+/* Imagem de notícia completa: manter fallback temático sem duplicar a categoria. */
+html body .noticia-detalhe-item .noticia-detalhe-capa {
+  display: block;
+  width: 100%;
+  margin: 1rem 0 1.35rem;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+html body .noticia-detalhe-capa .nt-img {
+  height: clamp(200px, 26vw, 340px) !important;
+  min-height: 0 !important;
+  border-radius: 9px !important;
+}
+html body .noticia-detalhe-capa .nt-cat {
+  display: none !important;
+}
+@media(max-width:600px) {
+  html body .noticia-detalhe-capa .nt-img { height: 208px !important; }
+}
