@@ -531,8 +531,8 @@ Dia com atividade cadastrada
    presença da árvore ou de uma estrutura particular de wrappers do Quarto. */
 :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) {
   box-sizing: border-box !important;
-  width: min(1180px, calc(100% - 36px)) !important;
-  max-width: 1180px !important;
+  width: min(var(--gp-content-width, 1720px), calc(100% - 2 * var(--gp-page-gutter, 32px))) !important;
+  max-width: var(--gp-content-width, 1720px) !important;
   margin: 20px auto 28px !important;
   padding: clamp(22px, 3.2vw, 38px) !important;
   background: #f1f6ef !important;
