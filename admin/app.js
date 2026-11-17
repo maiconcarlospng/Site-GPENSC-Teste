@@ -25,6 +25,7 @@ const batch=window.GPENSCBatchQueue.create({state,api,repo:REPO,branch:BRANCH,to
 async function loginWithCode(){
   const code=$('#access-code').value.trim();
   const button=$('#token-login-button');
+  if(button.disabled||loadingSession||$('#login-button').disabled)return;
   if(!code){$('#login-status').textContent='Informe o código de acesso.';$('#access-code').focus();return}
   button.disabled=true;button.textContent='Verificando…';
   $('#login-status').textContent='Validando o código de acesso…';
@@ -43,13 +44,17 @@ async function loginWithCode(){
   }finally{button.disabled=false;button.textContent='Entrar com código'}
 }
 function login(){
+  if(loadingSession||$('#login-button').disabled||$('#token-login-button').disabled)return;
   const workerOrigin=new URL(WORKER).origin;
   const url=WORKER+'/auth?provider=github&site_id='+encodeURIComponent(location.hostname)+'&scope=repo';
   const popup=window.open(url,'gpen-github-auth','width=620,height=720,menubar=no,toolbar=no');
   if(!popup){toast('Permita a abertura da janela de autenticação.',true);return}
   $('#login-status').textContent='Aguardando autorização do GitHub…';
+  const button=$('#login-button');
+  button.disabled=true;
   let finished=false;
-  const finish=()=>{if(finished)return;finished=true;clearTimeout(timeout);window.removeEventListener('message',listener)};
+  const finish=()=>{if(finished)return;finished=true;button.disabled=false;clearTimeout(timeout);clearInterval(watch);window.removeEventListener('message',listener)};
+  const watch=setInterval(()=>{if(popup.closed){finish();$('#login-status').textContent='Janela de autenticação fechada. Tente novamente.'}},1000);
   const timeout=setTimeout(()=>{
     finish();
     $('#login-status').textContent='A autenticação não foi concluída. Feche a janela de autorização e tente novamente.';
@@ -134,7 +139,7 @@ async function loadAll(){
       const index=cursor++;
       const item=list[index];
       try{results[index]={file:item.file,data:await readFile(item.file)}}
-      catch(error){throw new Error('Falha ao carregar '+item.label+': '+error.message)}
+      catch(error){throw Object.assign(new Error('Falha ao carregar '+item.label+': '+error.message),{status:error.status})}
     }
   }
   await Promise.all(Array.from({length:Math.min(4,list.length)},()=>loadNext()));
@@ -189,6 +194,9 @@ const SITE_PAGES={
 function sitePage(entry){return '../'+(SITE_PAGES[entry?.name]||'index.html')}
 function renderNav(){
   const nav=$('#collection-nav');
+  const scroll=nav.scrollTop;
+  const focused=document.activeElement;
+  const key=nav.contains(focused)?[...focused.attributes].find(attribute=>attribute.name.startsWith('data-')):null;
   const button=({c,i})=>'<button type="button" data-index="'+i+'" class="'+(state.active===i?'active':'')+'">'+
     '<span>'+esc(c.label)+'</span>'+(isConfigCollection(c)?'':'<span class="nav-count">'+summaryRecords(c).length+'</span>')+'</button>';
   const entries=state.collections.map((c,i)=>({c,i}));
@@ -213,6 +221,10 @@ function renderNav(){
   nav.querySelector('[data-settings-home]').addEventListener('click',()=>{openSettingsHub();closeMobileMenu()});
   nav.querySelector('[data-media-home]').addEventListener('click',()=>{openMediaLibrary();closeMobileMenu()});
   nav.querySelectorAll('[data-index]').forEach(b=>b.addEventListener('click',()=>{openCollection(Number(b.dataset.index));closeMobileMenu()}));
+  $('#mobile-collection-search').dispatchEvent(new Event('input'));
+  if(key)[...nav.querySelectorAll('button')].find(button=>button.getAttribute(key.name)===key.value)?.focus({preventScroll:true});
+  nav.scrollTop=scroll;
+  nav.querySelectorAll('button.active').forEach(button=>button.setAttribute('aria-current','page'));
   batch.updateUI();
 }
 function donutSegment(items){
@@ -441,7 +453,7 @@ function renderHome(){
   state.active=null;
   updateMobileTabs();
   $('#page-crumb').textContent='Painel de resumo';
-  $('#collection-nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.hasAttribute('data-summary')));
+  renderNav();
   const count=names=>state.collections.filter(c=>names.includes(c.name)).reduce((n,c)=>n+summaryRecords(c).length,0);
   const stats=[
     [batch.count()?'Registros na prévia':'Registros cadastrados',state.collections.filter(c=>!isConfigCollection(c)).reduce((n,c)=>n+summaryRecords(c).length,0),batch.count()?'Inclui rascunhos locais, ainda não publicados':'Conteúdos reais, sem exemplos'],
@@ -467,11 +479,12 @@ function renderHome(){
   batch.updateUI();
   $('#refresh-button').onclick=async()=>{
     const button=$('#refresh-button');
+    const originalView=state.view;
     button.disabled=true;button.textContent='Atualizando…';
     try{
       await loadAll();
       state.activityLoaded=false;state.activityError='';state.activity=[];
-      renderNav();renderHome();
+      renderNav();if(state.view===originalView)renderHome();
       toast('Resumo e histórico atualizados.');
     }catch(error){toast(error.message,true)}
     finally{button.disabled=false;button.textContent='Atualizar dados'}
@@ -494,7 +507,8 @@ function openPendingReview(){
   batch.renderReview($('#page-content'),{
     changed:()=>{renderNav();batch.updateUI()},
     finished:async()=>{
-      await loadAll();state.activityLoaded=false;state.activity=[];state.activityError='';
+      try{await loadAll()}catch(error){toast('Alterações enviadas. Falha ao recarregar os dados: '+error.message,true);openPendingReview();return}
+      state.activityLoaded=false;state.activity=[];state.activityError='';
       renderNav();renderHome();
     }
   });
@@ -789,6 +803,7 @@ function openMediaLibrary(){
   if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
 }
 async function loadMediaFiles(){
+  if(state.mediaLoading)return;
   state.mediaLoading=true;state.mediaError='';
   renderNav();
   const status=$('#media-status'),grid=$('#media-grid');
@@ -940,12 +955,12 @@ function renderField(f,value){
   }
   return '<div class="field'+full+'"><label for="'+id+'">'+label+(f.required!==false?' *':'')+'</label>'+input+(f.hint?'<small>'+esc(f.hint)+'</small>':'')+'</div>';
 }
-async function saveEntry(event,schema){event.preventDefault();const form=event.currentTarget;if(form.dataset.saving)return;const item={...state.editing.original};for(const f of schema){const el=form.elements.namedItem(f.name);if(!el)continue;let value=f.multiple?[...el.selectedOptions].map(o=>o.value):el.value;if(Array.isArray(f.pattern)&&value&&!new RegExp(f.pattern[0]).test(String(value))){toast(f.pattern[1]||'Confira '+f.label,true);el.focus();return}if(f.widget==='number'&&value!=='')value=Number(value);if(f.widget==='boolean')value=value==='true';if(['list','object'].includes(f.widget)){try{value=JSON.parse(value)}catch(e){toast('O campo '+(f.label||f.name)+' precisa conter JSON válido.',true);return}}if(value!==''||f.required||Object.prototype.hasOwnProperty.call(item,f.name))item[f.name]=value}form.dataset.saving='true';const saveButton=form.querySelector('[type=submit]');saveButton.disabled=true;saveButton.textContent='Preparando…';const unlock=()=>{delete form.dataset.saving;saveButton.disabled=false;saveButton.textContent='Adicionar à fila'};const uploads=form.querySelectorAll('[data-upload-for]');for(const input of uploads){if(!input.files?.[0])continue;try{const path=await uploadImage(input.files[0]);item[input.dataset.uploadFor]=path}catch(e){unlock();toast(e.message,true);return}}const c=state.collections[state.active];const list=entryList(c).slice();if(state.editing.index===null)list.push(item);else list[state.editing.index]=item;try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:list});closeModal(true);openCollection(state.active);renderNav();toast('Registro adicionado à fila de revisão.')}catch(error){unlock();toast(error.message,true)}}
+async function saveEntry(event,schema){event.preventDefault();const form=event.currentTarget;if(form.dataset.saving)return;const item={...state.editing.original};for(const f of schema){const el=form.elements.namedItem(f.name);if(!el)continue;let value=f.multiple?[...el.selectedOptions].map(o=>o.value):el.value;if(Array.isArray(f.pattern)&&value&&!new RegExp(f.pattern[0]).test(String(value))){toast(f.pattern[1]||'Confira '+f.label,true);el.focus();return}if(f.widget==='number'&&value!=='')value=Number(value);if(f.widget==='boolean')value=value==='true';if(['list','object'].includes(f.widget)){try{value=JSON.parse(value);if(f.widget==='list'?!Array.isArray(value):!value||typeof value!=='object'||Array.isArray(value))throw new Error('Tipo inválido')}catch(e){toast('O campo '+(f.label||f.name)+' precisa conter JSON válido.',true);return}}if(value!==''||f.required||Object.prototype.hasOwnProperty.call(item,f.name))item[f.name]=value}form.dataset.saving='true';const saveButton=form.querySelector('[type=submit]');saveButton.disabled=true;saveButton.textContent='Preparando…';const unlock=()=>{delete form.dataset.saving;saveButton.disabled=false;saveButton.textContent='Adicionar à fila'};const uploads=form.querySelectorAll('[data-upload-for]');for(const input of uploads){if(!input.files?.[0])continue;try{const path=await uploadImage(input.files[0]);item[input.dataset.uploadFor]=path}catch(e){unlock();toast(e.message,true);return}}const c=state.collections[state.active];const list=entryList(c).slice();if(state.editing.index===null)list.push(item);else list[state.editing.index]=item;try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:list});closeModal(true);openCollection(state.active);renderNav();toast('Registro adicionado à fila de revisão.')}catch(error){unlock();toast(error.message,true)}}
 
 function normalizeHeader(value){return String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'')}
 function excelCell(value){if(value instanceof Date&&!isNaN(value))return value.toISOString().slice(0,10);return value??''}
 function exportExcel(c,fields){if(!window.XLSX){toast('A biblioteca de planilhas ainda não carregou. Atualize a página.',true);return}const rows=entryList(c).map(item=>Object.fromEntries(fields.map(f=>[f.label||f.name,(['list','object'].includes(f.widget)&&item[f.name]!=null)?JSON.stringify(item[f.name]):(item[f.name]??'')])));const ws=XLSX.utils.json_to_sheet(rows.length?rows:[Object.fromEntries(fields.map(f=>[f.label||f.name,'']))]);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Registros');XLSX.writeFile(wb,'GPENSC-'+c.name+'.xlsx');toast('Planilha exportada.')}
-function openExcelImport(c,fields){if(!canLeaveCurrentEditor())return;if(!window.XLSX){toast('A biblioteca de planilhas ainda não carregou. Atualize a página.',true);return}$('#modal-root').innerHTML='<div class="modal-backdrop"><section class="modal excel-modal"><div class="modal-head"><div><span class="eyebrow">IMPORTAÇÃO EM LOTE</span><h2>Adicionar registros por Excel</h2></div><button type="button" class="small-button" id="close-excel">Fechar</button></div><div class="modal-body excel-body"><div class="excel-intro"><strong>Importe vários registros de uma só vez.</strong><p>Use uma planilha .xlsx, .xls ou .csv. A primeira linha deve conter os nomes dos campos. Os registros serão adicionados aos atuais, sem apagar o que já existe.</p></div><div class="field full"><label for="excel-file">Selecionar planilha</label><input id="excel-file" type="file" accept=".xlsx,.xls,.csv"></div><div id="excel-preview" class="excel-preview"><p>Depois de selecionar o arquivo, confira a prévia antes de adicionar os registros à fila.</p></div></div><div class="modal-foot"><span class="eyebrow">IMPORTAÇÃO LOCAL: REVISE ANTES DE PUBLICAR</span><div><button type="button" class="secondary-button" id="cancel-excel">Cancelar</button><button type="button" class="primary-button" id="confirm-excel" disabled>Adicionar registros</button></div></div></section></div>';$('#close-excel').onclick=$('#cancel-excel').onclick=()=>closeModal();let pending=[];const fileInput=$('#excel-file');fileInput.onchange=async()=>{pending=[];$('#confirm-excel').disabled=true;const file=fileInput.files?.[0];if(!file)return;try{const data=await file.arrayBuffer();const wb=XLSX.read(data,{type:'array',cellDates:true});const sheet=wb.Sheets[wb.SheetNames[0]];const rows=XLSX.utils.sheet_to_json(sheet,{defval:'',raw:true});if(!rows.length)throw new Error('A planilha está vazia ou não possui cabeçalho.');const headers=Object.keys(rows[0]);const mapping={};for(const f of fields){const candidates=[normalizeHeader(f.name),normalizeHeader(f.label)];mapping[f.name]=headers.find(h=>candidates.includes(normalizeHeader(h)))||null}const missing=fields.filter(f=>f.required!==false&&!mapping[f.name]).map(f=>f.label||f.name);if(missing.length)throw new Error('Colunas obrigatórias não encontradas: '+missing.join(', ')+'. Use os nomes dos campos exibidos no painel.');const issues=[];pending=rows.map((row,i)=>{const item=defaultItem(fields);for(const f of fields){const h=mapping[f.name];if(!h)continue;let v=excelCell(row[h]);if(typeof v==='string')v=v.trim();if(['date','datetime'].includes(f.widget)&&typeof v==='number'){const d=XLSX.SSF.parse_date_code(v);if(d)v=[d.y,String(d.m).padStart(2,'0'),String(d.d).padStart(2,'0')].join('-');}if(['list','object'].includes(f.widget)&&v){try{v=JSON.parse(v)}catch{issues.push('Linha '+(i+2)+': '+(f.label||f.name)+' deve estar em JSON válido.')}}else if(f.widget==='boolean'){v=String(v).toLowerCase()==='true'||String(v).toLowerCase()==='sim'||String(v)==='1'}else if(f.widget==='number'&&v!==''){v=Number(String(v).replace(',','.'));if(!Number.isFinite(v))issues.push('Linha '+(i+2)+': valor numérico inválido em '+(f.label||f.name)+'.')}if(v!==''&&v!==undefined&&Array.isArray(f.pattern)&&f.pattern[0]&&!new RegExp(f.pattern[0]).test(String(v)))issues.push('Linha '+(i+2)+': '+(f.pattern[1]||'formato inválido em '+(f.label||f.name)));if(v!==''&&v!==undefined)item[f.name]=v}for(const f of fields.filter(x=>x.required!==false)){if(item[f.name]===''||item[f.name]===undefined)issues.push('Linha '+(i+2)+': falta preencher '+(f.label||f.name)+'.')}return item});const preview=$('#excel-preview');preview.innerHTML='<div class="excel-summary"><strong>'+pending.length+' linhas encontradas</strong><span>'+Object.values(mapping).filter(Boolean).length+' de '+fields.length+' colunas reconhecidas</span></div><div class="excel-columns">'+fields.map(f=>'<span class="'+(mapping[f.name]?'mapped':'unmapped')+'">'+esc(f.label||f.name)+(mapping[f.name]?' · '+esc(mapping[f.name]):' · não encontrada')+'</span>').join('')+'</div>'+(issues.length?'<div class="excel-errors"><strong>Corrija antes de importar:</strong><ul>'+issues.slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+(issues.length>12?'<small>e mais '+(issues.length-12)+' ocorrência(s).</small>':'')+'</div>':'<p class="excel-ready">Prévia validada. Os registros serão acrescentados ao final da lista.</p>');$('#confirm-excel').disabled=issues.length>0||!pending.length; }catch(e){$('#excel-preview').innerHTML='<div class="excel-errors">'+esc(e.message)+'</div>';pending=[]}};$('#confirm-excel').onclick=async()=>{if(!pending.length)return;const button=$('#confirm-excel');button.disabled=true;button.textContent='Preparando…';const modal=button.closest('.modal');if(modal)modal.dataset.saving='true';try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:[...entryList(c),...pending]});const count=pending.length;closeModal(true);openCollection(state.active);renderNav();toast(count+' registro(s) adicionados à fila para revisão.')}catch(e){if(modal)delete modal.dataset.saving;button.disabled=false;button.textContent='Tentar novamente';toast(e.message,true)}}}
+function openExcelImport(c,fields){if(!canLeaveCurrentEditor())return;if(!window.XLSX){toast('A biblioteca de planilhas ainda não carregou. Atualize a página.',true);return}$('#modal-root').innerHTML='<div class="modal-backdrop"><section class="modal excel-modal"><div class="modal-head"><div><span class="eyebrow">IMPORTAÇÃO EM LOTE</span><h2>Adicionar registros por Excel</h2></div><button type="button" class="small-button" id="close-excel">Fechar</button></div><div class="modal-body excel-body"><div class="excel-intro"><strong>Importe vários registros de uma só vez.</strong><p>Use uma planilha .xlsx, .xls ou .csv. A primeira linha deve conter os nomes dos campos. Os registros serão adicionados aos atuais, sem apagar o que já existe.</p></div><div class="field full"><label for="excel-file">Selecionar planilha</label><input id="excel-file" type="file" accept=".xlsx,.xls,.csv"></div><div id="excel-preview" class="excel-preview"><p>Depois de selecionar o arquivo, confira a prévia antes de adicionar os registros à fila.</p></div></div><div class="modal-foot"><span class="eyebrow">IMPORTAÇÃO LOCAL: REVISE ANTES DE PUBLICAR</span><div><button type="button" class="secondary-button" id="cancel-excel">Cancelar</button><button type="button" class="primary-button" id="confirm-excel" disabled>Adicionar registros</button></div></div></section></div>';$('#close-excel').onclick=$('#cancel-excel').onclick=()=>closeModal();let pending=[];const fileInput=$('#excel-file');fileInput.onchange=async()=>{pending=[];$('#confirm-excel').disabled=true;const file=fileInput.files?.[0];if(!file)return;try{const data=await file.arrayBuffer();if(!fileInput.isConnected||fileInput.files?.[0]!==file)return;const wb=XLSX.read(data,{type:'array',cellDates:true});const sheet=wb.Sheets[wb.SheetNames[0]];const rows=XLSX.utils.sheet_to_json(sheet,{defval:'',raw:true});if(!rows.length)throw new Error('A planilha está vazia ou não possui cabeçalho.');const headers=Object.keys(rows[0]);const mapping={};for(const f of fields){const candidates=[normalizeHeader(f.name),normalizeHeader(f.label)];mapping[f.name]=headers.find(h=>candidates.includes(normalizeHeader(h)))||null}const missing=fields.filter(f=>f.required!==false&&!mapping[f.name]).map(f=>f.label||f.name);if(missing.length)throw new Error('Colunas obrigatórias não encontradas: '+missing.join(', ')+'. Use os nomes dos campos exibidos no painel.');const issues=[];pending=rows.map((row,i)=>{const item=defaultItem(fields);for(const f of fields){const h=mapping[f.name];if(!h)continue;let v=excelCell(row[h]);if(typeof v==='string')v=v.trim();if(['date','datetime'].includes(f.widget)&&typeof v==='number'){const d=XLSX.SSF.parse_date_code(v);if(d)v=[d.y,String(d.m).padStart(2,'0'),String(d.d).padStart(2,'0')].join('-');}if(['list','object'].includes(f.widget)&&v){try{v=JSON.parse(v)}catch{issues.push('Linha '+(i+2)+': '+(f.label||f.name)+' deve estar em JSON válido.')}}else if(f.widget==='boolean'){v=String(v).toLowerCase()==='true'||String(v).toLowerCase()==='sim'||String(v)==='1'}else if(f.widget==='number'&&v!==''){v=Number(String(v).replace(',','.'));if(!Number.isFinite(v))issues.push('Linha '+(i+2)+': valor numérico inválido em '+(f.label||f.name)+'.')}if(v!==''&&v!==undefined&&Array.isArray(f.pattern)&&f.pattern[0]&&!new RegExp(f.pattern[0]).test(String(v)))issues.push('Linha '+(i+2)+': '+(f.pattern[1]||'formato inválido em '+(f.label||f.name)));if(v!==''&&v!==undefined)item[f.name]=v}for(const f of fields.filter(x=>x.required!==false)){if(item[f.name]===''||item[f.name]===undefined)issues.push('Linha '+(i+2)+': falta preencher '+(f.label||f.name)+'.')}return item});const preview=$('#excel-preview');preview.innerHTML='<div class="excel-summary"><strong>'+pending.length+' linhas encontradas</strong><span>'+Object.values(mapping).filter(Boolean).length+' de '+fields.length+' colunas reconhecidas</span></div><div class="excel-columns">'+fields.map(f=>'<span class="'+(mapping[f.name]?'mapped':'unmapped')+'">'+esc(f.label||f.name)+(mapping[f.name]?' · '+esc(mapping[f.name]):' · não encontrada')+'</span>').join('')+'</div>'+(issues.length?'<div class="excel-errors"><strong>Corrija antes de importar:</strong><ul>'+issues.slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+(issues.length>12?'<small>e mais '+(issues.length-12)+' ocorrência(s).</small>':'')+'</div>':'<p class="excel-ready">Prévia validada. Os registros serão acrescentados ao final da lista.</p>');$('#confirm-excel').disabled=issues.length>0||!pending.length; }catch(e){if(!fileInput.isConnected||fileInput.files?.[0]!==file)return;$('#excel-preview').innerHTML='<div class="excel-errors">'+esc(e.message)+'</div>';pending=[]}};$('#confirm-excel').onclick=async()=>{if(!pending.length)return;const button=$('#confirm-excel');button.disabled=true;button.textContent='Preparando…';const modal=button.closest('.modal');if(modal)modal.dataset.saving='true';try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:[...entryList(c),...pending]});const count=pending.length;closeModal(true);openCollection(state.active);renderNav();toast(count+' registro(s) adicionados à fila para revisão.')}catch(e){if(modal)delete modal.dataset.saving;button.disabled=false;button.textContent='Tentar novamente';toast(e.message,true)}}}
 async function saveCollection(c,content){return batch.stage(c,content)}
 async function uploadImage(file){return batch.stageMedia(file)}
 async function deleteItem(index){if(!canLeaveCurrentEditor())return;if(!confirm('Mover esta exclusão para a fila? O site não mudará até você publicar.'))return;const c=state.collections[state.active];const items=entryList(c).slice();items.splice(index,1);try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:items});openCollection(state.active);renderNav();toast('Exclusão adicionada à fila de revisão.')}catch(e){toast(e.message,true)}}
@@ -961,6 +976,7 @@ function closeModal(force=false){
   return true;
 }
 function canLeaveCurrentEditor(){
+  if(batch.isPublishing()){toast('Aguarde o envio das alterações.',true);return false;}
   if($('#entry-form'))return closeModal();
   if($('#modal-root .excel-modal'))return closeModal();
   const form=$('#config-form')||$('#gallery-form');
@@ -970,9 +986,10 @@ function canLeaveCurrentEditor(){
 }
 window.addEventListener('beforeunload',event=>{
   const form=$('#entry-form')||$('#config-form')||$('#gallery-form');
-  if(form?.dataset.dirty==='true'){event.preventDefault();event.returnValue='';}
+  if(batch.isPublishing()||form?.dataset.dirty==='true'){event.preventDefault();event.returnValue='';}
 });
 $('#login-button').addEventListener('click',login);
+$('#pending-trigger').addEventListener('click',openPendingReview);
 $('#token-login-button').addEventListener('click',loginWithCode);
 $('#retry-loading')?.addEventListener('click',()=>initialize());
 $('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();loginWithCode()}});
@@ -990,7 +1007,7 @@ function closeMobileMenu(){
   const filter=$('#mobile-collection-search');if(filter){filter.value='';filter.dispatchEvent(new Event('input'))}
   updateMobileTabs();
 }
-$('.brand').addEventListener('click',event=>{if($('.sidebar').classList.contains('mobile-open')){event.preventDefault();closeMobileMenu()}});
+$('.brand').addEventListener('click',event=>{event.preventDefault();renderHome();closeMobileMenu()});
 $('#mobile-menu-close').addEventListener('click',closeMobileMenu);
 $('#mobile-collection-search').addEventListener('input',event=>{
   const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -1016,7 +1033,6 @@ $('#mobile-sections').addEventListener('click',()=>{
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileMenu()});
 $('#mobile-review').addEventListener('click',()=>{closeMobileMenu();openPendingReview();window.scrollTo({top:0,behavior:'smooth'})});
-$('#mobile-logout').addEventListener('click',()=>$('#logout-button').click());
 $('#logout-button').addEventListener('click',()=>{if(!canLeaveCurrentEditor())return;sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;closeMobileMenu();$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
 // Keep full-screen editors inside the visible area when the mobile keyboard opens.
 function updateVisibleViewport(){

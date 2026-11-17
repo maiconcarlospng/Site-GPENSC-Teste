@@ -27,7 +27,8 @@
       return await new Promise((resolve,reject)=>{
         const tx=db.transaction(STORE,mode);
         const request=callback(tx.objectStore(STORE));
-        request.onsuccess=()=>resolve(request.result);
+        tx.oncomplete=()=>resolve(request.result);
+        tx.onabort=()=>reject(tx.error||new Error('A gravação local foi interrompida.'));
         request.onerror=()=>reject(request.error);
         tx.onerror=()=>reject(tx.error);
       });
@@ -236,7 +237,8 @@
           const result=await publish(progress);
           progress(result.message);
           toast(result.message);
-          await handlers.finished?.(result);
+          if(handlers.finished)await handlers.finished(result);
+          else renderReview(container,handlers);
         }catch(error){
           notice=error.message||'Erro ao publicar alterações.';
           progress(notice);
@@ -248,10 +250,10 @@
     function yamlText(draft){
       return jsyaml.dump(draft.content,{noRefs:true,lineWidth:120,quotingType:'"',forceQuotes:false});
     }
-    async function verify(){
+    async function verify(ref=branch){
       for(const [path,draft] of Object.entries(pending)){
         if(!/^data\/[\w./\-]+\.ya?ml$/i.test(path))throw new Error('Arquivo indevido na fila de publicação.');
-        const fresh=await api('/repos/'+repo+'/contents/'+filePath(path)+'?ref='+branch);
+        const fresh=await api('/repos/'+repo+'/contents/'+filePath(path)+'?ref='+ref);
         if(fresh.sha!==draft.baseSha)throw new Error('Conflito no arquivo "'+draft.label+'". Alguém alterou esta seção depois de você iniciar o rascunho. Descarte apenas esta edição, atualize os dados e refaça a alteração.');
       }
       for(const meta of Object.values(assets)){
@@ -260,7 +262,7 @@
           if(linked.length)throw new Error('O material '+meta.name+' ainda é usado nos cadastros: '+linked.join(', ')+'.');
         }
         if(meta.sha&&state.authMode==='github'){
-          const current=await api('/repos/'+repo+'/contents/'+filePath(meta.path)+'?ref='+branch);
+          const current=await api('/repos/'+repo+'/contents/'+filePath(meta.path)+'?ref='+ref);
           if(current.sha!==meta.sha)throw new Error('A mídia '+meta.name+' foi alterada no GitHub depois do rascunho. Remova-a da fila e selecione novamente.');
         }
         if(meta.action!=='remover'){
@@ -274,6 +276,7 @@
       const base=await api('/repos/'+repo+'/git/ref/heads/'+branch);
       const baseSha=base.object?.sha;
       if(!baseSha)throw new Error('Não foi possível identificar o commit atual do site.');
+      await verify(baseSha);
       const commit=await api('/repos/'+repo+'/git/commits/'+baseSha);
       const baseTree=commit.tree?.sha;
       if(!baseTree)throw new Error('Não foi possível acessar a árvore do repositório.');
@@ -346,8 +349,9 @@
       publishing=true;notice='';
       try{
         progress('Verificando conflitos e arquivos pendentes…');
-        await verify();
-        const result=state.authMode==='access-code'?await submitSequential(progress):await submitAtomic(progress);
+        const byCode=state.authMode==='access-code';
+        if(byCode)await verify();
+        const result=byCode?await submitSequential(progress):await submitAtomic(progress);
         if(state.authMode!=='access-code'){
           const pendingAssets=Object.keys(assets);
           for(const [path,draft] of Object.entries(pending)){
