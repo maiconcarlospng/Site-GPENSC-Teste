@@ -1,7 +1,7 @@
 /* GPENSC accessibility controls: independent, progressive enhancement. */
 (function(){
 'use strict';
-const defaults={size:0,contrast:false,smart:false,motion:false,links:false,spacing:false,images:false,dyslexia:false,structure:false,lineHeight:false,align:false,saturation:false};
+const defaults={size:0,contrast:false,smart:false,motion:false,links:false,spacing:false,images:false,dyslexia:false,structure:false,lineHeight:false,align:false,saturation:false,readingGuide:false,largeCursor:false};
 let state={...defaults};
 try{const v=JSON.parse(localStorage.getItem('gp-access-preferences')||'{}');for(const k of Object.keys(defaults)){if(k==='size')state[k]=Math.max(0,Math.min(4,Number(v[k])||0));else state[k]=v[k]===true;}}catch(_){}
 const controls=[
@@ -11,7 +11,8 @@ const controls=[
 ['spacing','↔','Espaçamento do texto'],['images','▧','Ocultar imagens'],
 ['dyslexia','Df','Fonte legível'],['structure','▤','Estrutura da página'],
 ['lineHeight','↕','Altura das linhas'],['align','☷','Alinhar texto'],
-['dictionary','Aa','Dicionário'],['saturation','◕','Saturação']
+['dictionary','Aa','Dicionário'],['saturation','◕','Saturação'],
+['readingGuide','━','Guia de leitura'],['largeCursor','➤','Cursor ampliado']
 ];
 const root=document.documentElement;
 const persist=()=>{try{localStorage.setItem('gp-access-preferences',JSON.stringify(state));}catch(_){}};
@@ -38,6 +39,8 @@ function init(){
   const grid=document.getElementById('gp-a11y-grid');
   const status=document.getElementById('gp-a11y-status');
   const setStatus=t=>{status.textContent=t;};
+  const guide=document.createElement('div');guide.id='gp-a11y-reading-guide';guide.setAttribute('aria-hidden','true');document.body.append(guide);
+  document.addEventListener('pointermove',e=>{if(state.readingGuide)guide.style.top=e.clientY+'px';});
   const stopSpeech=()=>{if('speechSynthesis' in window)window.speechSynthesis.cancel();};
   let speaking=false;
   grid.innerHTML=controls.map(([key,glyph,label])=>'<button type="button" class="gp-a11y-tile" data-gp-tool="'+key+'" '+(key in defaults?'aria-pressed="false"':'')+'><span class="gp-a11y-glyph" aria-hidden="true">'+glyph+'</span><span>'+label+'</span>'+(key==='increase'?'<small class="gp-a11y-count"></small>':'')+'</button>').join('');
