@@ -12516,7 +12516,7 @@ html body a.pq:is(:hover, :focus, :focus-visible) .pq-titulo::after {
   --gp-card-shadow: 0 12px 34px rgba(28, 53, 32, .075);
   --gp-soft-shadow: 0 5px 18px rgba(28, 53, 32, .055);
   --gp-radius: 18px;
-  --gp-content-width: 1720px;
+  --gp-content-width: 1240px;
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
@@ -20302,68 +20302,84 @@ html body.page-index #quarto-content .pq-blocos > a.pq:nth-child(4) .pq-icone {
 
 
 /* ==========================================================================
-   GPENSC — largura editorial fluida (2026-11-17)
-   Aplica-se ao site público inteiro (não ao /admin).
-   Monitores largos recebem mais área útil sem deixar cartões colados às bordas.
-   A home mantém o hero e a faixa de fotos como elementos de largura integral.
+   GPENSC — larguras por tipo de conteúdo · revisão 2026-11-17
+   Evita a ampliação indiscriminada da versão anterior.
+   Apenas o conteúdo público; /admin e o motor da árvore não são alterados.
    ========================================================================== */
 :root {
-  --gp-page-gutter: clamp(20px, 3.5vw, 64px);
+  --gp-page-gutter: clamp(22px, 3.2vw, 54px);
+  --gp-page-width: 1280px;
+  --gp-home-width: 1520px;
 }
+/* Cada página usa o espaço adequado à sua função, em vez de 1720px fixos. */
+body:has(.pagina-sobre)          { --gp-page-width: 1480px; }
+body:has(.linhas-pesquisa-page)  { --gp-page-width: 1460px; }
+body:has(.gp-research-index)     { --gp-page-width: 1160px; }
+body:has(.gp-extensao-lista)     { --gp-page-width: 1120px; }
+body:has(.gp-ensino-conteudo)    { --gp-page-width: 1180px; }
+body:has(.pagina-podcasts)       { --gp-page-width: 1220px; }
+body:has(.pagina-agenda)         { --gp-page-width: 1100px; }
+body:has(.gp-publico-intro)      { --gp-page-width: 1260px; }
+body:has(.pagina-defesas)        { --gp-page-width: 1160px; }
+/* A árvore (mapa SVG/OneZoom) continua com a sua área interativa específica. */
 @media (min-width: 768px) {
-  /* O Quarto restringe .column-page a trilhos centrais da grade.
-     Abrir a área do main na grade externa, respeitando um contêiner com margens. */
-  html body #quarto-content.page-layout-full > main#quarto-document-content.content {
+  html body #quarto-content.page-layout-full > main#quarto-document-content.content:not(:has(#gp49)) {
     grid-column: 1 / -1 !important;
     justify-self: center !important;
     box-sizing: border-box !important;
-    width: min(var(--gp-content-width), calc(100% - 2 * var(--gp-page-gutter))) !important;
-    max-width: var(--gp-content-width) !important;
+    width: min(var(--gp-page-width), calc(100% - var(--gp-page-gutter) - var(--gp-page-gutter))) !important;
+    max-width: var(--gp-page-width) !important;
     min-width: 0 !important;
     margin-inline: auto !important;
     padding-inline: 0 !important;
   }
 
-  /* Na home, o Quarto não gera <main>: o conteúdo fica no <section.secao>.
-     Preservar galeria e hero em largura total. */
+  /* A home usa <section> no lugar de <main>. Hero e galeria permanecem livres. */
   html body #quarto-content > section.secao {
     box-sizing: border-box !important;
-    width: min(var(--gp-content-width), calc(100% - 2 * var(--gp-page-gutter))) !important;
-    max-width: var(--gp-content-width) !important;
+    width: min(var(--gp-home-width), calc(100% - var(--gp-page-gutter) - var(--gp-page-gutter))) !important;
+    max-width: var(--gp-home-width) !important;
     min-width: 0 !important;
     margin-inline: auto !important;
     padding-inline: 0 !important;
   }
 
-  /* Grades e catálogos também devem acompanhar a coluna principal.
-     Não ampliamos textos corridos à força nem tabelas além das suas colunas. */
-  html body #quarto-content main.content :is(
-    .linhas-pesquisa-page, .pagina-institucional, .pagina-sobre,
-    .pagina-contato, .pagina-projetos, .pagina-publicacoes,
-    .pagina-defesas, .gp-ensino-conteudo, .gp-research-index,
-    .gp-extensao-lista, .gp-publico-rotas
-  ) {
+  /* A grade de linhas era limitada separadamente a 1180px. */
+  html body #quarto-content main.content .linhas-pesquisa-page {
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: none !important;
     min-width: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  html body #quarto-content > section.secao .home-arvore-destaque {
-    box-sizing: border-box !important;
-    width: 100% !important;
-    max-width: none !important;
     margin-inline: 0 !important;
   }
 
-  /* Rodapé alinhado às mesmas margens das páginas. */
+  /* Páginas com cards utilizam a largura do main, não forçam parágrafos. */
+  html body #quarto-content main.content :is(
+    .pagina-institucional,.pagina-sobre,.gp-research-index,
+    .gp-ensino-conteudo,.gp-extensao-lista
+  ) {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Árvores de destaque, textos corridos e linha do tempo não viram faixas
+     exageradamente largas. O tamanho especial do mapa é preservado. */
+  html body #quarto-content > section.secao .home-arvore-destaque {
+    max-width: 1120px !important;
+    margin-inline: auto !important;
+  }
+  html body #quarto-content main.content .historia-linha-tempo {
+    max-width: 940px !important;
+    margin-inline: auto !important;
+  }
+
+  /* Rodapé amplo, mas não esticado até os limites de monitores grandes. */
   html body footer.footer #gp-institutional-footer {
     box-sizing: border-box !important;
-    width: min(var(--gp-content-width), calc(100% - 2 * var(--gp-page-gutter))) !important;
-    max-width: var(--gp-content-width) !important;
+    width: min(1400px, calc(100% - var(--gp-page-gutter) - var(--gp-page-gutter))) !important;
+    max-width: 1400px !important;
     margin-inline: auto !important;
   }
 }
-/* No celular, manter respiro lateral e regras mobile já consolidadas. */
+/* As regras mobile anteriores permanecem intactas. */
