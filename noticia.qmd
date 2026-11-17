@@ -44,13 +44,9 @@ if (nrow(noticias_publicadas) == 0) {
         if (!is.null(categoria)) span(class = "noticia-detalhe-categoria", categoria),
         h1(titulo),
         if (nzchar(data_texto)) p(class = "noticia-detalhe-data", data_texto),
-        if (!is.null(imagem)) tags$img(
-          class = "noticia-detalhe-imagem",
-          src = caminho_img(imagem, "noticias"),
-          alt = paste("Imagem da publicação:", titulo),
-          loading = "lazy",
-          decoding = "async",
-          onerror = "this.remove()"
+        div(
+          class = "nt noticia-detalhe-capa",
+          capa_noticia(imagem, categoria, titulo, "nt-img nt-img--detail")
         ),
         div(class = "noticia-detalhe-texto", p(conteudo)),
         
