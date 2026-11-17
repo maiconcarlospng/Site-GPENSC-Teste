@@ -1,0 +1,25 @@
+---
+title: "Biblioteca"
+---
+
+<div class="gp-illustrated-lead"><p>Cartilhas, infográficos, materiais educativos, livros, e-books e anuários do GPENSC em um só lugar.</p><img src="img/ilustracoes/materiais.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+<nav class="gp-biblioteca-nav" aria-label="Seções da Biblioteca">
+<a href="#materiais">Materiais educativos</a>
+<a href="#livros">Livros e e-books</a>
+<a href="#anuario">Anuário</a>
+</nav>
+
+## Materiais educativos {#materiais}
+
+{{< include partials/materiais.qmd >}}
+
+## Livros e e-books {#livros}
+
+{{< include partials/livros.qmd >}}
+
+## Anuário GPENSC {#anuario}
+
+O anuário do GPENSC tem início previsto para 2027. As edições serão disponibilizadas aqui conforme forem publicadas.
+
+[Voltar à Divulgação científica](conteudos.qmd)
