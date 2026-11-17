@@ -54,6 +54,7 @@ function apply(){
     if(k==='align')b.setAttribute('aria-label','Alinhar texto: '+(alignValues[state.align]||'original'));
   });
   persist();
+  document.dispatchEvent(new Event('gp:a11y-change'));
 }
 function init(){
   const holder=document.getElementById('gp-access');
