@@ -309,6 +309,7 @@ collections:
                 - { label: "Convidado(a)", name: "convidado", widget: "string", required: false }
                 - { label: "Data", name: "data", widget: "date", required: false }
                 - { label: "Link de acesso", name: "link", widget: "string", required: false }
+                - { label: "Imagem do episódio ou divulgação", name: "imagem", widget: "image", required: false, hint: "Para preservação permanente, faça upload da imagem em Materiais do site." }
                 - { label: "Observações", name: "obs", widget: "text", required: false }
         - label: "Sites recomendados"
           name: "sites"
