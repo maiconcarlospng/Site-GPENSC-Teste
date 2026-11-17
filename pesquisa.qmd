@@ -2,7 +2,7 @@
 title: "Pesquisa"
 ---
 
-Linhas de investigação e produção científica do GPENSC.
+<div class="gp-illustrated-lead"><p>Linhas de investigação e produção científica do GPENSC.</p><img src="img/ilustracoes/pesquisa.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ```{=html}
 <nav class="gp-research-index" aria-label="Áreas de pesquisa">
