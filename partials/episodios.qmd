@@ -15,6 +15,7 @@ if (!is.null(episodios_gpensc) && length(episodios_gpensc)) {
         url <- valor_publico(item$link)
         tags$article(
           class = "gp-episodio-item",
+          capa_conteudo(item$imagem, if (!is.null(titulo)) titulo else "Episódio", "video"),
           if (!is.null(data)) tags$time(datetime = data, format(parse_data_site(data), "%d/%m/%Y")),
           h3(if (!is.null(titulo)) titulo else "Episódio"),
           if (!is.null(convidado)) p(paste("Participação:", convidado)),
