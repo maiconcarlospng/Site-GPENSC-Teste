@@ -2,7 +2,7 @@
 title: "Grupo"
 ---
 
-Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
+<div class="gp-illustrated-lead"><p>Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.</p><img src="img/ilustracoes/sobre.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ```{=html}
 <nav class="gp-section-index" aria-label="Nesta página"><a href="#sobre">Quem somos</a><a href="#equipe">Equipe</a><a href="#historia">Nossa história</a><a href="#parcerias">Parcerias</a><a href="#contato">Contato</a></nav>
@@ -12,15 +12,15 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 
 {{< include partials/sobre.qmd >}}
 
-## Nossa história {#historia}
+## Nossa história {#historia .gp-heading-art .gp-heading-art--historia}
 
 {{< include partials/historia.qmd >}}
 
-## Parcerias {#parcerias}
+## Parcerias {#parcerias .gp-heading-art .gp-heading-art--parcerias}
 
 {{< include partials/parcerias.qmd >}}
 
-## Contato {#contato}
+## Contato {#contato .gp-heading-art .gp-heading-art--contato}
 
 {{< include partials/contato.qmd >}}
 
