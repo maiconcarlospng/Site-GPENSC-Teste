@@ -496,6 +496,16 @@ collections:
           fields:
             - { label: "Texto de direitos autorais", name: "copyright", widget: "string" }
 
+        - label: "12 · Acervo Instagram (reversível)"
+          name: "cfg_acervo_instagram"
+          file: "data/configuracoes/13-acervo-instagram.yml"
+          fields:
+            - label: "Exibir acervo importado do Instagram"
+              name: "mostrar_acervo_instagram"
+              widget: "boolean"
+              default: true
+              hint: "Desative para retirar o acervo importado do site e voltar ao conteúdo cadastrado manualmente. As publicações originais e os dados anteriores não são apagados."
+
   - name: editorial
     label: Conhecimento e gestão editorial
     files:
