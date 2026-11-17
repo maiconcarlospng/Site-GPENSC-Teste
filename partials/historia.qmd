@@ -24,7 +24,7 @@ if (length(historia) > 0) {
           class = "historia-conteudo",
           h2(as.character(item$titulo)),
           if (!is.null(item$descricao) && nzchar(trimws(as.character(item$descricao)))) p(as.character(item$descricao)),
-          if (!is.null(item$imagem) && nzchar(as.character(item$imagem))) tags$img(src = caminho_img(item$imagem), alt = paste("Registro:", item$titulo), loading = "lazy"),
+          if (!is.null(item$imagem) && nzchar(as.character(item$imagem))) tags$img(src = caminho_img(item$imagem), alt = paste("Imagem do registro:", item$titulo), loading = "lazy", decoding = "async", onerror = "this.remove()"),
           if (!is.null(item$url) && grepl("^https?://", as.character(item$url))) tags$a("Ver registro original", href = item$url, target = "_blank", rel = "noopener noreferrer")
         )
       )
