@@ -14,6 +14,7 @@ if (nrow(livros_publicados) == 0) {
 
     div(
       class = paste("cartao reveal", cor_de(i)),
+      capa_conteudo(l$imagem, l$titulo, "livro"),
       if (!is.na(l$ano)) span(class = "cartao-data", l$ano),
       h4(l$titulo),
       if (length(meta) > 0) p(class = "kw", paste(meta, collapse = " · ")),
