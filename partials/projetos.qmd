@@ -9,22 +9,37 @@ if (secao_ativa("mostrar_projetos")) {
   div(
     class = "pagina-projetos",
     if (nrow(projetos_pesquisa) > 0) {
-      projetos_pesquisa |>
-        transmute(
-          Título = titulo,
-          Situação = situacao,
-          Coordenação = coordenador,
-          Início = inicio,
-          Fim = fim,
-          Linha = linha_id,
-          Financiamento = financiamento,
-          Link = url
-        ) |>
-        datatable(
-          rownames = FALSE,
-          filter = "top",
-          options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
-        )
+      div(
+        class = "gp-projetos-grade",
+        lapply(seq_len(nrow(projetos_pesquisa)), function(i) {
+          projeto <- projetos_pesquisa[i, , drop = FALSE]
+          titulo <- as.character(projeto$titulo[1])
+          resumo <- valor_publico(projeto$resumo)
+          coordenador <- valor_publico(projeto$coordenador)
+          situacao <- valor_publico(projeto$situacao)
+          if (identical(situacao, "Não informado")) situacao <- NULL
+          inicio <- valor_publico(projeto$inicio)
+          fim <- valor_publico(projeto$fim)
+          financiamento <- valor_publico(projeto$financiamento)
+          url <- valor_publico(projeto$url)
+          tags$article(
+            class = "gp-projeto-card",
+            capa_conteudo(projeto$imagem, titulo, "pesquisa"),
+            h3(titulo),
+            if (!is.null(resumo)) p(class = "gp-projeto-resumo", resumo),
+            if (!is.null(coordenador)) p(tags$strong("Coordenação: "), coordenador),
+            if (!is.null(situacao)) p(tags$strong("Situação: "), situacao),
+            if (!is.null(inicio)) p(tags$strong("Início: "), inicio),
+            if (!is.null(fim)) p(tags$strong("Fim: "), fim),
+            if (!is.null(financiamento)) p(tags$strong("Financiamento: "), financiamento),
+            if (!is.null(url) && grepl("^https?://", url))
+              tags$a(
+                if (grepl("instagram.com", url, fixed = TRUE)) "Ver divulgação do projeto" else "Acessar fonte do projeto",
+                href = url, target = "_blank", rel = "noopener noreferrer"
+              )
+          )
+        })
+      )
     } else {
       estado_vazio("Projetos de pesquisa em atualização", NULL)
     }
@@ -32,4 +47,16 @@ if (secao_ativa("mostrar_projetos")) {
 } else {
   estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
 }
+```
+
+```{=html}
+<style>
+.gp-projetos-grade {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.gp-projeto-card {min-width:0;border:1px solid #dce7d8;background:#fff;border-radius:10px;padding:18px 20px 20px}
+.gp-projeto-card h3 {font-size:1.12rem;line-height:1.38;color:#1f4d2b;margin:0 0 12px;overflow-wrap:anywhere}
+.gp-projeto-card p {margin:0 0 8px;color:#536357;font-size:.9rem;line-height:1.58}
+.gp-projeto-card .gp-projeto-resumo {color:#3e5546;margin-bottom:14px}
+.gp-projeto-card a {display:inline-block;margin-top:10px;color:#98501e;font-size:.88rem;text-underline-offset:3px}
+@media(max-width:720px) {.gp-projetos-grade{grid-template-columns:minmax(0,1fr);gap:12px}.gp-projeto-card{padding:16px}}
+</style>
 ```
