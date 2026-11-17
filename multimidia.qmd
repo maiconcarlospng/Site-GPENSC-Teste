@@ -1,0 +1,20 @@
+---
+title: "Multimídia"
+---
+
+<div class="gp-illustrated-lead"><p>Programas em áudio, vídeos, entrevistas e produções audiovisuais do GPENSC.</p><img src="img/ilustracoes/podcasts.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+<nav class="gp-biblioteca-nav" aria-label="Seções de Multimídia">
+<a href="#podcasts">Podcasts e episódios</a>
+<a href="#videos">Vídeos</a>
+</nav>
+
+## Podcasts e episódios {#podcasts}
+
+{{< include partials/podcasts.qmd >}}
+
+## Vídeos {#videos}
+
+{{< include partials/videos.qmd >}}
+
+[Voltar à Divulgação científica](conteudos.qmd)
