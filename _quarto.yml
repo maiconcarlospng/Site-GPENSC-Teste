@@ -41,8 +41,16 @@ website:
         href: extensao.qmd
       - text: Ensino
         href: ensino.qmd
-      - text: Divulgação científica
-        href: conteudos.qmd
+      - text: Divulgação
+        menu:
+          - text: Visão geral
+            href: conteudos.qmd
+          - text: Biblioteca
+            href: biblioteca.qmd
+          - text: Multimídia
+            href: multimidia.qmd
+          - text: Ciência para a sociedade
+            href: ciencia-sociedade.qmd
       - text: Agenda
         href: agenda.qmd
       - text: Contato
