@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Livros e e-books"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#livros">
-<p><a href="conteudos.html#livros">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Livros, capítulos e produções editoriais do GPENSC.</p><img src="img/ilustracoes/livros.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Livros e e-books {#livros}
+
+{{< include partials/livros.qmd >}}
