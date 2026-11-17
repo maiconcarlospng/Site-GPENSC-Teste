@@ -139,6 +139,8 @@ if (nrow(noticias_recentes) > 0) {
   )
 }
 ```
+
+{{< include partials/link-acervo-instagram.qmd >}}
 :::::
 
 :::: faixa-agenda
