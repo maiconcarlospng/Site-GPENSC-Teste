@@ -1,21 +1,25 @@
 ---
-title: "Ensino e Extensão"
+title: "Ensino e Extensão — acesso às páginas"
+search: false
 ---
 
-Formação acadêmica e ações junto à comunidade.
+Esta página foi reorganizada. Ensino, Extensão e Projetos de pesquisa agora têm páginas independentes.
+
+- [Extensão — projetos e iniciativas](extensao.qmd)
+- [Ensino — cursos e atividades formativas](ensino.qmd)
+- [Projetos de pesquisa](projetos.qmd)
 
 ```{=html}
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#iniciativas">Iniciativas</a><a href="#ensino">Ensino</a><a href="#projetos">Projetos</a></nav>
+<script>
+(() => {
+  const anchors = {
+    '#iniciativas': 'extensao.html#iniciativas',
+    '#extensao': 'extensao.html',
+    '#ensino': 'ensino.html',
+    '#projetos': 'projetos.html'
+  };
+  const destination = anchors[window.location.hash.toLowerCase()];
+  if (destination) window.location.replace(destination);
+})();
+</script>
 ```
-
-## Iniciativas {#iniciativas}
-
-{{< include partials/extensao.qmd >}}
-
-## Ensino {#ensino}
-
-{{< include partials/ensino.qmd >}}
-
-## Projetos {#projetos}
-
-{{< include partials/projetos.qmd >}}
