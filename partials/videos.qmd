@@ -12,6 +12,7 @@ if (nrow(videos_publicados) == 0) {
 
     div(
       class = paste("cartao reveal", cor_de(i)),
+      capa_conteudo(v$imagem, v$titulo, "video"),
       if (!is.na(v$data)) span(class = "cartao-data", format(v$data, "%d/%m/%Y")),
       h4(v$titulo),
       if (!is.null(descricao)) p(descricao),
