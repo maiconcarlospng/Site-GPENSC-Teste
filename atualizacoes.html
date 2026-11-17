@@ -110,15 +110,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-o-gpensc">    
         <li>
-    <a class="dropdown-item" href="./grupo.html#sobre">
+    <a class="dropdown-item" href="./grupo.html">
  <span class="dropdown-text">Quem somos</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./grupo.html#historia">
+    <a class="dropdown-item" href="./historia.html">
  <span class="dropdown-text">Nossa história</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./grupo.html#parcerias">
+    <a class="dropdown-item" href="./parcerias.html">
  <span class="dropdown-text">Parcerias e mapa</span></a>
   </li>  
     </ul>
@@ -165,17 +165,17 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Anuário</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./atualizacoes.html#noticias">
+    <a class="dropdown-item" href="./noticias.html">
  <span class="dropdown-text">Notícias</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./atualizacoes.html#agenda"> 
+    <a class="nav-link" href="./agenda.html"> 
 <span class="menu-text">Agenda</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./grupo.html#contato"> 
+    <a class="nav-link" href="./contato.html"> 
 <span class="menu-text">Contato</span></a>
   </li>  
 </ul>
@@ -215,43 +215,25 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="gp-illustrated-lead">
 <p>
-Agenda e notícias do GPENSC.
+Acompanhe as novidades e atividades do GPENSC.
 </p>
 <img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91">
 </div>
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#agenda">Agenda</a><a href="#noticias">Notícias</a></nav>
-<section id="agenda" class="level2">
-<h2 class="anchored" data-anchor-id="agenda">Agenda</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div class="pagina-agenda">
-<h2 class="anchored">Próximas atividades</h2>
-<p>Reuniões do grupo, defesas, cursos abertos ao público e eventos ofertados pelo GPENSC.</p>
-<div class="estado-vazio">
-<div class="estado-vazio-icone">
-<i class="bi bi-info-circle" aria-hidden="true"></i>
-</div>
-<div class="estado-vazio-texto">
-<p class="estado-vazio-titulo">Nenhuma atividade programada</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="noticias" class="level2 gp-heading-art gp-heading-art--noticias">
-<h2 class="gp-heading-art gp-heading-art--noticias anchored" data-anchor-id="noticias">Notícias</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div class="estado-vazio">
-<div class="estado-vazio-icone">
-<i class="bi bi-info-circle" aria-hidden="true"></i>
-</div>
-<div class="estado-vazio-texto">
-<p class="estado-vazio-titulo">Nenhuma notícia publicada</p>
-</div>
-</div>
-</div>
+<script>
+/* Mantém os endereços já divulgados antes da separação das páginas. */
+(() => {
+  const destinos = {
+    '#agenda': 'agenda.html#agenda',
+    '#noticias': 'noticias.html#noticias'
+  };
+  const destino = destinos[window.location.hash.toLowerCase()];
+  if (destino) window.location.replace(destino);
+})();
+</script>
+<section id="acompanhe-o-gpensc" class="level2">
+<h2 class="anchored" data-anchor-id="acompanhe-o-gpensc">Acompanhe o GPENSC</h2>
+<div class="gp-research-index" aria-label="Acessos a atualizações">
+<p><a href="agenda.html"><strong>Agenda</strong><span>Reuniões, cursos e defesas</span></a> <a href="noticias.html"><strong>Notícias</strong><span>Novidades e comunicados do grupo</span></a></p>
 </div>
 
 
@@ -993,7 +975,7 @@ Escola de Nutrição · Universidade Federal de Ouro Preto
 </p>
 </div>
 <nav class="gp-footer-links" aria-label="Links do rodapé">
-<a href="grupo.html#sobre">O grupo</a><a href="pesquisa.html">Pesquisa</a><a href="atualizacoes.html#agenda">Agenda</a><a href="grupo.html#contato">Contato</a>
+<a href="grupo.html#sobre">O grupo</a><a href="pesquisa.html">Pesquisa</a><a href="agenda.html">Agenda</a><a href="contato.html">Contato</a>
 </nav>
 </div>
 <div class="gp-footer-base">
