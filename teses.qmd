@@ -2,6 +2,8 @@
 title: "Teses e dissertações"
 ---
 
+<div class="gp-illustrated-lead"><p>Teses, dissertações e qualificações cadastradas e revisadas pelo grupo.</p><img src="img/ilustracoes/teses.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
 ```{r}
 source("R/helpers.R")
 defesas_publicadas <- registros_reais(defesas, "titulo")
