@@ -41,3 +41,9 @@ html.gp-a11y-saturation #quarto-content{filter:saturate(0)!important}
 html.gp-a11y-motion *,html.gp-a11y-motion *::before,html.gp-a11y-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 @media(max-width:480px){#gp-access{left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}#gp-access-trigger{width:48px;height:48px}#gp-access-panel{width:min(365px,calc(100vw - 24px));max-height:calc(100dvh - 80px)}#gp-access .gp-a11y-tile{min-height:88px}}
 @media(prefers-reduced-motion:reduce){#gp-access-trigger{transition:none}}
+
+/* Recursos adicionais: guia horizontal e cursor ampliado. */
+#gp-a11y-reading-guide{position:fixed;left:0;top:-100px;width:100vw;height:34px;border-top:2px solid #1f4d2b;border-bottom:2px solid #1f4d2b;background:rgba(255,230,130,.18);pointer-events:none;z-index:1080;display:none;transform:translateY(-50%)}
+html.gp-a11y-readingGuide #gp-a11y-reading-guide{display:block}
+@media(pointer:fine){html.gp-a11y-largeCursor #quarto-content,html.gp-a11y-largeCursor #quarto-content *{cursor:crosshair!important}}
+@media(pointer:coarse){html.gp-a11y-readingGuide #gp-a11y-reading-guide{display:none}}
