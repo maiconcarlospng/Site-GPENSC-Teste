@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Agenda"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=atualizacoes.html#agenda">
-<p><a href="atualizacoes.html#agenda">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Reuniões, defesas, cursos e atividades do GPENSC.</p><img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Agenda GPENSC {#agenda .gp-heading-art .gp-heading-art--agenda}
+
+{{< include partials/agenda.qmd >}}
