@@ -26,30 +26,39 @@ website:
     background: light
     
     right:
-      - text: Quem somos
-        href: grupo.qmd#sobre
-      - text: Nossa história
-        href: grupo.qmd#historia
+      # Menu institucional enxuto; paginas mantidas na mesma URL.
+      - text: O GPENSC
+        menu:
+          - text: Quem somos
+            href: grupo.qmd#sobre
+          - text: Nossa história
+            href: grupo.qmd#historia
+          - text: Parcerias e mapa
+            href: grupo.qmd#parcerias
       - text: Pesquisa
         menu:
+          - text: Visão geral
+            href: pesquisa.qmd
           - text: Linhas de pesquisa
             href: linhas.qmd
           - text: Projetos de pesquisa
             href: projetos.qmd
-          - text: Publicações
-            href: publicacoes.qmd
           - text: Teses e dissertações
             href: teses.qmd
+          - text: Publicações
+            href: publicacoes.qmd
           - text: Árvore do conhecimento
             href: arvore.qmd
+          - text: Metodologias
+            href: metodos.qmd
       - text: Extensão
         href: extensao.qmd
       - text: Ensino
         href: ensino.qmd
-      - text: Contato
-        href: grupo.qmd#contato
-      - text: Divulgação científica
+      - text: Divulgação
         menu:
+          - text: Visão geral
+            href: conteudos.qmd
           - text: Materiais educativos
             href: conteudos.qmd#materiais
           - text: Podcasts
@@ -60,14 +69,12 @@ website:
             href: conteudos.qmd#videos
           - text: Anuário
             href: conteudos.qmd#anuario
-          - text: Ciência para a sociedade
-            href: conteudos.qmd#resultados
           - text: Notícias
             href: atualizacoes.qmd#noticias
       - text: Agenda
         href: atualizacoes.qmd#agenda
-      - text: Parcerias
-        href: grupo.qmd#parcerias
+      - text: Contato
+        href: grupo.qmd#contato
 
   page-footer:
     left: |
