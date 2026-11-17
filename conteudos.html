@@ -135,10 +135,29 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./ensino.html"> 
 <span class="menu-text">Ensino</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./conteudos.html" aria-current="page"> 
-<span class="menu-text">Divulgação científica</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-divulgação" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Divulgação</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-divulgação">    
+        <li>
+    <a class="dropdown-item" href="./conteudos.html">
+ <span class="dropdown-text">Visão geral</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./biblioteca.html">
+ <span class="dropdown-text">Biblioteca</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./multimidia.html">
+ <span class="dropdown-text">Multimídia</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ciencia-sociedade.html">
+ <span class="dropdown-text">Ciência para a sociedade</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./agenda.html"> 
 <span class="menu-text">Agenda</span></a>
@@ -191,27 +210,22 @@ Produções científicas e materiais do GPENSC para a comunidade acadêmica e a 
 <section id="explore-os-conteúdos" class="level2">
 <h2 class="anchored" data-anchor-id="explore-os-conteúdos">Explore os conteúdos</h2>
 <nav class="gp-research-index" aria-label="Áreas de divulgação científica">
-<a href="materiais.html"><strong>Materiais educativos</strong><span>Cartilhas e recursos de educação alimentar</span></a>
-<a href="podcasts.html"><strong>Podcasts</strong><span>Conversas e programas em áudio</span></a>
-<a href="livros.html"><strong>Livros e e-books</strong><span>Produção editorial do grupo</span></a>
-<a href="videos.html"><strong>Vídeos</strong><span>Conteúdos audiovisuais</span></a>
-<a href="resultados.html"><strong>Ciência para a sociedade</strong><span>Resultados explicados ao público</span></a>
-<a href="impacto.html"><strong>Impacto social</strong><span>Registros e ações para a comunidade</span></a>
-<a href="anuario.html"><strong>Anuário</strong><span>Memória anual a partir de 2027</span></a>
-<a href="noticias.html"><strong>Notícias</strong><span>Novidades e comunicados do GPENSC</span></a>
+<a href="biblioteca.html"><strong>Biblioteca</strong><span>Cartilhas, materiais educativos, livros, e-books e anuários</span></a>
+<a href="multimidia.html"><strong>Multimídia</strong><span>Podcasts, vídeos, entrevistas e episódios do GPENSC no Ar</span></a>
+<a href="ciencia-sociedade.html"><strong>Ciência para a sociedade</strong><span>Resultados científicos acessíveis e impacto social</span></a>
 </nav>
-<!-- Sem bloco de Instagram: as informações importadas passam a integrar os cadastros de cada área. -->
+<p>Acompanhe também as <a href="./noticias.html">notícias e novidades do GPENSC</a>. A <a href="./agenda.html">Agenda</a> reúne os próximos eventos e atividades do grupo.</p>
 <script>
-/* Compatibilidade com endereços antigos baseados em seções da divulgação. */
+/* Redireciona links compartilhados anteriormente para a seção equivalente na nova organização. */
 (() => {
   const paginas = {
-    '#materiais': 'materiais.html#materiais',
-    '#videos': 'videos.html#videos',
-    '#podcasts': 'podcasts.html#podcasts',
-    '#livros': 'livros.html#livros',
-    '#anuario': 'anuario.html#anuario',
-    '#resultados': 'resultados.html#resultados',
-    '#impacto': 'impacto.html#impacto'
+    '#materiais': 'biblioteca.html#materiais',
+    '#livros': 'biblioteca.html#livros',
+    '#anuario': 'biblioteca.html#anuario',
+    '#podcasts': 'multimidia.html#podcasts',
+    '#videos': 'multimidia.html#videos',
+    '#resultados': 'ciencia-sociedade.html#resultados',
+    '#impacto': 'ciencia-sociedade.html#impacto'
   };
   const destino = paginas[window.location.hash.toLowerCase()];
   if (destino) window.location.replace(destino);
