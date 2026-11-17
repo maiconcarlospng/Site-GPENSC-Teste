@@ -8,6 +8,8 @@ Fontes originais e cadastros em main permanecem inalterados.
 from __future__ import annotations
 
 import concurrent.futures
+import html
+import json
 import pathlib
 import re
 import sys
@@ -30,6 +32,8 @@ SHORTCODE = re.compile(r"^https://www\.instagram\.com/p/([A-Za-z0-9_-]{7,30})/$"
 ATTR_URL = re.compile(r'^    (?:url|link): "(https://www\.instagram\.com/p/[^"]+)"\s*$', re.MULTILINE)
 ATTR_IMG = re.compile(r'^    imagem: "(https://[^"]+)"\s*$', re.MULTILINE)
 IMGS = (".jpg", ".png", ".webp")
+META_IMAGE = re.compile(r'<meta\\s+[^>]*?(?:property|name)=[\\\x22\\\x27](?:og:image|twitter:image)[\\\x22\\\x27][^>]*?content=[\\\x22\\\x27]([^\\\x22\\\x27]+)', re.I)
+META_IMAGE_REVERSED = re.compile(r'<meta\\s+[^>]*?content=[\\\x22\\\x27]([^\\\x22\\\x27]+)[\\\x22\\\x27][^>]*?(?:property|name)=[\\\x22\\\x27](?:og:image|twitter:image)[\\\x22\\\x27]', re.I)
 
 
 def aceitar_url_imagem(url: str) -> bool:
@@ -64,31 +68,57 @@ def capa_local(codigo: str) -> pathlib.Path | None:
     return None
 
 
+def baixar_url(url: str) -> bytes | None:
+    if not aceitar_url_imagem(url):
+        return None
+    try:
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "image/avif,image/webp,image/png,image/jpeg,image/*;q=0.8",
+        })
+        with urllib.request.urlopen(req, timeout=14) as response:
+            data = response.read(MAX_BYTES + 1)
+        return data if 128 < len(data) <= MAX_BYTES and tipo_imagem(data) else None
+    except Exception:
+        return None
+
+
+def imagem_da_publicacao(codigo: str) -> str | None:
+    """Recupera a capa atual quando o CDN extraído anteriormente expirou."""
+    url = f"https://www.instagram.com/p/{codigo}/"
+    try:
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+            "Accept": "text/html",
+        })
+        with urllib.request.urlopen(req, timeout=12) as response:
+            page = response.read(2_000_000).decode("utf-8", "replace")
+        for pattern in (META_IMAGE, META_IMAGE_REVERSED):
+            found = pattern.search(page)
+            if found:
+                candidate = html.unescape(found.group(1)).replace("\\u0026", "&")
+                if aceitar_url_imagem(candidate):
+                    return candidate
+    except Exception:
+        pass
+    return None
+
+
 def baixar(entrada: tuple[str, str]) -> tuple[str, pathlib.Path | None, str]:
     codigo, url = entrada
     existente = capa_local(codigo)
     if existente:
         return codigo, existente, "recuperada"
-    if not aceitar_url_imagem(url):
-        return codigo, None, "fonte inválida"
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": "Mozilla/5.0 (compatible; GPENSC-Site/1.0)",
-                "Accept": "image/avif,image/webp,image/png,image/jpeg,image/*;q=0.8",
-            },
-        )
-        with urllib.request.urlopen(req, timeout=14) as response:
-            data = response.read(MAX_BYTES + 1)
-        extensao = tipo_imagem(data)
-        if len(data) > MAX_BYTES or len(data) < 128 or not extensao:
-            return codigo, None, "resposta não é imagem válida"
-        path = DESTINO / (codigo + extensao)
-        path.write_bytes(data)
-        return codigo, path, "baixada"
-    except Exception as exc:
-        return codigo, None, f"origem indisponível ({type(exc).__name__})"
+    data = baixar_url(url)
+    if not data:
+        alternativa = imagem_da_publicacao(codigo)
+        if alternativa:
+            data = baixar_url(alternativa)
+    if not data:
+        return codigo, None, "CDN expirado e capa da publicação indisponível"
+    path = DESTINO / (codigo + tipo_imagem(data))
+    path.write_bytes(data)
+    return codigo, path, "baixada"
 
 
 def encontrar_registros(conteudo: str) -> list[tuple[str, str]]:
