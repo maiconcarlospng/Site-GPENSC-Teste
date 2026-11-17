@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Notícias"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=atualizacoes.html#noticias">
-<p><a href="atualizacoes.html#noticias">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Comunicados e notícias publicadas pelo GPENSC.</p><img src="img/ilustracoes/noticias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Notícias {#noticias .gp-heading-art .gp-heading-art--noticias}
+
+{{< include partials/noticias.qmd >}}
