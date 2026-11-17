@@ -93,7 +93,7 @@
         cell.setAttribute("aria-label", readable);
 
         if (hasEvent) {
-          cell.href = "atualizacoes.html#agenda";
+          cell.href = "agenda.html";
           cell.title = titles.join(" · ");
         }
 

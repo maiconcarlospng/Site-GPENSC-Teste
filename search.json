@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "videos.html",
+    "href": "videos.html",
+    "title": "Vídeos",
+    "section": "",
+    "text": "Conteúdos audiovisuais e registros de atividades do grupo."
+  },
+  {
+    "objectID": "videos.html#videos",
+    "href": "videos.html#videos",
+    "title": "Vídeos",
+    "section": "Vídeos",
+    "text": "Vídeos\n\n\n\n\n\n\n\nVídeos em atualização"
+  },
+  {
     "objectID": "teses.html",
     "href": "teses.html",
     "title": "Teses e dissertações",
@@ -12,6 +26,20 @@
     "title": "Publicações",
     "section": "",
     "text": "Os estudos com sínteses para o público geral estão em Ciência para a sociedade.\n\n\n\n\n\n\n\nNenhuma publicação cadastrada no momento."
+  },
+  {
+    "objectID": "podcasts.html",
+    "href": "podcasts.html",
+    "title": "Podcasts",
+    "section": "",
+    "text": "Conversas e programas de áudio sobre nutrição e saúde coletiva."
+  },
+  {
+    "objectID": "podcasts.html#podcasts",
+    "href": "podcasts.html#podcasts",
+    "title": "Podcasts",
+    "section": "Podcasts",
+    "text": "Podcasts\n\n\n\n\n\nAcervo do grupo\nGPENSC no Ar\nSérie de conversas sobre alimentação, nutrição, sono, exercício físico e saúde coletiva, produzida pelo grupo em parceria com a Rádio Província FM. O player reúne os episódios já publicados.\n\n\n\nOuvir o acervo no Spotify\n\n\nCanal da Rádio UFOP\nUFOP Cast\nO UFOP Cast reúne produções em áudio da Universidade. Acompanhe o canal para encontrar os lançamentos recentes e conteúdos com participação de integrantes e pesquisadores do GPENSC.\nAcessar o UFOP Cast"
   },
   {
     "objectID": "parcerias.html",
@@ -33,6 +61,20 @@
     "title": "Metodologias e portfólios",
     "section": "",
     "text": "Metodologias em atualização"
+  },
+  {
+    "objectID": "livros.html",
+    "href": "livros.html",
+    "title": "Livros e e-books",
+    "section": "",
+    "text": "Livros, capítulos e produções editoriais do GPENSC."
+  },
+  {
+    "objectID": "livros.html#livros",
+    "href": "livros.html#livros",
+    "title": "Livros e e-books",
+    "section": "Livros e e-books",
+    "text": "Livros e e-books\n\n\n\n\n\n\n\nLivros e capítulos em atualização"
   },
   {
     "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2076617220746974756c6f5f686f6d655f706573717569736173203e7d7d",
@@ -98,6 +140,27 @@
     "text": "Acompanhe o GPENSC\n\nAgendaReuniões, cursos e defesas NotíciasNovidades e comunicados do grupo"
   },
   {
+    "objectID": "anuario.html",
+    "href": "anuario.html",
+    "title": "Anuário GPENSC",
+    "section": "",
+    "text": "Memória anual das atividades, dos projetos e das produções do grupo."
+  },
+  {
+    "objectID": "anuario.html#anuario",
+    "href": "anuario.html#anuario",
+    "title": "Anuário GPENSC",
+    "section": "Anuário do GPENSC",
+    "text": "Anuário do GPENSC\nO anuário do GPENSC tem início previsto para 2027. As edições serão reunidas nesta página conforme forem disponibilizadas."
+  },
+  {
+    "objectID": "acervo-instagram.html",
+    "href": "acervo-instagram.html",
+    "title": "Acervo de atividades",
+    "section": "",
+    "text": "Acervo histórico em revisão editorial. Esta página reúne referências às publicações públicas do Instagram do GPENSC entre 2020 e 2026. Os registros foram reunidos por tema e não substituem os cadastros oficiais de pesquisadores, projetos, defesas e publicações científicas.\n\n\nConfira as informações e a autoria na fonte original antes de reutilizar estes dados em registros institucionais.\n\n\n\n\n\nBuscar no acervo\n\n\nÁrea do siteTodas as áreas\n\n\nAnoTodos os anos\n\n\n\nPreparando o acervo…"
+  },
+  {
     "objectID": "agenda.html",
     "href": "agenda.html",
     "title": "Agenda",
@@ -112,13 +175,6 @@
     "text": "Agenda GPENSC\n\n\n\nPróximas atividades\nReuniões do grupo, defesas, cursos abertos ao público e eventos ofertados pelo GPENSC.\n\n\n\n\n\nNenhuma atividade programada"
   },
   {
-    "objectID": "acervo-instagram.html",
-    "href": "acervo-instagram.html",
-    "title": "Acervo de atividades",
-    "section": "",
-    "text": "Acervo histórico em revisão editorial. Esta página reúne referências às publicações públicas do Instagram do GPENSC entre 2020 e 2026. Os registros foram reunidos por tema e não substituem os cadastros oficiais de pesquisadores, projetos, defesas e publicações científicas.\n\n\nConfira as informações e a autoria na fonte original antes de reutilizar estes dados em registros institucionais.\n\n\n\n\n\nBuscar no acervo\n\n\nÁrea do siteTodas as áreas\n\n\nAnoTodos os anos\n\n\n\nPreparando o acervo…"
-  },
-  {
     "objectID": "arvore.html",
     "href": "arvore.html",
     "title": "Árvore do conhecimento",
@@ -130,56 +186,14 @@
     "href": "conteudos.html",
     "title": "Divulgação científica",
     "section": "",
-    "text": "Produções do grupo para a comunidade acadêmica e a sociedade."
+    "text": "Produções científicas e materiais do GPENSC para a comunidade acadêmica e a sociedade."
   },
   {
-    "objectID": "conteudos.html#materiais",
-    "href": "conteudos.html#materiais",
+    "objectID": "conteudos.html#explore-os-conteúdos",
+    "href": "conteudos.html#explore-os-conteúdos",
     "title": "Divulgação científica",
-    "section": "Materiais educativos",
-    "text": "Materiais educativos\n\n\n\n\n\n\n\nMateriais educativos em atualização"
-  },
-  {
-    "objectID": "conteudos.html#videos",
-    "href": "conteudos.html#videos",
-    "title": "Divulgação científica",
-    "section": "Vídeos",
-    "text": "Vídeos\n\n\n\n\n\n\n\nVídeos em atualização"
-  },
-  {
-    "objectID": "conteudos.html#podcasts",
-    "href": "conteudos.html#podcasts",
-    "title": "Divulgação científica",
-    "section": "Podcasts",
-    "text": "Podcasts\n\n\n\n\n\nAcervo do grupo\nGPENSC no Ar\nSérie de conversas sobre alimentação, nutrição, sono, exercício físico e saúde coletiva, produzida pelo grupo em parceria com a Rádio Província FM. O player reúne os episódios já publicados.\n\n\n\nOuvir o acervo no Spotify\n\n\nCanal da Rádio UFOP\nUFOP Cast\nO UFOP Cast reúne produções em áudio da Universidade. Acompanhe o canal para encontrar os lançamentos recentes e conteúdos com participação de integrantes e pesquisadores do GPENSC.\nAcessar o UFOP Cast\n\n\n\n\n\n\n\n\n\n\n\nRegistros relacionados do Instagram\nPublicações históricas selecionadas por tema. Informações em revisão editorial; consulte a fonte antes de reutilizar.\n\nExplorar o acervo completo\n\nCarregando registros do acervo…\n\n\n\nConsultar todas as referências do Instagram"
-  },
-  {
-    "objectID": "conteudos.html#livros",
-    "href": "conteudos.html#livros",
-    "title": "Divulgação científica",
-    "section": "Livros e e-books",
-    "text": "Livros e e-books\n\n\n\n\n\n\n\nLivros e capítulos em atualização"
-  },
-  {
-    "objectID": "conteudos.html#anuario",
-    "href": "conteudos.html#anuario",
-    "title": "Divulgação científica",
-    "section": "Anuário",
-    "text": "Anuário\nO anuário do GPENSC tem início previsto para 2027, reunindo as atividades e produções do grupo."
-  },
-  {
-    "objectID": "conteudos.html#resultados",
-    "href": "conteudos.html#resultados",
-    "title": "Divulgação científica",
-    "section": "Ciência para a sociedade",
-    "text": "Ciência para a sociedade\n\n\n\n\n\n\n\nNenhuma síntese publicada."
-  },
-  {
-    "objectID": "conteudos.html#impacto",
-    "href": "conteudos.html#impacto",
-    "title": "Divulgação científica",
-    "section": "Impacto social",
-    "text": "Impacto social\n\n\n\n\n\n\n\nRegistros de impacto em preparação"
+    "section": "Explore os conteúdos",
+    "text": "Explore os conteúdos\n\nMateriais educativosCartilhas e recursos de educação alimentar\nPodcastsConversas e programas em áudio\nLivros e e-booksProdução editorial do grupo\nVídeosConteúdos audiovisuais\nCiência para a sociedadeResultados explicados ao público\nImpacto socialRegistros e ações para a comunidade\nAnuárioMemória anual a partir de 2027\nNotíciasNovidades e comunicados do GPENSC\n\n\n\n\n\n\n\nRegistros relacionados do Instagram\nPublicações históricas selecionadas por tema. Informações em revisão editorial; consulte a fonte antes de reutilizar.\n\nExplorar o acervo completo\n\nCarregando registros do acervo…\n\n\n\nConsultar todas as referências do Instagram"
   },
   {
     "objectID": "ensino.html",
@@ -203,6 +217,20 @@
     "text": "Quem somos\n\n\n\n\nFundado na Escola de Nutrição da UFOP, o GPENSC articula docentes, pesquisadores e estudantes na produção de conhecimento científico rigoroso e aplicado às demandas de saúde pública da comunidade.\n\n\n\n\n\n\nNossa missão\nGerar e disseminar conhecimento científico em nutrição e saúde coletiva, formando profissionais capacitados e promovendo intervenções de impacto social na saúde pública.\n\n\n\n\n\nNossa visão\nSer referência acadêmica e científica na investigação dos determinantes sociais da nutrição e no fortalecimento das políticas públicas de saúde.\n\n\nO que fazemos\n\n\n01\nAtividades de extensão: desenvolvemos os projetos Capacitação em Epidemiologia e Análise de Dados e Vi no Rótulo.\n\n\n02\nAtividades de ensino: realizamos workshops para graduação e pós-graduação, palestras e outras atividades formativas.\n\n\n03\nAtividades de pesquisa: desenvolvemos pesquisas, teses, dissertações e trabalhos de conclusão de curso (TCC), produções científicas e discussões científicas.\n\n\n04\nArticulação com gestores, profissionais e sociedade civil: aproximamos nossas pesquisas das demandas da sociedade, buscando contribuir para as políticas públicas e gerar impacto social.\n\n\n\n\nRegistros em imagens\n\n\n‹\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n›\n\nFoto 1 de 10\n\nPessoas do GPENSC\n\n\n10 integrantes\n\n\n\nBuscar integrante\n\n\n\nCategoria\n\nTodas as categorias\nLíderes\nPesquisadores\n\n\n\n\nLíderes\nDocentes da Escola de Nutrição (ENUT/UFOP).\n\n\n\nAC\n\nLíder do grupo\nAriene Silva do Carmo\n\n\n\n\n\n\nRM\n\nLíder do grupo\nRaquel de Deus Mendonça\n\n\n\n\n\n\n\nPesquisadores\n\n\n\nAM\n\nPesquisadora\nAdriana Lúcia Meireles\n\n\n\n\n\n\nCS\n\nPesquisadora\nCamila Carvalho Menezes Salierno\n\n\n\n\n\n\nER\n\nPesquisadora\nErica Costa Rodrigues\n\n\n\n\n\n\nJC\n\nPesquisadora\nJúlia Cristina Cardoso Carraro\n\n\n\n\n\n\nLJ\n\nPesquisador\nLuiz Antônio Alves de Menezes Júnior\n\n\n\n\n\n\nSM\n\nPesquisadora\nSamara Silva de Moura\n\n\n\n\n\n\nSB\n\nPesquisadora\nSandhi Maria Barreto\n\n\n\n\n\n\nTS\n\nPesquisadora\nThais da Silva Sabião\n\n\n\n\n\n\nNenhum integrante corresponde à busca ou à categoria selecionada.\n\n\n\nRegistro institucional do GPENSC no CNPq.\nConsultar Diretório dos Grupos de Pesquisa do CNPq"
   },
   {
+    "objectID": "impacto.html",
+    "href": "impacto.html",
+    "title": "Impacto social",
+    "section": "",
+    "text": "Registros dos efeitos sociais e das ações do GPENSC."
+  },
+  {
+    "objectID": "impacto.html#impacto",
+    "href": "impacto.html#impacto",
+    "title": "Impacto social",
+    "section": "Impacto social",
+    "text": "Impacto social\n\n\n\n\n\n\n\nRegistros de impacto em preparação"
+  },
+  {
     "objectID": "linhas.html",
     "href": "linhas.html",
     "title": "Linhas de pesquisa",
@@ -210,11 +238,18 @@
     "text": "Linhas de pesquisa e suas conexões com projetos, integrantes e produção científica.\n\n\n\n\n\n\n\n\n\n01\nPESQUISA\n\nRotulagem de alimentos\n\n\n\n02\nPESQUISA\n\nComportamento Alimentar\n\n\n\n03\nPESQUISA\n\nAlimentação Sustentável\n\n\n\n04\nPESQUISA\n\nAmbiente alimentar\n\n\n\n05\nPESQUISA\n\nPolíticas de alimentação e nutrição e de segurança alimentar e nutricional\n\n\n\n06\nPESQUISA\n\nComportamentos obesogênicos\n\n\n\n07\nPESQUISA\n\nCrononutrição\n\n\n\n08\nPESQUISA\n\nSaúde mental em populações vulneráveis\n\n\n\n09\nPESQUISA\n\nNutrição no contexto de emergências ambientais e sanitárias\n\n\n\n10\nPESQUISA\n\nIntervenção em saúde e nutrição"
   },
   {
-    "objectID": "noar.html",
-    "href": "noar.html",
-    "title": "Podcasts",
+    "objectID": "materiais.html",
+    "href": "materiais.html",
+    "title": "Materiais educativos",
     "section": "",
-    "text": "O acervo de podcasts do GPENSC está na nova página.\nAcessar Podcasts."
+    "text": "Cartilhas, infográficos e outros recursos educativos produzidos pelo GPENSC."
+  },
+  {
+    "objectID": "materiais.html#materiais",
+    "href": "materiais.html#materiais",
+    "title": "Materiais educativos",
+    "section": "Materiais educativos",
+    "text": "Materiais educativos\n\n\n\n\n\n\n\nMateriais educativos em atualização"
   },
   {
     "objectID": "noticias.html",
@@ -250,5 +285,19 @@
     "title": "Projetos de pesquisa",
     "section": "Projetos de pesquisa",
     "text": "Projetos de pesquisa\n\n\n\n\n\n\n\n\nProjetos de pesquisa em atualização\n\n\n\n\n\n\nPara projetos de extensão coordenados pelo grupo, acesse Extensão."
+  },
+  {
+    "objectID": "resultados.html",
+    "href": "resultados.html",
+    "title": "Ciência para a sociedade",
+    "section": "",
+    "text": "Resultados de pesquisas explicados para a comunidade."
+  },
+  {
+    "objectID": "resultados.html#resultados",
+    "href": "resultados.html#resultados",
+    "title": "Ciência para a sociedade",
+    "section": "Ciência para a sociedade",
+    "text": "Ciência para a sociedade\n\n\n\n\n\n\n\nNenhuma síntese publicada."
   }
 ]

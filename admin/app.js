@@ -159,11 +159,15 @@ function isGalleryCollection(entry){return entry?.name==='galeria'||entry?.file=
 function collectionSummary(entry){const count=summaryRecords(entry).length,examples=entryList(entry).length-count;return isConfigCollection(entry)?'Configuração institucional':count+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')}
 function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo||item.autor||'Registro sem título'}
 const SITE_AREAS=[
-  {title:'Grupo',names:['equipe','linha_tempo','galeria','parcerias','apoio']},
+  {title:'Quem somos',names:['equipe']},
+  {title:'Nossa história',names:['linha_tempo','galeria']},
+  {title:'Parcerias',names:['parcerias','apoio','sites']},
   {title:'Pesquisa',names:['linhas','projetos','publicacoes','defesas','metodos']},
-  {title:'Extensão e formação',names:['conteudos_vi_no_rotulo','equipe_vi_no_rotulo','capacitacao_atividades','disciplinas','impactos']},
-  {title:'Conteúdos',names:['materiais','videos','livros','noar','sites']},
-  {title:'Atualizações',names:['noticias','eventos']},
+  {title:'Extensão',names:['conteudos_vi_no_rotulo','equipe_vi_no_rotulo','capacitacao_atividades']},
+  {title:'Ensino',names:['disciplinas']},
+  {title:'Divulgação científica',names:['materiais','videos','livros','noar','impactos']},
+  {title:'Agenda',names:['eventos']},
+  {title:'Notícias',names:['noticias']},
   {title:'Gestão editorial',names:['planejamento','pautas_instagram']}
 ];
 function siteArea(entry){
@@ -171,14 +175,15 @@ function siteArea(entry){
   return SITE_AREAS.find(area=>area.names.includes(entry?.name))?.title||'Outros conteúdos';
 }
 const SITE_PAGES={
-  equipe:'grupo.html#equipe',linha_tempo:'grupo.html#historia',galeria:'index.html',
-  parcerias:'grupo.html#parcerias',apoio:'grupo.html#parcerias',
+  equipe:'grupo.html#equipe',linha_tempo:'historia.html#historia',galeria:'index.html',
+  parcerias:'parcerias.html',apoio:'parcerias.html',
   linhas:'linhas.html',projetos:'projetos.html',publicacoes:'publicacoes.html',defesas:'teses.html',
-  metodos:'pesquisa.html',conteudos_vi_no_rotulo:'vi-no-rotulo.html#vi-publicacoes',equipe_vi_no_rotulo:'vi-no-rotulo.html#vi-equipe',
-  capacitacao_atividades:'capacitacao-epidemiologia.html',disciplinas:'ensino.html',impactos:'pesquisa.html',
-  materiais:'conteudos.html#materiais',videos:'conteudos.html#videos',livros:'conteudos.html#livros',
-  noar:'conteudos.html#podcasts',sites:'conteudos.html',noticias:'atualizacoes.html#noticias',
-  eventos:'atualizacoes.html#agenda',planejamento:'index.html',pautas_instagram:'acervo-instagram.html'
+  metodos:'metodos.html',conteudos_vi_no_rotulo:'extensao.html#projeto-PR-VR',
+  equipe_vi_no_rotulo:'extensao.html#projeto-PR-VR',
+  capacitacao_atividades:'extensao.html#projeto-PR-CEP',disciplinas:'ensino.html',
+  impactos:'impacto.html',materiais:'materiais.html',videos:'videos.html',livros:'livros.html',
+  noar:'podcasts.html',sites:'parcerias.html',noticias:'noticias.html',
+  eventos:'agenda.html',planejamento:'index.html',pautas_instagram:'acervo-instagram.html'
 };
 function sitePage(entry){return '../'+(SITE_PAGES[entry?.name]||'index.html')}
 function renderNav(){
