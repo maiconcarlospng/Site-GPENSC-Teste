@@ -2,6 +2,8 @@
 title: "Linhas de pesquisa"
 ---
 
+<div class="gp-illustrated-lead"><p>Linhas de pesquisa e suas conexões com projetos, integrantes e produção científica.</p><img src="img/ilustracoes/linhas.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
 ```{r}
 source("R/helpers.R")
 
