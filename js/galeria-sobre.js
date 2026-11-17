@@ -20,7 +20,7 @@
         const destino = Math.max(0, Math.min(slides.length - 1, indice));
         janela.scrollTo({
           left: slides[destino].offsetLeft - slides[0].offsetLeft,
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+          behavior: (window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('gp-a11y-motion')) ? 'instant' : 'smooth'
         });
         atualizar(destino);
       }
