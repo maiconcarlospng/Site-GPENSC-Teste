@@ -26,7 +26,7 @@ website:
     background: light
     
     right:
-      # Menu institucional enxuto; áreas principais com páginas independentes.
+      # Navegação principal sem links repetidos: subáreas de divulgação ficam na própria página.
       - text: O GPENSC
         menu:
           - text: Quem somos
@@ -41,26 +41,8 @@ website:
         href: extensao.qmd
       - text: Ensino
         href: ensino.qmd
-      - text: Divulgação
-        menu:
-          - text: Visão geral
-            href: conteudos.qmd
-          - text: Materiais educativos
-            href: materiais.qmd
-          - text: Podcasts
-            href: podcasts.qmd
-          - text: Livros e e-books
-            href: livros.qmd
-          - text: Vídeos
-            href: videos.qmd
-          - text: Anuário
-            href: anuario.qmd
-          - text: Ciência para a sociedade
-            href: resultados.qmd
-          - text: Impacto social
-            href: impacto.qmd
-          - text: Notícias
-            href: noticias.qmd
+      - text: Divulgação científica
+        href: conteudos.qmd
       - text: Agenda
         href: agenda.qmd
       - text: Contato
