@@ -98,7 +98,7 @@
       const label=document.getElementById('pending-count');
       if(label)label.textContent=count;
       const button=document.getElementById('pending-trigger');
-      if(button){button.classList.toggle('has-pending',count>0);button.setAttribute('aria-label',count+' alterações pendentes. Revisar antes de publicar.')}
+      if(button){button.classList.toggle('has-pending',count>0);button.setAttribute('aria-label',count+' seções ou arquivos pendentes. Revisar antes de publicar.')}
       const mobile=document.getElementById('mobile-review');
       if(mobile){mobile.querySelector('span').textContent=count?'Revisar ('+count+')':'Revisar';mobile.classList.toggle('has-pending',count>0)}
       document.querySelectorAll('[data-batch-count]').forEach(el=>el.textContent=count);
@@ -190,7 +190,7 @@
         '<div class="batch-summary-bar"><div><strong>'+count+'</strong><span>itens na fila</span></div><div><strong>'+Object.keys(pending).length+'</strong><span>seções editadas</span></div><div><strong>'+Object.keys(assets).length+'</strong><span>mídias</span></div></div>'+
         (notice?'<p class="batch-notice">'+esc(notice)+'</p>':'')+
         (count?'<section class="batch-review-list" aria-label="Resumo das alterações">'+parts.rows+parts.media+'</section>':'<div class="batch-empty"><h2>Nenhuma alteração pendente</h2><p>Edite notícias, equipe, agenda, projetos ou outras seções. Cada edição ficará aqui até a publicação.</p></div>')+
-        '<div class="batch-checkout"><div><strong>Conferência final</strong><p>'+(state.authMode==='access-code'?'No acesso por código, os arquivos são enviados em sequência após sua confirmação. Se houver erro, os restantes continuam pendentes.':'No acesso com GitHub, as alterações são reunidas em um único commit.')+'</p></div><div class="batch-checkout-actions"><button type="button" class="secondary-button" id="batch-discard-all"'+(!count||publishing?' disabled':'')+'>Descartar tudo</button><button type="button" class="primary-button" id="batch-publish-all"'+(!count||publishing?' disabled':'')+'>Publicar '+count+' alteração'+(count===1?'':'ões')+'</button></div></div>'+
+        '<div class="batch-checkout"><div><strong>Conferência final</strong><p>'+(state.authMode==='access-code'?'No acesso por código, os arquivos são enviados em sequência após sua confirmação. Se houver erro, os restantes continuam pendentes.':'No acesso com GitHub, as alterações são reunidas em um único commit.')+'</p></div><div class="batch-checkout-actions"><button type="button" class="secondary-button" id="batch-discard-all"'+(!count||publishing?' disabled':'')+'>Descartar tudo</button><button type="button" class="primary-button" id="batch-publish-all"'+(!count||publishing?' disabled':'')+'>Publicar tudo ('+count+' arquivo'+(count===1?'':'s')+')</button></div></div>'+
         '<p class="batch-publish-status" id="batch-publish-status" role="status"></p>';
       container.querySelectorAll('[data-batch-remove]').forEach(btn=>btn.onclick=()=>{
         if(!confirm('Descartar as alterações pendentes de '+btn.dataset.batchRemove+'?'))return;
@@ -323,7 +323,7 @@
     }
     function banner(){
       const count=total();
-      return '<section class="batch-dashboard-notice" aria-label="Edições em preparação"><div><span class="eyebrow">FLUXO DE PUBLICAÇÃO</span><strong>'+(count?count+' alterações aguardando revisão':'Edite várias áreas antes de publicar')+'</strong><p>'+(count?'Você pode continuar editando sem afetar o site público.':'As mudanças são guardadas como rascunhos neste navegador até você confirmar o envio.')+'</p></div><button type="button" class="secondary-button" data-batch-review>Revisar e publicar <span data-batch-count>'+count+'</span></button></section>';
+      return '<section class="batch-dashboard-notice" aria-label="Edições em preparação"><div><span class="eyebrow">FLUXO DE PUBLICAÇÃO</span><strong>'+(count?count+' itens aguardando revisão':'Edite várias áreas antes de publicar')+'</strong><p>'+(count?'Você pode continuar editando sem afetar o site público.':'As mudanças são guardadas como rascunhos neste navegador até você confirmar o envio.')+'</p></div><button type="button" class="secondary-button" data-batch-review>Revisar e publicar <span data-batch-count>'+count+'</span></button></section>';
     }
     return {afterLoad,stage,stageMedia,removeDraft,deleteAsset,clearAll,updateUI,renderReview,publish,items:()=>clone(pending),assets:()=>clone(assets),count:total,banner,isPublishing:()=>publishing};
   }
