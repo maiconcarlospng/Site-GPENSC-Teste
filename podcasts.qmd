@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Podcasts"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#podcasts">
-<p><a href="conteudos.html#podcasts">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Conversas e programas de áudio sobre nutrição e saúde coletiva.</p><img src="img/ilustracoes/podcasts.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Podcasts {#podcasts}
+
+{{< include partials/podcasts.qmd >}}
