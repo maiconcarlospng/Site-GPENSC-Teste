@@ -26,8 +26,8 @@ const apiFactory=(mode='normal')=>{
   let errorOnce=true;
   const api=async(path,options)=>{
     const method=options?.method||'GET';log.push({path,method,options});
-    if(path.includes('/contents/data/noticias.yml'))return {sha:mode==='conflict'?'sha-diferente':'sha-noticias',content:{sha:'sha-noticias-new'}};
-    if(path.includes('/contents/data/eventos.yml'))return {sha:'sha-eventos',content:{sha:'sha-eventos-new'}};
+    if(method==='GET'&&path.includes('/contents/data/noticias.yml'))return {sha:mode==='conflict'?'sha-diferente':'sha-noticias',content:{sha:'sha-noticias-new'}};
+    if(method==='GET'&&path.includes('/contents/data/eventos.yml'))return {sha:'sha-eventos',content:{sha:'sha-eventos-new'}};
     if(method==='GET'&&path.endsWith('/git/ref/heads/main'))return {object:{sha:'head'}};
     if(method==='GET'&&path.endsWith('/git/commits/head'))return {tree:{sha:'base-tree'}};
     if(method==='POST'&&path.endsWith('/git/trees'))return {sha:'new-tree'};
