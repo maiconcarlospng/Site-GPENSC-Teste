@@ -20284,3 +20284,18 @@ html body #quarto-content main.content .pagina-projetos .paginate_button.current
     box-sizing: border-box;
   }
 }
+
+/* Home · Pesquisa — cores institucionais nos quatro ícones (2026-11-17).
+   Restrito aos cartões da página inicial; preserva fundo, texto e hover. */
+html body.page-index #quarto-content .pq-blocos > a.pq:nth-child(1) .pq-icone {
+  color: #357a45 !important; /* Linhas de pesquisa: verde */
+}
+html body.page-index #quarto-content .pq-blocos > a.pq:nth-child(2) .pq-icone {
+  color: #b9560f !important; /* Projetos: laranja escuro, contraste sobre branco */
+}
+html body.page-index #quarto-content .pq-blocos > a.pq:nth-child(3) .pq-icone {
+  color: #ba3c35 !important; /* Teses e dissertações: vermelho */
+}
+html body.page-index #quarto-content .pq-blocos > a.pq:nth-child(4) .pq-icone {
+  color: #285f6d !important; /* Publicações: verde-azulado */
+}
