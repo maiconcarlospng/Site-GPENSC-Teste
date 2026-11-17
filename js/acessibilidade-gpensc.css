@@ -47,3 +47,84 @@ html.gp-a11y-motion *,html.gp-a11y-motion *::before,html.gp-a11y-motion *::after
 html.gp-a11y-readingGuide #gp-a11y-reading-guide{display:block}
 @media(pointer:fine){html.gp-a11y-largeCursor #quarto-content,html.gp-a11y-largeCursor #quarto-content *{cursor:crosshair!important}}
 @media(pointer:coarse){html.gp-a11y-readingGuide #gp-a11y-reading-guide{display:none}}
+
+
+/* Ajustes funcionais 2026-11-17: os modificadores vencem a cascata institucional,
+   sem mudar a aparência do site enquanto o usuário não habilitar a ferramenta. */
+html.gp-a11y-smart body #quarto-content{
+  filter:contrast(1.28) brightness(.98) !important;
+}
+html.gp-a11y-saturation body #quarto-content{
+  filter:grayscale(1) !important;
+}
+html.gp-a11y-smart.gp-a11y-saturation body #quarto-content{
+  filter:grayscale(1) contrast(1.28) brightness(.98) !important;
+}
+/* Alto contraste: textos realmente destacados, sem alterar o menu de acessibilidade. */
+html.gp-a11y-contrast body #quarto-content main.content{
+  background-color:#fff !important;
+  color:#000 !important;
+}
+html.gp-a11y-contrast body #quarto-content main.content :is(p,li,h1,h2,h3,h4,h5,h6,blockquote,td,th,dt,dd,span){
+  color:#000 !important;
+  text-shadow:none !important;
+}
+html.gp-a11y-contrast body #quarto-content main.content a{
+  color:#003d88 !important;
+  text-decoration:underline !important;
+  text-decoration-thickness:2px !important;
+}
+html.gp-a11y-links body #quarto-content main.content a{
+  text-decoration:underline !important;
+  text-decoration-thickness:2.5px !important;
+  text-underline-offset:3px !important;
+  outline-offset:3px;
+}
+html.gp-a11y-links body #quarto-content main.content a:focus-visible{
+  outline:3px solid #d9731f !important;
+}
+/* Regras reforçadas para competir com os estilos legados do Quarto. */
+html.gp-a11y-spacing body #quarto-content main.content :is(p,li,blockquote,td,th){
+  letter-spacing:.075em !important;
+  word-spacing:.19em !important;
+}
+html.gp-a11y-lineHeight body #quarto-content main.content :is(p,li,blockquote,td,th){
+  line-height:2 !important;
+}
+html.gp-a11y-dyslexia body #quarto-content main.content :is(h1,h2,h3,h4,h5,h6,p,li,blockquote,td,th,dt,dd){
+  font-family:Verdana,Arial,sans-serif !important;
+  letter-spacing:.035em !important;
+}
+html.gp-a11y-align body #quarto-content main.content :is(p,li,blockquote,td,th){
+  text-align:var(--gp-a11y-alignment,left) !important;
+}
+/* Ocultar imagens sem deslocar os parágrafos e sem ocultar o botão flutuante. */
+html.gp-a11y-images body #quarto-content main.content :is(img,picture,svg,video,canvas){
+  visibility:hidden !important;
+}
+html.gp-a11y-images body #quarto-content main.content *{
+  background-image:none !important;
+}
+/* Guia de leitura funciona também em touch, com posição acompanhando o toque. */
+html.gp-a11y-readingGuide body #gp-a11y-reading-guide{
+  display:block !important;
+}
+html.gp-a11y-readingGuide #gp-a11y-reading-guide{
+  background:rgba(255,218,86,.27);
+  border-color:#264b32;
+  height:38px;
+  z-index:1080;
+}
+@media(pointer:coarse){
+  html.gp-a11y-readingGuide body #gp-a11y-reading-guide{
+    display:block !important;
+  }
+}
+/* Cursor real com desenho ampliado, em lugar do crosshair antigo.
+   Os navegadores com mouse exibem o cursor SVG, e touch mantém cursor nativo. */
+@media(pointer:fine){
+  html.gp-a11y-largeCursor body #quarto-content,
+  html.gp-a11y-largeCursor body #quarto-content *{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M3 2v26l7-8 4 9 5-2-4-9 10-1Z' fill='%23fff' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 3 2, auto !important;
+  }
+}
