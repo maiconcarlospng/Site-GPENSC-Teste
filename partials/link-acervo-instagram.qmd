@@ -1,0 +1,13 @@
+```{r}
+source("R/helpers.R")
+if (isTRUE(cfg$mostrar_acervo_instagram)) {
+  div(
+    class = "gp-ig-contexto",
+    style = "margin:28px 0 20px;padding:13px 0;border-top:1px solid #dce5de;font-size:.93rem;line-height:1.55",
+    tags$a("Consultar acervo histórico de atividades do GPENSC",
+      href = "acervo-instagram.html", style = "color:#1f4d2b;font-weight:650;text-decoration:underline;text-underline-offset:3px"),
+    tags$span(" · Referências do Instagram agrupadas por tema, disponíveis para revisão editorial.",
+      style = "color:#5e7464")
+  )
+}
+```
