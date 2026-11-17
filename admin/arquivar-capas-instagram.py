@@ -20,13 +20,14 @@ DADOS = (
     "data/noticias.yml",
     "data/materiais.yml",
     "data/videos.yml",
+    "data/noar.yml",
     "data/livros.yml",
     "data/projetos.yml",
     "data/linha_tempo.yml",
 )
 MAX_BYTES = 7 * 1024 * 1024
 SHORTCODE = re.compile(r"^https://www\.instagram\.com/p/([A-Za-z0-9_-]{7,30})/$")
-ATTR_URL = re.compile(r'^    url: "(https://www\.instagram\.com/p/[^"]+)"\s*$', re.MULTILINE)
+ATTR_URL = re.compile(r'^    (?:url|link): "(https://www\.instagram\.com/p/[^"]+)"\s*$', re.MULTILINE)
 ATTR_IMG = re.compile(r'^    imagem: "(https://[^"]+)"\s*$', re.MULTILINE)
 IMGS = (".jpg", ".png", ".webp")
 
