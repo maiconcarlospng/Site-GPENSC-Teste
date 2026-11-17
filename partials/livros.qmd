@@ -17,7 +17,7 @@ if (nrow(livros_publicados) == 0) {
       if (!is.na(l$ano)) span(class = "cartao-data", l$ano),
       h4(l$titulo),
       if (length(meta) > 0) p(class = "kw", paste(meta, collapse = " · ")),
-      if (!is.null(url)) tags$a("Acessar »", href = url, target = "_blank", rel = "noopener noreferrer")
+      if (!is.null(url)) tags$a(if (grepl("instagram.com", url, fixed = TRUE)) "Ver divulgação do e-book" else "Acessar", href = url, target = "_blank", rel = "noopener noreferrer")
     )
   })
 }
