@@ -1,0 +1,46 @@
+```{r}
+source("R/helpers.R")
+episodios_gpensc <- yaml::read_yaml("data/noar.yml")$itens
+if (!is.null(episodios_gpensc) && length(episodios_gpensc)) {
+  div(
+    class = "gp-episodios-secao",
+    h2("Episódios e participações"),
+    p("Produções cadastradas pelo grupo. Os links identificados a partir do Instagram levam à divulgação; para ouvir, utilize o canal de áudio indicado acima."),
+    div(
+      class = "gp-episodios-grade",
+      lapply(episodios_gpensc, function(item) {
+        titulo <- valor_publico(item$titulo)
+        convidado <- valor_publico(item$convidado)
+        data <- valor_publico(item$data)
+        url <- valor_publico(item$link)
+        tags$article(
+          class = "gp-episodio-item",
+          if (!is.null(data)) tags$time(datetime = data, format(parse_data_site(data), "%d/%m/%Y")),
+          h3(if (!is.null(titulo)) titulo else "Episódio"),
+          if (!is.null(convidado)) p(paste("Participação:", convidado)),
+          if (!is.null(url) && grepl("^https://(www\\.)?instagram\\.com/", url)) {
+            tags$a("Ver divulgação", href = url, target = "_blank", rel = "noopener noreferrer")
+          } else if (!is.null(url) && grepl("^https?://", url)) {
+            tags$a("Acessar episódio", href = url, target = "_blank", rel = "noopener noreferrer")
+          }
+        )
+      })
+    )
+  )
+}
+```
+
+```{=html}
+<style>
+.gp-episodios-secao {max-width:1100px;margin:1.75rem auto 1.25rem}
+.gp-episodios-secao>p {font-size:.9rem;color:#586d5d;max-width:75ch}
+.gp-episodios-grade {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin-top:1.1rem}
+.gp-episodio-item {min-width:0;padding:1.1rem;border:1px solid #dae5db;border-radius:9px;background:#fafcf8;display:flex;flex-direction:column;gap:.45rem}
+.gp-episodio-item time {font-size:.76rem;color:#657768}
+.gp-episodio-item h3 {margin:0;font-size:1rem;line-height:1.4;color:#1f4d2b}
+.gp-episodio-item p {margin:0;font-size:.85rem;color:#52675a}
+.gp-episodio-item a {align-self:start;margin-top:auto;padding-top:.3rem;font-size:.86rem;color:#1f4d2b;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.gp-episodios-grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.gp-episodios-grade{grid-template-columns:1fr}}
+</style>
+```
