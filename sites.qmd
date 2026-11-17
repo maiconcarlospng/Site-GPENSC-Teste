@@ -6,10 +6,10 @@ title-block-banner: false
 ---
 
 ```{=html}
-<meta http-equiv="refresh" content="0; url=grupo.html#parcerias">
+<meta http-equiv="refresh" content="0; url=parcerias.html">
 <script>
-  window.location.replace("grupo.html#parcerias");
+  window.location.replace("parcerias.html");
 </script>
 <p>Os vínculos institucionais estão na página de Parcerias.
-<a href="grupo.html#parcerias">Acessar Parcerias</a>.</p>
+<a href="parcerias.html">Acessar Parcerias</a>.</p>
 ```
