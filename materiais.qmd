@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Materiais educativos"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#materiais">
-<p><a href="conteudos.html#materiais">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Cartilhas, infográficos e outros recursos educativos produzidos pelo GPENSC.</p><img src="img/ilustracoes/materiais.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Materiais educativos {#materiais}
+
+{{< include partials/materiais.qmd >}}
