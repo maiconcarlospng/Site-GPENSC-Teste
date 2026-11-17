@@ -1,9 +1,11 @@
 ---
-title: "GPENSC"
-search: false
+title: "Nossa história"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=grupo.html#historia">
-<p><a href="grupo.html#historia">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Conheça momentos e marcos da trajetória do GPENSC.</p><img src="img/ilustracoes/historia.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Nossa história {#historia .gp-heading-art .gp-heading-art--historia}
+
+{{< include partials/historia.qmd >}}
+
+{{< include partials/link-acervo-instagram.qmd >}}
