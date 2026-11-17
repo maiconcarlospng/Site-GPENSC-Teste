@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Ciência para a sociedade"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#resultados">
-<p><a href="conteudos.html#resultados">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Resultados de pesquisas explicados para a comunidade.</p><img src="img/ilustracoes/pesquisa.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Ciência para a sociedade {#resultados}
+
+{{< include partials/resultados.qmd >}}
