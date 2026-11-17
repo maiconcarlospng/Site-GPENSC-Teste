@@ -12,11 +12,12 @@ fotos_sobre <- galeria[
 
 # Usa a categoria escolhida no painel; para registros antigos, tenta inferir pelo papel.
 categoria_integrante <- function(e) {
-  # A função registrada prevalece sobre uma categoria antiga no YAML.
-  # Isso mantém as líderes do grupo na seção correta, mesmo após migrações.
+  # A categoria editorial prevalece sobre cargos antigos, sobretudo de egressos.
   papel <- if (tem(e$papel)) tolower(as.character(e$papel[1])) else ""
-  if (grepl("l[ií]der|coordena", papel)) return("Líderes")
   categoria <- valor_publico(e$categoria)
+  if (!is.null(categoria) && categoria %in% c("Líderes", "Pesquisadores", "Colaboradores", "Egressos")) return(categoria)
+  if (grepl("egresso|ex-integrante", papel)) return("Egressos")
+  if (grepl("l[ií]der|coordena", papel)) return("Líderes")
   if (!is.null(categoria)) return(categoria)
 
   if (grepl("coordena", papel)) {
@@ -264,6 +265,7 @@ div(
             class = grupo_class,
             `data-equipe-categoria` = cat,
             h3(cat),
+            if (identical(cat, "Líderes")) p("Docentes da Escola de Nutrição (ENUT/UFOP)."),
             div(
               class = "equipe-grid",
               lapply(seq_len(nrow(itens_categoria)), function(i) {

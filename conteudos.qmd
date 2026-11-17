@@ -1,11 +1,11 @@
 ---
-title: "Conteúdos"
+title: "Divulgação científica"
 ---
 
 Produções do grupo para a comunidade acadêmica e a sociedade.
 
 ```{=html}
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#anuario">Anuário</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
 ```
 
 ## Materiais educativos {#materiais}
@@ -23,6 +23,10 @@ Produções do grupo para a comunidade acadêmica e a sociedade.
 ## Livros e e-books {#livros}
 
 {{< include partials/livros.qmd >}}
+
+## Anuário {#anuario}
+
+O anuário do GPENSC tem início previsto para 2027, reunindo as atividades e produções do grupo.
 
 ## Ciência para a sociedade {#resultados}
 

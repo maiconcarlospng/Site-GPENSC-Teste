@@ -2,7 +2,7 @@
 title: "Extensão"
 ---
 
-Projetos e ações extensionistas do GPENSC junto à comunidade.
+Projetos de extensão coordenados pelo GPENSC junto à comunidade.
 
 ## Projetos e iniciativas de extensão {#iniciativas}
 

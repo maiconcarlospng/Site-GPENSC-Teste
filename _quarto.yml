@@ -50,17 +50,17 @@ website:
             href: teses.qmd
           - text: Árvore do conhecimento
             href: arvore.qmd
-      - text: Extensão e formação
+      - text: Extensão
         menu:
           - text: Projetos de extensão
             href: extensao.qmd
           - text: Vi no Rótulo
             href: vi-no-rotulo.qmd
-          - text: Ensino e formação
-            href: ensino.qmd
           - text: Capacitação em Epidemiologia e Análise de Dados
             href: capacitacao-epidemiologia.qmd
-      - text: Conteúdos
+      - text: Ensino
+        href: ensino.qmd
+      - text: Divulgação científica
         menu:
           - text: Materiais educativos
             href: conteudos.qmd#materiais
@@ -70,6 +70,8 @@ website:
             href: conteudos.qmd#podcasts
           - text: Livros e e-books
             href: conteudos.qmd#livros
+          - text: Anuário
+            href: conteudos.qmd#anuario
           - text: Ciência para a sociedade
             href: conteudos.qmd#resultados
       - text: Atualizações

@@ -2,6 +2,13 @@
 source("R/helpers.R")
 parcerias_site <- registros_reais(parcerias, "nome")
 if (nrow(parcerias_site) > 0) {
+  # Mantém os vínculos institucionais separados e classifica parcerias pelo país.
+  institucional <- !is.na(parcerias_site$grupo) & parcerias_site$grupo == "Vínculos institucionais"
+  pais <- tolower(trimws(ifelse(is.na(parcerias_site$pais), "", parcerias_site$pais)))
+  parcerias_site$grupo[!institucional] <- ifelse(
+    pais[!institucional] %in% c("brasil", "brazil"), "Parcerias nacionais",
+    ifelse(nzchar(pais[!institucional]), "Parcerias internacionais", "Parcerias")
+  )
   grupos_parceria <- unique(ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo))
   tagList(lapply(grupos_parceria, function(grupo_atual) {
     dados <- parcerias_site[ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo) == grupo_atual, , drop = FALSE]
@@ -18,7 +25,7 @@ if (nrow(parcerias_site) > 0) {
             class = "parceria-instituicao",
             div(class = "parceria-marca", marca),
             h3(as.character(parceria$nome[1])),
-            if (tem(parceria$uf)) p(class = "parceria-local", as.character(parceria$uf[1])),
+            p(class = "parceria-local", paste(c(valor_publico(parceria$cidade), valor_publico(parceria$pais)), collapse = ", ")),
             if (!is.null(url)) tags$a("Visitar instituição", href = url, target = "_blank", rel = "noopener noreferrer")
           )
         })
@@ -79,7 +86,7 @@ if (nrow(pontos_mapa) > 0) {
       id = "gpensc-mapa-parcerias",
       class = "gpensc-mapa-parcerias",
       role = "region",
-      aria_label = "Mapa das instituições parceiras do GPENSC"
+      `aria-label` = "Mapa das instituições parceiras do GPENSC"
     ),
     p(class = "mapa-legenda", "O mapa apresenta um marcador por localização. Quando há mais de uma instituição no mesmo campus ou município, todas aparecem reunidas no marcador."),
     tags$script(src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"),

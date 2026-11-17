@@ -12,6 +12,7 @@
 
   function aplicarIdiomaVisual(langCode) {
     var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
+    document.documentElement.lang = idioma === 'en' ? 'en' : idioma === 'es' ? 'es' : 'pt-BR';
     document.documentElement.setAttribute('data-gp-current-language', ['pt','en','es'].includes(idioma) ? idioma : 'pt');
     document.querySelectorAll('.gp-language-button').forEach(function(botao) {
       var ativo = botao.getAttribute('data-lang') === idioma;
@@ -63,7 +64,10 @@
     
     if (navbarTitle && !document.querySelector(".bandeiras-container")) {
       var container = document.createElement("div");
-      container.className = "bandeiras-container";
+      container.className = "bandeiras-container notranslate";
+      container.setAttribute("translate", "no");
+      container.setAttribute("role", "group");
+      container.setAttribute("aria-label", "Idioma do site");
       container.innerHTML = `
         <button type="button" class="gp-language-button" data-lang="pt" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
         <button type="button" class="gp-language-button" data-lang="en" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>

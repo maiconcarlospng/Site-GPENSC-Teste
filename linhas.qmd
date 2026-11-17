@@ -85,7 +85,7 @@ if (secao_ativa("mostrar_linhas")) {
             if (nrow(projetos_linha) + nrow(defesas_linha) + nrow(publicacoes_linha) > 0) tags$details(
               class = "linha-pesquisa-detalhes",
               tags$summary(
-                "Ver estudos e publicações",
+                "Projetos, teses, dissertações e publicações",
                 tags$i(class = "bi bi-chevron-down", "aria-hidden" = "true")
               ),
               div(
@@ -97,7 +97,7 @@ if (secao_ativa("mostrar_linhas")) {
                     tags$ul(lapply(seq_len(nrow(projetos_linha)), function(j) {
                       projeto <- projetos_linha[j, , drop = FALSE]
                       tags$li(
-                        tags$strong(as.character(projeto$titulo[1])),
+                        if (tem(projeto$url)) tags$a(as.character(projeto$titulo[1]), href = as.character(projeto$url[1])) else tags$strong(as.character(projeto$titulo[1])),
                         if (!is.na(projeto$situacao[1]) && nzchar(as.character(projeto$situacao[1]))) {
                           tags$small(as.character(projeto$situacao[1]))
                         }

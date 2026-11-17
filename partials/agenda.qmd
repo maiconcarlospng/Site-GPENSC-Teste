@@ -82,9 +82,10 @@ if (secao_ativa("mostrar_agenda")) {
   div(
     class = "pagina-agenda",
     h2("Próximas atividades"),
+    p("Reuniões do grupo, defesas, cursos abertos ao público e eventos ofertados pelo GPENSC."),
     if (nrow(eventos_futuros) > 0) {
       renderizar_eventos(eventos_futuros)
-    } else {
+    } else if (nrow(defesas_futuras) == 0 && nrow(eventos_sem_data) == 0) {
       estado_vazio(
         "Nenhuma atividade programada",
         NULL
