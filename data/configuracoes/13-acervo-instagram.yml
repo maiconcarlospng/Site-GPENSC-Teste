@@ -1,4 +1,3 @@
-# Controle reversível do acervo histórico extraído do Instagram.
-# false = desliga a apresentação do acervo sem alterar dados cadastrados no painel.
-# O arquivo importado permanece preservado para eventual revisão.
-mostrar_acervo_instagram: true
+# O acervo de postagens não é exibido: conteúdo elegível é cadastrado nas coleções do site.
+# Inventário bruto preservado em branch separada para consulta e reversão.
+mostrar_acervo_instagram: false
