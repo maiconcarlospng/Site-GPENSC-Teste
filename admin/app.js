@@ -162,7 +162,7 @@ const SITE_AREAS=[
   {title:'Extensão e formação',names:['conteudos_vi_no_rotulo','equipe_vi_no_rotulo','capacitacao_atividades','disciplinas','impactos']},
   {title:'Conteúdos',names:['materiais','videos','livros','noar','sites']},
   {title:'Atualizações',names:['noticias','eventos']},
-  {title:'Gestão editorial',names:['planejamento']}
+  {title:'Gestão editorial',names:['planejamento','pautas_instagram']}
 ];
 function siteArea(entry){
   if(isConfigCollection(entry))return 'Configurações';
@@ -176,7 +176,7 @@ const SITE_PAGES={
   capacitacao_atividades:'capacitacao-epidemiologia.html',disciplinas:'ensino.html',impactos:'pesquisa.html',
   materiais:'conteudos.html#materiais',videos:'conteudos.html#videos',livros:'conteudos.html#livros',
   noar:'conteudos.html#podcasts',sites:'conteudos.html',noticias:'atualizacoes.html#noticias',
-  eventos:'atualizacoes.html#agenda',planejamento:'index.html'
+  eventos:'atualizacoes.html#agenda',planejamento:'index.html',pautas_instagram:'acervo-instagram.html'
 };
 function sitePage(entry){return '../'+(SITE_PAGES[entry?.name]||'index.html')}
 function renderNav(){
