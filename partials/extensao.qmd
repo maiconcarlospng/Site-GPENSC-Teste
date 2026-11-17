@@ -1,58 +1,43 @@
-```{=html}
-<div class="gp-ext-projects">
-  <article class="gp-ext-card gp-ext-card-rotulo">
-    <div class="gp-ext-art gp-ext-art-vi"><div class="gp-ext-vi-lockup"><img class="gp-ext-vi-logo" src="img/marcas/vi-no-rotulo-oficial.png" alt="Logotipo oficial do Vi no Rótulo" width="138" height="91"></div></div>
-    <div class="gp-ext-text">
-      <span class="gp-ext-kicker">ALIMENTAÇÃO E INFORMAÇÃO</span>
-      <h3>Vi no Rótulo</h3>
-      <p>Educação e comunicação sobre rotulagem de alimentos.</p>
-      <a href="vi-no-rotulo.html" class="gp-ext-link">Conhecer o projeto <span aria-hidden="true">↗</span></a>
-    </div>
-  </article>
-  <article class="gp-ext-card gp-ext-card-epi">
-    <div class="gp-ext-art"><img src="img/ilustracoes/epidemiologia-editorial.svg" alt="Ilustração editorial de gráficos e pontos de dados. Não é a marca oficial do projeto." width="260" height="180"></div>
-    <div class="gp-ext-text">
-      <span class="gp-ext-kicker">FORMAÇÃO E MÉTODOS</span>
-      <h3>Capacitação em Epidemiologia e Análise de Dados</h3>
-      <p>Capacitação em epidemiologia, indicadores e análise de dados.</p>
-      <a href="capacitacao-epidemiologia.html" class="gp-ext-link">Conhecer a iniciativa <span aria-hidden="true">↗</span></a>
-    </div>
-  </article>
-</div>
-```
-
-
 ```{r}
 source("R/helpers.R")
+itens_extensao <- yaml::read_yaml("data/projetos.yml")$itens
+if (is.null(itens_extensao)) itens_extensao <- list()
+itens_extensao <- Filter(function(item) {
+  identical(item$tipo, "Extensão") && tem(item$titulo)
+}, itens_extensao)
 
-projetos_extensao <- registros_reais(projetos, "titulo") |>
-  dplyr::filter(tipo == "Extensão")
-
-# As duas iniciativas já possuem cartões próprios logo acima.
-if (nrow(projetos_extensao) > 0) {
-  titulos <- iconv(as.character(projetos_extensao$titulo), to = "ASCII//TRANSLIT")
-  titulos[is.na(titulos)] <- ""
-  destacados <- c("vi no rotulo", "capacitacao em epidemiologia e analise de dados")
-  projetos_extensao <- projetos_extensao[
-    !(tolower(trimws(titulos)) %in% destacados),
-    , drop = FALSE
-  ]
-}
-
-if (nrow(projetos_extensao) > 0) {
-  tagList(
-    h2("Outros projetos de extensão"),
-    DT::datatable(
-      dplyr::transmute(
-        projetos_extensao,
-        Projeto = titulo,
-        Situação = situacao,
-        Coordenação = coordenador,
-        Início = inicio
-      ),
-      rownames = FALSE,
-      options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
-    )
+if (length(itens_extensao)) {
+  div(class = "gp-extensao-lista",
+    lapply(itens_extensao, function(item) {
+      situacao <- valor_publico(item$situacao)
+      if (identical(situacao, "Não informado")) situacao <- NULL
+      resumo <- valor_publico(item$resumo)
+      coordenador <- valor_publico(item$coordenador)
+      url <- valor_publico(item$url)
+      tags$article(
+        id = paste0("projeto-", item$id),
+        class = "gp-extensao-projeto",
+        h3(item$titulo),
+        if (!is.null(resumo)) p(resumo),
+        if (!is.null(coordenador)) p(tags$strong("Coordenação: "), coordenador),
+        if (!is.null(situacao)) p(situacao),
+        if (!is.null(url) && grepl("^https?://", url))
+          tags$a("Acompanhar o projeto", href = url, target = "_blank", rel = "noopener noreferrer")
+      )
+    })
   )
+} else {
+  estado_vazio("Projetos de extensão em atualização", NULL)
 }
+```
+
+```{=html}
+<style>
+.gp-extensao-lista{display:grid;gap:0;max-width:100%}
+.gp-extensao-projeto{min-width:0;padding:24px 0;border-bottom:1px solid #dce5db;scroll-margin-top:110px}
+.gp-extensao-projeto:first-child{padding-top:8px}
+.gp-extensao-projeto h3{margin:0 0 12px;color:#1f4d2b;font-size:1.25rem;line-height:1.4;overflow-wrap:anywhere}
+.gp-extensao-projeto p{max-width:80ch;margin:8px 0;line-height:1.65}
+.gp-extensao-projeto a{display:inline-block;margin-top:8px;color:#28583b;text-underline-offset:3px}
+</style>
 ```

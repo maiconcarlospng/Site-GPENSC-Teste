@@ -103,7 +103,8 @@ collections:
                   required: false
                   hint: "Escolha pelo nome da linha. O painel grava automaticamente o ID correspondente (L1, L2 etc.)."
                 - { label: "Financiamento", name: "financiamento", widget: "string", required: false }
-                - { label: "Página do projeto", name: "url", widget: "string", required: false, hint: "Use o caminho de uma página do site (ex.: vi-no-rotulo.html) ou uma URL completa." }
+                - { label: "Descrição do projeto", name: "resumo", widget: "text", required: false }
+                - { label: "Link externo do projeto (opcional)", name: "url", widget: "string", required: false, hint: "O projeto é apresentado na lista de Extensão ou Pesquisa. Informe uma URL externa apenas se houver um canal oficial." }
         - label: "Publicações"
           name: "publicacoes"
           file: "data/publicacoes.yml"
@@ -625,66 +626,3 @@ collections:
           label: Pasta de contribuições
           widget: string
           required: false
-
-  - name: "vi_no_rotulo"
-    label: "Vi no Rótulo · Minissite"
-    files:
-      - label: "Conteúdos e publicações"
-        name: "conteudos_vi_no_rotulo"
-        file: "data/vi-no-rotulo.yml"
-        fields:
-          - label: "Publicações selecionadas"
-            name: "conteudos"
-            widget: "list"
-            collapsed: true
-            required: false
-            label_singular: "conteúdo"
-            hint: "Adicione publicações reais do projeto. Sem registros, o site mostra um convite discreto para o Instagram."
-            summary: "{{fields.titulo}}"
-            fields:
-              - { label: "Título", name: "titulo", widget: "string" }
-              - { label: "Categoria", name: "categoria", widget: "select", options: ["Educação alimentar", "Rotulagem nutricional", "Dicas de leitura", "Notícias do projeto", "Pesquisa", "Evento", "Outro"], required: false }
-              - { label: "Resumo", name: "resumo", widget: "text", required: false }
-              - { label: "Imagem do conteúdo", name: "imagem", widget: "image", required: false, hint: "Use uma imagem autorizada do material publicado." }
-              - { label: "Link da publicação", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use um link completo com https://.'] }
-
-      - label: "Equipe do Vi no Rótulo"
-        name: "equipe_vi_no_rotulo"
-        file: "data/vi-no-rotulo-equipe.yml"
-        fields:
-          - label: "Integrantes do projeto"
-            name: "itens"
-            widget: "list"
-            collapsed: true
-            required: false
-            label_singular: "integrante"
-            summary: "{{fields.nome}} — {{fields.funcao}}"
-            hint: "Cadastre somente integrantes confirmados. Fotos e dados pessoais exigem autorização; sem registros, o site não exibe lista vazia."
-            fields:
-              - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Função no projeto", name: "funcao", widget: "string", required: false, hint: "Ex.: Coordenação, pesquisador(a) ou bolsista." }
-              - { label: "Vínculo institucional", name: "vinculo", widget: "string", required: false }
-              - { label: "Foto autorizada", name: "foto", widget: "image", required: false }
-              - { label: "Lattes", name: "lattes", widget: "string", required: false, pattern: ['^https?://\S+$', 'Use uma URL completa iniciada por https://.'] }
-
-  - name: "capacitacao"
-    label: "Capacitação em Epidemiologia e Análise de Dados"
-    files:
-      - label: "Atividades da capacitação"
-        name: "capacitacao_atividades"
-        file: "data/capacitacao-epidemiologia.yml"
-        fields:
-          - label: "Atividades cadastradas"
-            name: "itens"
-            widget: "list"
-            collapsed: true
-            label_singular: "atividade"
-            summary: "{{fields.titulo}} — {{fields.data}}"
-            hint: "Cadastre somente atividades confirmadas. A lista vazia não gera eventos fictícios no site."
-            fields:
-              - { label: "Título da atividade", name: "titulo", widget: "string" }
-              - { label: "Data", name: "data", widget: "date", required: false }
-              - { label: "Modalidade", name: "modalidade", widget: "select", options: ["Presencial", "Remoto", "Híbrido"], required: false }
-              - { label: "Descrição", name: "resumo", widget: "text", required: false }
-              - { label: "Local ou plataforma", name: "local", widget: "string", required: false }
-              - { label: "Link da atividade", name: "url", widget: "string", required: false, pattern: ['^https?://[^\\s]+$', 'Use uma URL completa iniciada por http:// ou https://.'] }

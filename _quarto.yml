@@ -26,20 +26,12 @@ website:
     background: light
     
     right:
-      - text: Sobre
-        menu:
-          - text: Quem somos
-            href: grupo.qmd#sobre
-          - text: Nossa história
-            href: grupo.qmd#historia
-          - text: Equipe e integrantes
-            href: grupo.qmd#equipe
-          - text: Parcerias
-            href: grupo.qmd#parcerias
+      - text: Quem somos
+        href: grupo.qmd#sobre
+      - text: Nossa história
+        href: grupo.qmd#historia
       - text: Pesquisa
         menu:
-          - text: Visão geral
-            href: pesquisa.qmd
           - text: Linhas de pesquisa
             href: linhas.qmd
           - text: Projetos de pesquisa
@@ -51,37 +43,31 @@ website:
           - text: Árvore do conhecimento
             href: arvore.qmd
       - text: Extensão
-        menu:
-          - text: Projetos de extensão
-            href: extensao.qmd
-          - text: Vi no Rótulo
-            href: vi-no-rotulo.qmd
-          - text: Capacitação em Epidemiologia e Análise de Dados
-            href: capacitacao-epidemiologia.qmd
+        href: extensao.qmd
       - text: Ensino
         href: ensino.qmd
+      - text: Contato
+        href: grupo.qmd#contato
       - text: Divulgação científica
         menu:
           - text: Materiais educativos
             href: conteudos.qmd#materiais
-          - text: Vídeos
-            href: conteudos.qmd#videos
           - text: Podcasts
             href: conteudos.qmd#podcasts
           - text: Livros e e-books
             href: conteudos.qmd#livros
+          - text: Vídeos
+            href: conteudos.qmd#videos
           - text: Anuário
             href: conteudos.qmd#anuario
           - text: Ciência para a sociedade
             href: conteudos.qmd#resultados
-      - text: Atualizações
-        menu:
           - text: Notícias
             href: atualizacoes.qmd#noticias
-          - text: Agenda
-            href: atualizacoes.qmd#agenda
-      - href: grupo.qmd#contato
-        text: Contato
+      - text: Agenda
+        href: atualizacoes.qmd#agenda
+      - text: Parcerias
+        href: grupo.qmd#parcerias
 
   page-footer:
     left: |
@@ -91,7 +77,6 @@ format:
     theme: [default, custom.scss]
     css:
       - styles.css
-      - vi-no-rotulo.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
