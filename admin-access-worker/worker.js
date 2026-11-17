@@ -7,7 +7,7 @@ const decoder = new TextDecoder();
 function cors(origin) {
   return {
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept, X-GitHub-Api-Version",
     "Access-Control-Max-Age": "86400",
     "Vary": "Origin"
@@ -111,9 +111,11 @@ function safeRepoTarget(raw, method) {
     return null;
   }
 
-  if (method === "PUT" && resource.startsWith("contents/")) {
+  if ((method === "PUT" || method === "DELETE") && resource.startsWith("contents/")) {
     const filePath = resource.slice("contents/".length);
-    if (!(filePath.startsWith("data/") && /\.ya?ml$/i.test(filePath)) && !filePath.startsWith("img/")) return null;
+    if (method === "DELETE") {
+      if (!filePath.startsWith("img/") || /^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(filePath)) return null;
+    } else if (!(filePath.startsWith("data/") && /\.ya?ml$/i.test(filePath)) && !filePath.startsWith("img/")) return null;
     return target;
   }
   return null;
@@ -126,14 +128,15 @@ async function githubProxy(request, env, origin) {
   if (!target) return json({ error: "Operação não permitida para este acesso." }, 403, origin);
 
   let body;
-  if (method === "PUT") {
+  if (method === "PUT" || method === "DELETE") {
     const length = Number(request.headers.get("Content-Length") || 0);
     if (length > 12 * 1024 * 1024) return json({ error: "O arquivo excede o limite permitido." }, 413, origin);
     const rawBody = await request.text();
     if (rawBody.length > 12 * 1024 * 1024) return json({ error: "O arquivo excede o limite permitido." }, 413, origin);
     try {
       const parsed = JSON.parse(rawBody);
-      if (parsed.branch !== BRANCH || typeof parsed.content !== "string") {
+      if (parsed.branch !== BRANCH || (method === "PUT" && typeof parsed.content !== "string") ||
+          (method === "DELETE" && (!/^[a-f0-9]{40}$/i.test(String(parsed.sha || "")) || typeof parsed.message !== "string"))) {
         return json({ error: "O conteúdo enviado não passou pela validação de segurança." }, 400, origin);
       }
     } catch {
@@ -184,7 +187,7 @@ export default {
       }
       return json({ ok: true, token: await createSession(env), expiresIn: 8 * 60 * 60 }, 200, allowedOrigin);
     }
-    if ((request.method === "GET" || request.method === "PUT") && url.pathname === "/github") {
+    if (["GET", "PUT", "DELETE"].includes(request.method) && url.pathname === "/github") {
       return githubProxy(request, env, allowedOrigin);
     }
     return json({ error: "Rota não encontrada." }, 404, allowedOrigin);
