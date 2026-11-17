@@ -1,6 +1,13 @@
 ```{r}
 source("R/helpers.R")
 projetos_publicados <- registros_reais(projetos, "titulo")
+# A seção Pesquisa apresenta apenas projetos de pesquisa;
+# projetos de extensão aparecem em Extensão, nunca em uma página individual.
+projetos_publicados <- projetos_publicados[
+  !is.na(projetos_publicados$tipo) &
+    tolower(trimws(projetos_publicados$tipo)) == "pesquisa",
+  , drop = FALSE
+]
 
 if (secao_ativa("mostrar_projetos")) {
 div(
