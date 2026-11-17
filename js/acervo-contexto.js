@@ -3,8 +3,14 @@
   'use strict';
   const root = document.getElementById('gp-ig-contextual');
   if (!root) return;
-  const page = (window.location.pathname.split('/').pop() || '').replace(/\.html?$/i, '').toLowerCase();
+  const page = (window.location.pathname.split('/').pop() || 'index.html').replace(/\.html?$/i, '').toLowerCase();
   const settings = {
+    index: {
+      heading: 'O GPENSC no Instagram',
+      limit: 3,
+      filter: p => p.origem === 'gpenscufop' &&
+        ['Pesquisa', 'Divulgação científica', 'Nossa história', 'Ensino / Extensão'].includes(p.categoria)
+    },
     grupo: {
       heading: 'Nossa trajetória no Instagram',
       filter: p => p.categoria === 'Nossa história' &&
@@ -87,7 +93,7 @@
     const selected = selectBalanced(
       posts.filter(p => p && p.data && context.filter(p) && safeInstagram(p.url))
         .sort((a, b) => b.data.localeCompare(a.data))
-    );
+    ).slice(0, context.limit || 4);
     if (!selected.length) {
       root.remove();
       return;
