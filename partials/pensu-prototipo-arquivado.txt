@@ -1,0 +1,128 @@
+# Pensu — protótipo arquivado
+# Código original preservado para futura reativação. Não incluir no site publicado.
+
+```{=html}
+<!-- Pensu: protótipo de assistente guiado, sem IA ou coleta de dados. -->
+<style>
+.gp-pensu-launch{position:fixed;right:22px;bottom:22px;z-index:1050;width:76px;height:76px;padding:0;border:3px solid #fff;border-radius:50%;background:#f9f4e9;box-shadow:0 5px 22px #173b2460;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.gp-pensu-launch:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 25px #173b2470}
+.gp-pensu-launch:focus-visible,.gp-pensu-panel button:focus-visible,.gp-pensu-panel a:focus-visible{outline:3px solid #d9731f;outline-offset:3px}
+.gp-pensu-art{display:block;width:100%;height:100%;overflow:visible}
+.gp-pensu-launch .gp-pensu-art{animation:gp-pensu-bob 4s ease-in-out infinite}
+.gp-pensu-eye{transform-origin:center;animation:gp-pensu-blink 6s infinite}
+.gp-pensu-arm{transform-origin:75% 73%;animation:gp-pensu-wave 4.5s ease-in-out infinite}
+.gp-pensu-leaf{transform-origin:35% 27%;animation:gp-pensu-leaf 5s ease-in-out infinite}
+@keyframes gp-pensu-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes gp-pensu-blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.12)}}
+@keyframes gp-pensu-wave{0%,70%,100%{transform:rotate(0)}77%,87%{transform:rotate(-12deg)}82%,92%{transform:rotate(9deg)}}
+@keyframes gp-pensu-leaf{0%,100%{transform:rotate(0)}50%{transform:rotate(5deg)}}
+.gp-pensu-panel{position:fixed;right:20px;bottom:110px;z-index:1051;width:min(370px,calc(100vw - 32px));max-height:min(560px,calc(100dvh - 145px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #d8e4d5;border-radius:17px;background:#fff;box-shadow:0 15px 50px #173b2440;color:#234b30}
+.gp-pensu-panel[hidden]{display:none!important}
+.gp-pensu-panel{animation:gp-pensu-appear .24s ease-out}
+.gp-pensu-panel.gp-pensu-thinking .gp-pensu-art{animation:gp-pensu-think .6s ease-in-out 2}
+.gp-pensu-panel.gp-pensu-happy .gp-pensu-art{animation:gp-pensu-happy .5s ease-in-out 2}
+@keyframes gp-pensu-appear{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes gp-pensu-think{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+@keyframes gp-pensu-happy{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.gp-pensu-msg{animation:gp-pensu-msg-in .2s ease-out}
+@keyframes gp-pensu-msg-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.gp-pensu-status{font-size:.78rem;color:#4d6453;padding:0 14px 8px}
+.gp-pensu-status:empty{display:none}
+.gp-pensu-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f1f6ed;border-bottom:1px solid #dce8d8}
+.gp-pensu-head .gp-pensu-art{width:45px;height:45px;flex:none}
+.gp-pensu-head strong{display:block;font-size:1rem}.gp-pensu-head small{display:block;font-size:.75rem;color:#52695b}
+.gp-pensu-close{margin-left:auto;border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#234b30}
+.gp-pensu-messages{padding:15px;overflow:auto;min-height:125px;display:flex;flex-direction:column;gap:10px;font-size:.91rem;line-height:1.55}
+.gp-pensu-msg{max-width:94%;padding:10px 12px;border-radius:12px;background:#eff5ec}
+.gp-pensu-msg.user{align-self:flex-end;background:#fff0df;color:#4d381e}
+.gp-pensu-msg a{color:#205d39;text-decoration:underline}
+.gp-pensu-choices{display:flex;flex-wrap:wrap;gap:7px;padding:10px 14px 15px;border-top:1px solid #e7eee5}
+.gp-pensu-choices button{border:1px solid #a7c4a0;border-radius:18px;background:#fff;color:#235232;padding:7px 10px;font-size:.8rem;cursor:pointer}
+.gp-pensu-choices button:hover{background:#eff5ec}
+.gp-pensu-note{margin:0;padding:0 14px 12px;color:#617368;font-size:.7rem}
+/* Refinamento do avatar e da janela: identidade institucional, sem aparência de botão genérico */
+.gp-pensu-launch{width:84px;height:84px;border-radius:24px 24px 26px 26px;background:linear-gradient(145deg,#fffdf6,#e9f2e4);border:2px solid #f7f7ee;box-shadow:0 9px 28px rgba(19,62,37,.23),0 0 0 1px rgba(31,77,43,.12);padding:3px}
+.gp-pensu-launch:before{content:"";position:absolute;inset:-5px;border:1px solid rgba(95,154,62,.25);border-radius:29px;pointer-events:none}
+.gp-pensu-launch .gp-pensu-art{filter:drop-shadow(0 2px 2px rgba(23,64,39,.12))}
+.gp-pensu-panel{width:min(390px,calc(100vw - 28px));border-radius:20px;border:1px solid #d7e4d3;box-shadow:0 22px 58px rgba(21,55,34,.22);background:#fffefa}
+.gp-pensu-head{padding:15px 16px;background:linear-gradient(115deg,#e9f2e5 0%,#fff8e9 100%);border-bottom:1px solid #e1e7d9}
+#gp-pensu-head-avatar{width:56px;height:56px;display:grid;place-items:center;flex:none;border-radius:16px;background:#fffdf8;border:1px solid #e1e9d8}
+.gp-pensu-head .gp-pensu-art{width:52px;height:52px}
+.gp-pensu-head strong{font-size:1.08rem;letter-spacing:-.02em;color:#1f4d2b}
+.gp-pensu-head small{font-size:.75rem;line-height:1.4}
+.gp-pensu-close{width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.gp-pensu-close:hover{background:#dcebd3}
+.gp-pensu-messages{padding:18px 16px;gap:12px;min-height:140px}
+.gp-pensu-msg{border-radius:15px 15px 15px 5px;background:#edf4e8;padding:12px 13px;color:#24442d}
+.gp-pensu-msg.user{border-radius:15px 15px 5px 15px;background:#fff0df}
+.gp-pensu-choices{gap:8px;padding:12px 16px 16px}
+.gp-pensu-choices button{border-radius:12px;padding:9px 12px;min-height:40px;border-color:#bdd3b5;font-weight:600;transition:background .18s,border-color .18s}
+.gp-pensu-choices button:hover{background:#eaf3e5;border-color:#5f9a3e}
+.gp-pensu-note{padding:0 16px 14px;line-height:1.5}
+@media(max-width:600px){.gp-pensu-launch{width:72px;height:72px;right:14px;bottom:16px;border-radius:22px}.gp-pensu-panel{right:10px;bottom:99px;max-height:calc(100dvh - 120px)}}
+@media(max-width:600px){.gp-pensu-launch{right:16px;bottom:18px;width:66px;height:66px}.gp-pensu-panel{right:12px;bottom:94px;max-height:calc(100dvh - 115px)}}
+@media(prefers-reduced-motion:reduce){.gp-pensu-art,.gp-pensu-eye,.gp-pensu-arm,.gp-pensu-leaf{animation:none!important}.gp-pensu-launch{transition:none!important}.gp-pensu-panel,.gp-pensu-msg{animation:none!important}}
+</style>
+<template id="gp-pensu-avatar">
+<svg class="gp-pensu-art" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+ <linearGradient id="pensu-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff9eb"/><stop offset="1" stop-color="#f1e5c9"/></linearGradient>
+ <linearGradient id="pensu-shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#e5ead8"/></linearGradient>
+</defs>
+<!-- Torso e braços: silhueta compacta para avatares pequenos -->
+<path d="M25 114Q24 92 40 86L49 83H72L82 86Q98 92 96 114Z" fill="url(#pensu-shirt)" stroke="#245534" stroke-width="3.3" stroke-linejoin="round"/>
+<path d="M29 94Q16 89 13 77" fill="none" stroke="#285d38" stroke-width="10" stroke-linecap="round"/>
+<path class="gp-pensu-arm" d="M91 94Q104 86 105 72" fill="none" stroke="#285d38" stroke-width="10" stroke-linecap="round"/>
+<circle cx="105" cy="69" r="6.3" fill="#f3c58f" stroke="#285d38" stroke-width="2.4"/>
+<!-- Folhas orgânicas, independentes da logomarca -->
+<g class="gp-pensu-leaf"><path d="M44 22Q24 18 25 3Q44 5 48 20Z" fill="#68a344" stroke="#28603a" stroke-width="2"/><path d="M49 19Q50 2 68 3Q65 20 51 23Z" fill="#357d46" stroke="#245534" stroke-width="2"/><path d="M47 23L38 11M49 21L59 10" fill="none" stroke="#dcecc8" stroke-width="1.7" stroke-linecap="round"/></g>
+<!-- Contorno da lupa reinterpretado como cabeça -->
+<path d="M86 79L102 96" fill="none" stroke="#245534" stroke-width="11" stroke-linecap="round"/>
+<circle cx="59" cy="52" r="39" fill="#245534"/>
+<circle cx="59" cy="52" r="34.8" fill="url(#pensu-face)"/>
+<path d="M26 35A36 36 0 0 1 77 19" fill="none" stroke="#5f9a3e" stroke-width="8" stroke-linecap="round"/>
+<path d="M78 21A36 36 0 0 1 92 52" fill="none" stroke="#d9731f" stroke-width="8" stroke-linecap="round"/>
+<path d="M84 75A36 36 0 0 1 35 78" fill="none" stroke="#d43a2f" stroke-width="8" stroke-linecap="round"/>
+<!-- Óculos arredondados e rosto expressivo -->
+<g fill="#ffffff" fill-opacity=".17" stroke="#214d33" stroke-width="3.2"><rect x="33" y="43" width="22" height="18" rx="8"/><rect x="62" y="43" width="22" height="18" rx="8"/><path d="M55 49Q58.5 46 62 49M33 49L25 46M84 49L91 46" fill="none"/></g>
+<g class="gp-pensu-eye" fill="#234d34"><ellipse cx="44" cy="52" rx="2.4" ry="3.5"/><ellipse cx="73" cy="52" rx="2.4" ry="3.5"/></g>
+<ellipse cx="35" cy="65" rx="5" ry="2.5" fill="#e8a38b" opacity=".65"/><ellipse cx="83" cy="65" rx="5" ry="2.5" fill="#e8a38b" opacity=".65"/>
+<path d="M51 67Q59 76 67 67" fill="none" stroke="#245534" stroke-width="3" stroke-linecap="round"/>
+<!-- Insígnia de ciência no peito -->
+<circle cx="60" cy="100" r="9" fill="#e5efdc"/><path d="M55 102Q56 94 65 95Q65 103 55 104M56 104L64 96" fill="#5f9a3e" stroke="#367642" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</template>
+<button type="button" id="gp-pensu-launch" class="gp-pensu-launch" aria-label="Abrir conversa com Pensu, assistente experimental do GPENSC" aria-expanded="false" aria-controls="gp-pensu-panel" title="Conversar com Pensu"></button>
+<section id="gp-pensu-panel" class="gp-pensu-panel" role="dialog" aria-modal="true" aria-label="Conversa com Pensu" hidden>
+ <div class="gp-pensu-head"><span id="gp-pensu-head-avatar"></span><div><strong>Pensu · GPENSC</strong><small>Assistente experimental de pesquisa</small></div><button type="button" id="gp-pensu-close" class="gp-pensu-close" aria-label="Fechar conversa">×</button></div>
+ <div id="gp-pensu-messages" class="gp-pensu-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+ <div id="gp-pensu-status" class="gp-pensu-status" role="status" aria-live="polite"></div>
+ <div id="gp-pensu-choices" class="gp-pensu-choices" aria-label="Perguntas sugeridas"></div>
+ <p class="gp-pensu-note">Versão de teste: respostas guiadas, sem inteligência artificial. Nenhuma mensagem é enviada a um servidor.</p>
+</section>
+<script>
+(function(){
+ const launch=document.getElementById('gp-pensu-launch'),panel=document.getElementById('gp-pensu-panel');
+ const close=document.getElementById('gp-pensu-close'),messages=document.getElementById('gp-pensu-messages'),choices=document.getElementById('gp-pensu-choices');
+ const avatar=document.getElementById('gp-pensu-avatar'),status=document.getElementById('gp-pensu-status');
+ const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+ if(!launch||!panel||!avatar)return;
+ launch.append(avatar.content.firstElementChild.cloneNode(true));
+ document.getElementById('gp-pensu-head-avatar').append(avatar.content.firstElementChild.cloneNode(true));
+ const questions=[
+ ['Conhecer o GPENSC','O GPENSC é um grupo de pesquisa e ensino em Nutrição e Saúde Coletiva da UFOP.','grupo.html#sobre'],
+ ['Linhas de pesquisa','Explore as linhas de pesquisa e seus temas na página do grupo.','linhas.html'],
+ ['Projetos','Você pode conhecer os projetos e iniciativas de pesquisa cadastrados no site.','projetos.html'],
+ ['Publicações','Veja a produção científica e os trabalhos publicados pelo GPENSC.','publicacoes.html'],
+ ['Teses e dissertações','Consulte as teses e dissertações disponíveis no site.','teses.html'],
+ ['Agenda','Confira as próximas atividades e o calendário do grupo.','atualizacoes.html#agenda'],
+ ['Contato','Encontre os canais de contato oficiais do grupo.','contato.html']
+ ];
+ function say(t,who,href){const el=document.createElement('div');el.className='gp-pensu-msg'+(who==='user'?' user':'');el.textContent=t;if(href){const a=document.createElement('a');a.href=href;a.textContent=' Abrir página';el.append(document.createElement('br'),a)}messages.append(el);messages.scrollTop=messages.scrollHeight}
+ questions.forEach(([q,answer,url])=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.addEventListener('click',()=>{say(q,'user');if(!reducedMotion.matches){panel.classList.remove('gp-pensu-happy');panel.classList.add('gp-pensu-thinking');status.textContent='Pensu está consultando as opções do site.';window.setTimeout(()=>{panel.classList.remove('gp-pensu-thinking');panel.classList.add('gp-pensu-happy');status.textContent='';say(answer,'pensu',url)},420)}else say(answer,'pensu',url)});choices.append(b)});
+ function toggle(open){panel.hidden=!open;launch.setAttribute('aria-expanded',String(open));if(open){if(!messages.childElementCount)say('Olá! Sou Pensu, o assistente experimental do GPENSC. Escolha um assunto para começar.','pensu');close.focus()}else{panel.classList.remove('gp-pensu-thinking','gp-pensu-happy');status.textContent='';launch.focus()}}
+ launch.addEventListener('click',()=>toggle(panel.hidden));close.addEventListener('click',()=>toggle(false));
+ document.addEventListener('keydown',e=>{if(panel.hidden)return;if(e.key==='Escape')toggle(false);if(e.key==='Tab'){const focusable=[...panel.querySelectorAll('button:not([disabled]),a[href]')];if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+})();
+</script>
+```
