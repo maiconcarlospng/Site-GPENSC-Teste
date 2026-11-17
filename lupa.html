@@ -221,97 +221,23 @@
 <!-- Faixa fotográfica da home: avanço automático, deslize e controles discretos. -->
 <script defer src="js/galeria-home.js"></script>
 
-<!-- GPENSC: painel de acessibilidade inspirado na organização de widgets conhecidos, sem copiar marca ou scripts de terceiros. -->
+<!-- Menu de acessibilidade GPENSC, com controles independentes e responsivos. -->
+<link rel="stylesheet" href="js/acessibilidade-gpensc.css">
 <div id="gp-access" class="notranslate" translate="no">
   <button id="gp-access-trigger" type="button" aria-label="Abrir menu de acessibilidade" aria-controls="gp-access-panel" aria-expanded="false" title="Acessibilidade">
     <svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true" focusable="false" fill="none"><circle cx="24" cy="8.5" r="4.5" fill="currentColor"/><path d="M8 19.5C13.5 21.2 19.1 22 24 22s10.5-.8 16-2.5M24 22v9m0 0L13.5 42M24 31 34.5 42" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
   <section id="gp-access-panel" role="dialog" aria-modal="false" aria-labelledby="gp-access-title" hidden>
-    <header class="gp-access-head">
-      <div><span class="gp-access-eyebrow">GPENSC · UFOP</span><h2 id="gp-access-title">Acessibilidade</h2><p>Personalize sua experiência de leitura.</p></div>
-      <button type="button" id="gp-access-close" aria-label="Fechar menu de acessibilidade">×</button>
-    </header>
-    <div class="gp-access-content">
-      <div class="gp-access-section-label">Ajustes de visualização</div>
-      <div class="gp-access-grid">
-        <button type="button" data-gp-access="increase"><span class="gp-access-glyph" aria-hidden="true">A+</span><span>Aumentar texto</span></button>
-        <button type="button" data-gp-access="decrease"><span class="gp-access-glyph" aria-hidden="true">A−</span><span>Diminuir texto</span></button>
-        <button type="button" data-gp-access="contrast" aria-pressed="false"><span class="gp-access-glyph" aria-hidden="true">◐</span><span>Alto contraste</span></button>
-        <button type="button" data-gp-access="links" aria-pressed="false"><span class="gp-access-glyph" aria-hidden="true">↗</span><span>Destacar links</span></button>
-        <button type="button" data-gp-access="spacing" aria-pressed="false"><span class="gp-access-glyph" aria-hidden="true">≡</span><span>Espaçar texto</span></button>
-        <button type="button" data-gp-access="motion" aria-pressed="false"><span class="gp-access-glyph" aria-hidden="true">Ⅱ</span><span>Reduzir animações</span></button>
-      </div>
-      <button type="button" class="gp-access-reset" data-gp-access="reset">↺ &nbsp; Restaurar configurações</button>
-      <p class="gp-access-note">Esses recursos auxiliam a navegação e não substituem a acessibilidade nativa do site.</p>
+    <header class="gp-a11y-header"><h2 id="gp-access-title">Menu de acessibilidade</h2><button id="gp-access-close" type="button" aria-label="Fechar menu">×</button></header>
+    <div class="gp-a11y-body">
+      <div class="gp-a11y-row"><label>Idioma</label><div id="gp-a11y-lang" class="gp-a11y-lang" role="group" aria-label="Idioma da página"><button type="button" data-lang="pt">PT</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button></div></div>
+      <div class="gp-a11y-row"><label for="gp-a11y-profile">Perfis de acessibilidade</label><select id="gp-a11y-profile"><option value="">Personalizado</option><option value="vision">Apoio visual</option><option value="reading">Leitura confortável</option><option value="motion">Movimento reduzido</option><option value="focus">Foco no texto</option></select></div>
+      <div id="gp-a11y-grid" class="gp-a11y-grid" aria-label="Ferramentas de acessibilidade"></div>
+      <div id="gp-a11y-outline" class="gp-a11y-outline" hidden></div>
+      <button type="button" id="gp-a11y-reset" class="gp-a11y-reset">↺ Restaurar configurações</button>
+      <p id="gp-a11y-status" class="gp-a11y-status" role="status" aria-live="polite"></p>
+      <p class="gp-a11y-note">Leitor de texto usa a voz do navegador; dicionário consulta serviço externo. Os ajustes não substituem recursos assistivos nem uma auditoria de acessibilidade.</p>
     </div>
   </section>
 </div>
-<style>
-#gp-access{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));z-index:1090;font-family:inherit}
-#gp-access-trigger{display:grid;place-items:center;width:52px;height:52px;padding:0;border:2px solid #fff;border-radius:50%;background:#1f4d2b;color:#fff;box-shadow:0 4px 16px #12351b55;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-#gp-access-trigger:hover{transform:translateY(-2px);box-shadow:0 6px 20px #12351b66}
-#gp-access button:focus-visible{outline:3px solid #d9731f;outline-offset:3px}
-#gp-access-panel{position:absolute;left:0;bottom:calc(100% + 12px);width:min(366px,calc(100vw - 32px));max-height:min(590px,calc(100dvh - 98px));overflow-y:auto;overscroll-behavior:contain;background:#fff;color:#1f3325;border:1px solid #d6e1d8;border-radius:16px;box-shadow:0 12px 38px #102d1b40}
-#gp-access-panel[hidden]{display:none!important}
-#gp-access-panel *{box-sizing:border-box}
-#gp-access .gp-access-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 20px 17px;background:#1f4d2b;color:#fff;border-radius:15px 15px 0 0}
-#gp-access .gp-access-eyebrow{display:block;color:#dcebd3;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-#gp-access #gp-access-title{margin:5px 0 3px!important;color:#fff!important;font-size:22px!important;font-weight:700!important;line-height:1.2!important}
-#gp-access .gp-access-head p{margin:0!important;color:#e6efe5!important;font-size:12px!important;line-height:1.5!important}
-#gp-access-close{flex:none;width:32px;height:32px;padding:0;border:1px solid #ffffff55;border-radius:8px;background:#ffffff1c;color:#fff;font-size:25px;line-height:1;cursor:pointer}
-#gp-access .gp-access-content{padding:18px}
-#gp-access .gp-access-section-label{margin:0 0 11px;color:#506458;font-size:12px;font-weight:700}
-#gp-access .gp-access-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-#gp-access .gp-access-grid button{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;min-height:91px;padding:12px 7px;border:1px solid #dbe5dd;border-radius:11px;background:#f7faf7;color:#1f4d2b;text-align:center;font-size:12px;font-weight:600;line-height:1.35;cursor:pointer}
-#gp-access .gp-access-grid button:hover{border-color:#5f9a3e;background:#edf5ec}
-#gp-access .gp-access-grid button[aria-pressed="true"]{background:#e1f0e0;border:2px solid #1f4d2b}
-#gp-access .gp-access-glyph{display:grid;place-items:center;width:30px;height:30px;color:#1f4d2b;font-size:25px;font-weight:700;line-height:1}
-#gp-access .gp-access-reset{display:block;width:100%;min-height:42px;margin-top:14px;border:1px solid #cddbd0;border-radius:9px;background:#fff;color:#1f4d2b;font-size:13px;font-weight:700;cursor:pointer}
-#gp-access .gp-access-note{margin:13px 0 0!important;color:#647268!important;font-size:11px!important;line-height:1.45!important}
-html.gp-access-contrast body{background:#fff!important;color:#111!important}
-html.gp-access-contrast #quarto-content main.content :is(p,li,h1,h2,h3,h4,h5,h6){color:#111!important}
-html.gp-access-contrast #quarto-content main.content a{color:#064b9b!important;text-decoration:underline!important}
-html.gp-access-links #quarto-content a:not(.btn){text-decoration:underline!important;text-decoration-thickness:2px!important;text-underline-offset:3px!important}
-html.gp-access-spacing #quarto-content main.content :is(p,li){letter-spacing:.055em!important;word-spacing:.13em!important;line-height:1.95!important}
-html.gp-access-motion *,html.gp-access-motion *::before,html.gp-access-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-@media(max-width:480px){#gp-access{left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}#gp-access-trigger{width:48px;height:48px}#gp-access-panel{width:min(350px,calc(100vw - 24px));max-height:calc(100dvh - 85px)}#gp-access .gp-access-head{padding:16px}#gp-access .gp-access-content{padding:14px}#gp-access .gp-access-grid button{min-height:78px}}
-@media(prefers-reduced-motion:reduce){#gp-access-trigger{transition:none}}
-</style>
-<script>
-(function(){
-'use strict';
-var root=document.documentElement;
-var defaults={size:0,contrast:false,motion:false,links:false,spacing:false};
-var saved=Object.assign({},defaults);
-try{var p=JSON.parse(localStorage.getItem('gp-access-preferences')||'{}');saved.size=Math.max(0,Math.min(3,Number(p.size)||0));['contrast','motion','links','spacing'].forEach(function(k){saved[k]=p[k]===true;});}catch(e){}
-function apply(){
-  ['contrast','motion','links','spacing'].forEach(function(k){root.classList.toggle('gp-access-'+k,saved[k]);var b=document.querySelector('#gp-access-panel [data-gp-access="'+k+'"]');if(b)b.setAttribute('aria-pressed',String(saved[k]));});
-  root.style.setProperty('--gp-access-text-scale',String(1+saved.size*.12));
-  document.querySelectorAll('#quarto-content main.content p,#quarto-content main.content li,#quarto-content main.content td').forEach(function(el){
-    if(!el.dataset.gpAccessBaseSize)el.dataset.gpAccessBaseSize=getComputedStyle(el).fontSize;
-    el.style.fontSize=saved.size?'calc('+el.dataset.gpAccessBaseSize+' * var(--gp-access-text-scale))':'';
-  });
-  try{localStorage.setItem('gp-access-preferences',JSON.stringify(saved));}catch(e){}
-}
-document.addEventListener('DOMContentLoaded',function(){
-  var container=document.getElementById('gp-access'),trigger=document.getElementById('gp-access-trigger'),panel=document.getElementById('gp-access-panel'),close=document.getElementById('gp-access-close');
-  if(!container||!trigger||!panel)return;
-  function toggle(open,restoreFocus){panel.hidden=!open;trigger.setAttribute('aria-expanded',String(open));if(open)close.focus();else if(restoreFocus)trigger.focus();}
-  trigger.addEventListener('click',function(){toggle(panel.hidden,true);});
-  close.addEventListener('click',function(){toggle(false,true);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden)toggle(false,true);});
-  document.addEventListener('pointerdown',function(e){if(!panel.hidden&&!container.contains(e.target))toggle(false,false);});
-  panel.addEventListener('click',function(e){
-    var b=e.target.closest('button[data-gp-access]');if(!b)return;
-    switch(b.dataset.gpAccess){
-      case 'increase':saved.size=Math.min(3,saved.size+1);break;
-      case 'decrease':saved.size=Math.max(0,saved.size-1);break;
-      case 'reset':saved=Object.assign({},defaults);break;
-      default:var k=b.dataset.gpAccess;if(Object.prototype.hasOwnProperty.call(saved,k))saved[k]=!saved[k];
-    }
-    apply();
-  });
-  apply();
-});
-})();
-</script>
+<script defer src="js/acessibilidade-gpensc.js"></script>
