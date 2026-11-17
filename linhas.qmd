@@ -157,7 +157,7 @@ if (secao_ativa("mostrar_linhas")) {
       "Nenhuma linha de pesquisa disponível",
       "As linhas cadastradas serão exibidas aqui.",
       "Fale com o grupo",
-      "grupo.html#contato"
+      "contato.html"
     )
   }
 } else {
