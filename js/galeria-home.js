@@ -65,7 +65,7 @@
         programaticoAte = Date.now() + (suave ? 900 : 120);
         faixa.scrollTo({
           left: deslocamento(foto),
-          behavior: suave && !reduzir.matches ? "smooth" : "auto"
+          behavior: suave && !reduzir.matches && !document.documentElement.classList.contains("gp-a11y-motion") ? "smooth" : "auto"
         });
       };
       const voltarAoOriginal = foto => {
@@ -100,7 +100,7 @@
         }
       };
       const podeAvancar = () => {
-        if (document.hidden || reduzir.matches) return false;
+        if (document.hidden || reduzir.matches || document.documentElement.classList.contains("gp-a11y-motion")) return false;
         if (matchMedia("(hover:hover) and (pointer:fine)").matches && galeria.matches(":hover")) return false;
         if (galeria.contains(document.activeElement)) return false;
         return true;
@@ -126,6 +126,10 @@
       proximo.addEventListener("click", () => {
         mover(atual + 1, true);
         proximo.blur();
+      });
+      document.addEventListener("gp:a11y-change", () => {
+        if (document.documentElement.classList.contains("gp-a11y-motion")) parar();
+        else iniciarAutomatico();
       });
       galeria.addEventListener("mouseenter", parar);
       galeria.addEventListener("mouseleave", iniciarAutomatico);

@@ -8,7 +8,7 @@
   const map = root.querySelector('#gp49-map');
   const rows = Array.from(root.querySelectorAll('.gp49-line'));
   if (!map || !rows.length) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('gp-a11y-motion');
   const NS = 'http://www.w3.org/2000/svg';
   const fmt=n=>n.toFixed(2);
   const W = 1400, H = 920, total = rows.length;
@@ -200,7 +200,7 @@
     cancelAnimationFrame(animation);
     const start={...camera}, began=performance.now();
     function frame(time) {
-      const t = reduced ? 1 : clamp((time-began)/duration,0,1), k=ease(t);
+      const t = reduced() ? 1 : clamp((time-began)/duration,0,1), k=ease(t);
       for (const prop of ['x','y','w','h']) camera[prop]=start[prop]+(target[prop]-start[prop])*k;
       paint();
       if (t<1) animation=requestAnimationFrame(frame);
@@ -265,7 +265,7 @@
         'stroke-width':begin>70?1.6:.9,'stroke-opacity':.19,'stroke-linecap':'round'},group);
     }
     guide.remove();
-    if(!reduced){
+    if(!reduced()){
       try{group.animate([{opacity:0},{opacity:1}],{duration:520,easing:'ease-out'});}catch(_){}
     }
     return {group,heading:exit};
@@ -435,11 +435,11 @@
     detail.classList.add('gp49-detail-body');
     panel.append(close,eyebrow,heading,detail);
     panel.hidden=false;
-    if (!reduced) [...panel.children].forEach((item,index)=>{
+    if (!reduced()) [...panel.children].forEach((item,index)=>{
       if(item.animate)item.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],
         {duration:350,delay:index*60,easing:'ease-out'});
     });
-    panel.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});
+    panel.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'nearest'});
   }
   rows.forEach((row,index)=>{
     const button=row.querySelector('button');
