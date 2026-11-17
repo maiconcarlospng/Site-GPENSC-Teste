@@ -1,33 +1,35 @@
 ```{r}
 source("R/helpers.R")
 projetos_publicados <- registros_reais(projetos, "titulo")
+tipo_pesquisa <- !is.na(projetos_publicados$tipo) &
+  tolower(trimws(as.character(projetos_publicados$tipo))) == "pesquisa"
+projetos_pesquisa <- projetos_publicados[tipo_pesquisa, , drop = FALSE]
 
 if (secao_ativa("mostrar_projetos")) {
-div(
-  class = "pagina-projetos",
-  if (nrow(projetos_publicados) > 0) {
-    projetos_publicados |>
-      rename(
-        Título = titulo,
-        Tipo = tipo,
-        Situação = situacao,
-        Coordenação = coordenador,
-        Início = inicio,
-        Fim = fim,
-        Linha = linha_id,
-        Financiamento = financiamento
-      ) |>
-      datatable(
-        rownames = FALSE,
-        filter = "top",
-        options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
-      )
-  } else {
-    estado_vazio("Projetos em atualização", NULL)
-  }
-)
+  div(
+    class = "pagina-projetos",
+    if (nrow(projetos_pesquisa) > 0) {
+      projetos_pesquisa |>
+        transmute(
+          Título = titulo,
+          Situação = situacao,
+          Coordenação = coordenador,
+          Início = inicio,
+          Fim = fim,
+          Linha = linha_id,
+          Financiamento = financiamento,
+          Link = url
+        ) |>
+        datatable(
+          rownames = FALSE,
+          filter = "top",
+          options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
+        )
+    } else {
+      estado_vazio("Projetos de pesquisa em atualização", NULL)
+    }
+  )
 } else {
   estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
 }
-
 ```
