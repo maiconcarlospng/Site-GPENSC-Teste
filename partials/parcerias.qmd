@@ -3,22 +3,55 @@ source("R/helpers.R")
 parcerias_site <- registros_reais(parcerias, "nome")
 if (nrow(parcerias_site) > 0) {
   dados <- parcerias_site
+  div(
+    class = "parcerias-catalogo parcerias-catalogo--logos",
+    `aria-label` = "Instituições parceiras e vínculos institucionais",
+    lapply(seq_len(nrow(dados)), function(i) {
+      parceria <- dados[i, , drop = FALSE]
+      nome <- as.character(parceria$nome[1])
+      logo <- valor_publico(parceria$logo)
+      url <- valor_publico(parceria$url)
+      sigla <- valor_publico(parceria$sigla)
+
+      # A marca tem espaço visual uniforme sem distorcer a proporção.
+      # O nome permanece disponível a leitores de tela e no tooltip.
+      marca <- if (!is.null(logo)) {
+        tags$img(
+          class = "parcerias-logo-imagem",
+          src = caminho_img(logo),
+          alt = nome,
+          loading = "lazy",
+          decoding = "async"
+        )
+      } else {
+        tags$span(
+          class = "parcerias-logo-sigla",
+          if (!is.null(sigla)) sigla else nome
+        )
+      }
+
       div(
-        class = "parcerias-catalogo",
-        lapply(seq_len(nrow(dados)), function(i) {
-          parceria <- dados[i, , drop = FALSE]
-          logo <- valor_publico(parceria$logo)
-          url <- valor_publico(parceria$url)
-          marca <- if (!is.null(logo)) tags$img(src = caminho_img(logo), alt = paste("Identidade visual:", parceria$nome[1]), loading = "lazy") else span(class = "parceria-sigla", as.character(parceria$sigla[1]))
-          div(
-            class = "parceria-instituicao",
-            div(class = "parceria-marca", marca),
-            h3(as.character(parceria$nome[1])),
-            p(class = "parceria-local", paste(c(valor_publico(parceria$cidade), valor_publico(parceria$pais)), collapse = ", ")),
-            if (!is.null(url)) tags$a("Visitar instituição", href = url, target = "_blank", rel = "noopener noreferrer")
+        class = "parcerias-logo-item",
+        if (!is.null(url)) {
+          tags$a(
+            class = "parcerias-logo-link",
+            href = url,
+            target = "_blank",
+            rel = "noopener noreferrer",
+            title = paste("Visitar", nome),
+            `aria-label` = paste("Visitar o site de", nome),
+            marca
           )
-        })
+        } else {
+          div(
+            class = "parcerias-logo-sem-link",
+            title = nome,
+            marca
+          )
+        }
       )
+    })
+  )
 } else {
   estado_vazio("Parcerias em atualização", NULL)
 }
