@@ -2,16 +2,25 @@
 title: "Atualizações"
 ---
 
-<div class="gp-illustrated-lead"><p>Agenda e notícias do GPENSC.</p><img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+<div class="gp-illustrated-lead"><p>Acompanhe as novidades e atividades do GPENSC.</p><img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ```{=html}
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#agenda">Agenda</a><a href="#noticias">Notícias</a></nav>
+<script>
+/* Mantém os endereços já divulgados antes da separação das páginas. */
+(() => {
+  const destinos = {
+    '#agenda': 'agenda.html#agenda',
+    '#noticias': 'noticias.html#noticias'
+  };
+  const destino = destinos[window.location.hash.toLowerCase()];
+  if (destino) window.location.replace(destino);
+})();
+</script>
 ```
 
-## Agenda {#agenda}
+## Acompanhe o GPENSC
 
-{{< include partials/agenda.qmd >}}
-
-## Notícias {#noticias .gp-heading-art .gp-heading-art--noticias}
-
-{{< include partials/noticias.qmd >}}
+<div class="gp-research-index" aria-label="Acessos a atualizações">
+  <a href="agenda.html"><strong>Agenda</strong><span>Reuniões, cursos e defesas</span></a>
+  <a href="noticias.html"><strong>Notícias</strong><span>Novidades e comunicados do grupo</span></a>
+</div>
