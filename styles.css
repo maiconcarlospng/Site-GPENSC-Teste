@@ -20383,3 +20383,122 @@ body:has(.pagina-defesas)        { --gp-page-width: 1160px; }
   }
 }
 /* As regras mobile anteriores permanecem intactas. */
+
+
+/* GPENSC | parcerias somente logos — tamanho consistente, sem cartões.
+   O Quarto continua gerando o mapa abaixo da grade; links ficam na própria marca. */
+html body #quarto-content main.content .parcerias-catalogo.parcerias-catalogo--logos {
+  --gp-partners-gap: clamp(14px, 2.2vw, 30px);
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(16px, 2vw, 28px) var(--gp-partners-gap) !important;
+  width: min(100%, 1240px) !important;
+  max-width: 1240px !important;
+  min-width: 0 !important;
+  margin: clamp(20px, 2.5vw, 34px) auto clamp(28px, 4vw, 52px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html body #quarto-content main.content .parcerias-catalogo--logos > .parcerias-logo-item {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex: 0 1 calc((100% - 4 * var(--gp-partners-gap)) / 5) !important;
+  width: calc((100% - 4 * var(--gp-partners-gap)) / 5) !important;
+  max-width: 225px !important;
+  min-width: 0 !important;
+  min-height: 142px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html body #quarto-content main.content .parcerias-catalogo--logos :is(.parcerias-logo-link,.parcerias-logo-sem-link) {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 142px !important;
+  padding: 8px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+html body #quarto-content main.content .parcerias-catalogo--logos img.parcerias-logo-imagem {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 205px !important;
+  height: 128px !important;
+  max-height: 128px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transition: transform .18s ease !important;
+}
+html body #quarto-content main.content .parcerias-catalogo--logos .parcerias-logo-sigla {
+  color: #1f4d2b !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.05rem, 1.5vw, 1.45rem) !important;
+  text-align: center !important;
+}
+html body #quarto-content main.content .parcerias-catalogo--logos .parcerias-logo-link:is(:hover,:focus-visible) img {
+  transform: translateY(-3px) scale(1.035);
+}
+html body #quarto-content main.content .parcerias-catalogo--logos .parcerias-logo-link:focus-visible {
+  outline: 3px solid #d9731f !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 980px) {
+  html body #quarto-content main.content .parcerias-catalogo.parcerias-catalogo--logos > .parcerias-logo-item {
+    flex-basis: calc((100% - 2 * var(--gp-partners-gap)) / 3) !important;
+    width: calc((100% - 2 * var(--gp-partners-gap)) / 3) !important;
+  }
+}
+@media (max-width: 640px) {
+  html body #quarto-content main.content .parcerias-catalogo.parcerias-catalogo--logos {
+    --gp-partners-gap: 12px;
+    gap: 14px 12px !important;
+    width: 100% !important;
+  }
+  html body #quarto-content main.content .parcerias-catalogo.parcerias-catalogo--logos > .parcerias-logo-item {
+    flex-basis: calc((100% - var(--gp-partners-gap)) / 2) !important;
+    width: calc((100% - var(--gp-partners-gap)) / 2) !important;
+    min-height: 114px !important;
+  }
+  html body #quarto-content main.content .parcerias-catalogo--logos :is(.parcerias-logo-link,.parcerias-logo-sem-link) {
+    min-height: 114px !important;
+    padding: 6px !important;
+  }
+  html body #quarto-content main.content .parcerias-catalogo--logos img.parcerias-logo-imagem {
+    height: 104px !important;
+    max-height: 104px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #quarto-content main.content .parcerias-catalogo--logos img.parcerias-logo-imagem {
+    transition: none !important;
+  }
+  html body #quarto-content main.content .parcerias-catalogo--logos .parcerias-logo-link:is(:hover,:focus-visible) img {
+    transform: none !important;
+  }
+}
