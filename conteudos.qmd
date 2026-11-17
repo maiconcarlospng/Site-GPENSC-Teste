@@ -2,38 +2,40 @@
 title: "Divulgação científica"
 ---
 
-<div class="gp-illustrated-lead"><p>Produções do grupo para a comunidade acadêmica e a sociedade.</p><img src="img/ilustracoes/divulgacao.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+<div class="gp-illustrated-lead"><p>Produções científicas e materiais do GPENSC para a comunidade acadêmica e a sociedade.</p><img src="img/ilustracoes/divulgacao.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Explore os conteúdos
 
 ```{=html}
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#anuario">Anuário</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
+<nav class="gp-research-index" aria-label="Áreas de divulgação científica">
+<a href="materiais.html"><strong>Materiais educativos</strong><span>Cartilhas e recursos de educação alimentar</span></a>
+<a href="podcasts.html"><strong>Podcasts</strong><span>Conversas e programas em áudio</span></a>
+<a href="livros.html"><strong>Livros e e-books</strong><span>Produção editorial do grupo</span></a>
+<a href="videos.html"><strong>Vídeos</strong><span>Conteúdos audiovisuais</span></a>
+<a href="resultados.html"><strong>Ciência para a sociedade</strong><span>Resultados explicados ao público</span></a>
+<a href="impacto.html"><strong>Impacto social</strong><span>Registros e ações para a comunidade</span></a>
+<a href="anuario.html"><strong>Anuário</strong><span>Memória anual a partir de 2027</span></a>
+<a href="noticias.html"><strong>Notícias</strong><span>Novidades e comunicados do GPENSC</span></a>
+</nav>
 ```
-
-## Materiais educativos {#materiais}
-
-{{< include partials/materiais.qmd >}}
-
-## Vídeos {#videos}
-
-{{< include partials/videos.qmd >}}
-
-## Podcasts {#podcasts}
-
-{{< include partials/podcasts.qmd >}}
 
 {{< include partials/link-acervo-instagram.qmd >}}
 
-## Livros e e-books {#livros}
-
-{{< include partials/livros.qmd >}}
-
-## Anuário {#anuario}
-
-O anuário do GPENSC tem início previsto para 2027, reunindo as atividades e produções do grupo.
-
-## Ciência para a sociedade {#resultados}
-
-{{< include partials/resultados.qmd >}}
-
-## Impacto social {#impacto}
-
-{{< include partials/impacto.qmd >}}
+```{=html}
+<script>
+/* Compatibilidade com endereços antigos baseados em seções da divulgação. */
+(() => {
+  const paginas = {
+    '#materiais': 'materiais.html#materiais',
+    '#videos': 'videos.html#videos',
+    '#podcasts': 'podcasts.html#podcasts',
+    '#livros': 'livros.html#livros',
+    '#anuario': 'anuario.html#anuario',
+    '#resultados': 'resultados.html#resultados',
+    '#impacto': 'impacto.html#impacto'
+  };
+  const destino = paginas[window.location.hash.toLowerCase()];
+  if (destino) window.location.replace(destino);
+})();
+</script>
+```
