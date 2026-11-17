@@ -47,7 +47,10 @@ if (nrow(noticias_publicadas) == 0) {
         if (!is.null(imagem)) tags$img(
           class = "noticia-detalhe-imagem",
           src = caminho_img(imagem, "noticias"),
-          alt = titulo
+          alt = paste("Imagem da publicação:", titulo),
+          loading = "lazy",
+          decoding = "async",
+          onerror = "this.remove()"
         ),
         div(class = "noticia-detalhe-texto", p(conteudo)),
         
