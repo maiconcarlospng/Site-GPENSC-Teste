@@ -8,31 +8,26 @@ title: "Divulgação científica"
 
 ```{=html}
 <nav class="gp-research-index" aria-label="Áreas de divulgação científica">
-<a href="materiais.html"><strong>Materiais educativos</strong><span>Cartilhas e recursos de educação alimentar</span></a>
-<a href="podcasts.html"><strong>Podcasts</strong><span>Conversas e programas em áudio</span></a>
-<a href="livros.html"><strong>Livros e e-books</strong><span>Produção editorial do grupo</span></a>
-<a href="videos.html"><strong>Vídeos</strong><span>Conteúdos audiovisuais</span></a>
-<a href="resultados.html"><strong>Ciência para a sociedade</strong><span>Resultados explicados ao público</span></a>
-<a href="impacto.html"><strong>Impacto social</strong><span>Registros e ações para a comunidade</span></a>
-<a href="anuario.html"><strong>Anuário</strong><span>Memória anual a partir de 2027</span></a>
-<a href="noticias.html"><strong>Notícias</strong><span>Novidades e comunicados do GPENSC</span></a>
+<a href="biblioteca.html"><strong>Biblioteca</strong><span>Cartilhas, materiais educativos, livros, e-books e anuários</span></a>
+<a href="multimidia.html"><strong>Multimídia</strong><span>Podcasts, vídeos, entrevistas e episódios do GPENSC no Ar</span></a>
+<a href="ciencia-sociedade.html"><strong>Ciência para a sociedade</strong><span>Resultados científicos acessíveis e impacto social</span></a>
 </nav>
 ```
 
-{{< include partials/link-acervo-instagram.qmd >}}
+Acompanhe também as [notícias e novidades do GPENSC](noticias.qmd). A [Agenda](agenda.qmd) reúne os próximos eventos e atividades do grupo.
 
 ```{=html}
 <script>
-/* Compatibilidade com endereços antigos baseados em seções da divulgação. */
+/* Redireciona links compartilhados anteriormente para a seção equivalente na nova organização. */
 (() => {
   const paginas = {
-    '#materiais': 'materiais.html#materiais',
-    '#videos': 'videos.html#videos',
-    '#podcasts': 'podcasts.html#podcasts',
-    '#livros': 'livros.html#livros',
-    '#anuario': 'anuario.html#anuario',
-    '#resultados': 'resultados.html#resultados',
-    '#impacto': 'impacto.html#impacto'
+    '#materiais': 'biblioteca.html#materiais',
+    '#livros': 'biblioteca.html#livros',
+    '#anuario': 'biblioteca.html#anuario',
+    '#podcasts': 'multimidia.html#podcasts',
+    '#videos': 'multimidia.html#videos',
+    '#resultados': 'ciencia-sociedade.html#resultados',
+    '#impacto': 'ciencia-sociedade.html#impacto'
   };
   const destino = paginas[window.location.hash.toLowerCase()];
   if (destino) window.location.replace(destino);
