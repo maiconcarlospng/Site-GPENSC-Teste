@@ -220,3 +220,84 @@
 
 <!-- Faixa fotográfica da home: avanço automático, deslize e controles discretos. -->
 <script defer src="js/galeria-home.js"></script>
+
+<!-- GPENSC: botão universal de acessibilidade. Sem dependências externas. -->
+<div id="gp-access" class="notranslate" translate="no">
+  <button id="gp-access-trigger" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="gp-access-panel" aria-expanded="false" title="Acessibilidade">
+    <svg viewBox="0 0 48 48" width="28" height="28" aria-hidden="true" focusable="false" fill="none">
+      <circle cx="24" cy="8.5" r="4.5" fill="currentColor"/>
+      <path d="M8 19.5C13.5 21.2 19.1 22 24 22s10.5-.8 16-2.5M24 22v9m0 0L13.5 42M24 31 34.5 42" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <section id="gp-access-panel" role="region" aria-label="Opções de acessibilidade" hidden>
+    <div class="gp-access-head"><strong>Acessibilidade</strong><button type="button" id="gp-access-close" aria-label="Fechar opções de acessibilidade">×</button></div>
+    <div class="gp-access-actions">
+      <button type="button" data-gp-access="increase">Aumentar texto <span aria-hidden="true">A+</span></button>
+      <button type="button" data-gp-access="decrease">Diminuir texto <span aria-hidden="true">A−</span></button>
+      <button type="button" data-gp-access="contrast" aria-pressed="false">Alto contraste</button>
+      <button type="button" data-gp-access="motion" aria-pressed="false">Reduzir animações</button>
+      <button type="button" data-gp-access="reset">Restaurar padrão</button>
+    </div>
+  </section>
+</div>
+<style>
+#gp-access{position:fixed;left:max(14px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:1090;font-family:inherit}
+#gp-access-trigger{display:grid;place-items:center;width:48px;height:48px;padding:0;border:2px solid #fff;border-radius:50%;background:#1f4d2b;color:#fff;box-shadow:0 3px 12px #173a2360;cursor:pointer;transition:transform .18s ease}
+#gp-access-trigger:hover{transform:translateY(-2px)}
+#gp-access :is(button):focus-visible{outline:3px solid #d9731f;outline-offset:3px}
+#gp-access-panel{position:absolute;left:0;bottom:calc(100% + 12px);width:min(310px,calc(100vw - 28px));max-height:min(420px,calc(100dvh - 95px));overflow-y:auto;padding:16px;background:#fff;color:#203d2a;border:1px solid #cbd9cd;border-radius:14px;box-shadow:0 8px 30px #16371e33}
+#gp-access-panel[hidden]{display:none!important}
+.gp-access-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+#gp-access-close{border:0;background:transparent;color:inherit;font-size:26px;line-height:1;cursor:pointer}
+.gp-access-actions{display:grid;gap:8px}
+.gp-access-actions button{display:flex;justify-content:space-between;align-items:center;min-height:42px;padding:9px 12px;border:1px solid #d5e1d5;border-radius:8px;background:#f7faf6;color:#1f4d2b;text-align:left;cursor:pointer;font-size:14px}
+.gp-access-actions button[aria-pressed="true"]{background:#1f4d2b;color:white}
+html.gp-access-contrast body{background:#fff!important;color:#111!important}
+html.gp-access-contrast #quarto-content main.content :is(p,li,h1,h2,h3,h4,h5,h6){color:#111!important}
+html.gp-access-contrast #quarto-content main.content a{color:#0753a2!important;text-decoration:underline!important}
+html.gp-access-motion *,html.gp-access-motion *::before,html.gp-access-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){#gp-access-trigger{transition:none}}
+</style>
+<script>
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  var saved={size:0,contrast:false,motion:false};
+  try{var parsed=JSON.parse(localStorage.getItem('gp-access-preferences')||'{}');saved.size=Math.max(0,Math.min(3,Number(parsed.size)||0));saved.contrast=parsed.contrast===true;saved.motion=parsed.motion===true;}catch(e){}
+  function apply(){
+    root.classList.toggle('gp-access-contrast',saved.contrast);
+    root.classList.toggle('gp-access-motion',saved.motion);
+    root.style.setProperty('--gp-access-text-scale',String(1+saved.size*.12));
+    document.querySelectorAll('#quarto-content main.content p,#quarto-content main.content li,#quarto-content main.content td').forEach(function(el){
+      if(!el.dataset.gpAccessBaseSize){el.dataset.gpAccessBaseSize=getComputedStyle(el).fontSize;}
+      el.style.fontSize='calc('+el.dataset.gpAccessBaseSize+' * var(--gp-access-text-scale))';
+    });
+    var contrast=document.querySelector('[data-gp-access="contrast"]');
+    var motion=document.querySelector('[data-gp-access="motion"]');
+    if(contrast)contrast.setAttribute('aria-pressed',String(saved.contrast));
+    if(motion)motion.setAttribute('aria-pressed',String(saved.motion));
+    try{localStorage.setItem('gp-access-preferences',JSON.stringify(saved));}catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var trigger=document.getElementById('gp-access-trigger'),panel=document.getElementById('gp-access-panel');
+    if(!trigger||!panel)return;
+    function toggle(open){panel.hidden=!open;trigger.setAttribute('aria-expanded',String(open));if(open)document.getElementById('gp-access-close').focus();else trigger.focus();}
+    trigger.addEventListener('click',function(){toggle(panel.hidden);});
+    document.getElementById('gp-access-close').addEventListener('click',function(){toggle(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden)toggle(false);});
+    document.addEventListener('pointerdown',function(e){if(!panel.hidden&&!document.getElementById('gp-access').contains(e.target)){panel.hidden=true;trigger.setAttribute('aria-expanded','false');}});
+    panel.addEventListener('click',function(e){
+      var b=e.target.closest('button[data-gp-access]');if(!b)return;
+      switch(b.dataset.gpAccess){
+        case 'increase':saved.size=Math.min(3,saved.size+1);break;
+        case 'decrease':saved.size=Math.max(0,saved.size-1);break;
+        case 'contrast':saved.contrast=!saved.contrast;break;
+        case 'motion':saved.motion=!saved.motion;break;
+        case 'reset':saved={size:0,contrast:false,motion:false};break;
+      }
+      apply();
+    });
+    apply();
+  });
+})();
+</script>
