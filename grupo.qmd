@@ -23,3 +23,5 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 ## Contato {#contato}
 
 {{< include partials/contato.qmd >}}
+
+{{< include partials/link-acervo-instagram.qmd >}}
