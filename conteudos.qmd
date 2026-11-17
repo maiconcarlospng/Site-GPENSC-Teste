@@ -20,6 +20,8 @@ title: "Divulgação científica"
 
 {{< include partials/podcasts.qmd >}}
 
+{{< include partials/link-acervo-instagram.qmd >}}
+
 ## Livros e e-books {#livros}
 
 {{< include partials/livros.qmd >}}
@@ -35,5 +37,3 @@ O anuário do GPENSC tem início previsto para 2027, reunindo as atividades e pr
 ## Impacto social {#impacto}
 
 {{< include partials/impacto.qmd >}}
-
-{{< include partials/link-acervo-instagram.qmd >}}
