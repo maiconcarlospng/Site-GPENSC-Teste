@@ -47,7 +47,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7e31b1f2a09a5de902ceb913150967d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-02823652f7c6196ae3d39b0b6a9de727.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -277,6 +277,38 @@ Conheça momentos e marcos da trajetória do GPENSC.
 </div>
 </div>
 <!-- Sem bloco de Instagram: as informações importadas passam a integrar os cadastros de cada área. -->
+<style>
+/* Linha do tempo institucional: desktop horizontal, mobile vertical alternada */
+.historia-linha-tempo{display:flex;gap:1.4rem;max-width:none;width:100%;margin:2rem 0;padding:1rem 1rem 2rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;position:relative;align-items:stretch;min-height:580px;scrollbar-color:#5f9a3e #f3ecdd}
+.historia-linha-tempo::before{content:"";position:absolute;left:1rem;right:1rem;top:50%;height:4px;background:#5f9a3e;border-radius:8px}
+.historia-linha-tempo .historia-item{position:relative;flex:0 0 clamp(230px,27vw,340px);min-width:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;padding:0 0 50px;border:0;scroll-snap-align:center}
+.historia-linha-tempo .historia-item:nth-child(even){justify-content:flex-end;padding:50px 0 0}
+.historia-linha-tempo .historia-item::before{content:"";position:absolute;top:calc(50% - 8px);left:50%;width:16px;height:16px;border:4px solid #dcebd3;border-radius:50%;background:#1f4d2b;box-sizing:border-box;z-index:2}
+.historia-linha-tempo .historia-item::after{content:"";position:absolute;top:calc(25% + 15px);left:calc(50% + 7px);height:calc(25% - 23px);border-left:2px solid #5f9a3e}
+.historia-linha-tempo .historia-item:nth-child(even)::after{top:50%;height:calc(25% - 23px)}
+.historia-linha-tempo .historia-ano{display:block;color:#b9560f;font-size:1.1rem;font-weight:800;margin:0 0 .45rem}
+.historia-linha-tempo .historia-conteudo{background:#f8f6ef;border:1px solid #dcebd3;border-radius:14px;padding:1rem;box-shadow:0 3px 12px #1f4d2b0c;max-height:245px;overflow:auto}
+.historia-linha-tempo .historia-conteudo h2{font-size:1.05rem;line-height:1.35;margin:0 0 .5rem}
+.historia-linha-tempo .historia-conteudo p{font-size:.9rem;line-height:1.5}
+.historia-linha-tempo .historia-conteudo img{width:100%;max-height:110px;object-fit:cover;border-radius:8px}
+.historia-linha-tempo .historia-item:nth-child(even) .historia-ano{order:2;margin:.45rem 0 0}
+@media(max-width:767px){
+.historia-linha-tempo{display:flex;flex-direction:column;gap:1.25rem;min-height:0;overflow:visible;padding:1rem 0 1rem;scroll-snap-type:none;align-items:stretch}
+.historia-linha-tempo::before{top:0;bottom:0;left:calc(50% - 2px);right:auto;width:4px;height:auto}
+.historia-linha-tempo .historia-item,.historia-linha-tempo .historia-item:nth-child(even){flex:initial;width:calc(50% - 15px);min-height:0;padding:0;display:flex;flex-direction:column;justify-content:flex-start;align-self:flex-start}
+.historia-linha-tempo .historia-item:nth-child(even){align-self:flex-end}
+.historia-linha-tempo .historia-item::before{top:20px;left:calc(100% + 7px)}
+.historia-linha-tempo .historia-item:nth-child(even)::before{left:-23px}
+.historia-linha-tempo .historia-item::after,.historia-linha-tempo .historia-item:nth-child(even)::after{top:27px;left:100%;height:0;width:15px;border-left:0;border-top:2px solid #5f9a3e}
+.historia-linha-tempo .historia-item:nth-child(even)::after{left:-15px}
+.historia-linha-tempo .historia-conteudo{padding:.7rem;max-height:none;overflow:visible;overflow-wrap:anywhere}
+.historia-linha-tempo .historia-conteudo h2{font-size:.9rem}
+.historia-linha-tempo .historia-conteudo p{font-size:.8rem}
+.historia-linha-tempo .historia-conteudo img{max-height:125px}
+.historia-linha-tempo .historia-ano,.historia-linha-tempo .historia-item:nth-child(even) .historia-ano{order:0;font-size:1rem;margin:0 0 .35rem}
+}
+@media(prefers-reduced-motion:reduce){.historia-linha-tempo{scroll-behavior:auto}}
+</style>
 
 
 </section>
