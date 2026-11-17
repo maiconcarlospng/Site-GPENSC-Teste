@@ -181,8 +181,9 @@ const SITE_PAGES={
   metodos:'metodos.html',conteudos_vi_no_rotulo:'extensao.html#projeto-PR-VR',
   equipe_vi_no_rotulo:'extensao.html#projeto-PR-VR',
   capacitacao_atividades:'extensao.html#projeto-PR-CEP',disciplinas:'ensino.html',
-  impactos:'impacto.html',materiais:'materiais.html',videos:'videos.html',livros:'livros.html',
-  noar:'podcasts.html',sites:'parcerias.html',noticias:'noticias.html',
+  impactos:'ciencia-sociedade.html#impacto',materiais:'biblioteca.html#materiais',
+  videos:'multimidia.html#videos',livros:'biblioteca.html#livros',
+  noar:'multimidia.html#podcasts',sites:'parcerias.html',noticias:'noticias.html',
   eventos:'agenda.html',planejamento:'index.html',pautas_instagram:'acervo-instagram.html'
 };
 function sitePage(entry){return '../'+(SITE_PAGES[entry?.name]||'index.html')}
