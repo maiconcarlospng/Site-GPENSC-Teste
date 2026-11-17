@@ -1,0 +1,20 @@
+---
+title: "Ciência para a sociedade"
+---
+
+<div class="gp-illustrated-lead"><p>Resultados de pesquisas em linguagem acessível e repercussões das iniciativas do GPENSC na sociedade.</p><img src="img/ilustracoes/pesquisa.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+<nav class="gp-biblioteca-nav" aria-label="Seções de Ciência para a sociedade">
+<a href="#resultados">Resultados explicados</a>
+<a href="#impacto">Impacto social</a>
+</nav>
+
+## Resultados de pesquisas {#resultados}
+
+{{< include partials/resultados.qmd >}}
+
+## Impacto social {#impacto}
+
+{{< include partials/impacto.qmd >}}
+
+[Voltar à Divulgação científica](conteudos.qmd)
