@@ -1,55 +1,67 @@
 itens:
-- episodio: '1'
-  titulo: Polifenóis e a associação com o risco de doenças cardiovasculares
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '2'
-  titulo: A motivação por trás das nossas escolhas alimentares
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '3'
-  titulo: Impacto ambiental da dieta
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '4'
-  titulo: O que são Comfort Foods?
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '5'
-  titulo: Qualidade do sono e consumo de Comfort Foods
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '6'
-  titulo: Sono + risco cardiovascular + consumo alimentar
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '7'
-  titulo: Mitos e verdades sobre exercício físico e perda de peso
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '8'
-  titulo: Como criar hábitos de movimento no dia a dia
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
-- episodio: '9'
-  titulo: Fake news em alimentação e nutrição
-  convidado: ''
-  data: ''
-  link: ''
-  obs: ''
+  - episodio: "1"
+    titulo: "Polifenóis e a associação com o risco de doenças cardiovasculares"
+    convidado: ""
+    data: "2025-12-20"
+    link: "https://www.instagram.com/p/DSf-Rpxj51K/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: "2"
+    titulo: "A motivação por trás das nossas escolhas alimentares"
+    convidado: ""
+    data: "2025-11-28"
+    link: "https://www.instagram.com/p/DRnUzBwkeMy/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: "3"
+    titulo: "Impacto ambiental da dieta"
+    convidado: ""
+    data: "2025-11-25"
+    link: "https://www.instagram.com/p/DRfmbMRkX1o/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: "4"
+    titulo: "O que são Comfort Foods?"
+    convidado: ""
+    data: "2025-10-01"
+    link: "https://www.instagram.com/p/DPSAatbEfEZ/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: "5"
+    titulo: "Qualidade do sono e consumo de Comfort Foods"
+    convidado: ""
+    data: ""
+    link: ""
+    obs: ""
+  - episodio: "6"
+    titulo: "Sono + risco cardiovascular + consumo alimentar"
+    convidado: ""
+    data: ""
+    link: ""
+    obs: ""
+  - episodio: "7"
+    titulo: "Mitos e verdades sobre exercício físico e perda de peso"
+    convidado: ""
+    data: "2025-09-16"
+    link: "https://www.instagram.com/p/DOrWqaeEcLt/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: "8"
+    titulo: "Como criar hábitos de movimento no dia a dia"
+    convidado: ""
+    data: ""
+    link: ""
+    obs: ""
+  - episodio: "9"
+    titulo: "Fake news em alimentação e nutrição"
+    convidado: ""
+    data: ""
+    link: ""
+    obs: ""
+  - episodio: ""
+    titulo: "Desnutrição oculta — participação no Rádio UFOP"
+    convidado: "Adriana Lúcia Meireles"
+    data: "2026-11-05"
+    link: "https://www.instagram.com/p/DfX8KQNFr1w/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
+  - episodio: ""
+    titulo: "Sono e alimentação"
+    convidado: "Gabrielle Araújo Santos"
+    data: "2025-11-12"
+    link: "https://www.instagram.com/p/DQ-IBj0EcQa/"
+    obs: "Link para publicação de divulgação; a audição está disponível nos canais de áudio indicados nesta página."
