@@ -142,6 +142,29 @@
       assets=next;updateUI();
       return path;
     }
+    function localReferences(path){
+      const refs=[];
+      for(const c of state.collections||[]){
+        const data=state.contents?.[c.file];
+        if(data&&JSON.stringify(data).includes(path))refs.push(c.label||c.file);
+      }
+      return refs;
+    }
+    async function stageDeletion(path,sha,size=0){
+      if(publishing)throw new Error('A publicação está em andamento.');
+      if(typeof path!=='string'||!path.startsWith('img/')||path.includes('..')||/[\u0000-\u001f]/.test(path))throw new Error('Caminho de material inválido.');
+      if(!/^[a-f0-9]{40}$/i.test(String(sha||'')))throw new Error('É necessário atualizar a biblioteca para identificar a versão do arquivo.');
+      // Identidade do site e ilustrações em uso estrutural não podem ser excluídas por engano.
+      if(/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(path))throw new Error('Este arquivo faz parte da identidade visual do site e está protegido contra exclusão pelo painel.');
+      const linked=localReferences(path);
+      if(linked.length)throw new Error('Material vinculado aos cadastros de '+linked.slice(0,5).join(', ')+'. Remova os vínculos nas edições primeiro e confira a fila.');
+      const next=clone(assets);
+      if(next[path]?.action==='adicionar'){ // Um novo arquivo ainda não publicado só precisa ser retirado da fila.
+        delete next[path];persist(pending,next);assets=next;await dbDelete(path).catch(()=>{});updateUI();return 'cancelado';
+      }
+      next[path]={path,name:path.split('/').pop(),size,sha,action:'remover',date:new Date().toISOString()};
+      persist(pending,next);assets=next;await dbDelete(path).catch(()=>{});updateUI();return 'pendente';
+    }
     async function deleteAsset(path){
       if(publishing)return;
       if(Object.values(pending).some(x=>JSON.stringify(x.content).includes(path))){
@@ -181,7 +204,7 @@
           (conflict?'<p class="batch-conflict">O arquivo mudou no GitHub desde o início deste rascunho. Descarte e refaça a edição a partir da versão atual antes de publicar.</p>':'')+
           '<details><summary>Ver o que mudou</summary><ul class="batch-change-list">'+items+'</ul></details></article>';
       }).join('');
-      const media=Object.values(assets).map(a=>'<article class="batch-media-item"><span class="batch-file-type">'+esc(a.action==='substituir'?'SUBSTITUIÇÃO':'NOVO ARQUIVO')+'</span><div><strong>'+esc(a.name)+'</strong><small>'+esc(a.path)+' · '+esc(mediaSize(a.size))+'</small></div><button class="batch-remove" type="button" data-batch-remove-asset="'+esc(a.path)+'">Descartar</button></article>').join('');
+      const media=Object.values(assets).map(a=>'<article class="batch-media-item'+(a.action==='remover'?' batch-media-deletion':'')+'"><span class="batch-file-type">'+esc(a.action==='remover'?'REMOVER':a.action==='substituir'?'SUBSTITUIR':'NOVO ARQUIVO')+'</span><div><strong>'+esc(a.name)+'</strong><small>'+esc(a.path)+' · '+esc(mediaSize(a.size))+(a.action==='remover'?' · Arquivo será excluído do repositório':'')+'</small></div><button class="batch-remove" type="button" data-batch-remove-asset="'+esc(a.path)+'">'+(a.action==='remover'?'Cancelar exclusão':'Descartar')+'</button></article>').join('');
       return {rows,media};
     }
     function renderReview(container,handlers={}){
@@ -232,12 +255,18 @@
         if(fresh.sha!==draft.baseSha)throw new Error('Conflito no arquivo "'+draft.label+'". Alguém alterou esta seção depois de você iniciar o rascunho. Descarte apenas esta edição, atualize os dados e refaça a alteração.');
       }
       for(const meta of Object.values(assets)){
+        if(meta.action==='remover'){
+          const linked=localReferences(meta.path);
+          if(linked.length)throw new Error('O material '+meta.name+' ainda é usado nos cadastros: '+linked.join(', ')+'.');
+        }
         if(meta.sha&&state.authMode==='github'){
           const current=await api('/repos/'+repo+'/contents/'+filePath(meta.path)+'?ref='+branch);
           if(current.sha!==meta.sha)throw new Error('A mídia '+meta.name+' foi alterada no GitHub depois do rascunho. Remova-a da fila e selecione novamente.');
         }
-        const blob=await dbGet(meta.path);
-        if(!blob)throw new Error('A mídia "'+meta.name+'" não está mais armazenada neste dispositivo. Descarte-a e selecione o arquivo novamente.');
+        if(meta.action!=='remover'){
+          const blob=await dbGet(meta.path);
+          if(!blob)throw new Error('A mídia "'+meta.name+'" não está mais armazenada neste dispositivo. Descarte-a e selecione o arquivo novamente.');
+        }
       }
     }
     async function submitAtomic(progress){
@@ -252,6 +281,11 @@
         path,mode:'100644',type:'blob',content:yamlText(draft)
       }));
       for(const meta of Object.values(assets)){
+        if(meta.action==='remover'){
+          progress('Preparando exclusão: '+meta.name+'…');
+          tree.push({path:meta.path,mode:'100644',type:'blob',sha:null});
+          continue;
+        }
         progress('Preparando mídia: '+meta.name+'…');
         const blob=await dbGet(meta.path);
         const body={content:await toBase64(blob),encoding:'base64'};
@@ -270,16 +304,20 @@
       return {sha:saved.sha,message:'Todas as alterações foram enviadas em um único commit. A publicação do site será processada pelo GitHub Actions.'};
     }
     async function submitSequential(progress){
-      const changes=[...Object.entries(pending).map(([path,draft])=>({path,draft,kind:'yaml'})),...Object.values(assets).map(meta=>({path:meta.path,meta,kind:'media'}))];
+      const changes=[...Object.entries(pending).map(([path,draft])=>({path,draft,kind:'yaml'})),...Object.values(assets).map(meta=>({path:meta.path,meta,kind:meta.action==='remover'?'remove':'media'}))];
       let completed=0;
-      // Mídias primeiro; o último lote deixa as referências prontas para o render.
-      changes.sort((a,b)=>(a.kind==='media'?0:1)-(b.kind==='media'?0:1));
+      // Arquivos novos primeiro, cadastros depois e exclusões por último.
+      const priority={media:0,yaml:1,remove:2};
+      changes.sort((a,b)=>priority[a.kind]-priority[b.kind]);
       for(const entry of changes){
         progress('Enviando '+(completed+1)+' de '+changes.length+': '+entry.path);
         const body=entry.kind==='yaml'?{
           message:'GPENSC: publica edição revisada de '+entry.draft.label,
           content:encodeUTF8(yamlText(entry.draft)),branch,
           sha:entry.draft.baseSha
+        }:entry.kind==='remove'?{
+          message:'GPENSC: remover material após revisão editorial',
+          sha:entry.meta.sha,branch
         }:{
           message:'GPENSC: '+entry.meta.action+' mídia revisada',
           content:await toBase64(await dbGet(entry.meta.path)),branch,
@@ -287,7 +325,7 @@
         };
         let saved;
         try{
-          saved=await api('/repos/'+repo+'/contents/'+filePath(entry.path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+          saved=await api('/repos/'+repo+'/contents/'+filePath(entry.path),{method:entry.kind==='remove'?'DELETE':'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
         }catch(error){
           throw new Error('Envio interrompido após '+completed+' arquivo(s). Os demais permanecem na fila. Detalhes: '+(error.message||'falha no GitHub')+'.');
         }
@@ -325,7 +363,7 @@
       const count=total();
       return '<section class="batch-dashboard-notice" aria-label="Edições em preparação"><div><span class="eyebrow">FLUXO DE PUBLICAÇÃO</span><strong>'+(count?count+' itens aguardando revisão':'Edite várias áreas antes de publicar')+'</strong><p>'+(count?'Você pode continuar editando sem afetar o site público.':'As mudanças são guardadas como rascunhos neste navegador até você confirmar o envio.')+'</p></div><button type="button" class="secondary-button" data-batch-review>Revisar e publicar <span data-batch-count>'+count+'</span></button></section>';
     }
-    return {afterLoad,stage,stageMedia,removeDraft,deleteAsset,clearAll,updateUI,renderReview,publish,items:()=>clone(pending),assets:()=>clone(assets),count:total,banner,isPublishing:()=>publishing};
+    return {afterLoad,stage,stageMedia,stageDeletion,removeDraft,deleteAsset,clearAll,updateUI,renderReview,publish,items:()=>clone(pending),assets:()=>clone(assets),count:total,banner,isPublishing:()=>publishing};
   }
   window.GPENSCBatchQueue={create};
 })();
