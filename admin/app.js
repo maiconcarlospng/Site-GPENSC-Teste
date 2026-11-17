@@ -688,10 +688,10 @@ function openGalleryCollection(index){
       '<div class="gallery-photo-fields"><div class="field full"><label>Legenda</label><input type="text" data-gallery-caption value="'+esc(item.legenda||'')+'" placeholder="Descreva a foto (opcional)"></div>'+
       '<div class="field"><label>Foco horizontal (%)</label><input type="number" data-gallery-focus-x min="0" max="100" step="1" value="'+esc(item.foco_x??'')+'" placeholder="50"></div>'+
       '<div class="field"><label>Foco vertical (%)</label><input type="number" data-gallery-focus-y min="0" max="100" step="1" value="'+esc(item.foco_y??'')+'" placeholder="50"></div>'+
-      '<div class="field full"><label>Substituir imagem</label><input type="file" data-gallery-replace accept="image/*"></div></div>'+
+      '<div class="field full"><label>Substituir imagem</label><input type="file" data-gallery-replace accept="image/*"><button type="button" class="small-button photo-crop-action" data-photo-crop="gallery" data-photo-source="'+esc(item.arquivo||'')+'">Recortar foto</button></div></div>'+
       '<button type="button" class="small-button danger-button" data-gallery-remove>Remover foto</button></article>'
     ).join('')+'</div>'+
-    '<div class="panel-card gallery-add-card"><div><h2>Adicionar novas fotos</h2><p>Selecione uma ou várias imagens. Elas ficarão na fila e serão enviadas apenas quando você publicar.</p></div><div class="field full"><label for="gallery-add-files">Selecionar imagens</label><input id="gallery-add-files" type="file" accept="image/*" multiple></div></div>'+
+    '<div class="panel-card gallery-add-card"><div><h2>Adicionar novas fotos</h2><p>Selecione uma ou várias imagens. Elas ficarão na fila e serão enviadas apenas quando você publicar.</p></div><div class="field full"><label for="gallery-add-files">Selecionar imagens</label><input id="gallery-add-files" type="file" accept="image/*" multiple><div class="gallery-crop-files"></div></div></div>'+
     '<div class="config-actions"><span>As imagens e legendas serão publicadas apenas depois da revisão da fila.</span><button type="submit" class="primary-button" id="save-gallery">Adicionar galeria à fila</button></div></form>';
   $('#gallery-back').onclick=renderHome;
   const form=$('#gallery-form');
@@ -700,6 +700,12 @@ function openGalleryCollection(index){
   form.addEventListener('click',event=>{
     const remove=event.target.closest('[data-gallery-remove]');
     if(remove){remove.closest('[data-gallery-row]')?.remove();form.dataset.dirty='true';}
+  });
+  const galleryFiles=$('#gallery-add-files');
+  galleryFiles.addEventListener('change',()=>{
+    form.querySelector('.gallery-crop-files').innerHTML=[...galleryFiles.files].map((file,i)=>
+      '<button type="button" class="small-button photo-crop-action" data-photo-crop="gallery" data-photo-index="'+i+'">Recortar '+esc(file.name)+'</button>'
+    ).join('');
   });
   form.onsubmit=event=>saveGalleryCollection(event,index);
 }
@@ -718,8 +724,8 @@ async function saveGalleryCollection(event,index){
     for(const row of form.querySelectorAll('[data-gallery-row]')){
       const old=originals[Number(row.dataset.index)]||{};
       const item={...old};
-      const replacement=row.querySelector('[data-gallery-replace]')?.files?.[0];
-      if(replacement)item.arquivo='/'+await uploadImage(replacement);
+      const replacement=selectedPhotos(row.querySelector('[data-gallery-replace]'))[0];
+      if(replacement){item.arquivo='/'+await uploadImage(replacement);if(/-recorte\.(webp|png)$/i.test(replacement.name))delete item.zoom;}
       const caption=row.querySelector('[data-gallery-caption]')?.value??'';
       item.legenda=caption;
       const focusX=row.querySelector('[data-gallery-focus-x]')?.value??'';
@@ -734,7 +740,7 @@ async function saveGalleryCollection(event,index){
       }
       updated.push(item);
     }
-    const additions=[...(form.querySelector('#gallery-add-files')?.files||[])];
+    const additions=selectedPhotos(form.querySelector('#gallery-add-files'));
     for(const file of additions){
       const path=await uploadImage(file);
       updated.push({arquivo:'/'+path,legenda:''});
@@ -753,7 +759,7 @@ async function saveGalleryCollection(event,index){
 
 document.addEventListener('keydown',event=>{
   const modal=document.querySelector('#modal-root .modal');if(!modal)return;
-  if(event.key==='Escape'&&!modal.dataset.saving){closeModal();return}
+  if(event.key==='Escape'&&!$('.photo-crop-dialog[open]')&&!modal.dataset.saving){closeModal();return}
   if(event.key!=='Tab')return;
   if(modal.id==='entry-form'&&window.matchMedia('(min-width:1450px)').matches)return;
   const nodes=[...modal.querySelectorAll('button,input,select,textarea,a[href]')].filter(n=>!n.disabled&&n.offsetParent!==null);
@@ -858,7 +864,7 @@ function renderMediaFiles(){
     const accept='.'+mediaExtension(name);
     const removing=pendingAssets[file.path]?.action==='remover';
     const canRemove=!/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(file.path);
-    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small><div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button></div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
+    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small><div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
   }).join('');
   grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
     if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
@@ -879,6 +885,12 @@ function renderMediaFiles(){
   grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
     try{await navigator.clipboard.writeText(button.dataset.mediaCopy);toast('Caminho copiado.')}catch(error){toast('Não foi possível copiar o caminho neste navegador.',true)}
   }));
+  grid.querySelectorAll('[data-media-crop]').forEach(button=>button.onclick=async()=>{
+    try{
+      const result=await window.GPENSCPhotoCrop.edit(mediaFileUrl(button.dataset.mediaCrop),'wide');
+      if(result&&button.isConnected)await saveMediaFile(result,null,button);
+    }catch(error){toast(error.message,true)}
+  });
   grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
     const file=event.target.files?.[0];if(!file)return;
     await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
@@ -927,6 +939,49 @@ async function saveMediaFile(file,replacePath,sourceElement){
 }
 function defaultItem(fields){const item={};fields.forEach(f=>{if(f.widget==='list')item[f.name]=[];else if(f.widget==='object')item[f.name]=defaultItem(f.fields||[]);else if(f.widget==='boolean')item[f.name]=false;else item[f.name]=''});return item}
 function editItem(index){if(!canLeaveCurrentEditor())return;const c=state.collections[state.active];const schema=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const original=index===null?defaultItem(schema):structuredClone(entryList(c)[index]);state.editing={index,original};const fields=schema.map(f=>renderField(f,original[f.name])).join('');$('#modal-root').innerHTML='<div class="modal-backdrop"><form class="modal" id="entry-form" role="dialog" aria-modal="true" aria-label="Editar conteúdo"><div class="modal-head"><h2>'+(index===null?'Novo registro':'Editar registro')+'</h2><button type="button" class="small-button" id="close-modal">Fechar</button></div><div class="modal-body">'+fields+'</div><div class="modal-foot"><span class="eyebrow">RASCUNHO LOCAL · AINDA NÃO PUBLICADO</span><div><button type="button" class="secondary-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button" id="save-entry">Adicionar à fila</button></div></div></form></div>';$('#close-modal').onclick=$('#cancel-modal').onclick=()=>closeModal();$('#entry-form').onsubmit=e=>saveEntry(e,schema);const form=$('#entry-form');form.setAttribute('aria-modal',String(window.matchMedia('(max-width:1449px)').matches));form.dataset.dirty='false';form.addEventListener('input',()=>{form.dataset.dirty='true'});form.addEventListener('change',()=>{form.dataset.dirty='true'});document.body.classList.add('editor-open');form.querySelector('input,select,textarea,button')?.focus()}
+function photoCropFormat(field){
+  const collection=state.collections[state.active]?.name;
+  return field.name==='foto'?'portrait':collection==='livros'?'book':collection==='videos'?'video':'wide';
+}
+function publicPhotoSource(path){
+  if(!path)return '';
+  try{
+    const value=/^https?:\/\//i.test(path)?path:'../'+path.replace(/^\/+/,'');
+    const url=new URL(value,location.href);
+    return ['http:','https:'].includes(url.protocol)?url.href:'';
+  }catch{return ''}
+}
+async function cropInputPhoto(input,index,original,format){
+  const crop=window.GPENSCPhotoCrop;
+  if(!crop){toast('A ferramenta de recorte não carregou. Atualize a página e tente novamente.',true);return}
+  const source=input.files[index]||crop.files(input)[index]||publicPhotoSource(original);
+  if(!source){toast('Selecione uma imagem primeiro.',true);input.focus();return}
+  try{
+    const result=await crop.edit(source,format);
+    if(result&&input.isConnected){crop.replace(input,index,result);toast('Recorte aplicado ao formulário.')}
+  }catch(error){toast(error.message,true)}
+}
+function selectedPhotos(input){return window.GPENSCPhotoCrop?.files(input)||[...(input?.files||[])]}
+document.addEventListener('click',async event=>{
+  const button=event.target.closest('[data-photo-crop]');
+  if(!button)return;
+  const field=button.closest('.field');
+  const input=field?.querySelector('input[type=file]');
+  if(!input||input.disabled||input.closest('form')?.dataset.saving==='true')return;
+  const original=field.querySelector('input[type=text]')?.value??button.dataset.photoSource;
+  await cropInputPhoto(input,Number(button.dataset.photoIndex||0),original,button.dataset.photoCrop);
+});
+document.addEventListener('imagecropped',event=>{
+  const form=event.target.closest('form');
+  if(form)form.dataset.dirty='true';
+  const row=event.target.closest('[data-gallery-row]');
+  if(!row)return;
+  row.querySelectorAll('[data-gallery-focus-x],[data-gallery-focus-y]').forEach(control=>control.value='');
+  const image=row.querySelector('.gallery-photo-preview img');
+  const url=URL.createObjectURL(selectedPhotos(event.target)[0]);
+  image.addEventListener('load',()=>URL.revokeObjectURL(url),{once:true});
+  image.src=url;
+});
 function renderField(f,value){
   const name=esc(f.name),label=esc(f.label||f.name),full=['text','list','object','markdown'].includes(f.widget)?' full':'';
   const required=f.required!==false?' required':'',id='entry-'+name;
@@ -948,14 +1003,14 @@ function renderField(f,value){
   }else if(f.widget==='boolean'){
     input='<select id="'+id+'" name="'+name+'"><option value="false" '+(!value?'selected':'')+'>Não</option><option value="true" '+(value?'selected':'')+'>Sim</option></select>';
   }else if(f.widget==='image'||f.widget==='file'){
-    input='<input id="'+id+'" type="text" name="'+name+'" value="'+esc(value||'')+'" placeholder="Caminho ou URL do arquivo"><input type="file" aria-label="Enviar '+label+'" data-upload-for="'+name+'"'+(f.widget==='image'?' accept="image/*"':'')+'>';
+    input='<input id="'+id+'" type="text" name="'+name+'" value="'+esc(value||'')+'" placeholder="Caminho ou URL do arquivo"><input type="file" aria-label="Enviar '+label+'" data-upload-for="'+name+'"'+(f.widget==='image'?' accept="image/*"':'')+'>'+(f.widget==='image'?'<button type="button" class="small-button photo-crop-action" data-photo-crop="'+photoCropFormat(f)+'">Recortar foto</button>':'');
   }else{
     const type=['date','datetime'].includes(f.widget)?'date':f.widget==='number'?'number':'text';
     input='<input id="'+id+'" type="'+type+'" name="'+name+'" value="'+esc(value??'')+'"'+required+'>';
   }
   return '<div class="field'+full+'"><label for="'+id+'">'+label+(f.required!==false?' *':'')+'</label>'+input+(f.hint?'<small>'+esc(f.hint)+'</small>':'')+'</div>';
 }
-async function saveEntry(event,schema){event.preventDefault();const form=event.currentTarget;if(form.dataset.saving)return;const item={...state.editing.original};for(const f of schema){const el=form.elements.namedItem(f.name);if(!el)continue;let value=f.multiple?[...el.selectedOptions].map(o=>o.value):el.value;if(Array.isArray(f.pattern)&&value&&!new RegExp(f.pattern[0]).test(String(value))){toast(f.pattern[1]||'Confira '+f.label,true);el.focus();return}if(f.widget==='number'&&value!=='')value=Number(value);if(f.widget==='boolean')value=value==='true';if(['list','object'].includes(f.widget)){try{value=JSON.parse(value);if(f.widget==='list'?!Array.isArray(value):!value||typeof value!=='object'||Array.isArray(value))throw new Error('Tipo inválido')}catch(e){toast('O campo '+(f.label||f.name)+' precisa conter JSON válido.',true);return}}if(value!==''||f.required||Object.prototype.hasOwnProperty.call(item,f.name))item[f.name]=value}form.dataset.saving='true';const saveButton=form.querySelector('[type=submit]');saveButton.disabled=true;saveButton.textContent='Preparando…';const unlock=()=>{delete form.dataset.saving;saveButton.disabled=false;saveButton.textContent='Adicionar à fila'};const uploads=form.querySelectorAll('[data-upload-for]');for(const input of uploads){if(!input.files?.[0])continue;try{const path=await uploadImage(input.files[0]);item[input.dataset.uploadFor]=path}catch(e){unlock();toast(e.message,true);return}}const c=state.collections[state.active];const list=entryList(c).slice();if(state.editing.index===null)list.push(item);else list[state.editing.index]=item;try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:list});closeModal(true);openCollection(state.active);renderNav();toast('Registro adicionado à fila de revisão.')}catch(error){unlock();toast(error.message,true)}}
+async function saveEntry(event,schema){event.preventDefault();const form=event.currentTarget;if(form.dataset.saving)return;const item={...state.editing.original};for(const f of schema){const el=form.elements.namedItem(f.name);if(!el)continue;let value=f.multiple?[...el.selectedOptions].map(o=>o.value):el.value;if(Array.isArray(f.pattern)&&value&&!new RegExp(f.pattern[0]).test(String(value))){toast(f.pattern[1]||'Confira '+f.label,true);el.focus();return}if(f.widget==='number'&&value!=='')value=Number(value);if(f.widget==='boolean')value=value==='true';if(['list','object'].includes(f.widget)){try{value=JSON.parse(value);if(f.widget==='list'?!Array.isArray(value):!value||typeof value!=='object'||Array.isArray(value))throw new Error('Tipo inválido')}catch(e){toast('O campo '+(f.label||f.name)+' precisa conter JSON válido.',true);return}}if((f.widget==='image'||f.widget==='file')&&f.required!==false&&!value&&!selectedPhotos(form.querySelector('[data-upload-for="'+f.name+'"]')).length){toast('Selecione um arquivo ou preencha '+f.label+'.',true);el.focus();return}if(value!==''||f.required||Object.prototype.hasOwnProperty.call(item,f.name))item[f.name]=value}form.dataset.saving='true';const saveButton=form.querySelector('[type=submit]');saveButton.disabled=true;saveButton.textContent='Preparando…';const unlock=()=>{delete form.dataset.saving;saveButton.disabled=false;saveButton.textContent='Adicionar à fila'};const uploads=form.querySelectorAll('[data-upload-for]');for(const input of uploads){const file=selectedPhotos(input)[0];if(!file)continue;try{const path=await uploadImage(file);item[input.dataset.uploadFor]=path}catch(e){unlock();toast(e.message,true);return}}const c=state.collections[state.active];const list=entryList(c).slice();if(state.editing.index===null)list.push(item);else list[state.editing.index]=item;try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:list});closeModal(true);openCollection(state.active);renderNav();toast('Registro adicionado à fila de revisão.')}catch(error){unlock();toast(error.message,true)}}
 
 function normalizeHeader(value){return String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'')}
 function excelCell(value){if(value instanceof Date&&!isNaN(value))return value.toISOString().slice(0,10);return value??''}
@@ -1031,7 +1086,7 @@ $('#mobile-sections').addEventListener('click',()=>{
   $('#mobile-sections').setAttribute('aria-expanded',String(open));
   updateMobileTabs();
 });
-document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileMenu()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('.photo-crop-dialog[open]'))closeMobileMenu()});
 $('#mobile-review').addEventListener('click',()=>{closeMobileMenu();openPendingReview();window.scrollTo({top:0,behavior:'smooth'})});
 $('#logout-button').addEventListener('click',()=>{if(!canLeaveCurrentEditor())return;sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;closeMobileMenu();$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
 // Keep full-screen editors inside the visible area when the mobile keyboard opens.
