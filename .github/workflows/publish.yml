@@ -121,7 +121,7 @@ jobs:
         run: |
           rm -rf _site _freeze
           quarto render
-          rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py
+          rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py _site/admin/arquivar-capas-instagram.py
 
       - name: Sincronizar o site compilado com o Render
         uses: peaceiris/actions-gh-pages@v4
