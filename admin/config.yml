@@ -509,6 +509,26 @@ collections:
   - name: editorial
     label: Conhecimento e gestão editorial
     files:
+    - name: pautas_instagram
+      label: "Instagram · pautas para revisão"
+      file: data/instagram/pautas.yml
+      fields:
+      - name: itens
+        label: "Pautas temáticas importadas"
+        widget: list
+        label_singular: pauta
+        collapsed: true
+        hint: "São sugestões. Aprovar uma pauta não a publica automaticamente em outras páginas."
+        summary: "{{fields.titulo}} · {{fields.situacao}}"
+        fields:
+        - { label: "Tema", name: "titulo", widget: "string" }
+        - { label: "Área sugerida", name: "secao_sugerida", widget: "select", options: ["Pesquisa", "Divulgação científica", "Nossa história", "Ensino / Extensão", "Quem somos", "Notícias / revisar"] }
+        - { label: "Número de publicações no grupo", name: "total_posts", widget: "number", required: false }
+        - { label: "Período das publicações", name: "periodo", widget: "string", required: false }
+        - { label: "Resumo de triagem", name: "resumo", widget: "text" }
+        - { label: "Exemplo de fonte no Instagram", name: "url", widget: "string", required: false }
+        - { label: "Situação editorial", name: "situacao", widget: "select", options: ["Pendente de revisão", "Em revisão", "Aprovado para publicação", "Descartado"] }
+        - { label: "Notas das professoras", name: "notas", widget: "text", required: false }
     - name: materiais
       label: Materiais educativos e anuários
       file: data/materiais.yml
