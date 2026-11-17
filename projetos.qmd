@@ -1,7 +1,9 @@
 ---
-title: "Projetos de pesquisa"
+title: "GPENSC"
+search: false
 ---
 
-Projetos de pesquisa vinculados às linhas de investigação do GPENSC, organizados em um único catálogo institucional.
-
-{{< include partials/projetos.qmd >}}
+```{=html}
+<meta http-equiv="refresh" content="0; url=ensino-extensao.html#projetos">
+<p><a href="ensino-extensao.html#projetos">Ir para a seção</a></p>
+```
