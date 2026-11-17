@@ -415,8 +415,7 @@ function quickActionsMarkup(){
   const actions=[
     ['eventos','Agenda','Atualizar próximas atividades'],
     ['noticias','Notícias','Publicar atualizações do grupo'],
-    ['conteudos_vi_no_rotulo','Vi no Rótulo','Conteúdos do minissite'],
-    ['capacitacao_atividades','Capacitação','Atividades e formação'],
+    ['projetos','Projetos','Pesquisa e extensão'],
     ['linhas','Linhas de pesquisa','Projetos e conhecimento'],
     ['equipe','Equipe','Integrantes e pesquisadores']
   ];

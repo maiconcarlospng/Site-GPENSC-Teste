@@ -4,10 +4,12 @@ itens:
     tipo: Extensão
     situacao: Não informado
     linha_id: ""
-    url: vi-no-rotulo.html
+    resumo: "Educação e comunicação sobre rotulagem de alimentos."
+    url: https://www.instagram.com/vinorotulo/
   - id: PR-CEP
     titulo: Capacitação em Epidemiologia e Análise de Dados
     tipo: Extensão
     situacao: Não informado
     linha_id: ""
-    url: capacitacao-epidemiologia.html
+    resumo: "Formação em métodos epidemiológicos e análise de dados aplicados à saúde."
+    url: ""
