@@ -95,29 +95,8 @@
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
-  function paint() {
-    svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
-    svg.classList.toggle('gp49-detailed',camera.w < 740);
-    svg.classList.toggle('gp49-very-detailed',camera.w < 430);
-    const unit=camera.w/(map.clientWidth||W);
-    const labelSize=unit*12;
-    svg.querySelectorAll('.gp49-branch-label').forEach(group=>{
-      const terminal=group.getAttribute('data-terminal')==='1';
-      const side=group.getAttribute('data-side');
-      group.setAttribute('transform','translate(0 '+(unit*(terminal?14:14))+')');
-      const range=group.querySelector('.gp49-branch-label-text');
-      if(range) range.setAttribute('y',String(unit*4));
-      const name=group.querySelector('.gp49-branch-name-label');
-      if(name){
-        name.setAttribute('x',String(unit*(side==='left'?-20:20)));
-        name.setAttribute('y',String(unit*24));
-        name.setAttribute('text-anchor',side==='left'?'end':'start');
-      }
-    });
-    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
-      label.style.fontSize=labelSize+'px';
-      label.style.strokeWidth=Math.max(.6,labelSize*.12)+'px';
-    });
+  let labelLayoutFrame=0;
+  function updateLabelBackgrounds(unit) {
     svg.querySelectorAll('.gp49-label-background').forEach(background=>{
       const label=background.nextElementSibling;
       if(!label||typeof label.getBBox!=='function') return;
@@ -129,6 +108,69 @@
         background.setAttribute('height',String(box.height+padY*2));
       } catch(_) {}
     });
+  }
+  function scheduleLabelLayout(unit) {
+    cancelAnimationFrame(labelLayoutFrame);
+    labelLayoutFrame=requestAnimationFrame(()=>{
+      const groups=[...svg.querySelectorAll('.gp49-branch-label')]
+        .filter(group=>group.querySelector('.gp49-branch-name-label'));
+      const baseline=14*unit;
+      groups.forEach(group=>group.setAttribute('transform','translate(0 '+baseline+')'));
+      groups.sort((a,b)=>{
+        const ra=a.querySelector('.gp49-branch-name-label').getBoundingClientRect();
+        const rb=b.querySelector('.gp49-branch-name-label').getBoundingClientRect();
+        return ra.top-rb.top || ra.left-rb.left;
+      });
+      const placed=[];
+      groups.forEach(group=>{
+        const label=group.querySelector('.gp49-branch-name-label');
+        let chosen=baseline;
+        for(let step=0;step<=groups.length;step++){
+          const offsets=step===0?[0]:[-step*18,step*18];
+          let accepted=false;
+          for(const offset of offsets){
+            const y=baseline+offset*unit;
+            group.setAttribute('transform','translate(0 '+y+')');
+            const rect=label.getBoundingClientRect();
+            const inMap=rect.top>=map.getBoundingClientRect().top+2 &&
+              rect.bottom<=map.getBoundingClientRect().bottom-2;
+            const clear=placed.every(other=>
+              rect.right+5<=other.left || rect.left>=other.right+5 ||
+              rect.bottom+4<=other.top || rect.top>=other.bottom+4
+            );
+            if(inMap&&clear){chosen=y;accepted=true;break;}
+          }
+          if(accepted)break;
+        }
+        group.setAttribute('transform','translate(0 '+chosen+')');
+        placed.push(label.getBoundingClientRect());
+      });
+      updateLabelBackgrounds(unit);
+    });
+  }
+  function paint() {
+    svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
+    svg.classList.toggle('gp49-detailed',camera.w < 740);
+    svg.classList.toggle('gp49-very-detailed',camera.w < 430);
+    const unit=camera.w/(map.clientWidth||W);
+    const labelSize=unit*16;
+    svg.querySelectorAll('.gp49-branch-label').forEach(group=>{
+      group.setAttribute('transform','translate(0 '+(unit*14)+')');
+      const range=group.querySelector('.gp49-branch-label-text');
+      if(range) range.setAttribute('y',String(unit*4));
+      const name=group.querySelector('.gp49-branch-name-label');
+      if(name){
+        name.setAttribute('x','0');
+        name.setAttribute('y',String(unit*24));
+        name.setAttribute('text-anchor','middle');
+      }
+    });
+    svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
+      label.style.fontSize=labelSize+'px';
+      label.style.strokeWidth=Math.max(.6,labelSize*.12)+'px';
+    });
+    updateLabelBackgrounds(unit);
+    scheduleLabelLayout(unit);
   }
   function move(target, duration=700) {
     cancelAnimationFrame(animation);
@@ -284,16 +326,15 @@
     make('circle',{r:radius*.72,class:'gp49-node-ring'},bubble);
     const labelGroup=make('g',{
       class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',
-      'data-terminal':terminal?'1':'0','data-side':p.x<W/2?'left':'right'
+      'data-terminal':terminal?'1':'0'
     },bubble);
     const labelText=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
     labelText.textContent=branchRange(start,count);
     addLabelBackground(labelText,labelGroup);
     make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
     if(terminal){
-      const shortName=nodeNames[start].length>19?nodeNames[start].slice(0,18).trimEnd()+'…':nodeNames[start];
       const nameLabel=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
-      nameLabel.textContent=shortName;
+      nameLabel.textContent=nodeNames[start];
       addLabelBackground(nameLabel,labelGroup);
     }
     if (!terminal) {
