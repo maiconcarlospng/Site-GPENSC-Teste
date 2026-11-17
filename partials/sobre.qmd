@@ -150,6 +150,13 @@ div(
       nome <- as.character(e$nome[1])
       categoria <- as.character(e$categoria_exibicao[1])
       papel <- valor_publico(e$papel)
+      # A categoria cadastrada no painel é a referência editorial.
+      # Um papel antigo (ex.: "Líder do grupo") não pode contradizer a
+      # reclassificação posterior da pessoa para pesquisador/colaborador.
+      if (!is.null(papel) && categoria != "Líderes" &&
+          grepl("l[ií]der|chefia|coordena[cç][aã]o|coordenador", papel, ignore.case = TRUE)) {
+        papel <- NULL
+      }
       egresso <- identical(categoria, "Egressos")
       formacao <- valor_publico(e$formacao)
       email <- valor_publico(e$email)
