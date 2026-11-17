@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Impacto social"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#impacto">
-<p><a href="conteudos.html#impacto">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Registros dos efeitos sociais e das ações do GPENSC.</p><img src="img/ilustracoes/impacto.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Impacto social {#impacto}
+
+{{< include partials/impacto.qmd >}}
