@@ -1,13 +1,10 @@
 ---
-title: "Podcasts"
-pagetitle: "Podcasts – GPENSC"
+title: "GPENSC no Ar"
+search: false
 ---
 
+[Ver podcasts do GPENSC](podcasts.qmd)
+
 ```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#podcasts">
-<script>
-  window.location.replace("conteudos.html#podcasts");
-</script>
-<p>O acervo de podcasts do GPENSC está na nova página.
-<a href="conteudos.html#podcasts">Acessar Podcasts</a>.</p>
+<script>window.location.replace("podcasts.html");</script>
 ```
