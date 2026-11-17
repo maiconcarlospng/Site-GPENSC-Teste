@@ -109,51 +109,71 @@
       } catch(_) {}
     });
   }
+  function wrapLabel(label,unit) {
+    const title=label.dataset.title || label.textContent;
+    label.dataset.title=title;
+    label.replaceChildren();
+    const width=Math.min(190,map.clientWidth*.46)*unit;
+    let line=make('tspan',{x:0,dy:0},label);
+    for(const word of title.split(/\s+/)){
+      const previous=line.textContent;
+      line.textContent=previous?previous+' '+word:word;
+      if(previous && line.getComputedTextLength()>width){
+        line.textContent=previous;
+        line=make('tspan',{x:0,dy:16*unit},label);
+        line.textContent=word;
+      }
+    }
+  }
   function scheduleLabelLayout(unit) {
     cancelAnimationFrame(labelLayoutFrame);
     labelLayoutFrame=requestAnimationFrame(()=>{
-      const groups=[...svg.querySelectorAll('.gp49-branch-label')]
-        .filter(group=>group.querySelector('.gp49-branch-name-label'));
-      const baseline=14*unit;
-      groups.forEach(group=>group.setAttribute('transform','translate(0 '+baseline+')'));
-      groups.sort((a,b)=>{
-        const ra=a.querySelector('.gp49-branch-name-label').getBoundingClientRect();
-        const rb=b.querySelector('.gp49-branch-name-label').getBoundingClientRect();
-        return ra.top-rb.top || ra.left-rb.left;
-      });
+      const area=map.getBoundingClientRect();
+      const groups=[...svg.querySelectorAll('.gp49-branch-label')];
       const placed=[];
+      const margin=8;
       groups.forEach(group=>{
-        const label=group.querySelector('.gp49-branch-name-label');
-        let chosen=baseline;
-        for(let step=0;step<=groups.length;step++){
-          const offsets=step===0?[0]:[-step*18,step*18];
-          let accepted=false;
-          for(const offset of offsets){
-            const y=baseline+offset*unit;
-            group.setAttribute('transform','translate(0 '+y+')');
-            const rect=label.getBoundingClientRect();
-            const inMap=rect.top>=map.getBoundingClientRect().top+2 &&
-              rect.bottom<=map.getBoundingClientRect().bottom-2;
-            const clear=placed.every(other=>
-              rect.right+5<=other.left || rect.left>=other.right+5 ||
-              rect.bottom+4<=other.top || rect.top>=other.bottom+4
-            );
-            if(inMap&&clear){chosen=y;accepted=true;break;}
-          }
-          if(accepted)break;
-        }
-        group.setAttribute('transform','translate(0 '+chosen+')');
-        placed.push(label.getBoundingClientRect());
+        group.style.visibility='visible';
+        group.setAttribute('transform','translate(0 '+(22*unit)+')');
       });
       updateLabelBackgrounds(unit);
+      groups.sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top);
+      groups.forEach(group=>{
+        const node=group.parentNode.querySelector('.gp49-node-disc').getBoundingClientRect();
+        // Rótulos de galhos fora da janela acompanham seus nós ao arrastar.
+        if(node.right<area.left || node.left>area.right ||
+           node.bottom<area.top || node.top>area.bottom){
+          group.style.visibility='hidden';
+          return;
+        }
+        const initial=group.getBoundingClientRect();
+        const dx=Math.max(area.left+margin-initial.left,
+          Math.min(0,area.right-margin-initial.right));
+        let best=null;
+        for(let step=0;step<80;step++){
+          const dy=step===0?0:(step%2?1:-1)*Math.ceil(step/2)*12;
+          group.setAttribute('transform','translate('+(dx*unit)+' '+((22+dy)*unit)+')');
+          const rect=group.getBoundingClientRect();
+          if(rect.top<area.top+margin || rect.bottom>area.bottom-margin)continue;
+          const overlap=placed.reduce((sum,other)=>sum+
+            Math.max(0,Math.min(rect.right+5,other.right)-Math.max(rect.left-5,other.left))*
+            Math.max(0,Math.min(rect.bottom+5,other.bottom)-Math.max(rect.top-5,other.top)),0);
+          if(!best || overlap<best.overlap)best={dy,overlap};
+          if(overlap===0)break;
+        }
+        group.setAttribute('transform','translate('+(dx*unit)+' '+((22+(best?best.dy:0))*unit)+')');
+        placed.push(group.getBoundingClientRect());
+      });
     });
   }
   function paint() {
     svg.setAttribute('viewBox', camera.x+' '+camera.y+' '+camera.w+' '+camera.h);
     svg.classList.toggle('gp49-detailed',camera.w < 740);
     svg.classList.toggle('gp49-very-detailed',camera.w < 430);
-    const unit=camera.w/(map.clientWidth||W);
-    const labelSize=unit*16;
+    // A matriz inclui o recorte "slice" do celular e o espaço "meet" do desktop.
+    const matrix=svg.getScreenCTM();
+    const unit=matrix?1/Math.hypot(matrix.a,matrix.b):camera.w/(map.clientWidth||W);
+    const labelSize=unit*13;
     svg.querySelectorAll('.gp49-branch-label').forEach(group=>{
       group.setAttribute('transform','translate(0 '+(unit*14)+')');
       const range=group.querySelector('.gp49-branch-label-text');
@@ -161,14 +181,18 @@
       const name=group.querySelector('.gp49-branch-name-label');
       if(name){
         name.setAttribute('x','0');
-        name.setAttribute('y',String(unit*24));
+        name.setAttribute('y',String(unit*22));
         name.setAttribute('text-anchor','middle');
       }
     });
     svg.querySelectorAll('.gp49-branch-label-text,.gp49-branch-name-label').forEach(label=>{
       label.style.fontSize=labelSize+'px';
-      label.style.strokeWidth=Math.max(.6,labelSize*.12)+'px';
+      label.style.fontFamily='Inter, system-ui, sans-serif';
+      label.style.fontWeight='600';
+      label.style.fill='#284c32';
+      label.style.stroke='none';
     });
+    svg.querySelectorAll('.gp49-branch-name-label').forEach(label=>wrapLabel(label,unit));
     updateLabelBackgrounds(unit);
     scheduleLabelLayout(unit);
   }
@@ -508,5 +532,7 @@
     rows.forEach(row=>row.hidden=!normalize(row.textContent).includes(query));
     empty.hidden=rows.some(row=>!row.hidden);
   });
+  window.addEventListener('resize',paint,{passive:true});
+  if(document.fonts)document.fonts.ready.then(paint);
   paint();
 })();

@@ -522,8 +522,18 @@ ul.task-list li input[type="checkbox"] {
 #gp49 .gp49-no-links{color:#65715f;font-style:italic}
 #gp49 .gp49-link-note{max-width:78ch;margin:.4rem 0 0;color:#667969;font-size:.78rem;line-height:1.45}
 @media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
-\n#gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}\n</style>
-<script src="js/arvore.js?v=rotulos-reorganizados-20261117" defer=""></script>
+
+#gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+/* No celular, instruções e controles ocupam linhas próprias. */
+@media(max-width:767px){
+  html body:has(#gp49) #quarto-content #gp49 .gp49-landscape{display:flex;flex-direction:column}
+  html body:has(#gp49) #gp49 .gp49-hint{position:static!important;order:0;margin:0!important;padding:12px 14px!important;max-width:100%!important;box-sizing:border-box}
+  html body:has(#gp49) #quarto-content #gp49 #gp49-map{order:1}
+  html body:has(#gp49) #gp49 .gp49-tools{position:static!important;order:2;align-self:center;max-width:calc(100% - 28px);margin:10px 14px 0!important;transform:none!important;flex-wrap:wrap}
+  html body:has(#gp49) #gp49 .gp49-link-note{order:3;margin:0!important;padding:12px 14px!important;font-size:12px!important;line-height:1.45!important;box-sizing:border-box;width:100%;max-width:100%;overflow-wrap:break-word}
+}
+</style>
+<script src="js/arvore.js?v=rotulos-escala-real-20261117" defer=""></script>
 
 
 
