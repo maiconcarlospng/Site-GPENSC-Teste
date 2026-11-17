@@ -32,8 +32,8 @@ SHORTCODE = re.compile(r"^https://www\.instagram\.com/p/([A-Za-z0-9_-]{7,30})/$"
 ATTR_URL = re.compile(r'^    (?:url|link): "(https://www\.instagram\.com/p/[^"]+)"\s*$', re.MULTILINE)
 ATTR_IMG = re.compile(r'^    imagem: "(https://[^"]+)"\s*$', re.MULTILINE)
 IMGS = (".jpg", ".png", ".webp")
-META_IMAGE = re.compile(r'<meta\\s+[^>]*?(?:property|name)=[\\\x22\\\x27](?:og:image|twitter:image)[\\\x22\\\x27][^>]*?content=[\\\x22\\\x27]([^\\\x22\\\x27]+)', re.I)
-META_IMAGE_REVERSED = re.compile(r'<meta\\s+[^>]*?content=[\\\x22\\\x27]([^\\\x22\\\x27]+)[\\\x22\\\x27][^>]*?(?:property|name)=[\\\x22\\\x27](?:og:image|twitter:image)[\\\x22\\\x27]', re.I)
+META_IMAGE = re.compile(r"""<meta\s+[^>]*?(?:property|name)=["'](?:og:image|twitter:image)["'][^>]*?content=["']([^"']+)""", re.I)
+META_IMAGE_REVERSED = re.compile(r"""<meta\s+[^>]*?content=["']([^"']+)["'][^>]*?(?:property|name)=["'](?:og:image|twitter:image)["']""", re.I)
 
 
 def aceitar_url_imagem(url: str) -> bool:
