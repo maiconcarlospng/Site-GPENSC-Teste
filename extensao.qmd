@@ -7,3 +7,5 @@ Projetos de extensão coordenados pelo GPENSC junto à comunidade.
 ## Projetos e iniciativas de extensão {#iniciativas}
 
 {{< include partials/extensao.qmd >}}
+
+{{< include partials/link-acervo-instagram.qmd >}}
