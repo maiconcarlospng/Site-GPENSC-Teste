@@ -1,1 +1,4 @@
-itens: []
+itens:
+  - titulo: "Primeira edição do anuário do GPENSC — 2027"
+    resumo: "Organizar atividades e produções do grupo para a primeira edição do anuário, prevista para 2027. Definir cronograma e responsáveis."
+    situacao: "A planejar"

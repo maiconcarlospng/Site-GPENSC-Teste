@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Conteúdos – GPENSC</title>
+<title>Divulgação científica – GPENSC</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -159,10 +159,10 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extensão-e-formação" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Extensão e formação</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extensão" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extensão</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-extensão-e-formação">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-extensão">    
         <li>
     <a class="dropdown-item" href="./extensao.html">
  <span class="dropdown-text">Projetos de extensão</span></a>
@@ -172,20 +172,20 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Vi no Rótulo</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./ensino.html">
- <span class="dropdown-text">Ensino e formação</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="./capacitacao-epidemiologia.html">
  <span class="dropdown-text">Capacitação em Epidemiologia e Análise de Dados</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./ensino.html"> 
+<span class="menu-text">Ensino</span></a>
+  </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-conteúdos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Conteúdos</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-divulgação-científica" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Divulgação científica</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-conteúdos">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-divulgação-científica">    
         <li>
     <a class="dropdown-item" href="./conteudos.html#materiais">
  <span class="dropdown-text">Materiais educativos</span></a>
@@ -201,6 +201,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./conteudos.html#livros">
  <span class="dropdown-text">Livros e e-books</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./conteudos.html#anuario">
+ <span class="dropdown-text">Anuário</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./conteudos.html#resultados">
@@ -245,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Conteúdos</h1>
+<h1 class="title">Divulgação científica</h1>
 </div>
 
 
@@ -263,7 +267,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Produções do grupo para a comunidade acadêmica e a sociedade.</p>
-<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
+<nav class="gp-section-index" aria-label="Nesta página"><a href="#materiais">Materiais educativos</a><a href="#videos">Vídeos</a><a href="#podcasts">Podcasts</a><a href="#livros">Livros e e-books</a><a href="#anuario">Anuário</a><a href="#resultados">Ciência para a sociedade</a><a href="#impacto">Impacto social</a></nav>
 <section id="materiais" class="level2">
 <h2 class="anchored" data-anchor-id="materiais">Materiais educativos</h2>
 <div class="cell">
@@ -335,6 +339,10 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
+<section id="anuario" class="level2">
+<h2 class="anchored" data-anchor-id="anuario">Anuário</h2>
+<p>O anuário do GPENSC tem início previsto para 2027, reunindo as atividades e produções do grupo.</p>
+</section>
 <section id="resultados" class="level2">
 <h2 class="anchored" data-anchor-id="resultados">Ciência para a sociedade</h2>
 <div class="cell">
@@ -383,6 +391,7 @@ ul.task-list li input[type="checkbox"] {
 
   function aplicarIdiomaVisual(langCode) {
     var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
+    document.documentElement.lang = idioma === 'en' ? 'en' : idioma === 'es' ? 'es' : 'pt-BR';
     document.documentElement.setAttribute('data-gp-current-language', ['pt','en','es'].includes(idioma) ? idioma : 'pt');
     document.querySelectorAll('.gp-language-button').forEach(function(botao) {
       var ativo = botao.getAttribute('data-lang') === idioma;
@@ -434,7 +443,10 @@ ul.task-list li input[type="checkbox"] {
     
     if (navbarTitle && !document.querySelector(".bandeiras-container")) {
       var container = document.createElement("div");
-      container.className = "bandeiras-container";
+      container.className = "bandeiras-container notranslate";
+      container.setAttribute("translate", "no");
+      container.setAttribute("role", "group");
+      container.setAttribute("aria-label", "Idioma do site");
       container.innerHTML = `
         <button type="button" class="gp-language-button" data-lang="pt" onclick="traduzirPagina('pt')" aria-label="Português — tradução automática" title="Português — tradução automática"><span lang="pt">PT</span></button>
         <button type="button" class="gp-language-button" data-lang="en" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>

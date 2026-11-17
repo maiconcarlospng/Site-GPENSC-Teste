@@ -200,7 +200,7 @@ collections:
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
                 - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Líderes", "Pesquisadores", "Colaboradores", "Egressos", "Coordenação", "Docentes e pesquisadores", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos"], required: false, hint: "Use Líderes (docentes da ENUT), Pesquisadores, Colaboradores ou Egressos. Opções antigas permanecem para compatibilidade. Egressos exibem somente nome e Lattes." }
-                - { label: "Última revisão do perfil", name: "revisado_em", widget: "date", required: false, hint: "Revise foto, contato e Lattes a cada 12 meses." }
+                - { label: "Última revisão do perfil", name: "revisado_em", widget: "date", required: false, hint: "Revise a cada 12 meses: foto, e-mail e Lattes dos ativos; somente Lattes dos egressos. Registre a data após conferir os dados." }
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
                 - { label: "E-mail de contato", name: "email", widget: "string", required: false }
@@ -217,7 +217,7 @@ collections:
                   search_fields: ["itens.*.nome", "itens.*.id"]
                   multiple: true
                   required: false
-                  hint: "Selecione todas as linhas em que a pessoa atua. A pessoa aparecerá como fruto nos ramos correspondentes."
+                  hint: "Selecione todas as linhas em que a pessoa atua. O nome aparecerá na página da linha, com link para o Lattes cadastrado, e nos ramos correspondentes da árvore."
                 - label: "Projetos vinculados"
                   name: "projetos_ids"
                   widget: "relation"
