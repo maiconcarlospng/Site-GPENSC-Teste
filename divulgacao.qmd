@@ -1,9 +1,12 @@
 ---
-title: "GPENSC"
+title: "Divulgação científica"
 search: false
 ---
 
+As produções do GPENSC estão organizadas por formato na página de divulgação científica.
+
+[Acessar Divulgação científica](conteudos.qmd)
+
 ```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#materiais">
-<p><a href="conteudos.html#materiais">Ir para a seção</a></p>
+<script>window.location.replace("conteudos.html");</script>
 ```
