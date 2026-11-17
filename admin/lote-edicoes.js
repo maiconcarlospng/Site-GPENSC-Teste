@@ -134,10 +134,10 @@
       if(file.size>20*1024*1024)throw new Error('O arquivo deve ter até 20 MB.');
       const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
       const path=replacePath||'img/'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'-'+safe;
-      if(!/^img\/[a-zA-Z0-9._\/\- ]+$/.test(path)||path.includes('..'))throw new Error('Caminho de mídia inválido.');
+      if(!path.startsWith('img/')||path.includes('..')||/[\u0000-\u001f]/.test(path))throw new Error('Caminho de mídia inválido.');
       await dbPut(path,file);
       const next=clone(assets);
-      next[path]={path,name:file.name,size:file.size,sha:existingSha||null,action:replacePath?'substituir':'adicionar',date:new Date().toISOString()};
+      next[path]={path,name:file.name,size:file.size,sha:existingSha||null,action:existingSha?'substituir':'adicionar',date:new Date().toISOString()};
       try{persist(pending,next)}catch(error){await dbDelete(path);throw error}
       assets=next;updateUI();
       return path;
@@ -232,6 +232,10 @@
         if(fresh.sha!==draft.baseSha)throw new Error('Conflito no arquivo "'+draft.label+'". Alguém alterou esta seção depois de você iniciar o rascunho. Descarte apenas esta edição, atualize os dados e refaça a alteração.');
       }
       for(const meta of Object.values(assets)){
+        if(meta.sha&&state.authMode==='github'){
+          const current=await api('/repos/'+repo+'/contents/'+filePath(meta.path)+'?ref='+branch);
+          if(current.sha!==meta.sha)throw new Error('A mídia '+meta.name+' foi alterada no GitHub depois do rascunho. Remova-a da fila e selecione novamente.');
+        }
         const blob=await dbGet(meta.path);
         if(!blob)throw new Error('A mídia "'+meta.name+'" não está mais armazenada neste dispositivo. Descarte-a e selecione o arquivo novamente.');
       }
@@ -281,12 +285,14 @@
           content:await toBase64(await dbGet(entry.meta.path)),branch,
           ...(entry.meta.sha?{sha:entry.meta.sha}:{})
         };
+        let saved;
         try{
-          await api('/repos/'+repo+'/contents/'+filePath(entry.path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+          saved=await api('/repos/'+repo+'/contents/'+filePath(entry.path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
         }catch(error){
           throw new Error('Envio interrompido após '+completed+' arquivo(s). Os demais permanecem na fila. Detalhes: '+(error.message||'falha no GitHub')+'.');
         }
         if(entry.kind==='yaml'){
+          if(saved?.content?.sha)state.sha[entry.path]=saved.content.sha;
           delete pending[entry.path];
           if(state.remoteContents)state.remoteContents[entry.path]=clone(entry.draft.content);
         }else{
