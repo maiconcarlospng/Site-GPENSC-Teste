@@ -172,8 +172,8 @@ const SITE_PAGES={
   equipe:'grupo.html#equipe',linha_tempo:'grupo.html#historia',galeria:'index.html',
   parcerias:'grupo.html#parcerias',apoio:'grupo.html#parcerias',
   linhas:'linhas.html',projetos:'projetos.html',publicacoes:'publicacoes.html',defesas:'teses.html',
-  metodos:'pesquisa.html',conteudos_vi_no_rotulo:'extensao.html#projeto-PR-VR',equipe_vi_no_rotulo:'extensao.html#projeto-PR-VR',
-  capacitacao_atividades:'extensao.html#projeto-PR-CEP',disciplinas:'ensino.html',impactos:'pesquisa.html',
+  metodos:'pesquisa.html',conteudos_vi_no_rotulo:'vi-no-rotulo.html#vi-publicacoes',equipe_vi_no_rotulo:'vi-no-rotulo.html#vi-equipe',
+  capacitacao_atividades:'capacitacao-epidemiologia.html',disciplinas:'ensino.html',impactos:'pesquisa.html',
   materiais:'conteudos.html#materiais',videos:'conteudos.html#videos',livros:'conteudos.html#livros',
   noar:'conteudos.html#podcasts',sites:'conteudos.html',noticias:'atualizacoes.html#noticias',
   eventos:'atualizacoes.html#agenda',planejamento:'index.html'
