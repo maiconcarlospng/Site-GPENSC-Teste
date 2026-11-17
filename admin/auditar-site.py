@@ -69,14 +69,14 @@ def main() -> None:
     if len(PAGES) < 20:
         errors.append("Número inesperadamente pequeno de páginas QMD.")
     home = (ROOT / "index.qmd").read_text(encoding="utf-8")
-    # As duas apresentações são aceitas: cartões legados ou vitrine editorial.
-    # A seção deve continuar sendo gerada pelo htmltools/R, nunca HTML solto.
-    legacy_projects = 'class = "gp-home-projects"' in home or 'class = "gp-home-projects reveal"' in home
-    editorial_projects = 'class = "gp-initiatives"' in home
-    if '<section class="gp-home-projects"' in home or '<section class="gp-initiatives"' in home:
-        errors.append("index.qmd: HTML solto nos destaques de Extensão; use saída htmltools/R.")
-    if not (legacy_projects or editorial_projects):
-        errors.append("index.qmd: componente de Extensão não localizado.")
+    # A página inicial pode não exibir projetos: a vitrine foi removida
+    # intencionalmente para concentrar as iniciativas em Extensão.
+    # Rejeitar apenas o retorno acidental de componentes antigos.
+    if ('class = "gp-home-projects"' in home or
+            'class = "gp-initiatives"' in home or
+            '<section class="gp-home-projects"' in home or
+            '<section class="gp-initiatives"' in home):
+        errors.append("index.qmd: vitrine antiga de projetos; mantenha os projetos em Extensão.")
     checked = 0
     for path in PAGES:
         content = path.read_text(encoding="utf-8")
