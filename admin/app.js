@@ -781,10 +781,18 @@ async function loadMediaFiles(){
   if(status)status.textContent='Atualizando a lista…';
   if(grid)grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';
   try{
-    const branch=await api('/repos/'+REPO+'/branches/'+encodeURIComponent(BRANCH));
+    // A relação de arquivos é pública. O proxy por código restringe a API de escrita;
+    // use leitura pública sem credenciais para exibir a biblioteca em ambos os logins.
+    const mediaApi=state.authMode==='access-code'?async path=>{
+      const response=await fetch(API+path,{headers:{'Accept':'application/vnd.github+json'}});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(result.message||'Falha ao listar arquivos públicos.');
+      return result;
+    }:api;
+    const branch=await mediaApi('/repos/'+REPO+'/branches/'+encodeURIComponent(BRANCH));
     const treeSha=branch.commit?.commit?.tree?.sha;
     if(!treeSha)throw new Error('Não foi possível localizar a árvore atual do repositório.');
-    const tree=await api('/repos/'+REPO+'/git/trees/'+treeSha+'?recursive=1');
+    const tree=await mediaApi('/repos/'+REPO+'/git/trees/'+treeSha+'?recursive=1');
     if(tree.truncated)throw new Error('A lista de arquivos do repositório foi truncada; atualize a página e tente novamente.');
     state.mediaFiles=(tree.tree||[]).filter(file=>{
       if(file.type!=='blob'||!String(file.path).startsWith('img/'))return false;
