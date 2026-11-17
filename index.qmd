@@ -134,7 +134,7 @@ if (nrow(noticias_recentes) > 0) {
     cartoes(noticias_recentes, cartao_noticia),
     div(
       class = "centro",
-      tags$a(class = "btn btn-secondary", href = "atualizacoes.html#noticias", "Todas as notícias")
+      tags$a(class = "btn btn-secondary", href = "noticias.html", "Todas as notícias")
     )
   )
 }
@@ -247,7 +247,7 @@ casa_mes_home <- function(posicao) {
   if (tem_atividade) {
     tags$a(
       class = classe,
-      href = "atualizacoes.html#agenda",
+      href = "agenda.html",
       title = paste(titulos, collapse = " · "),
       `aria-label` = acessivel,
       numero,
@@ -296,7 +296,7 @@ div(
 )
 ```
 
-[Ver agenda completa](atualizacoes.qmd#agenda){.btn .btn-secondary .agenda-botao}
+[Ver agenda completa](agenda.qmd){.btn .btn-secondary .agenda-botao}
 :::
 ::::
 
