@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Vídeos"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=conteudos.html#videos">
-<p><a href="conteudos.html#videos">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Conteúdos audiovisuais e registros de atividades do grupo.</p><img src="img/ilustracoes/videos.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Vídeos {#videos}
+
+{{< include partials/videos.qmd >}}
