@@ -813,17 +813,82 @@ Dia com atividade cadastrada
 }
 </style>
 <script defer="" src="js/agenda-home.js"></script>
-<div class="cell">
-<div class="cell-output-display">
-<a class="gp-spotify-flutuante" href="https://open.spotify.com/show/2JYir3ZrFveZXjbxiTzkQy" target="_blank" rel="noopener noreferrer" title="Abrir o link do Spotify" aria-label="Acessar o Spotify do GPENSC">
-<svg class="spotify-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 64 64" width="32" height="32" fill="none" aria-hidden="true">
-<path d="M8 22.5C21.5 14.8 42.5 16 56 24.5" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"></path>
-<path d="M12 33.5C24 27 42.5 28.5 53 35.5" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"></path>
-<path d="M17 44C27 39.5 40.5 40.5 48 45.5" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"></path>
+<!-- Elo: protótipo de assistente guiado, sem IA ou coleta de dados. -->
+<style>
+.gp-elo-launch{position:fixed;right:22px;bottom:22px;z-index:1050;width:76px;height:76px;padding:0;border:3px solid #fff;border-radius:50%;background:#f9f4e9;box-shadow:0 5px 22px #173b2460;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.gp-elo-launch:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 25px #173b2470}
+.gp-elo-launch:focus-visible,.gp-elo-panel button:focus-visible,.gp-elo-panel a:focus-visible{outline:3px solid #d9731f;outline-offset:3px}
+.gp-elo-art{display:block;width:100%;height:100%;overflow:visible}
+.gp-elo-launch .gp-elo-art{animation:gp-elo-bob 4s ease-in-out infinite}
+.gp-elo-eye{transform-origin:center;animation:gp-elo-blink 6s infinite}
+.gp-elo-arm{transform-origin:75% 73%;animation:gp-elo-wave 4.5s ease-in-out infinite}
+.gp-elo-leaf{transform-origin:35% 27%;animation:gp-elo-leaf 5s ease-in-out infinite}
+@keyframes gp-elo-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes gp-elo-blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.12)}}
+@keyframes gp-elo-wave{0%,70%,100%{transform:rotate(0)}77%,87%{transform:rotate(-12deg)}82%,92%{transform:rotate(9deg)}}
+@keyframes gp-elo-leaf{0%,100%{transform:rotate(0)}50%{transform:rotate(5deg)}}
+.gp-elo-panel{position:fixed;right:20px;bottom:110px;z-index:1051;width:min(370px,calc(100vw - 32px));max-height:min(560px,calc(100dvh - 145px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #d8e4d5;border-radius:17px;background:#fff;box-shadow:0 15px 50px #173b2440;color:#234b30}
+.gp-elo-panel[hidden]{display:none!important}
+.gp-elo-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f1f6ed;border-bottom:1px solid #dce8d8}
+.gp-elo-head .gp-elo-art{width:45px;height:45px;flex:none}
+.gp-elo-head strong{display:block;font-size:1rem}.gp-elo-head small{display:block;font-size:.75rem;color:#52695b}
+.gp-elo-close{margin-left:auto;border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#234b30}
+.gp-elo-messages{padding:15px;overflow:auto;min-height:125px;display:flex;flex-direction:column;gap:10px;font-size:.91rem;line-height:1.55}
+.gp-elo-msg{max-width:94%;padding:10px 12px;border-radius:12px;background:#eff5ec}
+.gp-elo-msg.user{align-self:flex-end;background:#fff0df;color:#4d381e}
+.gp-elo-msg a{color:#205d39;text-decoration:underline}
+.gp-elo-choices{display:flex;flex-wrap:wrap;gap:7px;padding:10px 14px 15px;border-top:1px solid #e7eee5}
+.gp-elo-choices button{border:1px solid #a7c4a0;border-radius:18px;background:#fff;color:#235232;padding:7px 10px;font-size:.8rem;cursor:pointer}
+.gp-elo-choices button:hover{background:#eff5ec}
+.gp-elo-note{margin:0;padding:0 14px 12px;color:#617368;font-size:.7rem}
+@media(max-width:600px){.gp-elo-launch{right:16px;bottom:18px;width:66px;height:66px}.gp-elo-panel{right:12px;bottom:94px;max-height:calc(100dvh - 115px)}}
+@media(prefers-reduced-motion:reduce){.gp-elo-art,.gp-elo-eye,.gp-elo-arm,.gp-elo-leaf{animation:none!important}.gp-elo-launch{transition:none!important}}
+</style>
+<template id="gp-elo-avatar">
+<svg class="gp-elo-art" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g class="gp-elo-leaf"><path d="M32 27Q16 8 9 18Q13 33 32 31Z" fill="#77a83c"></path><path d="M37 22Q37 5 53 5Q55 19 39 27Z" fill="#38782d"></path></g>
+<path d="M24 66L9 86" stroke="#275b2c" stroke-width="12" stroke-linecap="round"></path>
+<path d="M70 72L83 62" stroke="#285d30" stroke-width="7" stroke-linecap="round" class="gp-elo-arm"></path>
+<path d="M33 76L29 91M61 77L67 91" stroke="#2c6630" stroke-width="7" stroke-linecap="round"></path>
+<circle cx="50" cy="50" r="38" fill="#f9edcf" stroke="#d9731f" stroke-width="9"></circle>
+<path d="M19 30A38 38 0 0 1 76 24" fill="none" stroke="#528e38" stroke-width="9"></path>
+<path d="M22 72A38 38 0 0 0 76 76" fill="none" stroke="#c83f35" stroke-width="9"></path>
+<g fill="none" stroke="#275a32" stroke-width="3.8"><rect x="28" y="41" width="19" height="16" rx="7"></rect><rect x="53" y="41" width="19" height="16" rx="7"></rect><path d="M47 47Q50 44 53 47"></path></g>
+<g class="gp-elo-eye" fill="#275a32"><circle cx="38" cy="49" r="2.3"></circle><circle cx="63" cy="49" r="2.3"></circle></g>
+<path d="M43 64Q51 72 59 63" stroke="#275a32" stroke-width="3" fill="none" stroke-linecap="round"></path>
 </svg>
-</a>
-</div>
-</div>
+</template>
+<button type="button" id="gp-elo-launch" class="gp-elo-launch" aria-label="Abrir conversa com Elo, assistente experimental do GPENSC" aria-expanded="false" aria-controls="gp-elo-panel" title="Conversar com Elo"></button>
+<section id="gp-elo-panel" class="gp-elo-panel" aria-label="Conversa com Elo" hidden="">
+ <div class="gp-elo-head"><span id="gp-elo-head-avatar"></span><div><strong>Elo · GPENSC</strong><small>Assistente experimental de pesquisa</small></div><button type="button" id="gp-elo-close" class="gp-elo-close" aria-label="Fechar conversa">×</button></div>
+ <div id="gp-elo-messages" class="gp-elo-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+ <div id="gp-elo-choices" class="gp-elo-choices" aria-label="Perguntas sugeridas"></div>
+ <p class="gp-elo-note">Versão de teste: respostas guiadas, sem inteligência artificial. Nenhuma mensagem é enviada a um servidor.</p>
+</section>
+<script>
+(function(){
+ const launch=document.getElementById('gp-elo-launch'),panel=document.getElementById('gp-elo-panel');
+ const close=document.getElementById('gp-elo-close'),messages=document.getElementById('gp-elo-messages'),choices=document.getElementById('gp-elo-choices');
+ const avatar=document.getElementById('gp-elo-avatar');
+ if(!launch||!panel||!avatar)return;
+ launch.append(avatar.content.firstElementChild.cloneNode(true));
+ document.getElementById('gp-elo-head-avatar').append(avatar.content.firstElementChild.cloneNode(true));
+ const questions=[
+ ['Conhecer o GPENSC','O GPENSC é um grupo de pesquisa e ensino em Nutrição e Saúde Coletiva da UFOP.','grupo.html#sobre'],
+ ['Linhas de pesquisa','Explore as linhas de pesquisa e seus temas na página do grupo.','linhas.html'],
+ ['Projetos','Você pode conhecer os projetos e iniciativas de pesquisa cadastrados no site.','projetos.html'],
+ ['Publicações','Veja a produção científica e os trabalhos publicados pelo GPENSC.','publicacoes.html'],
+ ['Teses e dissertações','Consulte as teses e dissertações disponíveis no site.','teses.html'],
+ ['Agenda','Confira as próximas atividades e o calendário do grupo.','atualizacoes.html#agenda'],
+ ['Contato','Encontre os canais de contato oficiais do grupo.','contato.html']
+ ];
+ function say(t,who,href){const el=document.createElement('div');el.className='gp-elo-msg'+(who==='user'?' user':'');el.textContent=t;if(href){const a=document.createElement('a');a.href=href;a.textContent=' Abrir página';el.append(document.createElement('br'),a)}messages.append(el);messages.scrollTop=messages.scrollHeight}
+ questions.forEach(([q,answer,url])=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.addEventListener('click',()=>{say(q,'user');say(answer,'elo',url)});choices.append(b)});
+ function toggle(open){panel.hidden=!open;launch.setAttribute('aria-expanded',String(open));if(open){if(!messages.childElementCount)say('Olá! Sou Elo, o assistente experimental do GPENSC. Escolha um assunto para começar.','elo');close.focus()}else launch.focus()}
+ launch.addEventListener('click',()=>toggle(panel.hidden));close.addEventListener('click',()=>toggle(false));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)toggle(false)});
+})();
+</script>
 
 
 
