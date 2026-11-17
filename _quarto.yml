@@ -46,15 +46,19 @@ website:
           - text: Visão geral
             href: conteudos.qmd
           - text: Materiais educativos
-            href: conteudos.qmd#materiais
+            href: materiais.qmd
           - text: Podcasts
-            href: conteudos.qmd#podcasts
+            href: podcasts.qmd
           - text: Livros e e-books
-            href: conteudos.qmd#livros
+            href: livros.qmd
           - text: Vídeos
-            href: conteudos.qmd#videos
+            href: videos.qmd
           - text: Anuário
-            href: conteudos.qmd#anuario
+            href: anuario.qmd
+          - text: Ciência para a sociedade
+            href: resultados.qmd
+          - text: Impacto social
+            href: impacto.qmd
           - text: Notícias
             href: noticias.qmd
       - text: Agenda
