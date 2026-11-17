@@ -1,4 +1,4 @@
-Veja também os [resultados explicados](conteudos.qmd#resultados) e os registros de [impacto social](conteudos.qmd#impacto).
+Veja também os [resultados explicados](resultados.qmd) e os registros de [impacto social](impacto.qmd).
 
 :::: {.divulgacao-grade}
 ::: {.divulgacao-item}
@@ -6,27 +6,27 @@ Veja também os [resultados explicados](conteudos.qmd#resultados) e os registros
 
 Conversas sobre nutrição e saúde coletiva.
 
-[Conhecer os podcasts](conteudos.qmd#podcasts)
+[Conhecer os podcasts](podcasts.qmd)
 :::
 ::: {.divulgacao-item}
 ### Livros e e-books
 
 Leituras e produções do grupo.
 
-[Consultar livros](conteudos.qmd#livros)
+[Consultar livros](livros.qmd)
 :::
 ::: {.divulgacao-item}
 ### Vídeos
 
 Aulas, registros e conteúdos audiovisuais.
 
-[Assistir aos vídeos](conteudos.qmd#videos)
+[Assistir aos vídeos](videos.qmd)
 :::
 ::: {.divulgacao-item}
 ### Materiais educativos e anuário
 
 Cartilhas, infográficos e outros materiais de consulta.
 
-[Consultar materiais](conteudos.qmd#materiais)
+[Consultar materiais](materiais.qmd)
 :::
 ::::
