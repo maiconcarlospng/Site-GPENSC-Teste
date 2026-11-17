@@ -1,22 +1,10 @@
 ---
-title: "Acervo de atividades"
-subtitle: "Registros públicos do GPENSC no Instagram"
+title: "Conteúdos do GPENSC"
+search: false
 ---
 
-```{r, results="asis"}
-source("R/helpers.R")
-# Acervo isolado: o interruptor abaixo não modifica conteúdo cadastrado no CMS.
-if (isTRUE(cfg$mostrar_acervo_instagram)) {
-  cat('<link rel="stylesheet" href="js/acervo-instagram.css">')
-  cat('<div class="gp-ig-intro"><p><strong>Acervo histórico em revisão editorial.</strong> Esta página reúne referências às publicações públicas do Instagram do GPENSC entre 2020 e 2026. Os registros foram reunidos por tema e não substituem os cadastros oficiais de pesquisadores, projetos, defesas e publicações científicas.</p><p>Confira as informações e a autoria na fonte original antes de reutilizar estes dados em registros institucionais.</p></div>')
-  cat('<section id="gp-ig-root" class="gp-ig-root" aria-label="Consulta ao acervo do Instagram">')
-  cat('<div class="gp-ig-filtros">')
-  cat('<div class="gp-ig-campo"><label for="gp-ig-busca">Buscar no acervo</label><input id="gp-ig-busca" type="search" placeholder="Projeto, pesquisador, tema ou atividade" autocomplete="off"></div>')
-  cat('<div class="gp-ig-campo"><label for="gp-ig-area">Área do site</label><select id="gp-ig-area"><option value="">Todas as áreas</option></select></div>')
-  cat('<div class="gp-ig-campo"><label for="gp-ig-ano">Ano</label><select id="gp-ig-ano"><option value="">Todos os anos</option></select></div>')
-  cat('</div><p id="gp-ig-status" class="gp-ig-status" role="status">Preparando o acervo…</p><div id="gp-ig-grupos"></div></section>')
-  cat('<script src="js/acervo-instagram.js"></script>')
-} else {
-  cat('<p class="gp-ig-desativado">O acervo importado está desativado. Os demais conteúdos cadastrados manualmente continuam disponíveis.</p>')
-}
+As informações selecionadas das publicações históricas estão integradas às páginas de [Notícias](noticias.qmd), [Pesquisa](pesquisa.qmd), [Ensino](ensino.qmd), [Extensão](extensao.qmd) e [Divulgação científica](conteudos.qmd).
+
+```{=html}
+<script>window.location.replace("conteudos.html");</script>
 ```
