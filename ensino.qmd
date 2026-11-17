@@ -5,3 +5,5 @@ title: "Ensino"
 Workshops para graduação e pós-graduação, palestras, cursos, simpósios e outras atividades formativas do GPENSC.
 
 {{< include partials/ensino.qmd >}}
+
+{{< include partials/link-acervo-instagram.qmd >}}
