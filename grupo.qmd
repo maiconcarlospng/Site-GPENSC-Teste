@@ -16,6 +16,8 @@ title: "Grupo"
 
 {{< include partials/historia.qmd >}}
 
+{{< include partials/link-acervo-instagram.qmd >}}
+
 ## Parcerias {#parcerias .gp-heading-art .gp-heading-art--parcerias}
 
 {{< include partials/parcerias.qmd >}}
@@ -23,5 +25,3 @@ title: "Grupo"
 ## Contato {#contato .gp-heading-art .gp-heading-art--contato}
 
 {{< include partials/contato.qmd >}}
-
-{{< include partials/link-acervo-instagram.qmd >}}
