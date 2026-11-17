@@ -1,0 +1,4 @@
+# Controle reversível do acervo histórico extraído do Instagram.
+# false = desliga a apresentação do acervo sem alterar dados cadastrados no painel.
+# O arquivo importado permanece preservado para eventual revisão.
+mostrar_acervo_instagram: true
