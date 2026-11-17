@@ -2,7 +2,7 @@
 title: "Extensão"
 ---
 
-Projetos de extensão coordenados pelo GPENSC junto à comunidade.
+<div class="gp-illustrated-lead"><p>Projetos de extensão coordenados pelo GPENSC junto à comunidade.</p><img src="img/ilustracoes/extensao.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ## Projetos e iniciativas de extensão {#iniciativas}
 
