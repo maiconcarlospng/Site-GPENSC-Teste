@@ -452,6 +452,22 @@ cartao_noticia <- function(n, i) {
 }
 
 
+
+# Capa compacta de materiais e conteúdo audiovisual, com alternativa sem foto.
+capa_conteudo <- function(imagem, titulo, tipo = "material") {
+  tipo <- if (tipo %in% c("livro", "video", "material", "pesquisa")) tipo else "material"
+  simbolo <- if (tipo == "video") "microfone" else if (tipo == "pesquisa") "pesquisa" else "livro"
+  src <- if (tem(imagem)) caminho_img(imagem) else ""
+  div(
+    class = paste("gp-conteudo-capa", paste0("gp-conteudo-capa--", tipo)),
+    span(class = "gp-conteudo-simbolo", `aria-hidden` = "true", noticia_icone_svg(simbolo)),
+    if (nzchar(src)) tags$img(
+      src = src, alt = paste("Imagem da publicação:", as.character(titulo)[1]),
+      loading = "lazy", decoding = "async", onerror = "this.remove()"
+    )
+  )
+}
+
 # ---------- LOGOS DE APOIO ----------
 faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
   div(
@@ -529,6 +545,7 @@ renderizar_acervo <- function(nome, vazio) {
   if (is.null(itens) || !length(itens)) return(estado_vazio(vazio, NULL))
   div(class = "gp-acervo", lapply(itens, function(item) {
     tags$article(class = "gp-acervo-card",
+      if (identical(nome, "materiais")) capa_conteudo(item$imagem, item$titulo, "material"),
       if (tem(item$tipo)) span(class = "gp-acervo-tipo", item$tipo),
       h3(item$titulo), p(item$resumo),
       if (tem(item$publico)) p(class = "gp-acervo-publico", paste("Para:", item$publico)),
