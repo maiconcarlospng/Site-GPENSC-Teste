@@ -226,16 +226,6 @@ div(
       div(
         class = "equipe-diretorio",
         div(
-          class = "equipe-diretorio-intro",
-          
-          span(
-            class = "equipe-contagem",
-            id = "equipe-contagem",
-            `aria-live` = "polite",
-            paste(nrow(integrantes), if (nrow(integrantes) == 1) "integrante" else "integrantes")
-          )
-        ),
-        div(
           class = "equipe-filtros",
           div(
             class = "equipe-filtro-campo",
@@ -295,7 +285,6 @@ div(
 
             const busca = raiz.querySelector('#equipe-busca');
             const filtro = raiz.querySelector('#equipe-categoria-filtro');
-            const contador = raiz.querySelector('#equipe-contagem');
             const vazio = raiz.querySelector('#equipe-filtro-vazio');
             const normalizar = (valor) => (valor || '')
               .normalize('NFD')
@@ -306,8 +295,6 @@ div(
             const atualizar = () => {
               const termo = normalizar(busca.value);
               const categoriaSelecionada = normalizar(filtro.value);
-              let total = 0;
-
               raiz.querySelectorAll('.equipe-categoria-grupo').forEach((grupo) => {
                 let visiveisNoGrupo = 0;
                 const categoriaGrupo = normalizar(grupo.dataset.equipeCategoria);
@@ -323,12 +310,8 @@ div(
                 });
 
                 grupo.hidden = visiveisNoGrupo === 0;
-                total += visiveisNoGrupo;
               });
 
-              contador.textContent = total + (total === 1
-                ? ' integrante encontrado'
-                : ' integrantes encontrados');
               vazio.style.display = total === 0 ? 'block' : 'none';
             };
 
