@@ -2,7 +2,7 @@
 title: "Atualizações"
 ---
 
-Agenda e notícias do GPENSC.
+<div class="gp-illustrated-lead"><p>Agenda e notícias do GPENSC.</p><img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ```{=html}
 <nav class="gp-section-index" aria-label="Nesta página"><a href="#agenda">Agenda</a><a href="#noticias">Notícias</a></nav>
@@ -12,6 +12,6 @@ Agenda e notícias do GPENSC.
 
 {{< include partials/agenda.qmd >}}
 
-## Notícias {#noticias}
+## Notícias {#noticias .gp-heading-art .gp-heading-art--noticias}
 
 {{< include partials/noticias.qmd >}}
