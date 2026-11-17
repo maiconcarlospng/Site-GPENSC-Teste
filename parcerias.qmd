@@ -1,9 +1,9 @@
 ---
-title: "GPENSC"
-search: false
+title: "Parcerias"
 ---
 
-```{=html}
-<meta http-equiv="refresh" content="0; url=grupo.html#parcerias">
-<p><a href="grupo.html#parcerias">Ir para a seção</a></p>
-```
+<div class="gp-illustrated-lead"><p>Instituições e redes parceiras do GPENSC, no Brasil e no exterior.</p><img src="img/ilustracoes/parcerias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+
+## Parcerias nacionais e internacionais {#parcerias .gp-heading-art .gp-heading-art--parcerias}
+
+{{< include partials/parcerias.qmd >}}
