@@ -2,7 +2,7 @@
 title: "Publicações"
 ---
 
-Os estudos com sínteses para o público geral estão em [Ciência para a sociedade](conteudos.qmd#resultados).
+Os estudos com sínteses para o público geral estão em [Ciência para a sociedade](resultados.qmd).
 
 ```{r}
 source("R/helpers.R")
