@@ -59,8 +59,10 @@ jobs:
         run: python admin/validar-painel.py
       - name: Verificar links, páginas e recursos estáticos
         run: python admin/auditar-site.py
+      - name: Validar integridade do acervo Instagram
+        run: python admin/validar-acervo-instagram.py
       - name: Validar sintaxe do painel, árvore e Workers
-        run: node --check admin/galeria-multipla.js && node --check admin/app.js && node --check js/acessibilidade-gpensc.js && node --check js/galeria-home.js && node --check js/arvore.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
+        run: node --check admin/galeria-multipla.js && node --check admin/app.js && node --check js/acessibilidade-gpensc.js && node --check js/acervo-instagram.js && node --check js/galeria-home.js && node --check js/arvore.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
 
   build:
     name: Compilar site (Quarto + R)
