@@ -109,7 +109,7 @@
       if(body)body.className="gp-tree-detail-body";
       detail.replaceChildren(panelHeading,title,...(body?[body]:[]));
       if(scroll&&window.matchMedia("(max-width:900px)").matches){
-        detail.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"nearest"});
+        detail.scrollIntoView({behavior:(window.matchMedia("(prefers-reduced-motion:reduce)").matches || document.documentElement.classList.contains("gp-a11y-motion"))?"auto":"smooth",block:"nearest"});
       }
     }
     function filterList(){
