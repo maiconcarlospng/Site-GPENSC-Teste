@@ -498,7 +498,7 @@ renderizar_acervo <- function(nome, vazio) {
       if (tem(item$resultado)) p(item$resultado),
       if (tem(item$aplicacao)) p(item$aplicacao),
       if (tem(item$parceiros)) p(paste("Parcerias:", item$parceiros)),
-      if (tem(item$url) && grepl("^https?://", item$url)) tags$a("Acessar material e fonte", href = item$url, target = "_blank", rel = "noopener noreferrer")
+      if (tem(item$url) && grepl("^https?://", item$url)) tags$a(if (grepl("instagram.com", item$url, fixed = TRUE)) "Ver publicação do material" else "Acessar material", href = item$url, target = "_blank", rel = "noopener noreferrer")
     )
   }))
 }
