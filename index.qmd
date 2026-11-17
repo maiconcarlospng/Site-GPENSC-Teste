@@ -650,7 +650,7 @@ div(
 </svg>
 </template>
 <button type="button" id="gp-pensu-launch" class="gp-pensu-launch" aria-label="Abrir conversa com Pensu, assistente experimental do GPENSC" aria-expanded="false" aria-controls="gp-pensu-panel" title="Conversar com Pensu"></button>
-<section id="gp-pensu-panel" class="gp-pensu-panel" role="dialog" aria-modal="false" aria-label="Conversa com Pensu" hidden>
+<section id="gp-pensu-panel" class="gp-pensu-panel" role="dialog" aria-modal="true" aria-label="Conversa com Pensu" hidden>
  <div class="gp-pensu-head"><span id="gp-pensu-head-avatar"></span><div><strong>Pensu · GPENSC</strong><small>Assistente experimental de pesquisa</small></div><button type="button" id="gp-pensu-close" class="gp-pensu-close" aria-label="Fechar conversa">×</button></div>
  <div id="gp-pensu-messages" class="gp-pensu-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
  <div id="gp-pensu-status" class="gp-pensu-status" role="status" aria-live="polite"></div>
