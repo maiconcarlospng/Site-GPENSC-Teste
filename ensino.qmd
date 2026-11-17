@@ -2,7 +2,7 @@
 title: "Ensino"
 ---
 
-Workshops para graduação e pós-graduação, palestras, cursos, simpósios e outras atividades formativas do GPENSC.
+<div class="gp-illustrated-lead"><p>Workshops para graduação e pós-graduação, palestras, cursos, simpósio e outras atividades formativas do GPENSC.</p><img src="img/ilustracoes/ensino.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/ensino.qmd >}}
 
