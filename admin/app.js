@@ -920,7 +920,7 @@ $('#mobile-menu-close').addEventListener('click',closeMobileMenu);
 $('#mobile-collection-search').addEventListener('input',event=>{
   const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const term=normalize(event.target.value.trim());
-  $('#collection-nav').querySelectorAll('button[data-index],button[data-summary]').forEach(button=>{
+  $('#collection-nav').querySelectorAll('button').forEach(button=>{
     button.hidden=!!term&&!normalize(button.textContent).includes(term);
   });
   $('#collection-nav').querySelectorAll('.menu-section').forEach(section=>{
@@ -941,6 +941,19 @@ $('#mobile-sections').addEventListener('click',()=>{
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileMenu()});
 $('#mobile-logout').addEventListener('click',()=>$('#logout-button').click());
-$('#logout-button').addEventListener('click',()=>{if(!canLeaveCurrentEditor())return;sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
+$('#logout-button').addEventListener('click',()=>{if(!canLeaveCurrentEditor())return;sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;closeMobileMenu();$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
+// Keep full-screen editors inside the visible area when the mobile keyboard opens.
+function updateVisibleViewport(){
+  const viewport=window.visualViewport;
+  document.documentElement.style.setProperty('--admin-visible-height',(viewport?viewport.height:window.innerHeight)+'px');
+  document.documentElement.style.setProperty('--admin-visible-top',(viewport?viewport.offsetTop:0)+'px');
+}
+updateVisibleViewport();
+window.visualViewport?.addEventListener('resize',updateVisibleViewport);
+window.visualViewport?.addEventListener('scroll',updateVisibleViewport);
+window.addEventListener('resize',()=>{
+  updateVisibleViewport();
+  if(window.innerWidth>700&&document.body.classList.contains('mobile-menu-open'))closeMobileMenu();
+});
 if(state.token)initialize();
 })();
