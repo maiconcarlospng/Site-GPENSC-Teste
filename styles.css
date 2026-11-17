@@ -20230,3 +20230,57 @@ html body:has(#gp49) #quarto-content #gp49 #gp49-map > svg {
       repeating-linear-gradient(118deg,rgba(78,101,65,.018) 0 1px,transparent 1px 9px)!important;
   }
 }
+/* Projetos: o DataTables controla as colunas; apenas o corpo desliza. */
+html body #quarto-content main.content .pagina-projetos .dataTables_wrapper {
+  overflow: visible !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+html body #quarto-content main.content .pagina-projetos table.dataTable {
+  display: table !important;
+  max-width: none !important;
+  min-width: 1100px !important;
+  width: auto !important;
+  table-layout: auto !important;
+  overflow: visible !important;
+}
+html body #quarto-content main.content .pagina-projetos table.dataTable :is(th,td) {
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+}
+html body #quarto-content main.content .pagina-projetos table.dataTable thead th {
+  padding-right: 28px !important;
+}
+html body #quarto-content main.content .pagina-projetos .dataTables_scroll {
+  width: 100%;
+  min-width: 0;
+}
+html body #quarto-content main.content .pagina-projetos .dataTables_scrollBody {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+html body #quarto-content main.content .pagina-projetos .dataTables_scrollHead {
+  overflow: hidden !important;
+}
+html body #quarto-content main.content .pagina-projetos .dataTables_scrollBody thead :is(th,td) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+html body #quarto-content main.content .pagina-projetos .paginate_button.current {
+  color: #fff !important;
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content main.content .pagina-projetos .dataTables_filter label {
+    display: block;
+    width: 100%;
+  }
+  html body #quarto-content main.content .pagina-projetos .dataTables_filter input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
