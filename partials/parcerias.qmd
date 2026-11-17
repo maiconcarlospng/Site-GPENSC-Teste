@@ -2,18 +2,7 @@
 source("R/helpers.R")
 parcerias_site <- registros_reais(parcerias, "nome")
 if (nrow(parcerias_site) > 0) {
-  # Mantém os vínculos institucionais separados e classifica parcerias pelo país.
-  institucional <- !is.na(parcerias_site$grupo) & parcerias_site$grupo == "Vínculos institucionais"
-  pais <- tolower(trimws(ifelse(is.na(parcerias_site$pais), "", parcerias_site$pais)))
-  parcerias_site$grupo[!institucional] <- ifelse(
-    pais[!institucional] %in% c("brasil", "brazil"), "Parcerias nacionais",
-    ifelse(nzchar(pais[!institucional]), "Parcerias internacionais", "Parcerias")
-  )
-  grupos_parceria <- unique(ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo))
-  tagList(lapply(grupos_parceria, function(grupo_atual) {
-    dados <- parcerias_site[ifelse(is.na(parcerias_site$grupo) | !nzchar(parcerias_site$grupo), "Instituições", parcerias_site$grupo) == grupo_atual, , drop = FALSE]
-    tagList(
-      h2(grupo_atual),
+  dados <- parcerias_site
       div(
         class = "parcerias-catalogo",
         lapply(seq_len(nrow(dados)), function(i) {
@@ -30,8 +19,6 @@ if (nrow(parcerias_site) > 0) {
           )
         })
       )
-    )
-  }))
 } else {
   estado_vazio("Parcerias em atualização", NULL)
 }
