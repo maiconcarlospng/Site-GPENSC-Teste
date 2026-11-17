@@ -35,7 +35,9 @@ permissions:
 # Evita duas publicações concorrentes. Se uma edição nova chegar, prioriza a mais recente.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # Não cancelar publicações iniciadas quando novos commits chegarem.
+  # O GitHub mantém uma execução pendente e publica a versão mais recente depois.
+  cancel-in-progress: false
 
 jobs:
   # Distingue mudanças exclusivas do painel de alterações que exigem nova renderização Quarto/R.
