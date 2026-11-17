@@ -385,35 +385,72 @@ id_noticia <- function(titulo) {
   paste0("noticia-", slug)
 }
 
-cartao_noticia <- function(n, i) {
-  img_src <- if (tem(n$imagem)) caminho_img(n$imagem, "noticias") else "img/noticias/noticia_padrao.jpg"
-  img_estilo <- paste0("background-image: url('", img_src, "');")
-  detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo))
+# Capas de notícias com imagem original e fallback por assunto.
+# Não reutiliza fotografia genérica para registros distintos.
+noticia_visual_categoria <- function(categoria) {
+  categoria <- tolower(iconv(as.character(categoria)[1], to = "ASCII//TRANSLIT", sub = ""))
+  if (is.na(categoria)) categoria <- ""
+  if (grepl("internacion", categoria)) return(list(classe = "internacionalizacao", nome = "Internacionalização", icone = "globo"))
+  if (grepl("ensino|curso|formacao", categoria)) return(list(classe = "ensino", nome = "Ensino", icone = "livro"))
+  if (grepl("extens", categoria)) return(list(classe = "extensao", nome = "Extensão", icone = "comunidade"))
+  if (grepl("pesquis", categoria)) return(list(classe = "pesquisa", nome = "Pesquisa", icone = "pesquisa"))
+  if (grepl("divulg", categoria)) return(list(classe = "divulgacao", nome = "Divulgação científica", icone = "microfone"))
+  if (grepl("institucional|histor", categoria)) return(list(classe = "institucional", nome = "GPENSC", icone = "folha"))
+  list(classe = "geral", nome = "GPENSC", icone = "folha")
+}
 
+noticia_icone_svg <- function(icone) {
+  paths <- switch(icone,
+    livro = '<path d="M24 39V12M24 14C17 9 10 9 6 11v27c6-2 12-1 18 3M24 14c7-5 14-5 18-3v27c-6-2-12-1-18 3"/>',
+    pesquisa = '<circle cx="22" cy="21" r="12"/><path d="M31 30l11 11M22 14v14M15 21h14"/>',
+    comunidade = '<circle cx="16" cy="16" r="5"/><circle cx="33" cy="17" r="4"/><path d="M5 39v-5a11 11 0 0 1 22 0v5M29 28a9 9 0 0 1 14 8v3"/>',
+    globo = '<circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-9 9-9 27 0 36M24 6c9 9 9 27 0 36"/>',
+    microfone = '<rect x="17" y="6" width="14" height="25" rx="7"/><path d="M11 23c0 18 26 18 26 0M24 37v6m-8 0h16"/>',
+    folha = '<path d="M8 36c-3-18 8-29 31-29 1 23-10 34-27 31M9 39c7-12 16-19 27-24"/>',
+    '<path d="M8 36c-3-18 8-29 31-29 1 23-10 34-27 31M9 39c7-12 16-19 27-24"/>'
+  )
+  htmltools::HTML(paste0(
+    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">',
+    paths, '</svg>'
+  ))
+}
+
+capa_noticia <- function(imagem, categoria, titulo, classe = "nt-img") {
+  visual <- noticia_visual_categoria(categoria)
+  src <- if (tem(imagem)) caminho_img(imagem, "noticias") else ""
+  div(
+    class = paste(classe, paste0("nt-img--", visual$classe)),
+    div(class = "nt-fallback", `aria-hidden` = "true",
+      div(class = "nt-fallback-icone", noticia_icone_svg(visual$icone)),
+      span(class = "nt-fallback-label", visual$nome)),
+    if (nzchar(src)) tags$img(
+      class = "nt-photo", src = src, loading = "lazy", decoding = "async",
+      alt = paste("Imagem da publicação:", as.character(titulo)[1]),
+      onerror = "this.remove()"
+    ),
+    if (tem(categoria)) span(
+      class = "nt-cat",
+      style = "background-color: rgba(14, 31, 19, .82); color: #ffffff !important; padding: 4px 10px; border-radius: 5px; margin: 8px; display: inline-block; font-weight: 650; font-size: .78rem;",
+      categoria
+    )
+  )
+}
+
+cartao_noticia <- function(n, i) {
+  detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo))
   div(
     class = paste("nt reveal", cor_de(i)),
-    div(
-      class = "nt-img",
-      style = img_estilo,
-      if (tem(n$categoria)) span(
-        class = "nt-cat",
-        style = "background-color: rgba(0, 0, 0, 0.75); color: #ffffff !important; padding: 4px 10px; border-radius: 6px; margin: 8px; display: inline-block; font-weight: bold; font-size: 0.8rem;",
-        n$categoria
-      )
-    ),
+    capa_noticia(n$imagem, n$categoria, n$titulo),
     div(
       class = "nt-corpo",
       h4(tags$a(class = "nt-titulo-link", href = detalhe_href, n$titulo)),
       if (tem(n$resumo)) p(class = "nt-resumo", n$resumo),
-      tags$a(
-        class = "nt-mais",
-        href = detalhe_href,
-        "Ler notícia"
-      )
+      tags$a(class = "nt-mais", href = detalhe_href, "Ler notícia")
     ),
     div(class = "nt-data", if (!is.na(n$data)) format(n$data, "%d/%m/%Y"))
   )
 }
+
 
 # ---------- LOGOS DE APOIO ----------
 faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
