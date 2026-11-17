@@ -1,0 +1,43 @@
+/* GPENSC accessibility widget: scoped UI + opt-in document adjustments. */
+#gp-access{position:fixed;left:max(14px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:1090;font-family:inherit}
+#gp-access-trigger{display:grid;place-items:center;width:50px;height:50px;border:2px solid #fff;border-radius:50%;padding:0;background:#1f4d2b;color:#fff;box-shadow:0 4px 15px #183d2655;cursor:pointer}
+#gp-access button:focus-visible,#gp-access select:focus-visible{outline:3px solid #d9731f;outline-offset:2px}
+#gp-access-panel{position:absolute;bottom:calc(100% + 10px);left:0;width:min(382px,calc(100vw - 28px));max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain;background:#eef1f4;color:#17291c;border-radius:15px;border:1px solid #d6e1d8;box-shadow:0 10px 35px #102a1a55}
+#gp-access-panel[hidden],#gp-a11y-outline[hidden]{display:none!important}
+#gp-access-panel *{box-sizing:border-box}
+#gp-access .gp-a11y-header{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1f4d2b;color:white;padding:17px 18px}
+#gp-access .gp-a11y-header h2{font-size:18px!important;color:white!important;margin:0!important;line-height:1.4!important}
+#gp-access-close{width:32px;height:32px;border:0;border-radius:50%;background:#ffffff25;color:#fff;font-size:25px;line-height:1;cursor:pointer}
+#gp-access .gp-a11y-body{padding:15px}
+#gp-access .gp-a11y-row{display:flex;align-items:center;gap:10px;min-height:46px;margin-bottom:10px;padding:8px 10px;border:1px solid #dce3e6;border-radius:10px;background:white}
+#gp-access .gp-a11y-row label{font-size:13px;font-weight:650;flex:1}
+#gp-access .gp-a11y-row select{min-width:0;max-width:60%;border:1px solid #cbd8ce;border-radius:6px;padding:5px;background:#fff;color:#1f4d2b}
+#gp-access .gp-a11y-lang{display:flex;gap:7px;margin-left:auto}
+#gp-access .gp-a11y-lang button{border:1px solid #cbd8ce;background:#f6faf6;border-radius:7px;color:#1f4d2b;padding:6px 8px;font-size:12px;font-weight:700;cursor:pointer}
+#gp-access .gp-a11y-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#gp-access .gp-a11y-tile{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;min-height:100px;padding:12px 8px;border:2px solid transparent;border-radius:12px;background:white;color:#152c1e;text-align:center;font-size:12px;font-weight:650;line-height:1.3;cursor:pointer}
+#gp-access .gp-a11y-tile:hover{border-color:#94b79a}
+#gp-access .gp-a11y-tile[aria-pressed=true]{border-color:#1f4d2b;background:#e1efe2}
+#gp-access .gp-a11y-glyph{display:grid;place-items:center;height:33px;font-size:30px;font-weight:650;line-height:1;color:#1f4d2b}
+#gp-access .gp-a11y-count{font-size:10px}
+#gp-access .gp-a11y-reset{display:block;width:100%;margin-top:12px;padding:11px;border:1px solid #cddbd0;border-radius:9px;background:white;color:#1f4d2b;font-weight:700;cursor:pointer}
+#gp-access .gp-a11y-status{min-height:18px;margin:10px 0 0!important;font-size:12px!important;color:#395540!important}
+#gp-access .gp-a11y-note{margin:8px 0 0!important;font-size:11px!important;line-height:1.45!important;color:#526257!important}
+#gp-access .gp-a11y-outline{margin:10px 0;padding:12px;border-radius:9px;background:white;max-height:160px;overflow:auto}
+#gp-access .gp-a11y-outline strong{display:block;font-size:12px;margin-bottom:6px}
+#gp-access .gp-a11y-outline button{display:block;width:100%;border:0;background:transparent;text-align:left;padding-top:5px;padding-bottom:5px;font-size:12px;color:#1f4d2b;cursor:pointer}
+html.gp-a11y-contrast #quarto-content{background:#fff!important;color:#111!important}
+html.gp-a11y-contrast #quarto-content :is(p,li,h1,h2,h3,h4,h5,h6){color:#111!important}
+html.gp-a11y-contrast #quarto-content a{color:#064da1!important;text-decoration:underline!important}
+html.gp-a11y-smart #quarto-content :is(p,li){color:#151515!important}
+html.gp-a11y-smart #quarto-content a{font-weight:700!important;text-decoration:underline!important}
+html.gp-a11y-links #quarto-content a{text-decoration:underline!important;text-decoration-thickness:2px!important;text-underline-offset:3px!important}
+html.gp-a11y-spacing #quarto-content main :is(p,li){letter-spacing:.07em!important;word-spacing:.17em!important}
+html.gp-a11y-lineHeight #quarto-content main :is(p,li){line-height:2!important}
+html.gp-a11y-align #quarto-content main :is(p,li){text-align:left!important}
+html.gp-a11y-images #quarto-content main img,html.gp-a11y-images #quarto-content main picture{visibility:hidden!important}
+html.gp-a11y-dyslexia #quarto-content main :is(p,li){font-family:Verdana,Arial,sans-serif!important;letter-spacing:.025em!important}
+html.gp-a11y-saturation #quarto-content{filter:saturate(0)!important}
+html.gp-a11y-motion *,html.gp-a11y-motion *::before,html.gp-a11y-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+@media(max-width:480px){#gp-access{left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}#gp-access-trigger{width:48px;height:48px}#gp-access-panel{width:min(365px,calc(100vw - 24px));max-height:calc(100dvh - 80px)}#gp-access .gp-a11y-tile{min-height:88px}}
+@media(prefers-reduced-motion:reduce){#gp-access-trigger{transition:none}}
