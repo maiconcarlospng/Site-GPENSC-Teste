@@ -81,6 +81,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="svg-institucional.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-content">Pular para o conteúdo principal</a>
@@ -531,8 +532,8 @@ Dia com atividade cadastrada
    presença da árvore ou de uma estrutura particular de wrappers do Quarto. */
 :is(html body:has(.faixa-agenda) #quarto-content .faixa-agenda, .faixa-agenda) {
   box-sizing: border-box !important;
-  width: min(var(--gp-content-width, 1720px), calc(100% - 2 * var(--gp-page-gutter, 32px))) !important;
-  max-width: var(--gp-content-width, 1720px) !important;
+  width: min(1240px, calc(100% - var(--gp-page-gutter, 24px) - var(--gp-page-gutter, 24px))) !important;
+  max-width: 1240px !important;
   margin: 20px auto 28px !important;
   padding: clamp(22px, 3.2vw, 38px) !important;
   background: #f1f6ef !important;

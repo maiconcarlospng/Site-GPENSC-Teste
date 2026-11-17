@@ -1,0 +1,12 @@
+/* Ilustrações institucionais: uso pontual de SVGs já existentes no repositório. */
+.gp-illustrated-lead{display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,36px);width:100%;max-width:1100px;min-height:84px;margin:4px auto 26px;padding:6px clamp(5px,1vw,12px);border:0;background:transparent}
+.gp-illustrated-lead p{margin:0;max-width:75ch;color:inherit;line-height:1.65;flex:1 1 auto}
+.gp-illustrated-lead img{display:block;width:clamp(95px,11vw,138px);max-height:98px;object-fit:contain;flex:0 0 auto;filter:none}
+h2.gp-heading-art{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0}
+h2.gp-heading-art::after{content:"";flex:0 0 70px;width:70px;height:52px;background-size:contain;background-position:center;background-repeat:no-repeat;opacity:.94}
+h2.gp-heading-art--historia::after{background-image:url("img/ilustracoes/historia.svg")}
+h2.gp-heading-art--parcerias::after{background-image:url("img/ilustracoes/parcerias.svg")}
+h2.gp-heading-art--contato::after{background-image:url("img/ilustracoes/contato.svg")}
+h2.gp-heading-art--noticias::after{background-image:url("img/ilustracoes/noticias.svg")}
+@media(max-width:640px){.gp-illustrated-lead{gap:12px;min-height:66px;margin:0 auto 18px;padding:3px 4px}.gp-illustrated-lead p{font-size:.94rem;line-height:1.5}.gp-illustrated-lead img{width:76px;max-height:70px}h2.gp-heading-art::after{flex-basis:54px;width:54px;height:43px}h2.gp-heading-art{gap:8px}}
+@media(max-width:370px){.gp-illustrated-lead img{width:60px}h2.gp-heading-art::after{flex-basis:45px;width:45px;height:38px}}
