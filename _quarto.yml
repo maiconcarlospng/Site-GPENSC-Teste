@@ -77,6 +77,7 @@ format:
     theme: [default, custom.scss]
     css:
       - styles.css
+      - svg-institucional.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
