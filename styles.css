@@ -20593,3 +20593,174 @@ html body #quarto-content :is(#materiais,#livros,#anuario,#podcasts,#videos,#res
     min-height: 36px;
   }
 }
+
+/* GPENSC · capas editoriais: foto original ou ilustração vetorial por tema */
+html body .nt .nt-img {
+  position: relative !important;
+  display: grid !important;
+  place-items: center !important;
+  isolation: isolate;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  height: 188px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(145deg, #edf3eb, #dcebdd) !important;
+}
+html body .nt .nt-img--ensino { background: linear-gradient(145deg,#f6eee4,#e9d6bd) !important; color: #835221; }
+html body .nt .nt-img--pesquisa { background: linear-gradient(145deg,#eaf2ea,#c9ddcf) !important; color: #245b38; }
+html body .nt .nt-img--extensao { background: linear-gradient(145deg,#f4e9e2,#e9cfc4) !important; color: #9e5340; }
+html body .nt .nt-img--internacionalizacao { background: linear-gradient(145deg,#eaf1f2,#cbdde3) !important; color: #2c6276; }
+html body .nt .nt-img--divulgacao { background: linear-gradient(145deg,#f1eaf3,#ded3e9) !important; color: #67517d; }
+html body .nt .nt-img--institucional { background: linear-gradient(145deg,#ebf1e5,#d5e3c6) !important; color: #426b36; }
+html body .nt .nt-img::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border: 1px solid currentColor;
+  border-radius: 80px 80px 10px 10px;
+  opacity: .075;
+  transform: rotate(-11deg) translate(4%,10%);
+  pointer-events: none;
+}
+html body .nt .nt-img .nt-fallback {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 34px 20px 20px;
+  text-align: center;
+  color: inherit;
+}
+html body .nt .nt-fallback-icone {
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  opacity: .82;
+}
+html body .nt .nt-fallback-icone svg { width: 49px; height: 49px; display: block; }
+html body .nt .nt-fallback-label {
+  font-size: .85rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: .03em;
+  opacity: .88;
+}
+html body .nt .nt-img img.nt-photo {
+  position: absolute !important;
+  z-index: 1;
+  inset: 0;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  object-fit: cover !important;
+  object-position: center center;
+}
+html body .nt .nt-img .nt-cat {
+  position: absolute !important;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: calc(100% - 16px);
+  height: auto;
+  min-height: 0;
+  font-weight: 700;
+  line-height: 1.25;
+}
+html body .nt .nt-img--detail { height: min(340px,36vw) !important; }
+@media(max-width: 720px) {
+  html body .nt .nt-img { height: 178px !important; }
+  html body .nt .nt-img--detail { height: 210px !important; }
+}
+
+/* GPENSC · capas de materiais, livros e vídeos com fallback vetorial */
+html body #quarto-content .gp-conteudo-capa {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  width: 100%;
+  height: 148px;
+  max-width: 100%;
+  margin: 0 0 .9rem;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(135deg,#ecf2e8,#d6e4d2);
+  color: #366443;
+}
+html body #quarto-content .gp-conteudo-capa--video { background: linear-gradient(135deg,#e7edf3,#cedae7); color: #48627c; }
+html body #quarto-content .gp-conteudo-capa--livro { background: linear-gradient(135deg,#f3ece6,#e4d7ca); color: #825a3c; }
+html body #quarto-content .gp-conteudo-capa--pesquisa { background: linear-gradient(135deg,#e4efe6,#c8dccd); color: #305d43; }
+html body #quarto-content .gp-conteudo-capa::after {
+  position: absolute;
+  inset: 12px;
+  content: "";
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  opacity: .12;
+}
+html body #quarto-content .gp-conteudo-simbolo {
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .82;
+}
+html body #quarto-content .gp-conteudo-simbolo svg { width: 54px; height: 54px; }
+html body #quarto-content .gp-conteudo-capa img {
+  position: absolute !important;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  object-fit: cover !important;
+  object-position: center;
+}
+@media (max-width: 560px) {
+  html body #quarto-content .gp-conteudo-capa { height: 156px; }
+}
+
+/* Imagem de notícia completa: manter fallback temático sem duplicar a categoria. */
+html body .noticia-detalhe-item .noticia-detalhe-capa {
+  display: block;
+  width: 100%;
+  margin: 1rem 0 1.35rem;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+html body .noticia-detalhe-capa .nt-img {
+  height: clamp(200px, 26vw, 340px) !important;
+  min-height: 0 !important;
+  border-radius: 9px !important;
+}
+html body .noticia-detalhe-capa .nt-cat {
+  display: none !important;
+}
+@media(max-width:600px) {
+  html body .noticia-detalhe-capa .nt-img { height: 208px !important; }
+}
