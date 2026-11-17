@@ -101,6 +101,20 @@ jobs:
             any::stringr
             any::lubridate
 
+      - name: Restaurar capas originais já publicadas
+        shell: bash
+        run: |
+          mkdir -p img/instagram
+          if git fetch --no-tags --depth=1 origin render-published:refs/remotes/origin/render-published; then
+            if git ls-tree -r --name-only origin/render-published -- img/instagram | grep -q '^img/instagram/'; then
+              git archive origin/render-published img/instagram | tar -xf -
+              echo "Capas já publicadas recuperadas para esta compilação."
+            fi
+          fi
+
+      - name: Arquivar imagens das publicações importadas
+        run: python3 admin/arquivar-capas-instagram.py
+
       - name: Recompilar o site e o painel sem reutilizar HTML antigo
         run: |
           rm -rf _site _freeze
