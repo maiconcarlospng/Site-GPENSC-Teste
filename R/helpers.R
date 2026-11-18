@@ -55,7 +55,7 @@ COLUNAS <- list(
   equipe      = c("nome", "categoria", "papel", "formacao", "email", "foto", "lattes", "orcid", "linhas_ids", "projetos_ids", "revisado_em"),
   linhas      = c("id", "nome", "descricao", "palavras_chave"),
   projetos    = c("id", "titulo", "tipo", "situacao", "coordenador", "inicio", "fim",
-                  "linha_id", "financiamento", "url"),
+                  "linha_id", "financiamento", "url", "resumo", "imagem"),
   publicacoes = c("ano", "tipo", "autores", "titulo", "veiculo", "doi", "url", "linha_id", "projeto_id",
                   "resumo_publico", "aplicacao", "fonte_divulgacao"),
   livros      = c("ano", "titulo", "autores", "editora", "url"),
