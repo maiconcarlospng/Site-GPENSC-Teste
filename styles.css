@@ -20752,3 +20752,22 @@ html body #quarto-header .navbar{border:0!important;margin-bottom:0!important;bo
 html body #quarto-header .navbar::after{display:none!important;content:none!important}
 html body #quarto-header::after{content:""!important;display:block!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:3px!important;z-index:100!important;pointer-events:none!important;background:var(--gp-bar-gradient)!important}
 html body footer.footer .nav-footer::before{background:var(--gp-bar-gradient)!important}
+
+
+/* GPENSC · alinhamento mobile 2026-11-18
+   Preserva o cabeçalho branco aprovado e corrige somente alinhamentos. */
+@media (max-width: 767.98px) {
+  html body #quarto-header .navbar .navbar-container {
+    align-items: center !important;
+  }
+  html body #quarto-header .navbar .navbar-container > .bandeiras-container {
+    align-self: center !important;
+    justify-self: end !important;
+    margin-block: 0 !important;
+  }
+  html body #quarto-header .navbar .navbar-brand,
+  html body #quarto-header .navbar .navbar-toggler,
+  html body #quarto-header .navbar .quarto-search {
+    align-self: center !important;
+  }
+}
