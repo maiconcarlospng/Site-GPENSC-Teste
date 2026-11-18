@@ -588,6 +588,8 @@ lista_noticias_area <- function(itens) {
   paginas <- split(seq_len(total), ceiling(seq_len(total) / limite))
   div(
     class = "gp-noticias-paginadas",
+    `data-gp-total` = total,
+    `data-gp-por-pagina` = limite,
     lapply(seq_along(paginas), function(i) {
       div(
         class = "gp-noticias-pagina",
