@@ -788,7 +788,7 @@ function openMediaLibrary(){
   state.view='media';state.active=null;updateMobileTabs();renderNav();
   $('#page-crumb').textContent='Materiais do site';
   $('#page-content').innerHTML=
-    '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual. Os arquivos ficam pendentes até confirmar a publicação.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar material</button></div></div>'+
+    '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual. Os arquivos ficam pendentes até confirmar a publicação.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar materiais</button></div></div>'+
     '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><span id="media-status" role="status"></span></div>'+
     '<div class="media-bulk-bar"><span id="media-select-status">Selecione materiais para remover da biblioteca.</span><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>'+
     '<div id="media-grid" class="media-grid" aria-live="polite"></div>';
@@ -803,8 +803,30 @@ function openMediaLibrary(){
   $('#media-refresh').addEventListener('click',()=>loadMediaFiles());
   $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
   $('#media-upload-new').addEventListener('change',async event=>{
-    const file=event.target.files?.[0];if(!file)return;
-    await saveMediaFile(file,null,event.target);event.target.value='';
+    const input=event.currentTarget;
+    const files=[...input.files];
+    if(!files.length)return;
+    const button=$('#media-add');
+    button.disabled=true;
+    input.disabled=true;
+    let added=0;
+    const errors=[];
+    try{
+      for(const [index,file] of files.entries()){
+        button.textContent='Preparando '+(index+1)+' de '+files.length+'…';
+        try{
+          await stageNewMaterial(file);
+          added++;
+        }catch(error){errors.push(file.name+': '+error.message)}
+      }
+      if(added)toast(added+' material(is) na fila de revisão.');
+      if(errors.length)alert('Alguns arquivos não foram adicionados à fila:\n\n'+errors.join('\n'));
+    }finally{
+      input.value='';
+      input.disabled=false;
+      button.disabled=false;
+      button.textContent='Adicionar materiais';
+    }
   });
   if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
 }
@@ -919,23 +941,31 @@ async function queueMaterialsRemoval(paths){
     alert('Algumas exclusões foram impedidas por segurança:\n'+msg);
   }
 }
+function validateMaterial(file){
+  if(!MEDIA_EXTENSIONS.has(mediaExtension(file.name)))throw new Error('Formato de arquivo não permitido.');
+  if(!file.size)throw new Error('O arquivo está vazio.');
+  if(file.size>20*1024*1024)throw new Error('O arquivo deve ter até 20 MB.');
+}
+async function stageNewMaterial(file){
+  validateMaterial(file);
+  const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
+  return batch.stageMedia(file,'img/materiais/'+crypto.randomUUID()+'-'+safe);
+}
 async function saveMediaFile(file,replacePath,sourceElement){
   const extension=mediaExtension(file.name);
-  if(!MEDIA_EXTENSIONS.has(extension)){toast('Formato de arquivo não permitido.',true);return}
-  if(file.size>20*1024*1024){toast('O arquivo deve ter até 20 MB.',true);return}
+  try{validateMaterial(file)}catch(error){toast(error.message,true);return}
   if(replacePath&&extension!==mediaExtension(replacePath)){toast('Para manter os vínculos do site, use a mesma extensão do arquivo original.',true);return}
   if(replacePath&&!confirm('Preparar a substituição do material “'+replacePath+'” sem publicar agora?'))return;
   const current=replacePath?state.mediaFiles.find(item=>item.path===replacePath):null;
-  const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
-  const target=replacePath||'img/materiais/'+Date.now()+'-'+safe;
   const button=sourceElement||$('#media-add');
   if(button){button.disabled=true;button.dataset.originalLabel=button.tagName==='INPUT'?'':button.textContent;if(button.tagName!=='INPUT')button.textContent='Preparando…'}
   try{
-    await batch.stageMedia(file,target,current?.sha);
+    if(replacePath)await batch.stageMedia(file,replacePath,current?.sha);
+    else await stageNewMaterial(file);
     toast('Material adicionado à fila. Nenhuma mídia foi publicada.');
     batch.updateUI();
   }catch(error){toast(error.message||'Falha ao preparar o material.',true)}
-  finally{if(button){button.disabled=false;if(button.tagName!=='INPUT')button.textContent=button.dataset.originalLabel||'Adicionar material'}}
+  finally{if(button){button.disabled=false;if(button.tagName!=='INPUT')button.textContent=button.dataset.originalLabel||'Adicionar materiais'}}
 }
 function defaultItem(fields){const item={};fields.forEach(f=>{if(f.widget==='list')item[f.name]=[];else if(f.widget==='object')item[f.name]=defaultItem(f.fields||[]);else if(f.widget==='boolean')item[f.name]=false;else item[f.name]=''});return item}
 function editItem(index){if(!canLeaveCurrentEditor())return;const c=state.collections[state.active];const schema=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const original=index===null?defaultItem(schema):structuredClone(entryList(c)[index]);state.editing={index,original};const fields=schema.map(f=>renderField(f,original[f.name])).join('');$('#modal-root').innerHTML='<div class="modal-backdrop"><form class="modal" id="entry-form" role="dialog" aria-modal="true" aria-label="Editar conteúdo"><div class="modal-head"><h2>'+(index===null?'Novo registro':'Editar registro')+'</h2><button type="button" class="small-button" id="close-modal">Fechar</button></div><div class="modal-body">'+fields+'</div><div class="modal-foot"><span class="eyebrow">RASCUNHO LOCAL · AINDA NÃO PUBLICADO</span><div><button type="button" class="secondary-button" id="cancel-modal">Cancelar</button><button type="submit" class="primary-button" id="save-entry">Adicionar à fila</button></div></div></form></div>';$('#close-modal').onclick=$('#cancel-modal').onclick=()=>closeModal();$('#entry-form').onsubmit=e=>saveEntry(e,schema);const form=$('#entry-form');form.setAttribute('aria-modal',String(window.matchMedia('(max-width:1449px)').matches));form.dataset.dirty='false';form.addEventListener('input',()=>{form.dataset.dirty='true'});form.addEventListener('change',()=>{form.dataset.dirty='true'});document.body.classList.add('editor-open');form.querySelector('input,select,textarea,button')?.focus()}
