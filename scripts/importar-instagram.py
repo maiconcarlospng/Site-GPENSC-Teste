@@ -124,12 +124,40 @@ def refresh_carousels(rows):
     print(f"{len(gallery)} carrosséis recentes com links de mídia atualizados.")
 
 
+def refresh_existing_covers(rows):
+    """Renova apenas URLs externas já cadastradas, preservando toda a curadoria."""
+    current_urls = {
+        row.get("shortCode"): remote_cover(row)
+        for row in rows
+        if row.get("ownerUsername", "").lower() == PROFILE and remote_cover(row)
+    }
+    if not current_urls:
+        return
+    blocks = re.split(r"(?=^  - data: )", NEWS.read_text(), flags=re.M)
+    changed = 0
+    for i, block in enumerate(blocks):
+        post = re.search(r'(?m)^    url:\s*"https://www\\.instagram\\.com/(?:p|reels?|tv)/([\\w-]+)/"', block)
+        image = re.search(r'(?m)^    imagem:\s*"([^"]*)"', block)
+        if not post or not image:
+            continue
+        code = post.group(1)
+        next_url = current_urls.get(code)
+        if not next_url or not image.group(1).startswith("https://") or next_url == image.group(1):
+            continue
+        blocks[i] = block[:image.start(1)] + next_url + block[image.end(1):]
+        changed += 1
+    if changed:
+        NEWS.write_text("".join(blocks))
+    print(f"{changed} capa(s) remota(s) com links renovados.")
+
+
 def integrate(rows):
     known = known_codes()
     if not isinstance(rows, list) or not rows:
         raise ValueError("Coleta vazia. Confira o perfil e o histórico no Apify.")
     additions = []
     refresh_carousels(rows)
+    refresh_existing_covers(rows)
     for row in rows:
         if row.get("error"):
             raise ValueError("O Apify informou erro na coleta.")
