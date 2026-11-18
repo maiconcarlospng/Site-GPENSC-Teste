@@ -20932,3 +20932,200 @@ html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
     background: #fff !important;
   }
 }
+
+
+/* Correção de alinhamento da home: controles na parte inferior da foto,
+   inclusive se o navegador mantiver a estrutura anterior do JS em cache. */
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa {
+    position: relative !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 17px !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 11 !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.94) !important;
+    color: #1f4d2b !important;
+    border: 1px solid rgba(31,77,43,.2) !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.14) !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle--anterior {
+    right: 68px !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle--proximo {
+    right: 18px !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle:hover {
+    background: #1f4d2b !important;
+    color: #fff !important;
+  }
+}
+/* Ícone e texto lado a lado: evita a coluna vazia e o ícone acima do título. */
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 13px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-icone {
+  position: static !important;
+  flex: 0 0 40px !important;
+  align-self: center !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-seta {
+  z-index: 5 !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
+  pointer-events: none !important;
+}
+
+
+/* Desktop: um controle em cada canto INFERIOR da galeria.
+   O contêiner ocupa a largura da faixa sem criar uma barra visível. */
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
+    position: absolute !important;
+    z-index: 10 !important;
+    top: auto !important;
+    bottom: 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 clamp(12px,2vw,28px) !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: none !important;
+    pointer-events: none !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle {
+    pointer-events: auto !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.94) !important;
+    color: #1f4d2b !important;
+    border: 1px solid rgba(31,77,43,.22) !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15) !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle:hover {
+    background: #1f4d2b !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+  }
+}
+
+
+/* Home · composição responsiva final.
+   Mobile: cartões horizontais largos; desktop: grade 2x2 com ícone ao lado do texto. */
+html body #quarto-content .pq-blocos:has(> a.gp-pesquisa-card) {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-width: 0 !important;
+  border-radius: 16px !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+  position: relative !important;
+  z-index: 3 !important;
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 13px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+  position: static !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-pesquisa-texto {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+@media (max-width: 1099.98px) {
+  html body #quarto-content .pq-blocos:has(> a.gp-pesquisa-card) {
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 12px !important;
+  }
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+    min-height: 116px !important;
+    padding: 16px 50px 16px 14px !important;
+    border-radius: 14px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+    gap: 10px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 38px !important;
+  }
+}
