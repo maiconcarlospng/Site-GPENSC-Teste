@@ -2,8 +2,6 @@
 title: "Instituições parceiras"
 ---
 
-<div class="gp-illustrated-lead"><p>Conheça as instituições parceiras do GPENSC e suas redes de colaboração.</p><img src="img/ilustracoes/parcerias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Instituições parceiras {#parcerias .gp-heading-art .gp-heading-art--parcerias}
+<div id="parcerias" class="gp-illustrated-lead"><p>Conheça as instituições parceiras do GPENSC e suas redes de colaboração.</p><img src="img/ilustracoes/parcerias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/parcerias.qmd >}}
