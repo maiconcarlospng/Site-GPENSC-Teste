@@ -19321,14 +19321,6 @@ html body footer.footer:has(#gp-institutional-footer) {
   background:#f3f5f0!important;
   box-shadow:none!important;
 }
-html body footer.footer:has(#gp-institutional-footer)::before {
-  content:""!important;
-  display:block!important;
-  width:100%!important;
-  height:3px!important;
-  background:linear-gradient(90deg,#5f9a3e 0 48%,#d9731f 48% 76%,#d43a2f 76% 100%)!important;
-  pointer-events:none!important;
-}
 html body footer.footer:has(#gp-institutional-footer) .nav-footer,
 html body footer.footer:has(#gp-institutional-footer) .nav-footer-left {
   display:block!important;
