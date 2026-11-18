@@ -180,6 +180,28 @@ function isConfigCollection(entry){return entry?.group==='configuracoes'||String
 function isGalleryCollection(entry){return ['galeria','galeria_home'].includes(entry?.name)||['data/galeria.yml','data/galeria_home.yml'].includes(entry?.file)}
 function collectionSummary(entry){const count=summaryRecords(entry).length,examples=entryList(entry).length-count;return isConfigCollection(entry)?'Configuração institucional':count+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')}
 function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo||item.autor||'Registro sem título'}
+/* Ilustrações SVG do acervo institucional: menu, atalhos e conteúdos.
+   Todos os caminhos são fixos e apontam para arquivos já publicados pelo site. */
+const ADMIN_ART={
+  eventos:'agenda',noticias:'noticias',projetos:'projetos',linhas:'linhas',
+  equipe:'sobre',galeria:'sobre',galeria_home:'home-circuito',linha_tempo:'historia',
+  parcerias:'parcerias',apoio:'parcerias',sites:'parcerias',
+  publicacoes:'publicacoes',defesas:'teses',metodos:'metodos',
+  conteudos_vi_no_rotulo:'rotulo-projeto',equipe_vi_no_rotulo:'rotulo-resumo',
+  capacitacao_atividades:'epidemiologia-projeto',disciplinas:'ensino',
+  materiais:'materiais',videos:'videos',livros:'livros',noar:'podcasts',
+  impactos:'impacto',planejamento:'gestao',pautas_instagram:'divulgacao'
+};
+const AREA_ART={
+  'Página inicial':'home-circuito','Quem somos':'sobre','Nossa história':'historia',
+  'Parcerias':'parcerias','Pesquisa':'home-pesquisa','Extensão':'home-extensao',
+  'Ensino':'home-ensino','Divulgação científica':'divulgacao','Agenda':'agenda',
+  'Notícias':'noticias','Gestão editorial':'gestao','Outros conteúdos':'materiais'
+};
+function adminArt(name,cls='admin-nav-art'){
+  const svg=ADMIN_ART[name]||AREA_ART[name]||'admin';
+  return '<img class="'+cls+'" src="../img/ilustracoes/'+svg+'.svg" width="48" height="36" alt="" aria-hidden="true" loading="lazy" decoding="async">';
+}
 const SITE_AREAS=[
   {title:'Página inicial',names:['galeria_home']},
   {title:'Quem somos',names:['equipe','galeria']},
@@ -216,23 +238,23 @@ function renderNav(){
   const focused=document.activeElement;
   const key=nav.contains(focused)?[...focused.attributes].find(attribute=>attribute.name.startsWith('data-')):null;
   const button=({c,i})=>'<button type="button" data-index="'+i+'" class="'+(state.active===i?'active':'')+'">'+
-    '<span>'+esc(c.label)+'</span>'+(isConfigCollection(c)?'':'<span class="nav-count">'+summaryRecords(c).length+'</span>')+'</button>';
+    '<span class="admin-nav-label">'+adminArt(c.name)+'<span>'+esc(c.label)+'</span></span>'+(isConfigCollection(c)?'':'<span class="nav-count">'+summaryRecords(c).length+'</span>')+'</button>';
   const entries=state.collections.map((c,i)=>({c,i}));
   const content=SITE_AREAS.concat([{title:'Outros conteúdos',names:[]}]).map(area=>{
     const matches=entries.filter(({c})=>!isConfigCollection(c)&&siteArea(c)===area.title);
     if(!matches.length)return '';
     return '<section class="menu-section menu-section-content" aria-label="'+esc(area.title)+'">'+
-      '<div class="menu-section-title">'+esc(area.title.toUpperCase())+'</div>'+
+      '<div class="menu-section-title">'+adminArt(area.title,'admin-area-art')+'<span>'+esc(area.title.toUpperCase())+'</span></div>'+
       '<div class="menu-section-items">'+matches.map(button).join('')+'</div></section>';
   }).join('');
   const settings=entries.filter(({c})=>isConfigCollection(c));
-  nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.view==='summary'?'active':'')+'"><span>Visão geral</span></button>'+ 
-    '<button type="button" data-review class="summary-nav-item batch-sidebar-link '+(state.view==='review'?'active':'')+'"><span>Revisar e publicar</span><span class="nav-count" data-batch-count>0</span></button>'+
-    '<button type="button" data-settings-home class="summary-nav-item '+(state.view==='settings'?'active':'')+'"><span>Configurações do site</span></button>'+
-    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span>Materiais do site</span><span class="nav-count">'+(state.mediaLoading?'…':state.mediaError?'—':state.mediaFiles.length)+'</span></button>'+
+  nav.innerHTML='<button type="button" data-summary class="summary-nav-item '+(state.view==='summary'?'active':'')+'"><span class="admin-nav-label">'+adminArt('admin')+'<span>Visão geral</span></span></button>'+ 
+    '<button type="button" data-review class="summary-nav-item batch-sidebar-link '+(state.view==='review'?'active':'')+'"><span class="admin-nav-label">'+adminArt('planejamento')+'<span>Revisar e publicar</span></span><span class="nav-count" data-batch-count>0</span></button>'+
+    '<button type="button" data-settings-home class="summary-nav-item '+(state.view==='settings'?'active':'')+'"><span class="admin-nav-label">'+adminArt('admin')+'<span>Configurações do site</span></span></button>'+
+    '<button type="button" data-media-home class="summary-nav-item '+(state.view==='media'?'active':'')+'"><span class="admin-nav-label">'+adminArt('materiais')+'<span>Materiais do site</span></span><span class="nav-count">'+(state.mediaLoading?'…':state.mediaError?'—':state.mediaFiles.length)+'</span></button>'+
     content+
     '<section class="menu-section menu-section-settings" aria-label="Configurações">'+
-      '<div class="menu-section-title">CONFIGURAÇÕES DO SITE</div>'+
+      '<div class="menu-section-title">'+adminArt('admin','admin-area-art')+'<span>CONFIGURAÇÕES DO SITE</span></div>'+
       '<div class="menu-section-items">'+settings.map(button).join('')+'</div></section>';
   nav.querySelector('[data-summary]').addEventListener('click',()=>{renderHome();closeMobileMenu()});
   nav.querySelector('[data-review]').addEventListener('click',()=>{openPendingReview();closeMobileMenu()});
@@ -462,8 +484,8 @@ function quickActionsMarkup(){
   ];
   return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><h2>Acesso rápido</h2></div>'+
     '<div class="admin-shortcut-grid">'+actions.filter(([name])=>state.collections.some(c=>c.name===name)).map(([name,title,description])=>
-      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></button>').join('')+'</div>'+
-    '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></button><button type="button" class="admin-tool-shortcut" id="admin-media-open"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></button></div></section>';
+      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'">'+adminArt(name,'admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></span></button>').join('')+'</div>'+
+    '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open">'+adminArt('admin','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></span></button><button type="button" class="admin-tool-shortcut" id="admin-media-open">'+adminArt('materiais','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></span></button></div></section>';
 }
 function renderHome(){
   if(!canLeaveCurrentEditor())return;
