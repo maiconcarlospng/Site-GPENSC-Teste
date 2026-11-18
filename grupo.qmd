@@ -2,7 +2,7 @@
 title: "Quem somos"
 ---
 
-<div class="gp-illustrated-lead"><p>Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.</p><img src="img/ilustracoes/sobre.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+<div id="sobre" class="gp-illustrated-lead"><p>Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.</p><img src="img/ilustracoes/sobre.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 ```{=html}
 <script>
@@ -18,7 +18,5 @@ title: "Quem somos"
 })();
 </script>
 ```
-
-## Quem somos {#sobre}
 
 {{< include partials/sobre.qmd >}}
