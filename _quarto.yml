@@ -69,6 +69,7 @@ format:
       - styles.css
       - svg-institucional.css
       - parcerias-visibilidade.css
+      - site-ajustes.css
     page-layout: full
     include-after-body: lupa.html
     include-in-header: analytics.html
