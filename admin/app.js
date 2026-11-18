@@ -1215,10 +1215,11 @@ function validateMaterial(file){
   if(!file.size)throw new Error('O arquivo está vazio.');
   if(file.size>20*1024*1024)throw new Error('O arquivo deve ter até 20 MB.');
 }
-async function stageNewMaterial(file){
+async function stageNewMaterial(file, folder=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER){
   validateMaterial(file);
   const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
-  return batch.stageMedia(file,'img/materiais/'+crypto.randomUUID()+'-'+safe);
+  const path=mediaFolderPaths().includes(folder)&&folder!=='img'&&/^img\/[A-Za-z0-9_/-]+$/.test(folder)?folder:MEDIA_DEFAULT_FOLDER;
+  return batch.stageMedia(file,path+'/'+crypto.randomUUID()+'-'+safe);
 }
 async function saveMediaFile(file,replacePath,sourceElement){
   const extension=mediaExtension(file.name);
