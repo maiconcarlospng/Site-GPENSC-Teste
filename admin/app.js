@@ -442,7 +442,7 @@ function quickActionsMarkup(){
     ['linhas','Linhas de pesquisa','Projetos e conhecimento'],
     ['equipe','Equipe','Integrantes e pesquisadores']
   ];
-  return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><span class="eyebrow">ACESSO RÁPIDO</span><h2>Editar o que aparece no site</h2><p>Escolha uma área para cadastrar, revisar ou atualizar conteúdos.</p></div>'+
+  return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><h2>Acesso rápido</h2></div>'+
     '<div class="admin-shortcut-grid">'+actions.filter(([name])=>state.collections.some(c=>c.name===name)).map(([name,title,description])=>
       '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></button>').join('')+'</div>'+
     '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></button><button type="button" class="admin-tool-shortcut" id="admin-media-open"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></button></div></section>';
@@ -452,7 +452,7 @@ function renderHome(){
   state.view='summary';
   state.active=null;
   updateMobileTabs();
-  $('#page-crumb').textContent='Painel de resumo';
+  $('#page-crumb').textContent='Visão geral';
   renderNav();
   const count=names=>state.collections.filter(c=>names.includes(c.name)).reduce((n,c)=>n+summaryRecords(c).length,0);
   const stats=[
@@ -463,13 +463,13 @@ function renderHome(){
   ];
   const charts=dashboardCharts();
   $('#page-content').innerHTML=
-    '<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Acompanhe a composição dos conteúdos e as novas inclusões no GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
+    '<div class="page-heading dashboard-intro"><div><h1>Visão geral</h1><p>Gerencie conteúdos, acompanhe alterações e publique atualizações do GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+batch.banner()+
-    renderEditorialReview()+quickActionsMarkup()+'<div id="analytics-panel-root"></div>'+
+    quickActionsMarkup()+renderEditorialReview()+
     '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Conteúdos por frente de atuação</h2><p>Registros agrupados conforme as áreas atuais do site.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Registros por tipo de conteúdo</h2><p>Quais seções concentram mais registros cadastrados.</p></div></div>'+donutSegment(charts.typeData)+'</article>'+
-    '</section>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><h2>Conteúdos por área</h2></div></div>'+donutSegment(charts.areaData)+'</article>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><h2>Registros por tipo</h2></div></div>'+donutSegment(charts.typeData)+'</article>'+
+    '</section><div id="analytics-panel-root"></div>'+
     '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
   document.querySelectorAll('[data-editorial]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.editorial);if(index>=0)openCollection(index)});
    document.querySelectorAll('[data-quick]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.quick);if(index>=0)openCollection(index)});
@@ -789,7 +789,7 @@ function openMediaLibrary(){
   $('#page-crumb').textContent='Materiais do site';
   $('#page-content').innerHTML=
     '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual. Os arquivos ficam pendentes até confirmar a publicação.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar materiais</button></div></div>'+
-    '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><span id="media-status" role="status"></span></div>'+
+    '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select><span id="media-status" role="status"></span></div><p class="media-usage-note">Os selos consideram os vínculos cadastrados no painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>'+
     '<div class="media-bulk-bar"><span id="media-select-status">Selecione materiais para remover da biblioteca.</span><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>'+
     '<div id="media-grid" class="media-grid" aria-live="polite"></div>';
   state.mediaSelection=state.mediaSelection||new Set();
@@ -800,6 +800,7 @@ function openMediaLibrary(){
   };
   $('#media-search').addEventListener('input',renderMediaFiles);
   $('#media-type').addEventListener('change',renderMediaFiles);
+  $('#media-usage').addEventListener('change',renderMediaFiles);
   $('#media-refresh').addEventListener('click',()=>loadMediaFiles());
   $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
   $('#media-upload-new').addEventListener('change',async event=>{
@@ -863,6 +864,34 @@ async function loadMediaFiles(){
   renderMediaFiles();
   renderNav();
 }
+function mediaReferences(contents){
+  const index=new Map();
+  const base=new URL('../',location.href);
+  const visit=(value,label)=>{
+    if(value&&typeof value==='object'){
+      Object.values(value).forEach(child=>visit(child,label));
+      return;
+    }
+    if(typeof value!=='string')return;
+    const source=value.trim();
+    let path;
+    try{
+      if(/^https?:\/\//i.test(source)){
+        const url=new URL(source);
+        if(url.origin!==base.origin||!url.pathname.startsWith(base.pathname))return;
+        path=url.pathname.slice(base.pathname.length);
+      }else{
+        path=source.split(/[?#]/,1)[0].replace(/^(?:\.\/|\/)+/,'');
+      }
+      path=decodeURIComponent(path);
+    }catch{return}
+    if(!path.startsWith('img/'))return;
+    if(!index.has(path))index.set(path,new Set());
+    index.get(path).add(label);
+  };
+  state.collections.forEach(section=>visit(contents[section.file],section.label));
+  return index;
+}
 function renderMediaFiles(){
   const grid=$('#media-grid');if(!grid)return;
   if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
@@ -875,9 +904,14 @@ function renderMediaFiles(){
   if(bulkButton){bulkButton.disabled=state.mediaSelection.size===0;bulkButton.textContent='Remover selecionados ('+state.mediaSelection.size+')'}
   const selectionText=$('#media-select-status');
   if(selectionText)selectionText.textContent=state.mediaSelection.size?state.mediaSelection.size+' material(is) selecionado(s) para revisão.':'Selecione materiais para remover da biblioteca.';
+  const usage=$('#media-usage')?.value||'all';
+  const linked=mediaReferences(state.remoteContents||state.contents);
+  const drafts=mediaReferences(state.contents);
+  const fileUsage=path=>linked.has(path)?'linked':drafts.has(path)?'draft':'unlinked';
+  const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo detectado'};
   const files=state.mediaFiles.filter(file=>{
     const matchesName=file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);
-    return matchesName&&(type==='all'||file.category===type);
+    return matchesName&&(type==='all'||file.category===type)&&(usage==='all'||fileUsage(file.path)===usage);
   });
   if(!files.length){grid.innerHTML='<div class="panel-card empty-state">Nenhum material encontrado com esses filtros.</div>';return}
   grid.innerHTML=files.map(file=>{
@@ -885,8 +919,12 @@ function renderMediaFiles(){
     const preview=kind==='image'?'<img src="'+esc(mediaFileUrl(file.path))+'" alt="'+esc(name)+'" loading="lazy">':'<div class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Arquivo para consulta')+'</small></div>';
     const accept='.'+mediaExtension(name);
     const removing=pendingAssets[file.path]?.action==='remover';
+    const status=fileUsage(file.path);
+    const references=linked.get(file.path)||drafts.get(file.path);
+    const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
+    const details=references?'<small class="media-usage-sections">'+esc([...references].join(' · '))+'</small>':'';
     const canRemove=!/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(file.path);
-    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small><div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
+    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small>'+badge+details+'<div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
   }).join('');
   grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
     if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
@@ -1097,11 +1135,14 @@ function updateMobileTabs(){
 }
 function closeMobileMenu(){
   const side=$('.sidebar');
+  if(!side.classList.contains('mobile-open'))return;
+  const restoreFocus=side.contains(document.activeElement);
   side.classList.remove('mobile-open');
   document.body.classList.remove('mobile-menu-open');
   $('#mobile-sections').setAttribute('aria-expanded','false');
   const filter=$('#mobile-collection-search');if(filter){filter.value='';filter.dispatchEvent(new Event('input'))}
   updateMobileTabs();
+  if(restoreFocus)$('#mobile-sections').focus();
 }
 $('.brand').addEventListener('click',event=>{event.preventDefault();renderHome();closeMobileMenu()});
 $('#mobile-menu-close').addEventListener('click',closeMobileMenu);
@@ -1125,6 +1166,7 @@ $('#mobile-sections').addEventListener('click',()=>{
   side.classList.toggle('mobile-open',open);
   document.body.classList.toggle('mobile-menu-open',open);
   $('#mobile-sections').setAttribute('aria-expanded',String(open));
+  if(open)$('#mobile-menu-close').focus();
   updateMobileTabs();
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('.photo-crop-dialog[open]'))closeMobileMenu()});
