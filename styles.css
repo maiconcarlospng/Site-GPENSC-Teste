@@ -20932,3 +20932,75 @@ html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
     background: #fff !important;
   }
 }
+
+
+/* Correção de alinhamento da home: controles na parte inferior da foto,
+   inclusive se o navegador mantiver a estrutura anterior do JS em cache. */
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa {
+    position: relative !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 17px !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 11 !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.94) !important;
+    color: #1f4d2b !important;
+    border: 1px solid rgba(31,77,43,.2) !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.14) !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle--anterior {
+    right: 68px !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle--proximo {
+    right: 18px !important;
+  }
+  html body #quarto-content .galeria--faixa > .galeria-controle:hover {
+    background: #1f4d2b !important;
+    color: #fff !important;
+  }
+}
+/* Ícone e texto lado a lado: evita a coluna vazia e o ícone acima do título. */
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 13px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-icone {
+  position: static !important;
+  flex: 0 0 40px !important;
+  align-self: center !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-seta {
+  z-index: 5 !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
+  pointer-events: none !important;
+}
