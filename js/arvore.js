@@ -110,7 +110,7 @@
     tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
-  let camera = {x: -90, y: -130, w: 1580, h: 1200};
+  let camera = {x: -90, y: -80, w: 1580, h: 1280};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
@@ -436,16 +436,16 @@
   // Geometria de árvore explorável: bifurcações recursivas, espessura
   // proporcional ao número de terminais, e nós somente nos registros reais.
   // As bifurcações estruturais não recebem números nem agrupamentos visuais.
-  const origin={x:-220,y:1140};
-  const rootFork={x:165,y:740};
-  limb(origin,rootFork,150,86,{x:.75,y:-.66});
+  const origin={x:700,y:1130};
+  const rootFork={x:700,y:810};
+  limb(origin,rootFork,140,86,{x:0,y:-1});
   const terminalPositions=[];
   function grow(start,count,from,heading,thickness,depth){
     if(count===1){
       // O último trecho termina no próprio registro, sem bolha de agrupamento.
-      const p=point(start,1,Math.min(depth+2,6));
+      const p={x:85+1260*(start+.5)/total,y:140+42*Math.sin(start*1.9)};
       const tangent=direction(p.x-from.x,p.y-from.y);
-      const tip={x:p.x+Math.cos(start*2.399963)*25,y:p.y+Math.sin(start*2.399963)*20};
+      const tip={x:p.x,y:p.y};
       const segment=limb(from,tip,thickness,Math.max(3,thickness*.22),heading||tangent);
       terminalPositions[start]=tip;
       leaves(tip,start);
@@ -471,21 +471,21 @@
     }
     const left=Math.ceil(count/2),right=count-left;
     const center=(start+count/2)/total;
-    const spread=Math.min(215,65+count/total*185);
-    const distance=Math.max(85,225-depth*19);
     const targetX=85+1260*center;
-    const pivot={x:from.x+(targetX-from.x)*.62,
-      y:from.y-distance+Math.sin(depth*1.7+center*5)*10};
+    const targetY=140+42*Math.sin(center*total*1.9);
+    const progress=depth===0?.27:.42;
+    const pivot={x:from.x+(targetX-from.x)*progress,
+      y:from.y+(targetY-from.y)*progress};
     const next=direction(pivot.x-from.x,pivot.y-from.y);
-    const endThickness=Math.max(7,thickness*.76);
+    const endThickness=Math.max(2.8,thickness*.70);
     limb(from,pivot,thickness,endThickness,heading);
-    const leftThickness=Math.max(4,endThickness*Math.sqrt(left/count)*.84);
-    const rightThickness=Math.max(4,endThickness*Math.sqrt(right/count)*.84);
-    grow(start,left,pivot,direction(next.x-.25,next.y),leftThickness,depth+1);
-    grow(start+left,right,pivot,direction(next.x+.25,next.y),rightThickness,depth+1);
+    const leftThickness=Math.max(2.4,endThickness*Math.sqrt(left/count)*.86);
+    const rightThickness=Math.max(2.4,endThickness*Math.sqrt(right/count)*.86);
+    grow(start,left,pivot,next,leftThickness,depth+1);
+    grow(start+left,right,pivot,next,rightThickness,depth+1);
   }
-  grow(0,total,rootFork,{x:.48,y:-.88},86,0);
-  const trunkLabel=make('text',{x:80,y:940,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  grow(0,total,rootFork,{x:0,y:-1},86,0);
+  const trunkLabel=make('text',{x:700,y:1110,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
