@@ -20824,3 +20824,24 @@ html body footer.footer .nav-footer::before {
   border-color: var(--lang-accent) !important;
   box-shadow: inset 0 -3px var(--lang-accent) !important;
 }
+
+
+/* GPENSC — bandeiras estilizadas somente no idioma selecionado */
+#quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"] {
+  background: linear-gradient(145deg,transparent 29%,#f5d85a 30% 41%,transparent 42% 58%,#f5d85a 59% 70%,transparent 71%),linear-gradient(35deg,#267b45,#46a65b) !important;
+  color:#fff !important;
+  border-color:#f5d85a !important;
+  text-shadow:0 1px 2px #17452b;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"] {
+  background:linear-gradient(90deg,#244b85 0 39%,transparent 39%),repeating-linear-gradient(180deg,#bb3b48 0 5px,#fff 5px 10px) !important;
+  color:#fff !important;
+  border-color:#e4e9f1 !important;
+  text-shadow:0 1px 3px #122b52,0 0 3px #122b52;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"] {
+  background:linear-gradient(180deg,#b32e3c 0 25%,#f2d15b 25% 75%,#b32e3c 75% 100%) !important;
+  color:#5b2030 !important;
+  border-color:#f2d15b !important;
+  text-shadow:0 1px 1px #fff8;
+}
