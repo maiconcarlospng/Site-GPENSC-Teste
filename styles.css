@@ -21129,3 +21129,51 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-p
     height: 38px !important;
   }
 }
+
+
+/* Correção definitiva do recorte mobile nos cartões Pesquisas.
+   O CSS legado cria uma segunda seta em .pq-titulo::after. */
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo::after,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo::before {
+  content: none !important;
+  display: none !important;
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+    padding: 17px 49px 17px 20px !important;
+    overflow: hidden !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    gap: 12px !important;
+    overflow: visible !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+    box-sizing: border-box !important;
+    flex: 0 0 32px !important;
+    width: 32px !important;
+    min-width: 32px !important;
+    max-width: 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    font-size: 23px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-pesquisa-texto {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    padding-left: 12px !important;
+    overflow: visible !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo {
+    position: static !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+    text-overflow: clip !important;
+  }
+}
