@@ -489,6 +489,65 @@ capa_conteudo <- function(imagem, titulo, tipo = "material") {
   )
 }
 
+# ---------- INSTITUIÇÕES PARCEIRAS (uma fonte de dados para todo o site) ----------
+logos_parcerias <- function(dados = registros_reais(parcerias, "nome")) {
+  if (is.null(dados) || nrow(dados) == 0) {
+    return(estado_vazio("Instituições parceiras em atualização", NULL))
+  }
+
+  div(
+    class = "parcerias-catalogo parcerias-catalogo--logos",
+    `aria-label` = "Instituições parceiras e vínculos institucionais do GPENSC",
+    lapply(seq_len(nrow(dados)), function(i) {
+      nome <- as.character(dados$nome[i])
+      sigla <- valor_publico(dados$sigla[i])
+      logo <- valor_publico(dados$logo[i])
+      url <- valor_publico(dados$url[i])
+      legenda <- if (!is.null(sigla)) sigla else nome
+
+      # Se uma imagem externa ficar indisponível, mostra a sigla em seu lugar.
+      marca <- if (!is.null(logo)) {
+        tagList(
+          tags$img(
+            class = "parcerias-logo-imagem",
+            src = caminho_img(logo),
+            alt = nome,
+            loading = "lazy",
+            decoding = "async",
+            onerror = "this.hidden=true;if(this.nextElementSibling)this.nextElementSibling.hidden=false;"
+          ),
+          tags$span(
+            class = "parcerias-logo-sigla parcerias-logo-fallback",
+            hidden = TRUE,
+            `aria-hidden` = "true",
+            legenda
+          )
+        )
+      } else {
+        tags$span(class = "parcerias-logo-sigla", legenda)
+      }
+
+      destino <- if (!is.null(url) && grepl("^https?://", url, ignore.case = TRUE)) url else NULL
+      div(
+        class = "parcerias-logo-item",
+        if (!is.null(destino)) {
+          tags$a(
+            class = "parcerias-logo-link",
+            href = destino,
+            target = "_blank",
+            rel = "noopener noreferrer",
+            title = paste("Visitar", nome),
+            `aria-label` = paste("Visitar o site de", nome),
+            marca
+          )
+        } else {
+          div(class = "parcerias-logo-sem-link", title = nome, marca)
+        }
+      )
+    })
+  )
+}
+
 # ---------- LOGOS DE APOIO ----------
 faixa_apoio <- function(titulo = "Apoio e vínculos institucionais") {
   div(
