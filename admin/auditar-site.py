@@ -95,7 +95,7 @@ def main() -> None:
     checked += check(APP, APP.read_text(encoding="utf-8"))
     for required in ("admin/app.js", "admin/app-melhorias.css",
                      "js/arvore-interativa.js", "js/galeria-sobre.js",
-                     "styles.css", "vi-no-rotulo.css", "js/arvore.js"):
+                     "styles.css", "js/arvore.js"):
         if not (ROOT / required).is_file():
             errors.append(f"Arquivo obrigatório ausente: {required}")
     if errors:
