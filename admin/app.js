@@ -442,7 +442,7 @@ function quickActionsMarkup(){
     ['linhas','Linhas de pesquisa','Projetos e conhecimento'],
     ['equipe','Equipe','Integrantes e pesquisadores']
   ];
-  return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><span class="eyebrow">ACESSO RÁPIDO</span><h2>Editar o que aparece no site</h2><p>Escolha uma área para cadastrar, revisar ou atualizar conteúdos.</p></div>'+
+  return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><h2>Acesso rápido</h2></div>'+
     '<div class="admin-shortcut-grid">'+actions.filter(([name])=>state.collections.some(c=>c.name===name)).map(([name,title,description])=>
       '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></button>').join('')+'</div>'+
     '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></button><button type="button" class="admin-tool-shortcut" id="admin-media-open"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></button></div></section>';
@@ -452,7 +452,7 @@ function renderHome(){
   state.view='summary';
   state.active=null;
   updateMobileTabs();
-  $('#page-crumb').textContent='Painel de resumo';
+  $('#page-crumb').textContent='Visão geral';
   renderNav();
   const count=names=>state.collections.filter(c=>names.includes(c.name)).reduce((n,c)=>n+summaryRecords(c).length,0);
   const stats=[
@@ -463,13 +463,13 @@ function renderHome(){
   ];
   const charts=dashboardCharts();
   $('#page-content').innerHTML=
-    '<div class="page-heading"><div><span class="eyebrow">RESUMO DO REPOSITÓRIO</span><h1>Painel de resumo</h1><p>Acompanhe a composição dos conteúdos e as novas inclusões no GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
+    '<div class="page-heading dashboard-intro"><div><h1>Visão geral</h1><p>Gerencie conteúdos, acompanhe alterações e publique atualizações do GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+batch.banner()+
-    renderEditorialReview()+quickActionsMarkup()+'<div id="analytics-panel-root"></div>'+
+    quickActionsMarkup()+renderEditorialReview()+
     '<section class="dashboard-chart-grid" aria-label="Indicadores gráficos">'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">DISTRIBUIÇÃO</span><h2>Conteúdos por frente de atuação</h2><p>Registros agrupados conforme as áreas atuais do site.</p></div></div>'+donutSegment(charts.areaData)+'</article>'+
-      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><span class="eyebrow">COMPOSIÇÃO</span><h2>Registros por tipo de conteúdo</h2><p>Quais seções concentram mais registros cadastrados.</p></div></div>'+donutSegment(charts.typeData)+'</article>'+
-    '</section>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><h2>Conteúdos por área</h2></div></div>'+donutSegment(charts.areaData)+'</article>'+
+      '<article class="dashboard-chart-card"><div class="dashboard-chart-heading"><div><h2>Registros por tipo</h2></div></div>'+donutSegment(charts.typeData)+'</article>'+
+    '</section><div id="analytics-panel-root"></div>'+
     '<section class="dashboard-activity-card"><div class="dashboard-activity-heading"><div><span class="eyebrow">MOVIMENTAÇÕES RECENTES</span><h2>Histórico de adições</h2><p>Novos registros identificados nas alterações dos arquivos de conteúdo do repositório.</p></div><button type="button" class="secondary-button" id="refresh-activity">Atualizar histórico</button></div><div id="recent-activity" aria-live="polite"></div></section>';
   document.querySelectorAll('[data-editorial]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.editorial);if(index>=0)openCollection(index)});
    document.querySelectorAll('[data-quick]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.quick);if(index>=0)openCollection(index)});
