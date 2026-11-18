@@ -16,11 +16,23 @@ if (nrow(noticias_publicadas) == 0) {
     noticias_publicadas$categoria
   )
 
-  tagList(lapply(unique(categorias), function(categoria) {
-    itens <- noticias_publicadas[categorias == categoria, , drop = FALSE] |>
-      arrange(desc(data))
-    tagList(if (categoria != "Notícias") h2(categoria), lista_noticias_area(itens))
-  }))
+  tagList(
+    p(class = "gp-noticias-overview",
+      paste0(nrow(noticias_publicadas), " notícias disponíveis em ",
+        length(unique(categorias)), " categorias. Use os números abaixo de cada categoria para ver todas.")),
+    lapply(unique(categorias), function(categoria) {
+      itens <- noticias_publicadas[categorias == categoria, , drop = FALSE] |>
+        arrange(desc(data))
+      tagList(
+        h2(class = "gp-noticias-categoria-titulo",
+          categoria,
+          span(class = "gp-noticias-categoria-total",
+            paste0("(", nrow(itens), ")"))
+        ),
+        lista_noticias_area(itens)
+      )
+    })
+  )
 }
 } else {
   estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
