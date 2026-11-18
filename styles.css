@@ -21177,3 +21177,38 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo::before {
     text-overflow: clip !important;
   }
 }
+
+
+/* Quem somos: egressos em duas colunas, sem alterar as demais categorias. */
+html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] > .equipe-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] .membro-card {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 12px 14px !important;
+  margin: 0 !important;
+}
+html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] .membro-identidade,
+html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] .membro-identidade-texto {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+}
+@media (max-width: 480px) {
+  html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] > .equipe-grid {
+    gap: 8px !important;
+  }
+  html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] .membro-card {
+    padding: 10px !important;
+  }
+  html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-categoria="Egressos"] .membro-nome {
+    font-size: .9rem !important;
+    line-height: 1.3 !important;
+  }
+}
