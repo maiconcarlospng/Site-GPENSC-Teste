@@ -47,6 +47,7 @@
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
+  // Copa decorativa desligada na exploração fractal: a folhagem nasce dos terminais.
   // Uma silhueta contínua acompanha a abertura dos galhos até a primeira bifurcação.
   const crownBase=make('linearGradient',{id:'gp49-crown-base',x2:'0%',y2:'100%'},defs);
   [['0%','#dbe9d2'],['55%','#c7ddbc'],['100%','#dce9d4']].forEach(([offset,color])=>
@@ -86,6 +87,7 @@
       transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+((i*47)%150-75)+') scale('+(.6+i%4*.12)+')',
       fill:shades[(i+2)%shades.length],opacity:.16+(i%3)*.04},canopyLayer);
   }
+  canopyLayer.style.display='none';
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
   const nodeLayer = make('g', {class: 'gp49-node-layer'}, svg);
@@ -109,7 +111,7 @@
     tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
-  let camera = {x: 0, y: 0, w: W, h: H};
+  let camera = {x: 240, y: 70, w: 980, h: 644};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
@@ -227,11 +229,11 @@
   }
   function point(start,count,depth) {
     const center=(start+count/2)/total;
-    const heights=[725,540,366,205,89,25,15];
+    const heights=[850,650,460,285,160,75,22];
     const level=heights[Math.min(depth,heights.length-1)];
     // Desníveis suaves entre bifurcações mantêm a ordem e os pontos de foco do mapa.
     const sway=depth ? Math.sin(center*Math.PI*3+depth*.65) : 0;
-    return {x:100+1200*center+sway*9, y:level+sway*19};
+    return {x:85+1260*center+sway*85, y:level+sway*48};
   }
   // A madeira usa tangentes compartilhadas: os filhos nascem na direção do
   // galho anterior, sem quinas ou emendas retas no ponto de bifurcação.
@@ -432,8 +434,8 @@
     if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:700,y:970},160,78,{x:0,y:-1});
-  const trunkLabel=make('text',{x:700,y:860,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  branch(0,total,0,{x:-190,y:1120},135,70,{x:.75,y:-.66});
+  const trunkLabel=make('text',{x:130,y:880,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
@@ -548,10 +550,25 @@
   });
   const normalize=text=>text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const search=root.querySelector('#gp49-search'),empty=root.querySelector('#gp49-empty');
+  // Busca flutuante; o diretório continua disponível para leitura por tecnologias assistivas.
+  const floatingSearch=document.createElement('input');
+  floatingSearch.type='search';floatingSearch.className='gp49-search-float';
+  floatingSearch.placeholder='Buscar linha ou projeto…';
+  floatingSearch.setAttribute('aria-label','Buscar na árvore do conhecimento');
+  map.parentElement.appendChild(floatingSearch);
+  floatingSearch.addEventListener('input',()=>{search.value=floatingSearch.value;search.dispatchEvent(new Event('input'));});
   search.addEventListener('input',()=>{
     const query=normalize(search.value.trim());
     rows.forEach(row=>row.hidden=!normalize(row.textContent).includes(query));
     empty.hidden=rows.some(row=>!row.hidden);
+    const match=rows.findIndex(row=>!row.hidden);
+    if(query && match>=0){
+      // Expande as bifurcações necessárias para alcançar o registro encontrado.
+      const target=nodeNames[match];
+      const nodes=[...svg.querySelectorAll('.gp49-node')];
+      let node=nodes.find(n=>n.getAttribute('aria-label')?.endsWith(target));
+      if(node){const t=node.getAttribute('transform')?.match(/translate\(([-\d.]+) ([-\d.]+)\)/);if(t)move({x:+t[1]-260,y:+t[2]-180,w:520,h:520*H/W},650);}
+    }
   });
   window.addEventListener('resize',paint,{passive:true});
   if(document.fonts)document.fonts.ready.then(paint);
