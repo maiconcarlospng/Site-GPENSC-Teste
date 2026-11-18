@@ -435,11 +435,12 @@ noticia_icone_svg <- function(icone) {
   ))
 }
 
-capa_noticia <- function(imagem, categoria, titulo, classe = "nt-img") {
+capa_noticia <- function(imagem, categoria, titulo, classe = "nt-img", fonte = NULL) {
   visual <- noticia_visual_categoria(categoria)
   src <- if (tem(imagem)) caminho_img(imagem, "noticias") else ""
   div(
     class = paste(classe, paste0("nt-img--", visual$classe)),
+    `data-gp-instagram-url` = if (tem(fonte) && grepl("^https://(www\\.)?instagram\\.com/(p|reel|tv)/", as.character(fonte)[1])) as.character(fonte)[1] else NULL,
     div(class = "nt-fallback", `aria-hidden` = "true",
       div(class = "nt-fallback-icone", noticia_icone_svg(visual$icone)),
       span(class = "nt-fallback-label", visual$nome)),
@@ -460,7 +461,7 @@ cartao_noticia <- function(n, i) {
   detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo, n$imagem))
   div(
     class = paste("nt reveal", cor_de(i)),
-    capa_noticia(n$imagem, n$categoria, n$titulo),
+    capa_noticia(n$imagem, n$categoria, n$titulo, fonte = n$url),
     div(
       class = "nt-corpo",
       h4(tags$a(class = "nt-titulo-link", href = detalhe_href, n$titulo)),
