@@ -267,6 +267,13 @@ div(id = "gp49", class = "gp49-shell",
 ```{=html}
 <style>
 /* OneZoom: página imersiva; diretório permanece no DOM como fonte acessível. */
+/* Canvas sem moldura e sem faixa inferior reservada pelo layout Quarto. */
+body:has(#gp49){overflow-x:hidden!important}
+body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .page-layout-full{min-height:0!important;padding-bottom:0!important;margin-bottom:0!important}
+body:has(#gp49) #quarto-content .content-container,body:has(#gp49) #quarto-content .page-columns{padding-bottom:0!important;margin-bottom:0!important}
+#gp49 .gp49-landscape{background:#fbfcf8!important}
+#gp49 #gp49-map svg{background:transparent!important}
+
 body:has(#gp49) #quarto-content{padding:0!important;max-width:none!important}
 body:has(#gp49) #quarto-content .page-columns,body:has(#gp49) #quarto-content main{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
 body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49) .quarto-title-block{display:none!important}
