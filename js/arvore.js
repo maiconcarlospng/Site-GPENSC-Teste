@@ -382,7 +382,7 @@
     }
     if (!terminal) {
       make('path',{d:'M-2,4 Q-14,-3 -9,-11 Q1,-9 2,2 Q10,-13 14,-8 Q16,2 4,6 Z',class:'gp49-bud',fill:'#d8e9b9'},bubble);
-      make('title',{},bubble).textContent=count+' frentes de pesquisa ou projeto — clique para expandir ou recolher';
+      make('title',{},bubble).textContent='Explorar ramificação';
     } else {
       make('circle',{r:5,class:'gp49-node-seed'},bubble);
       // Long labels appear only on demand, never together over the foliage.
@@ -412,7 +412,7 @@
       if(spray)spray.remove();
       if(linked)linked.remove();
     }
-    const tipLabel=terminal?nodeNames[start]:'Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; ');
+    const tipLabel=terminal?nodeNames[start]:'Explorar ramificação';
     bubble.addEventListener('pointerenter',()=>showTip(bubble,tipLabel));
     bubble.addEventListener('pointerleave',hideTip);
     bubble.addEventListener('focus',()=>showTip(bubble,tipLabel));
