@@ -317,7 +317,7 @@ faixa_galeria <- function(exibir = c("ambos", "hero", "fotos")) {
           url <- valor_publico(fotos$url[i])
           evento <- !is.null(tipo) && identical(tolower(tipo), "evento")
           destino <- if (evento && !is.null(url) &&
-                         grepl("^(https?://|/[^/]|[A-Za-z0-9][A-Za-z0-9/_-]*\\.html(?:[?#].*)?$)", url)) url else NULL
+                         grepl("^(https?://|/[^/]|[A-Za-z0-9][A-Za-z0-9/_-]*\\.html(?:[?#].*)?$)", url, perl = TRUE)) url else NULL
           imagem <- tags$img(
             src = arquivo,
             alt = alt_texto,
