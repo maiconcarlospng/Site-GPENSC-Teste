@@ -20845,3 +20845,17 @@ html body footer.footer .nav-footer::before {
   border-color:#f2d15b !important;
   text-shadow:0 1px 1px #fff8;
 }
+
+
+/* iOS Safari: impedir zoom automatico ao focar campos de pesquisa */
+@media (max-width: 767.98px) {
+  html body input[type="search"],
+  html body input[type="text"],
+  html body .aa-Form input,
+  html body .aa-Input,
+  html body .aa-DetachedFormContainer input,
+  html body .gp-tree-search input,
+  html body .gp44-search input {
+    font-size: 16px !important;
+  }
+}
