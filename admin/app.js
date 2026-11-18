@@ -844,7 +844,7 @@ async function saveGalleryCollection(event,index){
       const old=originals[Number(row.dataset.index)]||{};
       const item={...old};
       const replacement=selectedPhotos(row.querySelector('[data-gallery-replace]'))[0];
-      if(replacement){item.arquivo='/'+await uploadImage(replacement);if(/-recorte\.(webp|png)$/i.test(replacement.name))delete item.zoom;}
+      if(replacement){item.arquivo='/'+await uploadImage(replacement,c.name==='galeria_home'?'img/galeria-home':'img/galeria');if(/-recorte\.(webp|png)$/i.test(replacement.name))delete item.zoom;}
       const caption=row.querySelector('[data-gallery-caption]')?.value??'';
       item.legenda=caption;
       if(c.name==='galeria_home'){
@@ -870,7 +870,7 @@ async function saveGalleryCollection(event,index){
     }
     const additions=selectedPhotos(form.querySelector('#gallery-add-files'));
     for(const file of additions){
-      const path=await uploadImage(file);
+      const path=await uploadImage(file,c.name==='galeria_home'?'img/galeria-home':'img/galeria');
       updated.push({arquivo:'/'+path,legenda:'',...(c.name==='galeria_home'?{tipo:'foto'}:{})});
     }
     button.textContent='Preparando galeria…';
@@ -924,7 +924,8 @@ function mediaFolderLabel(path){
     img:'Biblioteca de imagens',
     'img/instagram-acervo':'Acervo do Instagram',
     'img/ilustracoes':'Ilustrações',
-    'img/galeria':'Galeria de fotos',
+    'img/galeria':'Galeria · Quem somos',
+    'img/galeria-home':'Galeria · Página inicial',
     'img/equipe':'Equipe e integrantes',
     'img/noticias':'Capas de notícias',
     'img/pesquisas':'Pesquisas',
@@ -1446,7 +1447,13 @@ function openExcelImport(c,fields){if(!canLeaveCurrentEditor())return;if(!window
   }catch{issues.push('Linha '+(i+2)+': '+(f.label||f.name)+' deve conter '+(f.multiple||f.widget==='list'?'uma lista':'um objeto')+' em formato válido.')}
 }else if(f.widget==='boolean'){v=String(v).toLowerCase()==='true'||String(v).toLowerCase()==='sim'||String(v)==='1'}else if(f.widget==='number'&&v!==''){v=Number(String(v).replace(',','.'));if(!Number.isFinite(v))issues.push('Linha '+(i+2)+': valor numérico inválido em '+(f.label||f.name)+'.')}if(v!==''&&v!==undefined&&Array.isArray(f.pattern)&&f.pattern[0]&&!new RegExp(f.pattern[0]).test(String(v)))issues.push('Linha '+(i+2)+': '+(f.pattern[1]||'formato inválido em '+(f.label||f.name)));if(v!==''&&v!==undefined)item[f.name]=v}for(const f of fields.filter(x=>x.required!==false)){if(item[f.name]===''||item[f.name]===undefined)issues.push('Linha '+(i+2)+': falta preencher '+(f.label||f.name)+'.')}return item});const preview=$('#excel-preview');preview.innerHTML='<div class="excel-summary"><strong>'+pending.length+' linhas encontradas</strong><span>'+Object.values(mapping).filter(Boolean).length+' de '+fields.length+' colunas reconhecidas</span></div><div class="excel-columns">'+fields.map(f=>'<span class="'+(mapping[f.name]?'mapped':'unmapped')+'">'+esc(f.label||f.name)+(mapping[f.name]?' · '+esc(mapping[f.name]):' · não encontrada')+'</span>').join('')+'</div>'+(issues.length?'<div class="excel-errors"><strong>Corrija antes de importar:</strong><ul>'+issues.slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+(issues.length>12?'<small>e mais '+(issues.length-12)+' ocorrência(s).</small>':'')+'</div>':'<p class="excel-ready">Prévia validada. Os registros serão acrescentados ao final da lista.</p>');$('#confirm-excel').disabled=issues.length>0||!pending.length; }catch(e){if(!fileInput.isConnected||fileInput.files?.[0]!==file)return;$('#excel-preview').innerHTML='<div class="excel-errors">'+esc(e.message)+'</div>';pending=[]}};$('#confirm-excel').onclick=async()=>{if(!pending.length)return;const button=$('#confirm-excel');button.disabled=true;button.textContent='Preparando…';const modal=button.closest('.modal');if(modal)modal.dataset.saving='true';try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:[...entryList(c),...pending]});const count=pending.length;closeModal(true);openCollection(state.active);renderNav();toast(count+' registro(s) adicionados à fila para revisão.')}catch(e){if(modal)delete modal.dataset.saving;button.disabled=false;button.textContent='Tentar novamente';toast(e.message,true)}}}
 async function saveCollection(c,content){return batch.stage(c,content)}
-async function uploadImage(file){return batch.stageMedia(file)}
+async function uploadImage(file,folder=null){
+  if(!folder)return batch.stageMedia(file);
+  if(!['img/galeria','img/galeria-home'].includes(folder))throw new Error('Pasta de galeria inválida.');
+  const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
+  const path=folder+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'-'+safe;
+  return batch.stageMedia(file,path);
+}
 async function deleteItem(index){if(!canLeaveCurrentEditor())return;if(!confirm('Mover esta exclusão para a fila? O site não mudará até você publicar.'))return;const c=state.collections[state.active];const items=entryList(c).slice();items.splice(index,1);try{await saveCollection(c,{...state.contents[c.file],[listKey(c)]:items});openCollection(state.active);renderNav();toast('Exclusão adicionada à fila de revisão.')}catch(e){toast(e.message,true)}}
 function closeModal(force=false){
   const form=$('#entry-form');
