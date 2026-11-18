@@ -13,19 +13,29 @@ historia <- Filter(function(item) {
   ano_valido && nzchar(titulo) && !texto_provisorio
 }, historia)
 
+# A sequência histórica é cronológica, independentemente da ordem de cadastro.
+if (length(historia) > 1) {
+  anos <- vapply(historia, function(item) as.integer(as.character(item$ano)), integer(1))
+  historia <- historia[order(anos, seq_along(historia))]
+}
+
 if (length(historia) > 0) {
   div(
     class = "historia-linha-tempo",
     lapply(historia, function(item) {
       div(
         class = "historia-item",
-        span(class = "historia-ano", as.character(item$ano)),
+        div(class = "historia-ponte", `aria-hidden` = "true", span(class = "historia-ponto")),
         div(
-          class = "historia-conteudo",
-          h2(as.character(item$titulo)),
-          if (!is.null(item$descricao) && nzchar(trimws(as.character(item$descricao)))) p(as.character(item$descricao)),
-          if (!is.null(item$imagem) && nzchar(as.character(item$imagem))) tags$img(src = caminho_img(item$imagem), alt = paste("Imagem do registro:", item$titulo), loading = "lazy", decoding = "async", onerror = "this.remove()"),
-          if (!is.null(item$url) && grepl("^https?://", as.character(item$url))) tags$a("Ver registro original", href = item$url, target = "_blank", rel = "noopener noreferrer")
+          class = "historia-registro",
+          span(class = "historia-ano", as.character(item$ano)),
+          div(
+            class = "historia-conteudo",
+            h2(as.character(item$titulo)),
+            if (!is.null(item$descricao) && nzchar(trimws(as.character(item$descricao)))) p(as.character(item$descricao)),
+            if (!is.null(item$imagem) && nzchar(as.character(item$imagem))) tags$img(src = caminho_img(item$imagem), alt = paste("Imagem do registro:", item$titulo), loading = "lazy", decoding = "async", onerror = "this.remove()"),
+            if (!is.null(item$url) && grepl("^https?://", as.character(item$url))) tags$a("Ver registro original", href = item$url, target = "_blank", rel = "noopener noreferrer")
+          )
         )
       )
     })
