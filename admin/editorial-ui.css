@@ -154,7 +154,7 @@ html,body{background:var(--editor-bg);color:var(--editor-ink)}
  #app .sidebar.mobile-open #collection-nav button.active{background:var(--editor-green-wash)!important;color:var(--editor-green-deep)!important;border-color:#dae7da!important}
  #app .sidebar.mobile-open .sidebar-bottom{display:flex;justify-content:space-between;border-color:var(--editor-border);padding:7px 4px 0}
  #app .sidebar.mobile-open .sidebar-bottom :is(a,button){color:var(--editor-muted)!important;font-size:12px}
- #app .mobile-dock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:7px max(10px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+ #app .mobile-dock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px;padding:7px max(10px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
  #app .mobile-dock button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:6px;background:transparent;border:0;border-radius:7px;color:var(--editor-muted)!important;font-size:11px;font-weight:650}
  #app .mobile-dock button svg{display:block;width:20px;height:20px}
  #app .mobile-dock button.active{background:var(--editor-green-wash);color:var(--editor-green-deep)!important}
