@@ -10,6 +10,7 @@
   const imageUrl = (value) => typeof value === "string" && /^https:\/\//.test(value);
   const build = (frame, urls, link) => {
     if (frame.querySelector(".gp-ig-gallery")) return;
+    frame.classList.add("gp-ig-gallery-active");
     const holder = document.createElement("div");
     holder.className = "gp-ig-gallery";
     holder.setAttribute("role", "group");
@@ -58,7 +59,9 @@
       img.hidden = false;
       error.hidden = true;
       img.alt = "Imagem " + (current + 1) + " de " + urls.length + " da publicação do GPENSC";
-      img.src = urls[current];
+      const image = urls[current];
+      holder.style.setProperty("--gp-ig-current-image", "url(" + JSON.stringify(image) + ")");
+      img.src = image;
       count.textContent = (current + 1) + "/" + urls.length;
       back.disabled = current === 0;
       next.disabled = current === urls.length - 1;
