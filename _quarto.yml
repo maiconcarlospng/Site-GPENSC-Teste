@@ -23,6 +23,7 @@ website:
 
   navbar:
     logo: img/logo_gpensc.png
+    logo-alt: "GPENSC — página inicial"
     background: light
     
     right:
