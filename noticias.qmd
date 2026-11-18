@@ -2,8 +2,6 @@
 title: "Notícias"
 ---
 
-<div class="gp-illustrated-lead"><p>Comunicados e notícias publicadas pelo GPENSC.</p><img src="img/ilustracoes/noticias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Notícias {#noticias .gp-heading-art .gp-heading-art--noticias}
+<div id="noticias" class="gp-illustrated-lead"><p>Comunicados e notícias publicadas pelo GPENSC.</p><img src="img/ilustracoes/noticias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/noticias.qmd >}}
