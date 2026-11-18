@@ -20874,3 +20874,54 @@ html body #quarto-header .navbar::after {
   height: 3px !important;
   z-index: 5 !important;
 }
+
+
+/* Idiomas: tres opcoes legiveis no mobile, bandeira somente no ativo */
+html body #quarto-header .bandeiras-container {
+  display:inline-flex !important;
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  gap:3px !important;
+  padding:3px !important;
+  overflow:visible !important;
+  background:#f6f8f4 !important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang],
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
+  display:inline-grid !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  flex:0 0 34px !important;
+  width:34px !important;
+  min-width:34px !important;
+  height:34px !important;
+  background:transparent !important;
+  color:#28543a !important;
+  text-shadow:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"] {
+  background:radial-gradient(circle at 50% 50%,#234d99 0 17%,transparent 18%),linear-gradient(145deg,transparent 29%,#f5d85a 30% 41%,transparent 42% 58%,#f5d85a 59% 70%,transparent 71%),#278044 !important;
+  color:#fff !important;
+  text-shadow:0 1px 2px #123c28 !important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"] {
+  background:linear-gradient(90deg,#244b85 0 40%,transparent 40%),repeating-linear-gradient(180deg,#bb3b48 0 5px,#fff 5px 10px) !important;
+  color:#fff !important;
+  text-shadow:0 1px 3px #122b52,0 0 3px #122b52 !important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"] {
+  background:linear-gradient(180deg,#b32e3c 0 25%,#f2d15b 25% 75%,#b32e3c 75% 100%) !important;
+  color:#56202a !important;
+  text-shadow:0 1px 1px #fff9 !important;
+}
+@media(max-width:767.98px) {
+  html body #quarto-header .navbar .navbar-container > .bandeiras-container {
+    width:120px !important;
+    min-width:120px !important;
+    justify-content:center !important;
+    flex:0 0 120px !important;
+  }
+}
