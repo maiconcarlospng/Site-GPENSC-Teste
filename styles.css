@@ -21233,3 +21233,27 @@ html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-
     margin-bottom: 0 !important;
   }
 }
+
+
+/* Filete de identidade GPENSC imediatamente abaixo da navegação. */
+html body #quarto-header {
+  position: relative !important;
+}
+html body #quarto-header::after {
+  content: "" !important;
+  position: absolute !important;
+  display: block !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 3px !important;
+  z-index: 1100 !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg, #5f9a3e 0%, #d9731f 50%, #d43a2f 100%) !important;
+}
+html body #quarto-header .navbar::after {
+  content: none !important;
+  display: none !important;
+}
