@@ -65,6 +65,30 @@ def check(path: Path, text: str) -> int:
     return len(found)
 
 
+def check_repeated_page_title(path: Path, content: str) -> None:
+    """Evita repetir como H2 o mesmo título H1 gerado pelo Quarto."""
+    if path.parent != ROOT:
+        return
+    match = re.match(r"\A---[ \t]*\n(.*?)\n---[ \t]*\n", content, flags=re.S)
+    if not match:
+        return
+    try:
+        metadata = yaml.safe_load(match.group(1)) or {}
+    except yaml.YAMLError:
+        return  # O validador de configuração já identifica YAML inválido.
+    title = str(metadata.get("title") or "").strip().casefold()
+    if not title:
+        return
+    body = content[match.end():]
+    for heading in re.findall(r"^##[ \t]+([^\n]+)$", body, flags=re.M):
+        normalized = re.sub(r"[ \t]*\{[^}]*\}[ \t]*$", "", heading).strip().casefold()
+        if normalized == title:
+            errors.append(
+                f"{path.name}: título repetido como subtítulo H2: {heading}. "
+                "Preserve o H1 e transfira a âncora para o início do conteúdo."
+            )
+
+
 def main() -> None:
     if len(PAGES) < 20:
         errors.append("Número inesperadamente pequeno de páginas QMD.")
@@ -82,6 +106,7 @@ def main() -> None:
         content = path.read_text(encoding="utf-8")
         if path.parent == ROOT and not content.startswith("---\n"):
             errors.append(f"{path.name}: metadados YAML ausentes na abertura.")
+        check_repeated_page_title(path, content)
         checked += check(path, content)
     config = yaml.safe_load(QUARTO.read_text(encoding="utf-8"))
     css = config.get("format", {}).get("html", {}).get("css", [])
