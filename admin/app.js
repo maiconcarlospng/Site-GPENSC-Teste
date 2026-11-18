@@ -836,7 +836,8 @@ function openGalleryCollection(index){
   renderNav();
   $('#page-crumb').textContent=c.label;
   $('#page-content').innerHTML=
-    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+
+    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+ 
+    '<div class="gallery-sort-bar"><label for="gallery-sort">Ordenar fotos na visualização</label><select id="gallery-sort"><option value="original">Sequência da galeria</option><option value="caption">Legenda (A–Z)</option><option value="caption-desc">Legenda (Z–A)</option><option value="file">Nome do arquivo (A–Z)</option><option value="file-desc">Nome do arquivo (Z–A)</option></select><p>Esta ordenação é apenas visual e não altera a sequência publicada das fotos.</p></div>'+
     '<form id="gallery-form" class="gallery-form"><div class="gallery-photo-grid">'+items.map((item,i)=>
       '<article class="gallery-photo-card" data-gallery-row data-index="'+i+'"><div class="gallery-photo-preview"><img src="'+esc(galleryPreviewUrl(item.arquivo))+'" alt="'+esc(item.legenda||'Foto da galeria')+'" loading="lazy"><span>Foto '+(i+1)+'</span></div>'+
       '<div class="gallery-photo-fields"><div class="field full"><label>Legenda</label><input type="text" data-gallery-caption value="'+esc(item.legenda||'')+'" placeholder="Descreva a foto (opcional)"></div>'+
@@ -848,6 +849,24 @@ function openGalleryCollection(index){
     '<div class="panel-card gallery-add-card"><div><h2>Adicionar novas fotos</h2><p>Selecione uma ou várias imagens. Elas ficarão na fila e serão enviadas apenas quando você publicar.</p></div><div class="field full"><label for="gallery-add-files">Selecionar imagens</label><input id="gallery-add-files" type="file" accept="image/*" multiple><div class="gallery-crop-files"></div></div></div>'+
     '<div class="config-actions"><span>As imagens e legendas serão publicadas apenas depois da revisão da fila.</span><button type="submit" class="primary-button" id="save-gallery">Adicionar galeria à fila</button></div></form>';
   $('#gallery-back').onclick=renderHome;
+  const gallerySort=$('#gallery-sort');
+  gallerySort.addEventListener('change',()=>{
+    const grid=$('#gallery-form .gallery-photo-grid');
+    const rows=[...grid.querySelectorAll('[data-gallery-row]')];
+    const order=gallerySort.value;
+    const collator=new Intl.Collator('pt-BR',{sensitivity:'base',numeric:true});
+    const caption=row=>row.querySelector('[data-gallery-caption]')?.value||'';
+    const filename=row=>entryList(c)[Number(row.dataset.index)]?.arquivo||'';
+    rows.sort((a,b)=>{
+      let comparison=0;
+      if(order==='caption')comparison=collator.compare(caption(a),caption(b));
+      if(order==='caption-desc')comparison=collator.compare(caption(b),caption(a));
+      if(order==='file')comparison=collator.compare(filename(a),filename(b));
+      if(order==='file-desc')comparison=collator.compare(filename(b),filename(a));
+      return comparison||Number(a.dataset.index)-Number(b.dataset.index);
+    });
+    rows.forEach(row=>grid.append(row));
+  });
   const form=$('#gallery-form');
   form.addEventListener('input',()=>{form.dataset.dirty='true'});
   form.addEventListener('change',()=>{form.dataset.dirty='true'});
@@ -875,7 +894,10 @@ async function saveGalleryCollection(event,index){
   button.textContent='Preparando imagens…';
   form.dataset.saving='true';
   try{
-    for(const row of form.querySelectorAll('[data-gallery-row]')){
+    // Salva a sequência original, mesmo que o usuário tenha ordenado a exibição.
+    const galleryRows=[...form.querySelectorAll('[data-gallery-row]')]
+      .sort((a,b)=>Number(a.dataset.index)-Number(b.dataset.index));
+    for(const row of galleryRows){
       const old=originals[Number(row.dataset.index)]||{};
       const item={...old};
       const replacement=selectedPhotos(row.querySelector('[data-gallery-replace]'))[0];
