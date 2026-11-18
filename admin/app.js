@@ -531,7 +531,76 @@ function openPendingReview(){
   });
   batch.updateUI();
 }
-function openCollection(index){if(!canLeaveCurrentEditor())return;state.view='collection';state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p></div>'+table+mobile;$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
+/* A ordenação reorganiza apenas a exibição; os índices originais de edição
+   e exclusão continuam intactos, independentemente da posição do registro. */
+function initializeCollectionSorting(collection,items,fields){
+  const selector=$('#record-sort');
+  if(!selector)return;
+  const dateFields=(fields||[]).filter(f=>/^(data|date|ano|revisado_em|publicado_em|inicio|fim|data_.*|.*_data)$/i.test(f.name));
+  const keys=(fields||[]).filter(f=>!['object','list','image','file','boolean','markdown'].includes(f.widget));
+  const categoryField=keys.find(f=>['categoria','tipo','status','situacao','área','area'].includes(f.name.toLowerCase()))?.name;
+  const options=[
+    ['original','Ordem cadastrada'],
+    ['title-asc','Título ou nome (A–Z)'],
+    ['title-desc','Título ou nome (Z–A)'],
+    ...(dateFields.length?[['date-desc','Data (mais recentes)'],['date-asc','Data (mais antigos)']]:[]),
+    ...(categoryField?[['category-asc','Categoria / tipo (A–Z)'],['category-desc','Categoria / tipo (Z–A)']]:[]),
+    ...keys.filter(f=>f.name!==categoryField&&!dateFields.some(d=>d.name===f.name)&&!['titulo','nome'].includes(f.name)).flatMap(f=>[
+      ['field:'+f.name,'Por '+(f.label||f.name)+' (A–Z)'],
+      ['field-desc:'+f.name,'Por '+(f.label||f.name)+' (Z–A)']
+    ])
+  ];
+  selector.innerHTML=options.map(([key,label])=>'<option value="'+esc(key)+'">'+esc(label)+'</option>').join('');
+  state.collectionSort=state.collectionSort||{};
+  const saved=state.collectionSort[collection.name]||'original';
+  selector.value=options.some(x=>x[0]===saved)?saved:'original';
+  const norm=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  const textCompare=(a,b)=>norm(a).localeCompare(norm(b),'pt-BR',{numeric:true,sensitivity:'base'});
+  const parsedDate=value=>{
+    const str=String(value??'').trim();
+    if(!str)return -Infinity;
+    const br=str.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+    if(br)return Number(br[3])*10000+Number(br[2])*100+Number(br[1]);
+    const iso=str.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?/);
+    if(iso)return Number(iso[1])*10000+Number(iso[2])*100+Number(iso[3]||1);
+    const year=str.match(/^(\d{4})$/);
+    if(year)return Number(year[1])*10000+101;
+    return -Infinity;
+  };
+  const defaultDateField=dateFields[0]?.name;
+  function apply(){
+    const choice=selector.value;
+    state.collectionSort[collection.name]=choice;
+    const order=items.map((item,i)=>({item,i}));
+    order.sort((a,b)=>{
+      if(choice==='original')return a.i-b.i;
+      let cmp=0;
+      if(choice==='title-asc')cmp=textCompare(titleOf(a.item),titleOf(b.item));
+      else if(choice==='title-desc')cmp=textCompare(titleOf(b.item),titleOf(a.item));
+      else if(choice==='date-desc')cmp=parsedDate(b.item[defaultDateField])-parsedDate(a.item[defaultDateField]);
+      else if(choice==='date-asc')cmp=parsedDate(a.item[defaultDateField])-parsedDate(b.item[defaultDateField]);
+      else if(choice==='category-asc')cmp=textCompare(a.item[categoryField],b.item[categoryField]);
+      else if(choice==='category-desc')cmp=textCompare(b.item[categoryField],a.item[categoryField]);
+      else if(choice.startsWith('field:'))cmp=textCompare(a.item[choice.slice(6)],b.item[choice.slice(6)]);
+      else if(choice.startsWith('field-desc:'))cmp=textCompare(b.item[choice.slice(11)],a.item[choice.slice(11)]);
+      return (Number.isFinite(cmp)?cmp:0)||a.i-b.i;
+    });
+    const parentTable=$('#page-content .data-table tbody');
+    const parentMobile=$('#page-content .mobile-record-list');
+    for(const parent of [parentTable,parentMobile]){
+      if(!parent)continue;
+      const rows=new Map(Array.from(parent.children).map(row=>[Number(row.querySelector('[data-edit]')?.dataset.edit),row]));
+      const fragment=document.createDocumentFragment();
+      order.forEach(x=>{const node=rows.get(x.i);if(node)fragment.append(node)});
+      parent.append(fragment);
+    }
+  }
+  selector.addEventListener('change',apply);
+  apply();
+}
+
+function openCollection(index){if(!canLeaveCurrentEditor())return;state.view='collection';state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p><div class="collection-sort-control"><label for="record-sort">Ordenar registros</label><select id="record-sort" aria-label="Ordenar registros desta seção"></select></div></div>'+table+mobile;initializeCollectionSorting(c,items,fields);$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
+
 
 function openSettingsHub(){
   if(!canLeaveCurrentEditor())return;
@@ -699,7 +768,8 @@ function openGalleryCollection(index){
   renderNav();
   $('#page-crumb').textContent=c.label;
   $('#page-content').innerHTML=
-    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+
+    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+ 
+    '<div class="gallery-sort-bar"><label for="gallery-sort">Ordenar fotos na visualização</label><select id="gallery-sort"><option value="original">Sequência da galeria</option><option value="caption">Legenda (A–Z)</option><option value="caption-desc">Legenda (Z–A)</option><option value="file">Nome do arquivo (A–Z)</option><option value="file-desc">Nome do arquivo (Z–A)</option></select><p>Esta ordenação é apenas visual e não altera a sequência publicada das fotos.</p></div>'+
     '<form id="gallery-form" class="gallery-form"><div class="gallery-photo-grid">'+items.map((item,i)=>
       '<article class="gallery-photo-card" data-gallery-row data-index="'+i+'"><div class="gallery-photo-preview"><img src="'+esc(galleryPreviewUrl(item.arquivo))+'" alt="'+esc(item.legenda||'Foto da galeria')+'" loading="lazy"><span>Foto '+(i+1)+'</span></div>'+
       '<div class="gallery-photo-fields"><div class="field full"><label>Legenda</label><input type="text" data-gallery-caption value="'+esc(item.legenda||'')+'" placeholder="Descreva a foto (opcional)"></div>'+
@@ -711,6 +781,24 @@ function openGalleryCollection(index){
     '<div class="panel-card gallery-add-card"><div><h2>Adicionar novas fotos</h2><p>Selecione uma ou várias imagens. Elas ficarão na fila e serão enviadas apenas quando você publicar.</p></div><div class="field full"><label for="gallery-add-files">Selecionar imagens</label><input id="gallery-add-files" type="file" accept="image/*" multiple><div class="gallery-crop-files"></div></div></div>'+
     '<div class="config-actions"><span>As imagens e legendas serão publicadas apenas depois da revisão da fila.</span><button type="submit" class="primary-button" id="save-gallery">Adicionar galeria à fila</button></div></form>';
   $('#gallery-back').onclick=renderHome;
+  const gallerySort=$('#gallery-sort');
+  gallerySort.addEventListener('change',()=>{
+    const grid=$('#gallery-form .gallery-photo-grid');
+    const rows=[...grid.querySelectorAll('[data-gallery-row]')];
+    const order=gallerySort.value;
+    const collator=new Intl.Collator('pt-BR',{sensitivity:'base',numeric:true});
+    const caption=row=>row.querySelector('[data-gallery-caption]')?.value||'';
+    const filename=row=>entryList(c)[Number(row.dataset.index)]?.arquivo||'';
+    rows.sort((a,b)=>{
+      let comparison=0;
+      if(order==='caption')comparison=collator.compare(caption(a),caption(b));
+      if(order==='caption-desc')comparison=collator.compare(caption(b),caption(a));
+      if(order==='file')comparison=collator.compare(filename(a),filename(b));
+      if(order==='file-desc')comparison=collator.compare(filename(b),filename(a));
+      return comparison||Number(a.dataset.index)-Number(b.dataset.index);
+    });
+    rows.forEach(row=>grid.append(row));
+  });
   const form=$('#gallery-form');
   form.addEventListener('input',()=>{form.dataset.dirty='true'});
   form.addEventListener('change',()=>{form.dataset.dirty='true'});
@@ -738,7 +826,10 @@ async function saveGalleryCollection(event,index){
   button.textContent='Preparando imagens…';
   form.dataset.saving='true';
   try{
-    for(const row of form.querySelectorAll('[data-gallery-row]')){
+    // Salva a sequência original, mesmo que o usuário tenha ordenado a exibição.
+    const galleryRows=[...form.querySelectorAll('[data-gallery-row]')]
+      .sort((a,b)=>Number(a.dataset.index)-Number(b.dataset.index));
+    for(const row of galleryRows){
       const old=originals[Number(row.dataset.index)]||{};
       const item={...old};
       const replacement=selectedPhotos(row.querySelector('[data-gallery-replace]'))[0];
@@ -800,24 +891,113 @@ function mediaSize(bytes){
   return (value/(1024*1024)).toFixed(1)+' MB';
 }
 function mediaFileUrl(path){return 'https://maiconcarlospng.github.io/Site-GPENSC-Teste/'+String(path).split('/').map(encodeURIComponent).join('/')}
+
+const MEDIA_ALL_FOLDERS='__all__';
+const MEDIA_DEFAULT_FOLDER='img/materiais';
+const MEDIA_PAGE_SIZE=48;
+function mediaParentFolder(path){
+  const parts=String(path||'').split('/');
+  return parts.length>1?parts.slice(0,-1).join('/'):'img';
+}
+function mediaFolderLabel(path){
+  const special={
+    img:'Biblioteca de imagens',
+    'img/instagram-acervo':'Acervo do Instagram',
+    'img/ilustracoes':'Ilustrações',
+    'img/galeria':'Galeria de fotos',
+    'img/equipe':'Equipe e integrantes',
+    'img/noticias':'Capas de notícias',
+    'img/pesquisas':'Pesquisas',
+    'img/marcas':'Marcas e projetos',
+    'img/materiais':'Materiais enviados'
+  };
+  if(path===MEDIA_ALL_FOLDERS)return 'Todos os materiais';
+  return special[path]||String(path).split('/').pop().replace(/[-_]/g,' ').replace(/^./,s=>s.toUpperCase());
+}
+function mediaFolderPaths(){
+  const found=new Set(['img',MEDIA_DEFAULT_FOLDER]);
+  (state.mediaFiles||[]).forEach(item=>{
+    const parts=mediaParentFolder(item.path).split('/');
+    for(let i=1;i<=parts.length;i++)found.add(parts.slice(0,i).join('/'));
+  });
+  return [...found].sort((a,b)=>a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
+}
+function mediaInFolder(path,folder){
+  return folder===MEDIA_ALL_FOLDERS||path.startsWith(folder+'/');
+}
+function mediaFolderCount(folder){
+  return state.mediaFiles.filter(file=>mediaInFolder(file.path,folder)).length;
+}
+function mediaCanRemove(path){
+  return !/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(path);
+}
+function mediaFolderIcon(){
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+}
+function selectMediaFolder(folder){
+  if(folder!==MEDIA_ALL_FOLDERS&&!mediaFolderPaths().includes(folder))return;
+  state.mediaFolder=folder;
+  state.mediaPage=1;
+  const search=$('#media-search');
+  if(search)search.value='';
+  if(folder!=='img'&&folder!==MEDIA_ALL_FOLDERS)state.mediaUploadFolder=folder;
+  renderMediaFiles();
+}
 function openMediaLibrary(){
   if(!canLeaveCurrentEditor())return;
   state.view='media';state.active=null;updateMobileTabs();renderNav();
-  $('#page-crumb').textContent='Materiais do site';
-  $('#page-content').innerHTML=
-    '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual. Os arquivos ficam pendentes até confirmar a publicação.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar materiais</button></div></div>'+
-    '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select><span id="media-status" role="status"></span></div><p class="media-usage-note">Os selos consideram os vínculos cadastrados no painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>'+
-    '<div class="media-bulk-bar"><span id="media-select-status">Selecione materiais para remover da biblioteca.</span><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>'+
-    '<div id="media-grid" class="media-grid" aria-live="polite"></div>';
+  state.mediaFolder=state.mediaFolder||'img';
+  state.mediaUploadFolder=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER;
+  state.mediaPage=state.mediaPage||1;
+  state.mediaView=state.mediaView||'grid';
+  state.mediaSort=state.mediaSort||'name';
   state.mediaSelection=state.mediaSelection||new Set();
+  $('#page-crumb').textContent='Materiais do site';
+  $('#page-content').innerHTML=[
+    '<div class="page-heading media-page-heading"><div><span class="eyebrow">BIBLIOTECA DE ARQUIVOS</span><h1>Materiais do site</h1><p>Explore as pastas do site, visualize arquivos e prepare alterações com segurança. Nenhum arquivo é movido ou publicado até a revisão da fila.</p></div>',
+    '<div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar</button><button type="button" class="primary-button" id="media-add">Adicionar arquivos</button></div></div>',
+    '<div class="media-library-shell">',
+    '<aside class="media-folder-panel" aria-label="Pastas do site"><div class="media-folder-panel-head"><span class="eyebrow">ORGANIZAÇÃO</span><strong>Pastas</strong></div><nav id="media-folder-nav" class="media-folder-nav" aria-label="Navegar por pastas"></nav><p class="media-folder-note">As pastas são as mesmas do repositório. Organizar a visualização não altera os endereços das imagens.</p></aside>',
+    '<section class="media-browser" aria-label="Arquivos da pasta">',
+    '<div class="media-browser-top"><nav id="media-breadcrumb" class="media-breadcrumb" aria-label="Caminho da pasta"></nav><div class="media-view-switch" role="group" aria-label="Exibição de arquivos"><button type="button" data-media-view="grid" aria-label="Exibir em grade">Grade</button><button type="button" data-media-view="list" aria-label="Exibir em lista">Lista</button></div></div>',
+    '<div class="media-toolbar">',
+    '<div class="media-filter media-filter-search"><label for="media-search">Buscar</label><input id="media-search" type="search" placeholder="Buscar arquivos em todas as pastas" autocomplete="off"></div>',
+    '<div class="media-filter"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select></div>',
+    '<div class="media-filter"><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select></div>',
+    '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="name-desc">Nome (Z–A)</option><option value="size">Tamanho (maior primeiro)</option><option value="size-asc">Tamanho (menor primeiro)</option><option value="type">Tipo / extensão</option><option value="folder">Pasta (A–Z)</option><option value="folder-desc">Pasta (Z–A)</option><option value="usage">Arquivos em uso primeiro</option></select></div>',
+    '<div class="media-filter media-filter-destination"><label for="media-upload-folder">Pasta para novos uploads</label><select id="media-upload-folder"></select></div>',
+    '</div>',
+    '<p class="media-usage-note">Os vínculos são identificados pelos registros do painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>',
+    '<div class="media-browser-heading"><div><h2 id="media-folder-title">Arquivos</h2><p id="media-status" role="status" aria-live="polite"></p></div><span class="media-browser-path" id="media-current-path"></span></div>',
+    '<div id="media-subfolders" class="media-folder-tiles"></div>',
+    '<div class="media-bulk-bar"><label class="media-select-page" for="media-select-page"><input type="checkbox" id="media-select-page"><span>Selecionar esta página</span></label><span id="media-select-status" role="status">Nenhum material selecionado</span><button type="button" class="media-clear-selection" id="media-clear-selection" disabled>Limpar seleção</button><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>',
+    '<div id="media-grid" class="media-grid" aria-live="polite"></div>',
+    '<nav id="media-pagination" class="media-pagination" aria-label="Páginas de arquivos"></nav>',
+    '</section></div>'
+  ].join('');
+  $('#media-sort').value=state.mediaSort;
   $('#media-delete-selected').onclick=async()=>{
     const paths=[...state.mediaSelection];
-    if(!paths.length)return;
-    await queueMaterialsRemoval(paths);
+    if(paths.length)await queueMaterialsRemoval(paths);
   };
-  $('#media-search').addEventListener('input',renderMediaFiles);
-  $('#media-type').addEventListener('change',renderMediaFiles);
-  $('#media-usage').addEventListener('change',renderMediaFiles);
+  $('#media-clear-selection').onclick=()=>{state.mediaSelection.clear();renderMediaFiles()};
+  $('#media-select-page').addEventListener('change',event=>{
+    (state.mediaCurrentPageFiles||[]).forEach(file=>{
+      if(!mediaCanRemove(file.path)||batch.assets()[file.path]?.action==='remover')return;
+      if(event.target.checked)state.mediaSelection.add(file.path);
+      else state.mediaSelection.delete(file.path);
+    });
+    renderMediaFiles();
+  });
+  for(const id of ['media-search','media-type','media-usage','media-sort']){
+    const element=$('#'+id);
+    element.addEventListener(id==='media-search'?'input':'change',()=>{
+      state.mediaPage=1;
+      if(id==='media-sort')state.mediaSort=element.value;
+      renderMediaFiles();
+    });
+  }
+  $('#media-upload-folder').addEventListener('change',event=>{state.mediaUploadFolder=event.target.value});
   $('#media-refresh').addEventListener('click',()=>loadMediaFiles());
   $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
   $('#media-upload-new').addEventListener('change',async event=>{
@@ -825,25 +1005,19 @@ function openMediaLibrary(){
     const files=[...input.files];
     if(!files.length)return;
     const button=$('#media-add');
-    button.disabled=true;
-    input.disabled=true;
-    let added=0;
-    const errors=[];
+    const destination=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER;
+    button.disabled=true;input.disabled=true;
+    let added=0;const errors=[];
     try{
       for(const [index,file] of files.entries()){
         button.textContent='Preparando '+(index+1)+' de '+files.length+'…';
-        try{
-          await stageNewMaterial(file);
-          added++;
-        }catch(error){errors.push(file.name+': '+error.message)}
+        try{await stageNewMaterial(file,destination);added++}
+        catch(error){errors.push(file.name+': '+error.message)}
       }
-      if(added)toast(added+' material(is) na fila de revisão.');
+      if(added)toast(added+' material(is) preparado(s) na pasta '+destination+'. Revise a fila.');
       if(errors.length)alert('Alguns arquivos não foram adicionados à fila:\n\n'+errors.join('\n'));
     }finally{
-      input.value='';
-      input.disabled=false;
-      button.disabled=false;
-      button.textContent='Adicionar materiais';
+      input.value='';input.disabled=false;button.disabled=false;button.textContent='Adicionar arquivos';
     }
   });
   if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
@@ -911,67 +1085,205 @@ function mediaReferences(contents){
 }
 function renderMediaFiles(){
   const grid=$('#media-grid');if(!grid)return;
-  if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
-  if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
-  const term=String($('#media-search')?.value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  state.mediaSelection=state.mediaSelection||new Set();
+  state.mediaFolder=state.mediaFolder||'img';
+  const allFolders=mediaFolderPaths();
+  if(state.mediaFolder!==MEDIA_ALL_FOLDERS&&!allFolders.includes(state.mediaFolder))state.mediaFolder='img';
+  if(!allFolders.includes(state.mediaUploadFolder))state.mediaUploadFolder=MEDIA_DEFAULT_FOLDER;
+
+  const folderNav=$('#media-folder-nav');
+  if(folderNav){
+    folderNav.innerHTML=[
+      '<button type="button" class="media-folder-nav-item'+(state.mediaFolder===MEDIA_ALL_FOLDERS?' is-active':'')+'" data-media-folder="'+MEDIA_ALL_FOLDERS+'" aria-current="'+(state.mediaFolder===MEDIA_ALL_FOLDERS?'page':'false')+'"><span class="media-folder-nav-glyph">▦</span><span>Todos os arquivos</span><small>'+state.mediaFiles.length+'</small></button>',
+      '<button type="button" class="media-folder-nav-item'+(state.mediaFolder==='img'?' is-active':'')+'" data-media-folder="img" aria-current="'+(state.mediaFolder==='img'?'page':'false')+'"><span class="media-folder-nav-glyph">'+mediaFolderIcon()+'</span><span>Explorar pastas</span><small>'+state.mediaFiles.length+'</small></button>',
+      allFolders.filter(path=>path!=='img').map(path=>{
+        const depth=path.split('/').length-2;
+        return '<button type="button" class="media-folder-nav-item media-folder-nav-child'+(state.mediaFolder===path?' is-active':'')+'" style="--media-depth:'+depth+'" data-media-folder="'+esc(path)+'" aria-current="'+(state.mediaFolder===path?'page':'false')+'" title="'+esc(path)+'"><span class="media-folder-nav-glyph">'+mediaFolderIcon()+'</span><span>'+esc(mediaFolderLabel(path))+'</span><small>'+mediaFolderCount(path)+'</small></button>';
+      }).join('')
+    ].join('');
+    folderNav.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const uploadSelect=$('#media-upload-folder');
+  if(uploadSelect){
+    uploadSelect.innerHTML=allFolders.filter(p=>p!=='img').map(path=>
+      '<option value="'+esc(path)+'">'+esc(mediaFolderLabel(path))+' · '+esc(path)+'</option>'
+    ).join('');
+    uploadSelect.value=state.mediaUploadFolder;
+  }
+  const breadcrumb=$('#media-breadcrumb');
+  if(breadcrumb){
+    const parts=state.mediaFolder===MEDIA_ALL_FOLDERS?[]:state.mediaFolder.split('/');
+    const steps=state.mediaFolder===MEDIA_ALL_FOLDERS?'<span aria-current="page">Todos os arquivos</span>':parts.map((_,i)=>{
+      const value=parts.slice(0,i+1).join('/');
+      return i===parts.length-1?'<span aria-current="page">'+esc(mediaFolderLabel(value))+'</span>':'<button type="button" data-media-folder="'+esc(value)+'">'+esc(mediaFolderLabel(value))+'</button><span class="media-crumb-separator" aria-hidden="true">/</span>';
+    }).join('');
+    breadcrumb.innerHTML='<button type="button" data-media-folder="img">Pastas</button><span class="media-crumb-separator" aria-hidden="true">/</span>'+steps;
+    breadcrumb.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const title=$('#media-folder-title');
+  const currentPath=$('#media-current-path');
+  if(title)title.textContent=state.mediaFolder===MEDIA_ALL_FOLDERS?'Todos os materiais':mediaFolderLabel(state.mediaFolder);
+  if(currentPath)currentPath.textContent=state.mediaFolder===MEDIA_ALL_FOLDERS?'Biblioteca completa':state.mediaFolder+'/';
+  const viewSwitch=$('.media-view-switch');
+  if(viewSwitch){
+    viewSwitch.querySelectorAll('[data-media-view]').forEach(button=>{
+      const selected=button.dataset.mediaView===(state.mediaView||'grid');
+      button.classList.toggle('is-active',selected);
+      button.setAttribute('aria-pressed',String(selected));
+      button.onclick=()=>{state.mediaView=button.dataset.mediaView;renderMediaFiles()};
+    });
+  }
+
+  const foldersEl=$('#media-subfolders');
+  const rawSearch=String($('#media-search')?.value||'').trim();
+  const term=rawSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const type=$('#media-type')?.value||'all';
-  if(!state.mediaSelection)state.mediaSelection=new Set();
-  const pendingAssets=batch.assets();
-  const bulkButton=$('#media-delete-selected');
-  if(bulkButton){bulkButton.disabled=state.mediaSelection.size===0;bulkButton.textContent='Remover selecionados ('+state.mediaSelection.size+')'}
-  const selectionText=$('#media-select-status');
-  if(selectionText)selectionText.textContent=state.mediaSelection.size?state.mediaSelection.size+' material(is) selecionado(s) para revisão.':'Selecione materiais para remover da biblioteca.';
   const usage=$('#media-usage')?.value||'all';
+  const sort=$('#media-sort')?.value||state.mediaSort||'name';
+  const pendingAssets=batch.assets();
   const linked=mediaReferences(state.remoteContents||state.contents);
   const drafts=mediaReferences(state.contents);
   const fileUsage=path=>linked.has(path)?'linked':drafts.has(path)?'draft':'unlinked';
   const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo detectado'};
-  const files=state.mediaFiles.filter(file=>{
-    const matchesName=file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);
-    return matchesName&&(type==='all'||file.category===type)&&(usage==='all'||fileUsage(file.path)===usage);
+  if(foldersEl){
+    const subfolders=(term||state.mediaFolder===MEDIA_ALL_FOLDERS)?[]:allFolders.filter(path=>
+      path!=='img'&&mediaParentFolder(path)===state.mediaFolder
+    );
+    foldersEl.innerHTML=subfolders.map(path=>
+      '<button type="button" class="media-folder-tile" data-media-folder="'+esc(path)+'"><span class="media-folder-tile-icon">'+mediaFolderIcon()+'</span><span class="media-folder-tile-text"><strong>'+esc(mediaFolderLabel(path))+'</strong><small>'+mediaFolderCount(path)+' arquivo(s)</small></span><span class="media-folder-tile-arrow" aria-hidden="true">›</span></button>'
+    ).join('');
+    foldersEl.hidden=!subfolders.length;
+    foldersEl.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const matchesFilter=file=>{
+    if(!term&&state.mediaFolder!==MEDIA_ALL_FOLDERS&&mediaParentFolder(file.path)!==state.mediaFolder)return false;
+    if(term&&!file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term))return false;
+    if(type!=='all'&&file.category!==type)return false;
+    if(usage!=='all'&&fileUsage(file.path)!==usage)return false;
+    return true;
+  };
+  const files=state.mediaFiles.filter(matchesFilter);
+  const byName=(a,b)=>a.path.split('/').pop().localeCompare(b.path.split('/').pop(),'pt-BR',{sensitivity:'base',numeric:true})||a.path.localeCompare(b.path,'pt-BR');
+  files.sort((a,b)=>{
+    if(sort==='name-desc')return byName(b,a);
+    if(sort==='size')return b.size-a.size||byName(a,b);
+    if(sort==='size-asc')return a.size-b.size||byName(a,b);
+    if(sort==='type')return mediaExtension(a.path).localeCompare(mediaExtension(b.path),'pt-BR')||byName(a,b);
+    if(sort==='folder')return mediaParentFolder(a.path).localeCompare(mediaParentFolder(b.path),'pt-BR')||byName(a,b);
+    if(sort==='folder-desc')return mediaParentFolder(b.path).localeCompare(mediaParentFolder(a.path),'pt-BR')||byName(a,b);
+    if(sort==='usage')return ({linked:0,draft:1,unlinked:2}[fileUsage(a.path)]-({linked:0,draft:1,unlinked:2}[fileUsage(b.path)]))||byName(a,b);
+    return byName(a,b);
   });
-  if(!files.length){grid.innerHTML='<div class="panel-card empty-state">Nenhum material encontrado com esses filtros.</div>';return}
-  grid.innerHTML=files.map(file=>{
-    const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
-    const preview=kind==='image'?'<img src="'+esc(mediaFileUrl(file.path))+'" alt="'+esc(name)+'" loading="lazy">':'<div class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Arquivo para consulta')+'</small></div>';
-    const accept='.'+mediaExtension(name);
-    const removing=pendingAssets[file.path]?.action==='remover';
-    const status=fileUsage(file.path);
-    const references=linked.get(file.path)||drafts.get(file.path);
-    const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
-    const details=references?'<small class="media-usage-sections">'+esc([...references].join(' · '))+'</small>':'';
-    const canRemove=!/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(file.path);
-    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small>'+badge+details+'<div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
-  }).join('');
-  grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
-    if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
-    else state.mediaSelection.delete(check.dataset.mediaSelect);
-    const selected=state.mediaSelection.size;
-    const button=$('#media-delete-selected');
-    if(button){button.disabled=!selected;button.textContent='Remover selecionados ('+selected+')'}
-    const text=$('#media-select-status');
-    if(text)text.textContent=selected?selected+' material(is) selecionado(s) para revisão.':'Selecione materiais para remover da biblioteca.';
-  }));
-  grid.querySelectorAll('[data-media-delete]').forEach(btn=>btn.onclick=()=>queueMaterialsRemoval([btn.dataset.mediaDelete]));
-  grid.querySelectorAll('[data-media-undo-delete]').forEach(btn=>btn.onclick=async()=>{
-    if(await batch.deleteAsset(btn.dataset.mediaUndoDelete)){
-      state.mediaSelection.delete(btn.dataset.mediaUndoDelete);
-      renderMediaFiles();toast('Exclusão retirada da fila.');
+  const totalPages=Math.max(1,Math.ceil(files.length/MEDIA_PAGE_SIZE));
+  state.mediaPage=Math.min(Math.max(1,state.mediaPage||1),totalPages);
+  const firstIndex=(state.mediaPage-1)*MEDIA_PAGE_SIZE;
+  const pageFiles=files.slice(firstIndex,firstIndex+MEDIA_PAGE_SIZE);
+  state.mediaCurrentPageFiles=pageFiles;
+  const status=$('#media-status');
+  if(status)status.textContent=state.mediaLoading?'Atualizando…':state.mediaError?state.mediaError:files.length?('Exibindo '+(firstIndex+1)+'–'+(firstIndex+pageFiles.length)+' de '+files.length+' arquivos'+(term?' encontrados em todas as pastas':'')):('Nenhum arquivo'+(term?' encontrado na busca':' nesta pasta com os filtros atuais'));
+  if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
+  if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
+
+  function updateSelectionBar(){
+    const size=state.mediaSelection.size;
+    const bulk=$('#media-delete-selected');
+    if(bulk){bulk.disabled=!size;bulk.textContent=size?'Preparar exclusão ('+size+')':'Remover selecionados'}
+    const clear=$('#media-clear-selection');
+    if(clear)clear.disabled=!size;
+    const selectionText=$('#media-select-status');
+    if(selectionText)selectionText.textContent=size?size+' arquivo(s) selecionado(s) · alterações só após revisar e publicar':'Nenhum arquivo selecionado';
+    const allCheckbox=$('#media-select-page');
+    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path)&&pendingAssets[file.path]?.action!=='remover');
+    const selected=eligible.filter(file=>state.mediaSelection.has(file.path)).length;
+    if(allCheckbox){
+      allCheckbox.disabled=!eligible.length;
+      allCheckbox.checked=eligible.length>0&&selected===eligible.length;
+      allCheckbox.indeterminate=selected>0&&selected<eligible.length;
     }
-  });
-  grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
-    try{await navigator.clipboard.writeText(button.dataset.mediaCopy);toast('Caminho copiado.')}catch(error){toast('Não foi possível copiar o caminho neste navegador.',true)}
-  }));
-  grid.querySelectorAll('[data-media-crop]').forEach(button=>button.onclick=async()=>{
-    try{
-      const result=await window.GPENSCPhotoCrop.edit(mediaFileUrl(button.dataset.mediaCrop),'wide');
-      if(result&&button.isConnected)await saveMediaFile(result,null,button);
-    }catch(error){toast(error.message,true)}
-  });
-  grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
-    const file=event.target.files?.[0];if(!file)return;
-    await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
-  }));
+  }
+  updateSelectionBar();
+  if(!files.length){
+    grid.innerHTML='<div class="media-empty-state"><strong>Nenhum arquivo encontrado</strong><p>Escolha outra pasta ou ajuste a busca e os filtros.</p></div>';
+  }else{
+    grid.className='media-grid'+(state.mediaView==='list'?' is-list':'');
+    grid.innerHTML=pageFiles.map(file=>{
+      const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
+      const removing=pendingAssets[file.path]?.action==='remover';
+      const canRemove=mediaCanRemove(file.path);
+      const selected=state.mediaSelection.has(file.path);
+      const status=fileUsage(file.path);
+      const references=linked.get(file.path)||drafts.get(file.path);
+      const destination=esc(mediaFileUrl(file.path));
+      const preview=kind==='image'
+        ?'<img src="'+destination+'" alt="'+esc(name)+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">'
+        :'<span class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Documento')+'</small></span>';
+      const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
+      const details=references?'<small class="media-usage-sections" title="Seções relacionadas">'+esc([...references].join(' · '))+'</small>':'';
+      const chooser=canRemove&&!removing
+        ?'<label class="media-card-select" title="Selecionar '+esc(name)+'"><input type="checkbox" data-media-select="'+esc(file.path)+'" aria-label="Selecionar '+esc(name)+'"'+(selected?' checked':'')+'><span aria-hidden="true">✓</span></label>'
+        :'<span class="media-card-protected">'+(removing?'Exclusão na fila':'Protegido')+'</span>';
+      return '<article class="media-card'+(selected?' is-selected':'')+(removing?' media-card-removing':'')+'" data-media-path="'+esc(file.path)+'">'+
+        '<div class="media-card-preview"><a class="media-card-thumb" href="'+destination+'" target="_blank" rel="noopener noreferrer" aria-label="Visualizar '+esc(name)+'">'+preview+'</a>'+chooser+'</div>'+
+        '<div class="media-card-body"><div class="media-card-meta"><span class="media-extension">'+esc(ext)+'</span><span class="media-size">'+mediaSize(file.size)+'</span></div>'+
+        '<strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(mediaParentFolder(file.path))+'/</small>'+badge+details+
+        '<div class="media-card-actions"><a href="'+destination+'" target="_blank" rel="noopener noreferrer">Abrir</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar link</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div>'+
+        '<div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-replace">Substituir<input type="file" accept=".'+mediaExtension(name)+'" data-media-replace="'+esc(file.path)+'"></label><button type="button" class="media-remove-single" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+
+        '</div></article>';
+    }).join('');
+    grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
+      if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
+      else state.mediaSelection.delete(check.dataset.mediaSelect);
+      check.closest('.media-card')?.classList.toggle('is-selected',check.checked);
+      updateSelectionBar();
+    }));
+    grid.querySelectorAll('[data-media-delete]').forEach(btn=>btn.onclick=()=>queueMaterialsRemoval([btn.dataset.mediaDelete]));
+    grid.querySelectorAll('[data-media-undo-delete]').forEach(btn=>btn.onclick=async()=>{
+      if(await batch.deleteAsset(btn.dataset.mediaUndoDelete)){
+        state.mediaSelection.delete(btn.dataset.mediaUndoDelete);
+        renderMediaFiles();toast('Exclusão retirada da fila.');
+      }
+    });
+    grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
+      try{
+        await navigator.clipboard.writeText(mediaFileUrl(button.dataset.mediaCopy));
+        toast('Link público copiado.');
+      }catch(error){toast('Não foi possível copiar o link neste navegador.',true)}
+    }));
+    grid.querySelectorAll('[data-media-crop]').forEach(button=>button.onclick=async()=>{
+      try{
+        const result=await window.GPENSCPhotoCrop.edit(mediaFileUrl(button.dataset.mediaCrop),'wide');
+        if(result&&button.isConnected)await saveMediaFile(result,null,button);
+      }catch(error){toast(error.message,true)}
+    });
+    grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
+      const file=event.target.files?.[0];if(!file)return;
+      await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
+    }));
+  }
+  const pager=$('#media-pagination');
+  if(pager){
+    if(totalPages<2){pager.innerHTML='';pager.hidden=true;}
+    else{
+      pager.hidden=false;
+      const current=state.mediaPage;
+      const numbers=new Set([1,totalPages,current-1,current,current+1]);
+      if(current<=3)[2,3,4].forEach(n=>numbers.add(n));
+      if(current>=totalPages-2)[totalPages-3,totalPages-2,totalPages-1].forEach(n=>numbers.add(n));
+      const pages=[...numbers].filter(n=>n>=1&&n<=totalPages).sort((a,b)=>a-b);
+      let last=0;
+      const buttons=pages.map(n=>{
+        const gap=n-last>1?'<span class="media-page-ellipsis" aria-hidden="true">…</span>':'';
+        last=n;
+        return gap+'<button type="button" data-media-page="'+n+'" class="'+(n===current?'is-current':'')+'"'+(n===current?' aria-current="page"':'')+' aria-label="Página '+n+'">'+n+'</button>';
+      }).join('');
+      pager.innerHTML='<button type="button" data-media-page="'+(current-1)+'"'+(current===1?' disabled':'')+'>Anterior</button>'+buttons+'<button type="button" data-media-page="'+(current+1)+'"'+(current===totalPages?' disabled':'')+'>Próxima</button><span class="media-page-status">Página '+current+' de '+totalPages+'</span>';
+      pager.querySelectorAll('[data-media-page]').forEach(button=>button.onclick=()=>{
+        state.mediaPage=Number(button.dataset.mediaPage);
+        renderMediaFiles();
+        $('#media-grid')?.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+  }
 }
 async function queueMaterialsRemoval(paths){
   if(!Array.isArray(paths)||!paths.length)return;
@@ -1001,10 +1313,11 @@ function validateMaterial(file){
   if(!file.size)throw new Error('O arquivo está vazio.');
   if(file.size>20*1024*1024)throw new Error('O arquivo deve ter até 20 MB.');
 }
-async function stageNewMaterial(file){
+async function stageNewMaterial(file, folder=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER){
   validateMaterial(file);
   const safe=file.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9._-]/g,'-');
-  return batch.stageMedia(file,'img/materiais/'+crypto.randomUUID()+'-'+safe);
+  const path=mediaFolderPaths().includes(folder)&&folder!=='img'&&/^img\/[A-Za-z0-9_/-]+$/.test(folder)?folder:MEDIA_DEFAULT_FOLDER;
+  return batch.stageMedia(file,path+'/'+crypto.randomUUID()+'-'+safe);
 }
 async function saveMediaFile(file,replacePath,sourceElement){
   const extension=mediaExtension(file.name);
