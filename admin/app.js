@@ -128,7 +128,24 @@ async function initialize(){
   }
 }
 async function loadConfig(){const r=await api('/repos/'+REPO+'/contents/admin/config.yml?ref='+BRANCH);state.sha['admin/config.yml']=r.sha;const raw=decodeURIComponent(escape(atob(r.content.replace(/\n/g,''))));state.config=jsyaml.load(raw);state.collections=(state.config.collections||[]).flatMap(group=>(group.files||[]).map(file=>({...file,groupName:group.label,group:group.name})))}
-async function readFile(path){const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);state.sha[path]=r.sha;return jsyaml.load(decodeURIComponent(escape(atob(r.content.replace(/\n/g,'')))))||{itens:[]}}
+async function readFile(path){
+  const r=await api('/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH);
+  let encoded=r.content;
+  if(r.encoding==='none'){
+    const blobPath='/repos/'+REPO+'/git/blobs/'+r.sha;
+    if(state.authMode==='access-code'){
+      const response=await fetch(API+blobPath,{headers:{Accept:'application/vnd.github+json'}});
+      if(!response.ok)throw new Error('Falha ao abrir o arquivo público '+path);
+      encoded=(await response.json()).content;
+    }else{
+      encoded=(await api(blobPath)).content;
+    }
+  }
+  if(typeof encoded!=='string')throw new Error('Conteúdo indisponível: '+path);
+  const data=jsyaml.load(decodeURIComponent(escape(atob(encoded.replace(/\n/g,'')))))||{itens:[]};
+  state.sha[path]=r.sha;
+  return data;
+}
 async function loadAll(){
   // Carrega até quatro arquivos simultâneos para reduzir falhas de API.
   const list=state.collections;

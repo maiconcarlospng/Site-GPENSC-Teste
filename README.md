@@ -458,6 +458,25 @@ Revise cuidadosamente `git status`. Não inclua tokens, chaves, segredos, arquiv
 
 **A migração ainda não foi feita.** O repositório, os URLs e o Worker OAuth ainda usam a infraestrutura de desenvolvimento vinculada à conta pessoal. A portabilidade deve ser planejada com a coordenação do GPENSC e executada somente quando houver uma conta/organização institucional, responsáveis e permissões definidos.
 
+### Roteiro de entrega ao e-mail e às contas do GPENSC
+
+1. **Identidade e recuperação.** Definam o e-mail institucional que receberá convites, avisos de cobrança e recuperação. Criem a organização GitHub do grupo, convidem os responsáveis com contas individuais e confirmem o acesso de dois proprietários. Guardem os códigos de recuperação e as credenciais de serviço no cofre institucional.
+2. **Repositório e acervo.** No repositório atual, abram **Settings → General → Danger Zone → Transfer ownership**, informem a organização e aceitem a transferência no destino quando solicitado. Confiram `main`, `render-published`, `inventario-instagram-2026-11`, tags e histórico. A branch de publicação contém capas históricas reaproveitadas pelo build. Se optarem por uma cópia, usem o procedimento alternativo abaixo.
+3. **Endereço e publicação.** Ativem Actions e escolham **GitHub Actions** como origem em **Settings → Pages**. Confiram o ambiente `github-pages`, as permissões dos workflows e, se houver domínio próprio, DNS e HTTPS. Atualizem as referências da tabela abaixo. Executem **Publicar site Quarto → Run workflow** e abram home, agenda, notícias, arquivos de mídia e painel no novo endereço.
+4. **Painel institucional.** Implantem os Workers na conta Cloudflare do grupo. No Worker de acesso por código, alterem também a constante `REPO` em `admin-access-worker/worker.js`, configurem a origem HTTPS e gerem os três segredos indicados abaixo. O token de serviço deve ter acesso ao repositório institucional e permissão de leitura e escrita de conteúdo. Atualizem `REPO`, `WORKER` e `ACCESS_WORKER` em `admin/app.js` e as URLs em `admin/config.yml`. Validem o login GitHub e o acesso por código, o envio de uma imagem e a publicação de um rascunho.
+5. **Estatísticas e mídia.** Transfiram a administração da propriedade Umami ou cadastrem o novo domínio e configurem o Worker conforme as etapas abaixo. Verifiquem o player público do GPENSC no Ar, a lista curada do UFOPCast e os vídeos. A reprodução usa endereços públicos. A gestão editorial do podcast na plataforma exige acesso próprio ao programa; a transferência do site não concede esse acesso.
+6. **Instagram.** Criem a conta Apify da equipe com o e-mail institucional, definam o responsável pelos créditos e adicionem um token dessa conta como `APIFY_TOKEN` no **repositório novo**. Sigam o teste manual da próxima seção. Se o histórico do scraper for necessário, exportem o dataset da conta anterior e arquivem a cópia com o grupo. Os registros e capas já incorporados ao site também estão no Git.
+7. **Entrega.** Abram o painel com uma conta da equipe, publiquem uma alteração identificável e confiram o resultado no novo Pages. Registrem os responsáveis, endereços finais e onde renovar cada segredo. Depois da validação, revoguem os tokens pessoais substituídos e desativem agendamentos duplicados no repositório antigo, se existir.
+
+### Novos posts do Instagram
+
+O workflow **Sincronizar Instagram** consulta diariamente às **07h23 de Brasília** (10h23 UTC) as 50 publicações recentes de `@gpenscufop` via Apify. O horário de execução pode variar. Para cada código inédito, salva a capa original em WebP, acrescenta a notícia à coleção editável, classifica por assunto e solicita uma publicação do Quarto. O título e o resumo automáticos podem ser refinados em **Painel → Notícias**. O link da fonte conduz ao carrossel ou vídeo completo. A sincronização acrescenta posts novos e preserva as revisões do painel.
+
+- Em **Settings → Secrets and variables → Actions → New repository secret**, criem `APIFY_TOKEN` com o token Apify do grupo. A integração do chat não fornece esse segredo ao GitHub.
+- Em **Actions → Sincronizar Instagram → Run workflow**, executem o primeiro teste na `main`. O log informa quantos registros entraram. Zero é esperado quando a janela consultada já estiver no acervo. Com novidades, confirmem o commit e a execução de **Publicar site Quarto**. O consumo do scraper segue o plano Apify da equipe.
+- Em caso de falha, consultem o log, o saldo Apify, a visibilidade do perfil e as regras de escrita da `main`. Corrijam a causa e repitam a execução. Após uma interrupção longa com mais de 50 posts, aumentem temporariamente `POST_LIMIT` no ambiente do passo de coleta para alcançar os posts do período.
+- Para pausar a coleta, abram o workflow em Actions e escolham **Disable workflow**. As notícias já publicadas continuam disponíveis.
+
 ### Objetivo da portabilidade
 
 Levar o código, o conteúdo, o histórico, a publicação, o painel e os serviços externos para contas sob controle institucional, reduzindo a dependência da conta pessoal de desenvolvimento.
@@ -483,8 +502,8 @@ Se a transferência de propriedade não for apropriada:
 Exemplo (substitua o destino pelo nome real definido pelo grupo):
 
 ```bash
-git clone https://github.com/maiconcarlospng/Site-GPENSC-Teste.git
-cd Site-GPENSC-Teste
+git clone --bare https://github.com/maiconcarlospng/Site-GPENSC-Teste.git
+cd Site-GPENSC-Teste.git
 git remote rename origin prototipo
 git remote add origin https://github.com/GPENSC/REPOSITORIO-DEFINITIVO.git
 git push -u origin main

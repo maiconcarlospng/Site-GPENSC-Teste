@@ -1,0 +1,49 @@
+name: Sincronizar Instagram
+on:
+  schedule:
+    - cron: '23 10 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: sincronizar-instagram
+  cancel-in-progress: false
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyYAML Pillow
+      - name: Coletar publicações e capas
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: |
+          if [ -z "$APIFY_TOKEN" ]; then
+            echo "::error::Cadastre APIFY_TOKEN nos secrets do repositório. Consulte o README."
+            exit 1
+          fi
+          python scripts/importar-instagram.py
+      - name: Salvar e publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add data/noticias.yml img/instagram-acervo
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Integra novas publicações do GPENSC'
+            git push origin HEAD:main
+          fi
+          # Retoma também uma publicação interrompida depois de um push anterior.
+          if [ "$(git log -1 --format=%s)" = 'Integra novas publicações do GPENSC' ]; then
+            sha=$(git rev-parse HEAD)
+            runs=$(gh run list --workflow publish.yml --commit "$sha" --json status,conclusion --jq '[.[] | select(.status != "completed" or .conclusion == "success")] | length')
+            if [ "$runs" = 0 ]; then gh workflow run publish.yml --ref main; fi
+          fi
