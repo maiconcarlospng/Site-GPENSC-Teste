@@ -21004,3 +21004,53 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto,
 html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
   pointer-events: none !important;
 }
+
+
+/* Desktop: um controle em cada canto INFERIOR da galeria.
+   O contêiner ocupa a largura da faixa sem criar uma barra visível. */
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
+    position: absolute !important;
+    z-index: 10 !important;
+    top: auto !important;
+    bottom: 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 clamp(12px,2vw,28px) !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: none !important;
+    pointer-events: none !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle {
+    pointer-events: auto !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.94) !important;
+    color: #1f4d2b !important;
+    border: 1px solid rgba(31,77,43,.22) !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15) !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle:hover {
+    background: #1f4d2b !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+  }
+}
