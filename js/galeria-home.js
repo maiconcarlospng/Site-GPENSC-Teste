@@ -53,6 +53,13 @@
       };
       const anterior = criarControle("galeria-controle--anterior", "‹", "Fotografia anterior");
       const proximo = criarControle("galeria-controle--proximo", "›", "Próxima fotografia");
+      // Barra de navegação separada da área das fotografias.
+      const navegacao = document.createElement("div");
+      navegacao.className = "gp-galeria-navegacao";
+      navegacao.setAttribute("role", "group");
+      navegacao.setAttribute("aria-label", "Navegação da galeria");
+      navegacao.append(anterior, proximo);
+      galeria.appendChild(navegacao);
       const reduzir = matchMedia("(prefers-reduced-motion: reduce)");
       const emCelular = () => matchMedia("(max-width:767.98px)").matches;
 
