@@ -20925,3 +20925,58 @@ html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"
     flex:0 0 120px !important;
   }
 }
+
+
+/* GPENSC — acabamento unico dos idiomas, sem listras artificiais */
+html body #quarto-header .bandeiras-container {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:3px!important;width:max-content!important;min-width:max-content!important;
+  padding:3px!important;background:#f3f6f1!important;border:1px solid #d8e2d5!important;
+  border-radius:9px!important;overflow:visible!important;box-shadow:none!important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang],
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
+  position:relative!important;isolation:isolate!important;display:inline-flex!important;
+  align-items:center!important;justify-content:center!important;flex:0 0 34px!important;
+  width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;
+  padding:0!important;border:0!important;border-radius:6px!important;
+  background:#fff!important;background-image:none!important;color:#294c35!important;
+  box-shadow:none!important;text-shadow:none!important;font-size:12px!important;
+  font-weight:800!important;overflow:hidden!important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"],
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]:hover {
+  background:#eaf0e7!important;background-image:none!important;
+  color:#173b26!important;border:1px solid #aac4a7!important;
+  box-shadow:0 0 0 1px #ffffff90 inset!important;text-shadow:0 1px 2px white!important;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]::before {
+  position:absolute;z-index:-1;inset:0;display:grid;place-items:center;
+  font-size:28px;line-height:34px;opacity:.38;pointer-events:none;
+}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"]::before {content:"🇧🇷";}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"]::before {content:"🇺🇸";}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"]::before {content:"🇪🇸";}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang] span {position:relative;z-index:1;}
+@media(max-width:767.98px) {
+  html body #quarto-header .navbar .navbar-container > .bandeiras-container {
+    width:max-content!important;min-width:max-content!important;max-width:none!important;
+    flex:0 0 auto!important;justify-self:end!important;
+  }
+}
+/* Faixa tricolor encostada no limite inferior do header, sem segunda linha clara */
+html body #quarto-header {
+  position:relative!important;border:0!important;margin-bottom:0!important;
+  padding-bottom:0!important;background:#fff!important;
+}
+html body #quarto-header .navbar {
+  border:0!important;border-bottom:0!important;margin-bottom:0!important;
+  box-shadow:none!important;
+}
+html body #quarto-header .navbar::after {display:none!important;content:none!important;}
+html body #quarto-header::after {
+  content:""!important;display:block!important;position:absolute!important;
+  left:0!important;right:0!important;bottom:0!important;height:3px!important;
+  z-index:100!important;pointer-events:none!important;
+  background:var(--gp-bar-gradient)!important;
+}
