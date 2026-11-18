@@ -1,66 +1,148 @@
 /* GPENSC · Ajustes institucionais: rodapé, história, contato e cards futuros. */
 
-/* As três marcas do rodapé têm uma área visual uniforme, sem distorção. */
-html body #gp-institutional-footer .gp-footer-logos {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(18px, 4vw, 56px);
-  width: min(100%, 780px);
-  margin: 18px auto 12px;
-  padding: 13px 0;
+/* Rodapé compacto: ENUT, UFOP e PPGSN à esquerda da identificação.
+   A navegação permanece à direita e não há mais uma faixa de logos separada. */
+html body footer.footer #gp-institutional-footer .gp-footer-main {
+  display: grid !important;
+  grid-template-columns: 212px minmax(0,1fr) minmax(210px,270px) !important;
+  column-gap: clamp(18px,2.2vw,38px) !important;
+  row-gap: 12px !important;
+  align-items: center !important;
+  padding-bottom: clamp(17px,2.4vw,28px) !important;
 }
-html body #gp-institutional-footer .gp-footer-logos a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(100px, 15vw, 154px);
-  height: 78px;
-  padding: 3px;
-  border-radius: 8px;
-  background: transparent;
-  text-decoration: none;
+html body footer.footer #gp-institutional-footer .gp-footer-logos {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 7px !important;
+  grid-column: 1;
+  grid-row: 1;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 212px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
 }
-html body #gp-institutional-footer .gp-footer-logos img {
+html body footer.footer #gp-institutional-footer .gp-footer-logos a {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 1 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 94px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 2px !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-logos img {
   display: block !important;
   width: 100% !important;
-  max-width: 145px !important;
-  height: 66px !important;
-  max-height: 66px !important;
+  max-width: 76px !important;
+  height: 86px !important;
+  max-height: 86px !important;
   object-fit: contain !important;
-  object-position: center;
+  object-position: center !important;
   opacity: 1 !important;
+  filter: none !important;
   border: 0 !important;
   box-shadow: none !important;
-  filter: none !important;
 }
-html body #gp-institutional-footer .gp-footer-logos a:hover img {
+html body footer.footer #gp-institutional-footer .gp-footer-logos a:hover img {
   transform: translateY(-2px);
 }
-html body #gp-institutional-footer .gp-footer-logos a:focus-visible {
+html body footer.footer #gp-institutional-footer .gp-footer-logos a:focus-visible {
   outline: 3px solid #d9731f !important;
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
-@media (max-width: 600px) {
-  html body #gp-institutional-footer .gp-footer-logos {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    width: min(100%, 360px);
-    margin: 12px auto 6px;
-    padding: 9px 0;
+html body footer.footer #gp-institutional-footer .gp-footer-identity {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0 !important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-links {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0 !important;
+}
+@media (min-width:761px) and (max-width:1060px) {
+  html body footer.footer #gp-institutional-footer .gp-footer-main {
+    grid-template-columns: 170px minmax(0,1fr) minmax(155px,200px) !important;
+    column-gap: 14px !important;
   }
-  html body #gp-institutional-footer .gp-footer-logos a {
-    width: 100%;
-    min-width: 0;
-    height: 59px;
-    padding: 3px;
+  html body footer.footer #gp-institutional-footer .gp-footer-logos {
+    max-width: 170px !important;
+    gap: 4px !important;
   }
-  html body #gp-institutional-footer .gp-footer-logos img {
-    max-width: 105px !important;
-    height: 54px !important;
-    max-height: 54px !important;
+  html body footer.footer #gp-institutional-footer .gp-footer-logos a {
+    height: 80px !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-logos img {
+    height: 73px !important;
+    max-height: 73px !important;
+  }
+}
+@media (max-width:760px) {
+  html body footer.footer #gp-institutional-footer .gp-footer-main {
+    grid-template-columns: minmax(150px,190px) minmax(0,1fr) !important;
+    column-gap: 15px !important;
+    row-gap: 14px !important;
+    align-items: center !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-logos {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 190px !important;
+    gap: 5px !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-logos a {
+    height: 78px !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-logos img {
+    height: 70px !important;
+    max-height: 70px !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-identity {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+@media (max-width:510px) {
+  html body footer.footer #gp-institutional-footer .gp-footer-main {
+    grid-template-columns: minmax(0,1fr) !important;
+    row-gap: 10px !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-logos {
+    grid-column: 1;
+    grid-row: 1;
+    width: 204px !important;
+    max-width: min(100%,204px) !important;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-identity {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  html body footer.footer #gp-institutional-footer .gp-footer-links {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body footer.footer #gp-institutional-footer .gp-footer-logos img {
+    transition: none !important;
+    transform: none !important;
   }
 }
 
