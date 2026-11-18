@@ -2,7 +2,7 @@
 (() => {
   "use strict";
   const prefix = "data/instagram/carrosseis-";
-  const files = [1, 2, 3, 4].map(n => prefix + String(n).padStart(2, "0") + ".json");
+  const files = [1, 2, 3, 4].map(n => prefix + String(n).padStart(2, "0") + ".json").concat("data/instagram/carrosseis-recentes.json");
   const getCode = (url) => {
     const m = String(url || "").match(/instagram\.com\/(?:p|reel|tv)\/([\w-]+)/i);
     return m ? m[1] : null;
