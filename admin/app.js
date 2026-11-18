@@ -537,11 +537,18 @@ function initializeCollectionSorting(collection,items,fields){
   const selector=$('#record-sort');
   if(!selector)return;
   const dateFields=(fields||[]).filter(f=>/^(data|date|ano|revisado_em|publicado_em|inicio|fim|data_.*|.*_data)$/i.test(f.name));
-  const keys=(fields||[]).filter(f=>!['object','list','image','file','boolean'].includes(f.widget));
+  const keys=(fields||[]).filter(f=>!['object','list','image','file','boolean','markdown'].includes(f.widget));
+  const categoryField=keys.find(f=>['categoria','tipo','status','situacao','área','area'].includes(f.name.toLowerCase()))?.name;
   const options=[
-    ['original','Ordem cadastrada'],['title-asc','Título ou nome (A–Z)'],['title-desc','Título ou nome (Z–A)'],
+    ['original','Ordem cadastrada'],
+    ['title-asc','Título ou nome (A–Z)'],
+    ['title-desc','Título ou nome (Z–A)'],
     ...(dateFields.length?[['date-desc','Data (mais recentes)'],['date-asc','Data (mais antigos)']]:[]),
-    ...keys.map(f=>['field:'+f.name,'Por '+(f.label||f.name)+' (A–Z)'])
+    ...(categoryField?[['category-asc','Categoria / tipo (A–Z)'],['category-desc','Categoria / tipo (Z–A)']]:[]),
+    ...keys.filter(f=>f.name!==categoryField&&!dateFields.some(d=>d.name===f.name)&&!['titulo','nome'].includes(f.name)).flatMap(f=>[
+      ['field:'+f.name,'Por '+(f.label||f.name)+' (A–Z)'],
+      ['field-desc:'+f.name,'Por '+(f.label||f.name)+' (Z–A)']
+    ])
   ];
   selector.innerHTML=options.map(([key,label])=>'<option value="'+esc(key)+'">'+esc(label)+'</option>').join('');
   state.collectionSort=state.collectionSort||{};
@@ -572,11 +579,10 @@ function initializeCollectionSorting(collection,items,fields){
       else if(choice==='title-desc')cmp=textCompare(titleOf(b.item),titleOf(a.item));
       else if(choice==='date-desc')cmp=parsedDate(b.item[defaultDateField])-parsedDate(a.item[defaultDateField]);
       else if(choice==='date-asc')cmp=parsedDate(a.item[defaultDateField])-parsedDate(b.item[defaultDateField]);
-      else if(choice.startsWith('field:')){
-        const key=choice.slice(6);
-        const av=a.item[key],bv=b.item[key];
-        cmp=textCompare(av,bv);
-      }
+      else if(choice==='category-asc')cmp=textCompare(a.item[categoryField],b.item[categoryField]);
+      else if(choice==='category-desc')cmp=textCompare(b.item[categoryField],a.item[categoryField]);
+      else if(choice.startsWith('field:'))cmp=textCompare(a.item[choice.slice(6)],b.item[choice.slice(6)]);
+      else if(choice.startsWith('field-desc:'))cmp=textCompare(b.item[choice.slice(11)],a.item[choice.slice(11)]);
       return (Number.isFinite(cmp)?cmp:0)||a.i-b.i;
     });
     const parentTable=$('#page-content .data-table tbody');
@@ -593,84 +599,8 @@ function initializeCollectionSorting(collection,items,fields){
   apply();
 }
 
-function openCollection(index){if(!canLeaveCurrentEditor())return;state.view='collection';state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p><div class="collection-sort-control"><label for="record-sort">Ordenar registros</label><select id="record-sort" aria-label="Ordenar registros desta seção"></select></div></div>'+table+mobile;initializeCollectionSorting(c,items,fields);$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)));setupCollectionOrdering(c,items)}
+function openCollection(index){if(!canLeaveCurrentEditor())return;state.view='collection';state.active=index;updateMobileTabs();const c=state.collections[index];if(isConfigCollection(c)){openConfigCollection(index);return}if(isGalleryCollection(c)){openGalleryCollection(index);return}renderNav();$('#page-crumb').textContent=c.label;const items=entryList(c);const real=summaryRecords(c).length;const examples=items.length-real;const fields=(c.fields||[]).find(f=>f.widget==='list'&&Array.isArray(f.fields))?.fields||[];const columns=fields.filter(f=>!['object','list'].includes(f.widget)).slice(0,3);const table=items.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+columns.map(f=>'<th>'+esc(f.label||f.name)+'</th>').join('')+'<th></th></tr></thead><tbody>'+items.map((item,i)=>'<tr>'+columns.map(f=>'<td>'+esc(String(item[f.name]??'—').slice(0,120))+'</td>').join('')+'<td><div class="row-actions"><button class="small-button" data-edit="'+i+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'">Excluir</button></div></td></tr>').join('')+'</tbody></table></div>':'<div class="panel-card empty-state">Nenhum registro cadastrado nesta seção. Você pode começar adicionando o primeiro.</div>';const mobile=items.length?'<div class="mobile-record-list">'+items.map((item,i)=>'<article class="record-card"><div class="record-card-heading"><strong>'+esc(titleOf(item))+'</strong><span>'+(isExampleRecord(item)?'Exemplo para revisão':'Registro '+(i+1))+'</span></div><div class="record-card-meta">'+columns.filter(f=>f.name!=='titulo'&&f.name!=='nome').slice(0,2).map(f=>'<div><small>'+esc(f.label||f.name)+'</small><span>'+esc(String(item[f.name]??'—').slice(0,150))+'</span></div>').join('')+'</div><div class="record-card-actions"><button class="small-button" data-edit="'+i+'" aria-label="Editar '+esc(titleOf(item))+'">Editar</button><button class="small-button danger-button" data-delete="'+i+'" aria-label="Excluir '+esc(titleOf(item))+'">Excluir</button></div></article>').join('')+'</div>':'';const canBatch=Array.isArray(fields)&&fields.length>0;$('#page-content').innerHTML='<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+real+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')+'.</p></div><div class="collection-tools">'+(canBatch?'<button class="secondary-button" id="export-xlsx">Exportar Excel</button><button class="secondary-button" id="import-xlsx">Importar planilha</button>':'')+'<a class="secondary-button collection-site-link" href="'+esc(sitePage(c))+'" target="_blank" rel="noopener noreferrer">Ver página no site</a><button class="primary-button" id="new-item">Adicionar registro</button></div></div>'+'<div class="collection-search"><label for="record-search">Buscar nesta seção</label><input id="record-search" type="search" placeholder="Título, nome ou conteúdo…"><p id="search-count" role="status"></p><div class="collection-sort-control"><label for="record-sort">Ordenar registros</label><select id="record-sort" aria-label="Ordenar registros desta seção"></select></div></div>'+table+mobile;initializeCollectionSorting(c,items,fields);$('#record-search').oninput=event=>{const term=event.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();let count=0;items.forEach((item,i)=>{const match=JSON.stringify(item).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);if(match)count++;$('#page-content').querySelectorAll('[data-edit="'+i+'"]').forEach(b=>{b.closest('tr,.record-card').hidden=!match})});$('#search-count').textContent=count+' registros encontrados'};$('#new-item').onclick=()=>editItem(null);if(canBatch){$('#export-xlsx').onclick=()=>exportExcel(c,fields);$('#import-xlsx').onclick=()=>openExcelImport(c,fields)}$('#page-content').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editItem(Number(b.dataset.edit)));$('#page-content').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteItem(Number(b.dataset.delete)))}
 
-
-/* Ordenação visual para todas as listas de conteúdo do painel.
-   Os índices originais são preservados, garantindo edição/exclusão corretas. */
-function setupCollectionOrdering(collection,items){
-  const host=$('#page-content'), search=host?.querySelector('.collection-search');
-  if(!host||!search||!items.length)return;
-  const stored=state.collectionSorts||(state.collectionSorts={});
-  const names=['titulo','nome','episodio','codigo','autor'];
-  const dateFields=['data','data_evento','data_inicio','inicio','ano','date','publicado_em'];
-  const fieldList=(collection.fields||[]).find(f=>f.widget==='list')?.fields||[];
-  const possible=new Set(fieldList.map(f=>f.name));
-  const dateField=dateFields.find(f=>possible.has(f)||items.some(item=>item?.[f]!=null&&item[f]!==''))||'';
-  const categoryField=['categoria','tipo','status','situacao'].find(f=>possible.has(f)||items.some(item=>item?.[f]!=null&&item[f]!==''))||'';
-  const options=[
-    ['original','Ordem cadastrada'],
-    ['name-asc','Nome / título: A–Z'],
-    ['name-desc','Nome / título: Z–A'],
-    ...(dateField?[['date-desc','Mais recentes primeiro'],['date-asc','Mais antigos primeiro']]:[]),
-    ...(categoryField?[['category','Categoria / tipo (A–Z)']]:[])
-  ];
-  const controls=document.createElement('div');
-  controls.className='collection-sort-control';
-  const label=document.createElement('label');
-  label.htmlFor='record-sort';
-  label.textContent='Ordenar registros';
-  const select=document.createElement('select');
-  select.id='record-sort';
-  options.forEach(([value,text])=>{
-    const option=document.createElement('option');
-    option.value=value;
-    option.textContent=text;
-    select.appendChild(option);
-  });
-  select.value=options.some(([value])=>value===stored[collection.name])?stored[collection.name]:'original';
-  controls.append(label,select);
-  search.appendChild(controls);
-  const desktop=host.querySelector('.table-wrap tbody');
-  const mobile=host.querySelector('.mobile-record-list');
-  const domLists=[desktop,mobile].filter(Boolean).map(parent=>({
-    parent, byIndex:new Map([...parent.children].map(el=>[
-      Number(el.querySelector('[data-edit]')?.dataset.edit),el
-    ]))
-  }));
-  const collation=new Intl.Collator('pt-BR',{sensitivity:'base',numeric:true});
-  const name=item=>names.map(key=>item?.[key]).find(value=>value!=null&&String(value).trim())||titleOf(item)||'';
-  const dateKey=item=>{
-    const raw=item?.[dateField];
-    if(raw instanceof Date&&!Number.isNaN(raw.getTime()))return raw.toISOString();
-    const value=String(raw??'').trim();
-    if(!value)return '';
-    if(/^\d{2}\/\d{2}\/\d{4}/.test(value)){
-      const [day,month,year]=value.split('/');return year+'-'+month+'-'+day;
-    }
-    return value;
-  };
-  const sort=()=>{
-    stored[collection.name]=select.value;
-    const ordered=items.map((item,i)=>({item,i}));
-    ordered.sort((a,b)=>{
-      let result=0;
-      if(select.value==='name-asc')result=collation.compare(name(a.item),name(b.item));
-      if(select.value==='name-desc')result=collation.compare(name(b.item),name(a.item));
-      if(select.value==='date-desc')result=collation.compare(dateKey(b.item),dateKey(a.item));
-      if(select.value==='date-asc')result=collation.compare(dateKey(a.item),dateKey(b.item));
-      if(select.value==='category')result=collation.compare(String(a.item?.[categoryField]??''),String(b.item?.[categoryField]??''));
-      return result||a.i-b.i;
-    });
-    for(const {parent,byIndex} of domLists){
-      const frag=document.createDocumentFragment();
-      ordered.forEach(({i})=>{const node=byIndex.get(i);if(node)frag.appendChild(node)});
-      parent.appendChild(frag);
-    }
-  };
-  select.addEventListener('change',sort);
-  sort();
-}
 
 function openSettingsHub(){
   if(!canLeaveCurrentEditor())return;
