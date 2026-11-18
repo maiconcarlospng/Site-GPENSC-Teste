@@ -3,8 +3,9 @@ itens:
     categoria: Docentes e pesquisadores
     papel: Líder do grupo
     formacao: ""
-    foto: ""
-    lattes: ""
+    email: "ariene.carmo@ufop.edu.br"
+    foto: "https://enut.ufop.br/sites/default/files/styles/profile_full/public/enut/files/ariene.jpg?m=1762799994&itok=V_mXXVmX"
+    lattes: "https://lattes.cnpq.br/8634950985711897"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -13,7 +14,8 @@ itens:
     papel: Líder do grupo
     formacao: ""
     foto: ""
-    lattes: ""
+    email: "raquel.mendonca@ufop.edu.br"
+    lattes: "https://lattes.cnpq.br/7479109757532910"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -21,8 +23,9 @@ itens:
     categoria: Docentes e pesquisadores
     papel: Pesquisadora
     formacao: ""
-    foto: ""
-    lattes: ""
+    email: "adriana.meireles@ufop.edu.br"
+    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4235480J3"
+    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4235480J3"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -30,8 +33,9 @@ itens:
     categoria: Docentes e pesquisadores
     papel: Pesquisadora
     formacao: ""
-    foto: ""
-    lattes: ""
+    email: "camilamenezes@ufop.edu.br"
+    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4282696Y3"
+    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4282696Y3"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -48,8 +52,9 @@ itens:
     categoria: Docentes e pesquisadores
     papel: Pesquisadora
     formacao: ""
-    foto: ""
-    lattes: ""
+    email: "julia.carraro@ufop.edu.br"
+    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4297221E1"
+    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4297221E1"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -58,7 +63,8 @@ itens:
     papel: Pesquisador
     formacao: ""
     foto: ""
-    lattes: ""
+    email: "luiz.menezes@ufop.edu.br"
+    lattes: "https://lattes.cnpq.br/3393658844126714"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -67,7 +73,8 @@ itens:
     papel: Pesquisadora
     formacao: ""
     foto: ""
-    lattes: ""
+    email: "samara.moura@ufop.edu.br"
+    lattes: "https://lattes.cnpq.br/1969819711298009"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -75,8 +82,8 @@ itens:
     categoria: Docentes e pesquisadores
     papel: Pesquisadora
     formacao: ""
-    foto: ""
-    lattes: ""
+    foto: "https://somos.ufmg.br/api/foto/4454863839030427?w=328"
+    lattes: "https://lattes.cnpq.br/4454863839030427"
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -300,12 +307,12 @@ itens:
     projetos_ids: []
   - nome: "Anelise Andrade de Souza"
     categoria: Egressos
-    lattes: ""
+    lattes: "https://lattes.cnpq.br/5206304437810421"
     linhas_ids: []
     projetos_ids: []
   - nome: "Ísis Eloah Machado"
     categoria: Egressos
-    lattes: ""
+    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4497051Y5"
     linhas_ids: []
     projetos_ids: []
   - nome: "Mariana Carvalho de Menezes"
