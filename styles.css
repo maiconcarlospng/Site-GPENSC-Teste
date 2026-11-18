@@ -21282,3 +21282,18 @@ html body #quarto-content .cartoes:has(> .nt) > .nt {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+
+/* Paginação das notícias: números independentes por categoria. */
+html body #quarto-content .gp-noticias-paginadas { min-width:0; width:100%; scroll-margin-top:88px; }
+html body #quarto-content .gp-noticias-pagina[hidden] {display:none!important}
+html body #quarto-content .gp-noticias-paginacao {display:flex;flex-direction:column;align-items:center;gap:7px;margin:clamp(18px,2vw,28px) auto clamp(26px,3vw,45px);width:100%}
+html body #quarto-content .gp-noticias-paginacao-botoes {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
+html body #quarto-content .gp-noticias-pagina-btn {display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:40px;padding:7px 11px;border:1px solid #ccd9cc;border-radius:9px;background:#fff;color:#1f4d2b;font:inherit;font-size:.88rem;font-weight:650;line-height:1.15;cursor:pointer}
+html body #quarto-content .gp-noticias-pagina-btn:hover:not(:disabled) {background:#e6f0e2;border-color:#5f9a3e}
+html body #quarto-content .gp-noticias-pagina-btn:focus-visible {outline:3px solid #d9731f;outline-offset:2px}
+html body #quarto-content .gp-noticias-pagina-btn.is-current {border-color:#1f4d2b;background:#1f4d2b;color:#fff}
+html body #quarto-content .gp-noticias-pagina-btn:disabled {opacity:.36;cursor:not-allowed}
+html body #quarto-content .gp-noticias-pagina-reticencias {min-width:16px;color:#56715d;text-align:center}
+html body #quarto-content .gp-noticias-paginacao-status {margin:0;font-size:.82rem;color:#526658}
+@media(max-width:480px) {html body #quarto-content .gp-noticias-pagina-btn {padding:7px 8px;min-width:34px;min-height:38px;font-size:.8rem}}
