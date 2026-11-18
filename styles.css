@@ -21216,7 +21216,7 @@ html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-
 
 /* Desktop: elimina a reserva do Quarto para navbar fixa.
    O cabeçalho foi convertido em relativo; body.nav-fixed continuava reservando
-   aproximadamente 50px vazios acima dele. Não afetar tablet/menu mobile. */
+   aproximadamente 62px vazios acima dele. Não afetar tablet/menu mobile. */
 @media (min-width: 1100px) {
   html body.nav-fixed {
     padding-top: 0 !important;
@@ -21228,26 +21228,26 @@ html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-
     margin: 0 !important;
     padding: 0 !important;
     transform: none !important;
-    height: 54px !important;
-    min-height: 54px !important;
-    max-height: 54px !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
   }
   html body #quarto-header .navbar.navbar-expand-lg {
     display: flex !important;
     align-items: center !important;
     box-sizing: border-box !important;
-    height: 54px !important;
-    min-height: 54px !important;
-    max-height: 54px !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
     padding: 0 16px !important;
     margin: 0 !important;
   }
   html body #quarto-header .navbar.navbar-expand-lg .navbar-container {
     box-sizing: border-box !important;
-    height: 50px !important;
-    min-height: 50px !important;
-    max-height: 50px !important;
-    grid-template-rows: 50px !important;
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    grid-template-rows: 62px !important;
     padding-block: 0 !important;
     margin-block: 0 !important;
     align-items: center !important;
@@ -21256,8 +21256,8 @@ html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-
     box-sizing: border-box !important;
     display: inline-flex !important;
     align-items: center !important;
-    height: 44px !important;
-    min-height: 44px !important;
+    height: 48px !important;
+    min-height: 48px !important;
     padding-block: 0 !important;
     margin-block: 0 !important;
   }
