@@ -21054,3 +21054,67 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
     transform: translateY(-2px) !important;
   }
 }
+
+
+/* Home: cartões editoriais com layout estável em qualquer largura.
+   Sobrescreve regras antigas de .pq que empilhavam ícone e texto. */
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+  position: relative !important;
+  z-index: 3 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: clamp(10px, 1.5vw, 18px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+  position: static !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  align-self: center !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-pesquisa-texto {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-pesquisa-texto > * {
+  text-align: left !important;
+}
+@media (max-width: 850px) {
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+    gap: 11px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+    flex: 0 0 34px !important;
+    width: 34px !important;
+    height: 38px !important;
+  }
+}
