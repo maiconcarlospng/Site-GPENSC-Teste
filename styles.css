@@ -21257,3 +21257,28 @@ html body #quarto-header .navbar::after {
   content: none !important;
   display: none !important;
 }
+
+
+/* Notícias: cartões fluidos que preenchem automaticamente a largura disponível. */
+html body #quarto-content .cartoes:has(> .nt),
+html body #quarto-content details .cartoes:has(> .nt) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)) !important;
+  gap: clamp(12px, 1.5vw, 22px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+html body #quarto-content .cartoes:has(> .nt) > .nt {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 520px) {
+  html body #quarto-content .cartoes:has(> .nt) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
