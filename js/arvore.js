@@ -52,11 +52,14 @@
   [['0%','#dbe9d2'],['55%','#c7ddbc'],['100%','#dce9d4']].forEach(([offset,color])=>
     make('stop',{offset,'stop-color':color},crownBase));
   make('path',{
-    d:'M 700,-88 C 920,-110 1240,-110 1320,-48 C 1420,25 1428,192 1370,318 '+
-      'C 1292,474 1140,572 966,642 C 845,696 785,754 711,783 '+
-      'Q 699,787 684,779 C 612,744 552,694 430,643 '+
-      'C 254,571 105,475 30,318 C -28,186 -17,23 82,-48 '+
-      'C 167,-112 479,-108 700,-88 Z',
+    d:'M 672,-65 C 775,-115 858,-103 918,-72 Q 1015,-111 1100,-72 '+
+      'C 1203,-94 1307,-38 1326,30 Q 1410,54 1390,152 '+
+      'C 1440,231 1394,321 1334,352 Q 1310,445 1192,477 '+
+      'Q 1148,556 1038,574 Q 967,654 867,658 '+
+      'C 798,681 775,750 705,774 C 629,764 605,698 540,677 '+
+      'Q 416,670 355,605 Q 226,589 191,509 Q 85,479 66,401 '+
+      'C -2,366 -34,285 5,215 Q -33,119 52,62 '+
+      'C 62,-7 132,-57 215,-50 Q 309,-111 408,-75 Q 538,-117 672,-65 Z',
     fill:'url(#gp49-crown-base)',opacity:'.85'
   },canopyLayer);
   const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
@@ -73,12 +76,15 @@
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
       fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
-  for(let i=0;i<180;i++){
-    const a=i*2.39996323,r=Math.sqrt((i+.5)/180);
+  // Pequenos ramos de folhas dão textura à copa sem competir com os nós interativos.
+  const sprig=make('path',{id:'gp49-sprig',
+    d:'M0,0 Q-8,-1 -12,-8 Q-3,-9 0,0 Z M1,-1 Q2,-10 10,-13 Q12,-5 1,-1 Z'},defs);
+  for(let i=0;i<120;i++){
+    const a=i*2.39996323,r=Math.sqrt((i+.5)/120);
     const x=700+Math.cos(a)*r*565,y=342+Math.sin(a)*r*345;
-    make('ellipse',{cx:fmt(x),cy:fmt(y),rx:6+i%5*1.8,ry:3+i%3*1.5,
-      transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
-      fill:shades[(i+2)%shades.length],opacity:.17+(i%3)*.05},canopyLayer);
+    make('use',{href:'#'+sprig.id,
+      transform:'translate('+fmt(x)+' '+fmt(y)+') rotate('+((i*47)%150-75)+') scale('+(.6+i%4*.12)+')',
+      fill:shades[(i+2)%shades.length],opacity:.16+(i%3)*.04},canopyLayer);
   }
   const woodLayer = make('g', {class: 'gp49-wood-layer'}, svg);
   const foliageLayer = make('g', {class: 'gp49-foliage-layer', 'pointer-events': 'none'}, svg);
@@ -222,7 +228,10 @@
   function point(start,count,depth) {
     const center=(start+count/2)/total;
     const heights=[725,540,366,205,89,25,15];
-    return {x:100+1200*center, y:heights[Math.min(depth,heights.length-1)]};
+    const level=heights[Math.min(depth,heights.length-1)];
+    // Desníveis suaves entre bifurcações mantêm a ordem e os pontos de foco do mapa.
+    const sway=depth ? Math.sin(center*Math.PI*3+depth*.65) : 0;
+    return {x:100+1200*center+sway*9, y:level+sway*19};
   }
   // A madeira usa tangentes compartilhadas: os filhos nascem na direção do
   // galho anterior, sem quinas ou emendas retas no ponto de bifurcação.
