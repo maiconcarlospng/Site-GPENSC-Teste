@@ -21361,3 +21361,26 @@ html body .nt .nt-img.nt-img--detail .gp-ig-arrow {width:40px;height:46px}
   html body .nt .nt-img .gp-ig-indicators {gap:4px;padding:6px 7px}
   html body .nt .nt-img .gp-ig-dot {width:5px;height:5px;flex-basis:5px}
 }
+
+
+/* Contadores da listagem completa de notícias. */
+html body #quarto-content .gp-noticias-overview {
+  margin: 6px 0 22px;
+  color: #40574a;
+  font-size: clamp(.93rem, 1.2vw, 1.06rem);
+  line-height: 1.55;
+}
+html body #quarto-content .gp-noticias-categoria-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 9px;
+  margin-bottom: 15px;
+}
+html body #quarto-content .gp-noticias-categoria-total {
+  display: inline-block;
+  color: #59705e;
+  font-size: .72em;
+  font-weight: 600;
+  white-space: nowrap;
+}
