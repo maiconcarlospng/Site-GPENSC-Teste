@@ -1135,11 +1135,14 @@ function updateMobileTabs(){
 }
 function closeMobileMenu(){
   const side=$('.sidebar');
+  if(!side.classList.contains('mobile-open'))return;
+  const restoreFocus=side.contains(document.activeElement);
   side.classList.remove('mobile-open');
   document.body.classList.remove('mobile-menu-open');
   $('#mobile-sections').setAttribute('aria-expanded','false');
   const filter=$('#mobile-collection-search');if(filter){filter.value='';filter.dispatchEvent(new Event('input'))}
   updateMobileTabs();
+  if(restoreFocus)$('#mobile-sections').focus();
 }
 $('.brand').addEventListener('click',event=>{event.preventDefault();renderHome();closeMobileMenu()});
 $('#mobile-menu-close').addEventListener('click',closeMobileMenu);
@@ -1163,6 +1166,7 @@ $('#mobile-sections').addEventListener('click',()=>{
   side.classList.toggle('mobile-open',open);
   document.body.classList.toggle('mobile-menu-open',open);
   $('#mobile-sections').setAttribute('aria-expanded',String(open));
+  if(open)$('#mobile-menu-close').focus();
   updateMobileTabs();
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('.photo-crop-dialog[open]'))closeMobileMenu()});
