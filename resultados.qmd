@@ -2,8 +2,6 @@
 title: "Ciência para a sociedade"
 ---
 
-<div class="gp-illustrated-lead"><p>Resultados de pesquisas explicados para a comunidade.</p><img src="img/ilustracoes/pesquisa.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Ciência para a sociedade {#resultados}
+<div id="resultados" class="gp-illustrated-lead"><p>Resultados de pesquisas explicados para a comunidade.</p><img src="img/ilustracoes/pesquisa.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/resultados.qmd >}}
