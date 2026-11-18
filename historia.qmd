@@ -6,8 +6,9 @@ title: "Nossa história"
 
 ## Nossa história {#historia .gp-heading-art .gp-heading-art--historia}
 
+<p class="historia-orientacao">Marcos coletivos da trajetória do GPENSC, organizados em ordem cronológica.</p>
+
 {{< include partials/historia.qmd >}}
 
 {{< include partials/link-acervo-instagram.qmd >}}
 
-<p class="historia-orientacao">Marcos coletivos da trajetória do GPENSC, organizados em ordem cronológica.</p>
