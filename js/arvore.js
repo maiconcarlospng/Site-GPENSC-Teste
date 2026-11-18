@@ -68,16 +68,17 @@ function fruits(index,origin,angle,scale){
  if(!Array.isArray(items)||!items.length)return;
  // Pequenos frutos clicáveis, distribuídos ao redor da extremidade do ramo.
  const unique=[...new Map(items.filter(x=>x&&x.nome).map(x=>[(x.tipo||'')+'|'+x.nome,x])).values()];
- const n=Math.min(unique.length,24),radius=Math.max(4,scale*.27);
+ const n=Math.min(unique.length,48),radius=Math.max(2.5,scale*.22);
  unique.slice(0,n).forEach((item,j)=>{
   const a=angle+(j-(n-1)/2)*Math.min(.48,2.7/Math.max(n,1));
   const d=scale*(1.8+.24*(j%3));
   const p=point(origin,a,d),tone=item.tipo==='pessoa'?'#d9731f':item.tipo==='defesa'?'#d43a2f':'#5f9a3e';
+  branch(point(origin,angle,scale*.25),point(origin,angle,scale*.52),point(origin,a,d*.78),p,Math.max(1,scale*.065));
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   el('title',{},g).textContent=item.nome;
   reveal.push({element:g,size:radius*2,threshold:15});
-  const select=()=>{show(index);focus(p,Math.max(35,scale*3));};
+  const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}focus(p,Math.max(35,scale*3));};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
  });
@@ -91,7 +92,10 @@ function growTree(items,origin,angle,scale){
   fruits(item.index,tip,angle,scale*.6);
   if(item.children.length){
    const base=point(origin,angle,scale*1.45);
-   growTree(item.children,base,angle+.34,scale*.36);
+   const childAngle=angle+.34,childScale=scale*.36;
+   branch(point(origin,angle,scale*.95),point(origin,angle,scale*1.18),
+     point(base,childAngle,childScale*.35),point(base,childAngle,childScale),childScale);
+   growTree(item.children,base,childAngle,childScale);
   }
   return;
  }

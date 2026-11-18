@@ -525,6 +525,18 @@ body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49
  }
 }
 
+/* A árvore ocupa o viewport útil inteiro; nada abaixo reserva altura ou recorta o cartão. */
+html:has(#gp49),body:has(#gp49){margin:0!important;overflow-x:hidden!important}
+body:has(#gp49) #quarto-content{min-height:0!important}
+body:has(#gp49) #quarto-content main,body:has(#gp49) main.content{padding-bottom:0!important;margin-bottom:0!important}
+#gp49{height:calc(100dvh - var(--gp49-header-height,66px))!important;min-height:0!important}
+#gp49 .gp49-landscape{height:100%!important;min-height:0!important}
+#gp49 .gp49-landscape > #gp49-detail{bottom:auto!important;max-height:calc(100% - 94px)!important}
+@media(max-width:767px){
+ #gp49{height:calc(100dvh - var(--gp49-header-height,60px))!important}
+ #gp49 .gp49-landscape > #gp49-detail{top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;max-height:calc(100% - 90px)!important}
+}
+
 </style>
 <script src="js/arvore.js?v=onezoom-spiral-a203495" defer=""></script>
 
