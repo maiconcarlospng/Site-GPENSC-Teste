@@ -88,7 +88,12 @@ jobs:
             echo "Sem publicação anterior; compilação completa."
             exit 0
           fi
-          previous="$(git log -1 --format=%s origin/render-published | sed -n 's/^deploy: sync main @ \\([0-9a-f]\\{40\\}\\)$/\\1/p')"
+          previous="$(git log -1 --format=%s origin/render-published)"
+          previous="${previous#deploy: sync main @ }"
+          if [[ ! "$previous" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Sem identificador de commit válido; compilação completa."
+            exit 0
+          fi
           if [[ -z "$previous" ]] || ! git cat-file -e "$previous^{commit}" 2>/dev/null; then
             echo "Commit de origem desconhecido; compilação completa."
             exit 0
