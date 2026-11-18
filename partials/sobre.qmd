@@ -251,6 +251,7 @@ div(
             )
           )
         ),
+        tags$style(htmltools::HTML(".equipe-diretorio [hidden]{display:none!important}.equipe-diretorio .equipe-mais{margin:.65rem 0 1rem;padding:.55rem .9rem;border:1px solid #537b5c;border-radius:6px;color:#245236;background:#fff;min-height:44px;font:inherit}")),
         lapply(categorias, function(cat) {
           itens_categoria <- integrantes[integrantes$categoria_exibicao == cat, , drop = FALSE] |>
             arrange(nome)
@@ -270,7 +271,8 @@ div(
               lapply(seq_len(nrow(itens_categoria)), function(i) {
                 cartao_integrante(itens_categoria[i, , drop = FALSE])
               })
-            )
+            ),
+            tags$button(type = "button", class = "equipe-mais", hidden = "hidden", "Ver mais")
           )
         }),
         div(
@@ -294,7 +296,10 @@ div(
               .toLocaleLowerCase('pt-BR')
               .trim();
 
+            const celular = window.matchMedia('(max-width: 767px)');
+            const limites = new Map();
             const atualizar = () => {
+              let total = 0;
               const termo = normalizar(busca.value);
               const categoriaSelecionada = normalizar(filtro.value);
               raiz.querySelectorAll('.equipe-categoria-grupo').forEach((grupo) => {
@@ -307,18 +312,31 @@ div(
                   const correspondeCategoria = !categoriaSelecionada ||
                     categoriaGrupo === categoriaSelecionada;
                   const visivel = correspondeTexto && correspondeCategoria;
-                  cartao.hidden = !visivel;
                   if (visivel) visiveisNoGrupo++;
+                  cartao.hidden = !visivel || (celular.matches && visiveisNoGrupo > (limites.get(grupo) || 4));
                 });
 
+                total += visiveisNoGrupo;
                 grupo.hidden = visiveisNoGrupo === 0;
+                const botao = grupo.querySelector('.equipe-mais');
+                const limite = limites.get(grupo) || 4;
+                botao.hidden = !celular.matches || visiveisNoGrupo <= 4;
+                const faltam = visiveisNoGrupo - limite;
+                botao.textContent = faltam > 0 ? 'Ver mais ' + Math.min(8, faltam) + ' de ' + visiveisNoGrupo : 'Mostrar menos';
+                botao.onclick = () => {
+                  limites.set(grupo, faltam > 0 ? limite + 8 : 4);
+                  atualizar();
+                  if (faltam <= 0) grupo.scrollIntoView({block:'start'});
+                };
               });
 
               vazio.style.display = total === 0 ? 'block' : 'none';
             };
 
-            busca.addEventListener('input', atualizar);
-            filtro.addEventListener('change', atualizar);
+            const reiniciar = () => { limites.clear(); atualizar(); };
+            busca.addEventListener('input', reiniciar);
+            filtro.addEventListener('change', reiniciar);
+            celular.addEventListener('change', reiniciar);
             atualizar();
           })();
         "))
