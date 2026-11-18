@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-02823652f7c6196ae3d39b0b6a9de727.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7e31b1f2a09a5de902ceb913150967d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -213,9 +213,8 @@ ul.task-list li input[type="checkbox"] {
 <div class="gp49-landscape">
 <div id="gp49-map" tabindex="0" role="region" aria-label="Árvore interativa do GPENSC: linhas, projetos, integrantes e produções."></div>
 <div class="gp49-tools" role="group">
-<button id="gp49-home" type="button">Árvore completa</button>
-<button id="gp49-out" type="button">Diminuir</button>
-<button id="gp49-in" type="button">Ampliar</button>
+<button id="gp49-in" type="button" aria-label="Ampliar árvore" title="Ampliar">+</button>
+<button id="gp49-out" type="button" aria-label="Diminuir árvore" title="Diminuir">−</button>
 </div>
 <p class="gp49-hint">GPENSC no tronco · 10 linhas e 7 projetos nos galhos · integrantes e produções vinculados aparecem como frutos.</p>
 <p class="gp49-link-note">96 integrantes cadastrados. A árvore só os associa a linhas ou projetos quando o vínculo é informado no painel.</p>
@@ -467,6 +466,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <style>
 /* OneZoom: página imersiva; diretório permanece no DOM como fonte acessível. */
+/* Canvas sem moldura e sem faixa inferior reservada pelo layout Quarto. */
+body:has(#gp49){overflow-x:hidden!important}
+body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .page-layout-full{min-height:0!important;padding-bottom:0!important;margin-bottom:0!important}
+body:has(#gp49) #quarto-content .content-container,body:has(#gp49) #quarto-content .page-columns{padding-bottom:0!important;margin-bottom:0!important}
+#gp49 .gp49-landscape{background:#fbfcf8!important}
+#gp49 #gp49-map svg{background:transparent!important}
+
 body:has(#gp49) #quarto-content{padding:0!important;max-width:none!important}
 body:has(#gp49) #quarto-content .page-columns,body:has(#gp49) #quarto-content main{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
 body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49) .quarto-title-block{display:none!important}
@@ -477,11 +483,11 @@ body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49
 #gp49 .gp49-hint,#gp49 .gp49-link-note{display:none!important}
 #gp49 #gp49-directory{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;padding:0!important;margin:0!important;border:0!important}
 #gp49 .gp49-tools{position:absolute!important;z-index:20!important;right:16px!important;bottom:18px!important;top:auto!important;left:auto!important;transform:none!important;display:flex!important;flex-direction:column!important;gap:6px!important;margin:0!important;padding:8px!important;border-radius:16px!important;background:rgba(255,255,255,.93)!important;box-shadow:0 4px 20px #173b2630!important}
-#gp49 .gp49-tools button{min-width:44px;min-height:40px;font-size:12px!important;line-height:1.15!important;padding:8px!important;white-space:nowrap!important}
+#gp49 .gp49-tools button{width:44px!important;min-width:44px!important;height:44px!important;min-height:44px!important;font-size:25px!important;font-weight:600!important;line-height:1!important;padding:0!important;white-space:nowrap!important;display:grid!important;place-items:center!important}
 #gp49 .gp49-search-float{position:absolute;z-index:21;left:16px;top:16px;width:min(320px,calc(100% - 90px));padding:10px 14px;border:1px solid #cbd9c7;border-radius:999px;background:#ffffffed;box-shadow:0 3px 15px #173b2620;font:inherit}
 #gp49 #gp49-detail{position:absolute!important;z-index:30!important;right:16px!important;top:76px!important;bottom:90px!important;left:auto!important;width:min(410px,calc(100% - 32px))!important;max-height:none!important;overflow:auto!important;background:#fff!important;border-radius:18px!important;box-shadow:0 12px 40px #173b2633!important}
 #gp49 #gp49-detail[hidden]{display:none!important}
-@media(max-width:767px){#gp49 .gp49-tools{right:12px!important;bottom:calc(14px + env(safe-area-inset-bottom))!important;max-width:132px!important;gap:3px!important;padding:5px!important;border-radius:12px!important}#gp49 .gp49-tools button{font-size:11px!important;min-height:36px!important}#gp49 .gp49-search-float{left:12px;top:12px;width:calc(100% - 165px);min-width:155px;font-size:13px;padding:9px 11px}#gp49 .gp49-landscape{height:calc(100dvh - var(--gp49-header-height, 60px))!important;display:block!important}#gp49 .gp49-tools{right:10px!important;bottom:12px!important;flex-direction:column!important;margin:0!important;max-width:none!important}#gp49 #gp49-map{position:absolute!important;inset:0!important}#gp49 #gp49-detail{top:auto!important;bottom:0!important;right:0!important;left:0!important;width:100%!important;max-height:58%!important;border-radius:18px 18px 0 0!important}}
+@media(max-width:767px){#gp49 .gp49-tools{right:12px!important;bottom:calc(14px + env(safe-area-inset-bottom))!important;max-width:132px!important;gap:3px!important;padding:5px!important;border-radius:12px!important}#gp49 .gp49-tools button{font-size:24px!important;min-height:40px!important;height:40px!important;width:40px!important;min-width:40px!important}#gp49 .gp49-search-float{left:12px;top:12px;width:calc(100% - 165px);min-width:155px;font-size:13px;padding:9px 11px}#gp49 .gp49-landscape{height:calc(100dvh - var(--gp49-header-height, 60px))!important;display:block!important}#gp49 .gp49-tools{right:10px!important;bottom:12px!important;flex-direction:column!important;margin:0!important;max-width:none!important}#gp49 #gp49-map{position:absolute!important;inset:0!important}#gp49 #gp49-detail{top:auto!important;bottom:0!important;right:0!important;left:0!important;width:100%!important;max-height:58%!important;border-radius:18px 18px 0 0!important}}
 
 #gp49 .gp49-kind{flex:0 0 auto;padding:.28rem .55rem;border-radius:999px;background:#e7efe3;color:#356241;font-size:.68rem;font-weight:750;letter-spacing:.025em}
 #gp49 .gp49-kind--project{background:#f5eadb;color:#99500f}

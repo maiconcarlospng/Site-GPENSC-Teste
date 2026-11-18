@@ -65,6 +65,9 @@ function grow(index,count,origin,angle,scale){
 const origin={x:0,y:0},heading=-Math.PI*.38,scale=230;
 branch(origin,point(origin,heading,.05*scale),point(origin,heading,.95*scale),point(origin,heading,scale),scale);
 grow(0,rows.length,origin,heading,scale);
+// Identidade do grupo acompanha a orientação natural do tronco.
+const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'none'},nodes);
+trunkLabel.textContent='GPENSC';
 function fit(){
   const boxes=[limbs,nodes].map(layer=>layer.getBBox());
   const x=Math.min(...boxes.map(b=>b.x))-65,y=Math.min(...boxes.map(b=>b.y))-35;
@@ -87,5 +90,5 @@ root.querySelector('#gp49-out')?.addEventListener('click',()=>zoom(1.38));
 const search=root.querySelector('#gp49-search');if(search){const floating=document.createElement('input');floating.type='search';floating.className='gp49-search-float';floating.placeholder='Buscar linha ou projeto…';floating.setAttribute('aria-label','Buscar na árvore');map.parentElement.appendChild(floating);floating.addEventListener('input',()=>{search.value=floating.value;const q=floating.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const i=names.findIndex(n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));if(q&&i>=0&&tips[i])focus(tips[i],270);});}
 rows.forEach((r,i)=>r.querySelector('button')?.addEventListener('click',()=>show(i)));
 map.addEventListener('keydown',e=>{if(e.target!==map)return;if(e.key==='+'||e.key==='=')zoom(.75);else if(e.key==='-')zoom(1.3);else if(e.key==='Home')fit();else return;e.preventDefault();});
-window.addEventListener('resize',fit,{passive:true});requestAnimationFrame(fit);root.classList.add('gp49-ready');
+window.addEventListener('resize',()=>{const center={x:camera.x+camera.w/2,y:camera.y+camera.h/2};const h=camera.w*map.clientHeight/Math.max(1,map.clientWidth);camera.x=center.x-camera.w/2;camera.y=center.y-h/2;camera.h=h;paint();},{passive:true});requestAnimationFrame(()=>{fit();zoom(.68,{x:scale*.35*Math.cos(heading),y:scale*.35*Math.sin(heading)});});root.classList.add('gp49-ready');
 })();
