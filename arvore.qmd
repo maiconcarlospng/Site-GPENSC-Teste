@@ -305,4 +305,4 @@ body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49
 </style>
 ```
 
-<script src="js/arvore.js?v=onezoom-geometry-20261118c" defer></script>
+<script src="js/arvore.js?v=onezoom-spiral-a203495" defer></script>
