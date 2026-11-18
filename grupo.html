@@ -1276,39 +1276,39 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
               const termo = normalizar(busca.value);
               const categoriaSelecionada = normalizar(filtro.value);
               raiz.querySelectorAll('.equipe-categoria-grupo').forEach((grupo) => {
-                let visiveisNoGrupo = 0;
+                let encontrados = 0;
                 const categoriaGrupo = normalizar(grupo.dataset.equipeCategoria);
-
+                const egresso = categoriaGrupo === normalizar('Egressos');
+                const buscando = Boolean(termo || categoriaSelecionada);
+                const limitePadrao = egresso && !buscando ? 0 : (celular.matches ? 4 : 8);
+                const limite = limites.has(grupo) ? limites.get(grupo) : limitePadrao;
                 grupo.querySelectorAll('.membro-card').forEach((cartao) => {
                   const texto = normalizar(cartao.dataset.busca || cartao.textContent);
                   const correspondeTexto = !termo || texto.includes(termo);
                   const correspondeCategoria = !categoriaSelecionada ||
                     categoriaGrupo === categoriaSelecionada;
-                  const visivel = correspondeTexto && correspondeCategoria;
-                  if (visivel) visiveisNoGrupo++;
-                  const limiteGrupo = limites.get(grupo) || (celular.matches ? 4 : (categoriaGrupo === normalizar('Egressos') ? 4 : 8));
-                  cartao.hidden = !visivel || visiveisNoGrupo > limiteGrupo;
+                  const corresponde = correspondeTexto && correspondeCategoria;
+                  if (corresponde) encontrados++;
+                  cartao.hidden = !corresponde || encontrados > limite;
                 });
-
-                total += visiveisNoGrupo;
-                grupo.hidden = visiveisNoGrupo === 0;
+                total += encontrados;
+                grupo.hidden = encontrados === 0;
                 const botao = grupo.querySelector('.equipe-mais');
-                const limitePadrao = celular.matches ? 4 : (categoriaGrupo === normalizar('Egressos') ? 4 : 8);
-                const limite = limites.get(grupo) || limitePadrao;
-                botao.hidden = visiveisNoGrupo <= limitePadrao;
-                const faltam = visiveisNoGrupo - limite;
-                botao.textContent = faltam > 0 ? 'Ver mais ' + Math.min(8, faltam) + ' de ' + visiveisNoGrupo : 'Mostrar menos';
+                botao.hidden = encontrados <= limitePadrao;
+                const faltam = encontrados - limite;
+                botao.textContent = limite === 0
+                  ? 'Ver egressos (' + encontrados + ')'
+                  : (faltam > 0 ? 'Ver mais ' + Math.min(8, faltam) + ' de ' + encontrados : 'Mostrar menos');
+                botao.setAttribute('aria-expanded', String(limite > 0));
                 botao.onclick = () => {
                   limites.set(grupo, faltam > 0 ? limite + 8 : limitePadrao);
                   atualizar();
-                  if (faltam <= 0) grupo.scrollIntoView({block:'start'});
                 };
               });
-
               vazio.style.display = total === 0 ? 'block' : 'none';
             };
 
-            const reiniciar = () => { limites.clear(); atualizar(); };
+                        const reiniciar = () => { limites.clear(); atualizar(); };
             busca.addEventListener('input', reiniciar);
             filtro.addEventListener('change', reiniciar);
             celular.addEventListener('change', reiniciar);
