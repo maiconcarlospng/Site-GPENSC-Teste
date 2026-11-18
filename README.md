@@ -325,14 +325,13 @@ Para alterações de domínio ou portabilidade para o GPENSC, revise também o d
 | `_quarto.yml` | Recursos, navegação, estilos, inclusão do rastreador e rodapé. |
 | `_variables.yml` | Variáveis gerais legadas e compatibilidade. |
 | `styles.css` | Folha principal consolidada do site, carregada diretamente pelo Quarto. |
-| `vi-no-rotulo.css` | Identidade visual específica do minissite Vi no Rótulo, sem afetar as demais páginas. |
 | `custom.scss` | Paleta e tipografia do tema Quarto/Bootstrap. |
 | `topo.html`, `lupa.html` | Elementos auxiliares do site. |
 | `.github/workflows/publish.yml` | Validação, compilação e publicação. |
 | `README.md` | Documentação de arquitetura, operação e migração. |
 | `COMO-EDITAR.md` | Guia complementar de edição. |
 
-A identidade visual do site está consolidada em `styles.css`; o minissite Vi no Rótulo utiliza `vi-no-rotulo.css`. Não crie novos arquivos CSS com sufixos de versão: atualize as folhas existentes.
+A identidade visual do site está consolidada em `styles.css`. Não crie novos arquivos CSS com sufixos de versão: atualize as folhas existentes.
 
 ### Onde alterar cada parte
 
@@ -675,4 +674,4 @@ O menu público reúne Sobre, Pesquisa, Extensão e formação, Conteúdos, Atua
 
 ## Minissite Vi no Rótulo
 
-A página `vi-no-rotulo.qmd` possui identidade visual própria em `vi-no-rotulo.css`, navegação interna e conteúdos educativos. A área de publicações é editável no painel administrativo, em **Vi no Rótulo · Minissite**, salvando em `data/vi-no-rotulo.yml`. Os conteúdos não são importados automaticamente do Instagram: somente registros cadastrados e autorizados aparecem no site. O canal oficial permanece em https://www.instagram.com/vinorotulo/.
+A página `vi-no-rotulo.qmd` atualmente redireciona para o projeto Vi no Rótulo na página de Extensão; o antigo CSS do minissite foi descontinuado. A área de publicações é editável no painel administrativo, em **Vi no Rótulo · Minissite**, salvando em `data/vi-no-rotulo.yml`. Os conteúdos não são importados automaticamente do Instagram: somente registros cadastrados e autorizados aparecem no site. O canal oficial permanece em https://www.instagram.com/vinorotulo/.
