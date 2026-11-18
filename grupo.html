@@ -47,7 +47,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7e31b1f2a09a5de902ceb913150967d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-02823652f7c6196ae3d39b0b6a9de727.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -320,9 +320,11 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <option value="Colaboradores">Colaboradores</option>
 <option value="Egressos">Egressos</option>
 <option value="Líderes e pesquisadores">Líderes e pesquisadores</option>
+<option value="Estudantes">Estudantes</option>
 </select>
 </div>
 </div>
+<style>.equipe-diretorio [hidden]{display:none!important}.equipe-diretorio .equipe-mais{margin:.65rem 0 1rem;padding:.55rem .9rem;border:1px solid #537b5c;border-radius:6px;color:#245236;background:#fff;min-height:44px;font:inherit}</style>
 <div class="equipe-categoria-grupo" data-equipe-categoria="Colaboradores">
 <h3 class="anchored">Colaboradores</h3>
 <div class="equipe-grid">
@@ -337,6 +339,7 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-links"></div>
 </div>
 </div>
+<button type="button" class="equipe-mais" hidden="hidden">Ver mais</button>
 </div>
 <div class="equipe-categoria-grupo" data-equipe-categoria="Egressos">
 <h3 class="anchored">Egressos</h3>
@@ -790,6 +793,7 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-links"></div>
 </div>
 </div>
+<button type="button" class="equipe-mais" hidden="hidden">Ver mais</button>
 </div>
 <div class="equipe-categoria-grupo equipe-categoria-coordenacao" data-equipe-categoria="Líderes e pesquisadores">
 <h3 class="anchored">Líderes e pesquisadores</h3>
@@ -804,17 +808,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Amanda Motta de Bortoli Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">AB</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Amanda Motta de Bortoli</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
 <div class="membro-card" data-busca="Ariene Silva do Carmo Líderes e pesquisadores Líder do grupo    ">
 <div class="membro-identidade">
 <div class="foto avatar">AC</div>
@@ -823,17 +816,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-nome">Ariene Silva do Carmo</div>
 </div>
 </div>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Bruna Carolina Rafael Barbosa Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">BB</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Bruna Carolina Rafael Barbosa</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
 <div class="membro-links"></div>
 </div>
 <div class="membro-card" data-busca="Camila Carvalho Menezes Salierno Líderes e pesquisadores Pesquisadora    ">
@@ -846,28 +828,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Camila de Souza Lima Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">CL</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Camila de Souza Lima</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Chrislaine Corraide Dias dos Santos Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">CS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Chrislaine Corraide Dias dos Santos</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
 <div class="membro-card" data-busca="Erica Costa Rodrigues Líderes e pesquisadores Pesquisadora    ">
 <div class="membro-identidade">
 <div class="foto avatar">ER</div>
@@ -876,94 +836,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-nome">Erica Costa Rodrigues</div>
 </div>
 </div>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Fernanda Segurasse de Moraes Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">FM</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Fernanda Segurasse de Moraes</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Filipe Carvalho Viana Líderes e pesquisadores Estudante Em formação · Graduação   ">
-<div class="membro-identidade">
-<div class="foto avatar">FV</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Filipe Carvalho Viana</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Graduação</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Francine Rubim de Resende Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">FR</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Francine Rubim de Resende</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Gabriela da Silva Machado Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">GM</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Gabriela da Silva Machado</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Gabrielle Araújo Santos Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">GS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Gabrielle Araújo Santos</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Isis De Carvalho Rodrigues Líderes e pesquisadores Estudante Em formação · Graduação   ">
-<div class="membro-identidade">
-<div class="foto avatar">IR</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Isis De Carvalho Rodrigues</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Graduação</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="João Lucas Araújo Rocha Líderes e pesquisadores Estudante Em formação · Graduação   ">
-<div class="membro-identidade">
-<div class="foto avatar">JR</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">João Lucas Araújo Rocha</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Graduação</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="João Victor Monsores Barbosa Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">JB</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">João Victor Monsores Barbosa</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
 <div class="membro-links"></div>
 </div>
 <div class="membro-card" data-busca="Júlia Cristina Cardoso Carraro Líderes e pesquisadores Pesquisadora    ">
@@ -976,61 +848,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Laudicéia Ferreira Fróis Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">LF</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Laudicéia Ferreira Fróis</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Leidiane Rafaela Fernandes de Oliveira Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">LO</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Leidiane Rafaela Fernandes de Oliveira</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Liz Oliveira dos Santos Líderes e pesquisadores Estudante Em formação · Graduação   ">
-<div class="membro-identidade">
-<div class="foto avatar">LS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Liz Oliveira dos Santos</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Graduação</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Lorena Pinto Andrade Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">LA</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Lorena Pinto Andrade</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Luciene Teixeira Paixão Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">LP</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Luciene Teixeira Paixão</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
 <div class="membro-card" data-busca="Luiz Antônio Alves de Menezes Júnior Líderes e pesquisadores Pesquisador    ">
 <div class="membro-identidade">
 <div class="foto avatar">LJ</div>
@@ -1041,83 +858,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Marcos Salgario Deo Da Silva Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">MS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Marcos Salgario Deo Da Silva</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Maria Luiza das Dores Rocha Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">MR</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Maria Luiza das Dores Rocha</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Mariana Cassemira Aparecida Vidigal Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">MV</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Mariana Cassemira Aparecida Vidigal</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Melissa Ionara Ribeiro Sabbagh Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">MS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Melissa Ionara Ribeiro Sabbagh</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Miriam Aparecida de Assis Silva Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">MS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Miriam Aparecida de Assis Silva</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Nayara Resende Gomes Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">NG</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Nayara Resende Gomes</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Paloma Letícia Gonçalves Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">PG</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Paloma Letícia Gonçalves</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
 <div class="membro-card" data-busca="Raquel de Deus Mendonça Líderes e pesquisadores Líder do grupo    ">
 <div class="membro-identidade">
 <div class="foto avatar">RM</div>
@@ -1126,17 +866,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-nome">Raquel de Deus Mendonça</div>
 </div>
 </div>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Renata Cristina Queiroz Silva Bento Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">RB</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Renata Cristina Queiroz Silva Bento</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
 <div class="membro-links"></div>
 </div>
 <div class="membro-card" data-busca="Samara Silva de Moura Líderes e pesquisadores Pesquisadora    ">
@@ -1159,39 +888,6 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Sarah Beatriz Resende Tinoco Diniz Líderes e pesquisadores Estudante Em formação · Mestrado   ">
-<div class="membro-identidade">
-<div class="foto avatar">SD</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Sarah Beatriz Resende Tinoco Diniz</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Mestrado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Selso Ananias Sitoe Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">SS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Selso Ananias Sitoe</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
-<div class="membro-card" data-busca="Tainá Cristina Damasceno Silva Líderes e pesquisadores Estudante Em formação · Doutorado   ">
-<div class="membro-identidade">
-<div class="foto avatar">TS</div>
-<div class="membro-identidade-texto">
-<div class="membro-cargo">Estudante</div>
-<div class="membro-nome">Tainá Cristina Damasceno Silva</div>
-</div>
-</div>
-<p class="membro-bio">Em formação · Doutorado</p>
-<div class="membro-links"></div>
-</div>
 <div class="membro-card" data-busca="Thais da Silva Sabião Líderes e pesquisadores Pesquisadora    ">
 <div class="membro-identidade">
 <div class="foto avatar">TS</div>
@@ -1202,7 +898,321 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 </div>
 <div class="membro-links"></div>
 </div>
-<div class="membro-card" data-busca="Vitória Regina Pinto Líderes e pesquisadores Estudante Em formação · Doutorado   ">
+</div>
+<button type="button" class="equipe-mais" hidden="hidden">Ver mais</button>
+</div>
+<div class="equipe-categoria-grupo" data-equipe-categoria="Estudantes">
+<h3 class="anchored">Estudantes</h3>
+<div class="equipe-grid">
+<div class="membro-card" data-busca="Amanda Motta de Bortoli Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">AB</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Amanda Motta de Bortoli</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Bruna Carolina Rafael Barbosa Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">BB</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Bruna Carolina Rafael Barbosa</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Camila de Souza Lima Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">CL</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Camila de Souza Lima</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Chrislaine Corraide Dias dos Santos Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">CS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Chrislaine Corraide Dias dos Santos</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Fernanda Segurasse de Moraes Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">FM</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Fernanda Segurasse de Moraes</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Filipe Carvalho Viana Estudantes Estudante Em formação · Graduação   ">
+<div class="membro-identidade">
+<div class="foto avatar">FV</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Filipe Carvalho Viana</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Graduação</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Francine Rubim de Resende Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">FR</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Francine Rubim de Resende</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Gabriela da Silva Machado Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">GM</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Gabriela da Silva Machado</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Gabrielle Araújo Santos Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">GS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Gabrielle Araújo Santos</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Isis De Carvalho Rodrigues Estudantes Estudante Em formação · Graduação   ">
+<div class="membro-identidade">
+<div class="foto avatar">IR</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Isis De Carvalho Rodrigues</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Graduação</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="João Lucas Araújo Rocha Estudantes Estudante Em formação · Graduação   ">
+<div class="membro-identidade">
+<div class="foto avatar">JR</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">João Lucas Araújo Rocha</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Graduação</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="João Victor Monsores Barbosa Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">JB</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">João Victor Monsores Barbosa</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Laudicéia Ferreira Fróis Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">LF</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Laudicéia Ferreira Fróis</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Leidiane Rafaela Fernandes de Oliveira Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">LO</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Leidiane Rafaela Fernandes de Oliveira</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Liz Oliveira dos Santos Estudantes Estudante Em formação · Graduação   ">
+<div class="membro-identidade">
+<div class="foto avatar">LS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Liz Oliveira dos Santos</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Graduação</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Lorena Pinto Andrade Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">LA</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Lorena Pinto Andrade</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Luciene Teixeira Paixão Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">LP</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Luciene Teixeira Paixão</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Marcos Salgario Deo Da Silva Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">MS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Marcos Salgario Deo Da Silva</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Maria Luiza das Dores Rocha Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">MR</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Maria Luiza das Dores Rocha</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Mariana Cassemira Aparecida Vidigal Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">MV</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Mariana Cassemira Aparecida Vidigal</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Melissa Ionara Ribeiro Sabbagh Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">MS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Melissa Ionara Ribeiro Sabbagh</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Miriam Aparecida de Assis Silva Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">MS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Miriam Aparecida de Assis Silva</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Nayara Resende Gomes Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">NG</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Nayara Resende Gomes</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Paloma Letícia Gonçalves Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">PG</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Paloma Letícia Gonçalves</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Renata Cristina Queiroz Silva Bento Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">RB</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Renata Cristina Queiroz Silva Bento</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Sarah Beatriz Resende Tinoco Diniz Estudantes Estudante Em formação · Mestrado   ">
+<div class="membro-identidade">
+<div class="foto avatar">SD</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Sarah Beatriz Resende Tinoco Diniz</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Mestrado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Selso Ananias Sitoe Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">SS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Selso Ananias Sitoe</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Tainá Cristina Damasceno Silva Estudantes Estudante Em formação · Doutorado   ">
+<div class="membro-identidade">
+<div class="foto avatar">TS</div>
+<div class="membro-identidade-texto">
+<div class="membro-cargo">Estudante</div>
+<div class="membro-nome">Tainá Cristina Damasceno Silva</div>
+</div>
+</div>
+<p class="membro-bio">Em formação · Doutorado</p>
+<div class="membro-links"></div>
+</div>
+<div class="membro-card" data-busca="Vitória Regina Pinto Estudantes Estudante Em formação · Doutorado   ">
 <div class="membro-identidade">
 <div class="foto avatar">VP</div>
 <div class="membro-identidade-texto">
@@ -1214,6 +1224,7 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
 <div class="membro-links"></div>
 </div>
 </div>
+<button type="button" class="equipe-mais" hidden="hidden">Ver mais</button>
 </div>
 <div class="equipe-filtro-vazio" id="equipe-filtro-vazio" style="display: none;">Nenhum integrante corresponde à busca ou à categoria selecionada.</div>
 <script>
@@ -1231,7 +1242,10 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
               .toLocaleLowerCase('pt-BR')
               .trim();
 
+            const celular = window.matchMedia('(max-width: 767px)');
+            const limites = new Map();
             const atualizar = () => {
+              let total = 0;
               const termo = normalizar(busca.value);
               const categoriaSelecionada = normalizar(filtro.value);
               raiz.querySelectorAll('.equipe-categoria-grupo').forEach((grupo) => {
@@ -1244,18 +1258,31 @@ Nutrição e saúde coletiva na Universidade Federal de Ouro Preto.
                   const correspondeCategoria = !categoriaSelecionada ||
                     categoriaGrupo === categoriaSelecionada;
                   const visivel = correspondeTexto && correspondeCategoria;
-                  cartao.hidden = !visivel;
                   if (visivel) visiveisNoGrupo++;
+                  cartao.hidden = !visivel || (celular.matches && visiveisNoGrupo > (limites.get(grupo) || 4));
                 });
 
+                total += visiveisNoGrupo;
                 grupo.hidden = visiveisNoGrupo === 0;
+                const botao = grupo.querySelector('.equipe-mais');
+                const limite = limites.get(grupo) || 4;
+                botao.hidden = !celular.matches || visiveisNoGrupo <= 4;
+                const faltam = visiveisNoGrupo - limite;
+                botao.textContent = faltam > 0 ? 'Ver mais ' + Math.min(8, faltam) + ' de ' + visiveisNoGrupo : 'Mostrar menos';
+                botao.onclick = () => {
+                  limites.set(grupo, faltam > 0 ? limite + 8 : 4);
+                  atualizar();
+                  if (faltam <= 0) grupo.scrollIntoView({block:'start'});
+                };
               });
 
               vazio.style.display = total === 0 ? 'block' : 'none';
             };
 
-            busca.addEventListener('input', atualizar);
-            filtro.addEventListener('change', atualizar);
+            const reiniciar = () => { limites.clear(); atualizar(); };
+            busca.addEventListener('input', reiniciar);
+            filtro.addEventListener('change', reiniciar);
+            celular.addEventListener('change', reiniciar);
             atualizar();
           })();
         </script>
