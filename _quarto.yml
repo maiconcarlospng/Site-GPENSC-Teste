@@ -52,6 +52,8 @@ website:
             href: multimidia.qmd
           - text: Ciência para a sociedade
             href: ciencia-sociedade.qmd
+      - text: Notícias
+        href: noticias.qmd
       - text: Agenda
         href: agenda.qmd
       - text: Contato
