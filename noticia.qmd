@@ -46,7 +46,7 @@ if (nrow(noticias_publicadas) == 0) {
         if (nzchar(data_texto)) p(class = "noticia-detalhe-data", data_texto),
         div(
           class = "nt noticia-detalhe-capa",
-          capa_noticia(imagem, categoria, titulo, "nt-img nt-img--detail")
+          capa_noticia(imagem, categoria, titulo, "nt-img nt-img--detail", fonte = fonte)
         ),
         div(class = "noticia-detalhe-texto", p(conteudo)),
         
