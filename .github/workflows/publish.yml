@@ -17,7 +17,6 @@ on:
       - "admin/**"
       - "styles.css"
       - "svg-institucional.css"
-      - "vi-no-rotulo.css"
       - "js/**"
       - "custom.scss"
       - "lupa.html"
@@ -101,7 +100,7 @@ jobs:
           changed="$(git diff --name-only "$previous" HEAD)"
           # Apenas recursos estáticos já referenciados pelo HTML existente.
           # Alterações em templates, dados, conteúdo ou configuração exigem Quarto.
-          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|vi-no-rotulo\\.css|svg-institucional\\.css|js/[^[:space:]]+)
+          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|svg-institucional\\.css|js/[^[:space:]]+)
             echo "fast=true" >> "$GITHUB_OUTPUT"
           else
             echo "Há alterações que exigem renderização completa."
@@ -115,7 +114,6 @@ jobs:
           git archive origin/render-published | tar -xf - -C _site
           # Copiar somente os arquivos estáticos alterados, mantendo os demais.
           cp styles.css _site/styles.css
-          if [[ -f vi-no-rotulo.css ]]; then cp vi-no-rotulo.css _site/vi-no-rotulo.css; fi
           if [[ -f svg-institucional.css ]]; then cp svg-institucional.css _site/svg-institucional.css; fi
           if [[ -d js ]]; then mkdir -p _site/js; cp -a js/. _site/js/; fi
           test -s _site/index.html
