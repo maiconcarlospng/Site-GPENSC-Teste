@@ -20836,3 +20836,62 @@ html body #quarto-content .galeria--faixa .gp-galeria-indicadores {
 @media (prefers-reduced-motion: reduce) {
   html body #quarto-content .galeria--faixa .gp-galeria-indicador::after { transition: none; }
 }
+
+
+/* Galeria GPENSC: navegação editorial abaixo das fotografias no desktop.
+   No celular permanecem somente os indicadores de página. */
+html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0 4px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 46px !important;
+    min-width: 46px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 0 3px !important;
+    margin: 0 !important;
+    border: 1px solid #cadcc9 !important;
+    border-radius: 12px !important;
+    background: #fff !important;
+    color: #1f4d2b !important;
+    font: 400 30px/1 Arial, sans-serif !important;
+    box-shadow: 0 2px 7px rgba(31,77,43,.07) !important;
+    transition: background .2s, border-color .2s, color .2s, transform .2s !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle:hover {
+    background: #1f4d2b !important;
+    color: #fff !important;
+    border-color: #1f4d2b !important;
+    transform: translateY(-2px) !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle:focus-visible {
+    outline: 3px solid #d9731f !important;
+    outline-offset: 3px !important;
+  }
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
+    display: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle {
+    transition: none !important;
+  }
+}
