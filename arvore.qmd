@@ -351,4 +351,4 @@ body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .pa
 </style>
 ```
 
-<script src="js/arvore.js?v=gp49-card-viewport-20261118" defer></script>
+<script src="js/arvore.js?v=gp49-full-overlay-20261118b" defer></script>
