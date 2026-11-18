@@ -371,7 +371,10 @@ card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
 
 # ---------- NOTÍCIAS ----------
 # O link "LEIA MAIS" só aparece se a notícia tiver o campo Link preenchido.
-id_noticia <- function(titulo) {
+id_noticia <- function(titulo, imagem = NULL) {
+  if (tem(imagem) && grepl("^/?img/instagram-acervo/[A-Za-z0-9_-]+[.]webp$", imagem[1])) {
+    return(paste0("registro-", tools::file_path_sans_ext(basename(imagem[1]))))
+  }
   valor <- as.character(titulo[1])
   if (is.na(valor) || !nzchar(trimws(valor))) valor <- "noticia"
 
@@ -437,7 +440,7 @@ capa_noticia <- function(imagem, categoria, titulo, classe = "nt-img") {
 }
 
 cartao_noticia <- function(n, i) {
-  detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo))
+  detalhe_href <- paste0("noticia.html#", id_noticia(n$titulo, n$imagem))
   div(
     class = paste("nt reveal", cor_de(i)),
     capa_noticia(n$imagem, n$categoria, n$titulo),
@@ -555,4 +558,21 @@ renderizar_acervo <- function(nome, vazio) {
       if (tem(item$url) && grepl("^https?://", item$url)) tags$a(if (grepl("instagram.com", item$url, fixed = TRUE)) "Ver publicação do material" else "Acessar material", href = item$url, target = "_blank", rel = "noopener noreferrer")
     )
   }))
+}
+
+# A mesma coleção editorial alimenta Notícias e as páginas temáticas.
+lista_noticias_area <- function(itens) {
+  limite <- 9L
+  tagList(cartoes(head(itens, limite), cartao_noticia),
+    if (nrow(itens) > limite) tags$details(
+      tags$summary(paste("Ver mais", nrow(itens) - limite, "notícias")),
+      cartoes(itens[-seq_len(limite), , drop = FALSE], cartao_noticia)))
+}
+
+noticias_da_area <- function(area) {
+  if (!secao_ativa("mostrar_noticias")) return(NULL)
+  itens <- registros_reais(noticias, "titulo") |>
+    dplyr::filter(categoria == area) |>
+    dplyr::arrange(desc(data))
+  if (nrow(itens)) tagList(h2(paste("Notícias de", area)), lista_noticias_area(itens))
 }

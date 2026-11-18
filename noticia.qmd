@@ -38,7 +38,7 @@ if (nrow(noticias_publicadas) == 0) {
       fonte <- valor_publico(n$url)
 
       div(
-        id = id_noticia(titulo),
+        id = id_noticia(titulo, n$imagem),
         class = "noticia-detalhe-item",
         style = "display: none;",
         if (!is.null(categoria)) span(class = "noticia-detalhe-categoria", categoria),
