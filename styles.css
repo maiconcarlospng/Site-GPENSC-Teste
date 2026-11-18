@@ -20530,6 +20530,7 @@ html body #quarto-header .navbar::after {
 html body footer.footer .nav-footer::before {
   top: 0 !important;
   bottom: auto !important;
+  background-image: linear-gradient(to right, #5f9a3e 0% 22%, #d9731f 46% 54%, #d43a2f 78% 100%) !important;
 }
 
 /* Equipe: duas colunas em tablets, sem cartões estreitos ou excesso de espaço vazio. */
