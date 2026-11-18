@@ -142,10 +142,21 @@ def integrate(rows):
         result = editorial(row.get("caption") or "", date)
         if result is None:
             caption = (row.get("caption") or "").strip()
-            plain = re.sub(r"\\s+", " ", re.sub(r"https?://\\S+|@[\\w.]+", "", caption)).strip(" .")
+            plain = re.sub(r"\s+", " ", re.sub(r"https?://\S+|@[\w.]+", "", caption)).strip(" .")
             title = plain[:88].rsplit(" ", 1)[0].strip(" .,:;") if plain else f"Registro do GPENSC em {date}"
             summary = (plain[:260].rsplit(" ", 1)[0].rstrip(" .") + ".") if plain else "Publicação visual do GPENSC sem legenda disponível. Consulte o registro original."
-            body, category = caption or summary, "Institucional"
+            body = caption or summary
+            # Classificação conservadora, com aviso de revisão quando título for sugerido.
+            if re.search(r"podcast|gpensc no ar|episódio", caption, re.I):
+                category = "Multimídia"
+            elif re.search(r"projeto de extensão|atividade extensionista|vi no rótulo", caption, re.I):
+                category = "Extensão"
+            elif re.search(r"curso|workshop|aula aberta|oficina|palestra|seminário", caption, re.I):
+                category = "Ensino"
+            elif re.search(r"estudo|pesquisa|artigo|defesa|qualificação|dissertação|tese", caption, re.I):
+                category = "Pesquisa"
+            else:
+                category = "Institucional"
             print(f"::warning::Título sugerido automaticamente; revisar: https://www.instagram.com/p/{code}/")
         else:
             title, summary, body, category = result
