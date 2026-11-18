@@ -20895,3 +20895,40 @@ html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
     transition: none !important;
   }
 }
+
+
+/* Desktop: setas dentro da galeria, sobre a borda inferior direita da foto,
+   nunca no meio e nunca em uma faixa abaixo das imagens. */
+@media (min-width: 768px) {
+  html body #quarto-content .galeria--faixa {
+    position: relative !important;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao {
+    position: absolute !important;
+    z-index: 10 !important;
+    right: clamp(14px, 2.4vw, 32px) !important;
+    bottom: 14px !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    padding: 6px !important;
+    margin: 0 !important;
+    gap: 7px !important;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 15px;
+    background: rgba(250,252,248,.88);
+    box-shadow: 0 5px 18px rgba(17,48,27,.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-navegacao > .galeria-controle {
+    pointer-events: auto;
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+  }
+}
