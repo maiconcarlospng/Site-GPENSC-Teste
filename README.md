@@ -119,6 +119,17 @@ O backend atual trabalha com:
 
 No Worker de autenticação, mantenha as variáveis de runtime e segredos exigidos pela implementação OAuth, incluindo `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` e `ALLOWED_DOMAINS`. O Client Secret deve existir somente como Secret no Cloudflare. Nunca o coloque em YAML, HTML, JavaScript público, README ou commit.
 
+### Como autorizar e remover editores do painel
+
+**Acesso individual pelo GitHub.** A coordenação concede a permissão no repositório que publica o site. A aba **Equipe** do painel serve para cadastrar os integrantes apresentados na página pública.
+
+1. No repositório atual, abra **Settings → Collaborators → Add people**. Informe o usuário GitHub ou o e-mail da pessoa e envie o convite.
+2. Quando o repositório estiver na organização do GPENSC, use **Settings → Collaborators and teams** no repositório institucional. Conceda **Write** à pessoa ou a uma equipe de editores. Se usar uma equipe, inclua a pessoa nela e confira se a equipe tem **Write** nesse repositório. A publicação direta depende também das regras da branch `main`.
+3. Peça à pessoa para aceitar o convite, abrir a rota `/admin/` do site e escolher **Entrar com GitHub**, usando a conta convidada. Para confirmar que ela pode publicar, use uma edição real aprovada pela coordenação e confira o commit. Abrir o painel ou preparar um rascunho local só confirma parte do fluxo.
+4. Para retirar o acesso individual, remova a pessoa em **Collaborators** ou da equipe que concede a permissão. Confira se outra equipe ou permissão direta ainda permite a escrita.
+
+**Acesso por código.** A coordenação pode fornecer o código compartilhado pelo canal privado do grupo. Nesse modo não há cadastro por e-mail nem revogação individual. Se alguém que conhece o código sair, altere o segredo `ACCESS_CODE` no Worker de acesso da Cloudflare, aplique a alteração e distribua o novo código somente às pessoas autorizadas. O Worker invalida as sessões vinculadas ao código anterior. Revise também as permissões GitHub dessa pessoa se ela utilizava os dois modos.
+
 ### Recursos do painel próprio
 
 O painel foi personalizado para uso em desktop e celular e inclui:
