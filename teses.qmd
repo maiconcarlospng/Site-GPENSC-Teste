@@ -38,7 +38,7 @@ div(
         rownames = FALSE,
         filter = "none",
         escape = FALSE,
-        options = list(pageLength = 10, language = DT_PT, autoWidth = FALSE, scrollX = FALSE)
+        options = list(pageLength = 10, language = DT_PT, autoWidth = FALSE, scrollX = TRUE)
       )
   } else {
     estado_vazio("Nenhuma tese ou dissertação cadastrada no momento.", NULL)
@@ -49,61 +49,3 @@ div(
 }
 
 ```
-
-<style>
-/* Apenas a tabela de teses: no celular cada registro vira um cartão legível. */
-@media (max-width: 767px) {
-  .pagina-defesas .dataTables_wrapper { width: 100%; max-width: 100%; }
-  .pagina-defesas .dataTables_length,
-  .pagina-defesas .dataTables_filter,
-  .pagina-defesas .dataTables_info,
-  .pagina-defesas .dataTables_paginate {
-    float: none !important; width: 100%; text-align: left !important;
-    margin: 0 0 .9rem; padding: 0;
-  }
-  .pagina-defesas .dataTables_filter label { display: flex; flex-direction: column; gap: .4rem; }
-  .pagina-defesas .dataTables_filter input {
-    box-sizing: border-box; width: 100% !important; max-width: 100%;
-    margin: 0 !important; min-height: 44px;
-  }
-  .pagina-defesas .dataTables_length select { min-height: 42px; }
-  .pagina-defesas table.dataTable,
-  .pagina-defesas table.dataTable tbody,
-  .pagina-defesas table.dataTable tbody tr,
-  .pagina-defesas table.dataTable tbody td {
-    display: block !important; width: 100% !important;
-    box-sizing: border-box !important; min-width: 0 !important;
-  }
-  .pagina-defesas table.dataTable { border: 0 !important; }
-  .pagina-defesas table.dataTable thead,
-  .pagina-defesas table.dataTable tfoot { display: none !important; }
-  .pagina-defesas table.dataTable tbody tr {
-    background: #fff !important; border: 1px solid #dce6d9;
-    border-radius: 12px; padding: .65rem .9rem; margin: 0 0 1rem;
-    box-shadow: 0 2px 8px rgba(31,77,43,.06);
-  }
-  .pagina-defesas table.dataTable tbody td {
-    white-space: normal !important; overflow-wrap: anywhere;
-    word-break: normal; text-align: left !important;
-    border: 0 !important; padding: .5rem 0 !important;
-    line-height: 1.45; height: auto !important;
-  }
-  .pagina-defesas table.dataTable tbody td::before {
-    display: block; font-weight: 700; color: #1f4d2b;
-    font-size: .78rem; margin-bottom: .12rem;
-  }
-  .pagina-defesas table.dataTable tbody td:nth-child(1)::before { content: "Data"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(2)::before { content: "Nível"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(3)::before { content: "Etapa"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(4)::before { content: "Autor"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(5)::before { content: "Título"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(6)::before { content: "Orientação"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(7)::before { content: "Acesso"; }
-  .pagina-defesas table.dataTable tbody td:nth-child(5) {
-    font-weight: 600; color: #1f4d2b;
-  }
-  .pagina-defesas .dataTables_paginate .paginate_button {
-    display: inline-block; margin: .2rem; min-width: 36px;
-  }
-}
-</style>
