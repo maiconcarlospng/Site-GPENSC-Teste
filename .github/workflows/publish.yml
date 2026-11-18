@@ -1,6 +1,6 @@
 name: Publicar site Quarto
 
-# Mudanças exclusivamente em styles.css podem reutilizar o HTML publicado.
+# Mudanças exclusivamente em CSS e JS estáticos podem reutilizar o HTML publicado.
 # Demais alterações mantêm compilação completa e validações.
 # A documentação de uso e migração está no README.md.
 on:
@@ -16,6 +16,7 @@ on:
       - "docs/**"
       - "admin/**"
       - "styles.css"
+      - "svg-institucional.css"
       - "vi-no-rotulo.css"
       - "js/**"
       - "custom.scss"
@@ -98,8 +99,107 @@ jobs:
             exit 0
           fi
           changed="$(git diff --name-only "$previous" HEAD)"
-          if [[ -n "$changed" ]] && ! grep -v -x 'styles.css' <<< "$changed"; then
-            echo "Somente styles.css mudou desde a publicação anterior."
+          # Apenas recursos estáticos já referenciados pelo HTML existente.
+          # Alterações em templates, dados, conteúdo ou configuração exigem Quarto.
+          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|vi-no-rotulo\\.css|svg-institucional\\.css|js/[^[:space:]]+)
+            echo "fast=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Há alterações que exigem renderização completa."
+          fi
+
+      - name: Reutilizar HTML publicado e atualizar recursos estáticos
+        if: steps.mode.outputs.fast == 'true'
+        shell: bash
+        run: |
+          mkdir -p _site
+          git archive origin/render-published | tar -xf - -C _site
+          # Copiar somente os arquivos estáticos alterados, mantendo os demais.
+          cp styles.css _site/styles.css
+          if [[ -f vi-no-rotulo.css ]]; then cp vi-no-rotulo.css _site/vi-no-rotulo.css; fi
+          if [[ -f svg-institucional.css ]]; then cp svg-institucional.css _site/svg-institucional.css; fi
+          if [[ -d js ]]; then mkdir -p _site/js; cp -a js/. _site/js/; fi
+          test -s _site/index.html
+          test -s _site/styles.css
+          rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py _site/admin/arquivar-capas-instagram.py
+
+      - name: Instalar Quarto
+        if: steps.mode.outputs.fast != 'true'
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Preparar R e usar pacotes binários quando disponíveis
+        if: steps.mode.outputs.fast != 'true'
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Instalar dependências R declaradas pelo projeto
+        if: steps.mode.outputs.fast != 'true'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::readr
+            any::dplyr
+            any::htmltools
+            any::DT
+            any::plotly
+            any::yaml
+            any::knitr
+            any::rmarkdown
+            any::here
+            any::purrr
+            any::stringr
+            any::lubridate
+
+      - name: Restaurar capas originais já publicadas
+        if: steps.mode.outputs.fast != 'true'
+        shell: bash
+        run: |
+          mkdir -p img/instagram
+          if git fetch --no-tags --depth=1 origin render-published:refs/remotes/origin/render-published; then
+            if git ls-tree -r --name-only origin/render-published -- img/instagram | grep -q '^img/instagram/'; then
+              git archive origin/render-published img/instagram | tar -xf -
+              echo "Capas já publicadas recuperadas para esta compilação."
+            fi
+          fi
+
+      - name: Arquivar imagens das publicações importadas
+        if: steps.mode.outputs.fast != 'true'
+        run: python3 admin/arquivar-capas-instagram.py
+
+      - name: Recompilar o site e o painel sem reutilizar HTML antigo
+        if: steps.mode.outputs.fast != 'true'
+        run: |
+          rm -rf _site _freeze
+          quarto render
+          rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py _site/admin/arquivar-capas-instagram.py
+
+      - name: Sincronizar o site compilado com o Render
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: render-published
+          commit_message: "deploy: sync main @ ${{ github.sha }}"
+
+      - name: Empacotar o site gerado para o GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Publicar no GitHub Pages
+    needs: [build]
+    if: needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Implantar artefato compilado
+        id: deployment
+        uses: actions/deploy-pages@v4
+ <<< "$changed"; then
+            echo "Somente CSS/JS estáticos mudaram desde a publicação anterior."
             echo "fast=true" >> "$GITHUB_OUTPUT"
           else
             echo "Há alterações que exigem renderização completa."
