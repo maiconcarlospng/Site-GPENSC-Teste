@@ -9,3 +9,16 @@ title: "Extensão"
 {{< include partials/extensao.qmd >}}
 
 {{< include partials/link-acervo-instagram.qmd >}}
+
+## Publicações do Instagram {#publicacoes-instagram}
+
+```{=html}
+<link rel="stylesheet" href="js/publicacoes-instagram.css">
+<section data-posts-area="extensao" aria-label="Publicações do Instagram">
+<label>Tema <select><option value="">Todos os temas</option></select></label>
+<p role="status">Carregando publicações…</p>
+<div class="ig-post-list"></div>
+<button type="button" class="btn btn-secondary" hidden>Mostrar mais publicações</button>
+</section>
+<script defer src="js/publicacoes-instagram.js"></script>
+```
