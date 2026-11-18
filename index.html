@@ -476,6 +476,15 @@ body.page-index #quarto-content .galeria--faixa::before { content: none !importa
     }, 'google_translate_element');
   }
 
+  // Bandeiras vetoriais embutidas: exibidas no primeiro desenho, sem esperar CSS externo.
+  var gpFlagSvg = {
+    pt: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 28"><rect width="40" height="28" fill="#009b3a"/><path d="M20 2.8 37 14 20 25.2 3 14Z" fill="#ffdf00"/><circle cx="20" cy="14" r="8.3" fill="#002776"/><path d="M11.9 12.7Q20 9.2 28 15" fill="none" stroke="#fff" stroke-width="2.1"/><g fill="#fff"><circle cx="16" cy="17" r=".65"/><circle cx="21" cy="19" r=".55"/><circle cx="25" cy="17.7" r=".55"/><circle cx="19" cy="16.3" r=".5"/></g></svg>',
+    en: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 34"><path fill="#fff" d="M0 0h36v34H0z"/>' + Array.from({length:7},function(_,i){return '<path fill="#b22234" d="M0 '+(i*5)+'h36v2.6H0z"/>';}).join('') + '<path fill="#3c3b6e" d="M0 0h16v17H0z"/>' + [3,8,13].map(function(x){return [3,8,13].map(function(y){return '<circle fill="#fff" cx="'+x+'" cy="'+y+'" r=".8"/>';}).join('');}).join('') + '</svg>',
+    es: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 34"><path fill="#aa151b" d="M0 0h36v34H0z"/><path fill="#f1bf00" d="M0 8.5h36v17H0z"/><path fill="#aa151b" d="M12 13h5v8h-5z"/><path fill="#fff" d="M13 14h3v5h-3z"/><path fill="#aa151b" d="M12 12h5v2h-5z"/></svg>'
+  };
+  var gpFlagUrls = {};
+  Object.keys(gpFlagSvg).forEach(function(lang){gpFlagUrls[lang] = 'url("data:image/svg+xml,' + encodeURIComponent(gpFlagSvg[lang]) + '")';});
+
   function aplicarIdiomaVisual(langCode) {
     var idioma = (langCode || 'pt').toLowerCase().split('-')[0];
     document.documentElement.lang = idioma === 'en' ? 'en' : idioma === 'es' ? 'es' : 'pt-BR';
@@ -484,6 +493,10 @@ body.page-index #quarto-content .galeria--faixa::before { content: none !importa
       var ativo = botao.getAttribute('data-lang') === idioma;
       botao.setAttribute('aria-pressed', String(ativo));
       botao.classList.toggle('is-active', ativo);
+      botao.style.setProperty('background', ativo ? gpFlagUrls[botao.getAttribute('data-lang')] + ' center / cover no-repeat' : '#fff', 'important');
+      botao.style.setProperty('background-color', ativo ? '#fff' : '#fff', 'important');
+      botao.style.setProperty('color', ativo ? '#fff' : '#284c36', 'important');
+      botao.style.setProperty('text-shadow', ativo ? '0 1px 2px #111,0 0 3px #111' : 'none', 'important');
     });
     if (idioma === 'es') {
       document.documentElement.setAttribute('data-gp-language', 'es');
@@ -542,6 +555,16 @@ body.page-index #quarto-content .galeria--faixa::before { content: none !importa
         <button type="button" class="gp-language-button" data-lang="en" onclick="traduzirPagina('en')" aria-label="English — tradução automática" title="English — tradução automática"><span lang="en">EN</span></button>
         <button type="button" class="gp-language-button" data-lang="es" onclick="traduzirPagina('es')" aria-label="Español — tradução automática" title="Español — tradução automática"><span lang="es">ES</span></button>
       `;
+      // Estado visual pronto antes de inserir os botões na página: evita flash do estilo antigo.
+      container.querySelectorAll('.gp-language-button').forEach(function(botao) {
+        var ativo = botao.getAttribute('data-lang') === (document.documentElement.getAttribute('data-gp-current-language') || 'pt');
+        botao.setAttribute('aria-pressed', String(ativo));
+        botao.classList.toggle('is-active', ativo);
+        botao.style.setProperty('background', ativo ? gpFlagUrls[botao.getAttribute('data-lang')] + ' center / cover no-repeat' : '#fff', 'important');
+        botao.style.setProperty('background-color', '#fff', 'important');
+        botao.style.setProperty('color', ativo ? '#fff' : '#284c36', 'important');
+        botao.style.setProperty('text-shadow', ativo ? '0 1px 2px #111,0 0 3px #111' : 'none', 'important');
+      });
       navbarTitle.after(container);
       aplicarIdiomaVisual((document.documentElement.getAttribute("data-gp-current-language") || "pt"));
     }
