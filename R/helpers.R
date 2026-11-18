@@ -579,11 +579,22 @@ renderizar_acervo <- function(nome, vazio) {
 
 # A mesma coleção editorial alimenta Notícias e as páginas temáticas.
 lista_noticias_area <- function(itens) {
-  limite <- 9L
-  tagList(cartoes(head(itens, limite), cartao_noticia),
-    if (nrow(itens) > limite) tags$details(
-      tags$summary(paste("Ver mais", nrow(itens) - limite, "notícias")),
-      cartoes(itens[-seq_len(limite), , drop = FALSE], cartao_noticia)))
+  # Todas as notícias permanecem presentes no HTML; a paginação é progressiva
+  # e cada área mantém seus próprios números de página.
+  limite <- 12L
+  total <- nrow(itens)
+  if (total <= limite) return(cartoes(itens, cartao_noticia))
+  paginas <- split(seq_len(total), ceiling(seq_len(total) / limite))
+  div(
+    class = "gp-noticias-paginadas",
+    lapply(seq_along(paginas), function(i) {
+      div(
+        class = "gp-noticias-pagina",
+        `data-gp-page` = i,
+        cartoes(itens[paginas[[i]], , drop = FALSE], cartao_noticia)
+      )
+    })
+  )
 }
 
 noticias_da_area <- function(area) {
