@@ -1,6 +1,7 @@
 ```{r}
 source("R/helpers.R")
 episodios <- yaml::read_yaml("data/noar.yml")$itens
+spotify_gpensc <- "https://open.spotify.com/show/6NuI9JqT8PvlUxv6QxLfG2"
 
 lista_episodios <- function(programa) {
   selecionados <- Filter(function(item) {
@@ -37,7 +38,14 @@ div(class = "pagina-podcasts",
   tags$section(class = "gp-episodios-secao", `aria-labelledby` = "podcast-gpensc-titulo",
     h2(id = "podcast-gpensc-titulo", "GPENSC no Ar"),
     p("Episódios cadastrados do programa produzido com a Rádio Província FM."),
-    tags$a("Abrir o programa no Spotify", href = "https://open.spotify.com/show/6NuI9JqT8PvlUxv6QxLfG2",
+    tags$iframe(
+      class = "gp-spotify-player",
+      title = "GPENSC no Ar no Spotify",
+      src = sub("/show/", "/embed/show/", spotify_gpensc, fixed = TRUE),
+      width = "100%", height = "352", loading = "lazy",
+      allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    ),
+    tags$a("Abrir o programa no Spotify", href = spotify_gpensc,
       target = "_blank", rel = "noopener noreferrer"),
     lista_episodios("GPENSC no Ar")
   ),
@@ -52,6 +60,7 @@ div(class = "pagina-podcasts",
 ```{=html}
 <style>
 .gp-episodios-secao {margin:1.75rem auto 2rem}
+.gp-spotify-player {display:block;width:100%;border:0;border-radius:12px;margin-bottom:.75rem}
 .gp-episodios-lista {display:grid;gap:.75rem;margin:1rem 0 0;padding:0;list-style:none}
 .gp-episodio-item {display:flex;align-items:center;gap:clamp(.65rem,2vw,1.2rem);min-width:0;padding:clamp(.65rem,2vw,1rem);border:1px solid #dae5db;border-radius:9px;background:#fafcf8}
 .gp-episodio-corpo {display:grid;min-width:0;gap:.3rem}
