@@ -993,67 +993,199 @@ function mediaReferences(contents){
 }
 function renderMediaFiles(){
   const grid=$('#media-grid');if(!grid)return;
-  if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
-  if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
-  const term=String($('#media-search')?.value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  state.mediaSelection=state.mediaSelection||new Set();
+  state.mediaFolder=state.mediaFolder||'img';
+  const allFolders=mediaFolderPaths();
+  if(state.mediaFolder!==MEDIA_ALL_FOLDERS&&!allFolders.includes(state.mediaFolder))state.mediaFolder='img';
+  if(!allFolders.includes(state.mediaUploadFolder))state.mediaUploadFolder=MEDIA_DEFAULT_FOLDER;
+
+  const folderNav=$('#media-folder-nav');
+  if(folderNav){
+    folderNav.innerHTML=[
+      '<button type="button" class="media-folder-nav-item'+(state.mediaFolder===MEDIA_ALL_FOLDERS?' is-active':'')+'" data-media-folder="'+MEDIA_ALL_FOLDERS+'" aria-current="'+(state.mediaFolder===MEDIA_ALL_FOLDERS?'page':'false')+'"><span class="media-folder-nav-glyph">▦</span><span>Todos os arquivos</span><small>'+state.mediaFiles.length+'</small></button>',
+      '<button type="button" class="media-folder-nav-item'+(state.mediaFolder==='img'?' is-active':'')+'" data-media-folder="img" aria-current="'+(state.mediaFolder==='img'?'page':'false')+'"><span class="media-folder-nav-glyph">'+mediaFolderIcon()+'</span><span>Explorar pastas</span><small>'+state.mediaFiles.length+'</small></button>',
+      allFolders.filter(path=>path!=='img').map(path=>{
+        const depth=path.split('/').length-2;
+        return '<button type="button" class="media-folder-nav-item media-folder-nav-child'+(state.mediaFolder===path?' is-active':'')+'" style="--media-depth:'+depth+'" data-media-folder="'+esc(path)+'" aria-current="'+(state.mediaFolder===path?'page':'false')+'" title="'+esc(path)+'"><span class="media-folder-nav-glyph">'+mediaFolderIcon()+'</span><span>'+esc(mediaFolderLabel(path))+'</span><small>'+mediaFolderCount(path)+'</small></button>';
+      }).join('')
+    ].join('');
+    folderNav.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const uploadSelect=$('#media-upload-folder');
+  if(uploadSelect){
+    uploadSelect.innerHTML=allFolders.filter(p=>p!=='img').map(path=>
+      '<option value="'+esc(path)+'">'+esc(mediaFolderLabel(path))+' · '+esc(path)+'</option>'
+    ).join('');
+    uploadSelect.value=state.mediaUploadFolder;
+  }
+  const breadcrumb=$('#media-breadcrumb');
+  if(breadcrumb){
+    const parts=state.mediaFolder===MEDIA_ALL_FOLDERS?[]:state.mediaFolder.split('/');
+    const steps=state.mediaFolder===MEDIA_ALL_FOLDERS?'<span aria-current="page">Todos os arquivos</span>':parts.map((_,i)=>{
+      const value=parts.slice(0,i+1).join('/');
+      return i===parts.length-1?'<span aria-current="page">'+esc(mediaFolderLabel(value))+'</span>':'<button type="button" data-media-folder="'+esc(value)+'">'+esc(mediaFolderLabel(value))+'</button><span class="media-crumb-separator" aria-hidden="true">/</span>';
+    }).join('');
+    breadcrumb.innerHTML='<button type="button" data-media-folder="img">Pastas</button><span class="media-crumb-separator" aria-hidden="true">/</span>'+steps;
+    breadcrumb.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const title=$('#media-folder-title');
+  const currentPath=$('#media-current-path');
+  if(title)title.textContent=state.mediaFolder===MEDIA_ALL_FOLDERS?'Todos os materiais':mediaFolderLabel(state.mediaFolder);
+  if(currentPath)currentPath.textContent=state.mediaFolder===MEDIA_ALL_FOLDERS?'Biblioteca completa':state.mediaFolder+'/';
+  const viewSwitch=$('.media-view-switch');
+  if(viewSwitch){
+    viewSwitch.querySelectorAll('[data-media-view]').forEach(button=>{
+      const selected=button.dataset.mediaView===(state.mediaView||'grid');
+      button.classList.toggle('is-active',selected);
+      button.setAttribute('aria-pressed',String(selected));
+      button.onclick=()=>{state.mediaView=button.dataset.mediaView;renderMediaFiles()};
+    });
+  }
+
+  const foldersEl=$('#media-subfolders');
+  const rawSearch=String($('#media-search')?.value||'').trim();
+  const term=rawSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const type=$('#media-type')?.value||'all';
-  if(!state.mediaSelection)state.mediaSelection=new Set();
-  const pendingAssets=batch.assets();
-  const bulkButton=$('#media-delete-selected');
-  if(bulkButton){bulkButton.disabled=state.mediaSelection.size===0;bulkButton.textContent='Remover selecionados ('+state.mediaSelection.size+')'}
-  const selectionText=$('#media-select-status');
-  if(selectionText)selectionText.textContent=state.mediaSelection.size?state.mediaSelection.size+' material(is) selecionado(s) para revisão.':'Selecione materiais para remover da biblioteca.';
   const usage=$('#media-usage')?.value||'all';
+  const sort=$('#media-sort')?.value||state.mediaSort||'name';
+  const pendingAssets=batch.assets();
   const linked=mediaReferences(state.remoteContents||state.contents);
   const drafts=mediaReferences(state.contents);
   const fileUsage=path=>linked.has(path)?'linked':drafts.has(path)?'draft':'unlinked';
   const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo detectado'};
-  const files=state.mediaFiles.filter(file=>{
-    const matchesName=file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term);
-    return matchesName&&(type==='all'||file.category===type)&&(usage==='all'||fileUsage(file.path)===usage);
+  if(foldersEl){
+    const subfolders=(term||state.mediaFolder===MEDIA_ALL_FOLDERS)?[]:allFolders.filter(path=>
+      path!=='img'&&mediaParentFolder(path)===state.mediaFolder
+    );
+    foldersEl.innerHTML=subfolders.map(path=>
+      '<button type="button" class="media-folder-tile" data-media-folder="'+esc(path)+'"><span class="media-folder-tile-icon">'+mediaFolderIcon()+'</span><span class="media-folder-tile-text"><strong>'+esc(mediaFolderLabel(path))+'</strong><small>'+mediaFolderCount(path)+' arquivo(s)</small></span><span class="media-folder-tile-arrow" aria-hidden="true">›</span></button>'
+    ).join('');
+    foldersEl.hidden=!subfolders.length;
+    foldersEl.querySelectorAll('[data-media-folder]').forEach(button=>button.onclick=()=>selectMediaFolder(button.dataset.mediaFolder));
+  }
+  const matchesFilter=file=>{
+    if(!term&&state.mediaFolder!==MEDIA_ALL_FOLDERS&&mediaParentFolder(file.path)!==state.mediaFolder)return false;
+    if(term&&!file.path.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(term))return false;
+    if(type!=='all'&&file.category!==type)return false;
+    if(usage!=='all'&&fileUsage(file.path)!==usage)return false;
+    return true;
+  };
+  const files=state.mediaFiles.filter(matchesFilter);
+  files.sort((a,b)=>{
+    if(sort==='size')return b.size-a.size||a.path.localeCompare(b.path,'pt-BR');
+    if(sort==='type')return mediaExtension(a.path).localeCompare(mediaExtension(b.path),'pt-BR')||a.path.localeCompare(b.path,'pt-BR');
+    return a.path.split('/').pop().localeCompare(b.path.split('/').pop(),'pt-BR',{sensitivity:'base'});
   });
-  if(!files.length){grid.innerHTML='<div class="panel-card empty-state">Nenhum material encontrado com esses filtros.</div>';return}
-  grid.innerHTML=files.map(file=>{
-    const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
-    const preview=kind==='image'?'<img src="'+esc(mediaFileUrl(file.path))+'" alt="'+esc(name)+'" loading="lazy">':'<div class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Arquivo para consulta')+'</small></div>';
-    const accept='.'+mediaExtension(name);
-    const removing=pendingAssets[file.path]?.action==='remover';
-    const status=fileUsage(file.path);
-    const references=linked.get(file.path)||drafts.get(file.path);
-    const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
-    const details=references?'<small class="media-usage-sections">'+esc([...references].join(' · '))+'</small>':'';
-    const canRemove=!/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(file.path);
-    return '<article class="media-card'+(removing?' media-card-removing':'')+'"><div class="media-card-preview">'+preview+(removing?'<span class="media-removal-badge">Exclusão pendente</span>':'')+'</div><div class="media-card-body"><strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(file.path)+'</small><small class="media-size">'+mediaSize(file.size)+'</small>'+badge+details+'<div class="media-card-actions"><a href="'+esc(mediaFileUrl(file.path))+'" target="_blank" rel="noopener noreferrer">Visualizar</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar caminho</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div><div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-select"><input type="checkbox" data-media-select="'+esc(file.path)+'"'+(state.mediaSelection.has(file.path)?' checked':'')+(canRemove?'':' disabled')+'><span>Selecionar</span></label><button type="button" class="small-button danger-button" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+(removing?'':'<label class="media-replace">Substituir arquivo<input type="file" accept="'+accept+'" data-media-replace="'+esc(file.path)+'"></label>')+'</div></article>';
-  }).join('');
-  grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
-    if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
-    else state.mediaSelection.delete(check.dataset.mediaSelect);
-    const selected=state.mediaSelection.size;
-    const button=$('#media-delete-selected');
-    if(button){button.disabled=!selected;button.textContent='Remover selecionados ('+selected+')'}
-    const text=$('#media-select-status');
-    if(text)text.textContent=selected?selected+' material(is) selecionado(s) para revisão.':'Selecione materiais para remover da biblioteca.';
-  }));
-  grid.querySelectorAll('[data-media-delete]').forEach(btn=>btn.onclick=()=>queueMaterialsRemoval([btn.dataset.mediaDelete]));
-  grid.querySelectorAll('[data-media-undo-delete]').forEach(btn=>btn.onclick=async()=>{
-    if(await batch.deleteAsset(btn.dataset.mediaUndoDelete)){
-      state.mediaSelection.delete(btn.dataset.mediaUndoDelete);
-      renderMediaFiles();toast('Exclusão retirada da fila.');
+  const totalPages=Math.max(1,Math.ceil(files.length/MEDIA_PAGE_SIZE));
+  state.mediaPage=Math.min(Math.max(1,state.mediaPage||1),totalPages);
+  const firstIndex=(state.mediaPage-1)*MEDIA_PAGE_SIZE;
+  const pageFiles=files.slice(firstIndex,firstIndex+MEDIA_PAGE_SIZE);
+  state.mediaCurrentPageFiles=pageFiles;
+  const status=$('#media-status');
+  if(status)status.textContent=state.mediaLoading?'Atualizando…':state.mediaError?state.mediaError:files.length?('Exibindo '+(firstIndex+1)+'–'+(firstIndex+pageFiles.length)+' de '+files.length+' arquivos'+(term?' encontrados em todas as pastas':'')):('Nenhum arquivo'+(term?' encontrado na busca':' nesta pasta com os filtros atuais'));
+  if(state.mediaLoading){grid.innerHTML='<div class="panel-card empty-state">Lendo os materiais do repositório…</div>';return}
+  if(state.mediaError){grid.innerHTML='<div class="panel-card empty-state">'+esc(state.mediaError)+'</div>';return}
+
+  function updateSelectionBar(){
+    const size=state.mediaSelection.size;
+    const bulk=$('#media-delete-selected');
+    if(bulk){bulk.disabled=!size;bulk.textContent=size?'Preparar exclusão ('+size+')':'Remover selecionados'}
+    const clear=$('#media-clear-selection');
+    if(clear)clear.disabled=!size;
+    const selectionText=$('#media-select-status');
+    if(selectionText)selectionText.textContent=size?size+' arquivo(s) selecionado(s) · alterações só após revisar e publicar':'Nenhum arquivo selecionado';
+    const allCheckbox=$('#media-select-page');
+    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path)&&pendingAssets[file.path]?.action!=='remover');
+    const selected=eligible.filter(file=>state.mediaSelection.has(file.path)).length;
+    if(allCheckbox){
+      allCheckbox.disabled=!eligible.length;
+      allCheckbox.checked=eligible.length>0&&selected===eligible.length;
+      allCheckbox.indeterminate=selected>0&&selected<eligible.length;
     }
-  });
-  grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
-    try{await navigator.clipboard.writeText(button.dataset.mediaCopy);toast('Caminho copiado.')}catch(error){toast('Não foi possível copiar o caminho neste navegador.',true)}
-  }));
-  grid.querySelectorAll('[data-media-crop]').forEach(button=>button.onclick=async()=>{
-    try{
-      const result=await window.GPENSCPhotoCrop.edit(mediaFileUrl(button.dataset.mediaCrop),'wide');
-      if(result&&button.isConnected)await saveMediaFile(result,null,button);
-    }catch(error){toast(error.message,true)}
-  });
-  grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
-    const file=event.target.files?.[0];if(!file)return;
-    await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
-  }));
+  }
+  updateSelectionBar();
+  if(!files.length){
+    grid.innerHTML='<div class="media-empty-state"><strong>Nenhum arquivo encontrado</strong><p>Escolha outra pasta ou ajuste a busca e os filtros.</p></div>';
+  }else{
+    grid.className='media-grid'+(state.mediaView==='list'?' is-list':'');
+    grid.innerHTML=pageFiles.map(file=>{
+      const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
+      const removing=pendingAssets[file.path]?.action==='remover';
+      const canRemove=mediaCanRemove(file.path);
+      const selected=state.mediaSelection.has(file.path);
+      const status=fileUsage(file.path);
+      const references=linked.get(file.path)||drafts.get(file.path);
+      const destination=esc(mediaFileUrl(file.path));
+      const preview=kind==='image'
+        ?'<img src="'+destination+'" alt="'+esc(name)+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">'
+        :'<span class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Documento')+'</small></span>';
+      const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
+      const details=references?'<small class="media-usage-sections" title="Seções relacionadas">'+esc([...references].join(' · '))+'</small>':'';
+      const chooser=canRemove&&!removing
+        ?'<label class="media-card-select" title="Selecionar '+esc(name)+'"><input type="checkbox" data-media-select="'+esc(file.path)+'" aria-label="Selecionar '+esc(name)+'"'+(selected?' checked':'')+'><span aria-hidden="true">✓</span></label>'
+        :'<span class="media-card-protected">'+(removing?'Exclusão na fila':'Protegido')+'</span>';
+      return '<article class="media-card'+(selected?' is-selected':'')+(removing?' media-card-removing':'')+'" data-media-path="'+esc(file.path)+'">'+
+        '<div class="media-card-preview"><a class="media-card-thumb" href="'+destination+'" target="_blank" rel="noopener noreferrer" aria-label="Visualizar '+esc(name)+'">'+preview+'</a>'+chooser+'</div>'+
+        '<div class="media-card-body"><div class="media-card-meta"><span class="media-extension">'+esc(ext)+'</span><span class="media-size">'+mediaSize(file.size)+'</span></div>'+
+        '<strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(mediaParentFolder(file.path))+'/</small>'+badge+details+
+        '<div class="media-card-actions"><a href="'+destination+'" target="_blank" rel="noopener noreferrer">Abrir</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar link</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div>'+
+        '<div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-replace">Substituir<input type="file" accept=".'+mediaExtension(name)+'" data-media-replace="'+esc(file.path)+'"></label><button type="button" class="media-remove-single" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+
+        '</div></article>';
+    }).join('');
+    grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
+      if(check.checked)state.mediaSelection.add(check.dataset.mediaSelect);
+      else state.mediaSelection.delete(check.dataset.mediaSelect);
+      check.closest('.media-card')?.classList.toggle('is-selected',check.checked);
+      updateSelectionBar();
+    }));
+    grid.querySelectorAll('[data-media-delete]').forEach(btn=>btn.onclick=()=>queueMaterialsRemoval([btn.dataset.mediaDelete]));
+    grid.querySelectorAll('[data-media-undo-delete]').forEach(btn=>btn.onclick=async()=>{
+      if(await batch.deleteAsset(btn.dataset.mediaUndoDelete)){
+        state.mediaSelection.delete(btn.dataset.mediaUndoDelete);
+        renderMediaFiles();toast('Exclusão retirada da fila.');
+      }
+    });
+    grid.querySelectorAll('[data-media-copy]').forEach(button=>button.addEventListener('click',async()=>{
+      try{
+        await navigator.clipboard.writeText(mediaFileUrl(button.dataset.mediaCopy));
+        toast('Link público copiado.');
+      }catch(error){toast('Não foi possível copiar o link neste navegador.',true)}
+    }));
+    grid.querySelectorAll('[data-media-crop]').forEach(button=>button.onclick=async()=>{
+      try{
+        const result=await window.GPENSCPhotoCrop.edit(mediaFileUrl(button.dataset.mediaCrop),'wide');
+        if(result&&button.isConnected)await saveMediaFile(result,null,button);
+      }catch(error){toast(error.message,true)}
+    });
+    grid.querySelectorAll('[data-media-replace]').forEach(input=>input.addEventListener('change',async event=>{
+      const file=event.target.files?.[0];if(!file)return;
+      await saveMediaFile(file,input.dataset.mediaReplace,event.target);event.target.value='';
+    }));
+  }
+  const pager=$('#media-pagination');
+  if(pager){
+    if(totalPages<2){pager.innerHTML='';pager.hidden=true;}
+    else{
+      pager.hidden=false;
+      const current=state.mediaPage;
+      const numbers=new Set([1,totalPages,current-1,current,current+1]);
+      if(current<=3)[2,3,4].forEach(n=>numbers.add(n));
+      if(current>=totalPages-2)[totalPages-3,totalPages-2,totalPages-1].forEach(n=>numbers.add(n));
+      const pages=[...numbers].filter(n=>n>=1&&n<=totalPages).sort((a,b)=>a-b);
+      let last=0;
+      const buttons=pages.map(n=>{
+        const gap=n-last>1?'<span class="media-page-ellipsis" aria-hidden="true">…</span>':'';
+        last=n;
+        return gap+'<button type="button" data-media-page="'+n+'" class="'+(n===current?'is-current':'')+'"'+(n===current?' aria-current="page"':'')+' aria-label="Página '+n+'">'+n+'</button>';
+      }).join('');
+      pager.innerHTML='<button type="button" data-media-page="'+(current-1)+'"'+(current===1?' disabled':'')+'>Anterior</button>'+buttons+'<button type="button" data-media-page="'+(current+1)+'"'+(current===totalPages?' disabled':'')+'>Próxima</button><span class="media-page-status">Página '+current+' de '+totalPages+'</span>';
+      pager.querySelectorAll('[data-media-page]').forEach(button=>button.onclick=()=>{
+        state.mediaPage=Number(button.dataset.mediaPage);
+        renderMediaFiles();
+        $('#media-grid')?.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+  }
 }
 async function queueMaterialsRemoval(paths){
   if(!Array.isArray(paths)||!paths.length)return;
