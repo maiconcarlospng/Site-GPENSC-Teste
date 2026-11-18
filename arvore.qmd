@@ -267,6 +267,23 @@ div(id = "gp49", class = "gp49-shell",
 
 ```{=html}
 <style>
+/* OneZoom: página imersiva; diretório permanece no DOM como fonte acessível. */
+body:has(#gp49) #quarto-content{padding:0!important;max-width:none!important}
+body:has(#gp49) #quarto-content .page-columns,body:has(#gp49) #quarto-content main{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer{display:none!important}
+#gp49{position:relative!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:hidden!important}
+#gp49 .gp49-landscape{position:relative!important;display:block!important;width:100%!important;height:calc(100dvh - var(--gp49-header-height, 66px))!important;min-height:360px!important;overflow:hidden!important;border:0!important;border-radius:0!important;margin:0!important;padding:0!important}
+#gp49 #gp49-map{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;touch-action:none!important}
+#gp49 #gp49-map svg{width:100%;height:100%;display:block}
+#gp49 .gp49-hint,#gp49 .gp49-link-note{display:none!important}
+#gp49 #gp49-directory{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;padding:0!important;margin:0!important;border:0!important}
+#gp49 .gp49-tools{position:absolute!important;z-index:20!important;right:16px!important;bottom:18px!important;top:auto!important;left:auto!important;transform:none!important;display:flex!important;flex-direction:column!important;gap:6px!important;margin:0!important;padding:8px!important;border-radius:16px!important;background:rgba(255,255,255,.93)!important;box-shadow:0 4px 20px #173b2630!important}
+#gp49 .gp49-tools button{min-width:44px;min-height:40px}
+#gp49 .gp49-search-float{position:absolute;z-index:21;left:16px;top:16px;width:min(320px,calc(100% - 90px));padding:10px 14px;border:1px solid #cbd9c7;border-radius:999px;background:#ffffffed;box-shadow:0 3px 15px #173b2620;font:inherit}
+#gp49 #gp49-detail{position:absolute!important;z-index:30!important;right:16px!important;top:76px!important;bottom:90px!important;left:auto!important;width:min(410px,calc(100% - 32px))!important;max-height:none!important;overflow:auto!important;background:#fff!important;border-radius:18px!important;box-shadow:0 12px 40px #173b2633!important}
+#gp49 #gp49-detail[hidden]{display:none!important}
+@media(max-width:767px){#gp49 .gp49-landscape{height:calc(100dvh - var(--gp49-header-height, 60px))!important;display:block!important}#gp49 .gp49-tools{right:10px!important;bottom:12px!important;flex-direction:column!important;margin:0!important;max-width:none!important}#gp49 #gp49-map{position:absolute!important;inset:0!important}#gp49 #gp49-detail{top:auto!important;bottom:0!important;right:0!important;left:0!important;width:100%!important;max-height:58%!important;border-radius:18px 18px 0 0!important}}
+
 #gp49 .gp49-kind{flex:0 0 auto;padding:.28rem .55rem;border-radius:999px;background:#e7efe3;color:#356241;font-size:.68rem;font-weight:750;letter-spacing:.025em}
 #gp49 .gp49-kind--project{background:#f5eadb;color:#99500f}
 #gp49 .gp49-line--project .gp49-line-button{border-left:3px solid #d9731f;padding-left:14px}
@@ -284,15 +301,8 @@ div(id = "gp49", class = "gp49-shell",
 @media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
 
 #gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-/* No celular, instruções e controles ocupam linhas próprias. */
-@media(max-width:767px){
-  html body:has(#gp49) #quarto-content #gp49 .gp49-landscape{display:flex;flex-direction:column}
-  html body:has(#gp49) #gp49 .gp49-hint{position:static!important;order:0;margin:0!important;padding:12px 14px!important;max-width:100%!important;box-sizing:border-box}
-  html body:has(#gp49) #quarto-content #gp49 #gp49-map{order:1}
-  html body:has(#gp49) #gp49 .gp49-tools{position:static!important;order:2;align-self:center;max-width:calc(100% - 28px);margin:10px 14px 0!important;transform:none!important;flex-wrap:wrap}
-  html body:has(#gp49) #gp49 .gp49-link-note{order:3;margin:0!important;padding:12px 14px!important;font-size:12px!important;line-height:1.45!important;box-sizing:border-box;width:100%;max-width:100%;overflow-wrap:break-word}
-}
+
 </style>
 ```
 
-<script src="js/arvore.js?v=copa-organica-20261118" defer></script>
+<script src="js/arvore.js?v=onezoom-imersivo-20261118" defer></script>
