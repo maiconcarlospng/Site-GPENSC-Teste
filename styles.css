@@ -20800,3 +20800,27 @@ html body #quarto-content :is(.gp-video-multimidia,.gp-episodio-item) .gp-conteu
   color: white !important;
   box-shadow: inset 0 -3px var(--lang-accent) !important;
 }
+
+
+/* GPENSC 2026-11-18 — faixas em degrade continuo e idiomas apenas ativos */
+:root { --gp-bar-gradient: linear-gradient(90deg,#5f9a3e 0%,#78a346 18%,#d9731f 50%,#d85a29 69%,#d43a2f 100%); }
+html body #quarto-header .navbar::after,
+html body footer.footer .nav-footer::before {
+  background: var(--gp-bar-gradient) !important;
+  background-image: var(--gp-bar-gradient) !important;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang],
+#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
+  background: rgba(255,255,255,.10) !important;
+  color: #f8fbf7 !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,.30) !important;
+  text-decoration: none !important;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"],
+#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]:hover {
+  background: var(--lang-bg) !important;
+  color: var(--lang-ink) !important;
+  border-color: var(--lang-accent) !important;
+  box-shadow: inset 0 -3px var(--lang-accent) !important;
+}
