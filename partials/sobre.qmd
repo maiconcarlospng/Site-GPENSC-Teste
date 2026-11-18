@@ -313,14 +313,14 @@ div(
                     categoriaGrupo === categoriaSelecionada;
                   const visivel = correspondeTexto && correspondeCategoria;
                   if (visivel) visiveisNoGrupo++;
-                  const limiteGrupo = limites.get(grupo) || (celular.matches ? 4 : (categoriaGrupo === normalizar("Egressos") ? 4 : 8));
+                  const limiteGrupo = limites.get(grupo) || (celular.matches ? 4 : (categoriaGrupo === normalizar('Egressos') ? 4 : 8));
                   cartao.hidden = !visivel || visiveisNoGrupo > limiteGrupo;
                 });
 
                 total += visiveisNoGrupo;
                 grupo.hidden = visiveisNoGrupo === 0;
                 const botao = grupo.querySelector('.equipe-mais');
-                const limitePadrao = celular.matches ? 4 : (categoriaGrupo === normalizar("Egressos") ? 4 : 8);
+                const limitePadrao = celular.matches ? 4 : (categoriaGrupo === normalizar('Egressos') ? 4 : 8);
                 const limite = limites.get(grupo) || limitePadrao;
                 botao.hidden = visiveisNoGrupo <= limitePadrao;
                 const faltam = visiveisNoGrupo - limite;
