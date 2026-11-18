@@ -20775,3 +20775,9 @@ html body .noticia-detalhe-capa .nt-cat {
 html body #quarto-content .gp-projeto-card .gp-conteudo-capa {height:clamp(175px,21vw,245px)}
 html body #quarto-content .gp-projeto-card .gp-conteudo-capa img {object-fit:contain !important;background:#edf3ea}
 @media(max-width:720px) {.gp-projetos-grade{grid-template-columns:minmax(0,1fr);gap:12px}.gp-projeto-card{padding:16px}}
+ 
+/* Capas originais da seção de Multimídia. */
+html body #quarto-content :is(.gp-video-multimidia,.gp-episodio-item) .gp-conteudo-capa img {
+  object-fit: contain !important;
+  background-color: #e7edf3;
+}
