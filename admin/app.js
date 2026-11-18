@@ -800,24 +800,112 @@ function mediaSize(bytes){
   return (value/(1024*1024)).toFixed(1)+' MB';
 }
 function mediaFileUrl(path){return 'https://maiconcarlospng.github.io/Site-GPENSC-Teste/'+String(path).split('/').map(encodeURIComponent).join('/')}
+
+const MEDIA_ALL_FOLDERS='__all__';
+const MEDIA_DEFAULT_FOLDER='img/materiais';
+const MEDIA_PAGE_SIZE=48;
+function mediaParentFolder(path){
+  const parts=String(path||'').split('/');
+  return parts.length>1?parts.slice(0,-1).join('/'):'img';
+}
+function mediaFolderLabel(path){
+  const special={
+    img:'Biblioteca de imagens',
+    'img/instagram-acervo':'Acervo do Instagram',
+    'img/ilustracoes':'Ilustrações',
+    'img/galeria':'Galeria de fotos',
+    'img/equipe':'Equipe e integrantes',
+    'img/noticias':'Capas de notícias',
+    'img/pesquisas':'Pesquisas',
+    'img/marcas':'Marcas e projetos',
+    'img/materiais':'Materiais enviados'
+  };
+  if(path===MEDIA_ALL_FOLDERS)return 'Todos os materiais';
+  return special[path]||String(path).split('/').pop().replace(/[-_]/g,' ').replace(/^./,s=>s.toUpperCase());
+}
+function mediaFolderPaths(){
+  const found=new Set(['img',MEDIA_DEFAULT_FOLDER]);
+  (state.mediaFiles||[]).forEach(item=>{
+    const parts=mediaParentFolder(item.path).split('/');
+    for(let i=1;i<=parts.length;i++)found.add(parts.slice(0,i).join('/'));
+  });
+  return [...found].sort((a,b)=>a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
+}
+function mediaInFolder(path,folder){
+  return folder===MEDIA_ALL_FOLDERS||path.startsWith(folder+'/');
+}
+function mediaFolderCount(folder){
+  return state.mediaFiles.filter(file=>mediaInFolder(file.path,folder)).length;
+}
+function mediaCanRemove(path){
+  return !/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(path);
+}
+function mediaFolderIcon(){
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+}
+function selectMediaFolder(folder){
+  if(folder!==MEDIA_ALL_FOLDERS&&!mediaFolderPaths().includes(folder))return;
+  state.mediaFolder=folder;
+  state.mediaPage=1;
+  const search=$('#media-search');
+  if(search)search.value='';
+  if(folder!=='img'&&folder!==MEDIA_ALL_FOLDERS)state.mediaUploadFolder=folder;
+  renderMediaFiles();
+}
 function openMediaLibrary(){
   if(!canLeaveCurrentEditor())return;
   state.view='media';state.active=null;updateMobileTabs();renderNav();
-  $('#page-crumb').textContent='Materiais do site';
-  $('#page-content').innerHTML=
-    '<div class="page-heading"><div><span class="eyebrow">ARQUIVOS PÚBLICOS DO SITE</span><h1>Materiais do site</h1><p>Consulte as imagens e arquivos da pasta pública. Ao substituir um material, o caminho permanece igual. Os arquivos ficam pendentes até confirmar a publicação.</p></div><div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar lista</button><button type="button" class="primary-button" id="media-add">Adicionar materiais</button></div></div>'+
-    '<div class="media-toolbar"><label for="media-search">Buscar arquivo</label><input id="media-search" type="search" placeholder="Nome ou caminho do arquivo"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select><span id="media-status" role="status"></span></div><p class="media-usage-note">Os selos consideram os vínculos cadastrados no painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>'+
-    '<div class="media-bulk-bar"><span id="media-select-status">Selecione materiais para remover da biblioteca.</span><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>'+
-    '<div id="media-grid" class="media-grid" aria-live="polite"></div>';
+  state.mediaFolder=state.mediaFolder||'img';
+  state.mediaUploadFolder=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER;
+  state.mediaPage=state.mediaPage||1;
+  state.mediaView=state.mediaView||'grid';
+  state.mediaSort=state.mediaSort||'name';
   state.mediaSelection=state.mediaSelection||new Set();
+  $('#page-crumb').textContent='Materiais do site';
+  $('#page-content').innerHTML=[
+    '<div class="page-heading media-page-heading"><div><span class="eyebrow">BIBLIOTECA DE ARQUIVOS</span><h1>Materiais do site</h1><p>Explore as pastas do site, visualize arquivos e prepare alterações com segurança. Nenhum arquivo é movido ou publicado até a revisão da fila.</p></div>',
+    '<div class="media-page-actions"><input id="media-upload-new" type="file" multiple accept="'+MEDIA_ACCEPT+'" hidden><button type="button" class="secondary-button" id="media-refresh">Atualizar</button><button type="button" class="primary-button" id="media-add">Adicionar arquivos</button></div></div>',
+    '<div class="media-library-shell">',
+    '<aside class="media-folder-panel" aria-label="Pastas do site"><div class="media-folder-panel-head"><span class="eyebrow">ORGANIZAÇÃO</span><strong>Pastas</strong></div><nav id="media-folder-nav" class="media-folder-nav" aria-label="Navegar por pastas"></nav><p class="media-folder-note">As pastas são as mesmas do repositório. Organizar a visualização não altera os endereços das imagens.</p></aside>',
+    '<section class="media-browser" aria-label="Arquivos da pasta">',
+    '<div class="media-browser-top"><nav id="media-breadcrumb" class="media-breadcrumb" aria-label="Caminho da pasta"></nav><div class="media-view-switch" role="group" aria-label="Exibição de arquivos"><button type="button" data-media-view="grid" aria-label="Exibir em grade">Grade</button><button type="button" data-media-view="list" aria-label="Exibir em lista">Lista</button></div></div>',
+    '<div class="media-toolbar">',
+    '<div class="media-filter media-filter-search"><label for="media-search">Buscar</label><input id="media-search" type="search" placeholder="Buscar arquivos em todas as pastas" autocomplete="off"></div>',
+    '<div class="media-filter"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select></div>',
+    '<div class="media-filter"><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select></div>',
+    '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="size">Maior arquivo</option><option value="type">Tipo de arquivo</option></select></div>',
+    '<div class="media-filter media-filter-destination"><label for="media-upload-folder">Pasta para novos uploads</label><select id="media-upload-folder"></select></div>',
+    '</div>',
+    '<p class="media-usage-note">Os vínculos são identificados pelos registros do painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>',
+    '<div class="media-browser-heading"><div><h2 id="media-folder-title">Arquivos</h2><p id="media-status" role="status" aria-live="polite"></p></div><span class="media-browser-path" id="media-current-path"></span></div>',
+    '<div id="media-subfolders" class="media-folder-tiles"></div>',
+    '<div class="media-bulk-bar"><label class="media-select-page" for="media-select-page"><input type="checkbox" id="media-select-page"><span>Selecionar esta página</span></label><span id="media-select-status" role="status">Nenhum material selecionado</span><button type="button" class="media-clear-selection" id="media-clear-selection" disabled>Limpar seleção</button><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>',
+    '<div id="media-grid" class="media-grid" aria-live="polite"></div>',
+    '<nav id="media-pagination" class="media-pagination" aria-label="Páginas de arquivos"></nav>',
+    '</section></div>'
+  ].join('');
   $('#media-delete-selected').onclick=async()=>{
     const paths=[...state.mediaSelection];
-    if(!paths.length)return;
-    await queueMaterialsRemoval(paths);
+    if(paths.length)await queueMaterialsRemoval(paths);
   };
-  $('#media-search').addEventListener('input',renderMediaFiles);
-  $('#media-type').addEventListener('change',renderMediaFiles);
-  $('#media-usage').addEventListener('change',renderMediaFiles);
+  $('#media-clear-selection').onclick=()=>{state.mediaSelection.clear();renderMediaFiles()};
+  $('#media-select-page').addEventListener('change',event=>{
+    (state.mediaCurrentPageFiles||[]).forEach(file=>{
+      if(!mediaCanRemove(file.path)||batch.assets()[file.path]?.action==='remover')return;
+      if(event.target.checked)state.mediaSelection.add(file.path);
+      else state.mediaSelection.delete(file.path);
+    });
+    renderMediaFiles();
+  });
+  for(const id of ['media-search','media-type','media-usage','media-sort']){
+    const element=$('#'+id);
+    element.addEventListener(id==='media-search'?'input':'change',()=>{
+      state.mediaPage=1;
+      if(id==='media-sort')state.mediaSort=element.value;
+      renderMediaFiles();
+    });
+  }
+  $('#media-upload-folder').addEventListener('change',event=>{state.mediaUploadFolder=event.target.value});
   $('#media-refresh').addEventListener('click',()=>loadMediaFiles());
   $('#media-add').addEventListener('click',()=>$('#media-upload-new').click());
   $('#media-upload-new').addEventListener('change',async event=>{
@@ -825,25 +913,19 @@ function openMediaLibrary(){
     const files=[...input.files];
     if(!files.length)return;
     const button=$('#media-add');
-    button.disabled=true;
-    input.disabled=true;
-    let added=0;
-    const errors=[];
+    const destination=state.mediaUploadFolder||MEDIA_DEFAULT_FOLDER;
+    button.disabled=true;input.disabled=true;
+    let added=0;const errors=[];
     try{
       for(const [index,file] of files.entries()){
         button.textContent='Preparando '+(index+1)+' de '+files.length+'…';
-        try{
-          await stageNewMaterial(file);
-          added++;
-        }catch(error){errors.push(file.name+': '+error.message)}
+        try{await stageNewMaterial(file,destination);added++}
+        catch(error){errors.push(file.name+': '+error.message)}
       }
-      if(added)toast(added+' material(is) na fila de revisão.');
+      if(added)toast(added+' material(is) preparado(s) na pasta '+destination+'. Revise a fila.');
       if(errors.length)alert('Alguns arquivos não foram adicionados à fila:\n\n'+errors.join('\n'));
     }finally{
-      input.value='';
-      input.disabled=false;
-      button.disabled=false;
-      button.textContent='Adicionar materiais';
+      input.value='';input.disabled=false;button.disabled=false;button.textContent='Adicionar arquivos';
     }
   });
   if(!state.mediaFiles.length)loadMediaFiles();else renderMediaFiles();
