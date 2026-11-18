@@ -345,7 +345,7 @@
     return life;
   }
   function focusOn(start,count,depth) {
-    const center=point(start,count,depth);
+    const center=(typeof terminalPositions!=='undefined' && terminalPositions[start]) || point(start,count,depth);
     const width=clamp(210+count/total*1310,290,1400);
     const h=width*H/W;
     move({x:center.x-width/2,y:center.y-h*.72,w:width,h},850);
@@ -430,13 +430,58 @@
     if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  // Cada linha ou projeto é um galho independente, sem agrupamentos numerados.
-  // Uma raiz compartilhada mantém o desenho conectado e os registros clicáveis.
-  const origin={x:-190,y:1120};
-  const fork={x:210,y:780};
-  limb(origin,fork,135,72,{x:.75,y:-.66});
-  rows.forEach((row,index)=>branch(index,1,2,fork,Math.max(12,45-total*.32),9,{x:.7,y:-.7}));
-  const trunkLabel=make('text',{x:90,y:940,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  // Geometria de árvore explorável: bifurcações recursivas, espessura
+  // proporcional ao número de terminais, e nós somente nos registros reais.
+  // As bifurcações estruturais não recebem números nem agrupamentos visuais.
+  const origin={x:-220,y:1140};
+  const rootFork={x:165,y:740};
+  limb(origin,rootFork,150,86,{x:.75,y:-.66});
+  const terminalPositions=[];
+  function grow(start,count,from,heading,thickness,depth){
+    if(count===1){
+      // O último trecho termina no próprio registro, sem bolha de agrupamento.
+      const p=point(start,1,Math.min(depth+2,6));
+      const tangent=direction(p.x-from.x,p.y-from.y);
+      const tip={x:p.x+Math.cos(start*2.399963)*25,y:p.y+Math.sin(start*2.399963)*20};
+      const segment=limb(from,tip,thickness,Math.max(3,thickness*.22),heading||tangent);
+      terminalPositions[start]=tip;
+      leaves(tip,start);
+      linkedLife(tip,start);
+      const bubble=make('g',{class:'gp49-node gp49-terminal',
+        transform:'translate('+tip.x+' '+tip.y+')',role:'button',tabindex:0,
+        'aria-label':(rows[start].dataset.branchType==='projeto'?'Projeto: ':'Linha de pesquisa: ')+nodeNames[start],
+        'aria-pressed':'false'},nodeLayer);
+      make('circle',{r:25,fill:'transparent','pointer-events':'all',class:'gp49-hit-target'},bubble);
+      make('circle',{r:17,class:'gp49-node-halo'},bubble);
+      make('circle',{r:13,class:'gp49-node-disc'},bubble);
+      make('circle',{r:5,class:'gp49-node-seed'},bubble);
+      const label=make('g',{class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none','data-terminal':'1'},bubble);
+      const name=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-name-label'},label);
+      name.textContent=nodeNames[start];addLabelBackground(name,label);
+      make('title',{},bubble).textContent=nodeNames[start];
+      const activate=e=>{e.stopPropagation();select(start);focusOn(start,1,Math.min(depth+2,6));};
+      bubble.addEventListener('click',activate);
+      bubble.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate(e);}});
+      bubble.addEventListener('pointerenter',()=>showTip(bubble,nodeNames[start]));
+      bubble.addEventListener('pointerleave',hideTip);
+      return;
+    }
+    const left=Math.ceil(count/2),right=count-left;
+    const center=(start+count/2)/total;
+    const spread=Math.min(215,65+count/total*185);
+    const distance=Math.max(85,225-depth*19);
+    const pivot={x:from.x+(center-.5)*spread+heading.x*distance*.45,
+      y:from.y-distance+Math.sin(depth*1.7+center*5)*22};
+    const next=direction(pivot.x-from.x,pivot.y-from.y);
+    const endThickness=Math.max(7,thickness*.76);
+    limb(from,pivot,thickness,endThickness,heading);
+    const leftThickness=Math.max(4,endThickness*Math.sqrt(left/count)*.84);
+    const rightThickness=Math.max(4,endThickness*Math.sqrt(right/count)*.84);
+    grow(start,left,pivot,direction(next.x-.25,next.y),leftThickness,depth+1);
+    grow(start+left,right,pivot,direction(next.x+.25,next.y),rightThickness,depth+1);
+  }
+  grow(0,total,rootFork,{x:.48,y:-.88},86,0);
+  const trunkLabel=make('text',{x:80,y:940,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
