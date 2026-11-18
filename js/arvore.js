@@ -47,24 +47,67 @@ function leaf(origin, angle, scale, index) {
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
 }
-function grow(index,count,origin,angle,scale){
-  if(count===1){leaf(origin,angle,scale,index);return;}
-  const larger=Math.ceil(count/2);
-  for(const main of [true,false]){
-    const ratio=main?1/1.3:1/2.25;
-    const nextAngle=angle+Math.PI*(main?.22:-.46);
-    const nextScale=scale*ratio;
-    const base=point(point(origin,angle,1.3*scale),angle+Math.PI/2,(main?1:-1)*.275*(scale-nextScale));
-    const start=point(base,angle,-.3*scale);
-    branch(start,main?start:point(base,angle,.1*scale),
-      main?point(base,angle,.15*scale):point(base,nextAngle,.9*nextScale),
-      point(base,nextAngle,nextScale),nextScale);
-    grow(main?index:index+larger,main?larger:count-larger,base,nextAngle,nextScale);
+// Hierarquia editorial: linhas -> projetos associados -> frutos cadastrados.
+// A geometria espiral, os controles e a apresentação das folhas são preservados.
+const lines=rows.map((r,i)=>({r,i})).filter(o=>o.r.dataset.branchType==='linha');
+const projects=rows.map((r,i)=>({r,i})).filter(o=>o.r.dataset.branchType==='projeto');
+const linked=new Set();
+const forest=lines.map(o=>{
+ const id=o.r.dataset.lineId||o.r.dataset.branchId;
+ const children=projects.filter(p=>(p.r.dataset.lineId||'')===id);
+ children.forEach(p=>linked.add(p.i));
+ return {index:o.i,children:children.map(p=>({index:p.i,children:[]}))};
+});
+projects.filter(p=>!linked.has(p.i)).forEach(p=>forest.push({index:p.i,children:[]}));
+function fruits(index,origin,angle,scale){
+ const raw=rows[index].dataset.fruits;
+ if(!raw)return;
+ let items;try{items=JSON.parse(raw);}catch{return;}
+ if(!Array.isArray(items)||!items.length)return;
+ // Pequenos frutos clicáveis, distribuídos ao redor da extremidade do ramo.
+ const unique=[...new Map(items.filter(x=>x&&x.nome).map(x=>[(x.tipo||'')+'|'+x.nome,x])).values()];
+ const n=Math.min(unique.length,24),radius=Math.max(4,scale*.27);
+ unique.slice(0,n).forEach((item,j)=>{
+  const a=angle+(j-(n-1)/2)*Math.min(.48,2.7/Math.max(n,1));
+  const d=scale*(1.8+.24*(j%3));
+  const p=point(origin,a,d),tone=item.tipo==='pessoa'?'#d9731f':item.tipo==='defesa'?'#d43a2f':'#5f9a3e';
+  const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
+  el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
+  el('title',{},g).textContent=item.nome;
+  const select=()=>{show(index);focus(p,Math.max(35,scale*3));};
+  g.addEventListener('click',select);
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
+ });
+}
+function growTree(items,origin,angle,scale){
+ if(!items.length)return;
+ if(items.length===1){
+  const item=items[0];
+  leaf(origin,angle,scale,item.index);
+  const tip=point(origin,angle,scale*1.9);
+  fruits(item.index,tip,angle,scale*.6);
+  if(item.children.length){
+   const base=point(origin,angle,scale*1.45);
+   growTree(item.children,base,angle+.34,scale*.36);
   }
+  return;
+ }
+ const larger=Math.ceil(items.length/2);
+ for(const main of [true,false]){
+  const ratio=main?1/1.3:1/2.25;
+  const nextAngle=angle+Math.PI*(main?.22:-.46);
+  const nextScale=scale*ratio;
+  const base=point(point(origin,angle,1.3*scale),angle+Math.PI/2,(main?1:-1)*.275*(scale-nextScale));
+  const start=point(base,angle,-.3*scale);
+  branch(start,main?start:point(base,angle,.1*scale),
+    main?point(base,angle,.15*scale):point(base,nextAngle,.9*nextScale),
+    point(base,nextAngle,nextScale),nextScale);
+  growTree(main?items.slice(0,larger):items.slice(larger),base,nextAngle,nextScale);
+ }
 }
 const origin={x:0,y:0},heading=-Math.PI*.38,scale=230;
 branch(origin,point(origin,heading,.05*scale),point(origin,heading,.95*scale),point(origin,heading,scale),scale);
-grow(0,rows.length,origin,heading,scale);
+growTree(forest,origin,heading,scale);
 // Identidade do grupo acompanha a orientação natural do tronco.
 const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'none'},nodes);
 trunkLabel.textContent='GPENSC';
