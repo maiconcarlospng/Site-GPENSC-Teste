@@ -136,7 +136,7 @@ def refresh_existing_covers(rows):
     blocks = re.split(r"(?=^  - data: )", NEWS.read_text(), flags=re.M)
     changed = 0
     for i, block in enumerate(blocks):
-        post = re.search(r'(?m)^    url:\s*"https://www\\.instagram\\.com/(?:p|reels?|tv)/([\\w-]+)/"', block)
+        post = re.search(r'(?m)^    url:\s*"https://www\.instagram\.com/(?:p|reels?|tv)/([\w-]+)/"', block)
         image = re.search(r'(?m)^    imagem:\s*"([^"]*)"', block)
         if not post or not image:
             continue
