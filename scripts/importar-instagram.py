@@ -1,6 +1,5 @@
 """Importa a janela recente do perfil público; dados externos nunca são executados."""
 import datetime as dt
-import io
 import json
 import os
 import re
@@ -10,11 +9,10 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 import yaml
-from PIL import Image, ImageOps
 
 PROFILE = "gpenscufop"
 NEWS = Path("data/noticias.yml")
-COVERS = Path("img/instagram-acervo")
+GALLERIES = Path("data/instagram/carrosseis-recentes.json")
 CODE = re.compile(r"instagram\.com/(?:p|reels?|tv)/([\w-]+)")
 
 
@@ -82,22 +80,48 @@ def editorial(caption, date):
     return None
 
 
-def original_cover(row, code):
-    url = row["displayUrl"]
+def remote_cover(row):
+    """Usa o link HTTPS original; não baixa nem grava imagens no repositório."""
+    url = row.get("displayUrl") or ""
     host = urlsplit(url)
     if host.scheme != "https" or not (host.hostname or "").endswith((".cdninstagram.com", ".fbcdn.net")):
-        raise ValueError("Origem da capa inesperada para " + code)
-    with urlopen(url, timeout=40) as response:
-        data = response.read(16 * 1024 * 1024 + 1)
-    if len(data) > 16 * 1024 * 1024:
-        raise ValueError("Capa muito grande: " + code)
-    COVERS.mkdir(parents=True, exist_ok=True)
-    path = COVERS / (code + ".webp")
-    with Image.open(io.BytesIO(data)) as original:
-        image = ImageOps.exif_transpose(original).convert("RGB")
-        image.thumbnail((900, 900))
-        image.save(path, "WEBP", quality=82)
-    return path.as_posix()
+        return ""
+    return url
+
+
+def carousel_images(row):
+    """Preserva a ordem das imagens do carrossel e valida os hosts de mídia."""
+    images = row.get("images") or [
+        child.get("displayUrl") for child in (row.get("childPosts") or [])
+        if child.get("type") == "Image"
+    ]
+    valid = []
+    for image in images:
+        if not isinstance(image, str):
+            continue
+        host = urlsplit(image)
+        if host.scheme == "https" and (host.hostname or "").endswith((".cdninstagram.com", ".fbcdn.net")):
+            valid.append(image)
+    return valid if len(valid) > 1 else []
+
+
+def refresh_carousels(rows):
+    """Atualiza links recentes sem substituir títulos/resumos já revisados."""
+    gallery = json.loads(GALLERIES.read_text(encoding="utf-8")) if GALLERIES.exists() else {}
+    if not isinstance(gallery, dict):
+        gallery = {}
+    before = dict(gallery)
+    for row in rows:
+        code = row.get("shortCode") or ""
+        if row.get("ownerUsername", "").lower() != PROFILE or not re.fullmatch(r"[A-Za-z0-9_-]+", code):
+            continue
+        images = carousel_images(row)
+        if images:
+            gallery[code] = images
+    if gallery != before or not GALLERIES.exists():
+        GALLERIES.parent.mkdir(parents=True, exist_ok=True)
+        GALLERIES.write_text(json.dumps(gallery, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    print(f"{len(gallery)} carrosséis recentes com links de mídia atualizados.")
 
 
 def integrate(rows):
@@ -105,6 +129,7 @@ def integrate(rows):
     if not isinstance(rows, list) or not rows:
         raise ValueError("Coleta vazia. Confira o perfil e o histórico no Apify.")
     additions = []
+    refresh_carousels(rows)
     for row in rows:
         if row.get("error"):
             raise ValueError("O Apify informou erro na coleta.")
@@ -116,10 +141,15 @@ def integrate(rows):
         date = dt.datetime.fromisoformat(row["timestamp"].replace("Z", "+00:00")).astimezone(ZoneInfo("America/Sao_Paulo")).date().isoformat()
         result = editorial(row.get("caption") or "", date)
         if result is None:
-            print(f"::warning::Revisar legenda sem informação suficiente: https://www.instagram.com/p/{code}/")
-            continue
-        title, summary, body, category = result
-        additions.append(dict(data=date, categoria=category, titulo=title, resumo=summary, conteudo=body, url=f"https://www.instagram.com/p/{code}/", imagem=original_cover(row, code)))
+            caption = (row.get("caption") or "").strip()
+            plain = re.sub(r"\\s+", " ", re.sub(r"https?://\\S+|@[\\w.]+", "", caption)).strip(" .")
+            title = plain[:88].rsplit(" ", 1)[0].strip(" .,:;") if plain else f"Registro do GPENSC em {date}"
+            summary = (plain[:260].rsplit(" ", 1)[0].rstrip(" .") + ".") if plain else "Publicação visual do GPENSC sem legenda disponível. Consulte o registro original."
+            body, category = caption or summary, "Institucional"
+            print(f"::warning::Título sugerido automaticamente; revisar: https://www.instagram.com/p/{code}/")
+        else:
+            title, summary, body, category = result
+        additions.append(dict(data=date, categoria=category, titulo=title, resumo=summary, conteudo=body, url=f"https://www.instagram.com/p/{code}/", imagem=remote_cover(row)))
         known.add(code)
     if additions:
         source = NEWS.read_text().rstrip() + "\n"
