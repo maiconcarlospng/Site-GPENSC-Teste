@@ -272,39 +272,85 @@
       }
     }
     async function submitAtomic(progress){
-      progress('Preparando um único commit com todas as alterações…');
-      const base=await api('/repos/'+repo+'/git/ref/heads/'+branch);
-      const baseSha=base.object?.sha;
-      if(!baseSha)throw new Error('Não foi possível identificar o commit atual do site.');
-      await verify(baseSha);
-      const commit=await api('/repos/'+repo+'/git/commits/'+baseSha);
-      const baseTree=commit.tree?.sha;
-      if(!baseTree)throw new Error('Não foi possível acessar a árvore do repositório.');
-      const tree=Object.entries(pending).map(([path,draft])=>({
-        path,mode:'100644',type:'blob',content:yamlText(draft)
-      }));
-      for(const meta of Object.values(assets)){
-        if(meta.action==='remover'){
-          progress('Preparando exclusão: '+meta.name+'…');
-          tree.push({path:meta.path,mode:'100644',type:'blob',sha:null});
-          continue;
+      // A branch pode avançar entre a leitura do HEAD e o PATCH. Nessa situação,
+      // recriamos o commit sobre o HEAD mais recente, sem sobrescrever outros commits.
+      const maxAttempts=4;
+      const preparedBlobs=new Map();
+      async function publicationResult(saved,createdTree){
+        const contentShas={};
+        for(const path of Object.keys(pending)){
+          const entry=(createdTree.tree||[]).find(item=>item.path===path&&item.type==='blob');
+          let sha=entry?.sha;
+          if(!sha){
+            // Atualizar os SHAs locais evita conflitos falsos na próxima edição.
+            try{
+              const published=await api('/repos/'+repo+'/contents/'+filePath(path)+'?ref='+saved.sha);
+              sha=published.sha;
+            }catch(error){ /* O commit já foi confirmado; não marcar a publicação como falha. */ }
+          }
+          if(sha)contentShas[path]=sha;
         }
-        progress('Preparando mídia: '+meta.name+'…');
-        const blob=await dbGet(meta.path);
-        const body={content:await toBase64(blob),encoding:'base64'};
-        const created=await api('/repos/'+repo+'/git/blobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-        tree.push({path:meta.path,mode:'100644',type:'blob',sha:created.sha});
+        return {sha:saved.sha,contentShas,message:'Todas as alterações foram enviadas em um único commit. A publicação do site será processada pelo GitHub Actions.'};
       }
-      const t=await api('/repos/'+repo+'/git/trees',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base_tree:baseTree,tree})});
-      const saved=await api('/repos/'+repo+'/git/commits',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        message:'Conteúdos GPENSC: publicação revisada de '+total()+' alterações via painel',
-        tree:t.sha,parents:[baseSha]
-      })});
-      progress('Confirmando a publicação no GitHub…');
-      const fresh=await api('/repos/'+repo+'/git/ref/heads/'+branch);
-      if(fresh.object?.sha!==baseSha)throw new Error('O site mudou enquanto a publicação era preparada. Nenhum rascunho foi apagado. Atualize os dados e tente novamente.');
-      await api('/repos/'+repo+'/git/refs/heads/'+branch,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({sha:saved.sha,force:false})});
-      return {sha:saved.sha,message:'Todas as alterações foram enviadas em um único commit. A publicação do site será processada pelo GitHub Actions.'};
+      for(let attempt=1;attempt<=maxAttempts;attempt++){
+        progress(attempt===1
+          ?'Preparando um único commit com todas as alterações…'
+          :'O repositório mudou durante o envio. Atualizando a base e tentando novamente ('+attempt+'/'+maxAttempts+')…');
+        const base=await api('/repos/'+repo+'/git/ref/heads/'+branch);
+        const baseSha=base.object?.sha;
+        if(!baseSha)throw new Error('Não foi possível identificar o commit atual do site.');
+        // Em cada tentativa, verificar os arquivos editados na versão realmente atual.
+        // Se a mesma seção foi alterada por outra pessoa, manter o rascunho para revisão.
+        await verify(baseSha);
+        const commit=await api('/repos/'+repo+'/git/commits/'+baseSha);
+        const baseTree=commit.tree?.sha;
+        if(!baseTree)throw new Error('Não foi possível acessar a árvore do repositório.');
+        const tree=Object.entries(pending).map(([path,draft])=>({
+          path,mode:'100644',type:'blob',content:yamlText(draft)
+        }));
+        for(const meta of Object.values(assets)){
+          if(meta.action==='remover'){
+            progress('Preparando exclusão: '+meta.name+'…');
+            tree.push({path:meta.path,mode:'100644',type:'blob',sha:null});
+            continue;
+          }
+          if(!preparedBlobs.has(meta.path)){
+            progress('Preparando mídia: '+meta.name+'…');
+            const blob=await dbGet(meta.path);
+            const body={content:await toBase64(blob),encoding:'base64'};
+            const created=await api('/repos/'+repo+'/git/blobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+            preparedBlobs.set(meta.path,created.sha);
+          }
+          tree.push({path:meta.path,mode:'100644',type:'blob',sha:preparedBlobs.get(meta.path)});
+        }
+        const createdTree=await api('/repos/'+repo+'/git/trees',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base_tree:baseTree,tree})});
+        const saved=await api('/repos/'+repo+'/git/commits',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+          message:'Conteúdos GPENSC: publicação revisada de '+total()+' alterações via painel',
+          tree:createdTree.sha,parents:[baseSha]
+        })});
+        progress('Confirmando a publicação no GitHub…');
+        const fresh=await api('/repos/'+repo+'/git/ref/heads/'+branch);
+        if(fresh.object?.sha!==baseSha){
+          if(attempt<maxAttempts)continue;
+          throw new Error('O repositório foi atualizado várias vezes durante o envio. Os rascunhos foram preservados; tente publicar novamente.');
+        }
+        try{
+          await api('/repos/'+repo+'/git/refs/heads/'+branch,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({sha:saved.sha,force:false})});
+        }catch(error){
+          // O GitHub pode concluir o PATCH mas a resposta se perder na conexão.
+          // Verificar antes de tentar outro commit evita uma publicação duplicada.
+          let latest;
+          try{latest=await api('/repos/'+repo+'/git/ref/heads/'+branch)}catch(readError){throw error}
+          if(latest.object?.sha===saved.sha)return publicationResult(saved,createdTree);
+          const moved=latest.object?.sha!==baseSha;
+          const nonFastForward=/fast[ -]?forward/i.test(String(error.message||''));
+          if((moved||nonFastForward)&&attempt<maxAttempts)continue;
+          if(moved||nonFastForward)throw new Error('O GitHub recebeu outras alterações durante a publicação. Seus rascunhos continuam salvos; tente novamente. Se a mesma seção foi alterada, revise o conflito antes de publicar.');
+          throw error;
+        }
+        return publicationResult(saved,createdTree);
+      }
+      throw new Error('Não foi possível sincronizar a publicação com o repositório. Nenhum rascunho foi descartado.');
     }
     async function submitSequential(progress){
       const changes=[...Object.entries(pending).map(([path,draft])=>({path,draft,kind:'yaml'})),...Object.values(assets).map(meta=>({path:meta.path,meta,kind:meta.action==='remover'?'remove':'media'}))];
@@ -356,6 +402,7 @@
           const pendingAssets=Object.keys(assets);
           for(const [path,draft] of Object.entries(pending)){
             if(state.remoteContents)state.remoteContents[path]=clone(draft.content);
+            if(result.contentShas?.[path])state.sha[path]=result.contentShas[path];
           }
           pending={};assets={};persist();
           await Promise.all(pendingAssets.map(path=>dbDelete(path).catch(()=>{})));
