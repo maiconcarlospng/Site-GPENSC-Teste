@@ -1,9 +1,9 @@
 ---
-title: "Parcerias"
+title: "Instituições parceiras"
 ---
 
-<div class="gp-illustrated-lead"><p>Instituições e redes parceiras do GPENSC, no Brasil e no exterior.</p><img src="img/ilustracoes/parcerias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+<div class="gp-illustrated-lead"><p>Conheça as instituições parceiras do GPENSC e suas redes de colaboração.</p><img src="img/ilustracoes/parcerias.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
-## Parcerias nacionais e internacionais {#parcerias .gp-heading-art .gp-heading-art--parcerias}
+## Instituições parceiras {#parcerias .gp-heading-art .gp-heading-art--parcerias}
 
 {{< include partials/parcerias.qmd >}}
