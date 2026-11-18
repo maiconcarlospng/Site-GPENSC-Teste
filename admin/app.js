@@ -873,7 +873,7 @@ function openMediaLibrary(){
     '<div class="media-filter media-filter-search"><label for="media-search">Buscar</label><input id="media-search" type="search" placeholder="Buscar arquivos em todas as pastas" autocomplete="off"></div>',
     '<div class="media-filter"><label for="media-type">Tipo</label><select id="media-type"><option value="all">Todos</option><option value="image">Imagens</option><option value="document">Documentos</option><option value="audiovisual">Áudio e vídeo</option></select></div>',
     '<div class="media-filter"><label for="media-usage">Vínculo</label><select id="media-usage"><option value="all">Todos</option><option value="linked">Em uso</option><option value="draft">Em rascunho</option><option value="unlinked">Sem vínculo detectado</option></select></div>',
-    '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="size">Maior arquivo</option><option value="type">Tipo de arquivo</option></select></div>',
+    '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="name-desc">Nome (Z–A)</option><option value="size">Tamanho (maior primeiro)</option><option value="size-asc">Tamanho (menor primeiro)</option><option value="type">Tipo / extensão</option><option value="folder">Pasta (A–Z)</option><option value="folder-desc">Pasta (Z–A)</option><option value="usage">Arquivos em uso primeiro</option></select></div>',
     '<div class="media-filter media-filter-destination"><label for="media-upload-folder">Pasta para novos uploads</label><select id="media-upload-folder"></select></div>',
     '</div>',
     '<p class="media-usage-note">Os vínculos são identificados pelos registros do painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>',
@@ -1071,10 +1071,16 @@ function renderMediaFiles(){
     return true;
   };
   const files=state.mediaFiles.filter(matchesFilter);
+  const byName=(a,b)=>a.path.split('/').pop().localeCompare(b.path.split('/').pop(),'pt-BR',{sensitivity:'base',numeric:true})||a.path.localeCompare(b.path,'pt-BR');
   files.sort((a,b)=>{
-    if(sort==='size')return b.size-a.size||a.path.localeCompare(b.path,'pt-BR');
-    if(sort==='type')return mediaExtension(a.path).localeCompare(mediaExtension(b.path),'pt-BR')||a.path.localeCompare(b.path,'pt-BR');
-    return a.path.split('/').pop().localeCompare(b.path.split('/').pop(),'pt-BR',{sensitivity:'base'});
+    if(sort==='name-desc')return byName(b,a);
+    if(sort==='size')return b.size-a.size||byName(a,b);
+    if(sort==='size-asc')return a.size-b.size||byName(a,b);
+    if(sort==='type')return mediaExtension(a.path).localeCompare(mediaExtension(b.path),'pt-BR')||byName(a,b);
+    if(sort==='folder')return mediaParentFolder(a.path).localeCompare(mediaParentFolder(b.path),'pt-BR')||byName(a,b);
+    if(sort==='folder-desc')return mediaParentFolder(b.path).localeCompare(mediaParentFolder(a.path),'pt-BR')||byName(a,b);
+    if(sort==='usage')return ({linked:0,draft:1,unlinked:2}[fileUsage(a.path)]-({linked:0,draft:1,unlinked:2}[fileUsage(b.path)]))||byName(a,b);
+    return byName(a,b);
   });
   const totalPages=Math.max(1,Math.ceil(files.length/MEDIA_PAGE_SIZE));
   state.mediaPage=Math.min(Math.max(1,state.mediaPage||1),totalPages);
