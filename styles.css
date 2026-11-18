@@ -20764,3 +20764,20 @@ html body .noticia-detalhe-capa .nt-cat {
 @media(max-width:600px) {
   html body .noticia-detalhe-capa .nt-img { height: 208px !important; }
 }
+
+/* Cartões compartilhados pelas páginas de Pesquisa e Extensão. */
+.gp-projetos-grade {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.gp-projeto-card {min-width:0;border:1px solid #dce7d8;background:#fff;border-radius:10px;padding:18px 20px 20px;scroll-margin-top:110px}
+.gp-projeto-card h3 {font-size:1.12rem;line-height:1.38;color:#1f4d2b;margin:0 0 12px;overflow-wrap:anywhere}
+.gp-projeto-card p {margin:0 0 8px;color:#536357;font-size:.9rem;line-height:1.58}
+.gp-projeto-card .gp-projeto-resumo {color:#3e5546;margin-bottom:14px}
+.gp-projeto-card a {display:inline-block;margin-top:10px;color:#98501e;font-size:.88rem;text-underline-offset:3px}
+html body #quarto-content .gp-projeto-card .gp-conteudo-capa {height:clamp(175px,21vw,245px)}
+html body #quarto-content .gp-projeto-card .gp-conteudo-capa img {object-fit:contain !important;background:#edf3ea}
+@media(max-width:720px) {.gp-projetos-grade{grid-template-columns:minmax(0,1fr);gap:12px}.gp-projeto-card{padding:16px}}
+ 
+/* Capas originais da seção de Multimídia. */
+html body #quarto-content :is(.gp-video-multimidia,.gp-episodio-item) .gp-conteudo-capa img {
+  object-fit: contain !important;
+  background-color: #e7edf3;
+}

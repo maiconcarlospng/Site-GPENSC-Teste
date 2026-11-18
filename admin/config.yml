@@ -305,6 +305,7 @@ collections:
               summary: "{{fields.titulo}}"
               fields:
                 - { label: "Número do episódio", name: "episodio", widget: "string", required: false }
+                - { label: "Programa", name: "programa", widget: "select", options: ["GPENSC no Ar", "UFOP Cast"], required: false, hint: "Use UFOP Cast para episódios da Rádio UFOP com participação confirmada do GPENSC." }
                 - { label: "Título", name: "titulo", widget: "string" }
                 - { label: "Convidado(a)", name: "convidado", widget: "string", required: false }
                 - { label: "Data", name: "data", widget: "date", required: false }

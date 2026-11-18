@@ -6,6 +6,7 @@ itens:
     linha_id: ""
     resumo: "Educação e comunicação sobre rotulagem de alimentos."
     url: https://www.instagram.com/vinorotulo/
+    imagem: img/marcas/vi-no-rotulo-oficial.png
   - id: PR-CEP
     titulo: Capacitação em Epidemiologia e Análise de Dados
     tipo: Extensão
