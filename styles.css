@@ -21297,3 +21297,67 @@ html body #quarto-content .gp-noticias-pagina-btn:disabled {opacity:.36;cursor:n
 html body #quarto-content .gp-noticias-pagina-reticencias {min-width:16px;color:#56715d;text-align:center}
 html body #quarto-content .gp-noticias-paginacao-status {margin:0;font-size:.82rem;color:#526658}
 @media(max-width:480px) {html body #quarto-content .gp-noticias-pagina-btn {padding:7px 8px;min-width:34px;min-height:38px;font-size:.8rem}}
+
+
+/* Carrosséis originais nas notícias: somente links remotos das mídias. */
+html body .nt .nt-img[data-gp-instagram-url] {position:relative!important}
+html body .nt .nt-img .gp-ig-gallery {
+  position:absolute;inset:0;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+html body .nt .nt-img.gp-ig-gallery-ready .gp-ig-gallery {background:#1b2520}
+html body .nt .nt-img .gp-ig-photo {
+  display:block!important;position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;object-fit:contain!important;
+  margin:0!important;padding:0!important;border:0!important;
+  max-width:none!important;max-height:none!important;
+}
+html body .nt .nt-img.gp-ig-gallery-ready > .nt-photo {visibility:hidden!important}
+html body .nt .nt-img .gp-ig-photo[hidden],
+html body .nt .nt-img .gp-ig-image-error[hidden] {display:none!important}
+html body .nt .nt-img .nt-cat {z-index:6!important}
+html body .nt .nt-img .gp-ig-arrow {
+  position:absolute;top:50%;z-index:5;transform:translateY(-50%);
+  display:flex;align-items:center;justify-content:center;
+  width:33px;height:42px;padding:0;border:0;border-radius:10px;
+  background:rgba(21,34,25,.66);color:white;font:inherit;font-size:28px;
+  line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.12);
+}
+html body .nt .nt-img .gp-ig-arrow--back {left:7px}
+html body .nt .nt-img .gp-ig-arrow--next {right:7px}
+html body .nt .nt-img .gp-ig-arrow:disabled {opacity:.22;cursor:default}
+html body .nt .nt-img .gp-ig-arrow:focus-visible,
+html body .nt .nt-img .gp-ig-dot:focus-visible {outline:3px solid #f0a65d;outline-offset:2px}
+html body .nt .nt-img .gp-ig-indicators {
+  position:absolute;left:50%;bottom:7px;z-index:5;
+  transform:translateX(-50%);display:flex;justify-content:center;align-items:center;
+  max-width:calc(100% - 65px);gap:5px;padding:7px 10px;
+  background:rgba(20,31,23,.66);border-radius:999px;
+  overflow:auto;scrollbar-width:none;
+}
+html body .nt .nt-img .gp-ig-indicators::-webkit-scrollbar {display:none}
+html body .nt .nt-img .gp-ig-dot {
+  flex:0 0 6px;width:6px;height:6px;padding:0;border:0;
+  border-radius:50%;background:#ffffffa1;cursor:pointer;
+}
+html body .nt .nt-img .gp-ig-dot.is-active {background:#fff;width:8px;height:8px;flex-basis:8px}
+html body .nt .nt-img .gp-ig-count {
+  position:absolute;right:7px;top:7px;z-index:5;
+  background:rgba(20,31,23,.7);border-radius:7px;color:#fff;
+  font-size:.7rem;font-weight:700;padding:3px 7px;
+}
+html body .nt .nt-img .gp-ig-image-error {
+  position:absolute;inset:0;z-index:4;display:flex;
+  align-items:center;justify-content:center;padding:38px 25px;
+  text-align:center;color:#fff!important;
+  background:rgba(30,49,35,.84);font-size:.86rem;font-weight:700;
+}
+html body .nt .nt-img.nt-img--detail .gp-ig-arrow {width:40px;height:46px}
+@media(max-width:520px) {
+  html body .nt .nt-img .gp-ig-arrow {width:30px;height:38px;font-size:26px}
+  html body .nt .nt-img .gp-ig-indicators {gap:4px;padding:6px 7px}
+  html body .nt .nt-img .gp-ig-dot {width:5px;height:5px;flex-basis:5px}
+}
