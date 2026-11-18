@@ -4,6 +4,15 @@ title: "Agenda"
 
 <div class="gp-illustrated-lead"><p>Reuniões, defesas, cursos e atividades do GPENSC.</p><img src="img/ilustracoes/agenda.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
-## Agenda GPENSC {#agenda .gp-heading-art .gp-heading-art--agenda}
+{{< include partials/dados-calendario.qmd >}}
+
+```{=html}
+<section class="gp-ag-programa" id="agenda" data-agenda="mes" hidden>
+<h2>Calendário mensal</h2>
+<div class="gp-ag-colunas"><div><div class="gp-ag-nav"><button type="button" data-mover="-1" aria-label="Mês anterior">‹</button><strong aria-live="polite"></strong><button type="button" data-mover="1" aria-label="Próximo mês">›</button><button type="button" data-hoje>Hoje</button></div>
+<div class="gp-ag-grade"></div></div><div><h3 data-periodo>Atividades do mês</h3><div class="gp-ag-lista" aria-live="polite"></div></div></div></section>
+<link rel="stylesheet" href="js/agenda-mensal.css">
+<script defer src="js/agenda-mensal.js"></script>
+```
 
 {{< include partials/agenda.qmd >}}

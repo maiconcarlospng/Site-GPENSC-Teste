@@ -1,0 +1,16 @@
+```{r}
+source("R/helpers.R")
+if (secao_ativa("mostrar_agenda")) {
+  fontes <- list(registros_reais(eventos, "titulo"), registros_reais(defesas, "titulo"))
+  div(class = "gp-agenda-dados", hidden = "hidden", lapply(seq_along(fontes), function(k) {
+    dados <- fontes[[k]]
+    lapply(which(!is.na(dados$data)), function(i) {
+      e <- dados[i, , drop = FALSE]
+      tags$span(`data-dia` = format(e$data[1], "%Y-%m-%d"),
+        `data-tipo` = if (k == 2) paste(c(valor_publico(e$nivel), valor_publico(e$etapa)), collapse = " · ") else valor_publico(e$tipo),
+        `data-local` = if (k == 1) valor_publico(e$local) else valor_publico(e$autor),
+        `data-url` = valor_publico(e$url), as.character(e$titulo[1]))
+    })
+  }))
+}
+```
