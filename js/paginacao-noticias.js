@@ -8,6 +8,8 @@
       if (pages.length < 2) return;
       root.dataset.paginationReady = "true";
       const total = pages.length;
+      const itemCount = Number(root.dataset.gpTotal) || pages.reduce((sum, page) => sum + page.querySelectorAll(".nt").length, 0);
+      const perPage = Number(root.dataset.gpPorPagina) || 12;
       let current = 1;
       const nav = document.createElement("nav");
       nav.className = "gp-noticias-paginacao";
@@ -68,7 +70,9 @@
           previous = n;
         });
         addButton("Próxima ›", current + 1, "next", current === total);
-        status.textContent = "Página " + current + " de " + total;
+        const first = (current - 1) * perPage + 1;
+        const last = Math.min(itemCount, current * perPage);
+        status.textContent = "Página " + current + " de " + total + " · Exibindo " + first + "–" + last + " de " + itemCount + " notícias";
         if (scroll) {
           const y = root.getBoundingClientRect().top;
           if (y < 60 || y > window.innerHeight * .6) root.scrollIntoView({behavior:"smooth",block:"start"});
