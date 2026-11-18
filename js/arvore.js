@@ -33,7 +33,7 @@
   // No celular, a tela se comporta como um mapa explorável, sem miniaturizar a árvore.
   function adaptViewport() {
     svg.setAttribute('preserveAspectRatio',
-      window.matchMedia('(max-width: 767px)').matches ? 'xMidYMid slice' : 'xMidYMid meet');
+      'xMidYMid meet');
   }
   window.addEventListener('resize', adaptViewport, {passive:true});
   adaptViewport();
@@ -110,7 +110,7 @@
     tooltip.style.top=(below?at.bottom-area.top+12:upper)+'px';
   }
   function hideTip(){tooltip.hidden=true;}
-  let camera = {x: 240, y: 70, w: 980, h: 644};
+  let camera = {x: -90, y: -130, w: 1580, h: 1200};
   let animation = 0;
   const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
   const ease = t => 1-Math.pow(1-t,3);
@@ -132,7 +132,7 @@
     const title=label.dataset.title || label.textContent;
     label.dataset.title=title;
     label.replaceChildren();
-    const width=Math.min(190,map.clientWidth*.46)*unit;
+    const width=Math.min(155,map.clientWidth*.38)*unit;
     let line=make('tspan',{x:0,dy:0},label);
     for(const word of title.split(/\s+/)){
       const previous=line.textContent;
@@ -149,6 +149,8 @@
     labelLayoutFrame=requestAnimationFrame(()=>{
       const area=map.getBoundingClientRect();
       const groups=[...svg.querySelectorAll('.gp49-branch-label')];
+      const compact=map.clientWidth<768;
+      const labelsAllowed=compact?Math.max(2,Math.floor(map.clientHeight/135)):groups.length;
       const placed=[];
       const margin=8;
       groups.forEach(group=>{
@@ -157,7 +159,8 @@
       });
       updateLabelBackgrounds(unit);
       groups.sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top);
-      groups.forEach(group=>{
+      groups.forEach((group,index)=>{
+        if(index>=labelsAllowed){group.style.visibility='hidden';return;}
         const node=group.parentNode.querySelector('.gp49-node-disc').getBoundingClientRect();
         // Rótulos de galhos fora da janela acompanham seus nós ao arrastar.
         if(node.right<area.left || node.left>area.right ||
@@ -470,8 +473,9 @@
     const center=(start+count/2)/total;
     const spread=Math.min(215,65+count/total*185);
     const distance=Math.max(85,225-depth*19);
-    const pivot={x:from.x+(center-.5)*spread+heading.x*distance*.45,
-      y:from.y-distance+Math.sin(depth*1.7+center*5)*22};
+    const targetX=85+1260*center;
+    const pivot={x:from.x+(targetX-from.x)*.62,
+      y:from.y-distance+Math.sin(depth*1.7+center*5)*10};
     const next=direction(pivot.x-from.x,pivot.y-from.y);
     const endThickness=Math.max(7,thickness*.76);
     limb(from,pivot,thickness,endThickness,heading);
@@ -508,7 +512,7 @@
       if(item.animate)item.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],
         {duration:350,delay:index*60,easing:'ease-out'});
     });
-    panel.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'nearest'});
+    // O painel é sobreposto ao mapa: não rolar a página ao selecionar.
   }
   rows.forEach((row,index)=>{
     const button=row.querySelector('button');
