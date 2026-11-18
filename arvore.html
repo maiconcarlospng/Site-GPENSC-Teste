@@ -210,16 +210,16 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell page-columns page-full">
 <div class="cell-output-display page-columns page-full">
 <div id="gp49" class="gp49-shell page-columns page-full">
-<div class="gp49-landscape">
+<div class="gp49-landscape page-columns page-full">
 <div id="gp49-map" tabindex="0" role="region" aria-label="Árvore interativa do GPENSC: linhas, projetos, integrantes e produções."></div>
 <div class="gp49-tools" role="group">
 <button id="gp49-in" type="button" aria-label="Ampliar árvore" title="Ampliar">+</button>
 <button id="gp49-out" type="button" aria-label="Diminuir árvore" title="Diminuir">−</button>
 </div>
+<aside id="gp49-detail" aria-live="polite" hidden="hidden"></aside>
 <p class="gp49-hint">GPENSC no tronco · 10 linhas e 7 projetos nos galhos · integrantes e produções vinculados aparecem como frutos.</p>
 <p class="gp49-link-note">96 integrantes cadastrados. A árvore só os associa a linhas ou projetos quando o vínculo é informado no painel.</p>
 </div>
-<aside id="gp49-detail" aria-live="polite" hidden="hidden"></aside>
 <section id="gp49-directory">
 <div class="gp49-directory-heading">
 <h2 class="anchored">Linhas e projetos</h2>
@@ -506,6 +506,24 @@ body:has(#gp49) #title-block-header,body:has(#gp49) footer.footer,body:has(#gp49
 @media(max-width:767.98px){#gp49 .gp49-kind{font-size:.62rem;padding:.25rem .45rem}#gp49 .gp49-line--project .gp49-line-button{padding-left:9px}}
 
 #gp49 .gp49-detail-kind{margin:0 0 .35rem;color:#6a805f;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+
+/* Cartão flutuante sobre a própria árvore: não altera o espaço do mapa. */
+#gp49 .gp49-landscape > #gp49-detail{
+ position:absolute!important;z-index:35!important;top:76px!important;right:16px!important;
+ bottom:auto!important;left:auto!important;width:min(410px,calc(100% - 32px))!important;
+ max-height:calc(100% - 104px)!important;overflow-y:auto!important;
+ overscroll-behavior:contain!important;box-sizing:border-box!important;
+ border:1px solid #dbe5d6!important;border-radius:18px!important;
+ background:#fffffff5!important;backdrop-filter:blur(12px);
+ box-shadow:0 14px 44px #173b2640!important;
+}
+@media(max-width:767px){
+ #gp49 .gp49-landscape > #gp49-detail{
+  top:auto!important;bottom:12px!important;left:12px!important;right:12px!important;
+  width:auto!important;max-height:min(55%,460px)!important;
+  border-radius:18px!important;
+ }
+}
 
 </style>
 <script src="js/arvore.js?v=onezoom-spiral-a203495" defer=""></script>

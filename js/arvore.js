@@ -8,11 +8,12 @@ const NS='http://www.w3.org/2000/svg',W=1200,H=900;
 const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 1200 900');svg.setAttribute('role','group');svg.setAttribute('aria-label','Árvore fractal interativa do conhecimento GPENSC');svg.style.cssText='width:100%;height:100%;display:block;touch-action:none;background:#fbfcf8';map.replaceChildren(svg);
 const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;};
 const limbs=el('g'),nodes=el('g');
+const reveal=[];let zoomAnimation=0;
 const tips=[];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const camera={x:0,y:0,w:W,h:H};
-function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));}
-function animate(to){const start={...camera},t0=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:420;function frame(now){const t=duration?clamp((now-t0)/duration,0,1):1,k=t*t*(3-2*t);for(const key of ['x','y','w','h'])camera[key]=start[key]+(to[key]-start[key])*k;paint();if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);}
+function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));const visibleWidth=camera.w;for(const item of reveal){const pixelSize=item.size*map.clientWidth/Math.max(1,visibleWidth);const opacity=clamp((pixelSize-item.threshold)/Math.max(1,item.threshold*.75),0,1);item.element.style.opacity=opacity;item.element.style.pointerEvents=opacity>.35?'auto':'none';}}
+function animate(to){const animation=++zoomAnimation;const start={...camera},t0=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:420;function frame(now){if(animation!==zoomAnimation)return;const t=duration?clamp((now-t0)/duration,0,1):1,k=t*t*(3-2*t);for(const key of ['x','y','w','h'])camera[key]=start[key]+(to[key]-start[key])*k;paint();if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);}
 function focus(p,w=350){const h=w*map.clientHeight/Math.max(1,map.clientWidth);animate({x:p.x-w/2,y:p.y-h/2,w,h});}
 function show(i){const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;panel.replaceChildren();const close=document.createElement('button');close.textContent='Fechar';close.className='gp49-close';close.onclick=()=>panel.hidden=true;const h=document.createElement('h2');h.textContent=names[i];const body=row.querySelector('.gp49-line-body')?.cloneNode(true);panel.append(close,h);if(body)panel.append(body);panel.hidden=false;rows.forEach((r,j)=>r.querySelector('button')?.setAttribute('aria-pressed',String(i===j)));}
 // World-space form of OneZoom's spiral projection (OZtree, spiral_pre_calc.js).
@@ -43,6 +44,7 @@ function leaf(origin, angle, scale, index) {
   const title=el('text',{'text-anchor':'middle','font-size':font, fill:'white','pointer-events':'none'},g);
   lines.forEach((line,i)=>el('tspan',{x:0,y:(i-(lines.length-1)/2+.3)*font*1.12},title).textContent=line);
   el('title',{},g).textContent=names[index];
+  reveal.push({element:g,size:r*2,threshold:rows[index].dataset.branchType==='projeto'?92:38});
   const select=()=>{show(index);focus(p,Math.max(40,r*5));};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -74,6 +76,7 @@ function fruits(index,origin,angle,scale){
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   el('title',{},g).textContent=item.nome;
+  reveal.push({element:g,size:radius*2,threshold:15});
   const select=()=>{show(index);focus(p,Math.max(35,scale*3));};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -125,7 +128,7 @@ const world=(x,y)=>{const p=svg.createSVGPoint();p.x=x;p.y=y;return p.matrixTran
 svg.addEventListener('wheel',e=>{e.preventDefault();zoom(Math.exp(clamp(e.deltaY,-180,180)*.0018),world(e.clientX,e.clientY));},{passive:false});
 const pointers=new Map();let gesture=null;
 svg.addEventListener('pointerdown',e=>{if(e.target.closest('[role=button]'))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});svg.setPointerCapture(e.pointerId);gesture={camera:{...camera},points:[...pointers.values()]};});
-svg.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const ps=[...pointers.values()];if(ps.length===1&&gesture){const s=camera.w/map.clientWidth;camera.x=gesture.camera.x-(ps[0].x-gesture.points[0].x)*s;camera.y=gesture.camera.y-(ps[0].y-gesture.points[0].y)*s;paint();}else if(ps.length===2){const d=Math.hypot(ps[0].x-ps[1].x,ps[0].y-ps[1].y),old=gesture.points.length===2?Math.hypot(gesture.points[0].x-gesture.points[1].x,gesture.points[0].y-gesture.points[1].y):d;const w=clamp(gesture.camera.w*old/d,90,3500),h=w*map.clientHeight/Math.max(1,map.clientWidth);camera.w=w;camera.h=h;camera.x=gesture.camera.x+(gesture.camera.w-w)/2;camera.y=gesture.camera.y+(gesture.camera.h-h)/2;paint();}});
+svg.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const ps=[...pointers.values()];if(ps.length===1&&gesture){zoomAnimation++;const s=camera.w/map.clientWidth;camera.x=gesture.camera.x-(ps[0].x-gesture.points[0].x)*s;camera.y=gesture.camera.y-(ps[0].y-gesture.points[0].y)*s;paint();}else if(ps.length===2){const d=Math.hypot(ps[0].x-ps[1].x,ps[0].y-ps[1].y),old=gesture.points.length===2?Math.hypot(gesture.points[0].x-gesture.points[1].x,gesture.points[0].y-gesture.points[1].y):d;zoomAnimation++;const w=clamp(gesture.camera.w*old/d,90,3500),h=w*map.clientHeight/Math.max(1,map.clientWidth);camera.w=w;camera.h=h;camera.x=gesture.camera.x+(gesture.camera.w-w)/2;camera.y=gesture.camera.y+(gesture.camera.h-h)/2;paint();}});
 for(const ev of ['pointerup','pointercancel','lostpointercapture'])svg.addEventListener(ev,e=>{pointers.delete(e.pointerId);gesture=null;});
 root.querySelector('#gp49-home')?.addEventListener('click',fit);
 root.querySelector('#gp49-in')?.addEventListener('click',()=>zoom(.72));
@@ -133,5 +136,5 @@ root.querySelector('#gp49-out')?.addEventListener('click',()=>zoom(1.38));
 const search=root.querySelector('#gp49-search');if(search){const floating=document.createElement('input');floating.type='search';floating.className='gp49-search-float';floating.placeholder='Buscar linha ou projeto…';floating.setAttribute('aria-label','Buscar na árvore');map.parentElement.appendChild(floating);floating.addEventListener('input',()=>{search.value=floating.value;const q=floating.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const i=names.findIndex(n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));if(q&&i>=0&&tips[i])focus(tips[i],270);});}
 rows.forEach((r,i)=>r.querySelector('button')?.addEventListener('click',()=>show(i)));
 map.addEventListener('keydown',e=>{if(e.target!==map)return;if(e.key==='+'||e.key==='=')zoom(.75);else if(e.key==='-')zoom(1.3);else if(e.key==='Home')fit();else return;e.preventDefault();});
-window.addEventListener('resize',()=>{const center={x:camera.x+camera.w/2,y:camera.y+camera.h/2};const h=camera.w*map.clientHeight/Math.max(1,map.clientWidth);camera.x=center.x-camera.w/2;camera.y=center.y-h/2;camera.h=h;paint();},{passive:true});requestAnimationFrame(()=>{fit();zoom(.68,{x:scale*.35*Math.cos(heading),y:scale*.35*Math.sin(heading)});});root.classList.add('gp49-ready');
+window.addEventListener('resize',()=>{const center={x:camera.x+camera.w/2,y:camera.y+camera.h/2};const h=camera.w*map.clientHeight/Math.max(1,map.clientWidth);camera.x=center.x-camera.w/2;camera.y=center.y-h/2;camera.h=h;paint();},{passive:true});requestAnimationFrame(()=>{fit();const target={x:scale*.8*Math.cos(heading),y:scale*.8*Math.sin(heading)};const width=Math.min(camera.w*.24,420);const h=width*map.clientHeight/Math.max(1,map.clientWidth);camera.w=width;camera.h=h;camera.x=target.x-width*.38;camera.y=target.y-h*.54;paint();});root.classList.add('gp49-ready');
 })();
