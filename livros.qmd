@@ -2,8 +2,6 @@
 title: "Livros e e-books"
 ---
 
-<div class="gp-illustrated-lead"><p>Livros, capítulos e produções editoriais do GPENSC.</p><img src="img/ilustracoes/livros.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Livros e e-books {#livros}
+<div id="livros" class="gp-illustrated-lead"><p>Livros, capítulos e produções editoriais do GPENSC.</p><img src="img/ilustracoes/livros.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/livros.qmd >}}
