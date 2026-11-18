@@ -1,43 +1,5 @@
 ```{r}
 source("R/helpers.R")
-itens_extensao <- yaml::read_yaml("data/projetos.yml")$itens
-if (is.null(itens_extensao)) itens_extensao <- list()
-itens_extensao <- Filter(function(item) {
-  identical(item$tipo, "Extensão") && tem(item$titulo)
-}, itens_extensao)
-
-if (length(itens_extensao)) {
-  div(class = "gp-extensao-lista",
-    lapply(itens_extensao, function(item) {
-      situacao <- valor_publico(item$situacao)
-      if (identical(situacao, "Não informado")) situacao <- NULL
-      resumo <- valor_publico(item$resumo)
-      coordenador <- valor_publico(item$coordenador)
-      url <- valor_publico(item$url)
-      tags$article(
-        id = paste0("projeto-", item$id),
-        class = "gp-extensao-projeto",
-        h3(item$titulo),
-        if (!is.null(resumo)) p(resumo),
-        if (!is.null(coordenador)) p(tags$strong("Coordenação: "), coordenador),
-        if (!is.null(situacao)) p(situacao),
-        if (!is.null(url) && grepl("^https?://", url))
-          tags$a("Acompanhar o projeto", href = url, target = "_blank", rel = "noopener noreferrer")
-      )
-    })
-  )
-} else {
-  estado_vazio("Projetos de extensão em atualização", NULL)
-}
-```
-
-```{=html}
-<style>
-.gp-extensao-lista{display:grid;gap:0;max-width:100%}
-.gp-extensao-projeto{min-width:0;padding:24px 0;border-bottom:1px solid #dce5db;scroll-margin-top:110px}
-.gp-extensao-projeto:first-child{padding-top:8px}
-.gp-extensao-projeto h3{margin:0 0 12px;color:#1f4d2b;font-size:1.25rem;line-height:1.4;overflow-wrap:anywhere}
-.gp-extensao-projeto p{max-width:80ch;margin:8px 0;line-height:1.65}
-.gp-extensao-projeto a{display:inline-block;margin-top:8px;color:#28583b;text-underline-offset:3px}
-</style>
+source("R/cartoes-projetos.R")
+cartoes_projetos("Extensão")
 ```
