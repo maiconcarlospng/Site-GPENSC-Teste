@@ -140,3 +140,13 @@
 }
 @media(max-width:385px){#app .media-browser .media-grid:not(.is-list){grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){#app .media-card{transition:none}}
+
+/* Ordenação visual das fotos, integrada às demais listas do painel. */
+#app .gallery-sort-bar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:-6px 0 17px;padding:13px 15px;border:1px solid #e0e9df;border-radius:10px;background:#f7faf6}
+#app .gallery-sort-bar label{font-size:.79rem;font-weight:750;color:#32543a}
+#app .gallery-sort-bar select{min-width:220px;min-height:41px;padding:8px 10px;border:1px solid #cfddce;border-radius:8px;background:#fff;color:#244932;font:inherit;font-size:.82rem}
+#app .gallery-sort-bar p{flex:1 1 215px;margin:0;color:#748478;font-size:.73rem;line-height:1.5}
+@media(max-width:700px){
+ #app .gallery-sort-bar{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+ #app .gallery-sort-bar select{width:100%;min-width:0;font-size:16px}
+}
