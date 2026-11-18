@@ -20037,50 +20037,6 @@ html body:has(#gp49) #gp49 #gp49-map .gp49-hit-target {
 @media(max-width:767.98px) {
 }
 
-/* ---------- 9. IDIOMAS — REGRAS ÚNICAS (2026-11-16) ---------- */
-#quarto-header .bandeiras-container {
-  display:inline-flex!important;align-items:center!important;justify-content:center!important;
-  gap:0!important;box-sizing:border-box!important;padding:2px!important;
-  margin:0!important;border:1px solid #d5e0d3!important;border-radius:10px!important;
-  background:#f6f8f4!important;box-shadow:none!important;position:relative!important;
-  z-index:5!important;flex:0 0 auto!important;
-}
-#quarto-header .bandeiras-container .gp-language-button {
-  appearance:none!important;display:inline-grid!important;place-items:center!important;
-  width:36px!important;min-width:36px!important;height:34px!important;min-height:34px!important;
-  padding:0!important;margin:0!important;border:0!important;border-radius:7px!important;
-  background:transparent!important;color:#28543a!important;box-shadow:none!important;
-  font-size:12px!important;font-weight:750!important;line-height:1!important;
-  letter-spacing:0!important;text-transform:none!important;transform:none!important;
-  cursor:pointer!important;
-}
-#quarto-header .bandeiras-container .gp-language-button[aria-pressed="true"] {
-  background:#1f4d2b!important;color:#fff!important;
-}
-#quarto-header .bandeiras-container .gp-language-button:hover:not([aria-pressed="true"]) {
-  background:#e3ecdf!important;
-}
-#quarto-header .bandeiras-container .gp-language-button:focus-visible {
-  outline:2px solid #d9731f!important;outline-offset:2px!important;
-}
-@media(max-width:1099px) {
-  #quarto-header .navbar .navbar-container > .bandeiras-container {
-    display:inline-flex!important;grid-column:3!important;grid-row:1!important;
-    order:3!important;align-self:center!important;justify-self:end!important;
-  }
-}
-@media(max-width:767.98px) {
-  #quarto-header .bandeiras-container .gp-language-button {
-    width:29px!important;min-width:29px!important;height:34px!important;min-height:34px!important;
-    font-size:10.5px!important;
-  }
-}
-@media(min-width:1100px) {
-  #quarto-header .navbar .gp-nav-idiomas-desktop {
-    display:flex!important;align-items:center!important;order:998!important;flex:0 0 auto!important;
-  }
-}
-
 /* ---------- 9. MOBILE — RESPIRO LATERAL INSTITUCIONAL (2026-11-16) ---------- */
 /* Fundo em largura total; conteúdo textual alinhado a uma margem comum. */
 @media (max-width: 767.98px) {
@@ -20775,208 +20731,24 @@ html body #quarto-content :is(.gp-video-multimidia,.gp-episodio-item) .gp-conteu
   background-color: #e7edf3;
 }
 
-:root { --gp-bar-gradient: linear-gradient(to right, #5f9a3e 0% 22%, #d9731f 46% 54%, #d43a2f 78% 100%); }
-
-#quarto-header .gp-language-button[data-lang="pt"] {
-  --lang-bg: #e3f2da; --lang-ink: #205332; --lang-accent: #ffdc63;
-}
-#quarto-header .gp-language-button[data-lang="en"] {
-  --lang-bg: #e6edf9; --lang-ink: #243f73; --lang-accent: #ef858b;
-}
-#quarto-header .gp-language-button[data-lang="es"] {
-  --lang-bg: #fff1be; --lang-ink: #862335; --lang-accent: #ffd550;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang],
-#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover {
-  background: var(--lang-bg) !important;
-  color: var(--lang-ink) !important;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
-  background: var(--lang-bg) !important;
-  text-decoration: underline;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"] {
-  background: var(--lang-ink) !important;
-  color: white !important;
-  box-shadow: inset 0 -3px var(--lang-accent) !important;
-}
 
 
-/* GPENSC 2026-11-18 — faixas em degrade continuo e idiomas apenas ativos */
-:root { --gp-bar-gradient: linear-gradient(90deg,#5f9a3e 0%,#78a346 18%,#d9731f 50%,#d85a29 69%,#d43a2f 100%); }
-html body #quarto-header .navbar::after,
-html body footer.footer .nav-footer::before {
-  background: var(--gp-bar-gradient) !important;
-  background-image: var(--gp-bar-gradient) !important;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang],
-#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
-  background: rgba(255,255,255,.10) !important;
-  color: #f8fbf7 !important;
-  box-shadow: none !important;
-  border-color: rgba(255,255,255,.30) !important;
-  text-decoration: none !important;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"],
-#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]:hover {
-  background: var(--lang-bg) !important;
-  color: var(--lang-ink) !important;
-  border-color: var(--lang-accent) !important;
-  box-shadow: inset 0 -3px var(--lang-accent) !important;
-}
-
-
-/* GPENSC — bandeiras estilizadas somente no idioma selecionado */
-#quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"] {
-  background: linear-gradient(145deg,transparent 29%,#f5d85a 30% 41%,transparent 42% 58%,#f5d85a 59% 70%,transparent 71%),linear-gradient(35deg,#267b45,#46a65b) !important;
-  color:#fff !important;
-  border-color:#f5d85a !important;
-  text-shadow:0 1px 2px #17452b;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"] {
-  background:linear-gradient(90deg,#244b85 0 39%,transparent 39%),repeating-linear-gradient(180deg,#bb3b48 0 5px,#fff 5px 10px) !important;
-  color:#fff !important;
-  border-color:#e4e9f1 !important;
-  text-shadow:0 1px 3px #122b52,0 0 3px #122b52;
-}
-#quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"] {
-  background:linear-gradient(180deg,#b32e3c 0 25%,#f2d15b 25% 75%,#b32e3c 75% 100%) !important;
-  color:#5b2030 !important;
-  border-color:#f2d15b !important;
-  text-shadow:0 1px 1px #fff8;
-}
-
-
-/* iOS Safari: impedir zoom automatico ao focar campos de pesquisa */
-@media (max-width: 767.98px) {
-  html body input[type="search"],
-  html body input[type="text"],
-  html body .aa-Form input,
-  html body .aa-Input,
-  html body .aa-DetachedFormContainer input,
-  html body .gp-tree-search input,
-  html body .gp44-search input {
-    font-size: 16px !important;
-  }
-}
-
-
-/* Elimina a linha clara residual sob a faixa tricolor do menu */
-html body #quarto-header,
-html body #quarto-header .navbar {
-  border-bottom: 0 !important;
-}
-html body #quarto-header .navbar {
-  box-shadow: none !important;
-}
-html body #quarto-header .navbar::after {
-  bottom: 0 !important;
-  height: 3px !important;
-  z-index: 5 !important;
-}
-
-
-/* Idiomas: tres opcoes legiveis no mobile, bandeira somente no ativo */
-html body #quarto-header .bandeiras-container {
-  display:inline-flex !important;
-  width:auto !important;
-  min-width:0 !important;
-  max-width:none !important;
-  gap:3px !important;
-  padding:3px !important;
-  overflow:visible !important;
-  background:#f6f8f4 !important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang],
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
-  display:inline-grid !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  flex:0 0 34px !important;
-  width:34px !important;
-  min-width:34px !important;
-  height:34px !important;
-  background:transparent !important;
-  color:#28543a !important;
-  text-shadow:none !important;
-  border:0 !important;
-  box-shadow:none !important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"] {
-  background:radial-gradient(circle at 50% 50%,#234d99 0 17%,transparent 18%),linear-gradient(145deg,transparent 29%,#f5d85a 30% 41%,transparent 42% 58%,#f5d85a 59% 70%,transparent 71%),#278044 !important;
-  color:#fff !important;
-  text-shadow:0 1px 2px #123c28 !important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"] {
-  background:linear-gradient(90deg,#244b85 0 40%,transparent 40%),repeating-linear-gradient(180deg,#bb3b48 0 5px,#fff 5px 10px) !important;
-  color:#fff !important;
-  text-shadow:0 1px 3px #122b52,0 0 3px #122b52 !important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"] {
-  background:linear-gradient(180deg,#b32e3c 0 25%,#f2d15b 25% 75%,#b32e3c 75% 100%) !important;
-  color:#56202a !important;
-  text-shadow:0 1px 1px #fff9 !important;
-}
-@media(max-width:767.98px) {
-  html body #quarto-header .navbar .navbar-container > .bandeiras-container {
-    width:120px !important;
-    min-width:120px !important;
-    justify-content:center !important;
-    flex:0 0 120px !important;
-  }
-}
-
-
-/* GPENSC — acabamento unico dos idiomas, sem listras artificiais */
-html body #quarto-header .bandeiras-container {
-  display:inline-flex!important;align-items:center!important;justify-content:center!important;
-  gap:3px!important;width:max-content!important;min-width:max-content!important;
-  padding:3px!important;background:#f3f6f1!important;border:1px solid #d8e2d5!important;
-  border-radius:9px!important;overflow:visible!important;box-shadow:none!important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang],
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
-  position:relative!important;isolation:isolate!important;display:inline-flex!important;
-  align-items:center!important;justify-content:center!important;flex:0 0 34px!important;
-  width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;
-  padding:0!important;border:0!important;border-radius:6px!important;
-  background:#fff!important;background-image:none!important;color:#294c35!important;
-  box-shadow:none!important;text-shadow:none!important;font-size:12px!important;
-  font-weight:800!important;overflow:hidden!important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"],
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]:hover {
-  background:#eaf0e7!important;background-image:none!important;
-  color:#173b26!important;border:1px solid #aac4a7!important;
-  box-shadow:0 0 0 1px #ffffff90 inset!important;text-shadow:0 1px 2px white!important;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]::before {
-  position:absolute;z-index:-1;inset:0;display:grid;place-items:center;
-  font-size:28px;line-height:34px;opacity:.38;pointer-events:none;
-}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"]::before {content:"🇧🇷";}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"]::before {content:"🇺🇸";}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"]::before {content:"🇪🇸";}
-html body #quarto-header .bandeiras-container .gp-language-button[data-lang] span {position:relative;z-index:1;}
-@media(max-width:767.98px) {
-  html body #quarto-header .navbar .navbar-container > .bandeiras-container {
-    width:max-content!important;min-width:max-content!important;max-width:none!important;
-    flex:0 0 auto!important;justify-self:end!important;
-  }
-}
-/* Faixa tricolor encostada no limite inferior do header, sem segunda linha clara */
-html body #quarto-header {
-  position:relative!important;border:0!important;margin-bottom:0!important;
-  padding-bottom:0!important;background:#fff!important;
-}
-html body #quarto-header .navbar {
-  border:0!important;border-bottom:0!important;margin-bottom:0!important;
-  box-shadow:none!important;
-}
-html body #quarto-header .navbar::after {display:none!important;content:none!important;}
-html body #quarto-header::after {
-  content:""!important;display:block!important;position:absolute!important;
-  left:0!important;right:0!important;bottom:0!important;height:3px!important;
-  z-index:100!important;pointer-events:none!important;
-  background:var(--gp-bar-gradient)!important;
-}
+/* GPENSC: seletor de idiomas consolidado — bandeiras SVG reais, sem gradientes simulados */
+:root{--gp-bar-gradient:linear-gradient(90deg,#5f9a3e 0%,#78a346 18%,#d9731f 50%,#d85a29 69%,#d43a2f 100%)}
+html body #quarto-header .bandeiras-container{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:3px!important;margin:0!important;width:max-content!important;min-width:max-content!important;flex:0 0 auto!important;background:#f4f7f2!important;border:1px solid #d7e2d4!important;border-radius:9px!important;box-shadow:none!important;box-sizing:border-box!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang]{appearance:none!important;display:inline-grid!important;place-items:center!important;visibility:visible!important;opacity:1!important;position:relative!important;box-sizing:border-box!important;flex:0 0 34px!important;width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;margin:0!important;padding:0!important;border:1px solid transparent!important;border-radius:6px!important;background:#fff!important;background-image:none!important;color:#284c36!important;box-shadow:none!important;text-shadow:none!important;font-size:12px!important;font-weight:800!important;line-height:1!important;cursor:pointer!important;overflow:hidden!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]){background:#e6eee3!important;color:#284c36!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"]{background-color:#fff!important;background-size:100% 100%!important;background-repeat:no-repeat!important;background-position:center!important;color:#fff!important;border-color:#a9b7a7!important;text-shadow:0 1px 2px #111,0 0 3px #111!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="pt"][aria-pressed="true"]{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2036%2034%22%3E%3Cpath%20fill%3D%22%23229e45%22%20d%3D%22M0%200h36v34H0z%22%2F%3E%3Cpath%20fill%3D%22%23ffdf00%22%20d%3D%22M18%204%2033%2017%2018%2030%203%2017z%22%2F%3E%3Ccircle%20fill%3D%22%23002776%22%20cx%3D%2218%22%20cy%3D%2217%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22M10%2015q8-4%2016%203%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.4%22%2F%3E%3C%2Fsvg%3E")!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="en"][aria-pressed="true"]{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2036%2034%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M0%200h36v34H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%200h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%205h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%2010h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%2015h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%2020h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%2025h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%23b22234%22%20d%3D%22M0%2030h36v2.6H0z%22%2F%3E%3Cpath%20fill%3D%22%233c3b6e%22%20d%3D%22M0%200h16v17H0z%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%223%22%20cy%3D%228%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%223%22%20cy%3D%2213%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%223%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%2213%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%2213%22%20cy%3D%223%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%2213%22%20cy%3D%228%22%20r%3D%22.8%22%2F%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%2213%22%20cy%3D%2213%22%20r%3D%22.8%22%2F%3E%3C%2Fsvg%3E")!important}
+html body #quarto-header .bandeiras-container .gp-language-button[data-lang="es"][aria-pressed="true"]{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2036%2034%22%3E%3Cpath%20fill%3D%22%23aa151b%22%20d%3D%22M0%200h36v34H0z%22%2F%3E%3Cpath%20fill%3D%22%23f1bf00%22%20d%3D%22M0%208.5h36v17H0z%22%2F%3E%3Cpath%20fill%3D%22%23aa151b%22%20d%3D%22M12%2013h5v8h-5z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M13%2014h3v5h-3z%22%2F%3E%3Cpath%20fill%3D%22%23aa151b%22%20d%3D%22M12%2012h5v2h-5z%22%2F%3E%3C%2Fsvg%3E")!important}
+html body #quarto-header .bandeiras-container .gp-language-button::before{content:none!important;display:none!important}
+html body #quarto-header .bandeiras-container .gp-language-button:focus-visible{outline:2px solid #d9731f!important;outline-offset:2px!important}
+@media(max-width:1099px){html body #quarto-header .navbar .navbar-container > .bandeiras-container{display:inline-flex!important;grid-column:3!important;grid-row:1!important;order:3!important;align-self:center!important;justify-self:end!important;width:max-content!important;min-width:max-content!important;flex:0 0 auto!important}}
+@media(min-width:1100px){html body #quarto-header .navbar .gp-nav-idiomas-desktop{display:flex!important;align-items:center!important;order:998!important;flex:0 0 auto!important}}
+@media(max-width:767.98px){html body input[type="search"],html body input[type="text"],html body .aa-Form input,html body .aa-Input,html body .aa-DetachedFormContainer input,html body .gp-tree-search input,html body .gp44-search input{font-size:16px!important}}
+html body #quarto-header{position:relative!important;border:0!important;margin-bottom:0!important;padding-bottom:0!important;background:#fff!important}
+html body #quarto-header .navbar{border:0!important;margin-bottom:0!important;box-shadow:none!important}
+html body #quarto-header .navbar::after{display:none!important;content:none!important}
+html body #quarto-header::after{content:""!important;display:block!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:3px!important;z-index:100!important;pointer-events:none!important;background:var(--gp-bar-gradient)!important}
+html body footer.footer .nav-footer::before{background:var(--gp-bar-gradient)!important}
