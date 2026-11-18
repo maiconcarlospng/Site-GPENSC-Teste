@@ -20782,3 +20782,57 @@ html body footer.footer .nav-footer::before{background:var(--gp-bar-gradient)!im
     display: none !important;
   }
 }
+
+
+/* Indicadores funcionais da galeria: discretos e acessíveis no celular. */
+html body #quarto-content .galeria--faixa .gp-galeria-indicadores {
+  display: none;
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content .galeria--faixa .gp-galeria-indicadores {
+    display: flex !important;
+    position: relative;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 7px auto 1px;
+    padding: 0 12px;
+    max-width: 100%;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-indicador {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: 19px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-indicador::after {
+    content: "";
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #a8b4a8;
+    transition: background-color .2s, transform .2s;
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-indicador.ativo::after {
+    background: #1f4d2b;
+    transform: scale(1.25);
+  }
+  html body #quarto-content .galeria--faixa .gp-galeria-indicador:focus-visible {
+    outline: 2px solid #b9560f;
+    outline-offset: 1px;
+    border-radius: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #quarto-content .galeria--faixa .gp-galeria-indicador::after { transition: none; }
+}
