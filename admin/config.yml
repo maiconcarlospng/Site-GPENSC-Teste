@@ -252,7 +252,7 @@ collections:
   - name: "midia_parcerias"
     label: "04 · Mídia, galeria e parcerias"
     files:
-        - label: "Linha do tempo · Quem somos"
+        - label: "Linha do tempo · Nossa história"
           name: "linha_tempo"
           file: "data/linha_tempo.yml"
           fields:
@@ -261,7 +261,7 @@ collections:
               widget: "list"
               collapsed: true
               label_singular: "acontecimento"
-              hint: "Edite as linhas diretamente, importe Excel/CSV, exporte uma cópia e reordene os acontecimentos. Organize do mais antigo para o mais recente."
+              hint: "Cadastre marcos e conquistas coletivas do GPENSC, não trajetórias individuais. Use ano de quatro dígitos; o site organiza cronologicamente. Há importação e exportação Excel/CSV."
               summary: "{{fields.ano}} — {{fields.titulo}}"
               fields:
                 - { label: "Ano", name: "ano", widget: "string", hint: "Informe o ano com quatro dígitos (ex.: 2024)." }
