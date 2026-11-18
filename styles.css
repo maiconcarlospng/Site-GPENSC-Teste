@@ -21056,31 +21056,36 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
 }
 
 
-/* Home: cartões editoriais com layout estável em qualquer largura.
-   Sobrescreve regras antigas de .pq que empilhavam ícone e texto. */
+/* Home · composição responsiva final.
+   Mobile: cartões horizontais largos; desktop: grade 2x2 com ícone ao lado do texto. */
+html body #quarto-content .pq-blocos:has(> a.gp-pesquisa-card) {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
 html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
   box-sizing: border-box !important;
   display: flex !important;
-  flex-direction: row !important;
   align-items: center !important;
   justify-content: flex-start !important;
+  min-width: 0 !important;
+  border-radius: 16px !important;
 }
 html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
   position: relative !important;
   z-index: 3 !important;
-  box-sizing: border-box !important;
   display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
+  flex-flow: row nowrap !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  gap: clamp(10px, 1.5vw, 18px) !important;
+  gap: 13px !important;
   width: 100% !important;
   min-width: 0 !important;
-  height: auto !important;
-  padding: 0 !important;
   margin: 0 !important;
+  padding: 0 !important;
   text-align: left !important;
+  transform: none !important;
 }
 html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
   position: static !important;
@@ -21089,7 +21094,6 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-i
   flex: 0 0 42px !important;
   width: 42px !important;
   height: 42px !important;
-  align-self: center !important;
   margin: 0 !important;
   transform: none !important;
 }
@@ -21098,23 +21102,30 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-p
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
-  justify-content: center !important;
   flex: 1 1 auto !important;
   min-width: 0 !important;
   width: auto !important;
   margin: 0 !important;
   text-align: left !important;
 }
-html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .gp-pesquisa-texto > * {
-  text-align: left !important;
+@media (max-width: 1099.98px) {
+  html body #quarto-content .pq-blocos:has(> a.gp-pesquisa-card) {
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 12px !important;
+  }
 }
-@media (max-width: 850px) {
+@media (max-width: 767.98px) {
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+    min-height: 116px !important;
+    padding: 16px 50px 16px 14px !important;
+    border-radius: 14px !important;
+  }
   html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
-    gap: 11px !important;
+    gap: 10px !important;
   }
   html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
-    flex: 0 0 34px !important;
-    width: 34px !important;
+    flex-basis: 36px !important;
+    width: 36px !important;
     height: 38px !important;
   }
 }
