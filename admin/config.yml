@@ -202,7 +202,7 @@ collections:
               summary: "{{fields.nome}} — {{fields.categoria}}"
               fields:
                 - { label: "Nome", name: "nome", widget: "string" }
-                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Líderes", "Pesquisadores", "Colaboradores", "Egressos"], required: false, hint: "Classificação oficial: Líderes (professoras da ENUT que lideram o GPENSC), Pesquisadores (demais integrantes), Colaboradores ou Egressos. A mudança aparecerá no site após usar Revisar e publicar." }
+                - { label: "Categoria na equipe", name: "categoria", widget: "select", options: ["Líderes", "Pesquisadores", "Estudantes", "Colaboradores", "Egressos"], required: false, hint: "Classificação oficial: Líderes (professoras da ENUT que lideram o GPENSC), Pesquisadores, Estudantes ativos, Colaboradores ou Egressos. A mudança aparecerá no site após usar Revisar e publicar." }
                 - { label: "Última revisão do perfil", name: "revisado_em", widget: "date", required: false, hint: "Revise a cada 12 meses: foto, e-mail e Lattes dos ativos; somente Lattes dos egressos. Registre a data após conferir os dados." }
                 - { label: "Papel", name: "papel", widget: "string", required: false }
                 - { label: "Formação", name: "formacao", widget: "string", required: false }
