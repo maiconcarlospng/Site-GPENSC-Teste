@@ -141,7 +141,7 @@ div(
 
   h2(id = "equipe", cfg$titulo_equipe),
   if (nrow(integrantes) > 0) {
-    ordem_categorias <- c("Líderes", "Pesquisadores", "Colaboradores", "Egressos", "Colaboradores e egressos", "Pós-graduandos", "Graduandos", "Outros integrantes")
+    ordem_categorias <- c("Líderes e pesquisadores", "Estudantes", "Colaboradores", "Líderes", "Pesquisadores", "Pós-graduandos", "Graduandos", "Outros integrantes", "Colaboradores e egressos", "Egressos")
     categorias_encontradas <- unique(integrantes$categoria_exibicao)
     categorias <- c(
       intersect(ordem_categorias, categorias_encontradas),
@@ -313,18 +313,20 @@ div(
                     categoriaGrupo === categoriaSelecionada;
                   const visivel = correspondeTexto && correspondeCategoria;
                   if (visivel) visiveisNoGrupo++;
-                  cartao.hidden = !visivel || (celular.matches && visiveisNoGrupo > (limites.get(grupo) || 4));
+                  const limiteGrupo = limites.get(grupo) || (celular.matches ? 4 : (categoriaGrupo === normalizar("Egressos") ? 4 : 8));
+                  cartao.hidden = !visivel || visiveisNoGrupo > limiteGrupo;
                 });
 
                 total += visiveisNoGrupo;
                 grupo.hidden = visiveisNoGrupo === 0;
                 const botao = grupo.querySelector('.equipe-mais');
-                const limite = limites.get(grupo) || 4;
-                botao.hidden = !celular.matches || visiveisNoGrupo <= 4;
+                const limitePadrao = celular.matches ? 4 : (categoriaGrupo === normalizar("Egressos") ? 4 : 8);
+                const limite = limites.get(grupo) || limitePadrao;
+                botao.hidden = visiveisNoGrupo <= limitePadrao;
                 const faltam = visiveisNoGrupo - limite;
                 botao.textContent = faltam > 0 ? 'Ver mais ' + Math.min(8, faltam) + ' de ' + visiveisNoGrupo : 'Mostrar menos';
                 botao.onclick = () => {
-                  limites.set(grupo, faltam > 0 ? limite + 8 : 4);
+                  limites.set(grupo, faltam > 0 ? limite + 8 : limitePadrao);
                   atualizar();
                   if (faltam <= 0) grupo.scrollIntoView({block:'start'});
                 };
