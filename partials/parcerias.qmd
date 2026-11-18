@@ -5,7 +5,7 @@ if (nrow(parcerias_site) > 0) {
   dados <- parcerias_site
   div(
     class = "parcerias-catalogo parcerias-catalogo--logos",
-    `aria-label` = "Instituições parceiras e vínculos institucionais",
+    `aria-label` = "Instituições parceiras do GPENSC",
     lapply(seq_len(nrow(dados)), function(i) {
       parceria <- dados[i, , drop = FALSE]
       nome <- as.character(parceria$nome[1])
