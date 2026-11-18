@@ -150,3 +150,32 @@
  #app .gallery-sort-bar{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
  #app .gallery-sort-bar select{width:100%;min-width:0;font-size:16px}
 }
+
+/* Os filtros de pesquisa/ordenação compartilham a mesma barra em todos os cadastros. */
+#app .collection-search:has(.collection-sort-control){
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(200px,260px);
+  grid-template-rows:auto auto auto;
+  align-items:end;
+  column-gap:13px;
+  row-gap:5px;
+  max-width:900px;
+  padding:14px 15px;
+  border:1px solid #e1eae0;
+  border-radius:11px;
+  background:#f7faf6;
+}
+#app .collection-search:has(.collection-sort-control)>label{grid-column:1;grid-row:1;margin:0;color:#415c48}
+#app .collection-search:has(.collection-sort-control)>input{grid-column:1;grid-row:2;min-width:0;min-height:43px}
+#app .collection-search:has(.collection-sort-control)>p{grid-column:1;grid-row:3;margin:2px 0 0;min-height:13px}
+#app .collection-search .collection-sort-control{grid-column:2;grid-row:1/4;align-self:start}
+#app .collection-search .collection-sort-control label{display:block;margin:0 0 5px;font-size:13px;font-weight:700}
+#app .collection-search .collection-sort-control select{min-height:43px}
+@media(max-width:700px){
+ #app .collection-search:has(.collection-sort-control){grid-template-columns:minmax(0,1fr);gap:7px;padding:13px}
+ #app .collection-search:has(.collection-sort-control)>label{grid-column:1;grid-row:1}
+ #app .collection-search:has(.collection-sort-control)>input{grid-column:1;grid-row:2;font-size:16px}
+ #app .collection-search:has(.collection-sort-control)>p{grid-column:1;grid-row:3}
+ #app .collection-search .collection-sort-control{grid-column:1;grid-row:4}
+ #app .collection-search .collection-sort-control select{min-height:44px;font-size:16px}
+}
