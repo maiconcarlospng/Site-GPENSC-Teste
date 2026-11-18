@@ -2,9 +2,7 @@
 title: "Projetos de pesquisa"
 ---
 
-<div class="gp-illustrated-lead"><p>Projetos e iniciativas de pesquisa desenvolvidos pelo GPENSC.</p><img src="img/ilustracoes/projetos.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Projetos de pesquisa {#projetos}
+<div id="projetos" class="gp-illustrated-lead"><p>Projetos e iniciativas de pesquisa desenvolvidos pelo GPENSC.</p><img src="img/ilustracoes/projetos.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/projetos.qmd >}}
 
