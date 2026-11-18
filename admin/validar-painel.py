@@ -22,7 +22,6 @@ CMS_PATH = ADMIN / "cms.html"
 CSS_PATH = ADMIN / "painel.css"
 SITE_CSS_PATHS = (
     ROOT / "styles.css",
-    ROOT / "vi-no-rotulo.css",
 )
 PANEL_APP_CSS_PATH = ADMIN / "app.css"
 KNOWN_WIDGETS = {
