@@ -2,11 +2,7 @@
 title: "Nossa história"
 ---
 
-<div class="gp-illustrated-lead"><p>Conheça momentos e marcos da trajetória do GPENSC.</p><img src="img/ilustracoes/historia.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Nossa história {#historia .gp-heading-art .gp-heading-art--historia}
-
-<p class="historia-orientacao">Marcos coletivos da trajetória do GPENSC, organizados em ordem cronológica.</p>
+<div id="historia" class="gp-illustrated-lead"><p>Marcos coletivos da trajetória do GPENSC, organizados em ordem cronológica.</p><img src="img/ilustracoes/historia.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/historia.qmd >}}
 
