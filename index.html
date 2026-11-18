@@ -501,6 +501,56 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
     display: none !important;
   }
 }
+/* Acabamento dos quatro cartões: a antiga regra .pq:nth-child(n)
+   mantinha uma borda direita reta e sobrepunha o raio do cartão.
+   O recorte da foto e a seta agora terminam dentro do mesmo contorno. */
+html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n) {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border: 1px solid #dce5db !important;
+  border-right: 1px solid #dce5db !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+  isolation: isolate;
+}
+html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n) .gp-pesquisa-foto {
+  position: absolute !important;
+  inset: 0 0 0 auto !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n) .gp-pesquisa-seta {
+  position: absolute !important;
+  right: 16px !important;
+  top: 50% !important;
+  z-index: 5 !important;
+  transform: translateY(-50%) !important;
+  width: 35px !important;
+  height: 35px !important;
+  min-width: 35px !important;
+  min-height: 35px !important;
+  flex: 0 0 35px !important;
+  margin: 0 !important;
+}
+html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n):is(:hover,:focus-visible) {
+  border-color: var(--gp-card-accent) !important;
+}
+@media (max-width: 767.98px) {
+  html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n) {
+    border-radius: 14px !important;
+  }
+  html body #quarto-content .pq-blocos > a.pq.gp-pesquisa-card:nth-child(n) .gp-pesquisa-seta {
+    right: 12px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    flex-basis: 30px !important;
+  }
+}
 </style>
 <section id="b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2076617220746974756c6f5f686f6d655f706573717569736173203e7d7d" class="level2 secao">
 <h2 data-anchor-id="b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2076617220746974756c6f5f686f6d655f706573717569736173203e7d7d">Pesquisas</h2>
