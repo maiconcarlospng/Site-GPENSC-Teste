@@ -121,7 +121,7 @@ div.faixa-topo {
   right: 0;
   bottom: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--gp-folha) 0 33%, var(--gp-laranja) 33% 66%, var(--gp-vermelho) 66%);
+  background: var(--gp-bar-gradient);
 }
 
 .navbar-brand,
@@ -828,7 +828,7 @@ footer.footer {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--gp-folha) 0 38%, var(--gp-laranja) 38% 70%, var(--gp-vermelho) 70%);
+  background: var(--gp-bar-gradient);
 }
 .nav-footer::after { content: none !important; display: none !important; }
 .nav-footer-left {
@@ -4051,7 +4051,7 @@ html[data-gp-language="es"] .navbar .nav-link {
   height: 5px;
   margin-top: .85rem;
   border-radius: 0;
-  background: linear-gradient(90deg, #5F9A3E 0 34%, #D9731F 34% 68%, #D43A2F 68% 100%);
+  background: var(--gp-bar-gradient);
 }
 
 .hero-titulo {
@@ -4226,7 +4226,7 @@ footer.footer {
   left: 0 !important;
   right: 0 !important;
   height: 3px !important;
-  background: linear-gradient(90deg, #5F9A3E 0 34%, #D9731F 34% 67%, #D43A2F 67% 100%) !important;
+  background: var(--gp-bar-gradient) !important;
 }
 
 .nav-footer::after,
@@ -4682,7 +4682,7 @@ footer.footer {
   position: absolute !important;
   inset: 0 0 auto !important;
   height: 3px !important;
-  background: linear-gradient(90deg, #5F9A3E 0 34%, #D9731F 34% 67%, #D43A2F 67% 100%) !important;
+  background: var(--gp-bar-gradient) !important;
 }
 
 .nav-footer::after,
@@ -13900,7 +13900,7 @@ body{background:var(--g34-paper)!important;color:#273d2c;font-family:Inter,"Sego
 #quarto-content .gp-section-illustration:has(img[src$="/contato.svg"]){--art-bg:linear-gradient(110deg,#eaf3eb,#f9f3e7);--art-accent:#518967;--art-ink:#34583f}
 /* A home não deve repetir a folha decorativa do topo */
 #quarto-content .hero{min-height:clamp(220px,25vw,325px)!important}
-#quarto-content .hero::after{content:"";position:absolute;inset:auto 0 0;height:3px;background:linear-gradient(90deg,#5f9a3e 0 37%,#d9731f 37% 72%,#d43a2f 72%);pointer-events:none}
+#quarto-content .hero::after{content:"";position:absolute;inset:auto 0 0;height:3px;background:var(--gp-bar-gradient);pointer-events:none}
 #quarto-content .hero-titulo{font-size:clamp(1.86rem,4vw,3.12rem)!important;line-height:1.12!important;letter-spacing:-.05em!important}
 #quarto-content .intro{display:grid!important;grid-template-columns:minmax(0,1.28fr) minmax(250px,.72fr)!important;align-items:center!important;gap:clamp(1.1rem,3.6vw,3.1rem)!important;margin:clamp(2.1rem,4.5vw,3.8rem) auto!important;padding:clamp(1.35rem,3.4vw,2.9rem)!important;border:1px solid #dce7d5!important;border-radius:24px!important;overflow:hidden;background-image:linear-gradient(100deg,rgba(251,252,248,.98),rgba(251,252,247,.93) 54%,rgba(242,248,236,.76)),url("img/ilustracoes/home-circuito.svg")!important;background-color:#f8faf4!important;background-repeat:no-repeat!important;background-size:cover,auto 103%!important;background-position:center,right center!important;box-shadow:0 14px 38px rgba(31,77,43,.08)!important}
 #quarto-content .intro-texto h1{font-size:clamp(2.1rem,4.5vw,3.58rem)!important;line-height:1.06!important;letter-spacing:-.06em!important;margin:.6rem 0 1rem!important}
@@ -20530,7 +20530,7 @@ html body #quarto-header .navbar::after {
 html body footer.footer .nav-footer::before {
   top: 0 !important;
   bottom: auto !important;
-  background-image: linear-gradient(to right, #5f9a3e 0% 22%, #d9731f 46% 54%, #d43a2f 78% 100%) !important;
+  background-image: var(--gp-bar-gradient) !important;
 }
 
 /* Equipe: duas colunas em tablets, sem cartões estreitos ou excesso de espaço vazio. */
@@ -20773,4 +20773,30 @@ html body #quarto-content .gp-projeto-card .gp-conteudo-capa img {object-fit:con
 html body #quarto-content :is(.gp-video-multimidia,.gp-episodio-item) .gp-conteudo-capa img {
   object-fit: contain !important;
   background-color: #e7edf3;
+}
+
+:root { --gp-bar-gradient: linear-gradient(to right, #5f9a3e 0% 22%, #d9731f 46% 54%, #d43a2f 78% 100%); }
+
+#quarto-header .gp-language-button[data-lang="pt"] {
+  --lang-bg: #e3f2da; --lang-ink: #205332; --lang-accent: #ffdc63;
+}
+#quarto-header .gp-language-button[data-lang="en"] {
+  --lang-bg: #e6edf9; --lang-ink: #243f73; --lang-accent: #ef858b;
+}
+#quarto-header .gp-language-button[data-lang="es"] {
+  --lang-bg: #fff1be; --lang-ink: #862335; --lang-accent: #ffd550;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang],
+#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover {
+  background: var(--lang-bg) !important;
+  color: var(--lang-ink) !important;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang]:hover:not([aria-pressed="true"]) {
+  background: var(--lang-bg) !important;
+  text-decoration: underline;
+}
+#quarto-header .bandeiras-container .gp-language-button[data-lang][aria-pressed="true"] {
+  background: var(--lang-ink) !important;
+  color: white !important;
+  box-shadow: inset 0 -3px var(--lang-accent) !important;
 }
