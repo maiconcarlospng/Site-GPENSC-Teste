@@ -87,6 +87,108 @@ body.page-index #quarto-content .galeria--faixa::before { content: none !importa
 </style>
 ```
 
+```{=html}
+<style>
+/* GPENSC · Pesquisas: cartões editoriais com fotografia e elementos gráficos.
+   Escopo exclusivo da home para não alterar outros links do site. */
+html body #quarto-content .pq-blocos:has(> .gp-pesquisa-card) {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(12px, 1.8vw, 22px) !important;
+  margin: 18px 0 30px !important;
+  padding: 0 !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+  --gp-card-accent: #276b37;
+  --gp-card-tint: #f1f5ea;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  isolation: isolate;
+  overflow: hidden !important;
+  min-height: 148px !important;
+  height: auto !important;
+  width: 100% !important;
+  padding: 22px 70px 22px 24px !important;
+  margin: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--gp-card-accent) 38%, white) !important;
+  border-radius: 17px !important;
+  background: linear-gradient(100deg, var(--gp-card-tint) 0%, #fffdf8 74%) !important;
+  box-shadow: 0 4px 15px rgba(22,52,31,.055) !important;
+  text-decoration: none !important;
+  color: #183d27 !important;
+  transform: none;
+  transition: border-color .2s, box-shadow .2s, transform .2s !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card.cor-2 { --gp-card-accent:#b9560f; --gp-card-tint:#fff3e7; }
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card.cor-3 { --gp-card-accent:#b43b35; --gp-card-tint:#fff0ed; }
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card:nth-child(4) { --gp-card-accent:#246a70; --gp-card-tint:#ecf6f3; }
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-tinta { display:none !important; }
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto {
+  position:absolute; inset:0 0 0 auto; width:40%; z-index:-2; overflow:hidden;
+  clip-path: polygon(22% 0,100% 0,100% 100%,0 100%,13% 62%);
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto img {
+  width:100%; height:100%; display:block; object-fit:cover; filter:saturate(.72);
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
+  position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(90deg,var(--gp-card-tint) 0%,rgba(255,253,248,.96) 51%,rgba(255,253,248,.55) 74%,transparent 100%);
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo {
+  display:flex !important; align-items:center !important; gap:18px !important;
+  position:relative; width:100% !important; height:auto !important;
+  min-height:0 !important; padding:0 !important; margin:0 !important;
+  background:none !important; border:0 !important; box-shadow:none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-icone {
+  display:grid !important; place-items:center !important; flex:0 0 48px !important;
+  width:48px !important; height:48px !important; margin:0 !important;
+  font-size:29px !important; color:var(--gp-card-accent) !important;
+  background:rgba(255,255,255,.72) !important; border-radius:12px !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+  display:flex; flex-direction:column; gap:5px; min-width:0; border-left:2px solid var(--gp-card-accent); padding-left:14px;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo {
+  display:block !important; font-size:clamp(1.04rem,1.65vw,1.3rem) !important;
+  line-height:1.22 !important; font-weight:750 !important; color:#173c27 !important;
+  text-shadow:none !important; margin:0 !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-resumo {
+  display:block; color:#46544a; font-size:.86rem; line-height:1.4; max-width:35ch;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-seta {
+  display:grid; place-items:center; position:absolute; right:16px; top:50%; transform:translateY(-50%);
+  width:35px; height:35px; border-radius:50%; background:var(--gp-card-accent);
+  color:#fff; font-size:30px; line-height:1; font-family:Arial,sans-serif;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card:hover,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card:focus-visible {
+  border-color:var(--gp-card-accent) !important; box-shadow:0 9px 22px rgba(22,52,31,.13) !important;
+  transform:translateY(-2px) !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card:focus-visible {outline:3px solid #b9560f !important;outline-offset:3px}
+@media(max-width:850px){
+  html body #quarto-content .pq-blocos:has(> .gp-pesquisa-card) {grid-template-columns:1fr !important;gap:12px !important}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {min-height:116px !important;padding:17px 52px 17px 14px !important;border-radius:14px !important}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo {gap:10px !important;min-height:0 !important}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-icone {flex-basis:39px !important;width:39px !important;height:39px !important;font-size:24px !important}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {padding-left:10px}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto {width:42%}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-seta {right:11px;width:30px;height:30px;font-size:26px}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-resumo {font-size:.77rem}
+}
+@media(max-width:390px){
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto {width:37%}
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo {font-size:1rem !important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {transition:none !important}
+}
+</style>
+```
+
 ::::: secao
 ## {{< var titulo_home_pesquisas >}}
 
