@@ -351,21 +351,38 @@ bloco_intro <- function() {
 
 # ---------- CARTÕES "PESQUISAS" ----------
 card_pesq <- function(titulo, href, arquivo, classe, icone = NULL) {
-  # Os cartões usam ícones Bootstrap em vez de imagens de fundo.
-  # O argumento 'arquivo' é mantido para preservar as chamadas existentes.
+  # Fotografias editoriais de apoio, sem substituir os ícones institucionais.
+  # As imagens são decorativas; o texto e o link permanecem acessíveis.
+  descricoes <- c(
+    "Linhas de pesquisa" = "Áreas temáticas que orientam nossas investigações.",
+    "Projetos" = "Estudos e iniciativas desenvolvidos pelo grupo.",
+    "Teses e dissertações" = "Produções acadêmicas vinculadas ao GPENSC.",
+    "Publicações" = "Artigos, livros e outros produtos científicos."
+  )
+  fotos <- c(
+    "Linhas de pesquisa" = "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=720&q=78",
+    "Projetos" = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=720&q=78",
+    "Teses e dissertações" = "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=720&q=78",
+    "Publicações" = "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=720&q=78"
+  )
   tags$a(
-    class = paste("pq", classe),
+    class = paste("pq gp-pesquisa-card", classe),
     href = href,
     `aria-label` = titulo,
-    div(class = "pq-tinta", `aria-hidden` = "true"),
+    div(class = "gp-pesquisa-foto", `aria-hidden` = "true",
+        tags$img(src = unname(fotos[[titulo]]), alt = "", loading = "lazy", decoding = "async")),
+    div(class = "gp-pesquisa-detalhe", `aria-hidden` = "true"),
     div(
       class = "pq-conteudo",
       if (!is.null(icone)) tags$i(
         class = paste("bi", icone, "pq-icone"),
         `aria-hidden` = "true"
       ),
-      span(class = "pq-titulo", titulo)
-    )
+      div(class = "gp-pesquisa-texto",
+          span(class = "pq-titulo", titulo),
+          span(class = "gp-pesquisa-resumo", unname(descricoes[[titulo]])))
+    ),
+    span(class = "gp-pesquisa-seta", `aria-hidden` = "true", "›")
   )
 }
 
