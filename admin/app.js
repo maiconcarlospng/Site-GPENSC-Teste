@@ -198,9 +198,51 @@ const AREA_ART={
   'Ensino':'home-ensino','Divulgação científica':'divulgacao','Agenda':'agenda',
   'Notícias':'noticias','Gestão editorial':'gestao','Outros conteúdos':'materiais'
 };
+/* Ícones funcionais de traço fino. O acervo SVG institucional permanece
+   disponível ao site público; no painel os ícones não competem com o conteúdo. */
+const EDITOR_ICONS={
+  home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+  calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+  news:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h10M7 16h10M16 8h1"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M17 15a5 5 0 0 1 4 5"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  folderOpen:'<path d="M3 8V6a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2"/><path d="M4 20h15l3-9H7z"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>',
+  settings:'<path d="M4 7h16M4 17h16M9 4v6M15 14v6"/>',
+  history:'<path d="M3 12a9 9 0 1 0 3-6.7M3 3v5h5M12 7v5l4 2"/>',
+  book:'<path d="M12 7c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V6c-3-1-6-1-9 1zM12 7v14"/>',
+  academic:'<path d="m2 9 10-5 10 5-10 5zM6 12v5c4 3 8 3 12 0v-5M22 9v7"/>',
+  file:'<path d="M6 2h8l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h5M8 13h7M8 17h7"/>',
+  network:'<circle cx="12" cy="4" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M11 6 6 17M13 6l5 11M7 19h10"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18"/>',
+  media:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m10 9 6 3-6 3z"/>',
+  mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/>',
+  chart:'<path d="M4 20V4M4 20h17M8 16l4-5 4 2 4-7"/>',
+  publication:'<path d="M7 3h10v18H7a3 3 0 0 1 0-6h10M7 3a3 3 0 0 0-3 3v12"/>',
+  extension:'<path d="M4 13 12 4l8 9M6 11v10h12V11M9 21v-6h6v6"/>',
+  check:'<path d="M8 6h13M8 12h13M8 18h13M2 6l2 2 3-4M2 12l2 2 3-4M2 18l2 2 3-4"/>',
+  handshake:'<path d="m2 9 4-4 5 2 2-1 5 2 4 4-6 7-4-2-4 1-6-6zM8 12l4 3M11 9l3 2"/>',
+  grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'
+};
+const EDITOR_ICON_BY_SECTION={
+  admin:'settings',planejamento:'check',pautas_instagram:'news',
+  eventos:'calendar',noticias:'news',projetos:'folder',linhas:'network',
+  equipe:'users',galeria:'image',galeria_home:'image',linha_tempo:'history',
+  parcerias:'handshake',apoio:'handshake',sites:'globe',
+  publicacoes:'publication',defesas:'academic',metodos:'chart',
+  conteudos_vi_no_rotulo:'extension',equipe_vi_no_rotulo:'users',
+  capacitacao_atividades:'academic',disciplinas:'book',
+  materiais:'folderOpen',videos:'media',livros:'book',noar:'mic',
+  impactos:'chart',home:'home',
+  'Página inicial':'home','Quem somos':'users','Nossa história':'history',
+  'Parcerias':'handshake','Pesquisa':'network','Extensão':'extension',
+  'Ensino':'academic','Divulgação científica':'media','Agenda':'calendar',
+  'Notícias':'news','Gestão editorial':'check','Outros conteúdos':'folder'
+};
 function adminArt(name,cls='admin-nav-art'){
-  const svg=ADMIN_ART[name]||AREA_ART[name]||'admin';
-  return '<img class="'+cls+'" src="../img/ilustracoes/'+svg+'.svg" width="48" height="36" alt="" aria-hidden="true" loading="lazy" decoding="async">';
+  const type=EDITOR_ICON_BY_SECTION[name]||'file';
+  return '<svg class="'+cls+'" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+EDITOR_ICONS[type]+'</svg>';
 }
 const SITE_AREAS=[
   {title:'Página inicial',names:['galeria_home']},
