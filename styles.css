@@ -21212,3 +21212,73 @@ html body #quarto-content .equipe-diretorio .equipe-categoria-grupo[data-equipe-
     line-height: 1.3 !important;
   }
 }
+
+
+/* Desktop: barra superior compacta, sem afetar o menu mobile. */
+@media (min-width: 992px) {
+  html body #quarto-header .navbar.navbar-expand-lg {
+    min-height: 0 !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+  html body #quarto-header .navbar.navbar-expand-lg .navbar-container {
+    min-height: 46px !important;
+    height: 46px !important;
+    grid-template-rows: 46px !important;
+    align-items: center !important;
+  }
+  html body #quarto-header .navbar-brand,
+  html body #quarto-header .navbar-nav .nav-link {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+
+/* Filete de identidade GPENSC imediatamente abaixo da navegação. */
+html body #quarto-header {
+  position: relative !important;
+}
+html body #quarto-header::after {
+  content: "" !important;
+  position: absolute !important;
+  display: block !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 3px !important;
+  z-index: 1100 !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg, #5f9a3e 0%, #d9731f 50%, #d43a2f 100%) !important;
+}
+html body #quarto-header .navbar::after {
+  content: none !important;
+  display: none !important;
+}
+
+
+/* Notícias: cartões fluidos que preenchem automaticamente a largura disponível. */
+html body #quarto-content .cartoes:has(> .nt),
+html body #quarto-content details .cartoes:has(> .nt) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)) !important;
+  gap: clamp(12px, 1.5vw, 22px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+html body #quarto-content .cartoes:has(> .nt) > .nt {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 520px) {
+  html body #quarto-content .cartoes:has(> .nt) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
