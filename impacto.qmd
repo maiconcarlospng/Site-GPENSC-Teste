@@ -2,8 +2,6 @@
 title: "Impacto social"
 ---
 
-<div class="gp-illustrated-lead"><p>Registros dos efeitos sociais e das ações do GPENSC.</p><img src="img/ilustracoes/impacto.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Impacto social {#impacto}
+<div id="impacto" class="gp-illustrated-lead"><p>Registros dos efeitos sociais e das ações do GPENSC.</p><img src="img/ilustracoes/impacto.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/impacto.qmd >}}
