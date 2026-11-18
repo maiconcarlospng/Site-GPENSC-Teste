@@ -2,8 +2,6 @@
 title: "Podcasts"
 ---
 
-<div class="gp-illustrated-lead"><p>Conversas e programas de áudio sobre nutrição e saúde coletiva.</p><img src="img/ilustracoes/podcasts.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Podcasts {#podcasts}
+<div id="podcasts" class="gp-illustrated-lead"><p>Conversas e programas de áudio sobre nutrição e saúde coletiva.</p><img src="img/ilustracoes/podcasts.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/podcasts.qmd >}}
