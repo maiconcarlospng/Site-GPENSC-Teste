@@ -56,7 +56,29 @@
       const reduzir = matchMedia("(prefers-reduced-motion: reduce)");
       const emCelular = () => matchMedia("(max-width:767.98px)").matches;
 
+      // Indicadores reais da galeria: representam as fotos originais,
+      // não os clones usados para a rolagem circular.
+      const indicadores = document.createElement("div");
+      indicadores.className = "gp-galeria-indicadores";
+      indicadores.setAttribute("role", "group");
+      indicadores.setAttribute("aria-label", "Selecionar fotografia");
+      const bolinhas = fotos.map((_, i) => {
+        const botao = document.createElement("button");
+        botao.type = "button";
+        botao.className = "gp-galeria-indicador";
+        botao.setAttribute("aria-label", "Ir para fotografia " + (i + 1) + " de " + total);
+        indicadores.appendChild(botao);
+        return botao;
+      });
+      galeria.appendChild(indicadores);
+      const atualizarIndicadores = () => bolinhas.forEach((botao, i) => {
+        const ativo = i === atual;
+        botao.classList.toggle("ativo", ativo);
+        botao.setAttribute("aria-pressed", String(ativo));
+      });
       let atual = 0, timer = null, retomada = null, scrollFim = null, saltar = null;
+      atualizarIndicadores();
+      bolinhas.forEach((botao, i) => botao.addEventListener("click", () => mover(i, true)));
       let programaticoAte = 0;
       const limparTempo = id => { if (id !== null) clearTimeout(id); };
       const parar = () => { if (timer !== null) clearInterval(timer); timer = null; };
@@ -98,6 +120,7 @@
           atual = i;
           ir(fotos[atual], true);
         }
+        atualizarIndicadores();
       };
       const podeAvancar = () => {
         if (document.hidden || reduzir.matches || document.documentElement.classList.contains("gp-a11y-motion")) return false;
@@ -165,6 +188,7 @@
           } else {
             atual = melhor - base;
           }
+          atualizarIndicadores();
           pausarTemporariamente();
         }, 160);
       }, { passive: true });
