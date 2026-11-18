@@ -537,8 +537,17 @@ body:has(#gp49) #quarto-content main,body:has(#gp49) main.content{padding-bottom
  #gp49 .gp49-landscape > #gp49-detail{top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;max-height:calc(100% - 90px)!important}
 }
 
+/* Ajuste final: viewport medido e sem rodapé concorrendo com o mapa. */
+body:has(#gp49) footer,body:has(#gp49) #quarto-footer,body:has(#gp49) .nav-footer{display:none!important}
+body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .page-columns{margin:0!important;padding:0!important}
+#gp49{height:calc(100dvh - var(--gp49-measured-top,60px))!important}
+#gp49 .gp49-landscape{height:100%!important}
+@media(max-width:767px){
+ #gp49 .gp49-landscape > #gp49-detail{bottom:calc(14px + env(safe-area-inset-bottom))!important;max-height:min(48%,420px)!important;left:12px!important;right:12px!important}
+}
+
 </style>
-<script src="js/arvore.js?v=onezoom-spiral-a203495" defer=""></script>
+<script src="js/arvore.js?v=gp49-card-viewport-20261118" defer=""></script>
 
 
 
