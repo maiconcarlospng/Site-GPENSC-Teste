@@ -15,7 +15,7 @@ categoria_integrante <- function(e) {
   # A categoria editorial prevalece sobre cargos antigos, sobretudo de egressos.
   papel <- if (tem(e$papel)) tolower(as.character(e$papel[1])) else ""
   categoria <- valor_publico(e$categoria)
-  if (!is.null(categoria) && categoria %in% c("Líderes e pesquisadores", "Colaboradores", "Egressos")) return(categoria)
+  if (!is.null(categoria) && categoria %in% c("Líderes", "Pesquisadores", "Estudantes", "Líderes e pesquisadores", "Colaboradores", "Egressos")) return(categoria)
   if (grepl("egresso|ex-integrante", papel)) return("Egressos")
   if (grepl("l[ií]der|coordena", papel)) return("Líderes")
   if (!is.null(categoria)) return(categoria)
@@ -51,8 +51,8 @@ if (nrow(integrantes) > 0) {
     "Pesquisadores" = "Líderes e pesquisadores",
     "Coordenação" = "Líderes e pesquisadores",
     "Docentes e pesquisadores" = "Líderes e pesquisadores",
-    "Pós-graduandos" = "Líderes e pesquisadores",
-    "Graduandos" = "Líderes e pesquisadores",
+    "Pós-graduandos" = "Estudantes",
+    "Graduandos" = "Estudantes",
     "Outros integrantes" = "Líderes e pesquisadores"
   )
 }
