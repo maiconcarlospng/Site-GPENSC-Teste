@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="svg-institucional.css">
-<link rel="stylesheet" href="parcerias-visibilidade.css">
+<link rel="stylesheet" href="site-ajustes.css">
 </head>
 
 <body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Pular para o conteúdo principal</a>
@@ -214,17 +214,29 @@ Conheça momentos e marcos da trajetória do GPENSC.
 </div>
 <section id="historia" class="level2 gp-heading-art gp-heading-art--historia">
 <h2 class="gp-heading-art gp-heading-art--historia anchored" data-anchor-id="historia">Nossa história</h2>
+<p class="historia-orientacao">
+Marcos coletivos da trajetória do GPENSC, organizados em ordem cronológica.
+</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="historia-linha-tempo">
 <div class="historia-item">
+<div class="historia-ponte" aria-hidden="true">
+<span class="historia-ponto"></span>
+</div>
+<div class="historia-registro">
 <span class="historia-ano">2018</span>
 <div class="historia-conteudo">
 <h2 class="anchored">Formação do GPENSC</h2>
 <p>Ano de formação do grupo registrado no Diretório dos Grupos de Pesquisa do CNPq.</p>
 </div>
 </div>
+</div>
 <div class="historia-item">
+<div class="historia-ponte" aria-hidden="true">
+<span class="historia-ponto"></span>
+</div>
+<div class="historia-registro">
 <span class="historia-ano">2022</span>
 <div class="historia-conteudo">
 <h2 class="anchored">Atuação do projeto HipertenSUS na Atenção Primária</h2>
@@ -233,7 +245,12 @@ Conheça momentos e marcos da trajetória do GPENSC.
 <a href="https://www.instagram.com/p/CdwR05fOMxr/" target="_blank" rel="noopener noreferrer">Ver registro original</a>
 </div>
 </div>
+</div>
 <div class="historia-item">
+<div class="historia-ponte" aria-hidden="true">
+<span class="historia-ponto"></span>
+</div>
+<div class="historia-registro">
 <span class="historia-ano">2025</span>
 <div class="historia-conteudo">
 <h2 class="anchored">Participação no VI Congresso Nacional de Alimentação e Nutrição</h2>
@@ -242,7 +259,12 @@ Conheça momentos e marcos da trajetória do GPENSC.
 <a href="https://www.instagram.com/p/DK2CbTEOz_c/" target="_blank" rel="noopener noreferrer">Ver registro original</a>
 </div>
 </div>
+</div>
 <div class="historia-item">
+<div class="historia-ponte" aria-hidden="true">
+<span class="historia-ponto"></span>
+</div>
+<div class="historia-registro">
 <span class="historia-ano">2026</span>
 <div class="historia-conteudo">
 <h2 class="anchored">Trajetória e celebração do GPENSC</h2>
@@ -254,39 +276,8 @@ Conheça momentos e marcos da trajetória do GPENSC.
 </div>
 </div>
 </div>
+</div>
 <!-- Sem bloco de Instagram: as informações importadas passam a integrar os cadastros de cada área. -->
-<style>
-/* Linha do tempo institucional: desktop horizontal, mobile vertical alternada */
-.historia-linha-tempo{display:flex;gap:1.4rem;max-width:none;width:100%;margin:2rem 0;padding:1rem 1rem 2rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;position:relative;align-items:stretch;min-height:580px;scrollbar-color:#5f9a3e #f3ecdd}
-.historia-linha-tempo::before{content:"";position:absolute;left:1rem;right:1rem;top:50%;height:4px;background:#5f9a3e;border-radius:8px}
-.historia-linha-tempo .historia-item{position:relative;flex:0 0 clamp(230px,27vw,340px);min-width:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;padding:0 0 50px;border:0;scroll-snap-align:center}
-.historia-linha-tempo .historia-item:nth-child(even){justify-content:flex-end;padding:50px 0 0}
-.historia-linha-tempo .historia-item::before{content:"";position:absolute;top:calc(50% - 8px);left:50%;width:16px;height:16px;border:4px solid #dcebd3;border-radius:50%;background:#1f4d2b;box-sizing:border-box;z-index:2}
-.historia-linha-tempo .historia-item::after{content:"";position:absolute;top:calc(25% + 15px);left:calc(50% + 7px);height:calc(25% - 23px);border-left:2px solid #5f9a3e}
-.historia-linha-tempo .historia-item:nth-child(even)::after{top:50%;height:calc(25% - 23px)}
-.historia-linha-tempo .historia-ano{display:block;color:#b9560f;font-size:1.1rem;font-weight:800;margin:0 0 .45rem}
-.historia-linha-tempo .historia-conteudo{background:#f8f6ef;border:1px solid #dcebd3;border-radius:14px;padding:1rem;box-shadow:0 3px 12px #1f4d2b0c;max-height:245px;overflow:auto}
-.historia-linha-tempo .historia-conteudo h2{font-size:1.05rem;line-height:1.35;margin:0 0 .5rem}
-.historia-linha-tempo .historia-conteudo p{font-size:.9rem;line-height:1.5}
-.historia-linha-tempo .historia-conteudo img{width:100%;max-height:110px;object-fit:cover;border-radius:8px}
-.historia-linha-tempo .historia-item:nth-child(even) .historia-ano{order:2;margin:.45rem 0 0}
-@media(max-width:767px){
-.historia-linha-tempo{display:flex;flex-direction:column;gap:1.25rem;min-height:0;overflow:visible;padding:1rem 0 1rem;scroll-snap-type:none;align-items:stretch}
-.historia-linha-tempo::before{top:0;bottom:0;left:calc(50% - 2px);right:auto;width:4px;height:auto}
-.historia-linha-tempo .historia-item,.historia-linha-tempo .historia-item:nth-child(even){flex:initial;width:calc(50% - 15px);min-height:0;padding:0;display:flex;flex-direction:column;justify-content:flex-start;align-self:flex-start}
-.historia-linha-tempo .historia-item:nth-child(even){align-self:flex-end}
-.historia-linha-tempo .historia-item::before{top:20px;left:calc(100% + 7px)}
-.historia-linha-tempo .historia-item:nth-child(even)::before{left:-23px}
-.historia-linha-tempo .historia-item::after,.historia-linha-tempo .historia-item:nth-child(even)::after{top:27px;left:100%;height:0;width:15px;border-left:0;border-top:2px solid #5f9a3e}
-.historia-linha-tempo .historia-item:nth-child(even)::after{left:-15px}
-.historia-linha-tempo .historia-conteudo{padding:.7rem;max-height:none;overflow:visible;overflow-wrap:anywhere}
-.historia-linha-tempo .historia-conteudo h2{font-size:.9rem}
-.historia-linha-tempo .historia-conteudo p{font-size:.8rem}
-.historia-linha-tempo .historia-conteudo img{max-height:125px}
-.historia-linha-tempo .historia-ano,.historia-linha-tempo .historia-item:nth-child(even) .historia-ano{order:0;font-size:1rem;margin:0 0 .35rem}
-}
-@media(prefers-reduced-motion:reduce){.historia-linha-tempo{scroll-behavior:auto}}
-</style>
 
 
 </section>
@@ -1035,8 +1026,11 @@ Escola de Nutrição · Universidade Federal de Ouro Preto
 </p>
 </div>
 <nav class="gp-footer-links" aria-label="Links do rodapé">
-<a href="grupo.html#sobre">O grupo</a><a href="pesquisa.html">Pesquisa</a><a href="agenda.html">Agenda</a><a href="parcerias.html">Parcerias</a><a href="contato.html">Contato</a>
+<a href="grupo.html#sobre">O grupo</a><a href="pesquisa.html">Pesquisa</a><a href="agenda.html">Agenda</a><a href="contato.html">Contato</a>
 </nav>
+</div>
+<div class="gp-footer-logos" aria-label="Vínculos institucionais">
+<a href="https://enut.ufop.br/" target="_blank" rel="noopener noreferrer" title="Escola de Nutrição da UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição — ENUT" loading="lazy"></a><a href="https://ufop.br/" target="_blank" rel="noopener noreferrer" title="Universidade Federal de Ouro Preto"><img src="img/ufop-logo.jpg" alt="Universidade Federal de Ouro Preto — UFOP" loading="lazy"></a><a href="https://posnutricao.ufop.br/" target="_blank" rel="noopener noreferrer" title="Programa de Pós-Graduação em Saúde e Nutrição"><img src="img/logo_ppgsn.png" alt="Programa de Pós-Graduação em Saúde e Nutrição — PPGSN" loading="lazy"></a>
 </div>
 <div class="gp-footer-base">
 <span>© GPENSC · UFOP</span><a class="gp-footer-admin" href="admin/" aria-label="Acessar o painel administrativo">Admin</a>

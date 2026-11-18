@@ -22,6 +22,11 @@
           img.loading = "eager";
           img.removeAttribute("id");
         });
+        // Slides clonados não devem duplicar links navegáveis pelo teclado.
+        copia.querySelectorAll("a,button").forEach(el => {
+          el.tabIndex = -1;
+          el.removeAttribute("id");
+        });
         return copia;
       };
       // Moldura anterior e posterior: os dois extremos podem fazer a volta

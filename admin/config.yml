@@ -252,7 +252,7 @@ collections:
   - name: "midia_parcerias"
     label: "04 · Mídia, galeria e parcerias"
     files:
-        - label: "Linha do tempo · Quem somos"
+        - label: "Linha do tempo · Nossa história"
           name: "linha_tempo"
           file: "data/linha_tempo.yml"
           fields:
@@ -261,7 +261,7 @@ collections:
               widget: "list"
               collapsed: true
               label_singular: "acontecimento"
-              hint: "Edite as linhas diretamente, importe Excel/CSV, exporte uma cópia e reordene os acontecimentos. Organize do mais antigo para o mais recente."
+              hint: "Cadastre marcos e conquistas coletivas do GPENSC, não trajetórias individuais. Use ano de quatro dígitos; o site organiza cronologicamente. Há importação e exportação Excel/CSV."
               summary: "{{fields.ano}} — {{fields.titulo}}"
               fields:
                 - { label: "Ano", name: "ano", widget: "string", hint: "Informe o ano com quatro dígitos (ex.: 2024)." }
@@ -269,14 +269,34 @@ collections:
                 - { label: "Legenda", name: "descricao", widget: "text", required: false }
                 - { label: "Foto", name: "imagem", widget: "image", required: false, hint: "Informe o caminho da imagem já enviada à pasta img/." }
                 - { label: "Link do registro ou documento", name: "url", widget: "string", required: false, hint: "Use a fonte histórica da informação, quando disponível." }
-        - label: "Galeria de fotos"
+        - label: "Galeria · Quem somos"
           name: "galeria"
           file: "data/galeria.yml"
           fields:
-            - label: "Fotos (seleção múltipla)"
+            - label: "Fotografias da página Quem somos"
               name: "itens"
               widget: "galeria-multipla-v2"
-              hint: "Selecione várias fotos, abra Ajustar recorte em cada foto para mudar o foco/zoom e confira a prévia antes de salvar."
+              hint: "Acervo independente da página Quem somos. Alterações aqui não afetam a galeria da página inicial."
+        - label: "Galeria · Página inicial"
+          name: "galeria_home"
+          file: "data/galeria_home.yml"
+          fields:
+            - label: "Fotos e futuros cards de eventos"
+              name: "itens"
+              widget: "list"
+              collapsed: true
+              label_singular: "foto ou card"
+              summary: "{{fields.titulo}} {{fields.legenda}}"
+              hint: "Galeria separada da página Quem somos. No futuro cada imagem pode virar card de evento com link, sem alterar o acervo institucional."
+              fields:
+                - { label: "Imagem", name: "arquivo", widget: "image" }
+                - { label: "Tipo", name: "tipo", widget: "select", options: ["foto", "evento"], required: false, default: "foto" }
+                - { label: "Título do evento", name: "titulo", widget: "string", required: false }
+                - { label: "Legenda", name: "legenda", widget: "string", required: false }
+                - { label: "Link ao clicar (para evento)", name: "url", widget: "string", required: false, hint: "Opcional. URL externa http(s) ou página relativa do site." }
+                - { label: "Foco horizontal (%)", name: "foco_x", widget: "number", required: false, min: 0, max: 100 }
+                - { label: "Foco vertical (%)", name: "foco_y", widget: "number", required: false, min: 0, max: 100 }
+                - { label: "Ampliação (%)", name: "zoom", widget: "number", required: false, min: 100, max: 200 }
         - label: "Vídeos publicados"
           name: "videos"
           file: "data/videos.yml"
