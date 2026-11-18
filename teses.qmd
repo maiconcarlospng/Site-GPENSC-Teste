@@ -36,9 +36,9 @@ div(
       ) |>
       datatable(
         rownames = FALSE,
-        filter = "none",
+        filter = "top",
         escape = FALSE,
-        options = list(pageLength = 10, language = DT_PT, autoWidth = FALSE, scrollX = TRUE)
+        options = list(pageLength = 10, language = DT_PT, scrollX = TRUE)
       )
   } else {
     estado_vazio("Nenhuma tese ou dissertação cadastrada no momento.", NULL)
