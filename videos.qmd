@@ -2,8 +2,6 @@
 title: "Vídeos"
 ---
 
-<div class="gp-illustrated-lead"><p>Conteúdos audiovisuais e registros de atividades do grupo.</p><img src="img/ilustracoes/videos.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
-
-## Vídeos {#videos}
+<div id="videos" class="gp-illustrated-lead"><p>Conteúdos audiovisuais e registros de atividades do grupo.</p><img src="img/ilustracoes/videos.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
 
 {{< include partials/videos.qmd >}}
