@@ -641,7 +641,9 @@ function setupCollectionOrdering(collection,items){
   const collation=new Intl.Collator('pt-BR',{sensitivity:'base',numeric:true});
   const name=item=>names.map(key=>item?.[key]).find(value=>value!=null&&String(value).trim())||titleOf(item)||'';
   const dateKey=item=>{
-    const value=String(item?.[dateField]??'').trim();
+    const raw=item?.[dateField];
+    if(raw instanceof Date&&!Number.isNaN(raw.getTime()))return raw.toISOString();
+    const value=String(raw??'').trim();
     if(!value)return '';
     if(/^\d{2}\/\d{2}\/\d{4}/.test(value)){
       const [day,month,year]=value.split('/');return year+'-'+month+'-'+day;
@@ -1043,6 +1045,7 @@ function openMediaLibrary(){
     '<nav id="media-pagination" class="media-pagination" aria-label="Páginas de arquivos"></nav>',
     '</section></div>'
   ].join('');
+  $('#media-sort').value=state.mediaSort;
   $('#media-delete-selected').onclick=async()=>{
     const paths=[...state.mediaSelection];
     if(paths.length)await queueMaterialsRemoval(paths);
