@@ -63,10 +63,10 @@ jobs:
         run: python admin/auditar-site.py
       - name: Validar integridade do acervo Instagram
         run: python admin/validar-acervo-instagram.py
-      - name: Validar sintaxe do arquivador de imagens
-        run: python -m py_compile admin/arquivar-capas-instagram.py
+      - name: Validar sintaxe das rotinas do Instagram
+        run: python -m py_compile admin/arquivar-capas-instagram.py scripts/importar-instagram.py
       - name: Validar sintaxe do painel, árvore e Workers
-        run: node --check admin/galeria-multipla.js && node --check admin/app.js && node --check admin/lote-edicoes.js && node --check admin/testar-lote.js && node admin/testar-lote.js && node --check js/acessibilidade-gpensc.js && node --check js/acervo-instagram.js && node --check js/galeria-home.js && node --check js/arvore.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
+        run: node --check js/carrosseis-instagram.js && node --check js/paginacao-noticias.js && node --check admin/galeria-multipla.js && node --check admin/app.js && node --check admin/lote-edicoes.js && node --check admin/testar-lote.js && node admin/testar-lote.js && node --check js/acessibilidade-gpensc.js && node --check js/acervo-instagram.js && node --check js/galeria-home.js && node --check js/arvore.js && node --check js/arvore-interativa.js && node --check js/galeria-sobre.js && node --check admin-access-worker/worker.js && node --check analytics-worker/worker.js
 
   build:
     name: Compilar site (Quarto + R)
