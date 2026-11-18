@@ -13,7 +13,6 @@
   const fmt=n=>n.toFixed(2);
   const W = 1400, H = 920, total = rows.length;
   const nodeNames = rows.map(row => row.querySelector('.gp49-line-name').textContent.trim());
-  const branchRange=(start,count)=>String(start+1).padStart(2,'0')+(count>1?'–'+String(start+count).padStart(2,'0'):'');
   const make = (tag, attrs, parent) => {
     const item = document.createElementNS(NS, tag);
     Object.entries(attrs || {}).forEach(([name, value]) => item.setAttribute(name, String(value)));
@@ -375,10 +374,7 @@
       class:'gp49-branch-label','aria-hidden':'true','pointer-events':'none',
       'data-terminal':terminal?'1':'0'
     },bubble);
-    const labelText=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-label-text'},labelGroup);
-    labelText.textContent=branchRange(start,count);
-    addLabelBackground(labelText,labelGroup);
-    make('title',{},labelGroup).textContent=terminal?nodeNames[start]:('Frentes '+branchRange(start,count)+': '+nodeNames.slice(start,start+count).join('; '));
+    make('title',{},labelGroup).textContent=terminal?nodeNames[start]:'Ramificação da árvore';
     if(terminal){
       const nameLabel=make('text',{x:0,y:0,'text-anchor':'middle',class:'gp49-branch-name-label'},labelGroup);
       nameLabel.textContent=nodeNames[start];
@@ -434,8 +430,13 @@
     if (!terminal && depth<2) expand(true);
     return {destroy};
   }
-  branch(0,total,0,{x:-190,y:1120},135,70,{x:.75,y:-.66});
-  const trunkLabel=make('text',{x:130,y:880,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
+  // Cada linha ou projeto é um galho independente, sem agrupamentos numerados.
+  // Uma raiz compartilhada mantém o desenho conectado e os registros clicáveis.
+  const origin={x:-190,y:1120};
+  const fork={x:210,y:780};
+  limb(origin,fork,135,72,{x:.75,y:-.66});
+  rows.forEach((row,index)=>branch(index,1,2,fork,Math.max(12,45-total*.32),9,{x:.7,y:-.7}));
+  const trunkLabel=make('text',{x:90,y:940,'text-anchor':'middle',class:'gp49-trunk-label','aria-hidden':'true'},nodeLayer);
   trunkLabel.textContent='GPENSC';
   root.classList.add('gp49-ready');
   const panel=root.querySelector('#gp49-detail');
@@ -466,11 +467,6 @@
   }
   rows.forEach((row,index)=>{
     const button=row.querySelector('button');
-    const indexTag=document.createElement('span');
-    indexTag.className='gp49-directory-index';
-    indexTag.setAttribute('aria-hidden','true');
-    indexTag.textContent=String(index+1).padStart(2,'0');
-    button.prepend(indexTag);
     button.addEventListener('click',()=>select(index));
   });
   const home=root.querySelector('#gp49-home');
