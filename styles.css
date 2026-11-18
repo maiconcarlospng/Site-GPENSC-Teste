@@ -20859,3 +20859,18 @@ html body footer.footer .nav-footer::before {
     font-size: 16px !important;
   }
 }
+
+
+/* Elimina a linha clara residual sob a faixa tricolor do menu */
+html body #quarto-header,
+html body #quarto-header .navbar {
+  border-bottom: 0 !important;
+}
+html body #quarto-header .navbar {
+  box-shadow: none !important;
+}
+html body #quarto-header .navbar::after {
+  bottom: 0 !important;
+  height: 3px !important;
+  z-index: 5 !important;
+}
