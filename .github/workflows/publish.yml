@@ -1,6 +1,7 @@
 name: Publicar site Quarto
 
-# Toda publicação compila o site e o painel a partir do mesmo commit; não reutiliza HTML antigo.
+# Mudanças exclusivamente em styles.css podem reutilizar o HTML publicado.
+# Demais alterações mantêm compilação completa e validações.
 # A documentação de uso e migração está no README.md.
 on:
   push:
@@ -77,15 +78,56 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Identificar publicação rápida segura
+        id: mode
+        shell: bash
+        run: |
+          echo "fast=false" >> "$GITHUB_OUTPUT"
+          # A branch publicada registra qual commit da main originou o HTML.
+          if ! git fetch --no-tags --depth=1 origin render-published:refs/remotes/origin/render-published; then
+            echo "Sem publicação anterior; compilação completa."
+            exit 0
+          fi
+          previous="$(git log -1 --format=%s origin/render-published | sed -n 's/^deploy: sync main @ \\([0-9a-f]\\{40\\}\\)$/\\1/p')"
+          if [[ -z "$previous" ]] || ! git cat-file -e "$previous^{commit}" 2>/dev/null; then
+            echo "Commit de origem desconhecido; compilação completa."
+            exit 0
+          fi
+          if ! git merge-base --is-ancestor "$previous" HEAD; then
+            echo "Histórico divergente; compilação completa."
+            exit 0
+          fi
+          changed="$(git diff --name-only "$previous" HEAD)"
+          if [[ -n "$changed" ]] && ! grep -v -x 'styles.css' <<< "$changed"; then
+            echo "Somente styles.css mudou desde a publicação anterior."
+            echo "fast=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Há alterações que exigem renderização completa."
+          fi
+
+      - name: Reutilizar HTML publicado e atualizar somente o CSS
+        if: steps.mode.outputs.fast == 'true'
+        shell: bash
+        run: |
+          mkdir -p _site
+          git archive origin/render-published | tar -xf - -C _site
+          cp styles.css _site/styles.css
+          test -s _site/index.html
+          test -s _site/styles.css
+          rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py _site/admin/arquivar-capas-instagram.py
+
       - name: Instalar Quarto
+        if: steps.mode.outputs.fast != 'true'
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Preparar R e usar pacotes binários quando disponíveis
+        if: steps.mode.outputs.fast != 'true'
         uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
       - name: Instalar dependências R declaradas pelo projeto
+        if: steps.mode.outputs.fast != 'true'
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: |
@@ -103,6 +145,7 @@ jobs:
             any::lubridate
 
       - name: Restaurar capas originais já publicadas
+        if: steps.mode.outputs.fast != 'true'
         shell: bash
         run: |
           mkdir -p img/instagram
@@ -114,9 +157,11 @@ jobs:
           fi
 
       - name: Arquivar imagens das publicações importadas
+        if: steps.mode.outputs.fast != 'true'
         run: python3 admin/arquivar-capas-instagram.py
 
       - name: Recompilar o site e o painel sem reutilizar HTML antigo
+        if: steps.mode.outputs.fast != 'true'
         run: |
           rm -rf _site _freeze
           quarto render
