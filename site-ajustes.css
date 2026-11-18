@@ -156,6 +156,27 @@ html body footer.footer #gp-institutional-footer .gp-footer-links {
   }
 }
 
+/* Seleção e foco dos links institucionais com cantos arredondados. */
+html body footer.footer #gp-institutional-footer .gp-footer-links a {
+  border-radius: 10px !important;
+  transition: background-color .15s ease, color .15s ease;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-links a:is(:hover,:focus-visible,:active) {
+  border-radius: 10px !important;
+  background-color: #eaf2e5 !important;
+  text-decoration: none !important;
+}
+html body footer.footer #gp-institutional-footer .gp-footer-logos a:is(:hover,:focus-visible) {
+  border-radius: 12px !important;
+  background-color: #eaf2e5 !important;
+}
+@media (max-width: 510px) {
+  html body footer.footer #gp-institutional-footer .gp-footer-links a {
+    padding: 7px 9px !important;
+    margin: 0 -9px !important;
+  }
+}
+
 /* Nossa história — conteúdo integral nos cartões, sem rolagem interna.
    Desktop: navegação horizontal, marcos no mesmo eixo.
    Mobile: eixo vertical, cartões sempre com altura natural. */
