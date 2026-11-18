@@ -15,7 +15,7 @@ categoria_integrante <- function(e) {
   # A categoria editorial prevalece sobre cargos antigos, sobretudo de egressos.
   papel <- if (tem(e$papel)) tolower(as.character(e$papel[1])) else ""
   categoria <- valor_publico(e$categoria)
-  if (!is.null(categoria) && categoria %in% c("Líderes", "Pesquisadores", "Colaboradores", "Egressos")) return(categoria)
+  if (!is.null(categoria) && categoria %in% c("Líderes e pesquisadores", "Colaboradores", "Egressos")) return(categoria)
   if (grepl("egresso|ex-integrante", papel)) return("Egressos")
   if (grepl("l[ií]der|coordena", papel)) return("Líderes")
   if (!is.null(categoria)) return(categoria)
@@ -47,11 +47,13 @@ if (nrow(integrantes) > 0) {
   )
   integrantes$categoria_exibicao <- dplyr::recode(
     integrantes$categoria_exibicao,
-    "Coordenação" = "Líderes",
-    "Docentes e pesquisadores" = "Pesquisadores",
-    "Pós-graduandos" = "Pesquisadores",
-    "Graduandos" = "Pesquisadores",
-    "Outros integrantes" = "Pesquisadores"
+    "Líderes" = "Líderes e pesquisadores",
+    "Pesquisadores" = "Líderes e pesquisadores",
+    "Coordenação" = "Líderes e pesquisadores",
+    "Docentes e pesquisadores" = "Líderes e pesquisadores",
+    "Pós-graduandos" = "Líderes e pesquisadores",
+    "Graduandos" = "Líderes e pesquisadores",
+    "Outros integrantes" = "Líderes e pesquisadores"
   )
 }
 
@@ -153,7 +155,7 @@ div(
       # A categoria cadastrada no painel é a referência editorial.
       # Um papel antigo (ex.: "Líder do grupo") não pode contradizer a
       # reclassificação posterior da pessoa para pesquisador/colaborador.
-      if (!is.null(papel) && categoria != "Líderes" &&
+      if (!is.null(papel) && categoria != "Líderes e pesquisadores" &&
           grepl("l[ií]der|chefia|coordena[cç][aã]o|coordenador", papel, ignore.case = TRUE)) {
         papel <- NULL
       }
@@ -252,7 +254,7 @@ div(
         lapply(categorias, function(cat) {
           itens_categoria <- integrantes[integrantes$categoria_exibicao == cat, , drop = FALSE] |>
             arrange(nome)
-          grupo_class <- if (identical(cat, "Líderes")) {
+          grupo_class <- if (identical(cat, "Líderes e pesquisadores")) {
             "equipe-categoria-grupo equipe-categoria-coordenacao"
           } else {
             "equipe-categoria-grupo"
@@ -262,7 +264,7 @@ div(
             class = grupo_class,
             `data-equipe-categoria` = cat,
             h3(cat),
-            if (identical(cat, "Líderes")) p("Docentes da Escola de Nutrição (ENUT/UFOP)."),
+            
             div(
               class = "equipe-grid",
               lapply(seq_len(nrow(itens_categoria)), function(i) {
