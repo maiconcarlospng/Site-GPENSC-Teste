@@ -177,12 +177,13 @@ function isExampleRecord(item){
 }
 function summaryRecords(entry){return entryList(entry).filter(item=>item&&!isExampleRecord(item))}
 function isConfigCollection(entry){return entry?.group==='configuracoes'||String(entry?.file||'').startsWith('data/configuracoes/')}
-function isGalleryCollection(entry){return entry?.name==='galeria'||entry?.file==='data/galeria.yml'}
+function isGalleryCollection(entry){return ['galeria','galeria_home'].includes(entry?.name)||['data/galeria.yml','data/galeria_home.yml'].includes(entry?.file)}
 function collectionSummary(entry){const count=summaryRecords(entry).length,examples=entryList(entry).length-count;return isConfigCollection(entry)?'Configuração institucional':count+' registros de conteúdo'+(examples?' · '+examples+' exemplos para revisão':'')}
 function titleOf(item){return item.titulo||item.nome||item.episodio||item.codigo||item.autor||'Registro sem título'}
 const SITE_AREAS=[
-  {title:'Quem somos',names:['equipe']},
-  {title:'Nossa história',names:['linha_tempo','galeria']},
+  {title:'Página inicial',names:['galeria_home']},
+  {title:'Quem somos',names:['equipe','galeria']},
+  {title:'Nossa história',names:['linha_tempo']},
   {title:'Parcerias',names:['parcerias','apoio','sites']},
   {title:'Pesquisa',names:['linhas','projetos','publicacoes','defesas','metodos']},
   {title:'Extensão',names:['conteudos_vi_no_rotulo','equipe_vi_no_rotulo','capacitacao_atividades']},
@@ -197,7 +198,7 @@ function siteArea(entry){
   return SITE_AREAS.find(area=>area.names.includes(entry?.name))?.title||'Outros conteúdos';
 }
 const SITE_PAGES={
-  equipe:'grupo.html#equipe',linha_tempo:'historia.html#historia',galeria:'index.html',
+  equipe:'grupo.html#equipe',linha_tempo:'historia.html#historia',galeria:'grupo.html#gp-sobre-fotos',galeria_home:'index.html',
   parcerias:'parcerias.html',apoio:'parcerias.html',
   linhas:'linhas.html',projetos:'projetos.html',publicacoes:'publicacoes.html',defesas:'teses.html',
   metodos:'metodos.html',conteudos_vi_no_rotulo:'extensao.html#projeto-PR-VR',
@@ -760,19 +761,29 @@ function galleryPreviewUrl(path){
   if(/^https?:\/\//i.test(value))return value;
   return '../'+value.replace(/^\/+/,'');
 }
+function galleryHomeFields(item){
+  const type=String(item?.tipo||'foto').toLowerCase()==='evento'?'evento':'foto';
+  return '<div class="field"><label>Formato na home</label><select data-gallery-type>'+
+      '<option value="foto"'+(type==='foto'?' selected':'')+'>Fotografia normal</option>'+
+      '<option value="evento"'+(type==='evento'?' selected':'')+'>Card de evento</option></select></div>'+
+    '<div class="field full"><label>Título do evento</label><input type="text" data-gallery-title value="'+esc(item?.titulo||'')+'" placeholder="Ex.: Simpósio do GPENSC (opcional)"></div>'+
+    '<div class="field full"><label>Link para o evento</label><input type="text" data-gallery-url value="'+esc(item?.url||'')+'" placeholder="https://... ou evento.html"><small>O link só ficará clicável quando o formato for Card de evento.</small></div>';
+}
 function openGalleryCollection(index){
   state.view='collection';
   state.active=index;
   const c=state.collections[index];
   const items=entryList(c);
+  const homeGallery=c.name==='galeria_home';
   renderNav();
   $('#page-crumb').textContent=c.label;
   $('#page-content').innerHTML=
-    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' fotos cadastradas. Gerencie as imagens, legendas e pontos de foco.</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+ 
+    '<div class="page-heading collection-heading"><div><span class="eyebrow">'+esc(siteArea(c))+'</span><h1>'+esc(c.label)+'</h1><p>'+items.length+' foto(s) cadastrada(s). '+(homeGallery?'Edite apenas a galeria da home; escolha Evento e preencha um link para transformar uma imagem em card clicável.':'Edite apenas o acervo de Quem somos. A galeria da home permanece independente.')+'</p></div><button type="button" class="secondary-button" id="gallery-back">Painel de resumo</button></div>'+ 
     '<div class="gallery-sort-bar"><label for="gallery-sort">Ordenar fotos na visualização</label><select id="gallery-sort"><option value="original">Sequência da galeria</option><option value="caption">Legenda (A–Z)</option><option value="caption-desc">Legenda (Z–A)</option><option value="file">Nome do arquivo (A–Z)</option><option value="file-desc">Nome do arquivo (Z–A)</option></select><p>Esta ordenação é apenas visual e não altera a sequência publicada das fotos.</p></div>'+
     '<form id="gallery-form" class="gallery-form"><div class="gallery-photo-grid">'+items.map((item,i)=>
       '<article class="gallery-photo-card" data-gallery-row data-index="'+i+'"><div class="gallery-photo-preview"><img src="'+esc(galleryPreviewUrl(item.arquivo))+'" alt="'+esc(item.legenda||'Foto da galeria')+'" loading="lazy"><span>Foto '+(i+1)+'</span></div>'+
       '<div class="gallery-photo-fields"><div class="field full"><label>Legenda</label><input type="text" data-gallery-caption value="'+esc(item.legenda||'')+'" placeholder="Descreva a foto (opcional)"></div>'+
+      (homeGallery?galleryHomeFields(item):'')+
       '<div class="field"><label>Foco horizontal (%)</label><input type="number" data-gallery-focus-x min="0" max="100" step="1" value="'+esc(item.foco_x??'')+'" placeholder="50"></div>'+
       '<div class="field"><label>Foco vertical (%)</label><input type="number" data-gallery-focus-y min="0" max="100" step="1" value="'+esc(item.foco_y??'')+'" placeholder="50"></div>'+
       '<div class="field full"><label>Substituir imagem</label><input type="file" data-gallery-replace accept="image/*"><button type="button" class="small-button photo-crop-action" data-photo-crop="gallery" data-photo-source="'+esc(item.arquivo||'')+'">Recortar foto</button></div></div>'+
@@ -836,6 +847,15 @@ async function saveGalleryCollection(event,index){
       if(replacement){item.arquivo='/'+await uploadImage(replacement);if(/-recorte\.(webp|png)$/i.test(replacement.name))delete item.zoom;}
       const caption=row.querySelector('[data-gallery-caption]')?.value??'';
       item.legenda=caption;
+      if(c.name==='galeria_home'){
+        const tipo=row.querySelector('[data-gallery-type]')?.value||'foto';
+        const titulo=String(row.querySelector('[data-gallery-title]')?.value||'').trim();
+        const link=String(row.querySelector('[data-gallery-url]')?.value||'').trim();
+        if(link&&!/^(https?:\/\/|\/(?!\/)|[a-z\d][a-z\d/_-]*\.html(?:[?#].*)?$)/i.test(link))throw new Error('Informe um link válido, iniciado por https:// ou uma página interna .html.');
+        item.tipo=tipo;
+        if(titulo)item.titulo=titulo;else delete item.titulo;
+        if(link)item.url=link;else delete item.url;
+      }
       const focusX=row.querySelector('[data-gallery-focus-x]')?.value??'';
       const focusY=row.querySelector('[data-gallery-focus-y]')?.value??'';
       for(const [key,value] of [['foco_x',focusX],['foco_y',focusY]]){
@@ -851,7 +871,7 @@ async function saveGalleryCollection(event,index){
     const additions=selectedPhotos(form.querySelector('#gallery-add-files'));
     for(const file of additions){
       const path=await uploadImage(file);
-      updated.push({arquivo:'/'+path,legenda:''});
+      updated.push({arquivo:'/'+path,legenda:'',...(c.name==='galeria_home'?{tipo:'foto'}:{})});
     }
     button.textContent='Preparando galeria…';
     await saveCollection(c,{...state.contents[c.file],itens:updated});
