@@ -295,4 +295,4 @@ div(id = "gp49", class = "gp49-shell",
 </style>
 ```
 
-<script src="js/arvore.js?v=rotulos-escala-real-20261117" defer></script>
+<script src="js/arvore.js?v=copa-completa-20261118" defer></script>
