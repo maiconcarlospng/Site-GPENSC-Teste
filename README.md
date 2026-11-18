@@ -458,6 +458,22 @@ Revise cuidadosamente `git status`. Não inclua tokens, chaves, segredos, arquiv
 
 **A migração ainda não foi feita.** O repositório, os URLs e o Worker OAuth ainda usam a infraestrutura de desenvolvimento vinculada à conta pessoal. A portabilidade deve ser planejada com a coordenação do GPENSC e executada somente quando houver uma conta/organização institucional, responsáveis e permissões definidos.
 
+### Destino definitivo e desligamento das contas de desenvolvimento
+
+Ao concluir a migração, o GPENSC será responsável pela propriedade, recuperação de acesso, cobrança e operação de cada serviço. As contas pessoais de Maicon são a infraestrutura de origem. O grupo deverá conseguir editar uma notícia, importar um post, publicar o site, consultar as métricas e recuperar o acesso mesmo depois de Maicon sair das equipes.
+
+| Serviço | O que fica sob controle do GPENSC | Como conferir a entrega |
+|---|---|---|
+| E-mail institucional | Caixa acompanhada pela coordenação para convites, recuperação, alertas de falhas e renovação. Guardar os códigos de recuperação no cofre do grupo. | Dois responsáveis designados conseguem acessar os avisos e localizar os meios de recuperação. |
+| GitHub, Pages e Actions | Organização do grupo como proprietária, responsáveis com logins individuais, branches, histórico, imagens, permissões dos workflows e URL pública. | Um membro designado publica uma edição pelo painel e acompanha a execução em Actions. |
+| Cloudflare e login do painel | Conta Cloudflare do grupo para os Workers de OAuth, acesso por código e métricas. OAuth App sob gestão do grupo, novos segredos de cliente e sessão, novo código de acesso e token GitHub emitido por uma identidade de serviço gerida pelo GPENSC. | Em janela privada, testar separadamente o login GitHub, o acesso por código e o editor Sveltia. Conferir a gravação no repositório definitivo. |
+| Instagram e Apify | Coordenação com acesso e recuperação do perfil institucional. Workspace Apify, créditos, cobrança e token de coleta pertencentes ao grupo. Configurar o segredo `APIFY_TOKEN` no repositório de destino. | Executar **Sincronizar Instagram** no GitHub institucional. Conferir o log, depois a capa, o título, o resumo e a fonte do próximo post novo. A rotina roda pelo GitHub, independentemente da conta do ChatGPT usada no desenvolvimento. |
+| Umami | Propriedade do site e chave de API administradas pelo grupo. Se o histórico precisar ser preservado, validar o acesso institucional à propriedade antiga antes de trocar o identificador. | Acessar o novo domínio e conferir a visita no Umami e o relatório no painel. |
+| Spotify e UFOPCast | Para administrar o **GPENSC no Ar**, recuperar o programa com o responsável atual ou pelo suporte da plataforma e conceder acesso à equipe institucional. Registrar esse item como pendente até o grupo conseguir entrar. O UFOPCast é externo; o GPENSC mantém a seleção de episódios no site. | Testar o player público e os links. Separadamente, confirmar que um responsável do grupo consegue administrar o GPENSC no Ar. |
+| Domínio e DNS, se houver | Titularidade, acesso ao registrador, contatos de renovação, cobrança, zona DNS e HTTPS sob responsabilidade institucional. | Abrir o endereço definitivo em janela privada e confirmar que os avisos de renovação chegam ao grupo. |
+
+**Teste de saída de Maicon.** Registrem no cofre institucional os responsáveis e os identificadores dos serviços. No repositório, mantenham apenas os nomes das variáveis e os endereços públicos. Em uma sessão exclusiva da equipe, validem a publicação, o painel, as capas, a coleta e as métricas. Em seguida, removam os acessos pessoais substituídos, revoguem tokens antigos, troquem códigos compartilhados e retirem e-mail, telefone e forma de pagamento pessoais dos serviços migrados. No ciclo seguinte do agendamento, confiram em Actions que a coleta continua funcionando. Se um serviço ainda depende do antigo titular, registrem qual é, quem vai assumir e qual teste falta concluir.
+
 ### Roteiro de entrega ao e-mail e às contas do GPENSC
 
 1. **Identidade e recuperação.** Definam o e-mail institucional que receberá convites, avisos de cobrança e recuperação. Criem a organização GitHub do grupo, convidem os responsáveis com contas individuais e confirmem o acesso de dois proprietários. Guardem os códigos de recuperação e as credenciais de serviço no cofre institucional.
@@ -479,7 +495,7 @@ O workflow **Sincronizar Instagram** consulta diariamente às **07h23 de Brasíl
 
 ### Objetivo da portabilidade
 
-Levar o código, o conteúdo, o histórico, a publicação, o painel e os serviços externos para contas sob controle institucional, reduzindo a dependência da conta pessoal de desenvolvimento.
+Levar o código, o conteúdo, o histórico, a publicação, o painel e os serviços externos para contas sob controle institucional, encerrando a dependência das contas pessoais de desenvolvimento.
 
 A migração não consiste apenas em trocar o nome do proprietário do GitHub. O site depende também de Pages, Actions, OAuth, Cloudflare e Umami. Cada integração precisa ser revisada e testada.
 
