@@ -65,7 +65,8 @@ COLUNAS <- list(
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
   parcerias   = c("nome", "sigla", "uf", "cidade", "pais", "latitude", "longitude", "grupo", "logo", "url"),
-  galeria     = c("arquivo", "legenda", "foco_x", "foco_y", "zoom")
+  galeria     = c("arquivo", "legenda", "foco_x", "foco_y", "zoom"),
+  galeria_home = c("arquivo", "legenda", "foco_x", "foco_y", "zoom", "tipo", "titulo", "url")
 )
 
 # Aceita datas atuais em ISO e formatos legados comuns no painel.
@@ -149,7 +150,8 @@ disciplinas <- ler("disciplinas")   # disciplinas
 livros      <- ler("livros")        # livros
 videos      <- ler("videos")        # vídeos
 sites       <- ler("sites")         # sites recomendados
-galeria     <- ler("galeria")       # fotos da faixa do topo da home
+galeria     <- ler("galeria")       # acervo fotográfico da página Quem somos
+galeria_home <- ler("galeria_home")  # galeria própria da home, pronta para eventos
 
 # Cria a coluna "referencia" (texto da referência bibliográfica) automaticamente.
 pubs <- pubs |>
@@ -253,13 +255,13 @@ grade <- function(df, fn) {
 }
 
 # ---------- FAIXA DO TOPO DA HOME / GALERIA DE FOTOS ----------
-# A galeria continua sendo controlada por data/galeria.yml no Sveltia CMS.
+# A galeria inicial usa data/galeria_home.yml, separada do acervo Quem somos.
 # Cada item tem os campos "arquivo" e "legenda".
 # Se não houver fotos cadastradas, mostra o bloco verde institucional.
 faixa_galeria <- function(exibir = c("ambos", "hero", "fotos")) {
   exibir <- match.arg(exibir)
-  fotos <- galeria[
-    !is.na(galeria$arquivo) & nzchar(trimws(galeria$arquivo)),
+  fotos <- galeria_home[
+    !is.na(galeria_home$arquivo) & nzchar(trimws(galeria_home$arquivo)),
     , drop = FALSE
   ]
 
@@ -308,19 +310,39 @@ faixa_galeria <- function(exibir = c("ambos", "hero", "fotos")) {
           foco_y <- min(100, max(0, foco_y))
           zoom <- min(200, max(100, zoom))
 
+          # Na home, cada imagem pode se transformar em um card de evento.
+          # Fotos sem tipo/link continuam com a apresentação atual.
+          tipo <- valor_publico(fotos$tipo[i])
+          titulo <- valor_publico(fotos$titulo[i])
+          url <- valor_publico(fotos$url[i])
+          evento <- !is.null(tipo) && identical(tolower(tipo), "evento")
+          destino <- if (evento && !is.null(url) &&
+                         grepl("^(https?://|/[^/]|[A-Za-z0-9][A-Za-z0-9/_-]*\\.html(?:[?#].*)?$)", url)) url else NULL
+          imagem <- tags$img(
+            src = arquivo,
+            alt = alt_texto,
+            style = paste0(
+              "object-position: ", foco_x, "% ", foco_y, "%; ",
+              "transform: scale(", zoom / 100, "); ",
+              "transform-origin: ", foco_x, "% ", foco_y, "%;"
+            ),
+            loading = if (i == 1) "eager" else "lazy",
+            decoding = "async"
+          )
+          detalhe <- if (evento && (!is.null(titulo) || tem(legenda))) {
+            div(class = "gp-galeria-card-legenda",
+                if (!is.null(titulo)) strong(titulo),
+                if (tem(legenda)) span(as.character(legenda)))
+          } else NULL
           div(
-            class = "galeria-item",
-            tags$img(
-              src = arquivo,
-              alt = alt_texto,
-              style = paste0(
-                "object-position: ", foco_x, "% ", foco_y, "%; ",
-                "transform: scale(", zoom / 100, "); ",
-                "transform-origin: ", foco_x, "% ", foco_y, "%;"
-              ),
-              loading = if (i == 1) "eager" else "lazy",
-              decoding = "async"
-            )
+            class = if (evento) "galeria-item galeria-item--evento" else "galeria-item",
+            if (!is.null(destino)) {
+              tags$a(class = "gp-galeria-evento-link", href = destino,
+                     target = if (grepl("^https?://", destino)) "_blank" else NULL,
+                     rel = if (grepl("^https?://", destino)) "noopener noreferrer" else NULL,
+                     `aria-label` = if (!is.null(titulo)) paste("Abrir evento:", titulo) else "Abrir detalhes do evento",
+                     imagem, detalhe)
+            } else tagList(imagem, detalhe)
           )
         })
       )
