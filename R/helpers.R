@@ -61,7 +61,7 @@ COLUNAS <- list(
   livros      = c("ano", "titulo", "autores", "editora", "url"),
   defesas     = c("data", "nivel", "etapa", "autor", "titulo", "orientador", "url", "linha_id", "projeto_id"),
   disciplinas = c("nivel", "codigo", "nome", "docente", "periodo", "ementa"),
-  videos      = c("data", "titulo", "descricao", "url"),
+  videos      = c("data", "titulo", "descricao", "url", "imagem"),
   sites       = c("nome", "descricao", "url"),
   apoio       = c("nome", "logo", "url"),
   parcerias   = c("nome", "sigla", "uf", "cidade", "pais", "latitude", "longitude", "grupo", "logo", "url"),
