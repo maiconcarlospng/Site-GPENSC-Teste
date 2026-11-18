@@ -32,12 +32,11 @@ permissions:
   pages: write
   id-token: write
 
-# Evita duas publicações concorrentes. Se uma edição nova chegar, prioriza a mais recente.
+# Uma publicação por vez; novos commits substituem execuções antigas.
+# Evita gastar tempo compilando versões que já foram superadas.
 concurrency:
   group: pages
-  # Não cancelar publicações iniciadas quando novos commits chegarem.
-  # O GitHub mantém uma execução pendente e publica a versão mais recente depois.
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   # Distingue mudanças exclusivas do painel de alterações que exigem nova renderização Quarto/R.
