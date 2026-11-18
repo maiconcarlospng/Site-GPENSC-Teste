@@ -398,6 +398,44 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card:focus-visible {outline
 @media(prefers-reduced-motion:reduce){
   html body #quarto-content .pq-blocos > a.gp-pesquisa-card {transition:none !important}
 }
+
+/* Acabamento: eliminar setas herdadas e proteger a legibilidade no celular. */
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card::before,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card::after,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo::before,
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-conteudo::after {
+  content:none !important; display:none !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+  border-radius:16px !important;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto {
+  border-radius:0 16px 16px 0;
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+  position:relative; z-index:2; max-width:min(100%, 33ch);
+}
+html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
+  background:linear-gradient(90deg,var(--gp-card-tint) 0%,rgba(255,253,248,.99) 55%,rgba(255,253,248,.88) 75%,rgba(255,253,248,.10) 100%);
+}
+@media(max-width:850px) {
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+    min-height:126px !important; padding:16px 52px 16px 14px !important;
+    border-radius:14px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto {
+    width:39%; border-radius:0 14px 14px 0;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
+    background:linear-gradient(90deg,var(--gp-card-tint) 0%,rgba(255,253,248,.99) 52%,rgba(255,253,248,.94) 77%,rgba(255,253,248,.26) 100%);
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+    max-width:calc(100% - 4px); min-width:0;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-resumo {
+    overflow-wrap:break-word; max-width:29ch;
+  }
+}
 </style>
 <section id="b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2076617220746974756c6f5f686f6d655f706573717569736173203e7d7d" class="level2 secao">
 <h2 data-anchor-id="b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2076617220746974756c6f5f686f6d655f706573717569736173203e7d7d">Pesquisas</h2>
