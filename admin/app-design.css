@@ -120,3 +120,12 @@
   .photo-crop-controls { grid-template-columns: minmax(0, 1fr); }
   .photo-crop-controls label { grid-template-columns: 106px minmax(0, 1fr); align-items: center; }
 }
+
+/* Vínculos da biblioteca de materiais. */
+#app .media-toolbar label[for="media-usage"] { grid-column: 1; }
+#app .media-usage-note { margin: 0 0 1rem; font-size: .85rem; color: #4f6054; }
+#app .media-usage-badge { justify-self: start; padding: .2rem .5rem; border-radius: .4rem; font-size: .75rem; font-weight: 700; }
+#app .media-usage-linked { background: #dff0e1; color: #205634; }
+#app .media-usage-draft { background: #fbedd2; color: #704b13; }
+#app .media-usage-unlinked { background: #eef1ef; color: #45554b; }
+#app .media-usage-sections { color: #45554b; overflow-wrap: anywhere; }
