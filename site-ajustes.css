@@ -146,264 +146,309 @@ html body footer.footer #gp-institutional-footer .gp-footer-links {
   }
 }
 
-/* História: um eixo contínuo alinhado aos marcadores, sem cartão desalinhado. */
+/* Nossa história — conteúdo integral nos cartões, sem rolagem interna.
+   Desktop: navegação horizontal, marcos no mesmo eixo.
+   Mobile: eixo vertical, cartões sempre com altura natural. */
 html body #quarto-content main.content .historia-orientacao {
-  margin: 0 0 14px;
+  margin: 0 0 16px !important;
   color: #617367;
-  font-size: .9rem;
+  font-size: .91rem !important;
 }
 html body #quarto-content main.content .historia-linha-tempo,
 html body #quarto-content main.content .historia-linha-tempo * {
   box-sizing: border-box;
 }
-@media (min-width: 761px) {
-  html body #quarto-content main.content .historia-linha-tempo {
-    display: flex !important;
-    align-items: stretch !important;
-    position: relative;
-    gap: 22px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 612px !important;
-    min-height: 612px !important;
-    margin: 14px 0 20px !important;
-    padding: 6px 8px 16px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x proximity;
-    scrollbar-color: #8fac8c #f1f5ef;
-    scrollbar-width: thin;
-  }
-  html body #quarto-content main.content .historia-linha-tempo::before {
-    content: none !important;
-  }
-  html body #quarto-content main.content .historia-item,
-  html body #quarto-content main.content .historia-item:nth-child(even) {
-    position: relative !important;
-    display: block !important;
-    flex: 0 0 clamp(250px, 27vw, 330px) !important;
-    width: clamp(250px, 27vw, 330px) !important;
-    height: 588px !important;
-    min-height: 588px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    scroll-snap-align: start;
-  }
-  html body #quarto-content main.content .historia-item::before,
-  html body #quarto-content main.content .historia-item::after {
-    content: none !important;
-  }
-  html body #quarto-content main.content .historia-ponte {
-    position: absolute !important;
-    top: calc(50% - 2px);
-    left: -11px;
-    width: calc(100% + 22px);
-    height: 4px;
-    border-radius: 0;
-    background: linear-gradient(90deg, #5f9a3e, #8eab61) !important;
-    z-index: 1;
-  }
-  html body #quarto-content main.content .historia-ponte::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -45px;
-    height: 46px;
-    width: 2px;
-    background: #7aa06c;
-  }
-  html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponte::after {
-    top: 2px;
-    height: 45px;
-  }
-  html body #quarto-content main.content .historia-ponto {
-    position: absolute;
-    z-index: 2;
-    left: 50%;
-    top: 50%;
-    width: 17px;
-    height: 17px;
-    border: 4px solid #e5efdf;
-    border-radius: 50%;
-    background: #1f4d2b;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 2px #5f9a3e;
-  }
-  html body #quarto-content main.content .historia-registro,
-  html body #quarto-content main.content .historia-item:nth-child(even) .historia-registro {
-    position: absolute !important;
-    inset: 0 0 auto !important;
-    display: flex !important;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-end;
-    gap: 9px;
-    height: calc(50% - 45px);
-    min-height: 0;
-    margin: 0 !important;
-  }
-  html body #quarto-content main.content .historia-item:nth-child(even) .historia-registro {
-    inset: auto 0 0 !important;
-    justify-content: flex-start;
-  }
+html body #quarto-content main.content .historia-linha-tempo {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: clamp(16px, 2vw, 26px) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  margin: 12px 0 26px !important;
+  padding: 6px 4px 20px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: #8eaf85 #edf3eb;
+  -webkit-overflow-scrolling: touch;
 }
-html body #quarto-content main.content .historia-linha-tempo .historia-ano,
+html body #quarto-content main.content .historia-linha-tempo::before {
+  content: none !important;
+  display: none !important;
+}
+html body #quarto-content main.content .historia-item,
+html body #quarto-content main.content .historia-item:nth-child(even) {
+  position: relative !important;
+  display: flex !important;
+  flex: 0 0 clamp(265px, 27vw, 365px) !important;
+  width: clamp(265px, 27vw, 365px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: none !important;
+  scroll-snap-align: start;
+}
+html body #quarto-content main.content .historia-item::before,
+html body #quarto-content main.content .historia-item::after {
+  content: none !important;
+  display: none !important;
+}
+html body #quarto-content main.content .historia-ponte,
+html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponte {
+  position: relative !important;
+  z-index: 1;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  flex: 0 0 36px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html body #quarto-content main.content .historia-ponte::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  right: -13px;
+  top: 17px;
+  height: 3px;
+  border-radius: 0;
+  background: #76a16c;
+}
+html body #quarto-content main.content .historia-ponte::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 20px !important;
+  width: 2px;
+  height: 19px !important;
+  background: #76a16c;
+}
+html body #quarto-content main.content .historia-ponto,
+html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponto {
+  position: relative !important;
+  z-index: 2;
+  display: block;
+  left: auto !important;
+  top: auto !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 4px solid #e4efdf !important;
+  border-radius: 50%;
+  background: #1f4d2b !important;
+  box-shadow: 0 0 0 2px #5f9a3e;
+  transform: none !important;
+}
+html body #quarto-content main.content .historia-registro,
+html body #quarto-content main.content .historia-item:nth-child(even) .historia-registro {
+  position: relative !important;
+  inset: auto !important;
+  display: flex !important;
+  flex: 1 0 auto !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 8px !important;
+  order: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 16px 0 0 !important;
+}
+html body #quarto-content main.content .historia-ano,
 html body #quarto-content main.content .historia-item:nth-child(even) .historia-ano {
+  display: block !important;
   order: 0 !important;
   margin: 0 !important;
   color: #a54e11 !important;
-  font-weight: 800;
-  font-size: 1.02rem;
-  letter-spacing: .02em;
+  font-size: 1.05rem !important;
+  line-height: 1.35 !important;
+  font-weight: 800 !important;
 }
 html body #quarto-content main.content .historia-conteudo {
-  width: 100%;
-  min-width: 0;
-  margin: 0;
-  padding: 16px 17px;
-  border: 1px solid #dce8d9 !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 17px 18px 19px !important;
+  border: 1px solid #d9e6d6 !important;
   border-radius: 14px !important;
-  background: #fbfcf8 !important;
-  box-shadow: 0 4px 16px rgba(31, 77, 43, .07) !important;
-  overflow-wrap: anywhere;
+  background: #fbfcf9 !important;
+  box-shadow: 0 4px 16px rgba(31,77,43,.06) !important;
+  overflow-wrap: break-word;
 }
 html body #quarto-content main.content .historia-conteudo h2 {
-  margin: 0 0 7px !important;
+  margin: 0 !important;
   padding: 0 !important;
   font-size: 1.04rem !important;
-  line-height: 1.35 !important;
+  font-weight: 750 !important;
+  line-height: 1.38 !important;
   color: #1f4d2b !important;
 }
 html body #quarto-content main.content .historia-conteudo p {
-  margin: 0 0 9px !important;
-  font-size: .86rem !important;
-  line-height: 1.52 !important;
+  margin: 0 !important;
+  font-size: .9rem !important;
+  line-height: 1.55 !important;
+  color: #465549;
 }
 html body #quarto-content main.content .historia-conteudo img {
-  display: block;
+  display: block !important;
   width: 100% !important;
-  max-height: 103px;
-  margin: 7px 0 9px;
-  object-fit: cover;
-  border-radius: 8px;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 260px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  aspect-ratio: auto !important;
+  margin: 2px auto 0 !important;
+  padding: 0 !important;
+  border-radius: 9px !important;
+  background: #edf3e9;
 }
 html body #quarto-content main.content .historia-conteudo a {
-  display: inline-flex;
-  margin-top: 2px;
-  font-size: .83rem;
-  font-weight: 700;
-  color: #285d38;
-}
-@media (min-width: 761px) {
-  html body #quarto-content main.content .historia-conteudo {
-    max-height: 247px;
-    overflow: auto;
-    overscroll-behavior: contain;
-  }
+  display: inline-flex !important;
+  align-self: flex-start;
+  margin-top: 4px !important;
+  color: #285d38 !important;
+  font-size: .86rem !important;
+  line-height: 1.4 !important;
+  font-weight: 700 !important;
 }
 @media (max-width: 760px) {
   html body #quarto-content main.content .historia-linha-tempo {
-    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 21px !important;
-    width: 100% !important;
-    min-height: 0 !important;
-    height: auto !important;
-    margin: 12px 0 18px !important;
-    padding: 9px 5px 12px 64px !important;
+    gap: 19px !important;
     overflow: visible !important;
     scroll-snap-type: none !important;
+    padding: 5px 0 10px 56px !important;
+    margin-bottom: 18px !important;
   }
   html body #quarto-content main.content .historia-linha-tempo::before {
-    content: "";
-    position: absolute;
-    left: 24px !important;
-    top: 15px !important;
-    bottom: 28px !important;
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 21px !important;
+    top: 9px !important;
+    bottom: 24px !important;
+    right: auto !important;
     width: 3px !important;
     height: auto !important;
-    right: auto !important;
-    background: #77a468 !important;
-    border-radius: 4px;
+    background: #76a16c !important;
+    border-radius: 6px;
   }
   html body #quarto-content main.content .historia-item,
   html body #quarto-content main.content .historia-item:nth-child(even) {
     position: relative !important;
-    display: block !important;
     flex: 0 0 auto !important;
-    align-self: stretch !important;
     width: 100% !important;
-    min-height: 0 !important;
     height: auto !important;
-    margin: 0 !important;
+    min-height: 0 !important;
+    align-self: stretch !important;
     padding: 0 !important;
-  }
-  html body #quarto-content main.content .historia-item::before,
-  html body #quarto-content main.content .historia-item::after {
-    content: none !important;
   }
   html body #quarto-content main.content .historia-ponte,
   html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponte {
     position: absolute !important;
-    top: 26px !important;
-    left: -40px !important;
-    right: auto !important;
-    width: 40px !important;
+    left: -35px !important;
+    top: 24px !important;
+    display: block !important;
+    width: 35px !important;
     height: 3px !important;
-    border: 0 !important;
-    background: #77a468 !important;
-    z-index: 2;
+    min-height: 3px !important;
+    background: #76a16c !important;
   }
+  html body #quarto-content main.content .historia-ponte::before,
   html body #quarto-content main.content .historia-ponte::after {
     content: none !important;
+    display: none !important;
   }
-  html body #quarto-content main.content .historia-ponto,
-  html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponto {
+  html body #quarto-content main.content .historia-ponto {
     position: absolute !important;
     left: 0 !important;
     top: 50% !important;
-    width: 15px;
-    height: 15px;
-    border: 3px solid #e5efdf;
-    border-radius: 50%;
-    background: #1f4d2b;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 2px #5f9a3e;
+    transform: translate(-50%, -50%) !important;
+    width: 16px !important;
+    height: 16px !important;
+    border-width: 3px !important;
   }
   html body #quarto-content main.content .historia-registro,
   html body #quarto-content main.content .historia-item:nth-child(even) .historia-registro {
-    position: relative !important;
-    inset: auto !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: flex-start !important;
-    align-items: stretch;
-    gap: 7px;
-    width: 100%;
-    height: auto !important;
-    min-height: 0;
-    padding: 0;
     margin: 0 !important;
-  }
-  html body #quarto-content main.content .historia-item:nth-child(even) .historia-registro {
-    margin-left: min(12px, 2.5vw) !important;
-    width: calc(100% - min(12px, 2.5vw)) !important;
+    padding: 0 !important;
   }
   html body #quarto-content main.content .historia-conteudo {
-    width: 100%;
-    max-height: none !important;
-    overflow: visible !important;
-    padding: 14px;
+    padding: 15px !important;
   }
   html body #quarto-content main.content .historia-conteudo img {
-    max-height: 170px;
+    max-height: 300px !important;
+  }
+}
+@media (min-width: 620px) and (max-width: 760px) {
+  /* O eixo permanece central e os registros alternam de lado no tablet. */
+  html body #quarto-content main.content .historia-linha-tempo {
+    padding: 8px 0 10px !important;
+  }
+  html body #quarto-content main.content .historia-linha-tempo::before {
+    left: calc(50% - 1px) !important;
+  }
+  html body #quarto-content main.content .historia-item,
+  html body #quarto-content main.content .historia-item:nth-child(even) {
+    width: calc(50% - 22px) !important;
+    align-self: flex-start !important;
+  }
+  html body #quarto-content main.content .historia-item:nth-child(even) {
+    align-self: flex-end !important;
+  }
+  html body #quarto-content main.content .historia-ponte {
+    left: auto !important;
+    right: -22px !important;
+    width: 22px !important;
+  }
+  html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponte {
+    left: -22px !important;
+    right: auto !important;
+  }
+  html body #quarto-content main.content .historia-item .historia-ponto {
+    left: 100% !important;
+  }
+  html body #quarto-content main.content .historia-item:nth-child(even) .historia-ponto {
+    left: 0 !important;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  html body #quarto-content main.content .historia-linha-tempo { scroll-behavior: auto !important; }
+  html body #quarto-content main.content .historia-linha-tempo {
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Contato: reexibir ícones que o estilo editorial anterior ocultava. */
