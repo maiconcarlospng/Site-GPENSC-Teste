@@ -47,6 +47,18 @@
   // A copa é composta de transparências radiais sobrepostas: sem bordas de
   // elipses recortadas ou placas de cor que pareçam peças coladas.
   const canopyLayer=make('g',{class:'gp49-canopy-layer','pointer-events':'none','aria-hidden':'true'},svg);
+  // Uma silhueta contínua acompanha a abertura dos galhos até a primeira bifurcação.
+  const crownBase=make('linearGradient',{id:'gp49-crown-base',x2:'0%',y2:'100%'},defs);
+  [['0%','#dbe9d2'],['55%','#c7ddbc'],['100%','#dce9d4']].forEach(([offset,color])=>
+    make('stop',{offset,'stop-color':color},crownBase));
+  make('path',{
+    d:'M 700,-88 C 920,-110 1240,-110 1320,-48 C 1420,25 1428,192 1370,318 '+
+      'C 1292,474 1140,572 966,642 C 845,696 785,754 711,783 '+
+      'Q 699,787 684,779 C 612,744 552,694 430,643 '+
+      'C 254,571 105,475 30,318 C -28,186 -17,23 82,-48 '+
+      'C 167,-112 479,-108 700,-88 Z',
+    fill:'url(#gp49-crown-base)',opacity:'.85'
+  },canopyLayer);
   const shades=['#6c9864','#87ad77','#a9c59a','#4f825b','#b7cfa8','#7fa46b'];
   shades.forEach((tone,i)=>{
     const crown=make('radialGradient',{id:'gp49-crown-'+i},defs);
@@ -56,14 +68,14 @@
   });
   for(let i=0;i<52;i++){
     const a=i*2.39996323,r=Math.sqrt((i+.5)/52);
-    const x=700+Math.cos(a)*r*575,y=305+Math.sin(a)*r*235;
+    const x=700+Math.cos(a)*r*575,y=342+Math.sin(a)*r*355;
     make('ellipse',{cx:fmt(x),cy:fmt(y),rx:105+i%5*16,ry:76+i%4*12,
       transform:'rotate('+((i*41)%110-55)+' '+x+' '+y+')',
       fill:'url(#gp49-crown-'+i%shades.length+')'},canopyLayer);
   }
   for(let i=0;i<180;i++){
     const a=i*2.39996323,r=Math.sqrt((i+.5)/180);
-    const x=700+Math.cos(a)*r*565,y=305+Math.sin(a)*r*225;
+    const x=700+Math.cos(a)*r*565,y=342+Math.sin(a)*r*345;
     make('ellipse',{cx:fmt(x),cy:fmt(y),rx:6+i%5*1.8,ry:3+i%3*1.5,
       transform:'rotate('+((i*47)%170-85)+' '+x+' '+y+')',
       fill:shades[(i+2)%shades.length],opacity:.17+(i%3)*.05},canopyLayer);
