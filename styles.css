@@ -20771,3 +20771,14 @@ html body footer.footer .nav-footer::before{background:var(--gp-bar-gradient)!im
     align-self: center !important;
   }
 }
+
+
+/* Galeria da home: no celular a navegação é por deslize e indicadores.
+   As setas continuam disponíveis no desktop. */
+@media (max-width: 767.98px) {
+  html body #quarto-content .galeria--faixa > .galeria-controle,
+  html body #quarto-content .galeria--faixa .galeria-controle--anterior,
+  html body #quarto-content .galeria--faixa .galeria-controle--proximo {
+    display: none !important;
+  }
+}
