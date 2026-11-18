@@ -27,30 +27,59 @@ def known_codes():
     return known
 
 
+def terms(text):
+    stop = {"sobre", "para", "como", "pelo", "pela", "hoje", "mais", "gpensc", "neste", "nossa", "nosso"}
+    return {w for w in re.findall(r"[^\W\d_]{3,}", text.casefold()) if w not in stop}
+
+
 def editorial(caption, date):
     text = re.sub(r"^[\W_]*(?:olá|oi)[, ]+pessoal\b[\W_]*", "", caption, flags=re.I).strip()
-    pieces = [s.strip(" .") for s in re.split(r"\n+|(?<=[!?])\s+|(?<=\.)\s+(?=[A-ZÀ-Ú])", text) if s.strip(" .")]
-    first = pieces[0] if pieces else text
-    quoted = re.search(r'[“"]([^”"\n]{8,80})[”"]', text[:500])
-    if quoted:
-        title = quoted[1]
-    elif 5 <= len(first) <= 85:
-        title = first
-    else:
-        subject = re.search(r"\b(defesa de (?:mestrado|doutorado)|qualificação|workshop|curso|oficina|podcast|palestra|seminário|projeto|pesquisa)\b", text, re.I)
-        title = (subject[0].capitalize() if subject else "Notícia do GPENSC") + " · " + date
-    body = text
-    if title == first and len(pieces) > 1:
-        body = text[text.index(first) + len(first):].lstrip(" .!?\n")
-    summary = next((s for s in pieces if len(s) > 12 and title.casefold() not in s.casefold()), "")
-    if len(summary) > 240:
-        summary = summary[:237].rsplit(" ", 1)[0] + "…"
+    clean = re.sub(r"\s*\(@[\w.]+\)|https?://\S+|(?<!\w)@[\w.]+", "", text)
+    clean = re.sub(r"\b(Dr|Dra|Dras|Drs|Prof|Profa)\.(?=\s)", r"\1", clean)
+    sentences = [s.strip(" .") for s in re.split(r"\n+|(?<=[!?])\s+|(?<=\.)\s+(?=[A-ZÀ-Ú])", clean)]
+    sentences = [re.sub(r"^[^\w]+", "", s) for s in sentences if s and not s.startswith("#")]
+    sentences = [s for s in sentences if len(terms(s)) >= 2 and not re.match(
+        r"(?:arraste|inscreva-se|não perca|saiba mais|acesse o link|confira no link|olá|oi pessoal|atenção!|vem conferir|salve este post)", s, re.I)]
+
     category = "Institucional"
     for label, pattern in [("Multimídia", r"podcast|gpensc no ar"), ("Extensão", r"projeto de extensão|vi no rótulo"), ("Ensino", r"workshop|curso|oficina|aula aberta"), ("Pesquisa", r"artigo|estudo|pesquisa|defesa|qualificação")]:
-        if re.search(pattern, text[:420], re.I):
+        if re.search(pattern, clean[:500], re.I):
             category = label
             break
-    return title, summary, body, category
+
+    titles = []
+    defense = re.search(r"(?i:\b(defesa de (?:mestrado|doutorado)|qualificação de (?:mestrado|doutorado)) (?:da?|do) (?:alun[oa] |mestrand[oa] |doutorand[oa] )?)"
+                        r"([A-ZÀ-Ú][a-zà-ÿ]+(?: (?:d[aeo]s? |e )?[A-ZÀ-Ú][a-zà-ÿ]+){1,5})", clean)
+    if defense:
+        titles.append(defense[1].capitalize() + " de " + defense[2])
+    for pattern in [r'(?:intitulad[oa]|com o tema|sobre o tema)\s*[:“" ]+([^”"\n]{6,85})[”"]',
+                    r'(?:para (?:falar|conversar) sobre|bate-papo sobre|(?:oficina|palestra|curso|workshop) sobre)\s+([^,.!?\n]{5,85})(?=[,.!?\n]|$)',
+                    r'[“"]([^”"\n]{8,85})[”"]']:
+        match = re.search(pattern, clean, re.I)
+        if match:
+            titles.append(match[1].strip(' .,'))
+    titles.extend(s for s in sentences if len(s) <= 85)
+    for title in titles:
+        title = title[:1].upper() + title[1:]
+        if re.search(r"^(?:quem somos|lembram|destes|desses|são |dos \d|no dia |rádio província|momentos gpensc|novo episódio|os resultados|data:|local:|horário:|saiba |essa |este |ele |ela )|\b(?:disponível|bio|sábado|hoje é dia)\b", title, re.I):
+            continue
+        keywords = terms(title)
+        if len(keywords) < 2 or len(title) > 90 or re.search(r"\b(?:clique|confira|link na bio|vocês|no post de hoje)\b", title, re.I):
+            continue
+        choices = []
+        for i, sentence in enumerate(sentences):
+            extra = terms(sentence) - keywords
+            if re.search(r"parceria com a rádio|disponível no spotify|no link|arraste para|tbt de hoje|gostou|compartilhe", sentence, re.I) or len(extra) < 2 or len(sentence) > 360 or title.casefold() in sentence.casefold():
+                continue
+            score = min(len(extra), 8) + 2 * bool(re.search(r"\d|\b(?:estudo|pesquisa|professora?|universidade|UFOP|investigou|avaliou|acontece|participa|recebe)\b", sentence, re.I))
+            choices.append((score, -i, sentence))
+        if choices:
+            summary = max(choices)[2].rstrip(" .!?") + ("?" if max(choices)[2].endswith("?") else ".")
+            body = text
+            if body.casefold().startswith(title.casefold()) and body[len(title):].startswith((".", "!", "?", "\n")):
+                body = body[len(title):].lstrip(" .!?\n") or text
+            return title, summary, body, category
+    return None
 
 
 def original_cover(row, code):
@@ -85,7 +114,11 @@ def integrate(rows):
         if not re.fullmatch(r"[A-Za-z0-9_-]+", code):
             raise ValueError("Código de post inválido")
         date = dt.datetime.fromisoformat(row["timestamp"].replace("Z", "+00:00")).astimezone(ZoneInfo("America/Sao_Paulo")).date().isoformat()
-        title, summary, body, category = editorial(row.get("caption") or "", date)
+        result = editorial(row.get("caption") or "", date)
+        if result is None:
+            print(f"::warning::Revisar legenda sem informação suficiente: https://www.instagram.com/p/{code}/")
+            continue
+        title, summary, body, category = result
         additions.append(dict(data=date, categoria=category, titulo=title, resumo=summary, conteudo=body, url=f"https://www.instagram.com/p/{code}/", imagem=original_cover(row, code)))
         known.add(code)
     if additions:
