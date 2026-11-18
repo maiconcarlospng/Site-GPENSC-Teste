@@ -224,6 +224,66 @@ html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe {
     overflow-wrap:break-word; max-width:29ch;
   }
 }
+
+/* Ajuste específico para telas estreitas: sem corte de texto, ícones ou botões. */
+@media (max-width: 767.98px) {
+  html body #quarto-content .pq-blocos:has(> a.gp-pesquisa-card) {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    overflow: visible !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 120px !important;
+    padding: 15px 48px 15px 12px !important;
+    margin-inline: 0 !important;
+    box-sizing: border-box !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    gap: 9px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card > .pq-conteudo > .pq-icone {
+    flex: 0 0 30px !important;
+    width: 30px !important;
+    min-width: 30px !important;
+    font-size: 23px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-texto {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    padding-left: 10px !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .pq-titulo {
+    font-size: clamp(.95rem,4.2vw,1.12rem) !important;
+    overflow-wrap: normal !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-resumo {
+    font-size: .79rem !important;
+    line-height: 1.35 !important;
+  }
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-seta {
+    right: 9px !important;
+    width: 30px !important;
+    height: 30px !important;
+  }
+  /* Oculta o segundo símbolo de link que vinha das regras anteriores. */
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto::before,
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-foto::after,
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe::before,
+  html body #quarto-content .pq-blocos > a.gp-pesquisa-card .gp-pesquisa-detalhe::after {
+    content: none !important;
+    display: none !important;
+  }
+}
 </style>
 ```
 
