@@ -20,14 +20,14 @@ div(
       div(class = "contato-card-icone", tags$i(class = "bi bi-envelope", `aria-hidden` = "true")),
       h3(cfg$titulo_email),
       p(cfg$email),
-      tags$a(class = "btn btn-secondary", href = paste0("mailto:", cfg$email), cfg$botao_enviar_email)
+      tags$a(class = "btn btn-secondary", href = paste0("mailto:", cfg$email), tags$i(class = "bi bi-send", `aria-hidden` = "true"), cfg$botao_enviar_email)
     ),
     div(
       class = "contato-card",
       div(class = "contato-card-icone", tags$i(class = "bi bi-instagram", `aria-hidden` = "true")),
       h3(cfg$titulo_instagram),
       p(cfg$instagram_user),
-      tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", cfg$botao_instagram)
+      tags$a(class = "btn btn-secondary", href = cfg$instagram, target = "_blank", rel = "noopener noreferrer", tags$i(class = "bi bi-instagram", `aria-hidden` = "true"), cfg$botao_instagram)
     ),
     div(
       class = "contato-card",
@@ -63,7 +63,7 @@ div(
       div(class = "contato-card-icone", tags$i(class = "bi bi-telephone", `aria-hidden` = "true")),
       h3(cfg$titulo_telefone),
       p(telefone),
-      tags$a(class = "btn btn-secondary", href = telefone_url, "Ligar")
+      tags$a(class = "btn btn-secondary", href = telefone_url, tags$i(class = "bi bi-telephone-outbound", `aria-hidden` = "true"), "Ligar")
     )
   ),
   div(
