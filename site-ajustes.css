@@ -706,3 +706,24 @@ html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos td:nth-child(4
   html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td{padding:13px!important}
   html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th{padding:12px 13px!important}
 }
+
+
+/* Orientação discreta da Árvore do Conhecimento, sem alterar os nós ou o desenho. */
+html body:has(#gp49) #gp49 .gp49-step-hint{
+  box-sizing:border-box;position:absolute;left:16px;bottom:18px;z-index:18;
+  width:min(390px,calc(100% - 140px));max-width:100%;padding:11px 15px;
+  border-radius:13px;border:1px solid #d7e4d1;
+  background:rgba(255,255,251,.94);box-shadow:0 5px 20px #173b2615;
+  color:#285438;font-size:.8rem;font-weight:700;line-height:1.45;
+  pointer-events:none;backdrop-filter:blur(8px)
+}
+@media(max-width:767px){
+  html body:has(#gp49) #gp49 .gp49-step-hint{
+    left:12px;bottom:calc(14px + env(safe-area-inset-bottom));
+    width:min(240px,calc(100% - 100px));padding:9px 11px;
+    font-size:.72rem;line-height:1.35
+  }
+}
+html body:has(#gp49) #gp49 #gp49-map svg [role="button"]:focus-visible{
+  outline:none;filter:drop-shadow(0 0 3px #d9731f)
+}
