@@ -526,8 +526,10 @@ function quickActionsMarkup(){
   ];
   return '<section class="admin-shortcuts" aria-label="Acesso rápido"><div class="dashboard-shortcut-heading"><h2>Acesso rápido</h2></div>'+
     '<div class="admin-shortcut-grid">'+actions.filter(([name])=>state.collections.some(c=>c.name===name)).map(([name,title,description])=>
-      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'">'+adminArt(name,'admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></span></button>').join('')+'</div>'+
-    '<div class="admin-tool-shortcuts"><button type="button" class="admin-tool-shortcut" id="admin-settings-open">'+adminArt('admin','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Configurações do site</strong><small>Identidade, páginas, contato, visibilidade e rodapé</small></span></button><button type="button" class="admin-tool-shortcut" id="admin-media-open">'+adminArt('materiais','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Materiais do site</strong><small>Visualize e substitua imagens e arquivos publicados</small></span></button></div></section>';
+      '<button type="button" class="admin-shortcut" data-quick="'+esc(name)+'">'+adminArt(name,'admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>'+esc(title)+'</strong><small>'+esc(description)+'</small></span></button>').join('')+
+      '<button type="button" class="admin-tool-shortcut" id="admin-settings-open">'+adminArt('admin','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Configurações do site</strong><small>Identidade, páginas, contato e rodapé</small></span></button>'+
+      '<button type="button" class="admin-tool-shortcut" id="admin-media-open">'+adminArt('materiais','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Materiais do site</strong><small>Visualize e organize os arquivos publicados</small></span></button>'+
+      '<button type="button" class="admin-tool-shortcut" id="admin-review-open">'+adminArt('planejamento','admin-shortcut-art')+'<span class="admin-shortcut-copy"><strong>Revisar e publicar</strong><small>Confira alterações antes de enviar ao site</small></span></button></div></section>';
 }
 function renderHome(){
   if(!canLeaveCurrentEditor())return;
@@ -564,6 +566,7 @@ function renderHome(){
    document.querySelectorAll('[data-quick]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.quick);if(index>=0)openCollection(index)});
   $('#admin-settings-open')?.addEventListener('click',openSettingsHub);
   $('#admin-media-open')?.addEventListener('click',()=>openMediaLibrary());
+  $('#admin-review-open')?.addEventListener('click',openPendingReview);
   $('#mobile-intro-review')?.addEventListener('click',openPendingReview);
   $('#page-content').querySelector('[data-batch-review]')?.addEventListener('click',openPendingReview);
   batch.updateUI();
