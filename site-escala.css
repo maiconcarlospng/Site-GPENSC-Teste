@@ -1,7 +1,9 @@
-/* Escala editorial do site GPENSC — somente telas desktop.
-   A propriedade zoom participa do layout (diferentemente de transform:scale),
-   preservando posição do menu, elementos fixos e faixas de largura total.
-   Não aplicar no celular nem em tablets estreitos. */
-@media screen and (min-width: 1100px) {
-  html { zoom: 0.9; }
+/* Única regra de escala do site público GPENSC.
+   Vale para PT, EN e ES, inclusive quando o Google Tradutor modifica lang.
+   Não aplicar na árvore interativa, que mantém seu zoom próprio. */
+@media screen and (min-width:1100px) {
+  html { zoom:.9!important; }
+}
+@media screen and (max-width:1099.98px) {
+  html { zoom:1!important; }
 }
