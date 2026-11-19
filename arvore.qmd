@@ -557,7 +557,18 @@ html body:has(#gp49) #gp49 .gp49-step-hint{
   }
 }
 
+
+/* Uma folha continua clicável mesmo quando o nome não cabe nela.
+   O nome completo aparece ao passar o mouse, focar ou abrir detalhes. */
+#gp49 #gp49-map svg [data-gp-node-index].gp49-leaf--compact .gp49-leaf-text {
+  display:none!important;
+}
+#gp49 #gp49-map svg [data-gp-node-index].gp49-leaf--compact:is(:hover,:focus-visible) > path:first-of-type {
+  stroke:#e5f0da;
+  stroke-width:.025;
+}
+
 </style>
 ```
 
-<script src="js/arvore.js?v=gp49-card-help-20261119" defer></script>
+<script src="js/arvore.js?v=gp49-leaf-separation-20261119" defer></script>
