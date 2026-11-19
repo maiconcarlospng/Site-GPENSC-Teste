@@ -7,10 +7,44 @@ title: "Agenda"
 {{< include partials/dados-calendario.qmd >}}
 
 ```{=html}
-<section class="gp-ag-programa" id="agenda" data-agenda="mes" hidden>
-<h2>Calendário mensal</h2>
-<div class="gp-ag-colunas"><div><div class="gp-ag-nav"><button type="button" data-mover="-1" aria-label="Mês anterior">‹</button><strong aria-live="polite"></strong><button type="button" data-mover="1" aria-label="Próximo mês">›</button><button type="button" data-hoje>Hoje</button></div>
-<div class="gp-ag-grade"></div></div><div><h3 data-periodo>Atividades do mês</h3><div class="gp-ag-lista" aria-live="polite"></div></div></div></section>
+<section class="gp-ag-programa" id="agenda" data-agenda="mes" hidden aria-label="Calendário de atividades do GPENSC">
+  <header class="gp-ag-head">
+    <div class="gp-ag-head-text">
+      <span class="gp-ag-eyebrow">PROGRAMAÇÃO DO GRUPO</span>
+      <h2>Calendário de atividades</h2>
+      <p>Consulte os compromissos por mês ou selecione um dia com atividade.</p>
+    </div>
+    <div class="gp-ag-month-count" aria-live="polite">
+      <strong data-total>0</strong><span data-total-label>atividades no mês</span>
+    </div>
+  </header>
+  <div class="gp-ag-colunas">
+    <div class="gp-ag-calendar" aria-label="Navegação pelo calendário">
+      <nav class="gp-ag-nav" aria-label="Selecionar mês">
+        <button type="button" data-mover="-1" aria-label="Mês anterior" title="Mês anterior">‹</button>
+        <strong aria-live="polite"></strong>
+        <button type="button" data-mover="1" aria-label="Próximo mês" title="Próximo mês">›</button>
+        <button type="button" data-hoje>Hoje</button>
+      </nav>
+      <div class="gp-ag-grade" aria-label="Dias do mês"></div>
+      <div class="gp-ag-legenda">
+        <span><i class="gp-ag-legend-dot" aria-hidden="true"></i> Dia com atividade</span>
+        <span><i class="gp-ag-legend-today" aria-hidden="true"></i> Dia atual</span>
+      </div>
+    </div>
+    <div class="gp-ag-side">
+      <div class="gp-ag-side-head">
+        <span class="gp-ag-eyebrow">AGENDA DO MÊS</span>
+        <h3 data-periodo>Atividades do mês</h3>
+        <div class="gp-ag-side-subline">
+          <p data-subtitulo>Selecione uma data destacada para ver os detalhes.</p>
+          <button class="gp-ag-view-all" type="button" data-todos hidden>Ver mês completo</button>
+        </div>
+      </div>
+      <div class="gp-ag-lista" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
 <link rel="stylesheet" href="js/agenda-mensal.css">
 <script defer src="js/agenda-mensal.js"></script>
 ```
