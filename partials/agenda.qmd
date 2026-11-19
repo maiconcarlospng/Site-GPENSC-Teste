@@ -88,7 +88,7 @@ if (secao_ativa("mostrar_agenda")) {
     } else if (nrow(defesas_futuras) == 0 && nrow(eventos_sem_data) == 0) {
       estado_vazio(
         "Nenhuma atividade programada",
-        NULL
+        "Novas reuniões, cursos e defesas serão exibidos aqui quando forem publicados."
       )
     },
     if (nrow(defesas_futuras) > 0) {
