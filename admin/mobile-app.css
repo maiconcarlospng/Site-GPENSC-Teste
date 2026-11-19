@@ -1,3 +1,5 @@
+/* Elementos exclusivos do aplicativo; jamais aparecem no desktop. */
+#app .mobile-app-intro,#app .mobile-app-public{display:none;}
 /* GPENSC · experiência mobile editorial
    O desktop usa editorial-ui.css. Esta folha age somente até 700px.
    Padrão de navegação: 4 destinos, telas de conteúdo, formulários em tela cheia.
@@ -33,6 +35,13 @@
  #app .batch-topbar .batch-topbar-label{display:none}
  #app .batch-counter{display:grid;place-items:center;width:25px;height:25px;min-height:25px;border-radius:8px;font-size:12px;background:#e3eee1;color:#225a37}
  #app .batch-topbar.has-pending .batch-counter{background:#d78036;color:#fff}
+ #app .mobile-app-public{
+  display:grid!important;place-items:center;flex:0 0 39px;width:39px;height:39px;
+  border:1px solid #dce6db;border-radius:13px;background:#fff;overflow:hidden;
+  text-decoration:none;
+ }
+ #app .mobile-app-public img{width:30px;height:30px;object-fit:contain}
+ #app .mobile-app-intro{display:flex!important}
  #app .mobile-user-avatar{
   display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border:1px solid #dce6db;
   border-radius:13px;background:#fff;overflow:hidden
