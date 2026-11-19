@@ -1,19 +1,27 @@
-<div align="center">
+<p align="center">
+  <img src="img/logo_gpensc.png" alt="Marca institucional do GPENSC" width="120">
+</p>
 
-<img src="img/logo_gpensc.png" alt="Marca institucional do GPENSC" width="120">
+<h1 align="center">GPENSC · Site institucional</h1>
 
-# GPENSC · Site institucional
+<p align="center">
+  <strong>Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva</strong><br>
+  Escola de Nutrição · Universidade Federal de Ouro Preto
+</p>
 
-**Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva**  
-Escola de Nutrição · Universidade Federal de Ouro Preto
+<p align="center">
+  <a href="https://maiconcarlospng.github.io/Site-GPENSC-Teste/"><strong>Acessar o site</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/"><strong>Abrir o painel</strong></a>
+  &nbsp;·&nbsp;
+  <a href="COMO-EDITAR.md"><strong>Manual de edição</strong></a>
+</p>
 
-[**Acessar o site**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/) · [**Abrir o painel**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) · [**Manual de edição**](COMO-EDITAR.md)
-
-<img alt="Quarto" src="https://img.shields.io/badge/Quarto-site-1F4D2B?style=flat-square">
-<img alt="R" src="https://img.shields.io/badge/R-componentes-5F9A3E?style=flat-square">
-<img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-publica%C3%A7%C3%A3o-D9731F?style=flat-square">
-
-</div>
+<p align="center">
+  <img alt="Quarto" src="https://img.shields.io/badge/Quarto-site-1F4D2B?style=flat-square">
+  <img alt="R" src="https://img.shields.io/badge/R-componentes-5F9A3E?style=flat-square">
+  <img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-publica%C3%A7%C3%A3o-D9731F?style=flat-square">
+</p>
 
 > **Situação atual — protótipo em desenvolvimento.** O repositório permanece em `maiconcarlospng/Site-GPENSC-Teste`. **A portabilidade para uma conta ou organização institucional do GPENSC ainda não foi realizada.** O plano está documentado [mais abaixo](#portabilidade-futura-para-a-conta-do-gpensc), para execução somente após a coordenação definir os responsáveis e o endereço oficial.
 
