@@ -27,31 +27,34 @@ website:
     background: light
     
     right:
-      # Navegação principal sem links repetidos: subáreas de divulgação ficam na própria página.
+      # Menu enxuto: páginas existentes, sem "Visão geral" em Pesquisa.
+      # Anuários permanecem em Biblioteca até a primeira edição (prevista para 2027).
       - text: O GPENSC
         menu:
           - text: Quem somos
             href: grupo.qmd
           - text: Nossa história
             href: historia.qmd
-          - text: Instituições parceiras
+          - text: Parcerias
             href: parcerias.qmd
       - text: Pesquisa
-        href: pesquisa.qmd
+        menu:
+          - text: Linhas de pesquisa
+            href: linhas.qmd
+          - text: Projetos de pesquisa
+            href: projetos.qmd
+          - text: Árvore do Conhecimento
+            href: arvore.qmd
       - text: Extensão
         href: extensao.qmd
       - text: Ensino
         href: ensino.qmd
-      - text: Divulgação
+      - text: Divulgação científica
         menu:
-          - text: Visão geral
-            href: conteudos.qmd
-          - text: Biblioteca
+          - text: Materiais educativos
             href: biblioteca.qmd
-          - text: Multimídia
-            href: multimidia.qmd
-          - text: Ciência para a sociedade
-            href: ciencia-sociedade.qmd
+          - text: Podcasts
+            href: multimidia.qmd#podcasts
       - text: Notícias
         href: noticias.qmd
       - text: Agenda
