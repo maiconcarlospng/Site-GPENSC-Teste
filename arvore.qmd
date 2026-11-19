@@ -544,6 +544,43 @@ html body:has(#gp49) #gp49 .gp49-step-hint{
   stroke-width:.025;
 }
 
+
+/* Foco das folhas: substitui o outline padrão aplicado a SVGs transformados,
+   que no zoom aparecia como um círculo preto/branco/laranja desproporcional. */
+html body:has(#gp49) #gp49 #gp49-map svg :is(
+  g[tabindex],
+  path[tabindex],
+  text[tabindex],
+  [data-gp-node-index],
+  [data-gp-fruit-owner]
+):is(:focus,:active,:focus-visible) {
+  outline:none!important;
+  outline-width:0!important;
+  outline-offset:0!important;
+  box-shadow:none!important;
+}
+/* A navegação por teclado continua com indicação compacta na forma da folha. */
+html body:has(#gp49) #gp49 #gp49-map svg
+[data-gp-node-index]:focus-visible > path:first-of-type {
+  stroke:#e3a052!important;
+  stroke-width:.038!important;
+  stroke-linejoin:round!important;
+  filter:none!important;
+}
+/* Nos frutos, o contorno fica junto do círculo, não em volta do grupo SVG. */
+html body:has(#gp49) #gp49 #gp49-map svg
+[data-gp-fruit-owner]:focus-visible > circle {
+  stroke:#e3a052!important;
+  stroke-width:1.7!important;
+  filter:none!important;
+}
+/* Foco do tronco: sem bolha gigante por causa da escala do desenho. */
+html body:has(#gp49) #gp49 #gp49-map svg
+:is(path[role="button"],text[role="button"]):focus-visible {
+  outline:none!important;
+  filter:none!important;
+}
+
 </style>
 ```
 
