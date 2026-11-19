@@ -4,9 +4,10 @@ itens:
     situacao_vinculo: Ativo
     papel: Líder do grupo
     formacao: ""
-    email: "ariene.carmo@ufop.edu.br"
-    foto: "https://enut.ufop.br/sites/default/files/styles/profile_full/public/enut/files/ariene.jpg?m=1762799994&itok=V_mXXVmX"
-    lattes: "https://lattes.cnpq.br/8634950985711897"
+    email: ariene.carmo@ufop.edu.br
+    foto: >-
+      https://enut.ufop.br/sites/default/files/styles/profile_full/public/enut/files/ariene.jpg?m=1762799994&itok=V_mXXVmX
+    lattes: https://lattes.cnpq.br/8634950985711897
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -16,30 +17,30 @@ itens:
     papel: Líder do grupo
     formacao: ""
     foto: ""
-    email: "raquel.mendonca@ufop.edu.br"
-    lattes: "https://lattes.cnpq.br/7479109757532910"
+    email: raquel.mendonca@ufop.edu.br
+    lattes: https://lattes.cnpq.br/7479109757532910
     orcid: ""
     linhas_ids: []
     projetos_ids: []
   - nome: Adriana Lúcia Meireles
-    categoria: Pesquisadores
+    categoria: Líderes
     situacao_vinculo: Ativo
     papel: Pesquisadora
     formacao: ""
-    email: "adriana.meireles@ufop.edu.br"
-    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4235480J3"
-    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4235480J3"
+    email: adriana.meireles@ufop.edu.br
+    foto: https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4235480J3
+    lattes: https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4235480J3
     orcid: ""
     linhas_ids: []
     projetos_ids: []
   - nome: Camila Carvalho Menezes Salierno
-    categoria: Pesquisadores
+    categoria: Líderes
     situacao_vinculo: Ativo
     papel: Pesquisadora
     formacao: ""
-    email: "camilamenezes@ufop.edu.br"
-    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4282696Y3"
-    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4282696Y3"
+    email: camilamenezes@ufop.edu.br
+    foto: https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4282696Y3
+    lattes: https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4282696Y3
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -54,13 +55,13 @@ itens:
     linhas_ids: []
     projetos_ids: []
   - nome: Júlia Cristina Cardoso Carraro
-    categoria: Pesquisadores
+    categoria: Líderes
     situacao_vinculo: Ativo
     papel: Pesquisadora
     formacao: ""
-    email: "julia.carraro@ufop.edu.br"
-    foto: "https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4297221E1"
-    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4297221E1"
+    email: julia.carraro@ufop.edu.br
+    foto: https://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4297221E1
+    lattes: https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4297221E1
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -70,8 +71,8 @@ itens:
     papel: Pesquisador
     formacao: ""
     foto: ""
-    email: "luiz.menezes@ufop.edu.br"
-    lattes: "https://lattes.cnpq.br/3393658844126714"
+    email: luiz.menezes@ufop.edu.br
+    lattes: https://lattes.cnpq.br/3393658844126714
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -81,8 +82,8 @@ itens:
     papel: Pesquisadora
     formacao: ""
     foto: ""
-    email: "samara.moura@ufop.edu.br"
-    lattes: "https://lattes.cnpq.br/1969819711298009"
+    email: samara.moura@ufop.edu.br
+    lattes: https://lattes.cnpq.br/1969819711298009
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -91,8 +92,8 @@ itens:
     situacao_vinculo: Ativo
     papel: Pesquisadora
     formacao: ""
-    foto: "https://somos.ufmg.br/api/foto/4454863839030427?w=328"
-    lattes: "https://lattes.cnpq.br/4454863839030427"
+    foto: https://somos.ufmg.br/api/foto/4454863839030427?w=328
+    lattes: https://lattes.cnpq.br/4454863839030427
     orcid: ""
     linhas_ids: []
     projetos_ids: []
@@ -106,576 +107,576 @@ itens:
     orcid: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Amanda Motta de Bortoli"
+  - nome: Amanda Motta de Bortoli
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Bruna Carolina Rafael Barbosa"
+  - nome: Bruna Carolina Rafael Barbosa
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Camila de Souza Lima"
+  - nome: Camila de Souza Lima
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Chrislaine Corraide Dias dos Santos"
+  - nome: Chrislaine Corraide Dias dos Santos
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Fernanda Segurasse de Moraes"
+  - nome: Fernanda Segurasse de Moraes
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Filipe Carvalho Viana"
+  - nome: Filipe Carvalho Viana
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Graduação"
+    formacao: Em formação · Graduação
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Francine Rubim de Resende"
+  - nome: Francine Rubim de Resende
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Gabriela da Silva Machado"
+  - nome: Gabriela da Silva Machado
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Gabrielle Araújo Santos"
+  - nome: Gabrielle Araújo Santos
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Isis De Carvalho Rodrigues"
+  - nome: Isis De Carvalho Rodrigues
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Graduação"
+    formacao: Em formação · Graduação
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "João Lucas Araújo Rocha"
+  - nome: João Lucas Araújo Rocha
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Graduação"
+    formacao: Em formação · Graduação
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "João Victor Monsores Barbosa"
+  - nome: João Victor Monsores Barbosa
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Laudicéia Ferreira Fróis"
+  - nome: Laudicéia Ferreira Fróis
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Leidiane Rafaela Fernandes de Oliveira"
+  - nome: Leidiane Rafaela Fernandes de Oliveira
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Liz Oliveira dos Santos"
+  - nome: Liz Oliveira dos Santos
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Graduação"
+    formacao: Em formação · Graduação
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Lorena Pinto Andrade"
+  - nome: Lorena Pinto Andrade
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Luciene Teixeira Paixão"
+  - nome: Luciene Teixeira Paixão
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Marcos Salgario Deo Da Silva"
+  - nome: Marcos Salgario Deo Da Silva
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Maria Luiza das Dores Rocha"
+  - nome: Maria Luiza das Dores Rocha
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Mariana Cassemira Aparecida Vidigal"
+  - nome: Mariana Cassemira Aparecida Vidigal
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Melissa Ionara Ribeiro Sabbagh"
+  - nome: Melissa Ionara Ribeiro Sabbagh
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Miriam Aparecida de Assis Silva"
+  - nome: Miriam Aparecida de Assis Silva
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Nayara Resende Gomes"
+  - nome: Nayara Resende Gomes
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Paloma Letícia Gonçalves"
+  - nome: Paloma Letícia Gonçalves
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Renata Cristina Queiroz Silva Bento"
+  - nome: Renata Cristina Queiroz Silva Bento
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Sarah Beatriz Resende Tinoco Diniz"
+  - nome: Sarah Beatriz Resende Tinoco Diniz
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Mestrado"
+    formacao: Em formação · Mestrado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Selso Ananias Sitoe"
+  - nome: Selso Ananias Sitoe
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Tainá Cristina Damasceno Silva"
+  - nome: Tainá Cristina Damasceno Silva
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Vitória Regina Pinto"
+  - nome: Vitória Regina Pinto
     categoria: Pesquisadores
     situacao_vinculo: Ativo
     papel: Estudante
-    formacao: "Em formação · Doutorado"
+    formacao: Em formação · Doutorado
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Daiane Aparecida Nogueira"
+  - nome: Daiane Aparecida Nogueira
     categoria: Colaboradores
     situacao_vinculo: Ativo
     papel: Integrante da equipe técnica
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Anelise Andrade de Souza"
+  - nome: Anelise Andrade de Souza
     categoria: ""
     situacao_vinculo: Egresso
-    lattes: "https://lattes.cnpq.br/5206304437810421"
+    lattes: https://lattes.cnpq.br/5206304437810421
     linhas_ids: []
     projetos_ids: []
-  - nome: "Ísis Eloah Machado"
+  - nome: Ísis Eloah Machado
     categoria: ""
     situacao_vinculo: Egresso
-    lattes: "https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4497051Y5"
+    lattes: https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4497051Y5
     linhas_ids: []
     projetos_ids: []
-  - nome: "Mariana Carvalho de Menezes"
-    categoria: ""
-    situacao_vinculo: Egresso
-    lattes: ""
-    linhas_ids: []
-    projetos_ids: []
-  - nome: "Nathalia Sernizon Guimarães"
+  - nome: Mariana Carvalho de Menezes
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Renata Adrielle Lima Vieira"
+  - nome: Nathalia Sernizon Guimarães
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Aline Siqueira Fogal Vegi"
+  - nome: Renata Adrielle Lima Vieira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Amanda Popolino Diniz"
+  - nome: Aline Siqueira Fogal Vegi
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Anabele Pires Santos"
+  - nome: Amanda Popolino Diniz
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Ana Carla de Alcantara"
+  - nome: Anabele Pires Santos
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Ana Cláudia Morito Neves"
+  - nome: Ana Carla de Alcantara
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Ana Flávia Martins Silva"
+  - nome: Ana Cláudia Morito Neves
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Ariane Pedrosa Diniz"
+  - nome: Ana Flávia Martins Silva
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Bárbara dos Santos Simões"
+  - nome: Ariane Pedrosa Diniz
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Bianca Bastos Lima"
+  - nome: Bárbara dos Santos Simões
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Bruna Aparecida Avelar"
+  - nome: Bianca Bastos Lima
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Carla Eduarda Faustino Rocha"
+  - nome: Bruna Aparecida Avelar
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Cleisiane Ruthe da Silva"
+  - nome: Carla Eduarda Faustino Rocha
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Deisyane Fumian Bouzada"
+  - nome: Cleisiane Ruthe da Silva
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Estevan Rodrigues dos Santos Neto"
+  - nome: Deisyane Fumian Bouzada
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Fátima Costa de oliveira"
+  - nome: Estevan Rodrigues dos Santos Neto
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Felipe Reis Stavaux Baudson"
+  - nome: Fátima Costa de oliveira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Helton da Costa Paiva"
+  - nome: Felipe Reis Stavaux Baudson
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Hiliane Karolline de Oliveira Silva"
+  - nome: Helton da Costa Paiva
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Hillary Nascimento Coletro Lorenzato"
+  - nome: Hiliane Karolline de Oliveira Silva
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Iana Carolina Meira Barboza"
+  - nome: Hillary Nascimento Coletro Lorenzato
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Iara Araújo Ferreira"
+  - nome: Iana Carolina Meira Barboza
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Irene Carolina Sousa Justiniano"
+  - nome: Iara Araújo Ferreira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Isadora Dantas Sakr Khouri"
+  - nome: Irene Carolina Sousa Justiniano
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Joice Silva Vieira Leal"
+  - nome: Isadora Dantas Sakr Khouri
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Jonathas Assis de Oliveira"
+  - nome: Joice Silva Vieira Leal
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Jussara Quintão Faria"
+  - nome: Jonathas Assis de Oliveira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Laís Fernanda Costa Oliveira"
+  - nome: Jussara Quintão Faria
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Larissa Fernanda Fonseca Guedes"
+  - nome: Laís Fernanda Costa Oliveira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Laura Nunes Faria"
+  - nome: Larissa Fernanda Fonseca Guedes
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Lorena de Andrade Pinto"
+  - nome: Laura Nunes Faria
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Lucas Gonçalves Santiago"
+  - nome: Lorena de Andrade Pinto
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Magda do Carmo Parajára"
+  - nome: Lucas Gonçalves Santiago
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Marana Luiza Duarte Avelar"
+  - nome: Magda do Carmo Parajára
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Matheus Santos Cordeiro"
+  - nome: Marana Luiza Duarte Avelar
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Michelle Izabel Ferreira Mendes"
+  - nome: Matheus Santos Cordeiro
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Milena Martins de Oliveira"
+  - nome: Michelle Izabel Ferreira Mendes
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Mirela Pena Fagundes"
+  - nome: Milena Martins de Oliveira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Nádia da Silva Luz"
+  - nome: Mirela Pena Fagundes
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Nara Nunes Lage"
+  - nome: Nádia da Silva Luz
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Natália de Freitas Tavares"
+  - nome: Nara Nunes Lage
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Panmella Cardinalli Ferreira Souza"
+  - nome: Natália de Freitas Tavares
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Priscila Pena Camargo"
+  - nome: Panmella Cardinalli Ferreira Souza
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Raíssa de Melo Matos Ferreira"
+  - nome: Priscila Pena Camargo
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Roberta Luiza Silva Alves"
+  - nome: Raíssa de Melo Matos Ferreira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Rodrigo Marinho Costa Pessoa"
+  - nome: Roberta Luiza Silva Alves
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Tayná Karina Teixeira"
+  - nome: Rodrigo Marinho Costa Pessoa
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Thais Calcagno Vidon Bruno"
+  - nome: Tayná Karina Teixeira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Tiago Lucas Reis de Jesus"
+  - nome: Thais Calcagno Vidon Bruno
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Verônica Magalhães Silva"
+  - nome: Tiago Lucas Reis de Jesus
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Waléria de Paula"
+  - nome: Verônica Magalhães Silva
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
     linhas_ids: []
     projetos_ids: []
-  - nome: "Wanessa Cecília de Oliveira"
+  - nome: Waléria de Paula
+    categoria: Pesquisadores
+    situacao_vinculo: Ativo
+    lattes: ""
+    linhas_ids: []
+    projetos_ids: []
+  - nome: Wanessa Cecília de Oliveira
     categoria: ""
     situacao_vinculo: Egresso
     lattes: ""
