@@ -7,6 +7,27 @@ const names=rows.map(r=>r.querySelector('.gp49-line-name')?.textContent.trim()||
 const NS='http://www.w3.org/2000/svg',W=1200,H=900;
 const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 1200 900');svg.setAttribute('role','group');svg.setAttribute('aria-label','Árvore fractal interativa do conhecimento GPENSC');svg.style.cssText='width:100%;height:100%;display:block;touch-action:none;background:#fbfcf8';map.replaceChildren(svg);
 const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;};
+// Materiais SVG leves: sem imagens raster, filtros pesados ou alterações na geometria.
+const defs=el('defs');
+const linear=(id,stops)=>{
+ const gradient=el('linearGradient',{id,x1:'0%',y1:'0%',x2:'100%',y2:'70%'},defs);
+ stops.forEach(([offset,color])=>el('stop',{offset,'stop-color':color},gradient));
+};
+linear('gp49-bark-tone',[['0%','#584735'],['37%','#8a7259'],['72%','#756149'],['100%','#574936']]);
+linear('gp49-leaf-tone',[['0%','#6a9a66'],['45%','#46794c'],['100%','#335c3b']]);
+linear('gp49-project-tone',[['0%','#96ad73'],['48%','#6e8d52'],['100%','#466b3f']]);
+for(const [id,bright,dark] of [
+ ['gp49-fruit-person','#efb46c','#bd641f'],
+ ['gp49-fruit-defense','#ed8c77','#b93832'],
+ ['gp49-fruit-work','#a6cb74','#4e803f']
+]){
+ const gradient=el('radialGradient',{id,cx:'32%',cy:'28%',r:'78%'},defs);
+ el('stop',{offset:'0%','stop-color':bright},gradient);
+ el('stop',{offset:'100%','stop-color':dark},gradient);
+}
+const grain=el('pattern',{id:'gp49-grain',patternUnits:'userSpaceOnUse',width:'34',height:'30'},defs);
+el('path',{d:'M -4 8 C 5 4 19 9 38 6 M -4 24 C 10 20 24 27 38 22',
+ fill:'none',stroke:'#e3cc9e','stroke-width':'.85',opacity:'.38'},grain);
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
@@ -28,8 +49,17 @@ const point = (p, angle, distance) => ({
 });
 function branch(start, first, second, end, scale) {
   const coords = p => p.x + ' ' + p.y;
-  return el('path', {d: 'M' + coords(start) + ' C' + [first, second, end].map(coords).join(' '),
-    fill:'none', stroke:'#75634e', 'stroke-width':scale*.55, 'stroke-linecap':'round'}, limbs);
+  const d='M' + coords(start) + ' C' + [first, second, end].map(coords).join(' ');
+  const base=el('path',{d,fill:'none',stroke:'url(#gp49-bark-tone)',
+    'stroke-width':scale*.55,'stroke-linecap':'round'},limbs);
+  // Veios muito discretos, sobre o mesmo percurso existente, apenas nos galhos largos.
+  if(scale>=16){
+    const textured=el('path',{d,fill:'none',stroke:'url(#gp49-grain)',
+      'stroke-width':scale*.49,'stroke-linecap':'round',opacity:'.32',
+      'pointer-events':'none','aria-hidden':'true'},limbs);
+    textured.dataset.gpDecoration='true';
+  }
+  return base;
 }
 function leaf(origin, angle, scale, index) {
   const p = point(origin, angle, scale*1.9), r = scale*1.28;
@@ -37,9 +67,20 @@ function leaf(origin, angle, scale, index) {
   const g = el('g',{transform:'translate('+p.x+' '+p.y+') scale('+r+')',
     role:'button',tabindex:0,'aria-label':names[index], 'aria-expanded':'false'},nodes);
   g.dataset.gpNodeIndex=String(index);
+  g.style.cursor='pointer';
   leafVisuals.set(index,g);
+  const rotation='rotate('+(angle*180/Math.PI)+')';
   el('path',{d:'M -1 0 C -.85 -1 .45 -1.35 1.16 0 C .45 1.35 -.85 1 -1 0 Z',
-    transform:'rotate('+(angle*180/Math.PI)+')',fill:rows[index].dataset.branchType==='projeto'?'#5d803e':'#416d43'},g);
+    transform:rotation,fill:rows[index].dataset.branchType==='projeto'?
+      'url(#gp49-project-tone)':'url(#gp49-leaf-tone)'},g);
+  // Nervuras suaves acompanham a folha, sem mudar seu contorno ou ocupar o rótulo.
+  el('path',{d:'M -.87 .02 Q -.02 -.07 .96 0 M -.47 -.03 l -.22 -.3 M .35 -.01 l .21 -.27',
+    transform:rotation,fill:'none',stroke:'#dceec6','stroke-width':'.026',
+    'stroke-linecap':'round',opacity:'.25','pointer-events':'none','aria-hidden':'true'},g);
+  // Ponto indica que a folha abre informações, não que existam ramos ocultos.
+  el('circle',{cx:'.83',cy:'-.54',r:'.105',fill:'#e6a04e',
+    stroke:'#fffaf0','stroke-width':'.034','pointer-events':'none',
+    'aria-hidden':'true',class:'gp49-interaction-dot'},g);
   const words=names[index].split(/\s+/), lines=[''];
   const limit=Math.max(11,Math.ceil(Math.sqrt(names[index].length*2)));
   for(const word of words){
@@ -50,7 +91,7 @@ function leaf(origin, angle, scale, index) {
   const font=Math.min(.33,1.98/Math.max(...lines.map(line=>line.length)),1.1/lines.length);
   const title=el('text',{'text-anchor':'middle','font-size':font, fill:'white','pointer-events':'none'},g);
   lines.forEach((line,i)=>el('tspan',{x:0,y:(i-(lines.length-1)/2+.3)*font*1.12},title).textContent=line);
-  el('title',{},g).textContent=names[index];
+  el('title',{},g).textContent=names[index]+' — selecionar para consultar detalhes';
   const select=()=>openNode(index);
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -78,12 +119,18 @@ function fruits(index,origin,angle,scale){
  unique.slice(0,n).forEach((item,j)=>{
   const a=angle+(j-(n-1)/2)*Math.min(.48,2.7/Math.max(n,1));
   const d=scale*(1.8+.24*(j%3));
-  const p=point(origin,a,d),tone=item.tipo==='pessoa'?'#d9731f':item.tipo==='defesa'?'#d43a2f':'#5f9a3e';
+  const p=point(origin,a,d),tone=item.tipo==='pessoa'?'gp49-fruit-person':
+    item.tipo==='defesa'?'gp49-fruit-defense':'gp49-fruit-work';
   const fruitStem=branch(point(origin,angle,scale*.25),point(origin,angle,scale*.52),point(origin,a,d*.78),p,Math.max(1,scale*.065));
   fruitStem.dataset.gpFruitOwner=String(index);
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
   g.dataset.gpFruitOwner=String(index);
-  el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
+  g.style.cursor='pointer';
+  el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
+    stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
+  // Única luz pontual: textura de superfície, sem aumentar o fruto nem o botão.
+  el('circle',{cx:p.x-radius*.3,cy:p.y-radius*.34,r:radius*.18,
+    fill:'#fffce7',opacity:'.46','pointer-events':'none','aria-hidden':'true'},g);
   el('title',{},g).textContent=item.nome;
   const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}};
   g.addEventListener('click',select);
@@ -104,7 +151,7 @@ function growTree(items,origin,angle,scale){
    branch(point(origin,angle,scale*.95),point(origin,angle,scale*1.18),
      point(base,childAngle,childScale*.35),point(base,childAngle,childScale),childScale);
    growTree(item.children,base,childAngle,childScale);
-   // Os caminhos para projetos desta linha só surgem após selecionar a linha.
+   // Os caminhos existentes para os projetos mantêm os vínculos com a linha.
    [...limbs.children].slice(beforeChildPaths).forEach(path=>{
      if(!path.dataset.gpFruitOwner)path.dataset.gpProjectParent=String(item.index);
    });
@@ -128,7 +175,7 @@ const origin={x:0,y:0},heading=-Math.PI*.38,scale=230;
 const trunkPath=branch(origin,point(origin,heading,.05*scale),point(origin,heading,.95*scale),point(origin,heading,scale),scale);
 trunkPath.setAttribute('role','button');
 trunkPath.setAttribute('tabindex','0');
-trunkPath.setAttribute('aria-label','GPENSC: abrir ou fechar os galhos da árvore');
+trunkPath.setAttribute('aria-label','GPENSC: reenquadrar a árvore inteira');
 trunkPath.setAttribute('aria-expanded','false');
 trunkPath.style.cursor='pointer';
 growTree(forest,origin,heading,scale);
@@ -138,6 +185,7 @@ for(let i=0;i<rows.length;i++)openedFruits.add(i);
 // Identidade do grupo acompanha a orientação natural do tronco.
 const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'auto','role':'button','tabindex':'0','aria-label':'GPENSC: abrir ou fechar os galhos','aria-expanded':'false'},nodes);
 trunkLabel.textContent='GPENSC';
+trunkLabel.setAttribute('aria-label','GPENSC: reenquadrar a árvore inteira');
 trunkLabel.style.cursor='pointer';
 
 // Os mesmos caminhos, folhas e frutos são reutilizados; apenas a visibilidade muda.
@@ -162,7 +210,7 @@ function refreshVisibility(){
         parent!==undefined?openedLines.has(Number(parent)):true;
     }
     path.style.visibility=visible?'visible':'hidden';
-    path.style.pointerEvents=visible?'auto':'none';
+    path.style.pointerEvents=path.dataset.gpDecoration==='true'?'none':(visible?'auto':'none');
   }
   for(const child of nodes.children){
     let visible=child===trunkLabel;
@@ -238,5 +286,6 @@ function sizeViewport(){const header=document.querySelector('#quarto-header,head
  camera.x=center.x-w*.5;camera.y=center.y-h*.5;camera.w=w;camera.h=h;
  paint();
 }
-requestAnimationFrame(()=>{focusTrunk();refreshVisibility();});root.classList.add('gp49-ready');
+// Inicialização integral num único quadro: os mesmos elementos já estão montados.
+focusTrunk();refreshVisibility();root.classList.add('gp49-ready');
 })();
