@@ -209,7 +209,7 @@ html,body{background:var(--editor-bg);color:var(--editor-ink)}
   #app .analytics-metric small,#app .analytics-detail-heading span,
   #app .activity-entry-top time,#app .activity-entry-meta{font-size:11px;}
   #app .analytics-data-note {font-size:11px;line-height:1.5;}
-  #app :is(input::placeholder,textarea::placeholder) {color:#657467;}
+  #app input::placeholder,#app textarea::placeholder {color:#657467;}
 
   /* Cabeçalhos e ações alinhados pela mesma linha de centro. */
   #app .page-heading,#app .page-heading.dashboard-intro {
