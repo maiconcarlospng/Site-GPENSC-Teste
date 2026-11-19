@@ -67,6 +67,7 @@ function leaf(origin, angle, scale, index) {
   const g = el('g',{transform:'translate('+p.x+' '+p.y+') scale('+r+')',
     role:'button',tabindex:0,'aria-label':names[index], 'aria-expanded':'false'},nodes);
   g.dataset.gpNodeIndex=String(index);
+  g.style.cursor='pointer';
   leafVisuals.set(index,g);
   const rotation='rotate('+(angle*180/Math.PI)+')';
   el('path',{d:'M -1 0 C -.85 -1 .45 -1.35 1.16 0 C .45 1.35 -.85 1 -1 0 Z',
@@ -124,6 +125,7 @@ function fruits(index,origin,angle,scale){
   fruitStem.dataset.gpFruitOwner=String(index);
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
   g.dataset.gpFruitOwner=String(index);
+  g.style.cursor='pointer';
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   // Única luz pontual: textura de superfície, sem aumentar o fruto nem o botão.
