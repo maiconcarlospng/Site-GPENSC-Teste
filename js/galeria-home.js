@@ -1,5 +1,6 @@
-/* GPENSC — faixa de fotografias: centralizada no primeiro quadro e contínua
-   nos dois sentidos. Pausa ao receber foco, hover ou interação manual. */
+/* GPENSC — faixa de fotografias: centralizada no primeiro quadro e contínua.
+   O cursor parado sobre a galeria não deve impedir o avanço no desktop.
+   Pausa com interação manual, foco pelo teclado e preferência de movimento reduzido. */
 (() => {
   "use strict";
   const iniciar = () => {
@@ -90,7 +91,11 @@
       });
       let atual = 0, timer = null, retomada = null, scrollFim = null, saltar = null;
       atualizarIndicadores();
-      bolinhas.forEach((botao, i) => botao.addEventListener("click", () => mover(i, true)));
+      bolinhas.forEach((botao, i) => botao.addEventListener("click", (event) => {
+        mover(i, true);
+        // Clique com ponteiro não pode manter foco preso, bloqueando o autoplay.
+        if (event.detail > 0) botao.blur();
+      }));
       let programaticoAte = 0;
       const limparTempo = id => { if (id !== null) clearTimeout(id); };
       const parar = () => { if (timer !== null) clearInterval(timer); timer = null; };
@@ -136,7 +141,6 @@
       };
       const podeAvancar = () => {
         if (document.hidden || reduzir.matches || document.documentElement.classList.contains("gp-a11y-motion")) return false;
-        if (matchMedia("(hover:hover) and (pointer:fine)").matches && galeria.matches(":hover")) return false;
         if (galeria.contains(document.activeElement)) return false;
         return true;
       };
@@ -166,11 +170,16 @@
         if (document.documentElement.classList.contains("gp-a11y-motion")) parar();
         else iniciarAutomatico();
       });
-      galeria.addEventListener("mouseenter", parar);
-      galeria.addEventListener("mouseleave", iniciarAutomatico);
       galeria.addEventListener("focusin", parar);
       galeria.addEventListener("focusout", () => setTimeout(iniciarAutomatico, 50));
       faixa.addEventListener("pointerdown", pausarTemporariamente, { passive: true });
+      faixa.addEventListener("pointerup", () => {
+        // O trilho é focável para teclado, mas um clique de mouse não deve
+        // deixá-lo permanentemente como elemento ativo e travar o carrossel.
+        requestAnimationFrame(() => {
+          if (document.activeElement === faixa) faixa.blur();
+        });
+      }, { passive: true });
       faixa.addEventListener("keydown", event => {
         if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
           event.preventDefault();
