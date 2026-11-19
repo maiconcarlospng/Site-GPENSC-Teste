@@ -10,10 +10,10 @@ const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);fo
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
-// Visibilidade editorial em etapas: tronco -> linhas/projetos -> frutos.
+// Visibilidade integral desde a primeira renderização, sem alterar nenhum desenho ou ramo.
 const leafVisuals=new Map();
 const openedLines=new Set(),openedFruits=new Set();
-let trunkOpen=false;
+let trunkOpen=true;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const camera={x:0,y:0,w:W,h:H};
 // Tudo permanece desenhado e interativo em qualquer nível de zoom. O zoom altera apenas a câmera.
@@ -132,6 +132,9 @@ trunkPath.setAttribute('aria-label','GPENSC: abrir ou fechar os galhos da árvor
 trunkPath.setAttribute('aria-expanded','false');
 trunkPath.style.cursor='pointer';
 growTree(forest,origin,heading,scale);
+// Linhas, projetos e frutos começam abertos: nada é revelado por etapas.
+for(const {i} of lines)openedLines.add(i);
+for(let i=0;i<rows.length;i++)openedFruits.add(i);
 // Identidade do grupo acompanha a orientação natural do tronco.
 const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'auto','role':'button','tabindex':'0','aria-label':'GPENSC: abrir ou fechar os galhos','aria-expanded':'false'},nodes);
 trunkLabel.textContent='GPENSC';
@@ -144,7 +147,7 @@ for(const part of forest)for(const child of part.children)projectParent.set(chil
 const instruction=document.createElement('div');
 instruction.className='gp49-step-hint';
 instruction.setAttribute('role','status');
-instruction.textContent='Selecione o tronco GPENSC para explorar as linhas de pesquisa.';
+instruction.textContent='Explore os galhos e frutos. Selecione um elemento para consultar seus vínculos.';
 map.parentElement.append(instruction);
 function branchVisible(index){
   return trunkOpen&&(!projectParent.has(index)||openedLines.has(projectParent.get(index)));
@@ -178,20 +181,11 @@ function refreshVisibility(){
   for(const [i,g] of leafVisuals){
     g.setAttribute('aria-expanded',String(openedFruits.has(i)||openedLines.has(i)));
   }
-  instruction.textContent=!trunkOpen
-    ?'Selecione o tronco GPENSC para explorar as linhas de pesquisa.'
-    :'Selecione uma linha ou projeto para revelar integrantes e produções vinculados.';
+  instruction.textContent='Selecione uma linha, projeto ou fruto para consultar integrantes e produções vinculados.';
 }
 function openTrunk(){
-  trunkOpen=!trunkOpen;
-  if(!trunkOpen){
-    openedLines.clear();openedFruits.clear();
-    const panel=root.querySelector('#gp49-detail');
-    if(panel)panel.hidden=true;
-    focusTrunk();
-  }else{
-    fit();
-  }
+  // O tronco reenquadra a visualização sem esconder partes da árvore.
+  fit();
   refreshVisibility();
 }
 function revealBranch(index){
@@ -201,18 +195,8 @@ function revealBranch(index){
   refreshVisibility();
 }
 function openNode(index){
+  // A seleção abre detalhes, nunca recolhe ramos já desenhados.
   revealBranch(index);
-  if(openedFruits.has(index))openedFruits.delete(index);
-  else openedFruits.add(index);
-  if(rows[index].dataset.branchType==='linha'){
-    if(openedLines.has(index)){
-      openedLines.delete(index);
-      for(const [project,parent] of projectParent)if(parent===index)openedFruits.delete(project);
-    }else{
-      openedLines.add(index);
-    }
-  }
-  refreshVisibility();
   show(index);
 }
 for(const target of [trunkPath,trunkLabel]){
