@@ -3696,62 +3696,14 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 }
 
 
-/* ---------- AJUSTE VISUAL EXCLUSIVO PARA ESPANHOL ---------- */
-/* Compacta os rótulos longos sem sobrescrever o zoom de 90% do desktop
-   definido em site-escala.css. No celular, a escala permanece nativa. */
-html[data-gp-language="es"] {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: clip !important;
+/* Os três idiomas compartilham a mesma escala, margens e tipografia.
+   Traduções com palavras longas podem quebrar linha sem alterar a largura da página. */
+html[data-gp-current-language] #quarto-content :is(.btn,.btn-secondary,.btn-orange,.btn-primary,.btn-outline-light,.btn-spotify) {
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:break-word;
 }
-
-html[data-gp-language="es"] body {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  overflow-x: clip !important;
-  box-sizing: border-box !important;
-}
-
-html[data-gp-language="es"] #quarto-content,
-html[data-gp-language="es"] .quarto-container {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  box-sizing: border-box !important;
-}
-
-html[data-gp-language="es"] .btn,
-html[data-gp-language="es"] .btn-secondary,
-html[data-gp-language="es"] .btn-orange,
-html[data-gp-language="es"] a.btn-warning,
-html[data-gp-language="es"] .btn-primary,
-html[data-gp-language="es"] .btn-outline-light,
-html[data-gp-language="es"] .btn-spotify {
-  box-sizing: border-box !important;
-  max-width: 100% !important;
-  padding: .58rem 1.12rem !important;
-  font-size: .76rem !important;
-  letter-spacing: .035em !important;
-  line-height: 1.25 !important;
-  white-space: normal !important;
-  text-align: center !important;
-}
-
-html[data-gp-language="es"] .btn-sm {
-  padding: .42rem .88rem !important;
-  font-size: .69rem !important;
-}
-
-/* Os links do menu continuam visualmente simples, mas ganham espaço
-   horizontal extra para os nomes maiores em espanhol. */
-html[data-gp-language="es"] .navbar .nav-link {
-  padding: .45rem .62rem !important;
-  font-size: .86rem !important;
-}
-
+/* Sem overrides exclusivos de tamanho, fonte ou contêiner para ES. */
 
 /* ---------- RODAPÉ MAIS COMPACTO NO DESKTOP ---------- */
 /* Mantém a estrutura e as três logos, mas reduz o espaço vertical
