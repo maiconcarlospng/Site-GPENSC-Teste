@@ -2,7 +2,8 @@
 title: "Quem somos"
 ---
 
-<div id="sobre" class="gp-illustrated-lead"><img src="img/ilustracoes/sobre.svg" alt="" aria-hidden="true" loading="lazy" width="130" height="91"></div>
+<!-- Âncora de navegação mantida; a ilustração aparece ao lado do título via CSS. -->
+<div id="sobre" class="gp-sobre-anchor" aria-hidden="true"></div>
 
 ```{=html}
 <script>
