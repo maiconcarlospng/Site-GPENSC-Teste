@@ -382,4 +382,4 @@ body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .pa
 </style>
 ```
 
-<script src="js/arvore.js?v=gp49-expand-on-click-20261118" defer></script>
+<script src="js/arvore.js?v=gp49-textura-completa-20261119" defer></script>
