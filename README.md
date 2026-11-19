@@ -1,3 +1,71 @@
+<div align="center">
+
+<img src="img/hero-gpensc-bg.svg" alt="Identidade visual do GPENSC" width="100%">
+
+<img src="img/logo_gpensc.png" alt="Logotipo do GPENSC" width="180">
+
+# GPENSC
+### Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva
+
+**Universidade Federal de Ouro Preto · UFOP**
+
+Pesquisa, ensino, extensão e divulgação científica em Nutrição e Saúde Coletiva.
+
+[**Conhecer o site**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/) · [**Painel administrativo**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) · [**Guia de edição**](COMO-EDITAR.md)
+
+![Quarto](https://img.shields.io/badge/Quarto-site%20estático-1F4D2B?style=flat-square) ![R](https://img.shields.io/badge/R-dados%20e%20componentes-D9731F?style=flat-square) ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-publicação-D43A2F?style=flat-square)
+
+<sub>Repositório experimental de desenvolvimento e validação. A migração para uma conta institucional ainda está planejada.</sub>
+
+</div>
+
+---
+
+## Conheça o projeto
+
+Este repositório reúne o site institucional experimental do **GPENSC**, sua documentação, os conteúdos versionados e as ferramentas de administração. A navegação pública apresenta o grupo, sua história, a árvore do conhecimento, pesquisas, extensão, ensino, divulgação científica, agenda e notícias.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Site público
+
+Interface responsiva, conteúdo acadêmico e páginas institucionais geradas com Quarto e R.
+
+[Visitar o site](https://maiconcarlospng.github.io/Site-GPENSC-Teste/)
+
+</td>
+<td width="50%" valign="top">
+
+### Gestão de conteúdo
+
+Painel de administração para manutenção de registros, imagens, configurações e publicações.
+
+[Acessar o painel](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/)
+
+</td>
+</tr>
+</table>
+
+### Identidade institucional
+
+<div align="center">
+<img src="img/ufop-logo.jpg" alt="Universidade Federal de Ouro Preto" height="70">
+&nbsp;&nbsp;&nbsp;
+<img src="img/logo_nutricao.png" alt="Nutrição" height="70">
+&nbsp;&nbsp;&nbsp;
+<img src="img/logo_ppgsn.png" alt="Programa de Pós-Graduação em Saúde e Nutrição" height="70">
+</div>
+
+> As marcas acima identificam vínculos institucionais do projeto. Para informações atualizadas sobre integrantes, parcerias e atividades, consulte o site.
+
+---
+
+## Documentação técnica completa
+
+Abaixo estão os procedimentos de arquitetura, edição, publicação, segurança e manutenção. Esta documentação deve ser consultada antes de alterar a infraestrutura ou os fluxos do painel.
+
 # GPENSC — Site institucional e painel de gestão
 
 > **Estado do projeto:** ambiente de desenvolvimento e validação do site do Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva (GPENSC), vinculado à Universidade Federal de Ouro Preto (UFOP). Este repositório ainda está na conta pessoal de desenvolvimento e **a portabilidade para a conta/organização institucional do GPENSC está planejada, mas não foi realizada**. A aprovação institucional, o endereço definitivo e os responsáveis pela infraestrutura devem ser confirmados antes da migração.
