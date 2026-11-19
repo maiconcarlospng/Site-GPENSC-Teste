@@ -59,6 +59,7 @@ O portal reúne informações institucionais e conteúdo de **pesquisa, extensã
 ## Navegação desta documentação
 
 - [Arquitetura e funcionamento](#arquitetura-e-funcionamento)
+- [Mapa documentado das pastas e arquivos](docs/ESTRUTURA-DO-PROJETO.md)
 - [Guia técnico dos scripts e arquivos de configuração](#guia-técnico-dos-scripts-e-arquivos-de-configuração)
 - [Painel administrativo, login e permissões](#painel-administrativo)
 - [Coleções e configurações](#coleções-e-configurações)
@@ -75,6 +76,10 @@ O portal reúne informações institucionais e conteúdo de **pesquisa, extensã
 - [Licença e uso](#licença-e-uso)
 
 ---
+
+## Organização dos arquivos e responsabilidades
+
+A estrutura do projeto está descrita no [mapa técnico das pastas e extensões](docs/ESTRUTURA-DO-PROJETO.md). As pastas `R/`, `js/`, `data/` e `scripts/` possuem README próprio, com a função dos arquivos principais e os cuidados para manutenção. Nesta etapa conservadora, **os caminhos de produção não foram alterados**; reorganizações físicas futuras exigem auditoria de referências e validação antes da incorporação à branch principal.
 
 ## Arquitetura e funcionamento
 
