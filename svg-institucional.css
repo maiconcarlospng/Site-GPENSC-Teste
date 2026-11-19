@@ -1,47 +1,170 @@
-/* Ilustrações institucionais: uso pontual de SVGs já existentes no repositório. */
-.gp-illustrated-lead{display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,36px);width:100%;max-width:1100px;min-height:84px;margin:4px auto 26px;padding:6px clamp(5px,1vw,12px);border:0;background:transparent}
-.gp-illustrated-lead p{margin:0;max-width:75ch;color:inherit;line-height:1.65;flex:1 1 auto}
-.gp-illustrated-lead img{display:block;width:clamp(95px,11vw,138px);max-height:98px;object-fit:contain;flex:0 0 auto;filter:none}
-h2.gp-heading-art{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0}
-h2.gp-heading-art::after{content:"";flex:0 0 70px;width:70px;height:52px;background-size:contain;background-position:center;background-repeat:no-repeat;opacity:.94}
-h2.gp-heading-art--historia::after{background-image:url("img/ilustracoes/historia.svg")}
-h2.gp-heading-art--parcerias::after{background-image:url("img/ilustracoes/parcerias.svg")}
-h2.gp-heading-art--contato::after{background-image:url("img/ilustracoes/contato.svg")}
-h2.gp-heading-art--noticias::after{background-image:url("img/ilustracoes/noticias.svg")}
-@media(max-width:640px){.gp-illustrated-lead{gap:12px;min-height:66px;margin:0 auto 18px;padding:3px 4px}.gp-illustrated-lead p{font-size:.94rem;line-height:1.5}.gp-illustrated-lead img{width:76px;max-height:70px}h2.gp-heading-art::after{flex-basis:54px;width:54px;height:43px}h2.gp-heading-art{gap:8px}}
-@media(max-width:370px){.gp-illustrated-lead img{width:60px}h2.gp-heading-art::after{flex-basis:45px;width:45px;height:38px}}
+/* GPENSC — padrão único dos cabeçalhos ilustrados.
+   O Quarto gera o título antes da descrição. A arte aparece no próprio
+   cabeçalho, e o texto de apoio continua abaixo, sem faixa intermediária.
+   Quem somos não tem subtítulo, mas mantém o mesmo alinhamento. */
 
+/* Ilustrações dos títulos. Usar as imagens já cadastradas nas páginas. */
+html body #quarto-content main#quarto-document-content:has(> .gp-sobre-anchor) {
+  --gp-editorial-icon: url("img/ilustracoes/sobre.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/teses.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/teses.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/livros.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/livros.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/videos.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/videos.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/ensino.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/ensino.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/contato.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/contato.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/impacto.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/impacto.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/podcasts.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/podcasts.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/extensao.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/extensao.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/historia.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/historia.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/noticias.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/noticias.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/pesquisa.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/pesquisa.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/projetos.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/projetos.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/parcerias.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/parcerias.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/materiais.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/materiais.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/divulgacao.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/divulgacao.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/agenda.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/agenda.svg");
+}
+html body #quarto-content main#quarto-document-content:has(> .gp-illustrated-lead > img[src$="/linhas.svg"]) {
+  --gp-editorial-icon: url("img/ilustracoes/linhas.svg");
+}
 
-/* Quem somos — titulo e ilustracao na mesma linha, sem faixa vazia.
-   O Quarto cria o h1 em #title-block-header; o antigo bloco illustrado
-   foi substituido por uma ancora de altura zero em grupo.qmd. */
-html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header.quarto-title-block{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:flex-start!important;
+/* Aplicar somente a páginas que já possuam uma ilustração institucional.
+   A home e a Árvore do Conhecimento preservam seus cabeçalhos especiais. */
+html body #quarto-content main#quarto-document-content:is(
+  :has(> .gp-illustrated-lead),
+  :has(> .gp-sobre-anchor)
+) > #title-block-header.quarto-title-block {
+  display:block!important;
   position:relative!important;
   box-sizing:border-box!important;
   width:100%!important;
-  min-height:clamp(88px,9vw,112px)!important;
-  margin:0 0 clamp(15px,2vw,23px)!important;
-  padding:12px clamp(112px,12vw,154px) 12px 0!important;
-  background-image:url("img/ilustracoes/sobre.svg")!important;
-  background-repeat:no-repeat!important;
-  background-position:right center!important;
-  background-size:clamp(104px,10vw,132px) auto!important;
-}
-html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header .quarto-title{
   min-width:0!important;
+  max-width:none!important;
+  min-height:0!important;
+  margin:0 0 10px!important;
+  padding:10px 0 6px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+html body #quarto-content main#quarto-document-content:is(
+  :has(> .gp-illustrated-lead),
+  :has(> .gp-sobre-anchor)
+) > #title-block-header .quarto-title {
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:clamp(14px,3vw,28px)!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:clamp(78px,8vw,104px)!important;
   margin:0!important;
   padding:0!important;
 }
-html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header h1.title{
-  margin:0!important;
+html body #quarto-content main#quarto-document-content:is(
+  :has(> .gp-illustrated-lead),
+  :has(> .gp-sobre-anchor)
+) > #title-block-header .quarto-title::after {
+  content:"";
+  display:block!important;
+  flex:0 0 clamp(78px,9vw,124px)!important;
+  width:clamp(78px,9vw,124px)!important;
+  height:clamp(65px,7.7vw,92px)!important;
+  background-image:var(--gp-editorial-icon,none)!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
+  pointer-events:none!important;
 }
-html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header .quarto-title-meta{
+html body #quarto-content main#quarto-document-content:is(
+  :has(> .gp-illustrated-lead),
+  :has(> .gp-sobre-anchor)
+) > #title-block-header h1.title {
+  flex:1 1 auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  color:#1f4d2b!important;
+  text-align:left!important;
+  overflow-wrap:break-word!important;
+}
+html body #quarto-content main#quarto-document-content:is(
+  :has(> .gp-illustrated-lead),
+  :has(> .gp-sobre-anchor)
+) > #title-block-header .quarto-title-meta {
   display:none!important;
 }
-html body:has(.pagina-sobre) #quarto-content main.content > .gp-sobre-anchor{
+
+/* O parágrafo de cada página fica diretamente abaixo do título e ocupa
+   a mesma largura. Remover a caixa antiga e esconder a arte duplicada. */
+html body #quarto-content main#quarto-document-content > .gp-illustrated-lead {
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 0 clamp(19px,2.4vw,29px)!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body #quarto-content main#quarto-document-content > .gp-illustrated-lead > img {
+  display:none!important;
+}
+html body #quarto-content main#quarto-document-content > .gp-illustrated-lead > p {
+  display:block!important;
+  width:100%!important;
+  max-width:82ch!important;
+  margin:0!important;
+  padding:0!important;
+  color:#65766b!important;
+  font-size:clamp(.92rem,1.15vw,1.02rem)!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  text-align:left!important;
+}
+/* A âncora antiga de Quem somos continua funcional, sem criar altura. */
+html body #quarto-content main#quarto-document-content > .gp-sobre-anchor {
   display:block!important;
   width:0!important;
   height:0!important;
@@ -51,12 +174,50 @@ html body:has(.pagina-sobre) #quarto-content main.content > .gp-sobre-anchor{
   overflow:hidden!important;
   scroll-margin-top:76px;
 }
+/* Subtítulos de seções com ícone continuam independentes deste padrão. */
+h2.gp-heading-art{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0}
+h2.gp-heading-art::after{content:"";flex:0 0 70px;width:70px;height:52px;background-size:contain;background-position:center;background-repeat:no-repeat;opacity:.94}
+h2.gp-heading-art--historia::after{background-image:url("img/ilustracoes/historia.svg")}
+h2.gp-heading-art--parcerias::after{background-image:url("img/ilustracoes/parcerias.svg")}
+h2.gp-heading-art--contato::after{background-image:url("img/ilustracoes/contato.svg")}
+h2.gp-heading-art--noticias::after{background-image:url("img/ilustracoes/noticias.svg")}
+
 @media(max-width:640px){
-  html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header.quarto-title-block{
-    min-height:82px!important;
-    padding:10px 86px 10px var(--gp-mobile-gutter,16px)!important;
-    margin-bottom:16px!important;
-    background-size:74px auto!important;
-    background-position:right 8px center!important;
+  html body #quarto-content main#quarto-document-content:is(
+    :has(> .gp-illustrated-lead),:has(> .gp-sobre-anchor)
+  ) > #title-block-header.quarto-title-block{
+    margin:0 0 8px!important;
+    padding:14px 0 4px!important;
   }
+  html body #quarto-content main#quarto-document-content:is(
+    :has(> .gp-illustrated-lead),:has(> .gp-sobre-anchor)
+  ) > #title-block-header .quarto-title{
+    gap:12px!important;
+    min-height:66px!important;
+  }
+  html body #quarto-content main#quarto-document-content:is(
+    :has(> .gp-illustrated-lead),:has(> .gp-sobre-anchor)
+  ) > #title-block-header .quarto-title::after{
+    flex-basis:68px!important;
+    width:68px!important;
+    height:61px!important;
+  }
+  html body #quarto-content main#quarto-document-content > .gp-illustrated-lead{
+    margin-bottom:21px!important;
+  }
+  html body #quarto-content main#quarto-document-content > .gp-illustrated-lead > p{
+    font-size:.94rem!important;
+  }
+  h2.gp-heading-art::after{flex-basis:54px;width:54px;height:43px}
+  h2.gp-heading-art{gap:8px}
+}
+@media(max-width:370px){
+  html body #quarto-content main#quarto-document-content:is(
+    :has(> .gp-illustrated-lead),:has(> .gp-sobre-anchor)
+  ) > #title-block-header .quarto-title::after{
+    flex-basis:50px!important;
+    width:50px!important;
+    height:50px!important;
+  }
+  h2.gp-heading-art::after{flex-basis:45px;width:45px;height:38px}
 }
