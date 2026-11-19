@@ -59,6 +59,7 @@ O portal reúne informações institucionais e conteúdo de **pesquisa, extensã
 ## Navegação desta documentação
 
 - [Arquitetura e funcionamento](#arquitetura-e-funcionamento)
+- [Guia técnico dos scripts e arquivos de configuração](#guia-técnico-dos-scripts-e-arquivos-de-configuração)
 - [Painel administrativo, login e permissões](#painel-administrativo)
 - [Coleções e configurações](#coleções-e-configurações)
 - [Agenda e destaque automático](#agenda-e-destaque-automático-na-página-inicial)
@@ -681,6 +682,107 @@ A migração estará concluída **apenas depois** de a equipe testar, usando sua
 | Estatísticas não aparecem no painel | Worker de analytics publicado, `apiUrl`, Secrets, `ALLOWED_ORIGIN` e API do Umami. |
 | Uma página não aparece no menu | Navegação em `_quarto.yml` e controles de visibilidade nas configurações. |
 | `git push` é rejeitado | Outra alteração pode ter sido gravada pelo painel; faça `git pull --rebase` e resolva conflitos. |
+
+---
+
+## Guia técnico dos scripts e arquivos de configuração
+
+Esta seção explica **como o código-fonte se transforma no site publicado** e distingue configuração, dados, apresentação e automação. Ela complementa o [manual de edição](COMO-EDITAR.md): quem apenas cadastra conteúdo deve usar o painel; quem altera estrutura ou comportamento precisa entender os arquivos abaixo.
+
+### O que é cada extensão?
+
+| Extensão | Papel no GPENSC | Exemplo |
+| --- | --- | --- |
+| `.yml` / `.yaml` | Configuração ou dados estruturados, com chaves, listas e indentação | `_quarto.yml`, `data/equipe.yml` |
+| `.qmd` | Página-fonte do Quarto, combinando texto, HTML e blocos executáveis | `pesquisa.qmd` |
+| `.R` | Funções que leem dados e geram trechos de conteúdo na compilação | `R/helpers.R` |
+| `.js` | Comportamento interativo no navegador ou scripts executados com Node | `js/arvore.js`, `admin/app.js` |
+| `.css` / `.scss` | Estilos, cores, espaçamento e responsividade | `styles.css`, `custom.scss` |
+| `.html` | Estruturas e entradas do painel, além de componentes HTML | `admin/app.html` |
+| `.py` | Validação, auditoria, inventário e processamento de conteúdo | `admin/validar-painel.py` |
+| `.md` | Documentação em Markdown | `README.md` |
+
+### YAML: configuração não é a mesma coisa que conteúdo
+
+**1. `_quarto.yml` — configuração central do site.** Define `project.type: website`, quais páginas `.qmd` são renderizadas, recursos copiados para o resultado (como `img/**`, `js/**`, `admin/**` e `data/**`), idioma, título, favicon e navegação. Mudar um caminho ou nome de página aqui exige conferir a existência do arquivo correspondente. Os caminhos do menu podem apontar para arquivos `.qmd`; o Quarto converte esses destinos para HTML durante a publicação.
+
+**2. `_variables.yml` — variáveis reutilizáveis.** Centraliza valores que podem ser referenciados nas páginas Quarto, evitando repetir textos fixos. Antes de mudar uma chave, procure onde ela é utilizada.
+
+**3. `data/*.yml` — conteúdo editorial.** Arquivos como `data/noticias.yml`, `data/eventos.yml`, `data/linhas.yml`, `data/projetos.yml` e `data/equipe.yml` armazenam registros que as páginas leem durante a compilação. Alterar um registro não significa alterar o layout.
+
+**4. `data/configuracoes/*.yml` — preferências institucionais.** Guardam textos e opções das seções, como identidade, parcerias, página inicial, agenda, contato e rodapé. O nome do arquivo não é necessariamente o rótulo exibido no painel.
+
+**5. `admin/config.yml` — esquema do Sveltia CMS.** Descreve coleções, campos, tipos de entrada, validações e relações do editor alternativo. Ele **não substitui** o código do painel próprio em `admin/app.js`. Ao criar um campo, confira também o formulário do painel principal, os leitores R e as páginas que o utilizam.
+
+**6. `.github/workflows/publish.yml` — automação do GitHub Actions.** Apesar de também ser YAML, não é um arquivo de conteúdo: define quando e como validar, compilar e publicar o projeto.
+
+Exemplo didático de YAML (não substituir diretamente um arquivo real por este exemplo):
+
+```yaml
+itens:
+  - id: exemplo-01
+    titulo: "Título de exemplo"
+    ativo: true
+    palavras_chave:
+      - nutricao
+      - saude-coletiva
+```
+
+A indentação define a hierarquia; `-` inicia um item de lista; valores entre aspas são textos; `true` é booleano. Use espaços, não tabulações. **Os nomes dos campos precisam seguir o esquema do arquivo real**: esse exemplo apenas demonstra a sintaxe.
+
+### Como o código cria uma página
+
+```text
+_quarto.yml ───────────────┐
+_variables.yml ────────────┤
+páginas *.qmd ─────────────┤
+data/*.yml ──> funções R ──┼──> quarto render ──> _site/
+CSS / SCSS / JS / imagens ─┘                        │
+                                                    └──> GitHub Pages
+```
+
+As páginas `.qmd` definem o conteúdo e invocam, quando necessário, funções de `R/` para transformar os registros YAML em componentes. O Quarto renderiza o conjunto para HTML e incorpora ou copia os recursos estáticos. O diretório `_site/` é **resultado gerado**, não a fonte preferencial para alterações permanentes. JavaScript de interações como a árvore, as galerias e o painel é executado no navegador; R não precisa ficar rodando no servidor público.
+
+### O que acontece ao clicar em Publicar no painel?
+
+1. O painel próprio (`admin/app.html`, `admin/app.js` e `admin/app.css`) prepara e grava mudanças no repositório GitHub, após autenticação e autorização.
+2. Um commit em `main` que altera caminhos monitorados inicia o workflow `.github/workflows/publish.yml`; também existe execução manual (`workflow_dispatch`).
+3. A etapa **validate-panel** gera o inventário de materiais e executa verificações em Python e Node, incluindo YAML, referências, arquivos estáticos e rotinas do Instagram.
+4. A etapa **build** decide entre atualização rápida de CSS/JS estáticos e compilação completa. Na compilação completa, instala Quarto e dependências R, prepara as imagens e executa `quarto render`.
+5. O resultado de `_site/` é sincronizado na branch `render-published`, enviado como artefato e implantado no **GitHub Pages** pela etapa **deploy**.
+6. Se a validação ou a compilação falhar, a nova versão não deve ser considerada publicada. Consulte a aba **Actions** para identificar o erro.
+
+O workflow monitora os caminhos indicados no próprio `on.push.paths`. **Alterar apenas o README não está entre os gatilhos listados atualmente**, portanto uma atualização de documentação não implica reconstrução automática do site.
+
+### Outros scripts e integrações
+
+| Caminho | Responsabilidade |
+| --- | --- |
+| `R/helpers.R` | Funções e estruturas auxiliares usadas na geração de conteúdo |
+| `js/arvore.js` e `js/arvore-interativa.js` | Interação e apresentação da Árvore do Conhecimento |
+| `js/galeria-home.js` e `js/galeria-sobre.js` | Galerias independentes da home e da página institucional |
+| `admin/app.js` | Interface, leitura, edição e publicação pelo painel próprio |
+| `admin/config.yml` | Campos e coleções do editor Sveltia |
+| `admin/validar-painel.py` | Validação da configuração e dos arquivos do painel |
+| `admin/auditar-site.py` | Auditoria de links, páginas e recursos |
+| `scripts/gerar-inventario-materiais.py` | Inventário de referências aos materiais do site |
+| `admin/validar-acervo-instagram.py` | Verificação de integridade do acervo Instagram |
+| `admin/arquivar-capas-instagram.py` | Preparação das capas das publicações importadas |
+| `admin-access-worker/worker.js` | Serviço Cloudflare para acesso por código e operações autorizadas |
+| `analytics-worker/worker.js` | Código do serviço de consulta de analytics, sujeito à configuração/deploy do Worker |
+
+Os Workers são serviços externos: publicar o Quarto no GitHub Pages **não configura automaticamente** os Secrets, rotas, permissões ou deploys do Cloudflare. O mesmo vale para a conta do Umami e para o OAuth do GitHub. Na transferência para o GPENSC, revise todas as URLs, contas, credenciais e variáveis de ambiente seguindo o guia de portabilidade.
+
+### Onde alterar cada coisa, sem quebrar o site?
+
+- **Texto, notícia, equipe, evento ou projeto:** preferencialmente pelo painel; os dados ficam em `data/`.
+- **Campos disponíveis no editor:** revise `admin/config.yml` e a implementação do painel próprio.
+- **Menu, páginas, favicon ou recursos incluídos:** `_quarto.yml` e páginas `.qmd`.
+- **Cores, tipografia e responsividade:** CSS/SCSS; verifique a ordem de carregamento antes de criar outra regra.
+- **Galeria, árvore ou comportamento interativo:** arquivos JavaScript correspondentes, preservando a estrutura de dados e os controles de acessibilidade.
+- **Publicação e validação:** `.github/workflows/publish.yml`; teste antes de mudar permissões ou etapas.
+
+Para uma mudança estrutural, faça um commit isolado, confira as validações em **Actions**, abra o site em desktop e celular e verifique se a edição pelo painel continua funcionando. Nunca publique tokens, Client Secrets, códigos de acesso ou credenciais em arquivos versionados.
 
 ---
 
