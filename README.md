@@ -510,6 +510,31 @@ Revise cuidadosamente `git status`. Não inclua tokens, chaves, segredos, arquiv
 
 **Objetivo:** que o próprio GPENSC seja capaz de administrar o código, editar conteúdo, publicar o site, acessar o Instagram e as métricas, renovar serviços e recuperar contas **sem depender das credenciais pessoais utilizadas na criação do protótipo**.
 
+### Cenários de renomeação e troca de domínio (sem migração imediata)
+
+O endereço atual é provisório. A coordenação poderá escolher **uma ou mais** das opções abaixo, em momentos diferentes:
+
+| Cenário | O que muda | O que deve ser conferido |
+| --- | --- | --- |
+| **Renomear somente o repositório** | `maiconcarlospng/Site-GPENSC-Teste` passa a ter outro nome, mas continua na mesma conta | URL do Pages, caminhos com o nome antigo, `REPO` no painel e no Worker, `backend.repo` no Sveltia, links externos e Actions |
+| **Transferir para a conta/organização GPENSC** | Muda o proprietário GitHub; o repositório pode manter o nome ou ser renomeado depois | Permissões de colaboradores, Pages, Actions, tokens, OAuth, Workers, links, URLs e controle institucional dos serviços |
+| **Usar domínio próprio** | O público acessa um endereço institucional escolhido posteriormente | DNS, domínio personalizado no Pages, HTTPS, `CNAME` quando aplicável, URLs públicas, origens autorizadas, links absolutos, Umami e OAuth |
+| **Usar Pages da conta GPENSC** | O site pode usar `CONTA.github.io/REPOSITORIO/` ou `CONTA.github.io`, conforme o tipo de repositório | Caminho-base, URLs internas, links da galeria, imagens, scripts, páginas de idiomas e painel |
+
+**Não confundir nome do repositório com domínio:** renomear o repositório não cria um domínio próprio. Um repositório comum no GitHub Pages normalmente usa `USUARIO.github.io/REPOSITORIO/`; o formato `USUARIO.github.io` é reservado ao repositório de site do usuário/organização com esse nome. Um domínio personalizado pode ser configurado separadamente.
+
+O GitHub pode redirecionar URLs antigas de repositórios após renomeação ou transferência, mas **não se deve depender desses redirecionamentos para o site, o GitHub Pages, a API, o OAuth ou o painel**. Os endereços definitivos devem ser configurados e testados explicitamente. Se a mudança envolver a conta pessoal, também deve ser decidido quem será o proprietário institucional de cada serviço.
+
+#### Checklist de referências antes de trocar o nome ou endereço
+
+1. Pesquisar no repositório por `maiconcarlospng`, `Site-GPENSC-Teste`, `github.io`, `workers.dev`, `site_url`, `display_url`, `base_url`, `ALLOWED_ORIGIN`, `REPO` e URLs absolutas. **Não substituir cegamente**: distinguir endereço público, identificador GitHub, nome de Worker, identificador de analytics e exemplo histórico.
+2. Revisar `_quarto.yml`, `_variables.yml`, páginas `.qmd`, scripts em `js/`, `admin/app.js`, `admin/config.yml`, `admin/cms.html`, os arquivos `wrangler.toml` e os Workers de autenticação, acesso e analytics.
+3. Revisar `.github/workflows/`, Secrets e permissões do repositório; conferir também os endereços em `README.md` e `COMO-EDITAR.md`.
+4. Configurar primeiro o novo endereço, autenticação e permissões; depois validar login GitHub, acesso por código, edição e publicação, galeria, árvore, navegação, imagens, idiomas, Instagram e métricas.
+5. Atualizar links públicos e comunicar a mudança **somente depois dos testes**. Manter cópia de segurança e plano de retorno durante a transição.
+
+**Importante:** o nome definitivo da conta, o nome do repositório e o domínio **ainda não foram definidos**. Não substituir as configurações atuais por nomes hipotéticos, nem desativar os serviços existentes antes de confirmar a alternativa escolhida.
+
 ### 1. Definir o destino e os responsáveis
 
 Antes de mudar qualquer configuração:
