@@ -205,3 +205,269 @@ html[data-admin-motion="reduce"] #app :is(*,*::before,*::after){animation-durati
  #app .pref-footer{padding:14px 17px 17px}
  #app .pref-setting{min-height:74px}
 }
+
+
+/* GPENSC 2026: hierarquia cromática, escala desktop e densidade real. */
+@media (min-width:701px){
+  /* Densidade visual próxima à preferência de navegador em 90%, sem zoom geométrico
+     que deslocaria modais e componentes fixos. */
+  #app .workspace{grid-template-columns:236px minmax(0,1fr)!important}
+  #app .sidebar{padding:14px 10px 11px!important}
+  #app .topbar{min-height:56px!important;padding:8px clamp(16px,2.5vw,34px)!important}
+  #app .page-content{padding:23px clamp(18px,2.5vw,36px) 46px!important;max-width:1690px!important}
+  #app .page-heading h1{font-size:clamp(23px,2vw,28px)!important}
+  #app .page-heading{margin-bottom:18px!important}
+  #app .stats-grid{gap:10px!important;margin-bottom:17px!important}
+  #app .stat-card{min-height:104px!important;padding:14px 16px!important}
+  #app .stat-card strong{font-size:clamp(25px,2vw,31px)!important;margin:8px 0 4px!important}
+  #app .stat-card small{min-height:0!important}
+  #app .dashboard-chart-card,#app .dashboard-analytics-card,#app .dashboard-activity-card{padding:16px 18px!important}
+  #app .panel-card{padding:16px 18px!important}
+  #app .sidebar #collection-nav button{min-height:35px!important;padding:6px 8px!important;font-size:11px!important}
+  #app .mobile-nav-search input{min-height:35px!important;font-size:11px!important}
+  #app .mobile-nav-search label{font-size:10px!important}
+  #app .sidebar .brand{min-height:64px!important}
+  #app .sidebar .brand small{font-size:11px!important}
+  #app .page-heading p{font-size:12px!important}
+  #app .admin-shortcuts{margin-bottom:19px!important}
+  #app .admin-shortcut-grid{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    align-items:stretch;gap:10px!important;
+  }
+  #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut){
+    display:flex!important;flex-flow:row nowrap!important;
+    align-items:center!important;justify-content:flex-start!important;
+    justify-items:initial!important;text-align:left!important;
+    gap:12px!important;min-height:81px!important;height:100%;
+    padding:13px 14px!important;margin:0!important;
+    background:#fff!important;border:1px solid #dce7dd!important;
+    border-radius:9px!important;box-shadow:none!important;
+  }
+  #app .admin-shortcut-grid .admin-shortcut-art{
+    display:block!important;flex:0 0 35px!important;
+    width:35px!important;min-width:35px!important;
+    height:35px!important;min-height:35px!important;
+    max-width:35px!important;max-height:35px!important;
+    padding:8px!important;border:0!important;border-radius:8px!important;
+    background:#e9f3e8!important;color:#27643c!important;
+    align-self:center!important;
+  }
+  #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy{
+    display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
+    align-items:flex-start!important;justify-content:center!important;
+    gap:4px!important;min-width:0!important;width:auto!important;
+    margin:0!important;padding:0!important;text-align:left!important;
+  }
+  #app .admin-shortcut-grid .admin-shortcut-copy strong{
+    display:block!important;font-size:12px!important;font-weight:760!important;
+    line-height:1.25!important;color:#21392a!important;text-align:left!important;
+    white-space:normal!important;
+  }
+  #app .admin-shortcut-grid .admin-shortcut-copy small{
+    display:block!important;font-size:10px!important;line-height:1.4!important;
+    color:#536857!important;text-align:left!important;
+  }
+  #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):hover{
+    background:#f6f9f4!important;border-color:#9ebda4!important;
+  }
+  #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):nth-child(3n+2) .admin-shortcut-art{
+    background:#fff1e3!important;color:#ad6021!important
+  }
+  #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):nth-child(3n) .admin-shortcut-art{
+    background:#fff0ec!important;color:#af4639!important
+  }
+}
+@media (min-width:701px) and (max-width:1220px){
+  #app .admin-shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+/* Identidade editorial: divisões evidentes e cor sem excesso de informação. */
+#app #collection-nav .menu-section-title{
+  display:flex!important;min-height:33px!important;align-items:center!important;
+  gap:7px!important;margin:9px 0 5px!important;padding:8px 9px!important;
+  background:#e8f2e6!important;border:0!important;border-left:3px solid #5f9a3e!important;
+  border-radius:5px!important;color:#245939!important;
+  font-size:10px!important;font-weight:850!important;letter-spacing:.055em!important
+}
+#app #collection-nav .menu-section-title svg{color:#39754b!important}
+#app #collection-nav .menu-section:nth-of-type(3n+2) .menu-section-title{
+  background:#fff1e4!important;border-left-color:#d9731f!important;color:#8e4718!important
+}
+#app #collection-nav .menu-section:nth-of-type(3n+2) .menu-section-title svg{color:#b76027!important}
+#app #collection-nav .menu-section:nth-of-type(3n) .menu-section-title{
+  background:#fff0ec!important;border-left-color:#d43a2f!important;color:#99433b!important
+}
+#app #collection-nav .menu-section:nth-of-type(3n) .menu-section-title svg{color:#b84d42!important}
+#app .dashboard-shortcut-heading{
+  display:flex;align-items:center;gap:12px;margin-bottom:11px!important;
+}
+#app .dashboard-shortcut-heading h2{
+  margin:0!important;color:#285b36!important;font-size:15px!important;font-weight:800!important
+}
+#app .dashboard-shortcut-heading::after{
+  content:"";display:block;flex:0 0 69px;height:3px;
+  border-radius:4px;background:linear-gradient(90deg,#5f9a3e 0 37%,#d9731f 37% 70%,#d43a2f 70% 100%)
+}
+#app .page-heading .eyebrow,#app .dashboard-activity-heading .eyebrow{
+  color:#376b45!important;font-weight:800!important
+}
+/* Compactar de verdade: todas as áreas do painel, não só os cartões de indicador. */
+html[data-admin-density="compact"] #app .page-content{padding-top:11px!important;padding-bottom:25px!important}
+html[data-admin-density="compact"] #app .page-heading{margin-bottom:11px!important;gap:8px!important}
+html[data-admin-density="compact"] #app .page-heading h1{margin:0 0 4px!important;font-size:22px!important}
+html[data-admin-density="compact"] #app .stats-grid{gap:6px!important;margin-bottom:10px!important}
+html[data-admin-density="compact"] #app .stat-card{
+  min-height:82px!important;padding:10px 12px!important;gap:3px!important
+}
+html[data-admin-density="compact"] #app .stat-card strong{margin:3px 0!important;font-size:25px!important}
+html[data-admin-density="compact"] #app .stat-card small{font-size:10px!important;margin-top:0!important}
+html[data-admin-density="compact"] #app .admin-shortcuts{margin-bottom:11px!important}
+html[data-admin-density="compact"] #app .admin-shortcut-grid{gap:6px!important}
+html[data-admin-density="compact"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut){
+  min-height:62px!important;padding:8px 10px!important;gap:8px!important;border-radius:7px!important
+}
+html[data-admin-density="compact"] #app .admin-shortcut-grid .admin-shortcut-art{
+  width:28px!important;height:28px!important;min-width:28px!important;
+  min-height:28px!important;max-width:28px!important;max-height:28px!important;
+  flex-basis:28px!important;padding:6px!important
+}
+html[data-admin-density="compact"] #app .admin-shortcut-grid .admin-shortcut-copy{gap:2px!important}
+html[data-admin-density="compact"] #app .dashboard-shortcut-heading{margin-bottom:7px!important}
+html[data-admin-density="compact"] #app .dashboard-chart-grid{gap:7px!important;margin-bottom:8px!important}
+html[data-admin-density="compact"] #app :is(
+  .dashboard-chart-card,.dashboard-analytics-card,.dashboard-activity-card,
+  .panel-card,.editorial-review,.batch-dashboard-notice,.record-card,
+  .settings-hub-card,.gallery-photo-card,.media-browser,.media-folder-panel
+){padding:10px 12px!important;margin-bottom:9px!important}
+html[data-admin-density="compact"] #app #collection-nav button{
+  min-height:29px!important;padding:3px 7px!important
+}
+html[data-admin-density="compact"] #app #collection-nav .menu-section{
+  margin-top:5px!important;gap:0!important
+}
+html[data-admin-density="compact"] #app #collection-nav .menu-section-title{
+  min-height:27px!important;padding:5px 7px!important;margin:4px 0!important
+}
+html[data-admin-density="compact"] #app .sidebar{padding-block:9px!important}
+html[data-admin-density="compact"] #app .sidebar .brand{min-height:53px!important;padding-bottom:7px!important;margin-bottom:5px!important}
+html[data-admin-density="compact"] #app .topbar{min-height:48px!important;padding-block:5px!important}
+html[data-admin-density="compact"] #app :is(.field,.media-filter){gap:3px!important}
+html[data-admin-density="compact"] #app :is(.field input,.field select,.collection-search input,.collection-sort-control select){
+  min-height:35px!important;height:35px!important;padding:6px 9px!important
+}
+html[data-admin-density="compact"] #app :is(.table-wrap th,.table-wrap td,.data-table th,.data-table td){
+  padding:7px 10px!important
+}
+html[data-admin-density="compact"] #app .modal-body{gap:9px!important;padding:13px!important}
+html[data-admin-density="compact"] #app .modal-head{padding:12px 15px!important}
+html[data-admin-density="compact"] #app .modal-foot{padding:9px 15px!important}
+@media(max-width:700px){
+  html[data-admin-density="compact"] #app .page-content{padding:10px 12px calc(93px + env(safe-area-inset-bottom))!important}
+  html[data-admin-density="compact"] #app .mobile-app-intro{padding:13px!important;margin-bottom:10px!important}
+  html[data-admin-density="compact"] #app .stat-card{min-height:93px!important}
+  html[data-admin-density="compact"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut){
+    min-height:94px!important;padding:10px!important
+  }
+  html[data-admin-density="compact"] #app .admin-shortcut-grid .admin-shortcut-art{
+    width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important;
+    max-width:31px!important;max-height:31px!important;flex-basis:31px!important
+  }
+  #app #collection-nav .menu-section-title{margin:12px 1px 7px!important}
+}
+/* Modo escuro revisado: contraste de superfícies internas, linhas e controles. */
+html[data-admin-theme="dark"]{
+  --editor-bg:#101712;--editor-white:#1b2820;--editor-side:#142018;
+  --editor-ink:#f2f8f2;--editor-muted:#d3e2d4;--editor-faint:#b8cdbb;
+  --editor-border:#4c6551;--editor-border-strong:#6b8571;
+  --editor-green:#94d3a1;--editor-green-deep:#c0ebc6;--editor-green-wash:#2c4936;
+  --app-bg:#101712;--app-card:#1b2820;--app-ink:#f2f8f2;
+  --app-muted:#d3e2d4;--app-hairline:#4c6551;--app-pale:#2c4936
+}
+html[data-admin-theme="dark"] #app :is(.topbar,.mobile-dock,.sidebar){background:#16231b!important;color:#f2f8f2!important;border-color:#4c6551!important}
+html[data-admin-theme="dark"] #app .page-content{background:#101712!important}
+html[data-admin-theme="dark"] #app :is(
+  .page-heading,.stat-card,.panel-card,.dashboard-chart-card,.dashboard-activity-card,
+  .dashboard-analytics-card,.record-card,.admin-shortcut,.admin-tool-shortcut,
+  .settings-hub-card,.collection-card,.batch-review-item,.batch-media-item,
+  .batch-checkout,.editorial-review,.media-browser,.media-folder-panel,
+  .media-card,.gallery-photo-card,.config-list-row,.collection-search,.gallery-sort-bar,
+  .dashboard-chart-grid,.analytics-detail-card,.analytics-metric,.batch-dashboard-notice,
+  .media-folder-tile,.media-folder-nav-item,.media-toolbar,.modal,.modal-body,.modal-head,
+  .modal-foot,.batch-summary-bar>div,.analytics-list,.analytics-list-item,.media-bulk-bar
+){background:#1b2820!important;color:#f0f8f0!important;border-color:#4c6551!important}
+html[data-admin-theme="dark"] #app :is(
+  .admin-shortcut-copy strong,.admin-shortcut-copy small,.dashboard-shortcut-heading h2,
+  .page-heading h1,.page-heading p,.page-heading .eyebrow,.stat-card span,.stat-card strong,
+  .stat-card small,.dashboard-chart-card h2,.dashboard-activity-card h2,.dashboard-analytics-card h2,
+  .chart-legend-label,.chart-legend-item strong,.dashboard-activity-heading p,.dashboard-analytics-heading p,
+  .analytics-metric strong,.analytics-metric span,.analytics-metric small,.analytics-detail-heading h3,
+  .analytics-detail-heading span,.settings-hub-copy strong,.settings-hub-copy small,
+  .activity-entry-top strong,.activity-entry-top time,.activity-entry-main p,.activity-entry-meta span,
+  .batch-checkout strong,.batch-checkout p,.batch-review-item strong,.batch-review-item h3,
+  .record-card strong,.record-card-meta span,.record-card-meta small,
+  .media-name,.media-path,.media-size,.media-usage-note,.media-browser-heading p,
+  .media-browser-heading h2,.media-folder-tile-text strong,.media-folder-tile-text small,
+  .field label,.field small,.gallery-sort-bar label,.gallery-sort-bar p,
+  .collection-search label,.collection-search p,.table-wrap td,.table-wrap th,
+  .data-table th,.data-table td,.editorial-review h2,.editorial-review p
+){color:#e6f3e8!important}
+html[data-admin-theme="dark"] #app :is(.eyebrow,.dashboard-shortcut-heading h2){color:#a7dfb4!important}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section-title{
+  background:#274232!important;color:#dbf1df!important;border-left-color:#85bd82!important
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section:nth-of-type(3n+2) .menu-section-title{
+  background:#3c2c21!important;color:#ffe1c2!important;border-left-color:#e39950!important
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section:nth-of-type(3n) .menu-section-title{
+  background:#3b2928!important;color:#ffdcd6!important;border-left-color:#de8175!important
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section-title svg{color:inherit!important}
+html[data-admin-theme="dark"] #app #collection-nav button{color:#e1efe3!important}
+html[data-admin-theme="dark"] #app #collection-nav button:hover{background:#2d4434!important;color:#f6fff6!important}
+html[data-admin-theme="dark"] #app #collection-nav button.active{
+  background:#2b4d37!important;color:#f3fff4!important;border-color:#547a5e!important
+}
+html[data-admin-theme="dark"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut){
+  background:#1b2820!important;border-color:#4c6551!important
+}
+html[data-admin-theme="dark"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):hover{
+  background:#243729!important;border-color:#7c9a81!important
+}
+html[data-admin-theme="dark"] #app .admin-shortcut-grid .admin-shortcut-art{
+  background:#264632!important;color:#b6ebbf!important
+}
+html[data-admin-theme="dark"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):nth-child(3n+2) .admin-shortcut-art{
+  background:#423025!important;color:#ffcc98!important
+}
+html[data-admin-theme="dark"] #app .admin-shortcut-grid > :is(.admin-shortcut,.admin-tool-shortcut):nth-child(3n) .admin-shortcut-art{
+  background:#412d2b!important;color:#ffb7af!important
+}
+html[data-admin-theme="dark"] #app :is(input:not([type=checkbox]):not([type=radio]),select,textarea,.secondary-button,.small-button,.batch-topbar){
+  background:#152219!important;color:#eff9f0!important;border:1px solid #718d75!important
+}
+html[data-admin-theme="dark"] #app :is(input,select,textarea):focus{
+  outline:2px solid #a1d7ac!important;outline-offset:1px!important
+}
+html[data-admin-theme="dark"] #app :is(.primary-button,.pref-done){
+  background:#326e44!important;color:#fff!important;border-color:#86b790!important
+}
+html[data-admin-theme="dark"] #app :is(.secondary-button,.small-button):hover{
+  background:#2b4531!important;color:#fff!important
+}
+html[data-admin-theme="dark"] #app :is(.data-table th,.table-wrap th){background:#2a4030!important}
+html[data-admin-theme="dark"] #app :is(.media-card-preview,.media-card-thumb,.media-file-placeholder){
+  background:#263a2c!important;color:#dfece1!important
+}
+html[data-admin-theme="dark"] #app :is(.media-usage-badge,.record-card-heading>span,.nav-count,.batch-tag){
+  background:#314733!important;color:#e6f4e8!important;border-color:#607e65!important
+}
+html[data-admin-theme="dark"] #app .login-card{
+  background:#18281d!important;color:#ecf6ec!important;border-color:#537457!important
+}
+html[data-admin-theme="dark"] #app .login-card :is(h1,p,label,.eyebrow,.login-note){color:#e5f0e6!important}
+html[data-admin-theme="dark"] #app .admin-preferences-dialog{
+  background:#1b2820!important;color:#edf6ed!important;border-color:#55745a!important
+}
+html[data-admin-theme="dark"] #app .pref-setting strong,
+html[data-admin-theme="dark"] #app .pref-heading h2{color:#eef8ef!important}
+html[data-admin-theme="dark"] #app .pref-setting small{color:#c9dacb!important}
