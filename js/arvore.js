@@ -8,11 +8,12 @@ const NS='http://www.w3.org/2000/svg',W=1200,H=900;
 const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 1200 900');svg.setAttribute('role','group');svg.setAttribute('aria-label','Árvore fractal interativa do conhecimento GPENSC');svg.style.cssText='width:100%;height:100%;display:block;touch-action:none;background:#fbfcf8';map.replaceChildren(svg);
 const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;};
 const limbs=el('g'),nodes=el('g');
-const reveal=[];let zoomAnimation=0;
+let zoomAnimation=0;
 const tips=[];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const camera={x:0,y:0,w:W,h:H};
-function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));const visibleWidth=camera.w;for(const item of reveal){const pixelSize=item.size*map.clientWidth/Math.max(1,visibleWidth);const opacity=clamp((pixelSize-item.threshold)/Math.max(1,item.threshold*.75),0,1);item.element.style.opacity=opacity;item.element.style.pointerEvents=opacity>.35?'auto':'none';}}
+// Tudo permanece desenhado e interativo em qualquer nível de zoom. O zoom altera apenas a câmera.
+function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));}
 function animate(to){const animation=++zoomAnimation;const start={...camera},t0=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:420;function frame(now){if(animation!==zoomAnimation)return;const t=duration?clamp((now-t0)/duration,0,1):1,k=t*t*(3-2*t);for(const key of ['x','y','w','h'])camera[key]=start[key]+(to[key]-start[key])*k;paint();if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);}
 function focus(p,w=350){const h=w*map.clientHeight/Math.max(1,map.clientWidth);const panel=root.querySelector('#gp49-detail');const mobile=map.clientWidth<768;const obscured=panel&&!panel.hidden?Math.min(panel.offsetHeight/map.clientHeight,.65):0;const visibleCenterY=mobile?(1-obscured)*.5:.5;const visibleCenterX=mobile?.5:panel&&!panel.hidden?.37:.5;animate({x:p.x-w*visibleCenterX,y:p.y-h*visibleCenterY,w,h});}
 function show(i){const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;panel.replaceChildren();const close=document.createElement('button');close.textContent='Fechar';close.className='gp49-close';close.onclick=()=>panel.hidden=true;const h=document.createElement('h2');h.textContent=names[i];const body=row.querySelector('.gp49-line-body')?.cloneNode(true);panel.append(close,h);if(body)panel.append(body);panel.hidden=false;rows.forEach((r,j)=>r.querySelector('button')?.setAttribute('aria-pressed',String(i===j)));}
@@ -44,7 +45,6 @@ function leaf(origin, angle, scale, index) {
   const title=el('text',{'text-anchor':'middle','font-size':font, fill:'white','pointer-events':'none'},g);
   lines.forEach((line,i)=>el('tspan',{x:0,y:(i-(lines.length-1)/2+.3)*font*1.12},title).textContent=line);
   el('title',{},g).textContent=names[index];
-  reveal.push({element:g,size:r*2,threshold:rows[index].dataset.branchType==='projeto'?92:38});
   const select=()=>{show(index);};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -77,7 +77,6 @@ function fruits(index,origin,angle,scale){
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   el('title',{},g).textContent=item.nome;
-  reveal.push({element:g,size:radius*2,threshold:15});
   const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
