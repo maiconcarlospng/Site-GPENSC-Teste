@@ -1,15 +1,14 @@
-/* GPENSC — densidade visual no desktop (referência: navegador a 90%)
-   Escala tipográfica e espaçamento sem aplicar zoom geométrico: o layout de
-   tela cheia, a galeria e as navegações permanecem com larguras previsíveis. */
+/* GPENSC — densidade visual com proporções originais.
+   A escala de 95% é definida apenas em site-escala.css, sem zoom geométrico.
+   Este arquivo preserva os espaçamentos e as faixas em largura total. */
 @media (min-width:1100px){
-  html{font-size:90%!important}
   html body{--bs-body-font-size:1rem;--bs-body-line-height:1.55}
   html body #quarto-content .secao>h2{
     margin-top:clamp(16px,1.8vw,26px)!important;
     margin-bottom:clamp(10px,1.3vw,20px)!important
   }
   html body #quarto-content :is(.nt,.pq,.membro-card,.pesquisa-atalho,.agenda-defesa){
-    --gp-density-desktop:.9;
+    --gp-density-desktop:1;
   }
   html body #quarto-header .navbar.navbar-expand-lg .navbar-nav .nav-link{
     font-size:clamp(12px,.84rem,14px)!important
@@ -55,7 +54,7 @@ html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda .agenda-chama
   }
 }
 
-/* A régua de 90% para todos os idiomas é definida apenas em site-escala.css.
+/* A régua suave para todos os idiomas é definida apenas em site-escala.css.
    A largura total deve ser aplicada ao wrapper EXTERNO do chunk Quarto:
    hero + galeria compartilham o mesmo .cell-output-display. */
 html body:has(.hero) #quarto-content {

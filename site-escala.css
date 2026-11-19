@@ -1,9 +1,14 @@
-/* Única regra de escala do site público GPENSC.
-   Vale para PT, EN e ES, inclusive quando o Google Tradutor modifica lang.
-   Não aplicar na árvore interativa, que mantém seu zoom próprio. */
-@media screen and (min-width:1100px) {
-  html { zoom:.9!important; }
+/* Escala editorial do GPENSC.
+   Em vez de dar zoom na raiz (o que encolhe a viewport e pode deixar
+   margens brancas no header/galeria), mantemos o layout em 100%
+   e reduzimos discretamente apenas a tipografia baseada em rem no desktop.
+   A regra é idêntica nos idiomas PT, EN e ES. */
+@media screen and (min-width: 1100px) {
+  html {
+    zoom: 1 !important;
+    font-size: 95% !important;
+  }
 }
-@media screen and (max-width:1099.98px) {
-  html { zoom:1!important; }
+@media screen and (max-width: 1099.98px) {
+  html { zoom: 1 !important; }
 }
