@@ -64,7 +64,7 @@ function refreshLeafLabels(){
  for(const leaf of leafLayout){
    const width=leaf.r*2.16*px;
    const font=leaf.font*leaf.r*px;
-   leaf.group.classList.toggle('gp49-leaf--compact',width<78||font<10.5);
+   leaf.group.classList.toggle('gp49-leaf--compact',width<62||font<9);
  }
 }
 function paint(){
@@ -132,7 +132,7 @@ function leaf(origin, angle, scale, index) {
   // Texto sempre horizontal, calculado conforme a inclinação e a área da folha.
   const normalized=((angle+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
   const span=1.6/Math.sqrt(Math.cos(normalized)**2+(Math.sin(normalized)/.66)**2);
-  const maxChars=Math.max(8,Math.min(19,Math.floor(span/.135)));
+  const maxChars=Math.max(9,Math.min(23,Math.floor(span/.115)));
   const words=names[index].trim().split(/\s+/);
   const lines=[''];
   for(const word of words){
@@ -147,7 +147,7 @@ function leaf(origin, angle, scale, index) {
       ?remaining.slice(0,Math.max(3,maxChars-1)).trimEnd()+'…':remaining);
   }
   const longest=Math.max(...lines.map(line=>line.length),1);
-  const font=Math.min(.32,span/(longest*.57+1),.91/(lines.length*1.19));
+  const font=Math.min(.37,span/(longest*.54+1),.94/(lines.length*1.22));
   const title=el('text',{'text-anchor':'middle','font-size':font,
     'font-weight':'720','font-family':'system-ui,sans-serif',
     fill:'#fffef7','pointer-events':'none','dominant-baseline':'middle',
