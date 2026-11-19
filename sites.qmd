@@ -1,6 +1,6 @@
 ---
-title: "Vínculos institucionais"
-pagetitle: "Vínculos institucionais – GPENSC"
+title: "Parcerias"
+pagetitle: "Parcerias – GPENSC"
 page-layout: custom
 title-block-banner: false
 ---
