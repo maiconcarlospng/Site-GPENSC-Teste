@@ -284,8 +284,23 @@ ul.task-list li input[type="checkbox"] {
     } else if (langCode === 'pt') {
       window.location.reload();
     } else {
-      // Abre a tradução da página quando o widget não está disponível.
-      window.location.assign('https://translate.google.com/translate?sl=pt&tl=' + encodeURIComponent(langCode) + '&u=' + encodeURIComponent(window.location.href));
+      // O widget do Google pode demorar a surgir. Aguardar o select na
+      // própria página preserva a URL e a escala de 90% do site.
+      // Nunca redirecionar para translate.google.com (outro documento/viewport).
+      var tentativas = 0;
+      var idiomaSolicitado = langCode;
+      function aguardarSeletorTradutor() {
+        var pendente = document.querySelector('.goog-te-combo');
+        if (pendente) {
+          pendente.value = idiomaSolicitado;
+          pendente.dispatchEvent(new Event('change', { bubbles: true }));
+        } else if (++tentativas < 40) {
+          window.setTimeout(aguardarSeletorTradutor, 200);
+        } else {
+          console.warn('GPENSC: o serviço de tradução automática não ficou disponível nesta página.');
+        }
+      }
+      aguardarSeletorTradutor();
     }
   }
 
