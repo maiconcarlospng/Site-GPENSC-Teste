@@ -1,106 +1,69 @@
 <div align="center">
 
-<img src="img/hero-gpensc-bg.svg" alt="Identidade visual do GPENSC" width="100%">
+<img src="img/logo_gpensc.png" alt="Marca institucional do GPENSC" width="120">
 
-<img src="img/logo_gpensc.png" alt="Logotipo do GPENSC" width="180">
+# GPENSC · Site institucional
 
-# GPENSC
-### Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva
+**Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva**  
+Escola de Nutrição · Universidade Federal de Ouro Preto
 
-**Universidade Federal de Ouro Preto · UFOP**
+[**Acessar o site**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/) · [**Abrir o painel**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) · [**Manual de edição**](COMO-EDITAR.md)
 
-Pesquisa, ensino, extensão e divulgação científica em Nutrição e Saúde Coletiva.
-
-[**Conhecer o site**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/) · [**Painel administrativo**](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) · [**Guia de edição**](COMO-EDITAR.md)
-
-![Quarto](https://img.shields.io/badge/Quarto-site%20estático-1F4D2B?style=flat-square) ![R](https://img.shields.io/badge/R-dados%20e%20componentes-D9731F?style=flat-square) ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-publicação-D43A2F?style=flat-square)
-
-<sub>Repositório experimental de desenvolvimento e validação. A migração para uma conta institucional ainda está planejada.</sub>
+<img alt="Quarto" src="https://img.shields.io/badge/Quarto-site-1F4D2B?style=flat-square">
+<img alt="R" src="https://img.shields.io/badge/R-componentes-5F9A3E?style=flat-square">
+<img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-publica%C3%A7%C3%A3o-D9731F?style=flat-square">
 
 </div>
 
----
+> **Situação atual — protótipo em desenvolvimento.** O repositório permanece em `maiconcarlospng/Site-GPENSC-Teste`. **A portabilidade para uma conta ou organização institucional do GPENSC ainda não foi realizada.** O plano está documentado [mais abaixo](#portabilidade-futura-para-a-conta-do-gpensc), para execução somente após a coordenação definir os responsáveis e o endereço oficial.
 
-## Conheça o projeto
+## Visão geral
 
-Este repositório reúne o site institucional experimental do **GPENSC**, sua documentação, os conteúdos versionados e as ferramentas de administração. A navegação pública apresenta o grupo, sua história, a árvore do conhecimento, pesquisas, extensão, ensino, divulgação científica, agenda e notícias.
+Este repositório contém o site do **GPENSC**, os dados públicos, os recursos visuais, os workflows de publicação e o painel de gestão de conteúdo. É um projeto estático desenvolvido com **Quarto, R, HTML, CSS/SCSS, JavaScript e YAML**, publicado pelo **GitHub Actions + GitHub Pages**.
 
-<table>
-<tr>
-<td width="50%" valign="top">
+O portal reúne informações institucionais e conteúdo de **pesquisa, extensão, ensino, divulgação científica, notícias e agenda**, além da Árvore do Conhecimento. O conteúdo é versionado no GitHub e pode ser atualizado pelo painel administrativo.
 
-### Site público
+### Acessos principais
 
-Interface responsiva, conteúdo acadêmico e páginas institucionais geradas com Quarto e R.
+| Recurso | Endereço |
+| --- | --- |
+| Site de desenvolvimento | [Abrir site](https://maiconcarlospng.github.io/Site-GPENSC-Teste/) |
+| Painel administrativo | [Abrir painel](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) |
+| Editor Sveltia alternativo | [Abrir editor](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/cms.html) |
+| Publicação e validação | [GitHub Actions](https://github.com/maiconcarlospng/Site-GPENSC-Teste/actions) |
+| Instruções para editar conteúdos | [COMO-EDITAR.md](COMO-EDITAR.md) |
+| Plano de transferência para o GPENSC | [Portabilidade futura](#portabilidade-futura-para-a-conta-do-gpensc) |
 
-[Visitar o site](https://maiconcarlospng.github.io/Site-GPENSC-Teste/)
-
-</td>
-<td width="50%" valign="top">
-
-### Gestão de conteúdo
-
-Painel de administração para manutenção de registros, imagens, configurações e publicações.
-
-[Acessar o painel](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/)
-
-</td>
-</tr>
-</table>
-
-### Identidade institucional
+### Vínculos institucionais
 
 <div align="center">
-<img src="img/ufop-logo.jpg" alt="Universidade Federal de Ouro Preto" height="70">
-&nbsp;&nbsp;&nbsp;
-<img src="img/logo_nutricao.png" alt="Nutrição" height="70">
-&nbsp;&nbsp;&nbsp;
-<img src="img/logo_ppgsn.png" alt="Programa de Pós-Graduação em Saúde e Nutrição" height="70">
+  <a href="https://ufop.br/" title="Universidade Federal de Ouro Preto"><img src="img/ufop-logo.jpg" alt="UFOP" height="40"></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://enut.ufop.br/" title="Escola de Nutrição da UFOP"><img src="img/logo_nutricao.png" alt="Escola de Nutrição" height="40"></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://posnutricao.ufop.br/" title="Programa de Pós-Graduação em Saúde e Nutrição"><img src="img/logo_ppgsn.png" alt="PPGSN" height="40"></a>
 </div>
 
-> As marcas acima identificam vínculos institucionais do projeto. Para informações atualizadas sobre integrantes, parcerias e atividades, consulte o site.
+<sub>As marcas são carregadas dos arquivos do próprio repositório, sem duplicações. Seus usos devem respeitar as orientações institucionais.</sub>
 
 ---
 
-## Documentação técnica completa
+## Navegação desta documentação
 
-Abaixo estão os procedimentos de arquitetura, edição, publicação, segurança e manutenção. Esta documentação deve ser consultada antes de alterar a infraestrutura ou os fluxos do painel.
-
-# GPENSC — Site institucional e painel de gestão
-
-> **Estado do projeto:** ambiente de desenvolvimento e validação do site do Grupo de Pesquisa e Ensino em Nutrição e Saúde Coletiva (GPENSC), vinculado à Universidade Federal de Ouro Preto (UFOP). Este repositório ainda está na conta pessoal de desenvolvimento e **a portabilidade para a conta/organização institucional do GPENSC está planejada, mas não foi realizada**. A aprovação institucional, o endereço definitivo e os responsáveis pela infraestrutura devem ser confirmados antes da migração.
-
-O site é responsivo e construído com **Quarto, R, HTML, CSS/SCSS e YAML**. Os dados são versionados no GitHub. O conteúdo público é gerado como site estático pelo **GitHub Actions + GitHub Pages**. A administração possui um painel próprio conectado à API do GitHub e uma rota separada para o **Sveltia CMS**.
-
-## Acessos e repositório atual
-
-- **Site de desenvolvimento:** https://maiconcarlospng.github.io/Site-GPENSC-Teste/
-- **Painel principal:** https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/
-- **Painel próprio (rota direta):** https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/app.html
-- **Editor Sveltia alternativo:** https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/cms.html
-- **Repositório:** https://github.com/maiconcarlospng/Site-GPENSC-Teste
-- **Publicações e validações:** https://github.com/maiconcarlospng/Site-GPENSC-Teste/actions
-- **Guia operacional complementar:** [COMO-EDITAR.md](COMO-EDITAR.md)
-- **Configuração do rastreamento:** [analytics.html](analytics.html), [data/analytics.json](data/analytics.json)
-- **Worker de estatísticas:** [analytics-worker/](analytics-worker/) e [instruções de ativação](analytics-worker/README.md)
-
----
-
-## Índice
-
-1. [Arquitetura e funcionamento](#arquitetura-e-funcionamento)
-2. [Painel administrativo](#painel-administrativo)
-3. [Coleções e configurações](#coleções-e-configurações)
-4. [Agenda e destaque automático na página inicial](#agenda-e-destaque-automático-na-página-inicial)
-5. [Painel de resumo e histórico](#painel-de-resumo-e-histórico)
-6. [Estatísticas de acesso com Umami](#estatísticas-de-acesso-com-umami)
-7. [Mapa dos principais arquivos](#mapa-dos-principais-arquivos)
-8. [Publicação, validação e GitHub Actions](#publicação-validação-e-github-actions)
-9. [Desenvolvimento local](#desenvolvimento-local)
-10. [Cuidados de manutenção e segurança](#cuidados-de-manutenção-e-segurança)
-11. [Portabilidade futura para a conta do GPENSC](#portabilidade-futura-para-a-conta-do-gpensc)
-12. [Checklist antes da institucionalização](#checklist-antes-da-institucionalização)
-13. [Solução de problemas](#solução-de-problemas)
+- [Arquitetura e funcionamento](#arquitetura-e-funcionamento)
+- [Painel administrativo, login e permissões](#painel-administrativo)
+- [Coleções e configurações](#coleções-e-configurações)
+- [Agenda e destaque automático](#agenda-e-destaque-automático-na-página-inicial)
+- [Painel de resumo e histórico](#painel-de-resumo-e-histórico)
+- [Estatísticas com Umami](#estatísticas-de-acesso-com-umami)
+- [Mapa dos principais arquivos](#mapa-dos-principais-arquivos)
+- [Publicação e GitHub Actions](#publicação-validação-e-github-actions)
+- [Desenvolvimento local](#desenvolvimento-local)
+- [Manutenção e segurança](#cuidados-de-manutenção-e-segurança)
+- **[Guia completo de portabilidade futura](#portabilidade-futura-para-a-conta-do-gpensc)**
+- [Checklist antes da institucionalização](#checklist-antes-da-institucionalização)
+- [Solução de problemas](#solução-de-problemas)
+- [Licença e uso](#licença-e-uso)
 
 ---
 
@@ -534,156 +497,148 @@ Revise cuidadosamente `git status`. Não inclua tokens, chaves, segredos, arquiv
 
 ## Portabilidade futura para a conta do GPENSC
 
-**A migração ainda não foi feita.** O repositório, os URLs e o Worker OAuth ainda usam a infraestrutura de desenvolvimento vinculada à conta pessoal. A portabilidade deve ser planejada com a coordenação do GPENSC e executada somente quando houver uma conta/organização institucional, responsáveis e permissões definidos.
+> **Plano para executar depois — não iniciado.** Nenhum repositório, domínio, token ou serviço foi transferido por esta documentação. Até a migração ser aprovada e testada, os links e a configuração de produção continuam apontando para a infraestrutura de desenvolvimento.
 
-### Destino definitivo e desligamento das contas de desenvolvimento
+**Objetivo:** que o próprio GPENSC seja capaz de administrar o código, editar conteúdo, publicar o site, acessar o Instagram e as métricas, renovar serviços e recuperar contas **sem depender das credenciais pessoais utilizadas na criação do protótipo**.
 
-Ao concluir a migração, o GPENSC será responsável pela propriedade, recuperação de acesso, cobrança e operação de cada serviço. As contas pessoais de Maicon são a infraestrutura de origem. O grupo deverá conseguir editar uma notícia, importar um post, publicar o site, consultar as métricas e recuperar o acesso mesmo depois de Maicon sair das equipes.
+### 1. Definir o destino e os responsáveis
 
-| Serviço | O que fica sob controle do GPENSC | Como conferir a entrega |
-|---|---|---|
-| E-mail institucional | Caixa acompanhada pela coordenação para convites, recuperação, alertas de falhas e renovação. Guardar os códigos de recuperação no cofre do grupo. | Dois responsáveis designados conseguem acessar os avisos e localizar os meios de recuperação. |
-| GitHub, Pages e Actions | Organização do grupo como proprietária, responsáveis com logins individuais, branches, histórico, imagens, permissões dos workflows e URL pública. | Um membro designado publica uma edição pelo painel e acompanha a execução em Actions. |
-| Cloudflare e login do painel | Conta Cloudflare do grupo para os Workers de OAuth, acesso por código e métricas. OAuth App sob gestão do grupo, novos segredos de cliente e sessão, novo código de acesso e token GitHub emitido por uma identidade de serviço gerida pelo GPENSC. | Em janela privada, testar separadamente o login GitHub, o acesso por código e o editor Sveltia. Conferir a gravação no repositório definitivo. |
-| Instagram e Apify | Coordenação com acesso e recuperação do perfil institucional. Workspace Apify, créditos, cobrança e token de coleta pertencentes ao grupo. Configurar o segredo `APIFY_TOKEN` no repositório de destino. | Executar **Sincronizar Instagram** no GitHub institucional. Conferir o log, depois a capa, o título, o resumo e a fonte do próximo post novo. A rotina roda pelo GitHub, independentemente da conta do ChatGPT usada no desenvolvimento. |
-| Umami | Propriedade do site e chave de API administradas pelo grupo. Se o histórico precisar ser preservado, validar o acesso institucional à propriedade antiga antes de trocar o identificador. | Acessar o novo domínio e conferir a visita no Umami e o relatório no painel. |
-| Spotify e UFOPCast | Para administrar o **GPENSC no Ar**, recuperar o programa com o responsável atual ou pelo suporte da plataforma e conceder acesso à equipe institucional. Registrar esse item como pendente até o grupo conseguir entrar. O UFOPCast é externo; o GPENSC mantém a seleção de episódios no site. | Testar o player público e os links. Separadamente, confirmar que um responsável do grupo consegue administrar o GPENSC no Ar. |
-| Domínio e DNS, se houver | Titularidade, acesso ao registrador, contatos de renovação, cobrança, zona DNS e HTTPS sob responsabilidade institucional. | Abrir o endereço definitivo em janela privada e confirmar que os avisos de renovação chegam ao grupo. |
+Antes de mudar qualquer configuração:
 
-**Teste de saída de Maicon.** Registrem no cofre institucional os responsáveis e os identificadores dos serviços. No repositório, mantenham apenas os nomes das variáveis e os endereços públicos. Em uma sessão exclusiva da equipe, validem a publicação, o painel, as capas, a coleta e as métricas. Em seguida, removam os acessos pessoais substituídos, revoguem tokens antigos, troquem códigos compartilhados e retirem e-mail, telefone e forma de pagamento pessoais dos serviços migrados. No ciclo seguinte do agendamento, confiram em Actions que a coleta continua funcionando. Se um serviço ainda depende do antigo titular, registrem qual é, quem vai assumir e qual teste falta concluir.
+1. A coordenação aprova a institucionalização do site e define quem responde pela administração técnica e editorial.
+2. Definir um **e-mail de referência institucional**, acessível à coordenação, para convites, notificações, recuperação de conta e cobrança. Evitar depender de uma caixa pessoal.
+3. Criar ou identificar a **organização GitHub** do grupo; confirmar o nome disponível. Usar contas individuais para os responsáveis, com **pelo menos dois administradores** e autenticação em dois fatores.
+4. Definir se o endereço será um **GitHub Pages de projeto** (por exemplo, `ORGANIZACAO.github.io/NOME-DO-REPOSITORIO/`), um **site de organização** (que exige repositório específico para esse formato) ou um **domínio próprio**. Nenhum desses nomes de exemplo é um endereço já reservado.
+5. Registrar proprietários e responsáveis por GitHub, Cloudflare, OAuth, Apify, Umami, domínio e acervos de mídia. Documentar também onde ficam as credenciais, os meios de recuperação e os custos recorrentes, **fora do repositório público**.
 
-### Roteiro de entrega ao e-mail e às contas do GPENSC
+**Critério de conclusão:** pelo menos duas pessoas designadas conseguem administrar o conjunto essencial de serviços e recuperar os acessos sem o desenvolvedor original.
 
-1. **Identidade e recuperação.** Definam o e-mail institucional que receberá convites, avisos de cobrança e recuperação. Criem a organização GitHub do grupo, convidem os responsáveis com contas individuais e confirmem o acesso de dois proprietários. Guardem os códigos de recuperação e as credenciais de serviço no cofre institucional.
-2. **Repositório e acervo.** No repositório atual, abram **Settings → General → Danger Zone → Transfer ownership**, informem a organização e aceitem a transferência no destino quando solicitado. Confiram `main`, `render-published`, `inventario-instagram-2026-11`, tags e histórico. A branch de publicação contém capas históricas reaproveitadas pelo build. Se optarem por uma cópia, usem o procedimento alternativo abaixo.
-3. **Endereço e publicação.** Ativem Actions e escolham **GitHub Actions** como origem em **Settings → Pages**. Confiram o ambiente `github-pages`, as permissões dos workflows e, se houver domínio próprio, DNS e HTTPS. Atualizem as referências da tabela abaixo. Executem **Publicar site Quarto → Run workflow** e abram home, agenda, notícias, arquivos de mídia e painel no novo endereço.
-4. **Painel institucional.** Implantem os Workers na conta Cloudflare do grupo. No Worker de acesso por código, alterem também a constante `REPO` em `admin-access-worker/worker.js`, configurem a origem HTTPS e gerem os três segredos indicados abaixo. O token de serviço deve ter acesso ao repositório institucional e permissão de leitura e escrita de conteúdo. Atualizem `REPO`, `WORKER` e `ACCESS_WORKER` em `admin/app.js` e as URLs em `admin/config.yml`. Validem o login GitHub e o acesso por código, o envio de uma imagem e a publicação de um rascunho.
-5. **Estatísticas e mídia.** Transfiram a administração da propriedade Umami ou cadastrem o novo domínio e configurem o Worker conforme as etapas abaixo. Verifiquem o player público do GPENSC no Ar, a lista curada do UFOPCast e os vídeos. A reprodução usa endereços públicos. A gestão editorial do podcast na plataforma exige acesso próprio ao programa; a transferência do site não concede esse acesso.
-6. **Instagram.** Criem a conta Apify da equipe com o e-mail institucional, definam o responsável pelos créditos e adicionem um token dessa conta como `APIFY_TOKEN` no **repositório novo**. Sigam o teste manual da próxima seção. Se o histórico do scraper for necessário, exportem o dataset da conta anterior e arquivem a cópia com o grupo. Os registros e capas já incorporados ao site também estão no Git.
-7. **Entrega.** Abram o painel com uma conta da equipe, publiquem uma alteração identificável e confiram o resultado no novo Pages. Registrem os responsáveis, endereços finais e onde renovar cada segredo. Depois da validação, revoguem os tokens pessoais substituídos e desativem agendamentos duplicados no repositório antigo, se existir.
+### 2. Fazer inventário e cópias de segurança
 
-### Novos posts do Instagram
+- Guardar um backup Git com todas as branches e tags relevantes, especialmente `main` (fontes, YAML e painel) e `render-published` (saída publicada e capas de publicações históricas). Conferir também as branches experimentais que a equipe deseja preservar.
+- Conferir `data/`, `img/`, `admin/`, `.github/workflows/`, `R/`, `js/`, os arquivos `.qmd` e os guias antes de migrar. Imagens externas vinculadas ao Instagram podem expirar; revisar o acervo publicado e as capas arquivadas.
+- Inventariar variáveis, segredos, URLs dos Workers, aplicativo OAuth, propriedade Umami e conta Apify **sem copiar valores de segredos para o Git**.
+- Anotar o estado inicial: último commit da `main`, última publicação bem-sucedida, URL pública, acesso ao painel, coleta do Instagram e disponibilidade das métricas.
+- Combinar um período de transição para evitar edições simultâneas no protótipo e no destino. Não excluir ou arquivar a origem antes dos testes.
 
-O workflow **Sincronizar Instagram** consulta diariamente às **07h23 de Brasília** (10h23 UTC) as 50 publicações recentes de `@gpenscufop` via Apify. O horário de execução pode variar. Para cada código inédito, salva a capa original em WebP, acrescenta a notícia à coleção editável, classifica por assunto e solicita uma publicação do Quarto. O importador usa a legenda para identificar o tema, o nome do trabalho ou a pessoa envolvida e extrair um resumo complementar. Quando faltam detalhes, o log em **Actions → Sincronizar Instagram → Coletar publicações e capas** mostra um aviso com o link do post para cadastro manual em **Painel → Notícias**. Notícias cadastradas com a URL original são reconhecidas nas próximas coletas. O link da fonte conduz ao carrossel ou vídeo completo. A sincronização acrescenta posts novos e preserva as revisões do painel.
+### 3. Transferir o repositório (caminho preferencial)
 
-- Em **Settings → Secrets and variables → Actions → New repository secret**, criem `APIFY_TOKEN` com o token Apify do grupo. A integração do chat não fornece esse segredo ao GitHub.
-- Em **Actions → Sincronizar Instagram → Run workflow**, executem o primeiro teste na `main`. O log informa quantos registros entraram. Zero é esperado quando a janela consultada já estiver no acervo. Com novidades, confirmem o commit e a execução de **Publicar site Quarto**. O consumo do scraper segue o plano Apify da equipe.
-- Em caso de falha, consultem o log, o saldo Apify, a visibilidade do perfil e as regras de escrita da `main`. Corrijam a causa e repitam a execução. Após uma interrupção longa com mais de 50 posts, aumentem temporariamente `POST_LIMIT` no ambiente do passo de coleta para alcançar os posts do período.
-- Para pausar a coleta, abram o workflow em Actions e escolham **Disable workflow**. As notícias já publicadas continuam disponíveis.
+Para manter o histórico e a identidade do projeto:
 
-### Objetivo da portabilidade
+1. Na origem, abrir **Settings → General → Danger Zone → Transfer ownership**.
+2. Escolher a **organização institucional confirmada** e seguir as validações exigidas pelo GitHub; o destino deve aceitar a transferência quando solicitado.
+3. Conferir no destino a `main`, `render-published`, branches adicionais, tags, histórico, imagens e permissões dos colaboradores.
+4. Revisar **Settings → Actions** e **Settings → Pages**, porque as permissões e a publicação podem exigir nova autorização após a transferência.
 
-Levar o código, o conteúdo, o histórico, a publicação, o painel e os serviços externos para contas sob controle institucional, encerrando a dependência das contas pessoais de desenvolvimento.
-
-A migração não consiste apenas em trocar o nome do proprietário do GitHub. O site depende também de Pages, Actions, OAuth, Cloudflare e Umami. Cada integração precisa ser revisada e testada.
-
-### Opção preferencial: transferir a propriedade do repositório
-
-Se o GPENSC tiver uma organização GitHub ou uma conta institucional apropriada, a opção mais direta costuma ser transferir a propriedade do repositório existente, preservando o histórico Git. A transferência deve ser aceita pelo destino e respeitar as regras da organização.
-
-Mesmo quando o histórico é preservado, **não presuma que Pages, URL pública, OAuth, permissões, Workers e estatísticas funcionarão sem atualização**.
-
-### Alternativa: criar o repositório institucional e copiar o histórico
-
-Se a transferência de propriedade não for apropriada:
-
-1. Crie um repositório vazio na organização/conta do GPENSC.
-2. Clone o repositório atual com o histórico.
-3. Troque o remote para o repositório institucional.
-4. Envie todas as branches e tags que precisem ser preservadas.
-5. Mantenha o repositório atual disponível até validar a nova implantação.
-
-Exemplo (substitua o destino pelo nome real definido pelo grupo):
+**Alternativa quando não for possível transferir:** criar um repositório vazio no destino e copiar o histórico. O exemplo abaixo deve ser adaptado aos nomes reais e executado por alguém com autorização de escrita:
 
 ```bash
 git clone --bare https://github.com/maiconcarlospng/Site-GPENSC-Teste.git
 cd Site-GPENSC-Teste.git
-git remote rename origin prototipo
-git remote add origin https://github.com/GPENSC/REPOSITORIO-DEFINITIVO.git
-git push -u origin main
-git push origin --all
-git push origin --tags
+git remote add institucional https://github.com/ORGANIZACAO/REPOSITORIO.git
+git push institucional --all
+git push institucional --tags
 ```
 
-Não use o nome fictício `GPENSC/REPOSITORIO-DEFINITIVO` literalmente: confirme primeiro o proprietário e o nome oficiais.
+O comando `--all` inclui as branches locais existentes nesse clone, inclusive `render-published` quando disponível. Validar as branches e os tags recebidos antes de prosseguir. Esse procedimento **não transfere** automaticamente segredos, administradores, GitHub Pages, Workers, domínio, configurações organizacionais ou outros serviços externos.
 
-### Referências que precisam ser atualizadas
+### 4. Preparar GitHub Actions, Pages e endereço definitivo
 
-Após definir o novo endereço, faça uma busca no repositório por `maiconcarlospng`, `Site-GPENSC-Teste` e pelo domínio antigo. Revise pelo menos:
+O repositório usa `.github/workflows/publish.yml` para validar, compilar Quarto/R, atualizar a branch `render-published` e publicar o artefato no GitHub Pages.
 
-| Arquivo/serviço | Alteração necessária |
-|---|---|
-| `admin/app.js` | Atualizar a constante `REPO` para o novo proprietário/repositório; revisar o endereço do Worker OAuth. |
-| `admin/config.yml` | Atualizar `backend.repo`, `site_url`, `display_url` e `backend.base_url`, mantendo as coleções e campos. |
-| `_quarto.yml` | Atualizar o link administrativo do rodapé e quaisquer URLs absolutas para o site/repositório. |
-| `admin/cms.html` | Atualizar preconnect e URL de configuração se o serviço OAuth ou o caminho mudarem. |
-| `analytics.html` e `data/analytics.json` | Confirmar o Website ID e o domínio/site registrado no Umami. Se for criada outra propriedade, trocar o ID nos dois lugares. |
-| `analytics-worker/wrangler.toml` | Atualizar `ALLOWED_ORIGIN` para a nova origem pública do site. |
-| Cloudflare Worker de analytics | Atualizar a variável `ALLOWED_ORIGIN` e manter a API key do Umami como Secret. |
-| Cloudflare Worker de OAuth | Recriar ou transferir o Worker para uma conta institucional, ajustar domínios permitidos e configurar novamente os segredos. |
-| `admin-access-worker` | Migrar o Worker de acesso por código e recriar `GITHUB_TOKEN`, `ACCESS_CODE` e `SESSION_SECRET` como Secrets institucionais. |
-| GitHub OAuth App | Atualizar Homepage URL e Authorization callback URL para os endereços definitivos; usar o callback exato do Worker implantado. |
-| GitHub Pages e Actions | Habilitar Pages por GitHub Actions, conferir permissões e executar a primeira publicação completa. |
-| Documentação | Atualizar links do README, `COMO-EDITAR.md` e demais guias. |
+1. Em **Settings → Actions**, habilitar os workflows autorizados e garantir a permissão de gravação necessária para o workflow que atualiza `render-published`.
+2. Em **Settings → Pages**, selecionar **GitHub Actions** como origem de publicação e verificar o ambiente `github-pages` e suas regras.
+3. Executar manualmente **Actions → Publicar site Quarto → Run workflow** na `main`. Conferir os jobs de validação, compilação e implantação.
+4. Abrir no endereço novo: home, páginas internas, agenda, Árvore do Conhecimento, galeria, arquivos de mídia, notícias, navegação de idiomas e `/admin/`. Verificar também no celular.
+5. Se houver domínio próprio, registrar a titularidade institucional e configurar DNS, domínio personalizado em Pages, certificado HTTPS e, quando aplicável, o arquivo `CNAME` na saída publicada. Não pressupor que a URL antiga continuará válida sem redirecionamentos.
+6. Atualizar a comunicação externa e links internos **apenas depois** de o endereço definitivo estar funcionando.
 
-### Portar o login OAuth
+**Atenção ao caminho:** mudar de `USUARIO.github.io/REPOSITORIO/` para um domínio raiz ou outro nome de repositório pode alterar caminhos absolutos de imagens, scripts e links. Testar essas referências na instalação final.
 
-O Worker OAuth atual usa o endereço pessoal `sveltia-cms-auth.maicon-carlos.workers.dev`. Para a versão institucional:
+### 5. Reconfigurar o painel e os dois modos de login
 
-1. Defina quem administrará a conta Cloudflare institucional.
-2. Publique o código/serviço OAuth escolhido dentro dessa conta ou transfira formalmente a gestão do Worker.
-3. Configure os segredos de produção necessários, incluindo Client Secret, somente no Cloudflare.
-4. Atualize o domínio permitido para o site novo.
-5. Atualize o endereço do Worker em `admin/app.js` e `admin/config.yml`.
-6. Atualize Homepage URL e callback URL da OAuth App do GitHub conforme o serviço implantado.
-7. Teste login, logout, conta sem permissão, leitura, criação, edição, exclusão e upload de imagens.
+O painel próprio está em `admin/app.html` e `admin/app.js`; o editor Sveltia alternativo está em `admin/cms.html`. Na configuração atual o painel grava na branch `main`. **A transferência GitHub não migra automaticamente os serviços de autenticação da Cloudflare.**
 
-Não presuma que o callback continuará igual se o Worker for recriado ou receber outro domínio. Copie a URL indicada pela configuração efetiva.
+**Login individual com GitHub (OAuth):**
 
-### Portar o Umami e os relatórios
+1. Colocar o aplicativo GitHub OAuth e o **Worker de autenticação** sob responsabilidade institucional (criar novos, se necessário, ou transferir formalmente a gestão quando possível).
+2. Configurar na Cloudflare os segredos exigidos pelo Worker, como `GITHUB_CLIENT_ID` e `GITHUB_CLIENT_SECRET`, e as origens/domínios permitidos. O callback deve corresponder **exatamente** à URL do Worker efetivamente publicado.
+3. Atualizar `WORKER` em `admin/app.js`, `backend.base_url` em `admin/config.yml` e a referência ao serviço em `admin/cms.html`. Atualizar também as URLs permitidas no OAuth App.
+4. Conceder permissões de escrita no repositório de destino apenas às contas editoras autorizadas. Validar login, logout, conta sem acesso, leitura, edição e upload.
 
-- Defina se a propriedade Umami atual será mantida ou se o GPENSC criará uma propriedade própria.
-- Se o domínio público mudar, atualize a configuração de domínio no Umami ou crie uma propriedade nova e use seu novo Website ID.
-- Atualize o identificador público em `analytics.html` e `data/analytics.json`.
-- Publique o Worker de analytics na conta Cloudflare institucional.
-- Cadastre `UMAMI_API_KEY` e `UMAMI_WEBSITE_ID` como Secrets, nunca no repositório.
-- Atualize `ALLOWED_ORIGIN` para o novo domínio.
-- Informe a URL base do Worker em `apiUrl` dentro de `data/analytics.json`.
-- Teste a coleta no Umami e os indicadores de 7, 30 e 90 dias dentro do painel administrativo.
+**Entrada por código compartilhado:**
 
-As estatísticas históricas dependem da propriedade Umami escolhida e da continuidade da coleta. Não prometa migração automática de histórico entre propriedades diferentes.
+1. Publicar `admin-access-worker/worker.js` na conta Cloudflare do grupo (consulte [o guia desse Worker](admin-access-worker/README.md)).
+2. Atualizar o `REPO` em `admin-access-worker/worker.js` e o `ALLOWED_ORIGIN` em `admin-access-worker/wrangler.toml` para a **origem exata** do novo site, sem caminho.
+3. Configurar na Cloudflare, como **Secrets**, `GITHUB_TOKEN` (token restrito ao repositório institucional, com permissão de conteúdo necessária), `ACCESS_CODE` e `SESSION_SECRET`. Gerar valores novos e limitar as permissões; não copiar segredos pessoais de desenvolvimento.
+4. Atualizar `ACCESS_WORKER` em `admin/app.js`. Testar o código em janela privada, a criação de sessão, a gravação de dados e a revogação do código antigo.
+5. Aplicar controle de tentativas no endpoint de login. O código é compartilhado: ele **não identifica individualmente** quem editou um registro; para rastreabilidade, preferir acessos GitHub individuais.
 
-### Ordem recomendada da migração
+**Em ambos os modos:** atualizar `REPO` em `admin/app.js`, `backend.repo`, `site_url` e `display_url` em `admin/config.yml`. Preservar a estrutura das coleções YAML. Não liberar edição geral antes de testar permissões, erros de concorrência, importação de planilhas e publicação.
 
-1. Aprovação institucional e definição de proprietários.
-2. Transferência/cópia do repositório e preservação do histórico.
-3. Configuração de Pages e Actions no novo repositório.
-4. Atualização dos caminhos e URLs fixos no código.
-5. Portabilidade do Worker OAuth e da OAuth App.
-6. Portabilidade do Worker de analytics e validação do Umami.
-7. Publicação do site e teste completo do painel.
-8. Teste com pelo menos duas contas autorizadas, incluindo edição e upload.
-9. Confirmação de que a equipe institucional tem acesso administrativo aos serviços.
-10. Divulgação do endereço definitivo e arquivamento do protótipo somente depois da validação.
+### 6. Migrar coleta do Instagram e Apify
 
-### Checklist de portabilidade
+O workflow `.github/workflows/instagram.yml` executa **Sincronizar Instagram**, atualmente agendado para `10:23 UTC` (07h23 em Brasília), além da execução manual. O importador `scripts/importar-instagram.py` consulta o perfil `@gpenscufop` pelo Apify, registra notícias e links de mídia; a rotina de publicação pode arquivar capas históricas na saída publicada.
 
-- [ ] Conta ou organização GitHub do GPENSC definida.
-- [ ] Responsáveis institucionais e administradores definidos.
-- [ ] Repositório transferido ou histórico copiado e conferido.
-- [ ] Branch principal e permissões definidas.
-- [ ] GitHub Pages configurado com Source = GitHub Actions.
-- [ ] Primeira compilação completa concluída com sucesso.
-- [ ] URLs e referências antigas revisadas.
-- [ ] Worker OAuth sob gestão institucional.
-- [ ] OAuth App e callback atualizados.
-- [ ] Login, logout e permissões testados.
-- [ ] Upload, galeria e edição de conteúdo testados.
-- [ ] Umami e domínio revisados.
-- [ ] Worker de analytics publicado e protegido por Secrets.
-- [ ] Estatísticas verificadas no Umami e no painel próprio.
-- [ ] README e guias atualizados com os endereços definitivos.
-- [ ] Protótipo antigo mantido até a conclusão da validação.
+1. Criar um workspace/conta Apify controlado pelo GPENSC e definir o responsável por créditos, custos e recuperação.
+2. Cadastrar o token do Apify institucional como Secret **`APIFY_TOKEN`** em **Settings → Secrets and variables → Actions** do repositório definitivo.
+3. Executar manualmente **Sincronizar Instagram → Run workflow** na `main`. Conferir logs, alterações em `data/noticias.yml` e `data/instagram/carrosseis-recentes.json`, links originais, capas e publicação.
+4. Conferir o acervo anterior, inclusive o que depende de mídias externas; se necessário, salvar uma cópia dos datasets relevantes mantidos na antiga conta Apify.
+5. Evitar **dois agendamentos em paralelo**: após validar o workflow institucional, desativar o agendamento do protótipo antigo. Rever o consumo de créditos e a janela de coleta (`POST_LIMIT`, normalmente 50).
+6. No primeiro ciclo automático seguinte, confirmar que a rotina continua funcionando sem a conta de desenvolvimento.
+
+A conexão Apify usada no ChatGPT não substitui o Secret do GitHub Actions; as duas integrações são independentes.
+
+### 7. Migrar Umami, Workers de métricas e mídias externas
+
+**Umami e estatísticas:**
+
+1. Definir com a coordenação se a propriedade Umami atual será administrada pelo grupo ou se será criada outra. **O histórico não é transferido automaticamente entre propriedades diferentes.**
+2. Conferir o domínio no Umami e atualizar o Website ID em `analytics.html` e `data/analytics.json` **somente se houver mudança de propriedade**.
+3. Publicar `analytics-worker/worker.js` na Cloudflare institucional, com `ALLOWED_ORIGIN` atualizado no `analytics-worker/wrangler.toml`.
+4. Cadastrar `UMAMI_API_KEY` e `UMAMI_WEBSITE_ID` como Secrets do Worker, ajustar a URL em `apiUrl` de `data/analytics.json` e testar as estatísticas públicas e os períodos de 7, 30 e 90 dias no painel. Ver [guia de analytics](analytics-worker/README.md).
+
+**Outras integrações e conteúdos:**
+
+- Conferir logotipos, imagens e direitos de uso, links Lattes, redes sociais, vídeos e mídias externas; arquivos no Git não concedem direitos sobre conteúdos de terceiros.
+- Se o grupo assumir a administração de canais como **GPENSC no Ar**, Spotify e serviços de podcasts, a equipe precisa receber acesso editorial **nessas plataformas**. O repositório guarda apenas a integração pública.
+- Se adotar domínio próprio, confirmar o titular, a renovação, os registros DNS e o acesso ao registrador em nome da equipe institucional.
+
+### 8. Arquivos e configurações que exigem revisão
+
+Após conhecer o destino definitivo, buscar no código por `maiconcarlospng`, `Site-GPENSC-Teste`, `maicon-carlos.workers.dev`, pela URL antiga do Pages e por caminhos absolutos. Conferir pelo menos:
+
+| Local | Revisar na migração |
+| --- | --- |
+| `admin/app.js` | `REPO`, `WORKER` e `ACCESS_WORKER` |
+| `admin/config.yml` | `backend.repo`, `backend.base_url`, `site_url`, `display_url` |
+| `admin/cms.html` | Preconnect e referência do editor ao Worker OAuth |
+| `admin-access-worker/worker.js` e `wrangler.toml` | `REPO`, `ALLOWED_ORIGIN` e Secrets na Cloudflare |
+| `analytics-worker/wrangler.toml` e configuração do Worker | Origem, API Umami e Secrets |
+| `analytics.html` e `data/analytics.json` | Website ID, domínio e URL da API quando necessário |
+| `_quarto.yml`, arquivos `.qmd`, `js/` e estilos | Links absolutos e caminhos afetados pelo novo endereço |
+| `.github/workflows/publish.yml` | Permissões, publicação, `render-published` e GitHub Pages |
+| `.github/workflows/instagram.yml` e `scripts/importar-instagram.py` | Secret do Apify, rotina e destino de commits |
+| `README.md`, `COMO-EDITAR.md` e demais guias | URLs, nomes, responsáveis e instruções definitivas |
+
+### 9. Testes de aceite e desativação da infraestrutura pessoal
+
+A migração estará concluída **apenas depois** de a equipe testar, usando suas próprias contas:
+
+- [ ] A organização institucional tem pelo menos dois administradores e recuperação configurada.
+- [ ] O histórico Git, `main`, `render-published`, tags e imagens foram preservados.
+- [ ] O novo Pages publica por Actions sem erros; links, idiomas e mídia funcionam no celular e no computador.
+- [ ] O login GitHub individual e o acesso por código funcionam, com permissões apropriadas.
+- [ ] É possível criar, editar e excluir um registro de teste, enviar imagem e publicar a alteração.
+- [ ] O GitHub Actions confirma a atualização no endereço definitivo.
+- [ ] O Apify executa a coleta manual e automática com a conta institucional.
+- [ ] Umami recebe visitas e o painel consulta métricas sem expor a API key.
+- [ ] As credenciais, recuperação, pagamentos e renovações estão sob responsabilidade institucional.
+- [ ] README e guias mostram endereços e responsáveis oficiais, não placeholders.
+- [ ] Foram revogados os tokens e códigos antigos, removidos acessos pessoais desnecessários e desligados workflows duplicados, **somente depois dos testes**.
+- [ ] O repositório antigo foi arquivado ou mantido apenas como histórico, conforme decisão da coordenação.
+
+**Teste final de independência:** alguém da coordenação entra no painel, publica uma alteração, acompanha o deploy, consulta as métricas e confirma a coleta automática **sem utilizar nenhuma conta, token ou código pessoal do desenvolvimento**. Se algum passo falhar, registrar a pendência e manter a infraestrutura de origem disponível até corrigir.
 
 ---
 
@@ -735,10 +690,9 @@ A conferência requisito por requisito, incluindo os dados que ainda precisam se
 A Árvore do Conhecimento utiliza agora o explorador de ramificações em `js/arvore-explorador.js`, com foco parcial em vez de exibir a copa inteira. A página [Ciência para a sociedade](resultados.qmd) recebe apenas sínteses de publicações com fonte e revisão, cadastradas no painel.
 
 
-### Organização institucional — novembro de 2026
+### Organização atual do menu
 
-O menu público reúne Sobre, Pesquisa, Extensão e formação, Conteúdos, Atualizações e Contato. As páginas consolidadas usam trechos em `partials/`, mantendo os mesmos dados e coleções do painel. URLs antigas redirecionam para a seção correspondente; edite os trechos, não as páginas de redirecionamento. A árvore mantém busca, teclado, arraste e zoom, com galhos SVG afilados e veios longitudinais. `styles.css` centraliza o acabamento compartilhado e as adaptações para telas pequenas.
-
+O menu definido em `_quarto.yml` apresenta **O GPENSC**, **Pesquisa**, **Extensão**, **Ensino**, **Divulgação**, **Notícias**, **Agenda** e **Contato**. As páginas e coleções editáveis devem ser conferidas nessa configuração ao mudar a estrutura de navegação. A Árvore do Conhecimento possui navegação interativa própria.
 
 ## Minissite Vi no Rótulo
 
