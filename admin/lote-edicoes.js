@@ -155,8 +155,11 @@
       if(publishing)throw new Error('A publicação está em andamento.');
       if(typeof path!=='string'||!path.startsWith('img/')||path.includes('..')||/[\u0000-\u001f]/.test(path))throw new Error('Caminho de material inválido.');
       if(!/^[a-f0-9]{40}$/i.test(String(sha||'')))throw new Error('É necessário atualizar a biblioteca para identificar a versão do arquivo.');
-      // Identidade do site e ilustrações em uso estrutural não podem ser excluídas por engano.
-      if(/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(path))throw new Error('Este arquivo faz parte da identidade visual do site e está protegido contra exclusão pelo painel.');
+      // Verificação por vínculo confirmado, não por bloqueio indiscriminado de pastas.
+      const codeReferences=window.GPENSC_STATIC_MEDIA_REFERENCES;
+      if(!codeReferences)throw new Error('O inventário de vínculos não carregou. Atualize o painel antes de excluir.');
+      if(codeReferences.has(path))throw new Error('O arquivo ainda é usado pelo código ou pela identidade visual do site.');
+      if(path.startsWith('img/instagram-acervo/'))throw new Error('Esta imagem pertence ao acervo sincronizado do Instagram. Confira o vínculo no índice do Instagram antes de remover.');
       const linked=localReferences(path);
       if(linked.length)throw new Error('Material vinculado aos cadastros de '+linked.slice(0,5).join(', ')+'. Remova os vínculos nas edições primeiro e confira a fila.');
       const next=clone(assets);
