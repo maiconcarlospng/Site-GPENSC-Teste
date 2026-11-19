@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-02823652f7c6196ae3d39b0b6a9de727.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7e31b1f2a09a5de902ceb913150967d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -586,49 +586,25 @@ body:has(#gp49) #quarto-content,body:has(#gp49) main.content,body:has(#gp49) .pa
 }
 
 
-/* GPENSC | Textos legíveis nas folhas e nome completo ao passar o mouse. */
+/* A folha reage ao mouse apenas com um contorno sutil, sem bolha,
+   tooltip HTML, sombra SVG ou ampliação. Os detalhes abrem no clique. */
 #gp49 #gp49-map svg .gp49-leaf-text {
   text-rendering:optimizeLegibility;
   font-weight:730;
   letter-spacing:-.013em;
   paint-order:stroke fill;
-  transition:font-weight .15s ease,filter .15s ease;
+  transition:none!important;
+  filter:none!important;
 }
-#gp49 #gp49-map svg [data-gp-node-index] {
-  cursor:pointer;
-}
-#gp49 .gp49-hover-name {
-  position:absolute;z-index:28;top:0;left:0;
-  box-sizing:border-box;display:block;
-  width:max-content;min-width:0;max-width:min(320px,calc(100% - 24px));
-  padding:10px 14px;
-  background:rgba(31,77,43,.98);
-  color:#fffef9;border:1px solid rgba(226,238,219,.65);
-  border-radius:11px;box-shadow:0 5px 20px rgba(17,44,28,.2);
-  font:700 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
-  letter-spacing:-.01em;overflow-wrap:anywhere;
-  pointer-events:none;white-space:normal;
-}
-#gp49 .gp49-hover-name[hidden] {display:none!important}
-@media (hover:hover) and (pointer:fine) {
-  #gp49 #gp49-map svg [data-gp-node-index]:is(:hover,:focus-visible) .gp49-leaf-text {
-    filter:drop-shadow(0 0 .04px #fff);
-    font-weight:850;
-    stroke-opacity:.50;
-    stroke-width:.022;
-  }
+#gp49 #gp49-map svg [data-gp-node-index] {cursor:pointer}
+#gp49 .gp49-hover-name {display:none!important} /* compatibilidade com caches antigos */
+@media(hover:hover) and (pointer:fine) {
   #gp49 #gp49-map svg [data-gp-node-index]:is(:hover,:focus-visible) > path:first-of-type {
-    stroke:#d8e8cf;
-    stroke-width:.02;
+    stroke:#dcebd3;
+    stroke-width:.018;
+    filter:none!important;
   }
 }
-@media(max-width:767px){
-  #gp49 .gp49-hover-name{display:none!important}
-}
-@media(prefers-reduced-motion:reduce){
-  #gp49 #gp49-map svg .gp49-leaf-text{transition:none!important}
-}
-
 
 /* Painel de detalhes: isolamento das regras antigas que zeravam paddings e ampliavam a largura. */
 html body:has(#gp49) #quarto-content #gp49 .gp49-landscape > #gp49-detail {
@@ -763,8 +739,19 @@ html body:has(#gp49) #gp49 .gp49-step-hint{
   }
 }
 
+
+/* Uma folha continua clicável mesmo quando o nome não cabe nela.
+   O nome completo aparece ao passar o mouse, focar ou abrir detalhes. */
+#gp49 #gp49-map svg [data-gp-node-index].gp49-leaf--compact .gp49-leaf-text {
+  display:none!important;
+}
+#gp49 #gp49-map svg [data-gp-node-index].gp49-leaf--compact:is(:hover,:focus-visible) > path:first-of-type {
+  stroke:#e5f0da;
+  stroke-width:.025;
+}
+
 </style>
-<script src="js/arvore.js?v=gp49-card-help-20261119" defer=""></script>
+<script src="js/arvore.js?v=gp49-hover-no-tooltip-20261119-2" defer=""></script>
 
 
 

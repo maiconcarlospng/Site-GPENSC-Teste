@@ -31,53 +31,35 @@ for(const [id,bright,dark] of [
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
-// Legenda contextual no desktop: revela o nome completo sem recortar as folhas.
-const hoverName=document.createElement('div');
-hoverName.className='gp49-hover-name';
-hoverName.hidden=true;
-hoverName.setAttribute('aria-hidden','true');
-map.parentElement.appendChild(hoverName);
-const canHover=matchMedia('(hover:hover) and (pointer:fine)');
-function hideLeafHover(){hoverName.hidden=true;}
-function placeLeafHover(event){
- const rect=map.parentElement.getBoundingClientRect();
- const x=event.clientX-rect.left,y=event.clientY-rect.top;
- const width=hoverName.offsetWidth||240;
- hoverName.style.left=Math.max(12,Math.min(x+17,rect.width-width-12))+'px';
- hoverName.style.top=Math.max(14,Math.min(y-51,rect.height-68))+'px';
-}
-function attachLeafHover(group,index){
- if(!canHover.matches)return;
- group.addEventListener('pointerenter',event=>{
-   if(event.pointerType&&event.pointerType!=='mouse')return;
-   hoverName.textContent=names[index];
-   hoverName.hidden=false;placeLeafHover(event);
- });
- group.addEventListener('pointermove',event=>{
-   if(!hoverName.hidden)placeLeafHover(event);
- });
- group.addEventListener('pointerleave',hideLeafHover);
- group.addEventListener('focus',()=>{
-   hoverName.textContent=names[index];
-   hoverName.hidden=false;
-   const rect=group.getBoundingClientRect();
-   placeLeafHover({clientX:rect.left+rect.width/2,clientY:rect.top});
- });
- group.addEventListener('blur',hideLeafHover);
-}
+// Sem tooltips flutuantes: o nome integral continua disponível no aria-label
+// e no cartão de detalhes acessível por clique ou teclado.
 // Visibilidade integral desde a primeira renderização, sem alterar nenhum desenho ou ramo.
 const leafVisuals=new Map();
+// Metadados visuais: permitem evitar colisões sem mudar o desenho de growTree.
+const leafLayout=[];
 const openedLines=new Set(),openedFruits=new Set();
 let trunkOpen=true;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const camera={x:0,y:0,w:W,h:H};
 // Tudo permanece desenhado e interativo em qualquer nível de zoom. O zoom altera apenas a câmera.
-function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));}
+function refreshLeafLabels(){
+ // Folhas pequenas continuam visíveis e clicáveis; só o texto ilegível some.
+ // A palavra completa fica disponível via aria-label, hover e cartão de detalhes.
+ const px=Math.min(map.clientWidth/Math.max(1,camera.w),map.clientHeight/Math.max(1,camera.h));
+ for(const leaf of leafLayout){
+   const width=leaf.r*2.16*px;
+   const font=leaf.font*leaf.r*px;
+   leaf.group.classList.toggle('gp49-leaf--compact',width<78||font<10.5);
+ }
+}
+function paint(){
+ svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));
+ refreshLeafLabels();
+}
 function animate(to){const animation=++zoomAnimation;const start={...camera},t0=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:420;function frame(now){if(animation!==zoomAnimation)return;const t=duration?clamp((now-t0)/duration,0,1):1,k=t*t*(3-2*t);for(const key of ['x','y','w','h'])camera[key]=start[key]+(to[key]-start[key])*k;paint();if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);}
 function focus(p,w=350){const h=w*map.clientHeight/Math.max(1,map.clientWidth);const panel=root.querySelector('#gp49-detail');const mobile=map.clientWidth<768;const obscured=panel&&!panel.hidden?Math.min(panel.offsetHeight/map.clientHeight,.65):0;const visibleCenterY=mobile?(1-obscured)*.5:.5;const visibleCenterX=mobile?.5:panel&&!panel.hidden?.37:.5;animate({x:p.x-w*visibleCenterX,y:p.y-h*visibleCenterY,w,h});}
 function show(i, options={}){
  const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;
- hideLeafHover();
  const header=document.createElement('div');header.className='gp49-detail-header';
  const heading=document.createElement('div');heading.className='gp49-detail-heading';
  const kind=document.createElement('p');kind.className='gp49-detail-kind';
@@ -158,8 +140,7 @@ function leaf(origin, angle, scale, index) {
     'stroke-width':'.013',class:'gp49-leaf-text'},g);
   lines.forEach((line,i)=>el('tspan',{x:0,
     y:(i-(lines.length-1)/2)*font*1.18,'dominant-baseline':'middle'},title).textContent=line);
-  el('title',{},g).textContent=names[index]+' — selecionar para consultar detalhes';
-  attachLeafHover(g,index);
+  leafLayout.push({index,anchor:p,center:{...p},angle,r,group:g,font});
   const select=()=>openNode(index);
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -197,7 +178,6 @@ function fruits(index,origin,angle,scale){
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   // O degradê interno já fornece o volume; sem reflexo sobreposto.
-  el('title',{},g).textContent=item.nome;
   const select=()=>show(index,{title:item.nome,kind:item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica'});
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -258,6 +238,63 @@ trunkLabel.style.cursor='pointer';
 // Não se altera growTree, a posição dos nós, a espessura dos galhos ou a copa.
 const projectParent=new Map();
 for(const part of forest)for(const child of part.children)projectParent.set(child.index,part.index);
+// Corrige somente a posição visual de folhas que se encostam.
+// A topologia, os caminhos originais, as linhas, os projetos e seus frutos
+// continuam inalterados; um pequeno pecíolo preserva a ligação com o ramo.
+function separateLeafArtwork(){
+ const projection=(leaf,ux,uy)=>{
+   const parallel=ux*Math.cos(leaf.angle)+uy*Math.sin(leaf.angle);
+   const perpendicular=-ux*Math.sin(leaf.angle)+uy*Math.cos(leaf.angle);
+   return Math.hypot(leaf.r*1.10*parallel,leaf.r*.87*perpendicular);
+ };
+ for(let pass=0;pass<26;pass++){
+   let collisions=0;
+   for(let i=0;i<leafLayout.length;i++){
+     const a=leafLayout[i];
+     for(let j=i+1;j<leafLayout.length;j++){
+       const b=leafLayout[j];
+       let dx=b.center.x-a.center.x,dy=b.center.y-a.center.y;
+       let distance=Math.hypot(dx,dy);
+       if(distance<.001){
+         const angle=(i*1.618+j*.73)*Math.PI;
+         dx=Math.cos(angle);dy=Math.sin(angle);distance=1;
+       }
+       const ux=dx/distance,uy=dy/distance;
+       const gap=Math.max(2.5,Math.min(9,Math.min(a.r,b.r)*.10));
+       const required=projection(a,ux,uy)+projection(b,ux,uy)+gap;
+       const overlap=required-distance;
+       if(overlap<=.35)continue;
+       collisions++;
+       // As folhas menores cedem mais; folhas maiores preservam seu lugar.
+       const wa=1/Math.pow(Math.max(a.r,4),1.7);
+       const wb=1/Math.pow(Math.max(b.r,4),1.7);
+       const push=overlap*.82;
+       a.center.x-=ux*push*wa/(wa+wb);
+       a.center.y-=uy*push*wa/(wa+wb);
+       b.center.x+=ux*push*wb/(wa+wb);
+       b.center.y+=uy*push*wb/(wa+wb);
+     }
+   }
+   if(!collisions)break;
+ }
+ for(const leaf of leafLayout){
+   const p=leaf.anchor,to=leaf.center;
+   const distance=Math.hypot(to.x-p.x,to.y-p.y);
+   if(distance<.75)continue;
+   leaf.group.setAttribute('transform',
+     'translate('+to.x+' '+to.y+') scale('+leaf.r+')');
+   tips[leaf.index]=to;
+   const connector=el('path',{
+     d:'M '+p.x+' '+p.y+' Q '+((p.x+to.x)/2)+' '+((p.y+to.y)/2)+' '+to.x+' '+to.y,
+     fill:'none',stroke:'url(#gp49-bark-tone)',
+     'stroke-width':Math.max(1.7,Math.min(7,leaf.r*.10)),
+     'stroke-linecap':'round','pointer-events':'none'
+   },limbs);
+   const parent=projectParent.get(leaf.index);
+   if(parent!==undefined)connector.dataset.gpProjectParent=String(parent);
+ }
+}
+separateLeafArtwork();
 const instruction=document.createElement('div');
 instruction.className='gp49-step-hint';
 instruction.setAttribute('role','group');
@@ -280,7 +317,6 @@ fitButton.addEventListener('click',()=>{
  const panel=root.querySelector('#gp49-detail');
  if(panel)panel.hidden=true;
  rows.forEach(r=>r.querySelector('button')?.setAttribute('aria-pressed','false'));
- hideLeafHover();
  helpText.textContent=defaultHelp;
  fit();
 });
