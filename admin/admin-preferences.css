@@ -471,3 +471,16 @@ html[data-admin-theme="dark"] #app .admin-preferences-dialog{
 html[data-admin-theme="dark"] #app .pref-setting strong,
 html[data-admin-theme="dark"] #app .pref-heading h2{color:#eef8ef!important}
 html[data-admin-theme="dark"] #app .pref-setting small{color:#c9dacb!important}
+
+
+/* Mídias vinculadas: rótulo informativo, sem o selo genérico 'Protegido'. */
+#app .media-card-linked{
+  position:absolute;top:8px;right:8px;z-index:2;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:25px;padding:5px 8px;border:1px solid #c9dfcb;
+  border-radius:7px;background:#edf5ea;color:#2d6140;
+  font-size:10px;font-weight:750;line-height:1.25;
+}
+html[data-admin-theme="dark"] #app .media-card-linked{
+  border-color:#60886b;background:#284431;color:#e0f3e3
+}
