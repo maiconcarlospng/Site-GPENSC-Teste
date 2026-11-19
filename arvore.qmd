@@ -581,7 +581,31 @@ html body:has(#gp49) #gp49 #gp49-map svg
   filter:none!important;
 }
 
+/* Estado selecionado: cor localizada, sem círculo gigante nem outline do grupo SVG.
+   vector-effect mantém o contorno com ~3px na tela em qualquer nível de zoom. */
+html body:has(#gp49) #gp49 #gp49-map svg
+g.gp49-selected[data-gp-node-index] > path:first-of-type {
+  stroke:#eeb360!important;
+  stroke-width:3px!important;
+  stroke-opacity:1!important;
+  vector-effect:non-scaling-stroke!important;
+  stroke-linejoin:round!important;
+  filter:none!important;
+}
+html body:has(#gp49) #gp49 #gp49-map svg
+g.gp49-selected[data-gp-node-index] .gp49-interaction-dot {
+  fill:#ffe09a!important;
+  stroke:#fff8e8!important;
+}
+html body:has(#gp49) #gp49 #gp49-map svg
+g.gp49-selected[data-gp-fruit-owner] > circle {
+  stroke:#eeb360!important;
+  stroke-width:3px!important;
+  vector-effect:non-scaling-stroke!important;
+  filter:none!important;
+}
+
 </style>
 ```
 
-<script src="js/arvore.js?v=gp49-hover-no-tooltip-20261119-2" defer></script>
+<script src="js/arvore.js?v=gp49-selected-outline-20261119-1" defer></script>
