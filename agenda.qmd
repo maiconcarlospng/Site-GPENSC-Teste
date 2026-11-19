@@ -45,8 +45,8 @@ title: "Agenda"
     </div>
   </div>
 </section>
-<link rel="stylesheet" href="js/agenda-mensal.css">
-<script defer src="js/agenda-mensal.js"></script>
+<link rel="stylesheet" href="js/agenda-mensal.css?v=agenda-20261118-v2">
+<script defer src="js/agenda-mensal.js?v=agenda-20261118-v2"></script>
 ```
 
 {{< include partials/agenda.qmd >}}
