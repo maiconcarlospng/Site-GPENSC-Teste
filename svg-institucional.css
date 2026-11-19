@@ -10,3 +10,53 @@ h2.gp-heading-art--contato::after{background-image:url("img/ilustracoes/contato.
 h2.gp-heading-art--noticias::after{background-image:url("img/ilustracoes/noticias.svg")}
 @media(max-width:640px){.gp-illustrated-lead{gap:12px;min-height:66px;margin:0 auto 18px;padding:3px 4px}.gp-illustrated-lead p{font-size:.94rem;line-height:1.5}.gp-illustrated-lead img{width:76px;max-height:70px}h2.gp-heading-art::after{flex-basis:54px;width:54px;height:43px}h2.gp-heading-art{gap:8px}}
 @media(max-width:370px){.gp-illustrated-lead img{width:60px}h2.gp-heading-art::after{flex-basis:45px;width:45px;height:38px}}
+
+
+/* Quem somos — titulo e ilustracao na mesma linha, sem faixa vazia.
+   O Quarto cria o h1 em #title-block-header; o antigo bloco illustrado
+   foi substituido por uma ancora de altura zero em grupo.qmd. */
+html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header.quarto-title-block{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-height:clamp(88px,9vw,112px)!important;
+  margin:0 0 clamp(15px,2vw,23px)!important;
+  padding:12px clamp(112px,12vw,154px) 12px 0!important;
+  background-image:url("img/ilustracoes/sobre.svg")!important;
+  background-repeat:no-repeat!important;
+  background-position:right center!important;
+  background-size:clamp(104px,10vw,132px) auto!important;
+}
+html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header .quarto-title{
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header h1.title{
+  margin:0!important;
+}
+html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header .quarto-title-meta{
+  display:none!important;
+}
+html body:has(.pagina-sobre) #quarto-content main.content > .gp-sobre-anchor{
+  display:block!important;
+  width:0!important;
+  height:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  scroll-margin-top:76px;
+}
+@media(max-width:640px){
+  html body:has(.pagina-sobre) #quarto-content main#quarto-document-content > #title-block-header.quarto-title-block{
+    min-height:82px!important;
+    padding:10px 86px 10px var(--gp-mobile-gutter,16px)!important;
+    margin-bottom:16px!important;
+    background-size:74px auto!important;
+    background-position:right 8px center!important;
+  }
+}
