@@ -42,7 +42,7 @@ O portal reúne informações institucionais e conteúdo de **pesquisa, extensã
 | Instruções para editar conteúdos | [COMO-EDITAR.md](COMO-EDITAR.md) |
 | Plano de transferência para o GPENSC | [Portabilidade futura](#portabilidade-futura-para-a-conta-do-gpensc) |
 
-### Vínculos institucionais
+### Parcerias
 
 <div align="center">
   <a href="https://ufop.br/" title="Universidade Federal de Ouro Preto"><img src="img/ufop-logo.jpg" alt="UFOP" height="40"></a>
@@ -225,7 +225,7 @@ O arquivo `data/noar.yml` também existe no repositório e é usado pelo conteú
 | Seção no painel | Arquivo |
 |---|---|
 | 01 · Identidade | `data/configuracoes/01-identidade.yml` |
-| 02 · Vínculos institucionais | `data/configuracoes/02-vinculos-institucionais.yml` |
+| 02 · Parcerias | `data/configuracoes/02-vinculos-institucionais.yml` |
 | 03 · História, missão e objetivos | `data/configuracoes/03-institucional.yml` |
 | 04 · Página inicial | `data/configuracoes/04-pagina-inicial.yml` |
 | 05 · Página Quem somos | `data/configuracoes/05-quem-somos.yml` |
