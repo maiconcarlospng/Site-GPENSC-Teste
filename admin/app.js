@@ -1024,13 +1024,13 @@ function mediaInFolder(path,folder){
 function mediaFolderCount(folder){
   return state.mediaFiles.filter(file=>mediaInFolder(file.path,folder)).length;
 }
-function mediaCanRemove(path){
+function mediaCanRemove(path,currentLinks){
   // Sem bloqueio genérico por pasta: a exclusão depende dos vínculos reais.
   // Arquivos do Instagram também são verificados pelos cadastros de Notícias.
   const codeReferences=window.GPENSC_STATIC_MEDIA_REFERENCES;
   if(!codeReferences || !/^img\//.test(path))return false;
   if(codeReferences.has(path))return false;
-  return !mediaReferences(state.contents).has(path);
+  return !(currentLinks||mediaReferences(state.contents)).has(path);
 }
 function mediaFolderIcon(){
   return '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
@@ -1083,8 +1083,9 @@ function openMediaLibrary(){
   };
   $('#media-clear-selection').onclick=()=>{state.mediaSelection.clear();renderMediaFiles()};
   $('#media-select-page').addEventListener('change',event=>{
+    const activeLinks=mediaReferences(state.contents);
     (state.mediaCurrentPageFiles||[]).forEach(file=>{
-      if(!mediaCanRemove(file.path)||batch.assets()[file.path]?.action==='remover')return;
+      if(!mediaCanRemove(file.path,activeLinks)||batch.assets()[file.path]?.action==='remover')return;
       if(event.target.checked)state.mediaSelection.add(file.path);
       else state.mediaSelection.delete(file.path);
     });
@@ -1295,7 +1296,7 @@ function renderMediaFiles(){
     const selectionText=$('#media-select-status');
     if(selectionText)selectionText.textContent=size?size+' arquivo(s) selecionado(s) · alterações só após revisar e publicar':'Nenhum arquivo selecionado';
     const allCheckbox=$('#media-select-page');
-    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path)&&pendingAssets[file.path]?.action!=='remover');
+    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path,drafts)&&pendingAssets[file.path]?.action!=='remover');
     const selected=eligible.filter(file=>state.mediaSelection.has(file.path)).length;
     if(allCheckbox){
       allCheckbox.disabled=!eligible.length;
@@ -1311,7 +1312,7 @@ function renderMediaFiles(){
     grid.innerHTML=pageFiles.map(file=>{
       const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
       const removing=pendingAssets[file.path]?.action==='remover';
-      const canRemove=mediaCanRemove(file.path);
+      const canRemove=mediaCanRemove(file.path,drafts);
       const selected=state.mediaSelection.has(file.path);
       const status=fileUsage(file.path);
       const references=linked.get(file.path)||drafts.get(file.path);
