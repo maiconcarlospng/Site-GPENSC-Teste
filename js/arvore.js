@@ -31,40 +31,8 @@ for(const [id,bright,dark] of [
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
-// Legenda contextual no desktop: revela o nome completo sem recortar as folhas.
-const hoverName=document.createElement('div');
-hoverName.className='gp49-hover-name';
-hoverName.hidden=true;
-hoverName.setAttribute('aria-hidden','true');
-map.parentElement.appendChild(hoverName);
-const canHover=matchMedia('(hover:hover) and (pointer:fine)');
-function hideLeafHover(){hoverName.hidden=true;}
-function placeLeafHover(event){
- const rect=map.parentElement.getBoundingClientRect();
- const x=event.clientX-rect.left,y=event.clientY-rect.top;
- const width=hoverName.offsetWidth||240;
- hoverName.style.left=Math.max(12,Math.min(x+17,rect.width-width-12))+'px';
- hoverName.style.top=Math.max(14,Math.min(y-51,rect.height-68))+'px';
-}
-function attachLeafHover(group,index){
- if(!canHover.matches)return;
- group.addEventListener('pointerenter',event=>{
-   if(event.pointerType&&event.pointerType!=='mouse')return;
-   hoverName.textContent=names[index];
-   hoverName.hidden=false;placeLeafHover(event);
- });
- group.addEventListener('pointermove',event=>{
-   if(!hoverName.hidden)placeLeafHover(event);
- });
- group.addEventListener('pointerleave',hideLeafHover);
- group.addEventListener('focus',()=>{
-   hoverName.textContent=names[index];
-   hoverName.hidden=false;
-   const rect=group.getBoundingClientRect();
-   placeLeafHover({clientX:rect.left+rect.width/2,clientY:rect.top});
- });
- group.addEventListener('blur',hideLeafHover);
-}
+// Sem tooltips flutuantes: o nome integral continua disponível no aria-label
+// e no cartão de detalhes acessível por clique ou teclado.
 // Visibilidade integral desde a primeira renderização, sem alterar nenhum desenho ou ramo.
 const leafVisuals=new Map();
 // Metadados visuais: permitem evitar colisões sem mudar o desenho de growTree.
@@ -92,7 +60,6 @@ function animate(to){const animation=++zoomAnimation;const start={...camera},t0=
 function focus(p,w=350){const h=w*map.clientHeight/Math.max(1,map.clientWidth);const panel=root.querySelector('#gp49-detail');const mobile=map.clientWidth<768;const obscured=panel&&!panel.hidden?Math.min(panel.offsetHeight/map.clientHeight,.65):0;const visibleCenterY=mobile?(1-obscured)*.5:.5;const visibleCenterX=mobile?.5:panel&&!panel.hidden?.37:.5;animate({x:p.x-w*visibleCenterX,y:p.y-h*visibleCenterY,w,h});}
 function show(i, options={}){
  const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;
- hideLeafHover();
  const header=document.createElement('div');header.className='gp49-detail-header';
  const heading=document.createElement('div');heading.className='gp49-detail-heading';
  const kind=document.createElement('p');kind.className='gp49-detail-kind';
@@ -174,8 +141,6 @@ function leaf(origin, angle, scale, index) {
   lines.forEach((line,i)=>el('tspan',{x:0,
     y:(i-(lines.length-1)/2)*font*1.18,'dominant-baseline':'middle'},title).textContent=line);
   leafLayout.push({index,anchor:p,center:{...p},angle,r,group:g,font});
-  el('title',{},g).textContent=names[index]+' — selecionar para consultar detalhes';
-  attachLeafHover(g,index);
   const select=()=>openNode(index);
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -213,7 +178,6 @@ function fruits(index,origin,angle,scale){
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   // O degradê interno já fornece o volume; sem reflexo sobreposto.
-  el('title',{},g).textContent=item.nome;
   const select=()=>show(index,{title:item.nome,kind:item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica'});
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -353,7 +317,6 @@ fitButton.addEventListener('click',()=>{
  const panel=root.querySelector('#gp49-detail');
  if(panel)panel.hidden=true;
  rows.forEach(r=>r.querySelector('button')?.setAttribute('aria-pressed','false'));
- hideLeafHover();
  helpText.textContent=defaultHelp;
  fit();
 });
