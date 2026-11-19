@@ -1026,10 +1026,10 @@ function mediaFolderCount(folder){
 }
 function mediaCanRemove(path){
   // Sem bloqueio genérico por pasta: a exclusão depende dos vínculos reais.
-  // Arquivos do Instagram são gerados por registros JSON independentes do CMS.
+  // Arquivos do Instagram também são verificados pelos cadastros de Notícias.
   const codeReferences=window.GPENSC_STATIC_MEDIA_REFERENCES;
   if(!codeReferences || !/^img\//.test(path))return false;
-  if(codeReferences.has(path)||path.startsWith('img/instagram-acervo/'))return false;
+  if(codeReferences.has(path))return false;
   return !mediaReferences(state.contents).has(path);
 }
 function mediaFolderIcon(){
@@ -1068,7 +1068,7 @@ function openMediaLibrary(){
     '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="name-desc">Nome (Z–A)</option><option value="size">Tamanho (maior primeiro)</option><option value="size-asc">Tamanho (menor primeiro)</option><option value="type">Tipo / extensão</option><option value="folder">Pasta (A–Z)</option><option value="folder-desc">Pasta (Z–A)</option><option value="usage">Arquivos em uso primeiro</option></select></div>',
     '<div class="media-filter media-filter-destination"><label for="media-upload-folder">Pasta para novos uploads</label><select id="media-upload-folder"></select></div>',
     '</div>',
-    '<p class="media-usage-note">Os vínculos são verificados nos cadastros e nas referências do site. O acervo do Instagram é sincronizado separadamente: revise antes de excluir qualquer mídia.</p>',
+    '<p class="media-usage-note">Os vínculos são verificados nos cadastros, inclusive Notícias/Instagram, e nas referências do site. Somente arquivos sem uso confirmado podem entrar na fila de exclusão.</p>',
     '<div class="media-browser-heading"><div><h2 id="media-folder-title">Arquivos</h2><p id="media-status" role="status" aria-live="polite"></p></div><span class="media-browser-path" id="media-current-path"></span></div>',
     '<div id="media-subfolders" class="media-folder-tiles"></div>',
     '<div class="media-bulk-bar"><label class="media-select-page" for="media-select-page"><input type="checkbox" id="media-select-page"><span>Selecionar esta página</span></label><span id="media-select-status" role="status">Nenhum material selecionado</span><button type="button" class="media-clear-selection" id="media-clear-selection" disabled>Limpar seleção</button><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>',
@@ -1245,8 +1245,7 @@ function renderMediaFiles(){
   const linked=mediaReferences(state.remoteContents||state.contents);
   const drafts=mediaReferences(state.contents);
   const codeRefs=window.GPENSC_STATIC_MEDIA_REFERENCES||new Set();
-  const externalLibrary=path=>path.startsWith('img/instagram-acervo/');
-  const fileUsage=path=>(codeRefs.has(path)||externalLibrary(path)||linked.has(path))?'linked':drafts.has(path)?'draft':'unlinked';
+  const fileUsage=path=>(codeRefs.has(path)||linked.has(path))?'linked':drafts.has(path)?'draft':'unlinked';
   const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo confirmado'};
   if(foldersEl){
     const subfolders=(term||state.mediaFolder===MEDIA_ALL_FOLDERS)?[]:allFolders.filter(path=>
@@ -1320,8 +1319,8 @@ function renderMediaFiles(){
       const preview=kind==='image'
         ?'<img src="'+destination+'" alt="'+esc(name)+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">'
         :'<span class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Documento')+'</small></span>';
-      const reason=codeRefs.has(file.path)?'Recurso utilizado no layout do site':externalLibrary(file.path)?'Acervo do Instagram sincronizado':references?[...references].join(' · '):'';
-      const badgeText=externalLibrary(file.path)?'Acervo sincronizado':usageLabels[status];
+      const reason=codeRefs.has(file.path)?'Recurso utilizado no layout do site':references?[...references].join(' · '):'';
+      const badgeText=usageLabels[status];
       const badge='<span class="media-usage-badge media-usage-'+status+'">'+badgeText+'</span>';
       const details=reason?'<small class="media-usage-sections" title="Vínculos identificados">'+esc(reason)+'</small>':'';
       const chooser=canRemove&&!removing
