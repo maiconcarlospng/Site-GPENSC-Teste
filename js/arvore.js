@@ -95,6 +95,8 @@ function show(i, options={}){
  panel.replaceChildren(header,content);
  panel.hidden=false;
  panel.scrollTop=0;
+ const guideText=root.querySelector('.gp49-step-hint .gp49-step-text');
+ if(guideText)guideText.textContent='Selecionado: '+(options.title||names[i])+'. Consulte os vínculos no cartão.';
  rows.forEach((r,j)=>r.querySelector('button')?.setAttribute('aria-pressed',String(i===j)));
 }
 // World-space form of OneZoom's spiral projection (OZtree, spiral_pre_calc.js).
@@ -258,8 +260,31 @@ const projectParent=new Map();
 for(const part of forest)for(const child of part.children)projectParent.set(child.index,part.index);
 const instruction=document.createElement('div');
 instruction.className='gp49-step-hint';
-instruction.setAttribute('role','status');
-instruction.textContent='Explore os galhos e frutos. Selecione um elemento para consultar seus vínculos.';
+instruction.setAttribute('role','group');
+instruction.setAttribute('aria-label','Orientações e atalhos da árvore');
+const helpHeading=document.createElement('strong');
+helpHeading.className='gp49-help-heading';
+helpHeading.textContent='Explore a árvore';
+const helpText=document.createElement('span');
+helpText.className='gp49-step-text';
+const defaultHelp=matchMedia('(pointer:coarse)').matches
+ ? 'Arraste para navegar, use + e − para aproximar e toque nas folhas para ver vínculos.'
+ : 'Arraste para navegar, use a roda do mouse para aproximar e clique nas folhas para ver vínculos.';
+helpText.textContent=defaultHelp;
+const fitButton=document.createElement('button');
+fitButton.type='button';
+fitButton.className='gp49-help-button';
+fitButton.textContent='Ver árvore inteira';
+fitButton.setAttribute('aria-label','Reenquadrar a árvore inteira');
+fitButton.addEventListener('click',()=>{
+ const panel=root.querySelector('#gp49-detail');
+ if(panel)panel.hidden=true;
+ rows.forEach(r=>r.querySelector('button')?.setAttribute('aria-pressed','false'));
+ hideLeafHover();
+ helpText.textContent=defaultHelp;
+ fit();
+});
+instruction.append(helpHeading,helpText,fitButton);
 map.parentElement.append(instruction);
 function branchVisible(index){
   return trunkOpen&&(!projectParent.has(index)||openedLines.has(projectParent.get(index)));
@@ -293,7 +318,7 @@ function refreshVisibility(){
   for(const [i,g] of leafVisuals){
     g.setAttribute('aria-expanded',String(openedFruits.has(i)||openedLines.has(i)));
   }
-  instruction.textContent='Selecione uma linha, projeto ou fruto para consultar integrantes e produções vinculados.';
+  if(root.querySelector('#gp49-detail')?.hidden)helpText.textContent=defaultHelp;
 }
 function openTrunk(){
   // O tronco reenquadra a visualização sem esconder partes da árvore.
