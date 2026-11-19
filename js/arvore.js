@@ -9,13 +9,15 @@ const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 120
 const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;};
 // Materiais SVG leves: sem imagens raster, filtros pesados ou alterações na geometria.
 const defs=el('defs');
-const linear=(id,stops)=>{
- const gradient=el('linearGradient',{id,x1:'0%',y1:'0%',x2:'100%',y2:'70%'},defs);
+const linear=(id,stops,attrs={})=>{
+ const gradient=el('linearGradient',{id,x1:'0%',y1:'0%',x2:'100%',y2:'70%',...attrs},defs);
  stops.forEach(([offset,color])=>el('stop',{offset,'stop-color':color},gradient));
 };
-linear('gp49-bark-tone',[['0%','#584735'],['37%','#8a7259'],['72%','#756149'],['100%','#574936']]);
-linear('gp49-leaf-tone',[['0%','#6a9a66'],['45%','#46794c'],['100%','#335c3b']]);
-linear('gp49-project-tone',[['0%','#96ad73'],['48%','#6e8d52'],['100%','#466b3f']]);
+// Um único campo de cor atravessa o tronco e os galhos, evitando "pedaços" de textura.
+linear('gp49-bark-tone',[['0%','#78624e'],['48%','#806b55'],['100%','#715e4a']],
+ {gradientUnits:'userSpaceOnUse',x1:'-500',y1:'-650',x2:'1100',y2:'700'});
+linear('gp49-leaf-tone',[['0%','#5a885b'],['53%','#467449'],['100%','#3d6743']]);
+linear('gp49-project-tone',[['0%','#829b68'],['53%','#708a55'],['100%','#597649']]);
 for(const [id,bright,dark] of [
  ['gp49-fruit-person','#efb46c','#bd641f'],
  ['gp49-fruit-defense','#ed8c77','#b93832'],
@@ -25,12 +27,44 @@ for(const [id,bright,dark] of [
  el('stop',{offset:'0%','stop-color':bright},gradient);
  el('stop',{offset:'100%','stop-color':dark},gradient);
 }
-const grain=el('pattern',{id:'gp49-grain',patternUnits:'userSpaceOnUse',width:'34',height:'30'},defs);
-el('path',{d:'M -4 8 C 5 4 19 9 38 6 M -4 24 C 10 20 24 27 38 22',
- fill:'none',stroke:'#e3cc9e','stroke-width':'.85',opacity:'.38'},grain);
+// Sem padrões repetidos sobrepostos: o acabamento é parte do preenchimento SVG.
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
+// Legenda contextual no desktop: revela o nome completo sem recortar as folhas.
+const hoverName=document.createElement('div');
+hoverName.className='gp49-hover-name';
+hoverName.hidden=true;
+hoverName.setAttribute('aria-hidden','true');
+map.parentElement.appendChild(hoverName);
+const canHover=matchMedia('(hover:hover) and (pointer:fine)');
+function hideLeafHover(){hoverName.hidden=true;}
+function placeLeafHover(event){
+ const rect=map.parentElement.getBoundingClientRect();
+ const x=event.clientX-rect.left,y=event.clientY-rect.top;
+ const width=hoverName.offsetWidth||240;
+ hoverName.style.left=Math.max(12,Math.min(x+17,rect.width-width-12))+'px';
+ hoverName.style.top=Math.max(14,Math.min(y-51,rect.height-68))+'px';
+}
+function attachLeafHover(group,index){
+ if(!canHover.matches)return;
+ group.addEventListener('pointerenter',event=>{
+   if(event.pointerType&&event.pointerType!=='mouse')return;
+   hoverName.textContent=names[index];
+   hoverName.hidden=false;placeLeafHover(event);
+ });
+ group.addEventListener('pointermove',event=>{
+   if(!hoverName.hidden)placeLeafHover(event);
+ });
+ group.addEventListener('pointerleave',hideLeafHover);
+ group.addEventListener('focus',()=>{
+   hoverName.textContent=names[index];
+   hoverName.hidden=false;
+   const rect=group.getBoundingClientRect();
+   placeLeafHover({clientX:rect.left+rect.width/2,clientY:rect.top});
+ });
+ group.addEventListener('blur',hideLeafHover);
+}
 // Visibilidade integral desde a primeira renderização, sem alterar nenhum desenho ou ramo.
 const leafVisuals=new Map();
 const openedLines=new Set(),openedFruits=new Set();
@@ -52,13 +86,7 @@ function branch(start, first, second, end, scale) {
   const d='M' + coords(start) + ' C' + [first, second, end].map(coords).join(' ');
   const base=el('path',{d,fill:'none',stroke:'url(#gp49-bark-tone)',
     'stroke-width':scale*.55,'stroke-linecap':'round'},limbs);
-  // Veios muito discretos, sobre o mesmo percurso existente, apenas nos galhos largos.
-  if(scale>=16){
-    const textured=el('path',{d,fill:'none',stroke:'url(#gp49-grain)',
-      'stroke-width':scale*.49,'stroke-linecap':'round',opacity:'.32',
-      'pointer-events':'none','aria-hidden':'true'},limbs);
-    textured.dataset.gpDecoration='true';
-  }
+  // Uma única pincelada por ramo: sem uma segunda camada que pareça colada.
   return base;
 }
 function leaf(origin, angle, scale, index) {
@@ -73,25 +101,42 @@ function leaf(origin, angle, scale, index) {
   el('path',{d:'M -1 0 C -.85 -1 .45 -1.35 1.16 0 C .45 1.35 -.85 1 -1 0 Z',
     transform:rotation,fill:rows[index].dataset.branchType==='projeto'?
       'url(#gp49-project-tone)':'url(#gp49-leaf-tone)'},g);
-  // Nervuras suaves acompanham a folha, sem mudar seu contorno ou ocupar o rótulo.
-  el('path',{d:'M -.87 .02 Q -.02 -.07 .96 0 M -.47 -.03 l -.22 -.3 M .35 -.01 l .21 -.27',
-    transform:rotation,fill:'none',stroke:'#dceec6','stroke-width':'.026',
-    'stroke-linecap':'round',opacity:'.25','pointer-events':'none','aria-hidden':'true'},g);
-  // Ponto indica que a folha abre informações, não que existam ramos ocultos.
-  el('circle',{cx:'.83',cy:'-.54',r:'.105',fill:'#e6a04e',
-    stroke:'#fffaf0','stroke-width':'.034','pointer-events':'none',
-    'aria-hidden':'true',class:'gp49-interaction-dot'},g);
-  const words=names[index].split(/\s+/), lines=[''];
-  const limit=Math.max(11,Math.ceil(Math.sqrt(names[index].length*2)));
+  // Apenas a nervura central, fundida à cor da folha.
+  el('path',{d:'M -.62 0 Q 0 -.05 .72 0',transform:rotation,fill:'none',
+    stroke:'#dce9d3','stroke-width':'.019','stroke-linecap':'round',
+    opacity:'.14','pointer-events':'none','aria-hidden':'true'},g);
+  // Ponto integrado à extremidade da folha, não uma bolinha solta no mapa.
+  const marker=el('g',{transform:rotation,'pointer-events':'none','aria-hidden':'true'},g);
+  el('circle',{cx:'.74',cy:'-.17',r:'.065',fill:'#e5ab65',
+    stroke:'#e6f1dc','stroke-width':'.018',class:'gp49-interaction-dot'},marker);
+  // Texto sempre horizontal, calculado conforme a inclinação e a área da folha.
+  const normalized=((angle+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
+  const span=1.6/Math.sqrt(Math.cos(normalized)**2+(Math.sin(normalized)/.66)**2);
+  const maxChars=Math.max(8,Math.min(19,Math.floor(span/.135)));
+  const words=names[index].trim().split(/\s+/);
+  const lines=[''];
   for(const word of words){
     const last=lines.length-1;
-    if(lines[last] && lines[last].length+1+word.length>limit) lines.push(word);
+    if(lines[last] && lines[last].length+1+word.length>maxChars)lines.push(word);
     else lines[last]+=(lines[last]?' ':'')+word;
   }
-  const font=Math.min(.33,1.98/Math.max(...lines.map(line=>line.length)),1.1/lines.length);
-  const title=el('text',{'text-anchor':'middle','font-size':font, fill:'white','pointer-events':'none'},g);
-  lines.forEach((line,i)=>el('tspan',{x:0,y:(i-(lines.length-1)/2+.3)*font*1.12},title).textContent=line);
+  if(lines.length>4){
+    const remaining=lines.slice(3).join(' ');
+    lines.length=3;
+    lines.push(remaining.length>maxChars
+      ?remaining.slice(0,Math.max(3,maxChars-1)).trimEnd()+'…':remaining);
+  }
+  const longest=Math.max(...lines.map(line=>line.length),1);
+  const font=Math.min(.32,span/(longest*.57+1),.91/(lines.length*1.19));
+  const title=el('text',{'text-anchor':'middle','font-size':font,
+    'font-weight':'720','font-family':'system-ui,sans-serif',
+    fill:'#fffef7','pointer-events':'none','dominant-baseline':'middle',
+    'paint-order':'stroke',stroke:'#244b31','stroke-opacity':'.28',
+    'stroke-width':'.013',class:'gp49-leaf-text'},g);
+  lines.forEach((line,i)=>el('tspan',{x:0,
+    y:(i-(lines.length-1)/2)*font*1.18,'dominant-baseline':'middle'},title).textContent=line);
   el('title',{},g).textContent=names[index]+' — selecionar para consultar detalhes';
+  attachLeafHover(g,index);
   const select=()=>openNode(index);
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -128,9 +173,7 @@ function fruits(index,origin,angle,scale){
   g.style.cursor='pointer';
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
-  // Única luz pontual: textura de superfície, sem aumentar o fruto nem o botão.
-  el('circle',{cx:p.x-radius*.3,cy:p.y-radius*.34,r:radius*.18,
-    fill:'#fffce7',opacity:'.46','pointer-events':'none','aria-hidden':'true'},g);
+  // O degradê interno já fornece o volume; sem reflexo sobreposto.
   el('title',{},g).textContent=item.nome;
   const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}};
   g.addEventListener('click',select);
