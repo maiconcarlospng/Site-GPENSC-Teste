@@ -44,7 +44,9 @@ pessoas_vinculadas <- function(id) {
   }
   indices <- vapply(seq_len(nrow(integrantes_publicados)), function(j) {
     categoria <- valor_publico(integrantes_publicados$categoria[j])
-    !identical(categoria, "Egressos") && id %in% ids_pessoa(integrantes_publicados$linhas_ids[j])
+    situacao <- valor_publico(integrantes_publicados$situacao_vinculo[j])
+    !identical(situacao, "Egresso") && !identical(categoria, "Egressos") &&
+      id %in% ids_pessoa(integrantes_publicados$linhas_ids[j])
   }, logical(1))
   dados <- integrantes_publicados[indices, , drop = FALSE]
   if (nrow(dados)) dados <- dados[order(chave_alfabetica(dados$nome)), , drop = FALSE]
