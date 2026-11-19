@@ -18,6 +18,9 @@ on:
       - "styles.css"
       - "svg-institucional.css"
       - "site-ajustes.css"
+      - "site-escala.css"
+      - "home-refinamentos.css"
+      - "scripts/gerar-inventario-materiais.py"
       - "js/**"
       - "custom.scss"
       - "lupa.html"
@@ -58,6 +61,8 @@ jobs:
           node-version: "20"
       - name: Instalar validador YAML
         run: python -m pip install --disable-pip-version-check PyYAML
+      - name: Construir índice de vínculos dos materiais
+        run: python scripts/gerar-inventario-materiais.py
       - name: Validar configuração, arquivos, YAML e CSS
         run: python admin/validar-painel.py
       - name: Verificar links, páginas e recursos estáticos
@@ -178,6 +183,9 @@ jobs:
           rm -rf _site _freeze
           quarto render
           rm -f _site/admin/validar-painel.py _site/admin/auditar-site.py _site/admin/arquivar-capas-instagram.py
+
+      - name: Atualizar inventário de materiais do site publicado
+        run: python3 scripts/gerar-inventario-materiais.py --output _site/admin/static-media-references.js
 
       - name: Sincronizar o site compilado com o Render
         uses: peaceiris/actions-gh-pages@v4
