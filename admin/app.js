@@ -1024,8 +1024,13 @@ function mediaInFolder(path,folder){
 function mediaFolderCount(folder){
   return state.mediaFiles.filter(file=>mediaInFolder(file.path,folder)).length;
 }
-function mediaCanRemove(path){
-  return !/^img\/(?:ilustracoes\/|logo|hero|tree-|favicon)/i.test(path);
+function mediaCanRemove(path,currentLinks){
+  // Sem bloqueio genérico por pasta: a exclusão depende dos vínculos reais.
+  // Arquivos do Instagram também são verificados pelos cadastros de Notícias.
+  const codeReferences=window.GPENSC_STATIC_MEDIA_REFERENCES;
+  if(!codeReferences || !/^img\//.test(path))return false;
+  if(codeReferences.has(path))return false;
+  return !(currentLinks||mediaReferences(state.contents)).has(path);
 }
 function mediaFolderIcon(){
   return '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
@@ -1063,7 +1068,7 @@ function openMediaLibrary(){
     '<div class="media-filter"><label for="media-sort">Ordenar</label><select id="media-sort"><option value="name">Nome (A–Z)</option><option value="name-desc">Nome (Z–A)</option><option value="size">Tamanho (maior primeiro)</option><option value="size-asc">Tamanho (menor primeiro)</option><option value="type">Tipo / extensão</option><option value="folder">Pasta (A–Z)</option><option value="folder-desc">Pasta (Z–A)</option><option value="usage">Arquivos em uso primeiro</option></select></div>',
     '<div class="media-filter media-filter-destination"><label for="media-upload-folder">Pasta para novos uploads</label><select id="media-upload-folder"></select></div>',
     '</div>',
-    '<p class="media-usage-note">Os vínculos são identificados pelos registros do painel. Arquivos usados diretamente no código podem aparecer sem vínculo detectado.</p>',
+    '<p class="media-usage-note">Os vínculos são verificados nos cadastros, inclusive Notícias/Instagram, e nas referências do site. Somente arquivos sem uso confirmado podem entrar na fila de exclusão.</p>',
     '<div class="media-browser-heading"><div><h2 id="media-folder-title">Arquivos</h2><p id="media-status" role="status" aria-live="polite"></p></div><span class="media-browser-path" id="media-current-path"></span></div>',
     '<div id="media-subfolders" class="media-folder-tiles"></div>',
     '<div class="media-bulk-bar"><label class="media-select-page" for="media-select-page"><input type="checkbox" id="media-select-page"><span>Selecionar esta página</span></label><span id="media-select-status" role="status">Nenhum material selecionado</span><button type="button" class="media-clear-selection" id="media-clear-selection" disabled>Limpar seleção</button><button type="button" class="secondary-button media-danger-action" id="media-delete-selected" disabled>Remover selecionados</button></div>',
@@ -1078,8 +1083,9 @@ function openMediaLibrary(){
   };
   $('#media-clear-selection').onclick=()=>{state.mediaSelection.clear();renderMediaFiles()};
   $('#media-select-page').addEventListener('change',event=>{
+    const activeLinks=mediaReferences(state.contents);
     (state.mediaCurrentPageFiles||[]).forEach(file=>{
-      if(!mediaCanRemove(file.path)||batch.assets()[file.path]?.action==='remover')return;
+      if(!mediaCanRemove(file.path,activeLinks)||batch.assets()[file.path]?.action==='remover')return;
       if(event.target.checked)state.mediaSelection.add(file.path);
       else state.mediaSelection.delete(file.path);
     });
@@ -1239,8 +1245,9 @@ function renderMediaFiles(){
   const pendingAssets=batch.assets();
   const linked=mediaReferences(state.remoteContents||state.contents);
   const drafts=mediaReferences(state.contents);
-  const fileUsage=path=>linked.has(path)?'linked':drafts.has(path)?'draft':'unlinked';
-  const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo detectado'};
+  const codeRefs=window.GPENSC_STATIC_MEDIA_REFERENCES||new Set();
+  const fileUsage=path=>(codeRefs.has(path)||linked.has(path))?'linked':drafts.has(path)?'draft':'unlinked';
+  const usageLabels={linked:'Em uso',draft:'Em rascunho',unlinked:'Sem vínculo confirmado'};
   if(foldersEl){
     const subfolders=(term||state.mediaFolder===MEDIA_ALL_FOLDERS)?[]:allFolders.filter(path=>
       path!=='img'&&mediaParentFolder(path)===state.mediaFolder
@@ -1289,7 +1296,7 @@ function renderMediaFiles(){
     const selectionText=$('#media-select-status');
     if(selectionText)selectionText.textContent=size?size+' arquivo(s) selecionado(s) · alterações só após revisar e publicar':'Nenhum arquivo selecionado';
     const allCheckbox=$('#media-select-page');
-    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path)&&pendingAssets[file.path]?.action!=='remover');
+    const eligible=pageFiles.filter(file=>mediaCanRemove(file.path,drafts)&&pendingAssets[file.path]?.action!=='remover');
     const selected=eligible.filter(file=>state.mediaSelection.has(file.path)).length;
     if(allCheckbox){
       allCheckbox.disabled=!eligible.length;
@@ -1305,7 +1312,7 @@ function renderMediaFiles(){
     grid.innerHTML=pageFiles.map(file=>{
       const name=file.path.split('/').pop(),ext=mediaExtension(name).toUpperCase(),kind=file.category;
       const removing=pendingAssets[file.path]?.action==='remover';
-      const canRemove=mediaCanRemove(file.path);
+      const canRemove=mediaCanRemove(file.path,drafts);
       const selected=state.mediaSelection.has(file.path);
       const status=fileUsage(file.path);
       const references=linked.get(file.path)||drafts.get(file.path);
@@ -1313,17 +1320,19 @@ function renderMediaFiles(){
       const preview=kind==='image'
         ?'<img src="'+destination+'" alt="'+esc(name)+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">'
         :'<span class="media-file-placeholder"><strong>'+esc(ext)+'</strong><small>'+(kind==='audiovisual'?'Áudio ou vídeo':'Documento')+'</small></span>';
-      const badge='<span class="media-usage-badge media-usage-'+status+'">'+usageLabels[status]+'</span>';
-      const details=references?'<small class="media-usage-sections" title="Seções relacionadas">'+esc([...references].join(' · '))+'</small>':'';
+      const reason=codeRefs.has(file.path)?'Recurso utilizado no layout do site':references?[...references].join(' · '):'';
+      const badgeText=usageLabels[status];
+      const badge='<span class="media-usage-badge media-usage-'+status+'">'+badgeText+'</span>';
+      const details=reason?'<small class="media-usage-sections" title="Vínculos identificados">'+esc(reason)+'</small>':'';
       const chooser=canRemove&&!removing
         ?'<label class="media-card-select" title="Selecionar '+esc(name)+'"><input type="checkbox" data-media-select="'+esc(file.path)+'" aria-label="Selecionar '+esc(name)+'"'+(selected?' checked':'')+'><span aria-hidden="true">✓</span></label>'
-        :'<span class="media-card-protected">'+(removing?'Exclusão na fila':'Protegido')+'</span>';
+        :'<span class="media-card-linked">'+(removing?'Exclusão na fila':'Em uso')+'</span>';
       return '<article class="media-card'+(selected?' is-selected':'')+(removing?' media-card-removing':'')+'" data-media-path="'+esc(file.path)+'">'+
         '<div class="media-card-preview"><a class="media-card-thumb" href="'+destination+'" target="_blank" rel="noopener noreferrer" aria-label="Visualizar '+esc(name)+'">'+preview+'</a>'+chooser+'</div>'+
         '<div class="media-card-body"><div class="media-card-meta"><span class="media-extension">'+esc(ext)+'</span><span class="media-size">'+mediaSize(file.size)+'</span></div>'+
         '<strong class="media-name" title="'+esc(file.path)+'">'+esc(name)+'</strong><small class="media-path">'+esc(mediaParentFolder(file.path))+'/</small>'+badge+details+
         '<div class="media-card-actions"><a href="'+destination+'" target="_blank" rel="noopener noreferrer">Abrir</a><button type="button" data-media-copy="'+esc(file.path)+'">Copiar link</button>'+(kind==='image'&&!removing?'<button type="button" data-media-crop="'+esc(file.path)+'">Recortar cópia</button>':'')+'</div>'+
-        '<div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-replace">Substituir<input type="file" accept=".'+mediaExtension(name)+'" data-media-replace="'+esc(file.path)+'"></label><button type="button" class="media-remove-single" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Arquivo estrutural protegido"')+'>Remover</button>')+'</div>'+
+        '<div class="media-remove-actions">'+(removing?'<button type="button" class="secondary-button" data-media-undo-delete="'+esc(file.path)+'">Desfazer exclusão</button>':'<label class="media-replace">Substituir<input type="file" accept=".'+mediaExtension(name)+'" data-media-replace="'+esc(file.path)+'"></label><button type="button" class="media-remove-single" data-media-delete="'+esc(file.path)+'"'+(canRemove?'':' disabled title="Material ainda vinculado ao site"')+'>Remover</button>')+'</div>'+
         '</div></article>';
     }).join('');
     grid.querySelectorAll('[data-media-select]').forEach(check=>check.addEventListener('change',()=>{
@@ -1399,9 +1408,9 @@ async function queueMaterialsRemoval(paths){
   renderMediaFiles();
   if(success)toast(success+' material(is) preparado(s) para exclusão. Revise a fila.');
   if(errors.length){
-    toast(errors.length+' material(is) não puderam ser removidos. Confira os vínculos e as proteções.',true);
+    toast(errors.length+' material(is) não puderam ser removidos. Confira os vínculos encontrados.',true);
     const msg=errors.slice(0,6).join('\n')+(errors.length>6?'\n...':'');
-    alert('Algumas exclusões foram impedidas por segurança:\n'+msg);
+    alert('Alguns arquivos ainda estão vinculados ao site:\n'+msg);
   }
 }
 function validateMaterial(file){
