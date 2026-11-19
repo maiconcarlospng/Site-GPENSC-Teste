@@ -286,7 +286,7 @@ div(
               raiz.querySelectorAll('.equipe-categoria-grupo').forEach((grupo) => {
                 let encontrados = 0;
                 const categoriaGrupo = normalizar(grupo.dataset.equipeCategoria);
-                const limitePadrao = celular.matches ? 4 : 8;
+                const limitePadrao = categoriaGrupo === normalizar('Líderes') ? Infinity : (celular.matches ? 4 : 8);
                 const limite = limites.has(grupo) ? limites.get(grupo) : limitePadrao;
                 grupo.querySelectorAll('.membro-card').forEach((cartao) => {
                   const texto = normalizar(cartao.dataset.busca || cartao.textContent);
