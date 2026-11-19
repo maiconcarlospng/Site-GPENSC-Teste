@@ -112,7 +112,7 @@ jobs:
           changed="$(git diff --name-only "$previous" HEAD)"
           # Apenas recursos estáticos já referenciados pelo HTML existente.
           # Alterações em templates, dados, conteúdo ou configuração exigem Quarto.
-          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|svg-institucional\\.css|site-ajustes\\.css|site-escala\\.css|site-density\\.css|home-refinamentos\\.css|js/[^[:space:]]+)$' <<< "$changed" && ! git diff --name-only --diff-filter=D "$previous" HEAD | grep -q .; then
+          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\.css|svg-institucional\.css|site-ajustes\.css|site-escala\.css|site-density\.css|home-refinamentos\.css|js/[^[:space:]]+)$' <<< "$changed" && ! git diff --name-only --diff-filter=D "$previous" HEAD | grep -q .; then
             echo "Somente CSS/JS estáticos mudaram desde a publicação anterior."
             echo "fast=true" >> "$GITHUB_OUTPUT"
           else
