@@ -10,6 +10,10 @@ const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);fo
 const limbs=el('g'),nodes=el('g');
 let zoomAnimation=0;
 const tips=[];
+// Visibilidade editorial em etapas: tronco -> linhas/projetos -> frutos.
+const leafVisuals=new Map();
+const openedLines=new Set(),openedFruits=new Set();
+let trunkOpen=false;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const camera={x:0,y:0,w:W,h:H};
 // Tudo permanece desenhado e interativo em qualquer nível de zoom. O zoom altera apenas a câmera.
@@ -24,14 +28,16 @@ const point = (p, angle, distance) => ({
 });
 function branch(start, first, second, end, scale) {
   const coords = p => p.x + ' ' + p.y;
-  el('path', {d: 'M' + coords(start) + ' C' + [first, second, end].map(coords).join(' '),
+  return el('path', {d: 'M' + coords(start) + ' C' + [first, second, end].map(coords).join(' '),
     fill:'none', stroke:'#75634e', 'stroke-width':scale*.55, 'stroke-linecap':'round'}, limbs);
 }
 function leaf(origin, angle, scale, index) {
   const p = point(origin, angle, scale*1.9), r = scale*1.28;
   tips[index] = p;
   const g = el('g',{transform:'translate('+p.x+' '+p.y+') scale('+r+')',
-    role:'button',tabindex:0,'aria-label':names[index]},nodes);
+    role:'button',tabindex:0,'aria-label':names[index], 'aria-expanded':'false'},nodes);
+  g.dataset.gpNodeIndex=String(index);
+  leafVisuals.set(index,g);
   el('path',{d:'M -1 0 C -.85 -1 .45 -1.35 1.16 0 C .45 1.35 -.85 1 -1 0 Z',
     transform:'rotate('+(angle*180/Math.PI)+')',fill:rows[index].dataset.branchType==='projeto'?'#5d803e':'#416d43'},g);
   const words=names[index].split(/\s+/), lines=[''];
@@ -45,7 +51,7 @@ function leaf(origin, angle, scale, index) {
   const title=el('text',{'text-anchor':'middle','font-size':font, fill:'white','pointer-events':'none'},g);
   lines.forEach((line,i)=>el('tspan',{x:0,y:(i-(lines.length-1)/2+.3)*font*1.12},title).textContent=line);
   el('title',{},g).textContent=names[index];
-  const select=()=>{show(index);};
+  const select=()=>openNode(index);
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
 }
@@ -73,8 +79,10 @@ function fruits(index,origin,angle,scale){
   const a=angle+(j-(n-1)/2)*Math.min(.48,2.7/Math.max(n,1));
   const d=scale*(1.8+.24*(j%3));
   const p=point(origin,a,d),tone=item.tipo==='pessoa'?'#d9731f':item.tipo==='defesa'?'#d43a2f':'#5f9a3e';
-  branch(point(origin,angle,scale*.25),point(origin,angle,scale*.52),point(origin,a,d*.78),p,Math.max(1,scale*.065));
+  const fruitStem=branch(point(origin,angle,scale*.25),point(origin,angle,scale*.52),point(origin,a,d*.78),p,Math.max(1,scale*.065));
+  fruitStem.dataset.gpFruitOwner=String(index);
   const g=el('g',{role:'button',tabindex:0,'aria-label':item.tipo+': '+item.nome},nodes);
+  g.dataset.gpFruitOwner=String(index);
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:tone,stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   el('title',{},g).textContent=item.nome;
   const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}};
@@ -92,9 +100,14 @@ function growTree(items,origin,angle,scale){
   if(item.children.length){
    const base=point(origin,angle,scale*1.45);
    const childAngle=angle+.34,childScale=scale*.36;
+   const beforeChildPaths=limbs.children.length;
    branch(point(origin,angle,scale*.95),point(origin,angle,scale*1.18),
      point(base,childAngle,childScale*.35),point(base,childAngle,childScale),childScale);
    growTree(item.children,base,childAngle,childScale);
+   // Os caminhos para projetos desta linha só surgem após selecionar a linha.
+   [...limbs.children].slice(beforeChildPaths).forEach(path=>{
+     if(!path.dataset.gpFruitOwner)path.dataset.gpProjectParent=String(item.index);
+   });
   }
   return;
  }
@@ -112,11 +125,102 @@ function growTree(items,origin,angle,scale){
  }
 }
 const origin={x:0,y:0},heading=-Math.PI*.38,scale=230;
-branch(origin,point(origin,heading,.05*scale),point(origin,heading,.95*scale),point(origin,heading,scale),scale);
+const trunkPath=branch(origin,point(origin,heading,.05*scale),point(origin,heading,.95*scale),point(origin,heading,scale),scale);
+trunkPath.setAttribute('role','button');
+trunkPath.setAttribute('tabindex','0');
+trunkPath.setAttribute('aria-label','GPENSC: abrir ou fechar os galhos da árvore');
+trunkPath.setAttribute('aria-expanded','false');
+trunkPath.style.cursor='pointer';
 growTree(forest,origin,heading,scale);
 // Identidade do grupo acompanha a orientação natural do tronco.
-const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'none'},nodes);
+const trunkLabel=el('text',{'x':scale*.48*Math.cos(heading)-15*Math.sin(heading),'y':scale*.48*Math.sin(heading)+15*Math.cos(heading),'transform':'rotate('+(heading*180/Math.PI)+' '+(scale*.48*Math.cos(heading))+' '+(scale*.48*Math.sin(heading))+')','text-anchor':'middle','font-size':'26','font-weight':'750','letter-spacing':'2','fill':'#fff8e8','stroke':'#463b2e','stroke-width':'3','paint-order':'stroke','pointer-events':'auto','role':'button','tabindex':'0','aria-label':'GPENSC: abrir ou fechar os galhos','aria-expanded':'false'},nodes);
 trunkLabel.textContent='GPENSC';
+trunkLabel.style.cursor='pointer';
+
+// Os mesmos caminhos, folhas e frutos são reutilizados; apenas a visibilidade muda.
+// Não se altera growTree, a posição dos nós, a espessura dos galhos ou a copa.
+const projectParent=new Map();
+for(const part of forest)for(const child of part.children)projectParent.set(child.index,part.index);
+const instruction=document.createElement('div');
+instruction.className='gp49-step-hint';
+instruction.setAttribute('role','status');
+instruction.textContent='Selecione o tronco GPENSC para explorar as linhas de pesquisa.';
+map.parentElement.append(instruction);
+function branchVisible(index){
+  return trunkOpen&&(!projectParent.has(index)||openedLines.has(projectParent.get(index)));
+}
+function refreshVisibility(){
+  for(const path of limbs.children){
+    let visible=path===trunkPath;
+    if(!visible&&trunkOpen){
+      const owner=path.dataset.gpFruitOwner;
+      const parent=path.dataset.gpProjectParent;
+      visible=owner!==undefined?(openedFruits.has(Number(owner))&&branchVisible(Number(owner))):
+        parent!==undefined?openedLines.has(Number(parent)):true;
+    }
+    path.style.visibility=visible?'visible':'hidden';
+    path.style.pointerEvents=visible?'auto':'none';
+  }
+  for(const child of nodes.children){
+    let visible=child===trunkLabel;
+    if(!visible&&trunkOpen){
+      const owner=child.dataset.gpFruitOwner;
+      const branchIndex=child.dataset.gpNodeIndex;
+      visible=owner!==undefined?(openedFruits.has(Number(owner))&&branchVisible(Number(owner))):
+        branchIndex!==undefined?branchVisible(Number(branchIndex)):true;
+    }
+    child.style.visibility=visible?'visible':'hidden';
+    child.style.pointerEvents=visible?'auto':'none';
+  }
+  const expanded=String(trunkOpen);
+  trunkPath.setAttribute('aria-expanded',expanded);
+  trunkLabel.setAttribute('aria-expanded',expanded);
+  for(const [i,g] of leafVisuals){
+    g.setAttribute('aria-expanded',String(openedFruits.has(i)||openedLines.has(i)));
+  }
+  instruction.textContent=!trunkOpen
+    ?'Selecione o tronco GPENSC para explorar as linhas de pesquisa.'
+    :'Selecione uma linha ou projeto para revelar integrantes e produções vinculados.';
+}
+function openTrunk(){
+  trunkOpen=!trunkOpen;
+  if(!trunkOpen){
+    openedLines.clear();openedFruits.clear();
+    const panel=root.querySelector('#gp49-detail');
+    if(panel)panel.hidden=true;
+    focusTrunk();
+  }else{
+    fit();
+  }
+  refreshVisibility();
+}
+function revealBranch(index){
+  trunkOpen=true;
+  const parent=projectParent.get(index);
+  if(parent!==undefined)openedLines.add(parent);
+  refreshVisibility();
+}
+function openNode(index){
+  revealBranch(index);
+  if(openedFruits.has(index))openedFruits.delete(index);
+  else openedFruits.add(index);
+  if(rows[index].dataset.branchType==='linha'){
+    if(openedLines.has(index)){
+      openedLines.delete(index);
+      for(const [project,parent] of projectParent)if(parent===index)openedFruits.delete(project);
+    }else{
+      openedLines.add(index);
+    }
+  }
+  refreshVisibility();
+  show(index);
+}
+for(const target of [trunkPath,trunkLabel]){
+  target.addEventListener('click',openTrunk);
+  target.addEventListener('keydown',event=>{
+    if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunk();}
+  });
+}
 function fit(){
  const boxes=[limbs,nodes].map(layer=>layer.getBBox());
  const minX=Math.min(...boxes.map(b=>b.x)),minY=Math.min(...boxes.map(b=>b.y));
@@ -139,8 +243,16 @@ for(const ev of ['pointerup','pointercancel','lostpointercapture'])svg.addEventL
 root.querySelector('#gp49-home')?.addEventListener('click',fit);
 root.querySelector('#gp49-in')?.addEventListener('click',()=>zoom(.72));
 root.querySelector('#gp49-out')?.addEventListener('click',()=>zoom(1.38));
-const search=root.querySelector('#gp49-search');if(search){const floating=document.createElement('input');floating.type='search';floating.className='gp49-search-float';floating.placeholder='Buscar linha ou projeto…';floating.setAttribute('aria-label','Buscar na árvore');map.parentElement.appendChild(floating);floating.addEventListener('input',()=>{search.value=floating.value;const q=floating.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const i=names.findIndex(n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));if(q&&i>=0&&tips[i])focus(tips[i],270);});}
-rows.forEach((r,i)=>r.querySelector('button')?.addEventListener('click',()=>show(i)));
+const search=root.querySelector('#gp49-search');if(search){const floating=document.createElement('input');floating.type='search';floating.className='gp49-search-float';floating.placeholder='Buscar linha ou projeto…';floating.setAttribute('aria-label','Buscar na árvore');map.parentElement.appendChild(floating);floating.addEventListener('input',()=>{search.value=floating.value;const q=floating.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const i=names.findIndex(n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q));if(q&&i>=0&&tips[i]){revealBranch(i);focus(tips[i],270);}});}
+rows.forEach((r,i)=>r.querySelector('button')?.addEventListener('click',()=>openNode(i)));
 map.addEventListener('keydown',e=>{if(e.target!==map)return;if(e.key==='+'||e.key==='=')zoom(.75);else if(e.key==='-')zoom(1.3);else if(e.key==='Home')fit();else return;e.preventDefault();});
-function sizeViewport(){const header=document.querySelector('#quarto-header,header.navbar,nav.navbar');const top=Math.max(0,root.getBoundingClientRect().top);root.style.setProperty('--gp49-measured-top',top+'px');}sizeViewport();window.addEventListener('resize',sizeViewport,{passive:true});window.addEventListener('resize',()=>{const center={x:camera.x+camera.w/2,y:camera.y+camera.h/2};const h=camera.w*map.clientHeight/Math.max(1,map.clientWidth);camera.x=center.x-camera.w/2;camera.y=center.y-h/2;camera.h=h;paint();},{passive:true});requestAnimationFrame(()=>{fit();});root.classList.add('gp49-ready');
+function sizeViewport(){const header=document.querySelector('#quarto-header,header.navbar,nav.navbar');const top=Math.max(0,root.getBoundingClientRect().top);root.style.setProperty('--gp49-measured-top',top+'px');}sizeViewport();window.addEventListener('resize',sizeViewport,{passive:true});window.addEventListener('resize',()=>{const center={x:camera.x+camera.w/2,y:camera.y+camera.h/2};const h=camera.w*map.clientHeight/Math.max(1,map.clientWidth);camera.x=center.x-camera.w/2;camera.y=center.y-h/2;camera.h=h;paint();},{passive:true});function focusTrunk(){
+ const aspect=map.clientWidth/Math.max(1,map.clientHeight);
+ const w=map.clientWidth<768?Math.max(410,aspect*650):Math.max(620,aspect*500);
+ const h=w/aspect;
+ const center=point(origin,heading,scale*.48);
+ camera.x=center.x-w*.5;camera.y=center.y-h*.5;camera.w=w;camera.h=h;
+ paint();
+}
+requestAnimationFrame(()=>{focusTrunk();refreshVisibility();});root.classList.add('gp49-ready');
 })();

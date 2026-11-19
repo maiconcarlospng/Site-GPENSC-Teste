@@ -588,3 +588,142 @@ html body #quarto-content .galeria-item--evento .gp-galeria-evento-link:focus-vi
   outline: 3px solid #d9731f !important;
   outline-offset: -4px;
 }
+
+
+/* GPENSC — tabelas de linhas e projetos: leitura institucional e rolagem mobile. */
+html body #quarto-content .gp-listagem-tabela{
+  box-sizing:border-box;width:min(100%,1180px);max-width:1180px;
+  margin:22px auto 34px;padding:0;min-width:0;color:#234b31
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-introducao{
+  margin:0 0 14px;padding:0 2px;max-width:86ch
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-introducao p{
+  margin:0;color:#617267;font-size:.88rem;line-height:1.55
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-rolagem{
+  box-sizing:border-box;display:block;width:100%;max-width:100%;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;border:1px solid #dbe5d8;
+  background:white;border-radius:15px;box-shadow:0 6px 22px #19392509;
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-rolagem:focus-visible{
+  outline:3px solid #d9731f;outline-offset:3px
+}
+html body #quarto-content .gp-listagem-tabela table.gp-tabela-dados{
+  display:table!important;border-collapse:separate!important;border-spacing:0!important;
+  margin:0!important;width:100%!important;min-width:740px!important;
+  background:#fff!important;font-size:.85rem!important;table-layout:fixed;
+}
+html body #quarto-content .gp-listagem-tabela table.gp-tabela-dados caption{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados thead th{
+  padding:15px 17px!important;background:#eaf1e7!important;
+  border:0!important;border-bottom:2px solid #b9cdb4!important;
+  text-align:left;color:#1f4d2b!important;font-size:.75rem!important;
+  text-transform:uppercase;letter-spacing:.045em;vertical-align:middle;
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td{
+  padding:17px!important;vertical-align:top!important;
+  border:0!important;border-bottom:1px solid #e9eee7!important;
+  color:#405648!important;overflow-wrap:anywhere;line-height:1.55;
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados tbody tr:nth-child(even) td{
+  background:#fbfcfa!important
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados tbody tr:hover td{
+  background:#f4f8f1!important
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados tbody tr:last-child td{border-bottom:0!important}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th:first-child,
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td:first-child{width:29%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th:nth-child(2),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td:nth-child(2){width:24%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th:nth-child(3),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td:nth-child(3){width:25%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th:nth-child(4),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td:nth-child(4){width:22%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-principal>strong{
+  display:block;font-size:.94rem!important;font-weight:800;color:#204d2e;line-height:1.4
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-resumo{
+  margin:7px 0 0!important;color:#617368;font-size:.82rem;line-height:1.5
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-temas,
+html body #quarto-content .gp-listagem-tabela .gp-tabela-periodo{
+  margin:7px 0 0!important;color:#67796b;font-size:.75rem
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-links{
+  list-style:none!important;margin:0!important;padding:0!important;display:grid;gap:8px
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-links li{
+  margin:0!important;padding:0!important;line-height:1.4
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-links li::marker{content:""}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-auxiliar{
+  font-size:.79rem;color:#819084;font-style:italic
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados a{
+  color:#28613c;text-decoration:none!important;font-weight:700;
+  text-underline-offset:3px
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-dados a:hover{
+  color:#b9560f;text-decoration:underline!important
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-detalhes{
+  border:1px solid #dbe5d7;border-radius:9px;padding:0 10px;background:#fff
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-detalhes summary{
+  cursor:pointer;color:#255a35;font-weight:750;font-size:.78rem;padding:9px 0
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-detalhes h4{
+  margin:13px 0 7px!important;font-size:.78rem;font-weight:800;color:#254b31
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-detalhes .gp-tabela-links{
+  padding-bottom:12px!important
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-situacao{
+  display:inline-block;margin:0 0 6px;padding:3px 8px;border-radius:7px;
+  background:#eef4e8;color:#356544;font-size:.72rem;font-weight:700
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-fonte{
+  display:inline-flex;align-items:center;margin-top:8px
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-nota{
+  margin:10px 3px 0;font-size:.73rem;color:#718174
+}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos th:first-child,
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos td:first-child{width:38%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos th:nth-child(2),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos td:nth-child(2){width:21%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos th:nth-child(3),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos td:nth-child(3){width:20%}
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos th:nth-child(4),
+html body #quarto-content .gp-listagem-tabela .gp-tabela-projetos td:nth-child(4){width:21%}
+@media(max-width:860px){
+  html body #quarto-content .gp-listagem-tabela{max-width:100%;margin:15px auto 25px}
+  html body #quarto-content .gp-listagem-tabela table.gp-tabela-dados{min-width:740px!important}
+  html body #quarto-content .gp-listagem-tabela .gp-tabela-dados td{padding:13px!important}
+  html body #quarto-content .gp-listagem-tabela .gp-tabela-dados th{padding:12px 13px!important}
+}
+
+
+/* Orientação discreta da Árvore do Conhecimento, sem alterar os nós ou o desenho. */
+html body:has(#gp49) #gp49 .gp49-step-hint{
+  box-sizing:border-box;position:absolute;left:16px;bottom:18px;z-index:18;
+  width:min(390px,calc(100% - 140px));max-width:100%;padding:11px 15px;
+  border-radius:13px;border:1px solid #d7e4d1;
+  background:rgba(255,255,251,.94);box-shadow:0 5px 20px #173b2615;
+  color:#285438;font-size:.8rem;font-weight:700;line-height:1.45;
+  pointer-events:none;backdrop-filter:blur(8px)
+}
+@media(max-width:767px){
+  html body:has(#gp49) #gp49 .gp49-step-hint{
+    left:12px;bottom:calc(14px + env(safe-area-inset-bottom));
+    width:min(240px,calc(100% - 100px));padding:9px 11px;
+    font-size:.72rem;line-height:1.35
+  }
+}
+html body:has(#gp49) #gp49 #gp49-map svg [role="button"]:focus-visible{
+  outline:none;filter:drop-shadow(0 0 3px #d9731f)
+}
