@@ -19,6 +19,7 @@ on:
       - "svg-institucional.css"
       - "site-ajustes.css"
       - "site-escala.css"
+      - "site-density.css"
       - "home-refinamentos.css"
       - "scripts/gerar-inventario-materiais.py"
       - "js/**"
@@ -111,7 +112,7 @@ jobs:
           changed="$(git diff --name-only "$previous" HEAD)"
           # Apenas recursos estáticos já referenciados pelo HTML existente.
           # Alterações em templates, dados, conteúdo ou configuração exigem Quarto.
-          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|svg-institucional\\.css|site-ajustes\\.css|js/[^[:space:]]+)$' <<< "$changed" && ! git diff --name-only --diff-filter=D "$previous" HEAD | grep -q .; then
+          if [[ -n "$changed" ]] && ! grep -Ev '^(styles\\.css|svg-institucional\\.css|site-ajustes\\.css|site-escala\\.css|site-density\\.css|home-refinamentos\\.css|js/[^[:space:]]+)$' <<< "$changed" && ! git diff --name-only --diff-filter=D "$previous" HEAD | grep -q .; then
             echo "Somente CSS/JS estáticos mudaram desde a publicação anterior."
             echo "fast=true" >> "$GITHUB_OUTPUT"
           else
@@ -127,6 +128,9 @@ jobs:
           # Copiar somente os arquivos estáticos alterados, mantendo os demais.
           cp styles.css _site/styles.css
           if [[ -f site-ajustes.css ]]; then cp site-ajustes.css _site/site-ajustes.css; fi
+          if [[ -f site-escala.css ]]; then cp site-escala.css _site/site-escala.css; fi
+          if [[ -f site-density.css ]]; then cp site-density.css _site/site-density.css; fi
+          if [[ -f home-refinamentos.css ]]; then cp home-refinamentos.css _site/home-refinamentos.css; fi
           if [[ -f svg-institucional.css ]]; then cp svg-institucional.css _site/svg-institucional.css; fi
           if [[ -d js ]]; then mkdir -p _site/js; cp -a js/. _site/js/; fi
           test -s _site/index.html
