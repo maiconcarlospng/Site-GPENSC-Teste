@@ -381,7 +381,7 @@ collections:
             - { label: "Unidade", name: "unidade", widget: "string" }
             - { label: "Departamento", name: "departamento", widget: "string" }
 
-        - label: "02 · Vínculos institucionais"
+        - label: "02 · Parcerias"
           name: "cfg_vinculos"
           file: "data/configuracoes/02-vinculos-institucionais.yml"
           fields:
