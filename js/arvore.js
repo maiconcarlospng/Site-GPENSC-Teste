@@ -35,6 +35,21 @@ const tips=[];
 // e no cartão de detalhes acessível por clique ou teclado.
 // Visibilidade integral desde a primeira renderização, sem alterar nenhum desenho ou ramo.
 const leafVisuals=new Map();
+// Apenas um item destacado por vez. Sem bolhas, sombras ou overlays externos.
+let selectedNode=null;
+function setSelectedNode(node){
+ if(selectedNode===node)return;
+ if(selectedNode){
+   selectedNode.classList.remove('gp49-selected');
+   selectedNode.setAttribute('aria-pressed','false');
+ }
+ selectedNode=node||null;
+ if(selectedNode){
+   selectedNode.classList.add('gp49-selected');
+   selectedNode.setAttribute('aria-pressed','true');
+ }
+}
+function clearSelectedNode(){setSelectedNode(null);}
 // Metadados visuais: permitem evitar colisões sem mudar o desenho de growTree.
 const leafLayout=[];
 const openedLines=new Set(),openedFruits=new Set();
@@ -69,7 +84,7 @@ function show(i, options={}){
  const close=document.createElement('button');
  close.type='button';close.textContent='Fechar';close.className='gp49-close';
  close.setAttribute('aria-label','Fechar detalhes da árvore');
- close.onclick=()=>{panel.hidden=true;row.querySelector('button')?.focus({preventScroll:true});};
+ close.onclick=()=>{panel.hidden=true;clearSelectedNode();rows.forEach(r=>r.querySelector('button')?.setAttribute('aria-pressed','false'));row.querySelector('button')?.focus({preventScroll:true});};
  header.append(heading,close);
  const content=document.createElement('div');content.className='gp49-detail-content';
  const body=row.querySelector('.gp49-line-body')?.cloneNode(true);
@@ -178,7 +193,7 @@ function fruits(index,origin,angle,scale){
   el('circle',{cx:p.x,cy:p.y,r:radius,fill:'url(#'+tone+')',
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   // O degradê interno já fornece o volume; sem reflexo sobreposto.
-  const select=()=>show(index,{title:item.nome,kind:item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica'});
+  const select=()=>{setSelectedNode(g);show(index,{title:item.nome,kind:item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica'});};
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
  });
@@ -370,6 +385,7 @@ function revealBranch(index){
 function openNode(index){
   // A seleção abre detalhes, nunca recolhe ramos já desenhados.
   revealBranch(index);
+  setSelectedNode(leafVisuals.get(index));
   show(index);
 }
 for(const target of [trunkPath,trunkLabel]){
@@ -379,6 +395,7 @@ for(const target of [trunkPath,trunkLabel]){
   });
 }
 function fit(){
+ clearSelectedNode();
  const boxes=[limbs,nodes].map(layer=>layer.getBBox());
  const minX=Math.min(...boxes.map(b=>b.x)),minY=Math.min(...boxes.map(b=>b.y));
  const maxX=Math.max(...boxes.map(b=>b.x+b.width)),maxY=Math.max(...boxes.map(b=>b.y+b.height));
