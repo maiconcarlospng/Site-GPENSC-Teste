@@ -401,6 +401,7 @@ if (nrow(noticias_recentes) > 0) {
 <h2>Próximas atividades</h2>
 <div class="gp-ag-lista"></div>
 <a href="agenda.html">Ver agenda completa</a>
+<img class="gp-ag-art" src="img/ilustracoes/agenda-home.svg" width="320" height="260" loading="lazy" alt="" aria-hidden="true">
 </section>
 <link rel="stylesheet" href="js/agenda-mensal.css">
 <script defer src="js/agenda-mensal.js"></script>
