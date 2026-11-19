@@ -159,7 +159,6 @@
       const codeReferences=window.GPENSC_STATIC_MEDIA_REFERENCES;
       if(!codeReferences)throw new Error('O inventário de vínculos não carregou. Atualize o painel antes de excluir.');
       if(codeReferences.has(path))throw new Error('O arquivo ainda é usado pelo código ou pela identidade visual do site.');
-      if(path.startsWith('img/instagram-acervo/'))throw new Error('Esta imagem pertence ao acervo sincronizado do Instagram. Confira o vínculo no índice do Instagram antes de remover.');
       const linked=localReferences(path);
       if(linked.length)throw new Error('Material vinculado aos cadastros de '+linked.slice(0,5).join(', ')+'. Remova os vínculos nas edições primeiro e confira a fila.');
       const next=clone(assets);
