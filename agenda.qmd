@@ -45,7 +45,7 @@ title: "Agenda"
     </div>
   </div>
 </section>
-<link rel="stylesheet" href="js/agenda-mensal.css?v=agenda-20261118-v2">
+<link rel="stylesheet" href="js/agenda-mensal.css?v=agenda-visual-20261119">
 <script defer src="js/agenda-mensal.js?v=agenda-20261118-v2"></script>
 ```
 
