@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="media-library.css?v=pastas-ordenacao-20261118">
   <link rel="stylesheet" href="editorial-ui.css?v=desktop-alinhamento-20261119">
   <link rel="stylesheet" href="mobile-app.css?v=20261119-mobile-app-v2">
+  <link rel="stylesheet" href="admin-preferences.css?v=20261119-accessibility-mobile-nav">
 </head>
 <body>
   <main id="app">
@@ -39,7 +40,7 @@
     </section>
     <section class="workspace" id="workspace" hidden>
       <aside class="sidebar" id="admin-sidebar">
-        <a class="brand" href="#inicio"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Administração</small></span></a>
+        <a class="brand" href="#inicio"><img src="../img/logo_gpensc.png" alt=""><span><strong>GPENSC</strong><small>Painel administrativo</small></span></a>
         <div class="mobile-nav-head"><div><span class="mobile-nav-overline">BIBLIOTECA EDITORIAL</span><strong>Conteúdos do site</strong></div><button type="button" id="mobile-menu-close" aria-label="Fechar navegação"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
         <div class="mobile-nav-search"><label for="mobile-collection-search">Buscar no menu</label><input id="mobile-collection-search" type="search" placeholder="Notícias, equipe, projetos…" autocomplete="off"></div>
         <nav id="collection-nav" aria-label="Seções do painel"></nav>
@@ -52,7 +53,7 @@
         <header class="topbar">
           <button type="button" id="mobile-app-back" class="mobile-app-back" aria-label="Voltar para o início"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
           <div class="topbar-location"><span class="workspace-label">GPENSC</span><span class="crumb-separator" aria-hidden="true">/</span><strong id="page-crumb">Visão geral</strong></div>
-          <div class="user-area"><button type="button" id="pending-trigger" class="batch-topbar" aria-label="Revisar alterações pendentes"><span class="batch-topbar-label">Revisar alterações</span><span class="batch-counter" id="pending-count">0</span></button><span id="user-name">Conectado</span><span class="status-dot"></span><a class="mobile-app-public" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir site público" title="Abrir site público"><img src="../img/logo_gpensc.png" alt=""></a></div>
+          <div class="user-area"><button type="button" id="admin-settings-trigger" class="admin-settings-trigger" aria-haspopup="dialog" aria-controls="admin-preferences-dialog" aria-label="Configurações de aparência" title="Configurações de aparência"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="11" cy="17" r="2" fill="currentColor" stroke="none"/></svg></button><button type="button" id="pending-trigger" class="batch-topbar" aria-label="Revisar alterações pendentes"><span class="batch-topbar-label">Revisar alterações</span><span class="batch-counter" id="pending-count">0</span></button><span id="user-name">Conectado</span><span class="status-dot"></span><a class="mobile-app-public" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir site público" title="Abrir site público"><img src="../img/logo_gpensc.png" alt=""></a></div>
         </header>
         <div class="page-content" id="page-content">
           <div class="loading-state">Carregando conteúdos do GPENSC…</div>
@@ -66,6 +67,17 @@
         
       </nav>
     </section>
+    <dialog id="admin-preferences-dialog" class="admin-preferences-dialog" aria-labelledby="admin-preferences-title">
+      <div class="pref-heading"><div><span class="pref-eyebrow">PERSONALIZAÇÃO</span><h2 id="admin-preferences-title">Aparência do painel</h2></div><button type="button" class="pref-close" id="admin-preferences-close" aria-label="Fechar configurações"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+      <div class="pref-list">
+        <label class="pref-setting"><span><strong>Modo escuro</strong><small>Uma interface mais confortável à noite.</small></span><input id="pref-dark" type="checkbox"></label>
+        <label class="pref-setting"><span><strong>Modo compacto</strong><small>Mais informações em menos espaço.</small></span><input id="pref-compact" type="checkbox"></label>
+        <label class="pref-setting"><span><strong>Alto contraste</strong><small>Textos e bordas mais definidos.</small></span><input id="pref-contrast" type="checkbox"></label>
+        <label class="pref-setting"><span><strong>Fonte maior</strong><small>Aumenta o tamanho dos textos menores.</small></span><input id="pref-font" type="checkbox"></label>
+        <label class="pref-setting"><span><strong>Reduzir animações</strong><small>Evita movimentos desnecessários.</small></span><input id="pref-motion" type="checkbox"></label>
+      </div>
+      <div class="pref-footer"><p>As opções são salvas apenas neste navegador.</p><div><button type="button" class="pref-reset" id="admin-preferences-reset">Restaurar padrão</button><button type="button" class="pref-done" id="admin-preferences-done">Concluir</button></div></div>
+    </dialog>
     <div id="modal-root"></div>
     <div id="toast-root" role="status"></div>
   </main>
@@ -74,5 +86,6 @@
   <script src="lote-edicoes.js?v=20261118-sincronizacao"></script>
   <script src="photo-crop.js?v=20261117-4"></script>
   <script src="app.js?v=mobile-app-20261119-v2"></script>
+  <script src="admin-preferences.js?v=20261119-a"></script>
 </body>
 </html>
