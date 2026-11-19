@@ -75,7 +75,28 @@ const camera={x:0,y:0,w:W,h:H};
 function paint(){svg.setAttribute('viewBox',[camera.x,camera.y,camera.w,camera.h].join(' '));}
 function animate(to){const animation=++zoomAnimation;const start={...camera},t0=performance.now(),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:420;function frame(now){if(animation!==zoomAnimation)return;const t=duration?clamp((now-t0)/duration,0,1):1,k=t*t*(3-2*t);for(const key of ['x','y','w','h'])camera[key]=start[key]+(to[key]-start[key])*k;paint();if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);}
 function focus(p,w=350){const h=w*map.clientHeight/Math.max(1,map.clientWidth);const panel=root.querySelector('#gp49-detail');const mobile=map.clientWidth<768;const obscured=panel&&!panel.hidden?Math.min(panel.offsetHeight/map.clientHeight,.65):0;const visibleCenterY=mobile?(1-obscured)*.5:.5;const visibleCenterX=mobile?.5:panel&&!panel.hidden?.37:.5;animate({x:p.x-w*visibleCenterX,y:p.y-h*visibleCenterY,w,h});}
-function show(i){const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;panel.replaceChildren();const close=document.createElement('button');close.textContent='Fechar';close.className='gp49-close';close.onclick=()=>panel.hidden=true;const h=document.createElement('h2');h.textContent=names[i];const body=row.querySelector('.gp49-line-body')?.cloneNode(true);panel.append(close,h);if(body)panel.append(body);panel.hidden=false;rows.forEach((r,j)=>r.querySelector('button')?.setAttribute('aria-pressed',String(i===j)));}
+function show(i, options={}){
+ const row=rows[i],panel=root.querySelector('#gp49-detail');if(!panel)return;
+ hideLeafHover();
+ const header=document.createElement('div');header.className='gp49-detail-header';
+ const heading=document.createElement('div');heading.className='gp49-detail-heading';
+ const kind=document.createElement('p');kind.className='gp49-detail-kind';
+ kind.textContent=options.kind||(row.dataset.branchType==='projeto'?'Projeto':'Linha de pesquisa');
+ const title=document.createElement('h2');title.textContent=options.title||names[i];
+ heading.append(kind,title);
+ const close=document.createElement('button');
+ close.type='button';close.textContent='Fechar';close.className='gp49-close';
+ close.setAttribute('aria-label','Fechar detalhes da árvore');
+ close.onclick=()=>{panel.hidden=true;row.querySelector('button')?.focus({preventScroll:true});};
+ header.append(heading,close);
+ const content=document.createElement('div');content.className='gp49-detail-content';
+ const body=row.querySelector('.gp49-line-body')?.cloneNode(true);
+ if(body)content.append(body);
+ panel.replaceChildren(header,content);
+ panel.hidden=false;
+ panel.scrollTop=0;
+ rows.forEach((r,j)=>r.querySelector('button')?.setAttribute('aria-pressed',String(i===j)));
+}
 // World-space form of OneZoom's spiral projection (OZtree, spiral_pre_calc.js).
 const point = (p, angle, distance) => ({
   x: p.x + distance * Math.cos(angle),
@@ -175,7 +196,7 @@ function fruits(index,origin,angle,scale){
     stroke:'#fffdf5','stroke-width':Math.max(1,radius*.16)},g);
   // O degradê interno já fornece o volume; sem reflexo sobreposto.
   el('title',{},g).textContent=item.nome;
-  const select=()=>{show(index);const panel=root.querySelector('#gp49-detail');if(panel){const heading=panel.querySelector('h2');if(heading)heading.textContent=item.nome;const type=document.createElement('p');type.className='gp49-detail-kind';type.textContent=item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica';heading?.after(type);}};
+  const select=()=>show(index,{title:item.nome,kind:item.tipo==='pessoa'?'Integrante':item.tipo==='defesa'?'Tese, dissertação ou defesa':'Produção científica'});
   g.addEventListener('click',select);
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
  });
