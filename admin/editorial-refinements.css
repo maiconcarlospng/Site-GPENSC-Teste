@@ -1,0 +1,226 @@
+/* GPENSC — revisão de densidade, atalhos e contraste (desktop).
+   Camada final carregada após o tema e sem alterações funcionais. */
+@media screen and (min-width:1100px){
+  html{zoom:.9}
+}
+@media screen and (min-width:701px){
+  /* Grupos do menu: hierarquia visual por faixas institucionais. */
+  #app #collection-nav .menu-section-title{
+    display:flex!important;align-items:center!important;gap:9px!important;
+    min-height:35px!important;margin:8px 0 6px!important;
+    padding:8px 10px!important;
+    background:#eef4eb!important;border-top:0!important;border-left:3px solid #5f9a3e!important;
+    border-radius:6px!important;color:#245037!important;
+    font-size:11px!important;font-weight:810!important;letter-spacing:.035em!important;
+  }
+  #app #collection-nav .menu-section:nth-of-type(3n+2) .menu-section-title{
+    background:#fff4e8!important;border-left-color:#d9731f!important;color:#82430e!important;
+  }
+  #app #collection-nav .menu-section:nth-of-type(3n) .menu-section-title{
+    background:#fbefed!important;border-left-color:#d43a2f!important;color:#8b3933!important;
+  }
+  #app #collection-nav .menu-section-title svg.admin-area-art{
+    width:16px!important;height:16px!important;flex-basis:16px!important;
+    color:currentColor!important;
+  }
+  #app #collection-nav .menu-section-items{padding-left:4px!important}
+  /* Grupos de atalhos: mesma geometria em todas as linhas.
+     Restabelece alinhamento à esquerda entre SVG, título e descrição. */
+  #app .admin-shortcut-grid{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:stretch!important;gap:11px!important;
+  }
+  #app .admin-tool-shortcuts{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:stretch!important;gap:11px!important;
+  }
+  #app :is(.admin-shortcut,.admin-tool-shortcut){
+    display:grid!important;
+    grid-template-columns:40px minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr)!important;
+    justify-content:stretch!important;justify-items:stretch!important;align-items:center!important;
+    gap:12px!important;width:100%!important;
+    min-height:87px!important;padding:15px 17px!important;
+    text-align:left!important;border:1px solid #e0e7df!important;
+    border-radius:9px!important;background:#fff!important;
+  }
+  #app :is(.admin-shortcut,.admin-tool-shortcut) svg.admin-shortcut-art{
+    display:block!important;grid-column:1;grid-row:1;
+    width:40px!important;height:40px!important;min-width:40px!important;
+    min-height:40px!important;max-width:40px!important;
+    flex:0 0 40px!important;padding:9px!important;
+    border:1px solid #dce9d9!important;border-radius:9px!important;
+    color:#286343!important;background:#ecf5eb!important;
+    align-self:center!important;justify-self:center!important;
+  }
+  #app :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy{
+    display:flex!important;grid-column:2;grid-row:1;
+    align-items:flex-start!important;justify-content:center!important;
+    flex-direction:column!important;gap:4px!important;
+    margin:0!important;min-width:0!important;max-width:100%!important;
+    text-align:left!important;
+  }
+  #app :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy strong{
+    display:block;font-size:13px!important;font-weight:760!important;
+    color:#24392b!important;line-height:1.3!important;margin:0!important;
+  }
+  #app :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy small{
+    display:block;font-size:11px!important;color:#5c6c60!important;
+    line-height:1.35!important;margin:0!important;
+  }
+  #app .admin-shortcuts .dashboard-shortcut-heading{
+    display:flex;align-items:center;gap:10px;margin:0 0 11px!important;
+  }
+  #app .admin-shortcuts .dashboard-shortcut-heading h2{
+    display:flex;align-items:center;gap:9px;font-size:16px!important;
+    color:#244c32!important;margin:0!important;
+  }
+  #app .admin-shortcuts .dashboard-shortcut-heading h2::before{
+    content:"";display:inline-block;width:5px;height:20px;
+    border-radius:4px;background:linear-gradient(#5f9a3e 0% 42%,#d9731f 42% 73%,#d43a2f 73%);
+  }
+}
+@media screen and (min-width:701px) and (max-width:1199px){
+  #app .admin-shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+/* Modo escuro: corrigir superfícies residuais que ainda herdavam o CSS claro. */
+html[data-admin-theme="dark"] #app :is(.topbar,.sidebar,.mobile-dock){
+  background:#1b2920!important;color:#e8f4e9!important;border-color:#3b5441!important;
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section-title{
+  color:#b9dfc1!important;border-left-color:#81be87!important;
+  background:#263f2d!important;border-top:0!important;
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section:nth-of-type(3n+2) .menu-section-title{
+  color:#ffd0a4!important;background:#493425!important;border-left-color:#e79b56!important;
+}
+html[data-admin-theme="dark"] #app #collection-nav .menu-section:nth-of-type(3n) .menu-section-title{
+  color:#ffbdb7!important;background:#48302e!important;border-left-color:#e68176!important;
+}
+html[data-admin-theme="dark"] #app #collection-nav button:not(.active){
+  color:#d0e1d3!important;background:transparent!important
+}
+html[data-admin-theme="dark"] #app #collection-nav button:is(:hover,:focus-visible){
+  background:#2f4837!important;color:#fff!important
+}
+html[data-admin-theme="dark"] #app :is(.admin-shortcut,.admin-tool-shortcut){
+  background:#24362a!important;border-color:#45604c!important;color:#edf5ef!important;
+}
+html[data-admin-theme="dark"] #app :is(.admin-shortcut,.admin-tool-shortcut) svg.admin-shortcut-art{
+  background:#2d4b35!important;border-color:#527a59!important;color:#b6e3bd!important
+}
+html[data-admin-theme="dark"] #app :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy strong{
+  color:#f2f8f2!important
+}
+html[data-admin-theme="dark"] #app :is(.admin-shortcut,.admin-tool-shortcut) .admin-shortcut-copy small{
+  color:#c2d4c6!important
+}
+html[data-admin-theme="dark"] #app :is(.stat-card,.panel-card,.dashboard-chart-card,.dashboard-activity-card,.dashboard-analytics-card,
+ .record-card,.settings-hub-card,.media-browser,.media-folder-panel,.media-card,.gallery-photo-card,.collection-search,
+ .analytics-detail-card,.analytics-metric,.batch-checkout,.batch-review-item,.batch-media-item,.editorial-review,
+ .media-toolbar,.media-folder-tile,.config-list-row,.gallery-sort-bar,.modal,.modal-head,.modal-body,.modal-foot){
+  background:#202f25!important;color:#ecf5ec!important;border-color:#3f5846!important;
+}
+html[data-admin-theme="dark"] #app :is(.sidebar-bottom,.data-table td,.data-table th,.record-card-actions,.activity-entry,
+ .media-card-actions,.modal-head,.modal-foot,.pref-setting,.batch-review-item header){
+  border-color:#3b5341!important
+}
+html[data-admin-theme="dark"] #app .page-heading p,
+html[data-admin-theme="dark"] #app .page-heading .eyebrow,
+html[data-admin-theme="dark"] #app :is(.chart-legend-label,.stat-card small,.stat-card span,.record-card-meta small,
+ .activity-entry-meta,.media-path,.media-folder-note,.media-size,.field small,.admin-shortcut-copy small){
+  color:#c5d6c8!important;
+}
+html[data-admin-theme="dark"] #app :is(.stat-card strong,.record-card strong,.media-name,.data-table td,
+ .settings-hub-copy strong,.dashboard-chart-heading h2,.dashboard-activity-heading h2,
+ .dashboard-analytics-heading h2,.dashboard-shortcut-heading h2,.page-heading h1,.collection-heading h1){
+  color:#eef7ef!important;
+}
+html[data-admin-theme="dark"] #app :is(.secondary-button,.small-button,.collection-site-link,.media-page-actions button){
+  background:#2b4232!important;border-color:#597660!important;color:#e2f4e6!important;
+}
+html[data-admin-theme="dark"] #app :is(.secondary-button,.small-button,.collection-site-link):hover{
+  background:#35563e!important;color:#fff!important;
+}
+html[data-admin-theme="dark"] #app :is(.batch-topbar,.admin-settings-trigger,.pref-close){
+  background:#2b4232!important;border-color:#5b7861!important;color:#eaf6eb!important;
+}
+html[data-admin-theme="dark"] #app .data-table th{
+  background:#2a3e30!important;color:#d0e3d2!important;
+}
+html[data-admin-theme="dark"] #app .chart-legend-item strong{color:#ecf5ef!important;}
+html[data-admin-theme="dark"] #app .chart-legend-dot{outline:1px solid #728f77}
+html[data-admin-theme="dark"] #app .batch-counter{background:#36553c!important;color:#e2f8e6!important}
+html[data-admin-theme="dark"] #app #pending-trigger.has-pending .batch-counter{background:#a45a29!important;color:white!important}
+/* Modal aberto no escuro: inputs, status e listas também precisam ser escuros. */
+html[data-admin-theme="dark"] #app :is(.media-folder-nav-item,.media-folder-tiles,.media-library-shell,.media-browser-path,
+ .settings-hub-grid,.analytics-detail-grid,.collection-grid,.analytics-content,.activity-list,
+ .mobile-record-list,.data-table,.chart-legend,.modal-body .field,.modal-body .field.full){
+  color:#e5f1e7!important;border-color:#395040!important;
+}
+html[data-admin-theme="dark"] #app .modal-body>.field,
+html[data-admin-theme="dark"] #app .modal-body>.field.full{
+  background:#26392b!important;border-color:#49664f!important;
+}
+/* Modo compacto deve mudar os mesmos componentes em todo o fluxo editorial. */
+html[data-admin-density="compact"] #app .page-content{padding-top:13px!important;padding-bottom:22px!important}
+html[data-admin-density="compact"] #app .page-heading{margin-bottom:12px!important;gap:7px!important}
+html[data-admin-density="compact"] #app :is(.stats-grid,.dashboard-chart-grid,.admin-shortcut-grid,
+ .admin-tool-shortcuts,.collection-grid,.settings-hub-grid,.analytics-metrics-grid){gap:7px!important;margin-bottom:11px!important}
+html[data-admin-density="compact"] #app .stat-card{
+  min-height:77px!important;padding:9px 12px!important;
+}
+html[data-admin-density="compact"] #app .stat-card strong{
+  font-size:23px!important;margin:5px 0 2px!important
+}
+html[data-admin-density="compact"] #app .stat-card small{min-height:0!important}
+html[data-admin-density="compact"] #app :is(.dashboard-chart-card,.dashboard-activity-card,.dashboard-analytics-card,
+ .panel-card,.record-card,.settings-hub-card,.media-browser,.media-folder-panel,
+ .batch-review-item,.batch-checkout,.editorial-review,.gallery-photo-card){
+  padding:11px 13px!important;border-radius:7px!important
+}
+html[data-admin-density="compact"] #app :is(.admin-shortcut,.admin-tool-shortcut){
+  min-height:60px!important;padding:9px 11px!important;gap:9px!important;
+  grid-template-columns:32px minmax(0,1fr)!important;border-radius:7px!important;
+}
+html[data-admin-density="compact"] #app :is(.admin-shortcut,.admin-tool-shortcut) svg.admin-shortcut-art{
+  width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important;
+  flex-basis:31px!important;padding:6px!important;border-radius:7px!important;
+}
+html[data-admin-density="compact"] #app #collection-nav button{
+  min-height:31px!important;padding:4px 8px!important;
+}
+html[data-admin-density="compact"] #app #collection-nav .menu-section-title{
+  min-height:28px!important;margin:5px 0 4px!important;padding:5px 8px!important;
+}
+html[data-admin-density="compact"] #app .sidebar{padding-top:9px!important;padding-bottom:9px!important}
+html[data-admin-density="compact"] #app .sidebar .brand{min-height:52px!important;padding-bottom:7px!important;margin-bottom:6px!important}
+html[data-admin-density="compact"] #app :is(.collection-search,.gallery-sort-bar,.media-toolbar){padding:9px 11px!important;margin-bottom:9px!important}
+html[data-admin-density="compact"] #app :is(.collection-tools button,.media-page-actions button,
+ .editorial-links button,.secondary-button,.small-button){min-height:32px!important;padding:5px 9px!important}
+html[data-admin-density="compact"] #app :is(.data-table td,.data-table th){padding:8px 10px!important}
+html[data-admin-density="compact"] #app .record-card-meta{gap:5px!important;margin:7px 0!important}
+html[data-admin-density="compact"] #app .record-card-actions{padding-top:7px!important}
+html[data-admin-density="compact"] #app .modal-body{gap:9px!important;padding:12px!important}
+html[data-admin-density="compact"] #app .modal-head,
+html[data-admin-density="compact"] #app .modal-foot{padding:10px 13px!important}
+html[data-admin-density="compact"] #app .field{gap:5px!important}
+html[data-admin-density="compact"] #app .field input:not([type=checkbox]):not([type=radio]),
+html[data-admin-density="compact"] #app .field select{min-height:35px!important;padding:7px 9px!important}
+@media(max-width:700px){
+  /* Toques continuam confortáveis, mesmo quando compacto. */
+  html[data-admin-density="compact"] #app .mobile-dock button,
+  html[data-admin-density="compact"] #app .record-card-actions button,
+  html[data-admin-density="compact"] #app .modal-foot button{min-height:44px!important}
+  html[data-admin-density="compact"] #app .mobile-record-list{gap:8px!important}
+  html[data-admin-density="compact"] #app .sidebar.mobile-open #collection-nav .menu-section-items button{
+    min-height:75px!important;padding:10px!important
+  }
+  html[data-admin-density="compact"] #app .stat-card{min-height:118px!important}
+  html[data-admin-density="compact"] #app .admin-shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  /* Manter os atalhos como cartões de aplicativo no mobile. */
+  html[data-admin-density="compact"] #app :is(.admin-shortcut,.admin-tool-shortcut){
+    display:flex!important;flex-direction:column;align-items:flex-start!important;
+    min-height:110px!important;
+  }
+}
