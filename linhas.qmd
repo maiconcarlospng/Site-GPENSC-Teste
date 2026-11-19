@@ -13,154 +13,143 @@ publicacoes_publicadas <- registros_reais(pubs, "titulo")
 defesas_publicadas <- registros_reais(defesas, "titulo")
 integrantes_publicados <- registros_reais(equipe, "nome")
 
+# A ordenação é de exibição, sem mudar os registros e IDs do painel.
+chave_alfabetica <- function(valores) {
+  texto <- enc2utf8(as.character(valores))
+  simples <- iconv(texto, from = "UTF-8", to = "ASCII//TRANSLIT", sub = "")
+  simples[is.na(simples)] <- texto[is.na(simples)]
+  tolower(simples)
+}
+if (nrow(linhas_publicadas)) {
+  linhas_publicadas <- linhas_publicadas[order(chave_alfabetica(linhas_publicadas$nome)), , drop = FALSE]
+}
+
 filtrar_por_linha <- function(dados, id) {
-  if (nrow(dados) == 0 || !("linha_id" %in% names(dados))) {
-    return(dados[0, , drop = FALSE])
+  if (!nrow(dados) || !("linha_id" %in% names(dados))) return(dados[0, , drop = FALSE])
+  dados[!is.na(dados$linha_id) & as.character(dados$linha_id) == as.character(id), , drop = FALSE]
+}
+
+ids_pessoa <- function(valor) {
+  if (!length(valor)) return(character())
+  texto <- as.character(unlist(valor, use.names = FALSE))
+  texto <- texto[!is.na(texto) & nzchar(trimws(texto))]
+  if (!length(texto)) return(character())
+  ids <- unlist(strsplit(texto, "[|,;]"))
+  unique(trimws(ids[nzchar(trimws(ids))]))
+}
+
+pessoas_vinculadas <- function(id) {
+  if (!nrow(integrantes_publicados) || !("linhas_ids" %in% names(integrantes_publicados))) {
+    return(integrantes_publicados[0, , drop = FALSE])
   }
-  dados[
-    !is.na(dados$linha_id) & as.character(dados$linha_id) == as.character(id),
-    ,
-    drop = FALSE
-  ]
+  indices <- vapply(seq_len(nrow(integrantes_publicados)), function(j) {
+    categoria <- valor_publico(integrantes_publicados$categoria[j])
+    !identical(categoria, "Egressos") && id %in% ids_pessoa(integrantes_publicados$linhas_ids[j])
+  }, logical(1))
+  dados <- integrantes_publicados[indices, , drop = FALSE]
+  if (nrow(dados)) dados <- dados[order(chave_alfabetica(dados$nome)), , drop = FALSE]
+  dados
+}
+
+texto_sem_vinculo <- function(texto) span(class = "gp-tabela-auxiliar", texto)
+
+listar_pessoas <- function(dados) {
+  if (!nrow(dados)) return(texto_sem_vinculo("Vínculos ainda não informados"))
+  tags$ul(class = "gp-tabela-links", lapply(seq_len(nrow(dados)), function(j) {
+    pessoa <- dados[j, , drop = FALSE]
+    nome <- as.character(pessoa$nome[1])
+    url <- valor_publico(pessoa$lattes)
+    tags$li(if (!is.null(url) && grepl("^https?://",url)) {
+      tags$a(nome,href=url,target="_blank",rel="noopener noreferrer",title="Currículo Lattes de integrante")
+    } else tags$span(nome))
+  }))
+}
+
+listar_projetos <- function(dados) {
+  if (!nrow(dados)) return(texto_sem_vinculo("Sem projetos vinculados"))
+  dados <- dados[order(chave_alfabetica(dados$titulo)), , drop=FALSE]
+  tags$ul(class="gp-tabela-links",lapply(seq_len(nrow(dados)),function(j) {
+    projeto <- dados[j,,drop=FALSE]
+    titulo <- as.character(projeto$titulo[1])
+    id <- valor_publico(projeto$id)
+    tipo <- valor_publico(projeto$tipo)
+    href <- if (!is.null(id)) paste0(if (identical(tipo,"Extensão")) "extensao.html#projeto-" else "projetos.html#projeto-",id) else valor_publico(projeto$url)
+    tags$li(if (!is.null(href)) tags$a(titulo,href=href) else tags$span(titulo))
+  }))
+}
+
+listar_producoes <- function(dados, categoria) {
+  dados <- dados[order(chave_alfabetica(dados$titulo)), , drop=FALSE]
+  tags$ul(class="gp-tabela-links",lapply(seq_len(nrow(dados)),function(j) {
+    registro <- dados[j,,drop=FALSE]
+    titulo <- as.character(registro$titulo[1])
+    url <- valor_publico(registro$url)
+    if (is.null(url) && categoria == "publicacao") {
+      doi <- valor_publico(registro$doi)
+      if (!is.null(doi)) url <- if (grepl("^https?://",doi)) doi else paste0("https://doi.org/",doi)
+    }
+    tags$li(if (!is.null(url) && grepl("^https?://",url)) {
+      tags$a(titulo,href=url,target="_blank",rel="noopener noreferrer")
+    } else tags$span(titulo))
+  }))
 }
 
 if (secao_ativa("mostrar_linhas")) {
   if (nrow(linhas_publicadas) > 0) {
-    div(
-      class = "linhas-pesquisa-page",
-      div(
-        class = "linhas-pesquisa-grid",
-        lapply(seq_len(nrow(linhas_publicadas)), function(i) {
-          linha <- linhas_publicadas[i, , drop = FALSE]
-          id <- as.character(linha$id[1])
-          nome <- as.character(linha$nome[1])
-          descricao <- valor_publico(linha$descricao)
-          palavras <- valor_publico(linha$palavras_chave)
-          projetos_linha <- filtrar_por_linha(projetos_publicados, id)
-          publicacoes_linha <- filtrar_por_linha(publicacoes_publicadas, id)
-          defesas_linha <- filtrar_por_linha(defesas_publicadas, id)
-          ids_pessoa <- function(valor) {
-            if (!tem(valor)) return(character())
-            ids <- unlist(strsplit(as.character(valor), "[|,;]"))
-            trimws(ids[nzchar(trimws(ids))])
-          }
-          pessoas_linha <- if (nrow(integrantes_publicados) > 0 && "linhas_ids" %in% names(integrantes_publicados)) {
-            vinculados <- vapply(seq_len(nrow(integrantes_publicados)), function(j) {
-              cat <- valor_publico(integrantes_publicados$categoria[j])
-              !identical(cat, "Egressos") && id %in% ids_pessoa(integrantes_publicados$linhas_ids[j])
-            }, logical(1))
-            integrantes_publicados[vinculados, , drop = FALSE] |>
-              arrange(nome)
-          } else integrantes_publicados[0, , drop = FALSE]
-
-          div(
-            class = "linha-pesquisa-card",
-            id = paste0("linha-", id),
-            div(
-              class = "linha-pesquisa-card-topo",
-              span(class = "linha-pesquisa-numero", sprintf("%02d", i)),
-              span(class = "linha-pesquisa-selo", "PESQUISA")
-            ),
-            h3(nome),
-            if (!is.null(descricao)) p(class = "linha-pesquisa-descricao", descricao),
-            if (!is.null(palavras)) {
-              div(
-                class = "linha-pesquisa-palavras",
-                tags$strong("Temas: "),
-                palavras
-              )
-            },
-            if (nrow(pessoas_linha) > 0) div(
-              class = "linha-pesquisa-equipe",
-              h4("Integrantes vinculados"),
-              tags$ul(lapply(seq_len(nrow(pessoas_linha)), function(j) {
-                pessoa <- pessoas_linha[j, , drop = FALSE]
-                nome_pessoa <- as.character(pessoa$nome[1])
-                lattes_pessoa <- valor_publico(pessoa$lattes)
-                tags$li(if (!is.null(lattes_pessoa)) {
-                  tags$a(nome_pessoa, href = lattes_pessoa, target = "_blank", rel = "noopener noreferrer")
-                } else {
-                  tags$span(nome_pessoa)
-                })
-              }))
-            ),
-            if (nrow(projetos_linha) + nrow(defesas_linha) + nrow(publicacoes_linha) > 0) tags$details(
-              class = "linha-pesquisa-detalhes",
-              tags$summary(
-                "Projetos, teses, dissertações e publicações",
-                tags$i(class = "bi bi-chevron-down", "aria-hidden" = "true")
+    div(class="gp-listagem-tabela linhas-pesquisa-page",
+      div(class="gp-tabela-introducao",
+        p("Consulte as linhas em ordem alfabética. Integrantes, projetos e produções são exibidos somente quando vinculados no cadastro.")
+      ),
+      div(class="gp-tabela-rolagem",role="region",tabindex="0",
+        `aria-label`="Tabela de linhas de pesquisa, com rolagem horizontal em telas menores",
+        tags$table(class="gp-tabela-dados",
+          tags$caption("Linhas de pesquisa do GPENSC"),
+          tags$thead(tags$tr(
+            tags$th(scope="col","Linha de pesquisa"),
+            tags$th(scope="col","Integrantes"),
+            tags$th(scope="col","Projetos vinculados"),
+            tags$th(scope="col","Teses e publicações")
+          )),
+          tags$tbody(lapply(seq_len(nrow(linhas_publicadas)),function(i) {
+            linha <- linhas_publicadas[i,,drop=FALSE]
+            id <- as.character(linha$id[1])
+            descricao <- valor_publico(linha$descricao)
+            palavras <- valor_publico(linha$palavras_chave)
+            projetos_linha <- filtrar_por_linha(projetos_publicados,id)
+            publicacoes_linha <- filtrar_por_linha(publicacoes_publicadas,id)
+            defesas_linha <- filtrar_por_linha(defesas_publicadas,id)
+            pessoas_linha <- pessoas_vinculadas(id)
+            tags$tr(id=paste0("linha-",id),
+              tags$td(class="gp-tabela-principal",
+                tags$strong(as.character(linha$nome[1])),
+                if (!is.null(descricao)) p(class="gp-tabela-resumo",descricao),
+                if (!is.null(palavras)) p(class="gp-tabela-temas",tags$strong("Temas: "),palavras)
               ),
-              div(
-                class = "linha-pesquisa-detalhes-conteudo",
-                if (nrow(projetos_linha) > 0) div(
-                  class = "linha-pesquisa-relacionados",
-                  h4("Projetos"),
-                  if (nrow(projetos_linha) > 0) {
-                    tags$ul(lapply(seq_len(nrow(projetos_linha)), function(j) {
-                      projeto <- projetos_linha[j, , drop = FALSE]
-                      tags$li(
-                        if (tem(projeto$url)) tags$a(as.character(projeto$titulo[1]), href = as.character(projeto$url[1])) else tags$strong(as.character(projeto$titulo[1])),
-                        if (!is.na(projeto$situacao[1]) && nzchar(as.character(projeto$situacao[1]))) {
-                          tags$small(as.character(projeto$situacao[1]))
-                        }
-                      )
-                    }))
-                  }
-                ),
-                if (nrow(defesas_linha) > 0) div(
-                  class = "linha-pesquisa-relacionados",
-                  h4("Teses e dissertações"),
-                  if (nrow(defesas_linha) > 0) tags$ul(lapply(seq_len(nrow(defesas_linha)), function(j) {
-                    trabalho <- defesas_linha[j, , drop = FALSE]
-                    url <- valor_publico(trabalho$url)
-                    tags$li(if (!is.null(url) && grepl("^https?://", url)) tags$a(as.character(trabalho$titulo[1]), href = url, target = "_blank", rel = "noopener noreferrer") else tags$span(as.character(trabalho$titulo[1])))
-                  }))
-                ),
-                if (nrow(publicacoes_linha) > 0) div(
-                  class = "linha-pesquisa-relacionados",
-                  h4("Publicações"),
-                  if (nrow(publicacoes_linha) > 0) {
-                    tags$ul(lapply(seq_len(nrow(publicacoes_linha)), function(j) {
-                      publicacao <- publicacoes_linha[j, , drop = FALSE]
-                      titulo <- as.character(publicacao$titulo[1])
-                      url <- valor_publico(publicacao$url)
-                      doi <- valor_publico(publicacao$doi)
-                      destino <- url
-                      if (is.null(destino) && !is.null(doi)) {
-                        destino <- if (grepl("^https?://", doi)) doi else paste0("https://doi.org/", doi)
-                      }
-                      tags$li(
-                        if (!is.null(destino)) {
-                          tags$a(titulo, href = destino, target = "_blank", rel = "noopener noreferrer")
-                        } else {
-                          tags$strong(titulo)
-                        },
-                        tags$small(paste(
-                          c(
-                            if (!is.na(publicacao$ano[1])) as.character(publicacao$ano[1]) else NULL,
-                            if (!is.na(publicacao$tipo[1])) as.character(publicacao$tipo[1]) else NULL
-                          ),
-                          collapse = " · "
-                        ))
-                      )
-                    }))
-                  }
-                )
+              tags$td(listar_pessoas(pessoas_linha)),
+              tags$td(listar_projetos(projetos_linha)),
+              tags$td(
+                if (nrow(defesas_linha)+nrow(publicacoes_linha) > 0) {
+                  tags$details(class="gp-tabela-detalhes",
+                    tags$summary("Ver produções vinculadas"),
+                    if (nrow(defesas_linha)>0) tagList(
+                      h4("Teses e dissertações"),listar_producoes(defesas_linha,"defesa")
+                    ),
+                    if (nrow(publicacoes_linha)>0) tagList(
+                      h4("Publicações"),listar_producoes(publicacoes_linha,"publicacao")
+                    )
+                  )
+                } else texto_sem_vinculo("Sem produções vinculadas")
               )
             )
-          )
-        })
-      )
+          }))
+        )
+      ),
+      p(class="gp-tabela-nota","No celular, deslize a tabela lateralmente para visualizar todas as colunas.")
     )
   } else {
-    estado_vazio(
-      "Nenhuma linha de pesquisa disponível",
-      "As linhas cadastradas serão exibidas aqui.",
-      "Fale com o grupo",
-      "contato.html"
-    )
+    estado_vazio("Nenhuma linha de pesquisa disponível","As linhas cadastradas serão exibidas aqui.","Fale com o grupo","contato.html")
   }
 } else {
-  estado_vazio("Seção temporariamente indisponível", "Esta seção está desativada nas configurações do site.")
+  estado_vazio("Seção temporariamente indisponível","Esta seção está desativada nas configurações do site.")
 }
 ```
