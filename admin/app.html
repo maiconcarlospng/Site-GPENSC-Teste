@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="lote-edicoes.css?v=20261117-v2">
   <link rel="stylesheet" href="app-design.css?v=ilustracoes-svg-20261118">
   <link rel="stylesheet" href="media-library.css?v=pastas-ordenacao-20261118">
-  <link rel="stylesheet" href="editorial-ui.css?v=redesign-20261118">
+  <link rel="stylesheet" href="editorial-ui.css?v=desktop-alinhamento-20261119">
+  <link rel="stylesheet" href="mobile-app.css?v=20261119-mobile-app-v2">
 </head>
 <body>
   <main id="app">
@@ -39,7 +40,7 @@
     <section class="workspace" id="workspace" hidden>
       <aside class="sidebar" id="admin-sidebar">
         <a class="brand" href="#inicio"><img src="../img/logo_gpensc.png" alt=""><span>GPENSC<small>Administração</small></span></a>
-        <div class="mobile-nav-head"><strong>Áreas de gerenciamento</strong><button type="button" id="mobile-menu-close" aria-label="Fechar escolha de seções">Fechar</button></div>
+        <div class="mobile-nav-head"><div><span class="mobile-nav-overline">BIBLIOTECA EDITORIAL</span><strong>Conteúdos do site</strong></div><button type="button" id="mobile-menu-close" aria-label="Fechar navegação"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
         <div class="mobile-nav-search"><label for="mobile-collection-search">Buscar no menu</label><input id="mobile-collection-search" type="search" placeholder="Notícias, equipe, projetos…" autocomplete="off"></div>
         <nav id="collection-nav" aria-label="Seções do painel"></nav>
         <div class="sidebar-bottom">
@@ -49,8 +50,9 @@
       </aside>
       <section class="main-area">
         <header class="topbar">
+          <button type="button" id="mobile-app-back" class="mobile-app-back" aria-label="Voltar para o início"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
           <div class="topbar-location"><span class="workspace-label">GPENSC</span><span class="crumb-separator" aria-hidden="true">/</span><strong id="page-crumb">Visão geral</strong></div>
-          <div class="user-area"><button type="button" id="pending-trigger" class="batch-topbar" aria-label="Revisar alterações pendentes"><span class="batch-topbar-label">Revisar alterações</span><span class="batch-counter" id="pending-count">0</span></button><span id="user-name">Conectado</span><span class="status-dot"></span></div>
+          <div class="user-area"><button type="button" id="pending-trigger" class="batch-topbar" aria-label="Revisar alterações pendentes"><span class="batch-topbar-label">Revisar alterações</span><span class="batch-counter" id="pending-count">0</span></button><span id="user-name">Conectado</span><span class="status-dot"></span><a class="mobile-app-public" href="../" target="_blank" rel="noopener noreferrer" aria-label="Abrir site público" title="Abrir site público"><img src="../img/logo_gpensc.png" alt=""></a></div>
         </header>
         <div class="page-content" id="page-content">
           <div class="loading-state">Carregando conteúdos do GPENSC…</div>
@@ -59,6 +61,7 @@
       <nav class="mobile-dock" aria-label="Navegação rápida">
         <button type="button" id="mobile-home" aria-label="Abrir visão geral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Início</span></button>
         <button type="button" id="mobile-sections" aria-controls="admin-sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 9v11"/></svg><span>Conteúdos</span></button>
+        <button type="button" id="mobile-media" aria-label="Abrir biblioteca de materiais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 16-5-5L4 21"/></svg><span>Arquivos</span></button>
         <button type="button" id="mobile-review" aria-label="Revisar mudanças antes de publicar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><path d="m2 6 2 2 3-4M2 12l2 2 3-4M2 18l2 2 3-4"/></svg><span>Revisar</span></button>
         
       </nav>
@@ -70,6 +73,6 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="lote-edicoes.js?v=20261118-sincronizacao"></script>
   <script src="photo-crop.js?v=20261117-4"></script>
-  <script src="app.js?v=editorial-redesign-20261118"></script>
+  <script src="app.js?v=mobile-app-20261119-v2"></script>
 </body>
 </html>

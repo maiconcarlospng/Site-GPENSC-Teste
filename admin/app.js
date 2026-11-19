@@ -544,7 +544,14 @@ function renderHome(){
     ['Notícias e eventos',count(['noticias','eventos']),'Comunicação do grupo']
   ];
   const charts=dashboardCharts();
+  const firstName=String(state.user?.name||state.user?.login||'').trim().split(/\s+/)[0];
+  const greeting=(state.authMode==='access-code'||!firstName)?'Bem-vindo ao painel':'Olá, '+firstName;
+  const mobileIntroMarkup='<section class="mobile-app-intro" aria-label="Resumo do seu espaço de gestão">'+
+    '<span class="mobile-app-eyebrow">GPENSC · UFOP</span><h2>'+esc(greeting)+'</h2>'+
+    '<p>Gerencie os conteúdos do grupo, acompanhe as atividades e revise as próximas publicações.</p>'+
+    '<div class="mobile-intro-foot"><span>Gestão editorial</span><button type="button" id="mobile-intro-review">Revisar alterações · '+batch.count()+'</button></div></section>';
   $('#page-content').innerHTML=
+    mobileIntroMarkup+
     '<div class="page-heading dashboard-intro"><div><h1>Visão geral</h1><p>Gerencie conteúdos, acompanhe alterações e publique atualizações do GPENSC.</p></div><button class="secondary-button" id="refresh-button">Atualizar dados</button></div>'+
     '<div class="stats-grid">'+stats.map(item=>'<article class="stat-card"><span>'+esc(item[0])+'</span><strong>'+item[1]+'</strong><small>'+esc(item[2])+'</small></article>').join('')+'</div>'+batch.banner()+
     quickActionsMarkup()+renderEditorialReview()+
@@ -557,6 +564,7 @@ function renderHome(){
    document.querySelectorAll('[data-quick]').forEach(button=>button.onclick=()=>{const index=state.collections.findIndex(c=>c.name===button.dataset.quick);if(index>=0)openCollection(index)});
   $('#admin-settings-open')?.addEventListener('click',openSettingsHub);
   $('#admin-media-open')?.addEventListener('click',()=>openMediaLibrary());
+  $('#mobile-intro-review')?.addEventListener('click',openPendingReview);
   $('#page-content').querySelector('[data-batch-review]')?.addEventListener('click',openPendingReview);
   batch.updateUI();
   $('#refresh-button').onclick=async()=>{
@@ -1551,7 +1559,8 @@ $('#access-code').addEventListener('keydown',event=>{if(event.key==='Enter'){eve
 function updateMobileTabs(){
   const menuOpen=$('.sidebar').classList.contains('mobile-open');
   $('#mobile-home').classList.toggle('active',state.view==='summary'&&!menuOpen);
-  $('#mobile-sections').classList.toggle('active',(state.view!=='summary'&&state.view!=='review')||menuOpen);
+  $('#mobile-sections').classList.toggle('active',(!['summary','review','media'].includes(state.view))||menuOpen);
+  $('#mobile-media')?.classList.toggle('active',state.view==='media'&&!menuOpen);
   $('#mobile-review').classList.toggle('active',state.view==='review'&&!menuOpen);
 }
 function closeMobileMenu(){
@@ -1591,6 +1600,7 @@ $('#mobile-sections').addEventListener('click',()=>{
   updateMobileTabs();
 });
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('.photo-crop-dialog[open]'))closeMobileMenu()});
+$('#mobile-media')?.addEventListener('click',()=>{closeMobileMenu();openMediaLibrary();window.scrollTo({top:0,behavior:'smooth'})});
 $('#mobile-review').addEventListener('click',()=>{closeMobileMenu();openPendingReview();window.scrollTo({top:0,behavior:'smooth'})});
 $('#logout-button').addEventListener('click',()=>{if(!canLeaveCurrentEditor())return;sessionStorage.removeItem('gpen_admin_token');sessionStorage.removeItem('gpen_admin_auth_mode');state.token='';state.authMode='github';state.user=null;closeMobileMenu();$('#workspace').hidden=true;$('#login-view').hidden=false;$('#login-status').textContent='Sessão encerrada.'});
 // Keep full-screen editors inside the visible area when the mobile keyboard opens.

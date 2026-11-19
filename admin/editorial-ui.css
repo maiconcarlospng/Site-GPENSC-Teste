@@ -322,3 +322,164 @@ html,body{background:var(--editor-bg);color:var(--editor-ink)}
   #app .editorial-review{flex-wrap:wrap;}
   #app .editorial-review .editorial-links{justify-content:flex-start;margin-left:0;}
 }
+
+
+/* Correções de régua: marca, busca, ordenação e formulários desktop (19/11). */
+@media (min-width:701px) {
+  /* A imagem e as duas linhas da assinatura ocupam uma régua visual única. */
+  #app .sidebar .brand{
+    display:grid;
+    grid-template-columns:37px minmax(0,1fr);
+    column-gap:11px;
+    align-items:center;
+    justify-items:start;
+    min-height:68px;
+    padding:4px 5px 15px;
+  }
+  #app .sidebar .brand img{
+    display:block;
+    width:37px;
+    height:37px;
+    margin:0;
+    align-self:center;
+  }
+  #app .sidebar .brand > span{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    min-width:0;
+    margin:0;
+    padding:0;
+    font-size:15px;
+    font-weight:760;
+    letter-spacing:-.025em;
+    line-height:19px;
+  }
+  #app .sidebar .brand small{
+    display:block;
+    margin:1px 0 0;
+    padding:0;
+    font-size:11px;
+    font-weight:530;
+    line-height:15px;
+    letter-spacing:0;
+    text-align:left;
+    white-space:nowrap;
+  }
+  /* Mesmas alturas de rótulo e controle em todas as coleções. */
+  #app .collection-search:has(.collection-sort-control){
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(220px,325px);
+    grid-template-rows:auto 46px auto;
+    align-items:stretch;
+    gap:8px 16px;
+    padding:15px 18px!important;
+  }
+  #app .collection-search:has(.collection-sort-control)>label,
+  #app .collection-search .collection-sort-control>label{
+    margin:0!important;
+    min-height:20px;
+    font-size:13px;
+    font-weight:700;
+    line-height:20px;
+    align-self:end;
+    color:#354c3c;
+  }
+  #app .collection-search:has(.collection-sort-control)>label{
+    grid-column:1;grid-row:1;
+  }
+  #app .collection-search:has(.collection-sort-control)>input{
+    grid-column:1;grid-row:2;
+    width:100%;
+    height:46px;
+    min-height:46px;
+    margin:0;
+  }
+  #app .collection-search .collection-sort-control{
+    display:contents;
+  }
+  #app .collection-search .collection-sort-control>label{
+    grid-column:2;grid-row:1;
+  }
+  #app .collection-search .collection-sort-control>select{
+    grid-column:2;grid-row:2;
+    width:100%;
+    height:46px;
+    min-height:46px;
+    padding:9px 12px;
+    font-size:13px;
+    margin:0;
+    align-self:stretch;
+  }
+  #app .collection-search:has(.collection-sort-control)>p{
+    grid-column:1/-1;grid-row:3;
+    margin:0;
+    min-height:0;
+    font-size:12px;
+    color:#526257;
+    line-height:1.45;
+  }
+  #app #search-count:empty{display:none;}
+  /* Rótulo, seletor e texto informativo da galeria ficam centralizados
+     na mesma linha, sem depender da altura intrínseca do parágrafo. */
+  #app .gallery-sort-bar{
+    display:grid;
+    grid-template-columns:max-content minmax(220px,275px) minmax(0,1fr);
+    align-items:center;
+    gap:12px;
+    margin:0 0 19px;
+    padding:13px 17px;
+    background:#f8faf7;
+    border:1px solid var(--editor-border);
+    border-radius:9px;
+    box-sizing:border-box;
+  }
+  #app .gallery-sort-bar label{
+    display:block;
+    margin:0;
+    min-height:0;
+    color:#354c3c;
+    font-size:13px;
+    font-weight:700;
+    line-height:1.45;
+  }
+  #app .gallery-sort-bar select{
+    display:block;
+    width:100%;
+    min-width:0;
+    height:46px;
+    min-height:46px;
+    padding:9px 12px;
+    margin:0;
+    border-radius:7px;
+    font-size:13px;
+    align-self:center;
+  }
+  #app .gallery-sort-bar p{
+    flex:none;
+    align-self:center;
+    min-width:0;
+    margin:0;
+    font-size:12px;
+    line-height:1.45;
+    color:#526257;
+  }
+}
+@media (min-width:701px) and (max-width:1120px){
+  #app .gallery-sort-bar{
+    grid-template-columns:minmax(0,1fr) minmax(220px,1.2fr);
+  }
+  #app .gallery-sort-bar p{grid-column:1/-1;}
+}
+@media (min-width:701px) and (max-width:870px){
+  #app .collection-search:has(.collection-sort-control){
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto 46px auto 46px auto;
+  }
+  #app .collection-search:has(.collection-sort-control)>label{grid-column:1;grid-row:1;}
+  #app .collection-search:has(.collection-sort-control)>input{grid-column:1;grid-row:2;}
+  #app .collection-search .collection-sort-control>label{grid-column:1;grid-row:3;}
+  #app .collection-search .collection-sort-control>select{grid-column:1;grid-row:4;}
+  #app .collection-search:has(.collection-sort-control)>p{grid-column:1;grid-row:5;}
+}
