@@ -560,4 +560,4 @@ html body:has(#gp49) #gp49 .gp49-step-hint{
 </style>
 ```
 
-<script src="js/arvore.js?v=gp49-labels-organicos-hover-20261119" defer></script>
+<script src="js/arvore.js?v=gp49-card-help-20261119" defer></script>
