@@ -3697,12 +3697,9 @@ main .faixa:has(.faixa-botoes-noar) .btn-spotify {
 
 
 /* ---------- AJUSTE VISUAL EXCLUSIVO PARA ESPANHOL ---------- */
-/* Reduz discretamente a escala geral e compacta os rótulos mais longos
-   para evitar que os botões percam alinhamento após a tradução automática. */
+/* Compacta os rótulos longos sem sobrescrever o zoom de 90% do desktop
+   definido em site-escala.css. No celular, a escala permanece nativa. */
 html[data-gp-language="es"] {
-  /* Não reduzir o elemento raiz: zoom fazia a página ficar menor que a viewport,
-     deixando uma faixa branca lateral. O ajuste de idioma fica nos componentes. */
-  zoom: 1 !important;
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: clip !important;
