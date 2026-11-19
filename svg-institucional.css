@@ -11,6 +11,7 @@ h2.gp-heading-art--noticias::after{background-image:url("img/ilustracoes/noticia
 @media(max-width:640px){.gp-illustrated-lead{gap:12px;min-height:66px;margin:0 auto 18px;padding:3px 4px}.gp-illustrated-lead p{font-size:.94rem;line-height:1.5}.gp-illustrated-lead img{width:76px;max-height:70px}h2.gp-heading-art::after{flex-basis:54px;width:54px;height:43px}h2.gp-heading-art{gap:8px}}
 @media(max-width:370px){.gp-illustrated-lead img{width:60px}h2.gp-heading-art::after{flex-basis:45px;width:45px;height:38px}}
 
+
 /* Quem somos — titulo e ilustracao na mesma linha, sem faixa vazia.
    O Quarto cria o h1 em #title-block-header; o antigo bloco illustrado
    foi substituido por uma ancora de altura zero em grupo.qmd. */
