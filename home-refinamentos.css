@@ -1,0 +1,79 @@
+/* Página inicial: chamadas com a mesma largura editorial e arte responsiva.
+   Não altera o conteúdo gerado por Quarto nem o calendário dinâmico. */
+@media (min-width: 761px) {
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque,
+  html body:has(.home-arvore-destaque) #quarto-content .gp-ag-programa[data-agenda="inicio"],
+  html body:has(.home-arvore-destaque) #quarto-content .faixa-agenda {
+    box-sizing:border-box!important;
+    width:min(100% - 36px,1240px)!important;
+    max-width:1240px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"]:not([hidden]){
+  box-sizing:border-box!important;display:grid!important;
+  grid-template-columns:minmax(0,1fr) clamp(145px,19vw,238px)!important;
+  grid-template-areas:"title art" "list art" "more art"!important;
+  align-items:center!important;column-gap:clamp(18px,3vw,42px)!important;row-gap:8px!important;
+  width:min(100% - 36px,1240px)!important;max-width:1240px!important;
+  margin:clamp(24px,3vw,42px) auto!important;
+  padding:clamp(24px,3.1vw,40px)!important;
+  border:1px solid #d8e5d3!important;border-radius:12px!important;
+  background:#f3f8f0!important;box-shadow:none!important;
+  overflow:hidden!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"]>h2{
+  grid-area:title!important;align-self:end!important;
+  margin:0!important;padding:0 0 8px!important;
+  text-align:left!important;border-bottom:1px solid #d8e5d3!important;
+  color:#1f4d2b!important;font-size:clamp(1.5rem,2.15vw,1.9rem)!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-lista{
+  grid-area:list!important;align-self:start!important;min-width:0!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-lista>p{
+  margin:8px 0 10px!important;color:#3f644a!important;line-height:1.5!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"]>a{
+  grid-area:more!important;justify-self:start!important;
+  min-height:34px!important;margin:0!important;padding:8px 0!important;
+  color:#245f3a!important;font-weight:680!important;text-underline-offset:4px!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-art{
+  grid-area:art!important;display:block!important;justify-self:center!important;
+  align-self:center!important;width:100%!important;max-width:238px!important;
+  height:auto!important;max-height:190px!important;object-fit:contain!important;
+  opacity:.96!important;pointer-events:none!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-lista article{
+  padding:10px 0!important;border-bottom:1px solid #dce8d7!important;
+}
+html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-lista article strong{
+  color:#1f4d2b!important;
+}
+@media(max-width:760px){
+  html body #quarto-content .gp-ag-programa[data-agenda="inicio"]:not([hidden]){
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-areas:"title" "list" "more"!important;
+    width:calc(100% - 32px)!important;max-width:100%!important;
+    margin:18px auto 26px!important;padding:22px 18px!important;
+    position:relative!important;
+  }
+  html body #quarto-content .gp-ag-programa[data-agenda="inicio"] .gp-ag-art{
+    position:absolute!important;right:-15px!important;bottom:0!important;
+    width:136px!important;max-height:140px!important;opacity:.13!important;
+  }
+  html body #quarto-content .gp-ag-programa[data-agenda="inicio"] :is(h2,.gp-ag-lista,a){
+    position:relative!important;z-index:1!important;
+  }
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque{
+    width:calc(100% - 32px)!important;max-width:100%!important;margin-inline:auto!important;
+  }
+}
+/* Tree and agenda cards share the same external bounds at all desktop widths. */
+@media(min-width:761px){
+  html body:has(.home-arvore-destaque) #quarto-content main.content .home-arvore-destaque {
+    width:min(100% - 36px,1240px)!important;max-width:1240px!important;
+  }
+}
