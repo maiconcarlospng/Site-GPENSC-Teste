@@ -71,8 +71,8 @@ format:
     css:
       - styles.css
       - svg-institucional.css
-      - site-ajustes.css
-      - site-escala.css
+      - assets/css/site-ajustes.css
+      - assets/css/site-escala.css
       - home-refinamentos.css
       - site-density.css
     page-layout: full
