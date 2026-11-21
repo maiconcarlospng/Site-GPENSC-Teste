@@ -39,7 +39,7 @@ O portal reúne informações institucionais e conteúdo de **pesquisa, extensã
 | Painel administrativo | [Abrir painel](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/) |
 | Editor Sveltia alternativo | [Abrir editor](https://maiconcarlospng.github.io/Site-GPENSC-Teste/admin/cms.html) |
 | Publicação e validação | [GitHub Actions](https://github.com/maiconcarlospng/Site-GPENSC-Teste/actions) |
-| Instruções para editar conteúdos | [COMO-EDITAR.md](COMO-EDITAR.md) |
+| Instruções para editar conteúdos | [COMO-EDITAR.md](docs/COMO-EDITAR.md) |
 | Plano de transferência para o GPENSC | [Portabilidade futura](#portabilidade-futura-para-a-conta-do-gpensc) |
 
 ### Parcerias
@@ -712,7 +712,7 @@ A migração estará concluída **apenas depois** de a equipe testar, usando sua
 
 ## Guia técnico dos scripts e arquivos de configuração
 
-Esta seção explica **como o código-fonte se transforma no site publicado** e distingue configuração, dados, apresentação e automação. Ela complementa o [manual de edição](COMO-EDITAR.md): quem apenas cadastra conteúdo deve usar o painel; quem altera estrutura ou comportamento precisa entender os arquivos abaixo.
+Esta seção explica **como o código-fonte se transforma no site publicado** e distingue configuração, dados, apresentação e automação. Ela complementa o [manual de edição](docs/COMO-EDITAR.md): quem apenas cadastra conteúdo deve usar o painel; quem altera estrutura ou comportamento precisa entender os arquivos abaixo.
 
 ### O que é cada extensão?
 
@@ -818,9 +818,9 @@ Este repositório foi desenvolvido como ambiente de trabalho para o GPENSC. Ante
 
 ## Fluxo editorial do portfólio
 
-As sugestões do grupo sobre curadoria, atualização e divisão de responsabilidades estão organizadas em [ORGANIZACAO-EDITORIAL.md](ORGANIZACAO-EDITORIAL.md). Trata-se de uma proposta operacional, não de uma comissão já constituída.
+As sugestões do grupo sobre curadoria, atualização e divisão de responsabilidades estão organizadas em [ORGANIZACAO-EDITORIAL.md](docs/ORGANIZACAO-EDITORIAL.md). Trata-se de uma proposta operacional, não de uma comissão já constituída.
 
-A conferência requisito por requisito, incluindo os dados que ainda precisam ser aprovados pelo grupo, está em [CHECKLIST-DOCUMENTO-GPENSC.md](CHECKLIST-DOCUMENTO-GPENSC.md).
+A conferência requisito por requisito, incluindo os dados que ainda precisam ser aprovados pelo grupo, está em [CHECKLIST-DOCUMENTO-GPENSC.md](docs/CHECKLIST-DOCUMENTO-GPENSC.md).
 
 A Árvore do Conhecimento utiliza agora o explorador de ramificações em `js/arvore-explorador.js`, com foco parcial em vez de exibir a copa inteira. A página [Ciência para a sociedade](resultados.qmd) recebe apenas sínteses de publicações com fonte e revisão, cadastradas no painel.
 
